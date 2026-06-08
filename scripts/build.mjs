@@ -114,6 +114,15 @@ let dict = {
     daysAgo: "days ago",
     nowTitle: "What to check now",
     nowText: "Live, ending-soon, newly checked, and this-week Korea events from official sources.",
+    nowDashboard: "Update snapshot",
+    monitoredSources: "Watched sources",
+    activeQueue: "Active review queue",
+    fastMovingTopics: "Fast-moving topics",
+    latestCheckedGallery: "Latest checked gallery",
+    latestCheckedText: "Newest official checks across events, shopping offers, duty-free campaigns, and pop-up notices.",
+    rssFeedLabel: "RSS feed",
+    jsonFeedLabel: "JSON feed",
+    freshnessLogLabel: "Freshness log",
     livePanel: "Live now",
     endingSoon: "Ending soon",
     newlyChecked: "Newly checked",
@@ -400,6 +409,15 @@ dict = {
     daysAgo: "days ago",
     nowTitle: "What to check now",
     nowText: "Live, ending-soon, newly checked, and this-week Korea events from official sources.",
+    nowDashboard: "Update snapshot",
+    monitoredSources: "Watched sources",
+    activeQueue: "Active review queue",
+    fastMovingTopics: "Fast-moving topics",
+    latestCheckedGallery: "Latest checked gallery",
+    latestCheckedText: "Newest official checks across events, shopping offers, duty-free campaigns, and pop-up notices.",
+    rssFeedLabel: "RSS feed",
+    jsonFeedLabel: "JSON feed",
+    freshnessLogLabel: "Freshness log",
     livePanel: "Live now",
     endingSoon: "Ending soon",
     newlyChecked: "Newly checked",
@@ -909,6 +927,45 @@ function nowGroups() {
     .slice(0, 6);
 
   return { live, endingSoon, newlyChecked, thisWeek };
+}
+
+function nowDashboard(lang) {
+  const liveCount = events.filter((event) => statusOf(event) === "live").length;
+  const endingSoonCount = events.filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7).length;
+  const checkedTodayCount = events.filter((event) => event.lastChecked === today).length;
+  const thisWeekCount = events.filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
+  const fastMovingCount = events.filter((event) => fastMovingCategories.has(event.category) && statusOf(event) !== "ended").length;
+  const activeQueueCount = curationQueue.filter((item) => item.status === "active").length;
+  const checkedLabel = `${tr(lang, "newlyChecked")} / ${dateText(lang, today)}`;
+
+  const stats = [
+    { value: liveCount, label: tr(lang, "liveNow"), detail: `${endingSoonCount} ${tr(lang, "endingSoon").toLowerCase()}` },
+    { value: thisWeekCount, label: tr(lang, "thisWeek"), detail: tr(lang, "statusUpcoming") },
+    { value: checkedTodayCount, label: checkedLabel, detail: tr(lang, "freshnessTitle") },
+    { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: "K-pop, beauty, duty-free, department stores" },
+    { value: sources.length, label: tr(lang, "monitoredSources"), detail: tr(lang, "sourcesTitle") },
+    { value: activeQueueCount, label: tr(lang, "activeQueue"), detail: tr(lang, "watchlistTitle") }
+  ];
+
+  return `
+      <section class="now-dashboard" aria-label="${esc(tr(lang, "nowDashboard"))}">
+        ${stats.map((stat) => `
+          <div>
+            <strong>${esc(stat.value)}</strong>
+            <span>${esc(stat.label)}</span>
+            <em>${esc(stat.detail)}</em>
+          </div>`).join("")}
+      </section>`;
+}
+
+function nowFeedLinks(lang) {
+  return `
+      <section class="now-feed-links" aria-label="${esc(tr(lang, "sourcesTitle"))}">
+        <a href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
+        <a href="/${lang}/feed.xml">${tr(lang, "rssFeedLabel")}</a>
+        <a href="/${lang}/latest.json">${tr(lang, "jsonFeedLabel")}</a>
+        <a href="/${lang}/watchlist/">${tr(lang, "watchlistTitle")}</a>
+      </section>`;
 }
 
 function categoryLabel(lang, category) {
@@ -1559,11 +1616,26 @@ function renderNow(lang) {
         <h1>${tr(lang, "nowTitle")}</h1>
         <p>${tr(lang, "nowText")}</p>
       </section>
+      ${nowDashboard(lang)}
+      ${nowFeedLinks(lang)}
       <section class="now-grid">
         ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
         ${nowPanel(tr(lang, "endingSoon"), groups.endingSoon, lang)}
         ${nowPanel(tr(lang, "newlyChecked"), groups.newlyChecked, lang)}
         ${nowPanel(tr(lang, "thisWeek"), groups.thisWeek, lang, "starts")}
+      </section>
+      <section class="latest-checked-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">${tr(lang, "lastChecked")}</p>
+            <h2>${tr(lang, "latestCheckedGallery")}</h2>
+            <p>${tr(lang, "latestCheckedText")}</p>
+          </div>
+          <a class="text-link" href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
+        </div>
+        <div class="gallery-grid">
+          ${feedEvents(9).map((event) => eventCard(event, lang)).join("")}
+        </div>
       </section>
     </main>`;
 

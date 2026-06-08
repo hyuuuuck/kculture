@@ -1,11 +1,15 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const feedDir = path.join(root, "data", "feeds");
 const outFile = path.join(feedDir, "source-refresh-issue.md");
+const today = todayString();
+const dayMs = 24 * 60 * 60 * 1000;
+const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
 
 async function latestFile(pattern) {
   const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);
@@ -63,12 +67,62 @@ function table(rows, columns) {
   ].join("\n");
 }
 
+function statusOf(event) {
+  if (event.endDate < today) return "ended";
+  if (event.startDate > today) return "upcoming";
+  return "live";
+}
+
+function daysSince(iso) {
+  return Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${iso}T00:00:00Z`)) / dayMs);
+}
+
+function freshnessLimitDays(event) {
+  const status = statusOf(event);
+  if (status === "ended") return 45;
+  if (status === "live") return fastMovingCategories.has(event.category) ? 2 : 3;
+  return fastMovingCategories.has(event.category) ? 3 : 7;
+}
+
+function localTitle(event) {
+  const raw = event.title?.en || event.title || event.slug || "Untitled event";
+  return hasMojibake(raw) ? event.slug : raw;
+}
+
+function recheckQueueItems(events, limit = 12) {
+  return events
+    .map((event) => {
+      const ageDays = daysSince(event.lastChecked);
+      const limitDays = freshnessLimitDays(event);
+      return {
+        event,
+        ageDays,
+        limitDays,
+        daysUntilDue: limitDays - ageDays,
+        status: statusOf(event)
+      };
+    })
+    .filter((item) => item.status !== "ended" && Number.isFinite(item.daysUntilDue) && item.daysUntilDue <= 1)
+    .sort((a, b) => a.daysUntilDue - b.daysUntilDue || Number(b.event.priority || 0) - Number(a.event.priority || 0) || a.event.startDate.localeCompare(b.event.startDate))
+    .slice(0, limit);
+}
+
+function dueText(daysUntilDue) {
+  if (daysUntilDue < 0) return `${Math.abs(daysUntilDue)} days overdue`;
+  if (daysUntilDue === 0) return "due today";
+  if (daysUntilDue === 1) return "due tomorrow";
+  return `due in ${daysUntilDue} days`;
+}
+
 const summaryFile = await latestFile(/^source-refresh-summary-\d{4}-\d{2}-\d{2}\.json$/);
 const draftsFile = await latestFile(/^draft-events-\d{4}-\d{2}-\d{2}\.json$/);
 const candidatesFile = await latestFile(/^official-page-candidates-\d{4}-\d{2}-\d{2}\.json$/);
 const reviewReportFile = await latestFile(/^review-report-\d{4}-\d{2}-\d{2}\.md$/);
 const reviewBoardFile = await latestFile(/^review-board-\d{4}-\d{2}-\d{2}\.html$/);
 
+const events = await fs.readFile(path.join(root, "data", "events.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => []);
 const summary = await readJson(summaryFile, {});
 const draftFeed = await readJson(draftsFile, {});
 const candidateFeed = await readJson(candidatesFile, {});
@@ -77,6 +131,7 @@ const drafts = (draftFeed.drafts || [])
   .slice()
   .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0))
   .slice(0, 15);
+const recheckItems = recheckQueueItems(Array.isArray(events) ? events : []);
 const failedSources = (summary.failedSources || []).slice(0, 12);
 const highSignalCandidates = (summary.highSignalCandidates || []).slice(0, 12);
 
@@ -120,6 +175,17 @@ ${table(countRows, [
 4. Rewrite the page in original words before adding it to \`data/events.json\`.
 5. Run \`npm.cmd run verify\` before deployment.
 
+## Existing Listings To Recheck
+
+${recheckItems.length ? table(recheckItems, [
+  { label: "Due", value: (row) => dueText(row.daysUntilDue) },
+  { label: "Listing", value: (row) => short(localTitle(row.event), 54) },
+  { label: "Category", value: (row) => row.event.category },
+  { label: "Status", value: (row) => row.status },
+  { label: "Last checked", value: (row) => `${row.event.lastChecked} (${row.ageDays}/${row.limitDays} days)` },
+  { label: "Official source", value: (row) => mdLink(short(row.event.sourceName || "Source", 36), row.event.sourceUrl) }
+]) : "No live or upcoming listings are due for official-source recheck in the next day."}
+
 ## Top Draft Candidates
 
 ${drafts.length ? drafts.map((draft, index) => `${index + 1}. ${short(draftTitle(draft))}
@@ -149,6 +215,7 @@ await fs.writeFile(outFile, body, "utf8");
 console.log(`Saved source refresh issue body: ${outFile}`);
 console.table({
   "draft candidates": drafts.length,
+  "recheck listings": recheckItems.length,
   "high-signal pages": highSignalCandidates.length,
   "failed sources": failedSources.length,
   "candidate feed": candidateFeed?.candidates?.length || 0

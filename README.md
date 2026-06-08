@@ -224,7 +224,7 @@ To preview the GitHub issue digest locally:
 npm.cmd run source:issue
 ```
 
-This writes `data/feeds/source-refresh-issue.md`. In GitHub Actions, the scheduled source refresh workflow uses that file to create or update the single `Official source review queue` issue.
+This writes `data/feeds/source-refresh-issue.md`. In GitHub Actions, the scheduled source refresh workflow uses that file to create or update the single `Official source review queue` issue. The issue includes both new official-source leads and already-published live/upcoming listings that need an official recheck soon.
 
 Or run the local source workflow in one command:
 

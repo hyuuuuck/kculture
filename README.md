@@ -20,13 +20,16 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/guides.json`: original evergreen guide content
 - `data/weather-baselines.json`: fallback weather planning notes
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
+- `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/collect-official-pages.mjs`: collects official page candidates for review
+- `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
 - `scripts/source-audit.mjs`: checks source URL availability
 - `monetization-plan.md`: traffic and AdSense operating plan
 
 Generated feed files under `data/feeds/*.json` are ignored by Git. Review them and merge only verified items into `data/events.json`.
+Generated review reports under `data/feeds/*.md` are also ignored by Git.
 
 ## Local Build
 
@@ -34,6 +37,18 @@ On this Windows machine, use `npm.cmd` because PowerShell script execution is re
 
 ```powershell
 npm.cmd run build
+```
+
+Validate content before deploying:
+
+```powershell
+npm.cmd run validate:content
+```
+
+Run both validation and build:
+
+```powershell
+npm.cmd run verify
 ```
 
 Preview:
@@ -79,26 +94,32 @@ npm.cmd run check:sources
 npm.cmd run collect:official
 ```
 
-3. Import Korea Tourism Organization TourAPI candidates:
+3. Create a review report from the latest candidate feed:
+
+```powershell
+npm.cmd run review:feed
+```
+
+4. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
 $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-4. Import previous-year KMA weather observations:
+5. Import previous-year KMA weather observations:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-5. Review `data/feeds/*.json`, verify official source pages, and manually merge publishable items into `data/events.json`.
+6. Review `data/feeds/*.json` and `data/feeds/*.md`, verify official source pages, and manually merge publishable items into `data/events.json`.
 
-6. Build and deploy:
+7. Validate, build, and deploy:
 
 ```powershell
-npm.cmd run build
+npm.cmd run verify
 ```
 
 ## Extra Official URLs

@@ -70,6 +70,26 @@
     "notes": "Strong official source for Seoul event dates, venues, admission notes, and official event websites."
   },
   {
+    "name": "Seoul Grand Park",
+    "type": "official-page-monitor",
+    "owner": "Seoul Grand Park / Seoul Metropolitan Government",
+    "url": "https://grandpark.seoul.go.kr/main.do",
+    "coverage": ["Seoul Grand Park festivals", "garden events", "family activities", "photo contests"],
+    "refreshCadence": "weekly; daily during flower festival seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use for Seoul Grand Park program dates and status labels. Main page can expose current and recently ended events."
+  },
+  {
+    "name": "SHOWALA exhibition listing",
+    "type": "official-listing-monitor",
+    "owner": "SHOWALA",
+    "url": "https://showala.com/ex/ex_detail.php?idx=3900",
+    "coverage": ["exhibitions", "public shows", "venue and date listings"],
+    "refreshCadence": "weekly",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use as an exhibition listing source only; confirm with the event website when it contains current-year details."
+  },
+  {
     "name": "OLIVE YOUNG Global",
     "type": "official-page-monitor",
     "owner": "CJ Olive Young",

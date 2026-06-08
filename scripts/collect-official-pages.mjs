@@ -13,7 +13,7 @@ const extraUrls = (process.env.MONITOR_URLS || "")
 
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const monitorSources = sources
-  .filter((source) => ["official-page-monitor", "curation-queue"].includes(source.type))
+  .filter((source) => ["official-page-monitor", "official-listing-monitor", "curation-queue"].includes(source.type))
   .concat(extraUrls.map((url) => ({
     name: `Manual URL: ${url}`,
     type: "manual-url",

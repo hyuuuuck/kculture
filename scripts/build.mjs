@@ -63,6 +63,10 @@ const dict = {
     downloadCalendar: "Download calendar file",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    freshnessTitle: "Freshness Log",
+    freshnessText: "Every listing shows when it was last checked and which official source was used.",
+    editorialTitle: "Editorial Policy",
+    editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
     aboutTitle: "About Korea Now Guide",
     contactTitle: "Contact",
@@ -456,6 +460,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
+      <a href="/${lang}/freshness/">${tr(lang, "freshnessTitle")}</a>
+      <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
     </div>
   </footer>
   <script src="/app.js" defer></script>
@@ -833,6 +839,16 @@ function renderSources(lang) {
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
           </article>`).join("")}
       </section>
+      <section class="split-links">
+        <a href="/${lang}/freshness/">
+          <strong>${tr(lang, "freshnessTitle")}</strong>
+          <span>${tr(lang, "freshnessText")}</span>
+        </a>
+        <a href="/${lang}/editorial-policy/">
+          <strong>${tr(lang, "editorialTitle")}</strong>
+          <span>${tr(lang, "editorialText")}</span>
+        </a>
+      </section>
     </main>`;
   return layout({
     lang,
@@ -841,6 +857,77 @@ function renderSources(lang) {
     body,
     canonicalPath: `/${lang}/sources/`,
     currentPathBuilder: (code) => `/${code}/sources/`
+  });
+}
+
+function renderFreshness(lang) {
+  const items = [...events].sort((a, b) => b.lastChecked.localeCompare(a.lastChecked) || b.priority - a.priority);
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "lastChecked")}</p>
+        <h1>${tr(lang, "freshnessTitle")}</h1>
+        <p>${tr(lang, "freshnessText")}</p>
+      </section>
+      <section class="freshness-list">
+        ${items.map((event) => `
+          <article>
+            <div>
+              <span>${dateText(lang, event.lastChecked)}</span>
+              <strong><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+              <em>${esc(event.city)} · ${categoryLabel(lang, event.category)} · ${statusLabel(lang, statusOf(event))}</em>
+            </div>
+            <p>${esc(local(event.summary, lang))}</p>
+            <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(event.sourceName)}</a>
+          </article>`).join("")}
+      </section>
+    </main>`;
+  return layout({
+    lang,
+    title: `${tr(lang, "freshnessTitle")} - Korea Now Guide`,
+    description: tr(lang, "freshnessText"),
+    body,
+    canonicalPath: `/${lang}/freshness/`,
+    currentPathBuilder: (code) => `/${code}/freshness/`
+  });
+}
+
+function renderEditorialPolicy(lang) {
+  const body = `
+    <main class="page">
+      <article class="article-page">
+        <p class="eyebrow">${tr(lang, "editorialTitle")}</p>
+        <h1>${tr(lang, "editorialTitle")}</h1>
+        <p class="lede">${tr(lang, "editorialText")}</p>
+        <section>
+          <h2>1. Source priority</h2>
+          <p>Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints.</p>
+        </section>
+        <section>
+          <h2>2. Automation and review</h2>
+          <p>Official monitors collect candidate dates and keywords, but candidates are not auto-published. A human review step must confirm the date range, venue, eligibility, inventory or reservation rules, and source link before an event appears publicly.</p>
+        </section>
+        <section>
+          <h2>3. K-pop and pop-up policy</h2>
+          <p>K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed.</p>
+        </section>
+        <section>
+          <h2>4. Original summaries</h2>
+          <p>Summaries, travel tips, weather notes, and route ideas are written for visitor planning. We do not copy full event pages, and every listing links back to the official source for the latest rules.</p>
+        </section>
+        <section>
+          <h2>5. Ads and affiliate integrity</h2>
+          <p>Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans.</p>
+        </section>
+      </article>
+    </main>`;
+  return layout({
+    lang,
+    title: `${tr(lang, "editorialTitle")} - Korea Now Guide`,
+    description: tr(lang, "editorialText"),
+    body,
+    canonicalPath: `/${lang}/editorial-policy/`,
+    currentPathBuilder: (code) => `/${code}/editorial-policy/`
   });
 }
 
@@ -914,6 +1001,8 @@ async function build() {
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
     await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
+    await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));
+    await writeHtml(`${lang}/editorial-policy/index.html`, renderEditorialPolicy(lang));
     await writeHtml(`${lang}/about/index.html`, staticPage(lang, "about"));
     await writeHtml(`${lang}/contact/index.html`, staticPage(lang, "contact"));
     await writeHtml(`${lang}/privacy/index.html`, staticPage(lang, "privacy"));
@@ -938,7 +1027,7 @@ async function build() {
 function sitemap() {
   const urls = ["/"];
   for (const lang of Object.keys(languages)) {
-    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/sources/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
+    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/sources/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
     for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
     for (const event of events) urls.push(`/${lang}/events/${event.slug}.html`);
     for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);

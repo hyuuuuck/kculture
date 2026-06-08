@@ -857,7 +857,7 @@ function esc(value) {
 }
 
 function xmlEsc(value) {
-  return esc(value);
+  return esc(String(value ?? "").replace(/[^\u0009\u000a\u000d\u0020-\ud7ff\ue000-\ufffd]/g, ""));
 }
 
 function tr(lang, key) {
@@ -1515,8 +1515,10 @@ function googleVerificationMeta() {
   return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
 }
 
-function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null }) {
+function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website" }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
+  const metaImage = /^https?:\/\//.test(imagePath) ? imagePath : absoluteUrl(imagePath);
+  const pageUrl = absoluteUrl(canonicalPath);
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -1528,9 +1530,15 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${alternateLinks(currentPathBuilder, canonicalPath)}
   <link rel="alternate" type="application/rss+xml" title="Korea Now Guide RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
   <link rel="alternate" type="application/feed+json" title="Korea Now Guide JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
+  <meta property="og:type" content="${esc(pageType)}">
+  <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
-  <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
+  <meta property="og:image" content="${esc(metaImage)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(title)}">
+  <meta name="twitter:description" content="${esc(description)}">
+  <meta name="twitter:image" content="${esc(metaImage)}">
   <meta name="theme-color" content="#0d7f75">
   ${googleVerificationMeta()}
   <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
@@ -2226,6 +2234,8 @@ function renderEvent(event, lang) {
     body,
     canonicalPath: `/${lang}/events/${event.slug}.html`,
     currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`,
+    imagePath: `/${event.thumbnail}`,
+    pageType: "article",
     schemaData: [
       shouldUseEventSchema(event) ? eventSchema(event, lang) : detailPageSchema(event, lang),
       breadcrumbSchema(lang, [
@@ -2847,10 +2857,25 @@ function sitemap() {
       const routeEvents = eventsForRoute(route);
       entries.push({ url: routeHref(lang, route), lastmod: maxIso(routeEvents.map((event) => event.lastChecked), latestEventCheck) });
     }
-    for (const event of events) entries.push({ url: `/${lang}/events/${event.slug}.html`, lastmod: event.lastChecked || latestEventCheck });
+    for (const event of events) {
+      entries.push({
+        url: `/${lang}/events/${event.slug}.html`,
+        lastmod: event.lastChecked || latestEventCheck,
+        image: {
+          loc: absoluteUrl(`/${event.thumbnail}`),
+          title: local(event.title, "en"),
+          caption: local(event.summary, "en")
+        }
+      });
+    }
     for (const guide of guides) entries.push({ url: `/${lang}/guides/${guide.slug}.html`, lastmod: today });
   }
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map((entry) => `  <url><loc>${xmlEsc(`${siteUrl}${entry.url}`)}</loc><lastmod>${xmlEsc(entry.lastmod)}</lastmod></url>`).join("\n")}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.map(sitemapEntryXml).join("\n")}\n</urlset>\n`;
+}
+
+function sitemapEntryXml(entry) {
+  const image = entry.image ? `<image:image><image:loc>${xmlEsc(entry.image.loc)}</image:loc><image:title>${xmlEsc(entry.image.title)}</image:title><image:caption>${xmlEsc(entry.image.caption)}</image:caption></image:image>` : "";
+  return `  <url><loc>${xmlEsc(`${siteUrl}${entry.url}`)}</loc><lastmod>${xmlEsc(entry.lastmod)}</lastmod>${image}</url>`;
 }
 
 function icsDate(iso, addOneDay = false) {

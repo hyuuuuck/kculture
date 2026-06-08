@@ -21,6 +21,8 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
   .then(JSON.parse)
   .catch(() => []);
+const languages = ["en", "es", "zh", "pt", "ru"];
+const eventRichResultCategories = new Set(["festival", "kpop"]);
 
 const checks = [];
 
@@ -41,6 +43,36 @@ function normalizeAdSenseClientId(value) {
 
 function exists(relativePath) {
   return fssync.existsSync(path.join(root, relativePath));
+}
+
+function structuredEventStats() {
+  const missing = [];
+  let ok = 0;
+  for (const lang of languages) {
+    for (const event of events) {
+      const relativePath = `dist/${lang}/events/${event.slug}.html`;
+      const file = path.join(root, relativePath);
+      if (!fssync.existsSync(file)) {
+        missing.push(relativePath);
+        continue;
+      }
+      const html = fssync.readFileSync(file, "utf8");
+      const shouldUseEventSchema = eventRichResultCategories.has(event.category);
+      const hasExpectedDetailSchema = shouldUseEventSchema
+        ? html.includes("\"@type\":\"Event\"") && html.includes("\"mainEntityOfPage\"")
+        : html.includes("\"@type\":\"WebPage\"") && html.includes("\"primaryImageOfPage\"");
+      if (hasExpectedDetailSchema && html.includes("\"@type\":\"BreadcrumbList\"")) {
+        ok += 1;
+      } else {
+        missing.push(relativePath);
+      }
+    }
+  }
+  return {
+    expected: events.length * languages.length,
+    ok,
+    missing
+  };
 }
 
 function check(status, area, item, detail, next = "") {
@@ -182,6 +214,13 @@ function runChecks() {
   for (const file of requiredFiles) {
     if (exists(file)) pass("Build", file, "present");
     else fail("Build", file, "missing", "Run npm.cmd run build before deploy.");
+  }
+
+  const structuredEvents = structuredEventStats();
+  if (structuredEvents.ok === structuredEvents.expected) {
+    pass("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} multilingual detail pages`);
+  } else {
+    fail("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} pages valid`, `Run npm.cmd run validate:structured and inspect ${structuredEvents.missing.slice(0, 3).join(", ")}.`);
   }
 
   const policyPages = ["privacy", "contact", "about", "terms", "editorial-policy", "sources", "freshness", "watchlist"];

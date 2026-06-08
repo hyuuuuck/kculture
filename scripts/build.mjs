@@ -1199,10 +1199,47 @@ function itemListSchema(lang, title, itemEvents, pageUrl) {
   };
 }
 
+const eventRichResultCategories = new Set(["festival", "kpop"]);
+
+function shouldUseEventSchema(event) {
+  return eventRichResultCategories.has(event.category);
+}
+
+function detailPageSchema(event, lang) {
+  const pageUrl = absoluteUrl(`/${lang}/events/${event.slug}.html`);
+  const imageUrl = absoluteUrl(`/${event.thumbnail}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    name: local(event.title, lang),
+    description: local(event.summary, lang),
+    url: pageUrl,
+    inLanguage: lang,
+    dateModified: event.lastChecked,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: imageUrl
+    },
+    about: {
+      "@type": "Thing",
+      name: categoryLabel(lang, event.category)
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Korea Now Guide",
+      url: siteUrl
+    },
+    sameAs: event.sourceUrl
+  };
+}
+
 function eventSchema(event, lang) {
+  const eventUrl = absoluteUrl(`/${lang}/events/${event.slug}.html`);
   return {
     "@context": "https://schema.org",
     "@type": "Event",
+    "@id": `${eventUrl}#event`,
     name: local(event.title, lang),
     description: local(event.summary, lang),
     startDate: event.startDate,
@@ -1211,7 +1248,11 @@ function eventSchema(event, lang) {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     inLanguage: lang,
     image: absoluteUrl(`/${event.thumbnail}`),
-    url: absoluteUrl(`/${lang}/events/${event.slug}.html`),
+    url: eventUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": eventUrl
+    },
     sameAs: event.sourceUrl,
     location: {
       "@type": "Place",
@@ -1854,7 +1895,7 @@ function renderEvent(event, lang) {
     canonicalPath: `/${lang}/events/${event.slug}.html`,
     currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`,
     schemaData: [
-      eventSchema(event, lang),
+      shouldUseEventSchema(event) ? eventSchema(event, lang) : detailPageSchema(event, lang),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
         { name: categoryLabel(lang, event.category), url: categoryHref(lang, event.category) },

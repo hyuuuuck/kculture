@@ -6,8 +6,11 @@ const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
+const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
 const errors = [];
 const warnings = [];
+const minimumPublicContentPages = 30;
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();
@@ -56,6 +59,11 @@ if (clientId && !/^ca-pub-\d{16}$/.test(clientId)) {
 
 if (requireAdsense && !publisherId) {
   fail("GOOGLE_ADSENSE_PUBLISHER_ID is required for AdSense preflight.");
+}
+
+const publicContentPages = events.length + guides.length;
+if (publicContentPages < minimumPublicContentPages) {
+  fail(`At least ${minimumPublicContentPages} public event/archive/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
 }
 
 const dist = path.resolve("dist");

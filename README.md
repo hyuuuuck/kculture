@@ -21,6 +21,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/weather-baselines.json`: fallback weather planning notes
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
+- `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
 - `scripts/collect-official-pages.mjs`: collects official page candidates for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
@@ -45,7 +46,7 @@ Validate content before deploying:
 npm.cmd run validate:content
 ```
 
-Run both validation and build:
+Run build, content checks, generated HTML text checks, and internal link checks:
 
 ```powershell
 npm.cmd run verify
@@ -79,6 +80,11 @@ npm.cmd run build
 ```
 
 `wrangler.toml` already sets `pages_build_output_dir = "dist"`.
+The build also writes Cloudflare Pages `_headers` for basic security headers and asset caching.
+
+## GitHub Verification
+
+`.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
 ## Daily Operating Routine
 

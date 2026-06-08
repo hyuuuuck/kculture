@@ -788,7 +788,93 @@ function nav(lang) {
     </nav>`;
 }
 
-function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/` }) {
+function absoluteUrl(urlPath) {
+  return `${siteUrl}${urlPath}`;
+}
+
+function alternateLinks(currentPathBuilder, canonicalPath) {
+  const builder = currentPathBuilder || ((code) => `/${code}/`);
+  const links = Object.keys(languages).map((code) => {
+    const href = builder(code);
+    return `<link rel="alternate" hreflang="${code}" href="${absoluteUrl(href)}">`;
+  });
+  links.push(`<link rel="alternate" hreflang="x-default" href="${absoluteUrl(builder("en") || canonicalPath)}">`);
+  return links.join("\n  ");
+}
+
+function structuredDataScript(data) {
+  const graph = Array.isArray(data) ? data : [data];
+  const cleanedGraph = graph.map((node) => {
+    const { "@context": _context, ...rest } = node;
+    return rest;
+  });
+  return `<script type="application/ld+json">${JSON.stringify(graph.length === 1 ? graph[0] : { "@context": "https://schema.org", "@graph": cleanedGraph })}</script>`;
+}
+
+function breadcrumbSchema(lang, items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.url)
+    }))
+  };
+}
+
+function itemListSchema(lang, title, itemEvents, pageUrl) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: title,
+    inLanguage: lang,
+    url: absoluteUrl(pageUrl),
+    numberOfItems: itemEvents.length,
+    itemListElement: itemEvents.map((event, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/${lang}/events/${event.slug}.html`),
+      name: local(event.title, lang)
+    }))
+  };
+}
+
+function eventSchema(event, lang) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: local(event.title, lang),
+    description: local(event.summary, lang),
+    startDate: event.startDate,
+    endDate: event.endDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    inLanguage: lang,
+    image: absoluteUrl(`/${event.thumbnail}`),
+    url: absoluteUrl(`/${lang}/events/${event.slug}.html`),
+    sameAs: event.sourceUrl,
+    location: {
+      "@type": "Place",
+      name: event.venue,
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "KR",
+        addressLocality: event.city,
+        streetAddress: event.district
+      }
+    },
+    organizer: {
+      "@type": "Organization",
+      name: event.sourceName,
+      url: event.sourceUrl
+    }
+  };
+}
+
+function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null }) {
+  const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -797,12 +883,13 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="${siteUrl}${canonicalPath}">
+  ${alternateLinks(currentPathBuilder, canonicalPath)}
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
   <meta name="theme-color" content="#0d7f75">
   <link rel="stylesheet" href="/styles.css">
-  <script type="application/ld+json">${JSON.stringify(schema(lang, title, description, canonicalPath))}</script>
+  ${structuredDataScript(structuredData)}
 </head>
 <body>
   <header class="site-header">
@@ -960,7 +1047,11 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
     description,
     body,
     canonicalPath,
-    currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`
+    currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
+    schemaData: [
+      schema(lang, "Korea Now Guide - Events, K-pop Pop-ups, Shopping Deals", description, canonicalPath),
+      itemListSchema(lang, "Korea Now Guide latest events", sorted.slice(0, 12), canonicalPath)
+    ]
   });
 }
 
@@ -999,7 +1090,15 @@ function renderCategory(lang, category) {
     description,
     body,
     canonicalPath: categoryHref(lang, category),
-    currentPathBuilder: (code) => categoryHref(code, category)
+    currentPathBuilder: (code) => categoryHref(code, category),
+    schemaData: [
+      schema(lang, `${title} - Korea Now Guide`, description, categoryHref(lang, category)),
+      itemListSchema(lang, title, items, categoryHref(lang, category)),
+      breadcrumbSchema(lang, [
+        { name: "Home", url: `/${lang}/` },
+        { name: categoryLabel(lang, category), url: categoryHref(lang, category) }
+      ])
+    ]
   });
 }
 
@@ -1070,7 +1169,15 @@ function renderCity(lang, city) {
     description: meta.description,
     body,
     canonicalPath: cityHref(lang, city),
-    currentPathBuilder: (code) => cityHref(code, city)
+    currentPathBuilder: (code) => cityHref(code, city),
+    schemaData: [
+      schema(lang, `${meta.title} - Korea Now Guide`, meta.description, cityHref(lang, city)),
+      itemListSchema(lang, meta.title, items, cityHref(lang, city)),
+      breadcrumbSchema(lang, [
+        { name: "Home", url: `/${lang}/` },
+        { name: city, url: cityHref(lang, city) }
+      ])
+    ]
   });
 }
 
@@ -1195,7 +1302,15 @@ function renderEvent(event, lang) {
     description,
     body,
     canonicalPath: `/${lang}/events/${event.slug}.html`,
-    currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`
+    currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`,
+    schemaData: [
+      eventSchema(event, lang),
+      breadcrumbSchema(lang, [
+        { name: "Home", url: `/${lang}/` },
+        { name: categoryLabel(lang, event.category), url: categoryHref(lang, event.category) },
+        { name: local(event.title, lang), url: `/${lang}/events/${event.slug}.html` }
+      ])
+    ]
   });
 }
 
@@ -1460,9 +1575,31 @@ async function build() {
   }
 
   await fs.writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`, "utf8");
+  await fs.writeFile(path.join(dist, "_headers"), headers(), "utf8");
   await fs.writeFile(path.join(dist, "ads.txt.example"), "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n", "utf8");
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
   await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
+}
+
+function headers() {
+  return `/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=3600
+
+/*.js
+  Cache-Control: public, max-age=3600
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+`;
 }
 
 function sitemap() {

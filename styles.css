@@ -263,18 +263,31 @@ img {
   border-color: var(--teal-dark);
 }
 
-.category-strip {
+.category-strip,
+.city-strip {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 10px;
   margin: 0 0 24px;
+}
+
+.category-strip {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.city-strip {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .category-strip.page-strip {
   margin: 0 0 26px;
 }
 
-.category-pill {
+.city-strip.page-strip {
+  margin: 0 0 26px;
+}
+
+.category-pill,
+.city-pill {
   display: grid;
   gap: 2px;
   min-height: 78px;
@@ -285,19 +298,73 @@ img {
   background: var(--white);
 }
 
-.category-pill strong {
+.category-pill strong,
+.city-pill strong {
   line-height: 1.15;
 }
 
-.category-pill span {
+.category-pill span,
+.city-pill span {
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 760;
 }
 
-.category-pill:hover {
+.category-pill:hover,
+.city-pill:hover {
   border-color: rgba(13, 127, 117, 0.44);
   background: #edf7f3;
+}
+
+.city-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.city-stat {
+  display: grid;
+  gap: 4px;
+  min-height: 92px;
+  align-content: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.city-stat strong {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.city-stat span {
+  color: var(--muted);
+  font-weight: 760;
+}
+
+.route-mini-list {
+  display: grid;
+  gap: 10px;
+}
+
+.route-mini-list a {
+  display: grid;
+  gap: 3px;
+  padding: 12px;
+  border: 1px solid #e7ece9;
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.route-mini-list span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.city-gallery {
+  margin-top: 18px;
 }
 
 .gallery-grid {
@@ -816,8 +883,13 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .category-strip {
+  .category-strip,
+  .city-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .city-dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -839,6 +911,8 @@ img {
   .fact-grid,
   .route-grid,
   .category-strip,
+  .city-strip,
+  .city-dashboard,
   .detail-section.two-col,
   .calendar-item,
   .source-table article,

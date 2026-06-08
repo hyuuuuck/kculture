@@ -14,7 +14,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 
-const languages = {
+let languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
@@ -22,7 +22,7 @@ const languages = {
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
-const dict = {
+let dict = {
   en: {
     navEvents: "Events",
     navCalendar: "Calendar",
@@ -276,6 +276,297 @@ const dict = {
   }
 };
 
+languages = {
+  en: { name: "English", locale: "en-US" },
+  es: { name: "Español", locale: "es-ES" },
+  zh: { name: "中文", locale: "zh-CN" },
+  pt: { name: "Português", locale: "pt-BR" },
+  ru: { name: "Русский", locale: "ru-RU" }
+};
+
+dict = {
+  en: {
+    navEvents: "Events",
+    navCalendar: "Calendar",
+    navGuides: "Guides",
+    navSources: "Sources",
+    navAbout: "About",
+    heroEyebrow: "Korea events, pop-ups, beauty deals, duty-free offers",
+    heroTitle: "Find Korea events before they disappear.",
+    heroText: "A multilingual radar for foreign visitors: official sources, clear dates, thumbnails, calendar view, weather planning notes, and nearby travel ideas.",
+    ctaEvents: "Browse events",
+    ctaCalendar: "Open calendar",
+    liveNow: "Live now",
+    upcoming: "Upcoming",
+    archive: "Archive",
+    official: "Official source",
+    lastChecked: "Last checked",
+    collectionMode: "Collection",
+    period: "Period",
+    location: "Location",
+    venue: "Venue",
+    weatherPlan: "Weather planning",
+    travelIdeas: "Travel ideas",
+    routeIdeas: "Nearby route ideas",
+    categoryPages: "Browse by topic",
+    cityPages: "Browse by city",
+    verifyBefore: "Verify on the official source before visiting.",
+    relatedGuides: "Related guides",
+    category: "Category",
+    all: "All",
+    festival: "Festivals",
+    kpop: "K-pop pop-ups",
+    beauty: "Beauty deals",
+    dutyfree: "Duty free",
+    department: "Department stores",
+    shopping: "Shopping",
+    benefits: "Travel benefits",
+    calendarTitle: "Event Calendar",
+    calendarText: "Dates are shown as planning ranges. Offers may end early, so every detail page links back to the official source.",
+    downloadCalendar: "Download calendar file",
+    sourcesTitle: "Source System",
+    sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    freshnessTitle: "Freshness Log",
+    freshnessText: "Every listing shows when it was last checked and which official source was used.",
+    editorialTitle: "Editorial Policy",
+    editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
+    guidesTitle: "Visitor Guides",
+    aboutTitle: "About Korea Now Guide",
+    contactTitle: "Contact",
+    privacyTitle: "Privacy Policy",
+    termsTitle: "Terms",
+    statusLive: "Live",
+    statusUpcoming: "Upcoming",
+    statusEnded: "Ended",
+    readDetails: "Details",
+    sourceWarning: "Official details can change. Always confirm the latest rules, location, eligibility, and inventory."
+  },
+  es: {
+    navEvents: "Eventos",
+    navCalendar: "Calendario",
+    navGuides: "Guías",
+    navSources: "Fuentes",
+    navAbout: "Acerca de",
+    heroEyebrow: "Eventos, pop-ups, K-beauty y duty free en Corea",
+    heroTitle: "Encuentra eventos en Corea antes de que desaparezcan.",
+    heroText: "Un radar multilingüe para visitantes: fuentes oficiales, fechas claras, miniaturas, calendario, notas de clima e ideas de ruta cercanas.",
+    ctaEvents: "Ver eventos",
+    ctaCalendar: "Abrir calendario",
+    liveNow: "Activos",
+    upcoming: "Próximos",
+    archive: "Archivo",
+    official: "Fuente oficial",
+    lastChecked: "Última revisión",
+    collectionMode: "Recopilación",
+    period: "Periodo",
+    location: "Ubicación",
+    venue: "Lugar",
+    weatherPlan: "Plan de clima",
+    travelIdeas: "Ideas de viaje",
+    routeIdeas: "Rutas cercanas",
+    categoryPages: "Explorar por tema",
+    cityPages: "Explorar por ciudad",
+    verifyBefore: "Verifica la fuente oficial antes de visitar.",
+    relatedGuides: "Guías relacionadas",
+    category: "Categoría",
+    all: "Todos",
+    festival: "Festivales",
+    kpop: "Pop-ups K-pop",
+    beauty: "Ofertas de belleza",
+    dutyfree: "Duty free",
+    department: "Grandes almacenes",
+    shopping: "Compras",
+    benefits: "Beneficios de viaje",
+    calendarTitle: "Calendario de eventos",
+    calendarText: "Las fechas se muestran como rangos de planificación. Algunas ofertas pueden terminar antes.",
+    downloadCalendar: "Descargar calendario",
+    sourcesTitle: "Sistema de fuentes",
+    sourcesText: "El sitio separa APIs oficiales, monitoreo de páginas oficiales y colas de curación K-pop.",
+    freshnessTitle: "Registro de actualización",
+    freshnessText: "Cada ficha muestra cuándo se revisó y qué fuente oficial se usó.",
+    editorialTitle: "Política editorial",
+    editorialText: "Cómo Korea Now Guide recopila, revisa, traduce y publica información de eventos.",
+    guidesTitle: "Guías para visitantes",
+    aboutTitle: "Acerca de Korea Now Guide",
+    contactTitle: "Contacto",
+    privacyTitle: "Política de privacidad",
+    termsTitle: "Términos",
+    statusLive: "Activo",
+    statusUpcoming: "Próximo",
+    statusEnded: "Finalizado",
+    readDetails: "Detalles",
+    sourceWarning: "Los detalles oficiales pueden cambiar. Confirma siempre reglas, ubicación, elegibilidad e inventario."
+  },
+  zh: {
+    navEvents: "活动",
+    navCalendar: "日历",
+    navGuides: "指南",
+    navSources: "来源",
+    navAbout: "关于",
+    heroEyebrow: "韩国活动、快闪、K-beauty优惠、免税活动",
+    heroTitle: "在韩国活动结束前找到它们。",
+    heroText: "面向外国游客的多语言雷达：官方来源、清晰日期、缩略图、日历、天气规划和附近旅行建议。",
+    ctaEvents: "浏览活动",
+    ctaCalendar: "打开日历",
+    liveNow: "进行中",
+    upcoming: "即将开始",
+    archive: "已归档",
+    official: "官方来源",
+    lastChecked: "最后检查",
+    collectionMode: "收集方式",
+    period: "期间",
+    location: "地点",
+    venue: "场地",
+    weatherPlan: "天气规划",
+    travelIdeas: "旅行建议",
+    routeIdeas: "附近路线建议",
+    categoryPages: "按主题浏览",
+    cityPages: "按城市浏览",
+    verifyBefore: "出发前请在官方来源确认。",
+    relatedGuides: "相关指南",
+    category: "类别",
+    all: "全部",
+    festival: "节庆",
+    kpop: "K-pop快闪",
+    beauty: "美妆优惠",
+    dutyfree: "免税",
+    department: "百货商店",
+    shopping: "购物",
+    benefits: "旅行优惠",
+    calendarTitle: "活动日历",
+    calendarText: "日期以计划范围显示。优惠可能提前结束，请在详情页确认官方来源。",
+    downloadCalendar: "下载日历文件",
+    sourcesTitle: "来源系统",
+    sourcesText: "本站区分官方API、官方页面监控和K-pop人工审核队列。",
+    freshnessTitle: "更新记录",
+    freshnessText: "每个条目都会显示最后检查时间和使用的官方来源。",
+    editorialTitle: "编辑政策",
+    editorialText: "Korea Now Guide如何收集、审核、翻译并发布活动信息。",
+    guidesTitle: "游客指南",
+    aboutTitle: "关于Korea Now Guide",
+    contactTitle: "联系",
+    privacyTitle: "隐私政策",
+    termsTitle: "条款",
+    statusLive: "进行中",
+    statusUpcoming: "即将开始",
+    statusEnded: "已结束",
+    readDetails: "详情",
+    sourceWarning: "官方信息可能变化。请务必确认最新规则、地点、资格和库存。"
+  },
+  pt: {
+    navEvents: "Eventos",
+    navCalendar: "Calendário",
+    navGuides: "Guias",
+    navSources: "Fontes",
+    navAbout: "Sobre",
+    heroEyebrow: "Eventos, pop-ups, K-beauty e duty free na Coreia",
+    heroTitle: "Encontre eventos na Coreia antes que acabem.",
+    heroText: "Radar multilíngue para visitantes: fontes oficiais, datas claras, miniaturas, calendário, clima e ideias de roteiro.",
+    ctaEvents: "Ver eventos",
+    ctaCalendar: "Abrir calendário",
+    liveNow: "Ativos",
+    upcoming: "Próximos",
+    archive: "Arquivo",
+    official: "Fonte oficial",
+    lastChecked: "Última checagem",
+    collectionMode: "Coleta",
+    period: "Período",
+    location: "Localização",
+    venue: "Local",
+    weatherPlan: "Planejamento de clima",
+    travelIdeas: "Ideias de viagem",
+    routeIdeas: "Roteiros próximos",
+    categoryPages: "Explorar por tema",
+    cityPages: "Explorar por cidade",
+    verifyBefore: "Confirme na fonte oficial antes de visitar.",
+    relatedGuides: "Guias relacionados",
+    category: "Categoria",
+    all: "Todos",
+    festival: "Festivais",
+    kpop: "Pop-ups K-pop",
+    beauty: "Ofertas de beleza",
+    dutyfree: "Duty free",
+    department: "Lojas de departamento",
+    shopping: "Compras",
+    benefits: "Benefícios de viagem",
+    calendarTitle: "Calendário de eventos",
+    calendarText: "As datas são faixas de planejamento. Ofertas podem terminar antes.",
+    downloadCalendar: "Baixar calendário",
+    sourcesTitle: "Sistema de fontes",
+    sourcesText: "Separamos APIs oficiais, monitoramento oficial e curadoria K-pop.",
+    freshnessTitle: "Registro de atualização",
+    freshnessText: "Cada item mostra quando foi checado e qual fonte oficial foi usada.",
+    editorialTitle: "Política editorial",
+    editorialText: "Como o Korea Now Guide coleta, revisa, traduz e publica informações de eventos.",
+    guidesTitle: "Guias para visitantes",
+    aboutTitle: "Sobre Korea Now Guide",
+    contactTitle: "Contato",
+    privacyTitle: "Política de privacidade",
+    termsTitle: "Termos",
+    statusLive: "Ativo",
+    statusUpcoming: "Próximo",
+    statusEnded: "Encerrado",
+    readDetails: "Detalhes",
+    sourceWarning: "Detalhes oficiais podem mudar. Confirme sempre regras, local, elegibilidade e estoque."
+  },
+  ru: {
+    navEvents: "События",
+    navCalendar: "Календарь",
+    navGuides: "Гиды",
+    navSources: "Источники",
+    navAbout: "О проекте",
+    heroEyebrow: "События в Корее, pop-up, K-beauty и duty free",
+    heroTitle: "Найдите события в Корее до их завершения.",
+    heroText: "Многоязычный радар для туристов: официальные источники, понятные даты, миниатюры, календарь, погода и идеи маршрутов.",
+    ctaEvents: "Смотреть события",
+    ctaCalendar: "Открыть календарь",
+    liveNow: "Сейчас",
+    upcoming: "Скоро",
+    archive: "Архив",
+    official: "Официальный источник",
+    lastChecked: "Последняя проверка",
+    collectionMode: "Сбор",
+    period: "Период",
+    location: "Локация",
+    venue: "Место",
+    weatherPlan: "План по погоде",
+    travelIdeas: "Идеи для поездки",
+    routeIdeas: "Маршруты рядом",
+    categoryPages: "По темам",
+    cityPages: "По городам",
+    verifyBefore: "Перед визитом проверьте официальный источник.",
+    relatedGuides: "Похожие гиды",
+    category: "Категория",
+    all: "Все",
+    festival: "Фестивали",
+    kpop: "K-pop pop-up",
+    beauty: "Beauty deals",
+    dutyfree: "Duty free",
+    department: "Универмаги",
+    shopping: "Шопинг",
+    benefits: "Выгоды для туристов",
+    calendarTitle: "Календарь событий",
+    calendarText: "Даты указаны для планирования. Предложения могут закончиться раньше.",
+    downloadCalendar: "Скачать календарь",
+    sourcesTitle: "Система источников",
+    sourcesText: "Мы разделяем официальные API, мониторинг официальных страниц и K-pop очередь проверки.",
+    freshnessTitle: "Журнал обновлений",
+    freshnessText: "Каждая карточка показывает дату проверки и официальный источник.",
+    editorialTitle: "Редакционная политика",
+    editorialText: "Как Korea Now Guide собирает, проверяет, переводит и публикует информацию о событиях.",
+    guidesTitle: "Гиды для посетителей",
+    aboutTitle: "О Korea Now Guide",
+    contactTitle: "Контакты",
+    privacyTitle: "Политика конфиденциальности",
+    termsTitle: "Условия",
+    statusLive: "Идет",
+    statusUpcoming: "Скоро",
+    statusEnded: "Завершено",
+    readDetails: "Детали",
+    sourceWarning: "Официальные детали могут измениться. Всегда проверяйте правила, место, доступность и наличие."
+  }
+};
+
 const categoryLabels = {
   festival: "festival",
   kpop: "kpop",
@@ -317,6 +608,39 @@ const categoryDefinitions = {
   }
 };
 
+const cityDefinitions = {
+  Seoul: {
+    slug: "seoul",
+    title: "Seoul events, pop-ups, shopping, and river festivals",
+    description: "Officially checked Seoul events with date ranges, weather planning, shopping notes, and nearby travel routes.",
+    weatherRegion: "Seoul"
+  },
+  Busan: {
+    slug: "busan",
+    title: "Busan K-pop and city event planner",
+    description: "Busan concert, fan project, pop-up, and city event pages for visitors planning transport, lodging, and coastal routes.",
+    weatherRegion: "Busan"
+  },
+  Seongnam: {
+    slug: "seongnam",
+    title: "Seongnam and Pangyo shopping events",
+    description: "Pangyo department-store events, exhibitions, and culture-shopping routes near Seoul.",
+    weatherRegion: "Seoul"
+  },
+  Gwacheon: {
+    slug: "gwacheon",
+    title: "Gwacheon park and flower festival planner",
+    description: "Seoul Grand Park and Gwacheon-area seasonal events with weather and family-friendly route notes.",
+    weatherRegion: "Seoul"
+  },
+  Nationwide: {
+    slug: "nationwide",
+    title: "Nationwide Korea travel benefits and shopping campaigns",
+    description: "Official Korea-wide visitor benefits, seasonal shopping campaigns, and travel discount hubs.",
+    weatherRegion: "Nationwide"
+  }
+};
+
 function esc(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -327,13 +651,22 @@ function esc(value) {
 }
 
 function tr(lang, key) {
-  return dict[lang]?.[key] || dict.en[key] || key;
+  const value = dict[lang]?.[key] || dict.en[key] || key;
+  return hasMojibake(value) ? (dict.en[key] || key) : value;
+}
+
+function hasMojibake(value) {
+  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]/.test(String(value ?? ""));
 }
 
 function local(value, lang) {
   if (!value) return "";
-  if (typeof value === "string") return value;
-  return value[lang] || value.en || Object.values(value)[0] || "";
+  if (typeof value === "string") return hasMojibake(value) ? "" : value;
+  const localized = value[lang];
+  if (localized && !hasMojibake(localized)) return localized;
+  const english = value.en;
+  if (english && !hasMojibake(english)) return english;
+  return Object.values(value).find((item) => item && !hasMojibake(item)) || "";
 }
 
 function statusOf(event) {
@@ -365,6 +698,30 @@ function categoryLinkStrip(lang) {
   }).join("");
 }
 
+function citiesWithEvents() {
+  return [...new Set(events.map((event) => event.city))]
+    .sort((a, b) => events.filter((event) => event.city === b).length - events.filter((event) => event.city === a).length || a.localeCompare(b));
+}
+
+function citySlug(city) {
+  return cityDefinitions[city]?.slug || city.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function cityHref(lang, city) {
+  return `/${lang}/cities/${citySlug(city)}/`;
+}
+
+function cityLinkStrip(lang) {
+  return citiesWithEvents().map((city) => {
+    const count = events.filter((event) => event.city === city).length;
+    return `
+      <a class="city-pill" href="${cityHref(lang, city)}">
+        <strong>${esc(city)}</strong>
+        <span>${count} events</span>
+      </a>`;
+  }).join("");
+}
+
 function routesForEvent(event) {
   const regionKeys = new Set([event.city, event.weatherRegion, "Nationwide"].filter(Boolean));
   const matches = routes.filter((route) => {
@@ -375,6 +732,13 @@ function routesForEvent(event) {
 
   const fallback = routes.filter((route) => route.regions?.some((region) => regionKeys.has(region)));
   return (matches.length ? matches : fallback).slice(0, 3);
+}
+
+function routesForCity(city) {
+  const weatherRegion = cityDefinitions[city]?.weatherRegion || city;
+  return routes
+    .filter((route) => route.regions?.some((region) => region === city || region === weatherRegion || region === "Nationwide"))
+    .slice(0, 3);
 }
 
 function routeCard(route) {
@@ -566,6 +930,9 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <div class="category-strip" aria-label="${tr(lang, "categoryPages")}">
           ${categoryLinkStrip(lang)}
         </div>
+        <div class="city-strip" aria-label="${tr(lang, "cityPages")}">
+          ${cityLinkStrip(lang)}
+        </div>
         <div class="gallery-grid">
           ${sorted.map((event) => eventCard(event, lang)).join("")}
         </div>
@@ -633,6 +1000,77 @@ function renderCategory(lang, category) {
     body,
     canonicalPath: categoryHref(lang, category),
     currentPathBuilder: (code) => categoryHref(code, category)
+  });
+}
+
+function renderCity(lang, city) {
+  const meta = cityDefinitions[city] || {
+    title: `${city} Korea event planner`,
+    description: `Officially checked Korea events and travel planning notes for ${city}.`,
+    weatherRegion: city
+  };
+  const items = events
+    .filter((event) => event.city === city)
+    .sort((a, b) => {
+      const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+      return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || a.startDate.localeCompare(b.startDate) || b.priority - a.priority;
+    });
+  const weatherRegion = meta.weatherRegion || city;
+  const region = weather.regions[weatherRegion]?.June || weather.regions.Nationwide.June;
+  const routeIdeas = routesForCity(city);
+  const liveCount = items.filter((event) => statusOf(event) === "live").length;
+  const upcomingCount = items.filter((event) => statusOf(event) === "upcoming").length;
+  const endedCount = items.filter((event) => statusOf(event) === "ended").length;
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "cityPages")}</p>
+        <h1>${esc(meta.title)}</h1>
+        <p>${esc(meta.description)}</p>
+      </section>
+
+      <section class="city-strip page-strip" aria-label="${tr(lang, "cityPages")}">
+        ${cityLinkStrip(lang)}
+      </section>
+
+      <section class="city-dashboard">
+        <div class="city-stat"><strong>${items.length}</strong><span>${tr(lang, "navEvents")}</span></div>
+        <div class="city-stat"><strong>${liveCount}</strong><span>${tr(lang, "liveNow")}</span></div>
+        <div class="city-stat"><strong>${upcomingCount}</strong><span>${tr(lang, "upcoming")}</span></div>
+        <div class="city-stat"><strong>${endedCount}</strong><span>${tr(lang, "archive")}</span></div>
+      </section>
+
+      <section class="detail-section two-col">
+        <div>
+          <h2>${tr(lang, "weatherPlan")}</h2>
+          <p><strong>${esc(weatherRegion)}</strong>: ${esc(region.range)}</p>
+          <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+          <p class="source-note">Previous-year baseline: ${esc(weather.source.name)}</p>
+        </div>
+        <div>
+          <h2>${tr(lang, "routeIdeas")}</h2>
+          <div class="route-mini-list">
+            ${routeIdeas.map((route) => `
+              <a href="#events">
+                <strong>${esc(route.title)}</strong>
+                <span>${esc(route.bestFor)}</span>
+              </a>`).join("")}
+          </div>
+        </div>
+      </section>
+
+      <section id="events" class="gallery-grid city-gallery">
+        ${items.map((event) => eventCard(event, lang)).join("")}
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${meta.title} - Korea Now Guide`,
+    description: meta.description,
+    body,
+    canonicalPath: cityHref(lang, city),
+    currentPathBuilder: (code) => cityHref(code, city)
   });
 }
 
@@ -1010,6 +1448,9 @@ async function build() {
     for (const category of Object.keys(categoryDefinitions)) {
       await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
     }
+    for (const city of citiesWithEvents()) {
+      await writeHtml(`${lang}/cities/${citySlug(city)}/index.html`, renderCity(lang, city));
+    }
     for (const event of events) {
       await writeHtml(`${lang}/events/${event.slug}.html`, renderEvent(event, lang));
     }
@@ -1029,6 +1470,7 @@ function sitemap() {
   for (const lang of Object.keys(languages)) {
     urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/sources/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
     for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
+    for (const city of citiesWithEvents()) urls.push(cityHref(lang, city));
     for (const event of events) urls.push(`/${lang}/events/${event.slug}.html`);
     for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);
   }

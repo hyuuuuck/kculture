@@ -43,6 +43,33 @@ function assertUrl(id, field, value, required = true) {
   }
 }
 
+async function collectFiles(dir, predicate, out = []) {
+  let entries = [];
+  try {
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch {
+    return out;
+  }
+  for (const entry of entries) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) await collectFiles(file, predicate, out);
+    else if (predicate(file)) out.push(file);
+  }
+  return out;
+}
+
+async function validateGeneratedText() {
+  const dist = path.join(root, "dist");
+  const files = await collectFiles(dist, (file) => file.endsWith(".html"));
+  const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]/;
+  for (const file of files) {
+    const text = await fs.readFile(file, "utf8");
+    if (mojibake.test(text)) {
+      push(errors, path.relative(root, file), "generated HTML contains mojibake or replacement characters.");
+    }
+  }
+}
+
 const eventSlugs = new Set();
 for (const event of events) {
   const id = event.slug || "(missing event slug)";
@@ -119,6 +146,8 @@ for (const route of routes) {
   if (!Array.isArray(route.stops) || route.stops.length < 3) push(errors, id, "route needs at least three stops.");
   if (!Array.isArray(route.tips) || route.tips.length < 2) push(errors, id, "route needs at least two tips.");
 }
+
+await validateGeneratedText();
 
 if (warnings.length) {
   console.warn("Content warnings:");

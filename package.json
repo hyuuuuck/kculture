@@ -7,7 +7,7 @@
     "build": "node scripts/build.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "review:feed": "node scripts/review-feed-report.mjs",
-    "verify": "npm run validate:content && npm run build",
+    "verify": "npm run build && npm run validate:content",
     "check:sources": "node scripts/source-audit.mjs",
     "collect:official": "node scripts/collect-official-pages.mjs",
     "import:tourapi": "node scripts/import-tourapi.mjs",

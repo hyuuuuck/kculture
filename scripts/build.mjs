@@ -14,6 +14,7 @@ const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIE
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
+const curationQueue = JSON.parse(await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
@@ -83,6 +84,9 @@ let dict = {
     downloadCalendar: "Download calendar file",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    navWatchlist: "Watchlist",
+    watchlistTitle: "Official Monitoring Watchlist",
+    watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
     freshnessTitle: "Freshness Log",
     freshnessText: "Every listing shows when it was last checked and which official source was used.",
     editorialTitle: "Editorial Policy",
@@ -347,6 +351,9 @@ dict = {
     downloadCalendar: "Download calendar file",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    navWatchlist: "Watchlist",
+    watchlistTitle: "Official Monitoring Watchlist",
+    watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
     freshnessTitle: "Freshness Log",
     freshnessText: "Every listing shows when it was last checked and which official source was used.",
     editorialTitle: "Editorial Policy",
@@ -666,6 +673,33 @@ const cityDefinitions = {
   }
 };
 
+const watchlistGroups = [
+  {
+    slug: "tourism-festivals",
+    title: "Tourism and festival calendars",
+    focus: "Official Korea tourism, Seoul city, culture, exhibition, venue, and festival calendars that can become visitor planning pages.",
+    matches: ["tourism", "festival", "visitkorea", "visit seoul", "seoul", "culture", "mcst", "grand park", "coex", "ddp", "showala"]
+  },
+  {
+    slug: "shopping-beauty-dutyfree",
+    title: "Shopping, K-beauty, duty-free, and department-store offers",
+    focus: "OLIVE YOUNG, duty-free boards, department-store news, sales, coupons, pop-up stores, tax refund, and foreign visitor benefit pages.",
+    matches: ["olive young", "beauty", "duty free", "department", "shopping", "sale", "coupon", "benefit", "lotte", "shilla", "shinsegae", "hyundai"]
+  },
+  {
+    slug: "kpop-popups-ticketing",
+    title: "K-pop pop-ups, merch, fan meetings, and ticketing roots",
+    focus: "Official K-pop commerce, ticketing, artist, agency, venue, and global reservation roots that require manual review before publishing.",
+    matches: ["k-pop", "kpop", "weverse", "artist", "ticket", "fan", "merch", "concert", "melon", "yes24", "ticketlink", "nol"]
+  },
+  {
+    slug: "weather-routes",
+    title: "Weather and travel-route planning",
+    focus: "Previous-year weather baselines, public data APIs, and route data used to make event pages useful beyond dates and titles.",
+    matches: ["weather", "kma", "route", "attractions", "accommodation", "travel"]
+  }
+];
+
 function esc(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -870,6 +904,7 @@ function nav(lang) {
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
       <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
+      <a href="/${lang}/watchlist/">${tr(lang, "navWatchlist")}</a>
       <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
     </nav>`;
 }
@@ -1003,6 +1038,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
+      <a href="/${lang}/watchlist/">${tr(lang, "navWatchlist")}</a>
       <a href="/${lang}/freshness/">${tr(lang, "freshnessTitle")}</a>
       <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
     </div>
@@ -1589,6 +1625,10 @@ function renderSources(lang) {
           </article>`).join("")}
       </section>
       <section class="split-links">
+        <a href="/${lang}/watchlist/">
+          <strong>${tr(lang, "watchlistTitle")}</strong>
+          <span>${tr(lang, "watchlistText")}</span>
+        </a>
         <a href="/${lang}/freshness/">
           <strong>${tr(lang, "freshnessTitle")}</strong>
           <span>${tr(lang, "freshnessText")}</span>
@@ -1606,6 +1646,107 @@ function renderSources(lang) {
     body,
     canonicalPath: `/${lang}/sources/`,
     currentPathBuilder: (code) => `/${code}/sources/`
+  });
+}
+
+function sourceMatchesGroup(source, group) {
+  const blob = [
+    source.name,
+    source.type,
+    source.owner,
+    source.automationStatus,
+    source.notes,
+    ...(source.coverage || [])
+  ].join(" ").toLowerCase();
+  return group.matches.some((term) => blob.includes(term));
+}
+
+function sourceCoverage(source) {
+  return (source.coverage || []).slice(0, 5).join(", ");
+}
+
+function watchlistStat(label, value) {
+  return `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`;
+}
+
+function renderWatchlist(lang) {
+  const activeQueue = curationQueue.filter((item) => item.status === "active");
+  const officialApis = sources.filter((source) => source.type === "official-api").length;
+  const monitors = sources.filter((source) => source.type === "official-page-monitor" || source.type === "official-listing-monitor").length;
+  const curationRoots = sources.filter((source) => source.type === "curation-root").length;
+  const pipelineSteps = [
+    "Collect official pages and same-site detail links from monitored sources.",
+    "Score candidate links by dates, visitor keywords, source type, and official-site context.",
+    "Open the official source manually for date, venue, eligibility, inventory, ticketing, and rights checks.",
+    "Rewrite summaries and travel notes in original words before publishing a public event page.",
+    "Show last-checked dates, official links, previous-year weather notes, and nearby routes on every detail page."
+  ];
+
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "navWatchlist")}</p>
+        <h1>${tr(lang, "watchlistTitle")}</h1>
+        <p>${tr(lang, "watchlistText")}</p>
+      </section>
+
+      <section class="watch-stats" aria-label="Monitoring stats">
+        ${watchlistStat("official APIs", officialApis)}
+        ${watchlistStat("page and listing monitors", monitors)}
+        ${watchlistStat("curation roots", curationRoots)}
+        ${watchlistStat("active manual queues", activeQueue.length)}
+      </section>
+
+      <section class="watch-grid" aria-label="Official monitoring groups">
+        ${watchlistGroups.map((group) => {
+          const groupSources = sources.filter((source) => sourceMatchesGroup(source, group));
+          return `
+            <article class="watch-card">
+              <span>${esc(group.slug)}</span>
+              <h2>${esc(group.title)}</h2>
+              <p>${esc(group.focus)}</p>
+              <dl>
+                <div><dt>Sources watched</dt><dd>${groupSources.length}</dd></div>
+                <div><dt>Refresh model</dt><dd>${esc(groupSources.map((source) => source.refreshCadence).filter(Boolean).slice(0, 2).join(" / ") || "review queue")}</dd></div>
+              </dl>
+              <ul>
+                ${groupSources.slice(0, 7).map((source) => `
+                  <li>
+                    <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${esc(source.name)}</a>
+                    <small>${esc(source.automationStatus)} - ${esc(sourceCoverage(source))}</small>
+                  </li>`).join("")}
+              </ul>
+            </article>`;
+        }).join("")}
+      </section>
+
+      <section class="watch-pipeline">
+        <div>
+          <h2>Review pipeline</h2>
+          <ol>${pipelineSteps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+        </div>
+        <div>
+          <h2>K-pop curation queue</h2>
+          <p>K-pop pop-ups, fan meetings, ticket changes, birthday cafes, and merch stores are intentionally kept in a review queue until an official source is confirmed.</p>
+          <div class="queue-list">
+            ${activeQueue.map((item) => `
+              <a href="${esc(item.sourceUrl)}" rel="nofollow noopener" target="_blank">
+                <strong>${esc(item.label)}</strong>
+                <span>${esc(item.artistOrBrand)} - ${esc((item.topics || []).slice(0, 4).join(", "))}</span>
+                <em>${esc(item.refreshCadence)}</em>
+              </a>`).join("")}
+          </div>
+        </div>
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${tr(lang, "watchlistTitle")} - Korea Now Guide`,
+    description: tr(lang, "watchlistText"),
+    body,
+    canonicalPath: `/${lang}/watchlist/`,
+    currentPathBuilder: (code) => `/${code}/watchlist/`
   });
 }
 
@@ -1751,6 +1892,7 @@ async function build() {
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
     await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
     await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
+    await writeHtml(`${lang}/watchlist/index.html`, renderWatchlist(lang));
     await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));
     await writeHtml(`${lang}/editorial-policy/index.html`, renderEditorialPolicy(lang));
     await writeHtml(`${lang}/about/index.html`, staticPage(lang, "about"));
@@ -1809,7 +1951,7 @@ function headers() {
 function sitemap() {
   const urls = ["/"];
   for (const lang of Object.keys(languages)) {
-    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
+    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/watchlist/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
     for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
     for (const city of citiesWithEvents()) urls.push(cityHref(lang, city));
     for (const route of routes) urls.push(routeHref(lang, route));

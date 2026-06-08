@@ -335,7 +335,8 @@ The curation queue is still non-public. It only helps the review board surface o
 5. Do not copy full official-page text. Write original summaries and practical travel notes.
 6. Weather planning notes must match the relevant schedule month: current month for live long-running events, start month for upcoming events, and end month for archived events. Monthly baselines are planning guidance until exact KMA observations are imported.
 7. Live and upcoming listings should be rechecked frequently. Fast-moving K-pop, beauty, duty-free, and department-store items have shorter freshness windows than evergreen festival archives.
-8. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
+8. Corrections should be checked against official URLs before public event pages are changed. Important visitor-facing corrections should update the event's `lastChecked` date.
+9. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
 
 ## AdSense Readiness Checklist
 
@@ -346,7 +347,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - GitHub Actions deploy variables and Cloudflare secrets configured
 - `/source-refresh.json` generated from the latest official-source refresh
 - `/en/watchlist/` shows the latest source refresh panel
-- `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/` working
+- `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/`, `/en/editorial-policy/`, `/en/corrections/`, `/en/sources/`, `/en/freshness/`, `/en/watchlist/`, and `/en/planner/` working
 - At least 30 verified event, guide, or archive pages
 - No broken images or broken internal links
 - Mobile layout checked

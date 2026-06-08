@@ -296,7 +296,7 @@ function runChecks() {
     fail("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} pages valid`, `Run npm.cmd run validate:structured and inspect ${structuredEvents.missing.slice(0, 3).join(", ")}.`);
   }
 
-  const policyPages = ["privacy", "contact", "about", "terms", "editorial-policy", "sources", "freshness", "watchlist"];
+  const policyPages = ["privacy", "contact", "about", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
   const missingPolicy = policyPages.filter((page) => !exists(`dist/en/${page}/index.html`));
   if (!missingPolicy.length) pass("Trust", "English policy/source pages", `${policyPages.length} required pages present`);
   else fail("Trust", "English policy/source pages", `Missing ${missingPolicy.join(", ")}`, "Run build and keep all trust pages available.");

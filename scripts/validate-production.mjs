@@ -16,7 +16,7 @@ const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
 const languages = ["en", "es", "zh", "pt", "ru"];
-const requiredPolicyPages = ["about", "contact", "privacy", "terms", "editorial-policy", "sources", "freshness", "watchlist", "planner"];
+const requiredPolicyPages = ["about", "contact", "privacy", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();

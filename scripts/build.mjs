@@ -207,6 +207,8 @@ let dict = {
     officialLabel: "Official",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
+    correctionsTitle: "Corrections and Updates",
+    correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
     aboutTitle: "About Korea Now Guide",
     contactTitle: "Contact",
@@ -550,6 +552,8 @@ dict = {
     officialLabel: "Official",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
+    correctionsTitle: "Corrections and Updates",
+    correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
     aboutTitle: "About Korea Now Guide",
     contactTitle: "Contact",
@@ -1666,6 +1670,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
+      <a href="/${lang}/corrections/">${tr(lang, "correctionsTitle")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
       <a href="/${lang}/watchlist/">${tr(lang, "navWatchlist")}</a>
       <a href="/${lang}/freshness/">${tr(lang, "freshnessTitle")}</a>
@@ -2524,6 +2529,10 @@ function renderSources(lang) {
           <strong>${tr(lang, "editorialTitle")}</strong>
           <span>${tr(lang, "editorialText")}</span>
         </a>
+        <a href="/${lang}/corrections/">
+          <strong>${tr(lang, "correctionsTitle")}</strong>
+          <span>${tr(lang, "correctionsText")}</span>
+        </a>
       </section>
     </main>`;
   return layout({
@@ -2837,6 +2846,45 @@ function renderEditorialPolicy(lang) {
   });
 }
 
+function renderCorrections(lang) {
+  const body = `
+    <main class="page">
+      <article class="article-page">
+        <p class="eyebrow">${tr(lang, "correctionsTitle")}</p>
+        <h1>${tr(lang, "correctionsTitle")}</h1>
+        <p class="lede">${tr(lang, "correctionsText")}</p>
+        <section>
+          <h2>1. What to send</h2>
+          <p>Email ${esc(contactEmail)} with the official URL, event or offer name, date range, venue or branch, language, and the exact detail that looks outdated or incorrect.</p>
+        </section>
+        <section>
+          <h2>2. Official-source checks</h2>
+          <p>Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed.</p>
+        </section>
+        <section>
+          <h2>3. Fast-moving categories</h2>
+          <p>Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly.</p>
+        </section>
+        <section>
+          <h2>4. Update labels</h2>
+          <p>Public event pages show last-checked dates and freshness labels. When a correction changes visitor decisions, the page is updated with a new check date and the official source remains linked.</p>
+        </section>
+        <section>
+          <h2>5. Editorial independence</h2>
+          <p>Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation.</p>
+        </section>
+      </article>
+    </main>`;
+  return layout({
+    lang,
+    title: `${tr(lang, "correctionsTitle")} - Korea Now Guide`,
+    description: tr(lang, "correctionsText"),
+    body,
+    canonicalPath: `/${lang}/corrections/`,
+    currentPathBuilder: (code) => `/${code}/corrections/`
+  });
+}
+
 function staticPage(lang, kind) {
   const title = tr(lang, `${kind}Title`);
   const paragraphs = {
@@ -2925,6 +2973,7 @@ async function build() {
     await writeHtml(`${lang}/watchlist/index.html`, renderWatchlist(lang));
     await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));
     await writeHtml(`${lang}/editorial-policy/index.html`, renderEditorialPolicy(lang));
+    await writeHtml(`${lang}/corrections/index.html`, renderCorrections(lang));
     await writeHtml(`${lang}/about/index.html`, staticPage(lang, "about"));
     await writeHtml(`${lang}/contact/index.html`, staticPage(lang, "contact"));
     await writeHtml(`${lang}/privacy/index.html`, staticPage(lang, "privacy"));
@@ -3029,6 +3078,7 @@ function sitemap() {
       { url: `/${lang}/watchlist/`, lastmod: today },
       { url: `/${lang}/freshness/`, lastmod: today },
       { url: `/${lang}/editorial-policy/`, lastmod: today },
+      { url: `/${lang}/corrections/`, lastmod: today },
       { url: `/${lang}/about/`, lastmod: today },
       { url: `/${lang}/contact/`, lastmod: today },
       { url: `/${lang}/privacy/`, lastmod: today },

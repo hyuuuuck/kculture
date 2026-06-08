@@ -87,6 +87,20 @@
     "notes": "Best fit for performances and exhibitions that are not covered by TourAPI."
   },
   {
+    "name": "MyK FESTA Official",
+    "type": "official-page-monitor",
+    "owner": "Korean Foundation for International Cultural Exchange / MCST",
+    "url": "https://www.mykfesta.com/eng/index.php",
+    "alternateUrls": [
+      "https://www.mykfesta.com/eng/program/live/live.php",
+      "https://kofice.or.kr/www/main.do"
+    ],
+    "coverage": ["MyK FESTA", "K-culture festival", "K-pop concert", "brand pop-ups", "K-culture business programs"],
+    "refreshCadence": "daily during ticketing and festival operation windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official MyK FESTA site backed by KOFICE and MCST. Verify ticketing, program zones, lineup, and foreign visitor purchase paths before publishing updates."
+  },
+  {
     "name": "KMA ASOS Daily Weather API",
     "type": "official-api",
     "owner": "Korea Meteorological Administration",
@@ -472,6 +486,19 @@
     "refreshCadence": "daily; hourly around comebacks",
     "automationStatus": "monitor-and-curate",
     "notes": "Use only official notices and artist/company channels; avoid unverified fan rumors."
+  },
+  {
+    "name": "BTS Weverse Official Notices",
+    "type": "curation-root",
+    "owner": "BigHit Music / Weverse",
+    "url": "https://weverse.io/bts/notice",
+    "alternateUrls": [
+      "https://weverse.io/bts/notice/36056"
+    ],
+    "coverage": ["BTS official notices", "K-pop pop-up visit guides", "artist city projects", "reservation rules", "fan safety notices"],
+    "refreshCadence": "daily; hourly around BTS pop-up, tour, and city project windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use only official Weverse notices and linked official reservation pages. Confirm age limits, QR rules, reservation status, inventory, and venue changes before publishing."
   },
   {
     "name": "Weverse Shop BTS Notices",

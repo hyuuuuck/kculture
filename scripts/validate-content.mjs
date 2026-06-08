@@ -60,6 +60,21 @@ function localEn(value) {
   return (value?.en || "").trim();
 }
 
+function hasBrokenLocalizedText(value) {
+  const text = String(value || "");
+  return /�|\?{2,}|[A-Za-zÀ-ž]\?[A-Za-zÀ-ž]|^\?|\s\?/.test(text);
+}
+
+function validateLocalizedObject(id, field, value) {
+  if (!value || typeof value !== "object") return;
+  for (const [lang, text] of Object.entries(value)) {
+    if (lang === "en") continue;
+    if (hasBrokenLocalizedText(text)) {
+      push(errors, id, `${field}.${lang} appears to contain mojibake or encoding-loss question marks.`);
+    }
+  }
+}
+
 function guideSections(value) {
   if (Array.isArray(value)) return value;
   if (Array.isArray(value?.en)) return value.en;
@@ -139,6 +154,9 @@ for (const event of events) {
   if (!localEn(event.title)) push(errors, id, "title.en is required.");
   if (!localEn(event.summary)) push(errors, id, "summary.en is required.");
   if (!localEn(event.whyGo)) push(errors, id, "whyGo.en is required.");
+  validateLocalizedObject(id, "title", event.title);
+  validateLocalizedObject(id, "summary", event.summary);
+  validateLocalizedObject(id, "whyGo", event.whyGo);
   if (!event.city) push(errors, id, "city is required.");
   if (!event.venue) push(errors, id, "venue is required.");
   if (!event.sourceName) push(errors, id, "sourceName is required.");
@@ -233,6 +251,8 @@ for (const guide of guides) {
   if (!categories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
   if (!localEn(guide.title)) push(errors, id, "guide title.en is required.");
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
+  validateLocalizedObject(id, "guide.title", guide.title);
+  validateLocalizedObject(id, "guide.summary", guide.summary);
   const sections = guideSections(guide.sections);
   if (sections.length < 2) push(errors, id, "guide needs at least two English sections.");
   for (const section of sections) {

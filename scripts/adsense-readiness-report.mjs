@@ -66,6 +66,15 @@ function exists(relativePath) {
   return fssync.existsSync(path.join(root, relativePath));
 }
 
+function htmlEsc(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function readJson(relativePath) {
   try {
     return JSON.parse(fssync.readFileSync(path.join(root, relativePath), "utf8"));
@@ -177,6 +186,39 @@ function calendarStats() {
     icsBlocks,
     missingPages,
     missingLinks
+  };
+}
+
+function detailPlanningStats() {
+  const missing = [];
+  for (const lang of languages) {
+    for (const event of events) {
+      const relativePath = `dist/${lang}/events/${event.slug}.html`;
+      if (!exists(relativePath)) {
+        missing.push(`${lang}:${event.slug}:page`);
+        continue;
+      }
+      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
+      const requiredSignals = [
+        htmlEsc(event.sourceUrl),
+        `/events/${event.slug}.ics`,
+        "data-save-event",
+        "Previous-year monthly baseline",
+        "www.google.com/maps/search",
+        "map.naver.com",
+        "map.kakao.com",
+        `/${lang}/routes/`,
+        `/${lang}/guides/`
+      ];
+      for (const signal of requiredSignals) {
+        if (!html.includes(signal)) missing.push(`${lang}:${event.slug}:${signal}`);
+      }
+    }
+  }
+  return {
+    expected: languages.length * events.length,
+    ok: languages.length * events.length - new Set(missing.map((item) => item.split(":").slice(0, 2).join(":"))).size,
+    missing
   };
 }
 
@@ -334,6 +376,13 @@ function runChecks() {
     pass("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`);
   } else {
     fail("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`, "Run npm.cmd run validate:calendar and rebuild if any event is missing.");
+  }
+
+  const detailPlanning = detailPlanningStats();
+  if (detailPlanning.ok === detailPlanning.expected) {
+    pass("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`);
+  } else {
+    fail("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`, "Run npm.cmd run validate:details and fix missing source, weather, map, route, or guide blocks.");
   }
 
   const officialEvents = events.filter((event) => /^official/.test(event.verification || "")).length;

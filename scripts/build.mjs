@@ -57,6 +57,7 @@ const dict = {
     benefits: "Travel benefits",
     calendarTitle: "Event Calendar",
     calendarText: "Dates are shown as planning ranges. Offers may end early, so every detail page links back to the official source.",
+    downloadCalendar: "Download calendar file",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
     guidesTitle: "Visitor Guides",
@@ -105,6 +106,7 @@ const dict = {
     benefits: "Beneficios",
     calendarTitle: "Calendario de eventos",
     calendarText: "Las fechas son rangos de planificación. Algunas ofertas pueden cerrar antes.",
+    downloadCalendar: "Descargar calendario",
     sourcesTitle: "Sistema de fuentes",
     sourcesText: "Separamos APIs oficiales, monitoreo de páginas oficiales y cola de curación K-pop.",
     guidesTitle: "Guías para visitantes",
@@ -153,6 +155,7 @@ const dict = {
     benefits: "旅行优惠",
     calendarTitle: "活动日历",
     calendarText: "日期为规划范围，优惠可能提前结束，请查看官方链接。",
+    downloadCalendar: "下载日历文件",
     sourcesTitle: "来源系统",
     sourcesText: "区分官方 API、官方页面监控和 K-pop 人工审核队列。",
     guidesTitle: "游客指南",
@@ -201,6 +204,7 @@ const dict = {
     benefits: "Benefícios",
     calendarTitle: "Calendário de eventos",
     calendarText: "Datas são faixas de planejamento. Ofertas podem terminar cedo.",
+    downloadCalendar: "Baixar calendário",
     sourcesTitle: "Sistema de fontes",
     sourcesText: "Separamos APIs oficiais, monitoramento oficial e curadoria K-pop.",
     guidesTitle: "Guias para visitantes",
@@ -249,6 +253,7 @@ const dict = {
     benefits: "Выгоды",
     calendarTitle: "Календарь событий",
     calendarText: "Даты указаны для планирования. Акции могут завершиться раньше.",
+    downloadCalendar: "Скачать календарь",
     sourcesTitle: "Система источников",
     sourcesText: "Отделяем официальные API, мониторинг страниц и K-pop очередь проверки.",
     guidesTitle: "Гайды для туристов",
@@ -529,6 +534,7 @@ function renderCalendar(lang) {
         <p class="eyebrow">${tr(lang, "navCalendar")}</p>
         <h1>${tr(lang, "calendarTitle")}</h1>
         <p>${tr(lang, "calendarText")}</p>
+        <a class="button primary" href="/events.ics">${tr(lang, "downloadCalendar")}</a>
       </section>
       <section class="calendar-list">
         ${[...groups.entries()].map(([key, items]) => `
@@ -803,6 +809,7 @@ async function build() {
   await fs.writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`, "utf8");
   await fs.writeFile(path.join(dist, "ads.txt.example"), "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n", "utf8");
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
+  await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
 }
 
 function sitemap() {
@@ -813,6 +820,61 @@ function sitemap() {
     for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);
   }
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${siteUrl}${url}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`;
+}
+
+function icsDate(iso, addOneDay = false) {
+  const date = new Date(`${iso}T00:00:00Z`);
+  if (addOneDay) date.setUTCDate(date.getUTCDate() + 1);
+  return date.toISOString().slice(0, 10).replaceAll("-", "");
+}
+
+function icsEscape(value) {
+  return String(value ?? "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll(";", "\\;")
+    .replaceAll(",", "\\,")
+    .replace(/\r?\n/g, "\\n");
+}
+
+function foldIcsLine(line) {
+  const chunks = [];
+  let remaining = line;
+  while (remaining.length > 72) {
+    chunks.push(remaining.slice(0, 72));
+    remaining = ` ${remaining.slice(72)}`;
+  }
+  chunks.push(remaining);
+  return chunks.join("\r\n");
+}
+
+function ics() {
+  const stamp = `${today.replaceAll("-", "")}T000000Z`;
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Korea Now Guide//Events//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "X-WR-CALNAME:Korea Now Guide Events"
+  ];
+
+  for (const event of events) {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${event.slug}@korea-now-guide`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${icsDate(event.startDate)}`,
+      `DTEND;VALUE=DATE:${icsDate(event.endDate, true)}`,
+      `SUMMARY:${icsEscape(local(event.title, "en"))}`,
+      `DESCRIPTION:${icsEscape(`${local(event.summary, "en")} Official source: ${event.sourceUrl}`)}`,
+      `LOCATION:${icsEscape(`${event.venue}, ${event.city}`)}`,
+      `URL:${event.sourceUrl}`,
+      "END:VEVENT"
+    );
+  }
+
+  lines.push("END:VCALENDAR");
+  return `${lines.map(foldIcsLine).join("\r\n")}\r\n`;
 }
 
 await build();

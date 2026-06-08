@@ -1,48 +1,68 @@
 # Monetization Plan
 
-## 현실적인 수익 구조
+## Revenue Reality
 
-AdSense 월 300달러는 “업로드 즉시 확정”할 수 없습니다. 방문자 수, 국가별 광고 단가, 검색 노출, 체류시간, 광고 배치, 계절성에 따라 달라집니다.
+AdSense approval and USD 300/month revenue cannot be guaranteed. Revenue depends on traffic volume, country mix, page RPM, search rankings, seasonality, ad layout, and content quality.
 
-이 사이트에서 노릴 수 있는 수익 포인트는 다음입니다.
+This project is structured to increase the chance of useful traffic:
 
-- 여행 전 반복 확인: 행사 기간, 예약 방식, 날씨, 교통, 품절 여부
-- 고의도 키워드: Korea shopping sale, Olive Young sale Korea, Korea duty free deal, K-pop pop-up Seoul, Korea festival calendar
-- 다국어 롱테일: Spanish, Chinese, Portuguese, Russian 방문자용 검색어
-- 시즌 아카이브: 끝난 행사를 숨기지 않고 다음 시즌 준비용 페이지로 유지
-- 공식 출처 신뢰: 복붙성 자동 글보다 승인 가능성에 유리
+- Repeat planning behavior: event dates, reservations, weather, transport, stock, and official rule checks
+- High-intent search topics: Korea shopping sale, Olive Young sale Korea, Korea duty free deal, K-pop pop-up Seoul, Korea festival calendar
+- Multilingual long-tail traffic: English, Spanish, Chinese, Portuguese, and Russian visitor queries
+- Seasonal archives: ended events stay useful as next-season planning pages
+- Trust signals: official sources, last-checked dates, privacy/contact/about/terms pages
 
-## 월 300달러에 필요한 대략적 트래픽
+## Rough Traffic Needed for USD 300/month
 
-예시는 보수적으로 봐야 합니다.
+These are planning estimates, not guarantees.
 
-- 페이지 RPM $3 기준: 월 100,000 페이지뷰 필요
-- 페이지 RPM $6 기준: 월 50,000 페이지뷰 필요
-- 페이지 RPM $10 기준: 월 30,000 페이지뷰 필요
+- Page RPM USD 3: about 100,000 pageviews/month
+- Page RPM USD 6: about 50,000 pageviews/month
+- Page RPM USD 10: about 30,000 pageviews/month
 
-여행/쇼핑/뷰티 키워드는 국가와 시즌에 따라 RPM 편차가 큽니다. 처음부터 $300을 확정하는 방식은 아니고, 검색 유입을 쌓아야 합니다.
+Travel, shopping, and beauty pages can vary widely by country and season.
 
-## 승인 전 콘텐츠 목표
+## Pre-Approval Content Target
 
-- 유효 행사/딜/팝업 상세 페이지 30개 이상
-- 방문자 가이드 10개 이상
-- 소스/개인정보/문의/약관/소개 페이지
-- 모든 카드에 썸네일, 기간, 도시, 공식출처, 마지막 확인일 표시
-- 종료된 행사와 진행 중 행사를 명확히 분리
+- 30+ verified event, deal, pop-up, guide, or archive pages
+- 10+ original evergreen guide pages
+- Working source, privacy, contact, terms, and about pages
+- Thumbnail, date range, city, official source, and last-checked date on every event card
+- Clear separation between live, upcoming, and ended events
+- No copied official text beyond short factual labels
 
-## 자동화 우선순위
+## Automation Priority
 
-1. 한국관광공사 TourAPI: 축제/관광 행사 자동 후보 수집
-2. VISITKOREA: 공식 기사/캘린더 모니터링
-3. OLIVE YOUNG Global: 이벤트 페이지 모니터링
-4. 면세점: Lotte/Shilla/Shinsegae 공식 이벤트 모니터링
-5. 백화점: Hyundai/Lotte/Shinsegae 지점·이벤트 페이지 모니터링
-6. K-pop: Weverse/공식 아티스트/공식 X·Instagram 링크를 수집 후 수동 승인
-7. KMA ASOS: 전년도 동일 기간 날씨 계산
+1. Korea Tourism Organization TourAPI: festival and tourism event candidates
+2. VISITKOREA: official articles, travel calendar, benefits, and K-pop travel guides
+3. OLIVE YOUNG Global: event and sale pages
+4. Duty-free stores: Lotte, Shilla, Shinsegae, Hyundai official events
+5. Department stores: Hyundai, Lotte, Shinsegae branch and event pages
+6. K-pop: Weverse, official artist channels, official agency notices, and venue pages, always with manual review
+7. KMA ASOS: previous-year same-period weather observations
 
-## 배치 원칙
+## Suggested Ad Layout After Approval
 
-- 첫 화면: 갤러리와 캘린더 진입
-- 상세 페이지: 공식출처 버튼 위주, 광고보다 정보 우선
-- 광고 위치: 본문 중간 1개, 상세 하단 1개, 가이드 본문 하단 1개부터 시작
-- 금지: 광고 클릭 유도, 공식 사이트인 척하기, 출처 본문 무단 복사, 루머성 팝업 게시
+- Homepage: one display ad after the first event grid
+- Event detail page: one in-content ad after facts, one lower-page ad after travel tips
+- Guide page: one mid-article ad, one lower-page ad
+- Avoid intrusive ads above the core event facts
+
+Never use text that encourages ad clicks.
+
+## Weekly Growth Routine
+
+1. Add 10 to 20 verified new event candidates.
+2. Convert the strongest candidates into polished detail pages.
+3. Add one evergreen guide based on repeated visitor questions.
+4. Archive ended offers instead of deleting them.
+5. Submit updated sitemap in Search Console after major content batches.
+6. Review Search Console queries and create pages that answer real search intent.
+
+## Safety Rules
+
+- Do not pretend to be an official brand, government site, venue, or artist channel.
+- Do not publish unverified K-pop pop-up rumors.
+- Do not scrape or republish full articles, images, or sale pages without rights.
+- Do not show expired discounts as active.
+- Do not publish pages with only machine-translated duplicate text and no added travel value.

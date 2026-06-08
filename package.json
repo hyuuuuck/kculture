@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check:sources": "node scripts/source-audit.mjs",
+    "collect:official": "node scripts/collect-official-pages.mjs",
     "import:tourapi": "node scripts/import-tourapi.mjs",
+    "import:weather": "node scripts/import-kma-weather.mjs",
     "preview": "npx wrangler pages dev dist"
   },
   "engines": {

@@ -18,7 +18,9 @@ async function check(source) {
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        "user-agent": "KoreaNowGuideBot/0.1 (+source availability check)"
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-language": "en-US,en;q=0.9,ko;q=0.8",
+        "user-agent": "Mozilla/5.0 KoreaNowGuideSourceAudit/0.1"
       }
     });
     return {

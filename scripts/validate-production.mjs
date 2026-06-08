@@ -131,6 +131,7 @@ for (const required of [
   "events.ics",
   "feed.xml",
   "latest.json",
+  "recheck.json",
   "source-refresh.json",
   "_headers"
 ]) {
@@ -149,6 +150,7 @@ const keyFiles = [
   path.join(dist, "sitemap.xml"),
   path.join(dist, "feed.xml"),
   path.join(dist, "latest.json"),
+  path.join(dist, "recheck.json"),
   path.join(dist, "source-refresh.json")
 ];
 for (const lang of languages) {

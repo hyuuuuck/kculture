@@ -773,6 +773,61 @@ img {
   background: #edf7f3;
 }
 
+.recheck-panel {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf8;
+}
+
+.recheck-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.recheck-card {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #e9dcc6;
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.recheck-card > span {
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff5df;
+  color: #705021;
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.recheck-card strong,
+.recheck-card a {
+  overflow-wrap: anywhere;
+}
+
+.recheck-card em,
+.recheck-card small {
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+.recheck-card > a {
+  color: var(--teal-dark);
+  font-weight: 820;
+}
+
 .now-panel {
   display: grid;
   gap: 10px;
@@ -1794,6 +1849,10 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .recheck-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .category-strip,
   .city-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1854,6 +1913,7 @@ img {
   .watch-card dl,
   .now-dashboard,
   .now-grid,
+  .recheck-grid,
   .category-strip,
   .city-strip,
   .city-dashboard,

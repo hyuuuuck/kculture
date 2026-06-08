@@ -168,6 +168,13 @@ let dict = {
     rssFeedLabel: "RSS feed",
     jsonFeedLabel: "JSON feed",
     freshnessLogLabel: "Freshness log",
+    recheckQueueTitle: "Official recheck queue",
+    recheckQueueText: "Fast-moving live or upcoming pages that should be reopened on the official source soon.",
+    recheckDueNow: "recheck now",
+    recheckDueToday: "due today",
+    recheckDueTomorrow: "due tomorrow",
+    recheckDueInDays: "due in {count} days",
+    sourceLink: "Source",
     livePanel: "Live now",
     endingSoon: "Ending soon",
     newlyChecked: "Newly checked",
@@ -504,6 +511,13 @@ dict = {
     rssFeedLabel: "RSS feed",
     jsonFeedLabel: "JSON feed",
     freshnessLogLabel: "Freshness log",
+    recheckQueueTitle: "Official recheck queue",
+    recheckQueueText: "Fast-moving live or upcoming pages that should be reopened on the official source soon.",
+    recheckDueNow: "recheck now",
+    recheckDueToday: "due today",
+    recheckDueTomorrow: "due tomorrow",
+    recheckDueInDays: "due in {count} days",
+    sourceLink: "Source",
     livePanel: "Live now",
     endingSoon: "Ending soon",
     newlyChecked: "Newly checked",
@@ -1008,6 +1022,31 @@ function freshnessInfo(event, lang) {
   };
 }
 
+function recheckQueueItems(limit = 8) {
+  return events
+    .map((event) => {
+      const ageDays = daysSince(event.lastChecked);
+      const limitDays = freshnessLimitDays(event);
+      return {
+        event,
+        ageDays,
+        limitDays,
+        daysUntilDue: limitDays - ageDays,
+        status: statusOf(event)
+      };
+    })
+    .filter((item) => item.status !== "ended" && Number.isFinite(item.daysUntilDue) && item.daysUntilDue <= 1)
+    .sort((a, b) => a.daysUntilDue - b.daysUntilDue || b.event.priority - a.event.priority || a.event.startDate.localeCompare(b.event.startDate))
+    .slice(0, limit);
+}
+
+function recheckDueText(lang, daysUntilDue) {
+  if (daysUntilDue < 0) return tr(lang, "recheckDueNow");
+  if (daysUntilDue === 0) return tr(lang, "recheckDueToday");
+  if (daysUntilDue === 1) return tr(lang, "recheckDueTomorrow");
+  return tr(lang, "recheckDueInDays").replace("{count}", String(daysUntilDue));
+}
+
 function daysFromToday(iso) {
   return Math.floor((Date.parse(`${iso}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / dayMs);
 }
@@ -1071,6 +1110,7 @@ function nowFeedLinks(lang) {
   return `
       <section class="now-feed-links" aria-label="${esc(tr(lang, "sourcesTitle"))}">
         <a href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
+        <a href="/recheck.json">${tr(lang, "recheckQueueTitle")}</a>
         <a href="/${lang}/feed.xml">${tr(lang, "rssFeedLabel")}</a>
         <a href="/${lang}/latest.json">${tr(lang, "jsonFeedLabel")}</a>
         <a href="/${lang}/watchlist/">${tr(lang, "watchlistTitle")}</a>
@@ -1159,6 +1199,31 @@ function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
         sourceUrl: event.sourceUrl,
         freshness: freshnessInfo(event, lang)
       }
+    }))
+  }, null, 2);
+}
+
+function recheckJson() {
+  return JSON.stringify({
+    generatedAt: `${today}T00:00:00+09:00`,
+    today,
+    rule: "Live and upcoming listings enter this queue when the official recheck window is due now or within one day.",
+    items: recheckQueueItems(50).map(({ event, ageDays, limitDays, daysUntilDue, status }) => ({
+      slug: event.slug,
+      title: local(event.title, "en"),
+      category: event.category,
+      status,
+      city: event.city,
+      venue: event.venue,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      lastChecked: event.lastChecked,
+      ageDays,
+      freshnessLimitDays: limitDays,
+      daysUntilDue,
+      sourceName: event.sourceName,
+      sourceUrl: event.sourceUrl,
+      publicUrl: absoluteUrl(`/en/events/${event.slug}.html`)
     }))
   }, null, 2);
 }
@@ -1830,6 +1895,36 @@ function nowMetric(event, lang, mode) {
   return days <= 0 ? tr(lang, "endingSoon") : `${days} ${tr(lang, "daysLeft")}`;
 }
 
+function recheckQueuePanel(lang) {
+  const items = recheckQueueItems(8);
+  if (!items.length) return "";
+
+  return `
+    <section class="recheck-panel" aria-label="${esc(tr(lang, "recheckQueueTitle"))}">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">${tr(lang, "freshness")}</p>
+          <h2>${tr(lang, "recheckQueueTitle")}</h2>
+          <p>${tr(lang, "recheckQueueText")}</p>
+        </div>
+        <a class="text-link" href="/recheck.json">JSON</a>
+      </div>
+      <div class="recheck-grid">
+        ${items.map(({ event, ageDays, limitDays, daysUntilDue }) => {
+          const freshness = freshnessInfo(event, lang);
+          return `
+          <article class="recheck-card ${freshness.tone}">
+            <span>${esc(recheckDueText(lang, daysUntilDue))}</span>
+            <strong><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+            <em>${esc(event.city)} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
+            <small>${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
+            <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(tr(lang, "sourceLink"))}: ${esc(event.sourceName)}</a>
+          </article>`;
+        }).join("")}
+      </div>
+    </section>`;
+}
+
 function nowItem(event, lang, mode = "ends") {
   const freshness = freshnessInfo(event, lang);
   return `
@@ -1871,6 +1966,7 @@ function renderNow(lang) {
       </section>
       ${nowDashboard(lang)}
       ${nowFeedLinks(lang)}
+      ${recheckQueuePanel(lang)}
       <section class="now-grid">
         ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
         ${nowPanel(tr(lang, "endingSoon"), groups.endingSoon, lang)}
@@ -2813,6 +2909,7 @@ async function build() {
   await writeHtml("index.html", renderHome("en", "/"));
   await writeText("feed.xml", rssFeed("en", "/feed.xml"));
   await writeText("latest.json", jsonFeed("en", "/latest.json"));
+  await writeText("recheck.json", recheckJson());
   await writeText("source-refresh.json", `${JSON.stringify(sourceRefreshPublicSummary() || { generatedAt: null, counts: {}, failedSources: [], highSignalCandidates: [] }, null, 2)}\n`);
   for (const lang of Object.keys(languages)) {
     await writeHtml(`${lang}/index.html`, renderHome(lang));
@@ -2901,6 +2998,10 @@ function headers() {
 /latest.json
   Content-Type: application/feed+json; charset=utf-8
   Cache-Control: public, max-age=1800
+
+/recheck.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=900
 
 /source-refresh.json
   Content-Type: application/json; charset=utf-8

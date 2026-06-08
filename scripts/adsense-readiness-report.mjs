@@ -266,6 +266,7 @@ function runChecks() {
     "dist/events.ics",
     "dist/feed.xml",
     "dist/latest.json",
+    "dist/recheck.json",
     "dist/source-refresh.json",
     "dist/_headers"
   ];

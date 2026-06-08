@@ -8,6 +8,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 
 - Gallery-style event homepage with thumbnails, dates, categories, and status labels
 - Event detail pages with official source links, last-checked date, schedule-month previous-year weather planning notes, and nearby travel ideas
+- A `/now/` page for live, ending-soon, newly checked, and this-week events
 - Event calendar page plus `/events.ics`
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
 - Language versions for English, Spanish, Chinese, Portuguese, and Russian

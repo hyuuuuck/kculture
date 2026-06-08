@@ -45,6 +45,7 @@ let languages = {
 let dict = {
   en: {
     navEvents: "Events",
+    navNow: "Now",
     navCalendar: "Calendar",
     navGuides: "Guides",
     navSources: "Sources",
@@ -98,6 +99,15 @@ let dict = {
     checkedToday: "checked today",
     checkedYesterday: "checked yesterday",
     daysAgo: "days ago",
+    nowTitle: "What to check now",
+    nowText: "Live, ending-soon, newly checked, and this-week Korea events from official sources.",
+    livePanel: "Live now",
+    endingSoon: "Ending soon",
+    newlyChecked: "Newly checked",
+    thisWeek: "This week",
+    daysLeft: "days left",
+    startsIn: "starts in",
+    noItemsYet: "No matching items right now. Check the calendar or source watchlist.",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -320,6 +330,7 @@ languages = {
 dict = {
   en: {
     navEvents: "Events",
+    navNow: "Now",
     navCalendar: "Calendar",
     navGuides: "Guides",
     navSources: "Sources",
@@ -374,6 +385,15 @@ dict = {
     checkedToday: "checked today",
     checkedYesterday: "checked yesterday",
     daysAgo: "days ago",
+    nowTitle: "What to check now",
+    nowText: "Live, ending-soon, newly checked, and this-week Korea events from official sources.",
+    livePanel: "Live now",
+    endingSoon: "Ending soon",
+    newlyChecked: "Newly checked",
+    thisWeek: "This week",
+    daysLeft: "days left",
+    startsIn: "starts in",
+    noItemsYet: "No matching items right now. Check the calendar or source watchlist.",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -844,6 +864,36 @@ function freshnessInfo(event, lang) {
   };
 }
 
+function daysFromToday(iso) {
+  return Math.floor((Date.parse(`${iso}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / dayMs);
+}
+
+function statusSort(a, b) {
+  const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+  return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || a.startDate.localeCompare(b.startDate) || b.priority - a.priority;
+}
+
+function nowGroups() {
+  const live = events
+    .filter((event) => statusOf(event) === "live")
+    .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
+    .slice(0, 6);
+  const endingSoon = events
+    .filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7)
+    .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
+    .slice(0, 6);
+  const newlyChecked = events
+    .filter((event) => event.lastChecked === today)
+    .sort(statusSort)
+    .slice(0, 6);
+  const thisWeek = events
+    .filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7)
+    .sort((a, b) => a.startDate.localeCompare(b.startDate) || b.priority - a.priority)
+    .slice(0, 6);
+
+  return { live, endingSoon, newlyChecked, thisWeek };
+}
+
 function categoryLabel(lang, category) {
   return tr(lang, categoryLabels[category] || category);
 }
@@ -1000,6 +1050,7 @@ function nav(lang) {
   return `
     <nav class="top-nav" aria-label="Primary">
       <a href="/${lang}/#events">${tr(lang, "navEvents")}</a>
+      <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
       <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
       <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
@@ -1134,6 +1185,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <p>${esc(tr(lang, "sourceWarning"))}</p>
     </div>
     <div class="footer-links">
+      <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
       <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
@@ -1215,6 +1267,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <p>${tr(lang, "heroText")}</p>
           <div class="hero-actions">
             <a class="button primary" href="#events">${tr(lang, "ctaEvents")}</a>
+            <a class="button secondary" href="/${lang}/now/">${tr(lang, "navNow")}</a>
             <a class="button secondary" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
           </div>
         </div>
@@ -1287,6 +1340,77 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
 function filterButton(lang, category, labelKey, active = false) {
   return `<button type="button" data-filter="${category}"${active ? " aria-pressed=\"true\"" : ""}>${tr(lang, labelKey)}</button>`;
+}
+
+function nowMetric(event, lang, mode) {
+  if (mode === "starts") {
+    const days = daysFromToday(event.startDate);
+    const dayWord = tr(lang, "daysLeft").replace("left", "").trim() || "days";
+    return days <= 0 ? statusLabel(lang, statusOf(event)) : `${tr(lang, "startsIn")} ${days} ${dayWord}`;
+  }
+  const days = daysFromToday(event.endDate);
+  return days <= 0 ? tr(lang, "endingSoon") : `${days} ${tr(lang, "daysLeft")}`;
+}
+
+function nowItem(event, lang, mode = "ends") {
+  const freshness = freshnessInfo(event, lang);
+  return `
+    <a class="now-item" href="/${lang}/events/${event.slug}.html">
+      <img src="/${event.thumbnail}" alt="" aria-hidden="true">
+      <span>
+        <strong>${esc(local(event.title, lang))}</strong>
+        <em>${esc(event.city)} · ${categoryLabel(lang, event.category)} · ${esc(nowMetric(event, lang, mode))}</em>
+        <small>${esc(event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`)}</small>
+        <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
+      </span>
+    </a>`;
+}
+
+function nowPanel(title, items, lang, mode = "ends") {
+  return `
+    <section class="now-panel">
+      <h2>${esc(title)}</h2>
+      ${items.length ? items.map((event) => nowItem(event, lang, mode)).join("") : `<p class="empty-state">${esc(tr(lang, "noItemsYet"))}</p>`}
+    </section>`;
+}
+
+function renderNow(lang) {
+  const groups = nowGroups();
+  const combined = [];
+  const seen = new Set();
+  for (const event of [...groups.live, ...groups.endingSoon, ...groups.newlyChecked, ...groups.thisWeek]) {
+    if (!seen.has(event.slug)) {
+      seen.add(event.slug);
+      combined.push(event);
+    }
+  }
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "navNow")}</p>
+        <h1>${tr(lang, "nowTitle")}</h1>
+        <p>${tr(lang, "nowText")}</p>
+      </section>
+      <section class="now-grid">
+        ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
+        ${nowPanel(tr(lang, "endingSoon"), groups.endingSoon, lang)}
+        ${nowPanel(tr(lang, "newlyChecked"), groups.newlyChecked, lang)}
+        ${nowPanel(tr(lang, "thisWeek"), groups.thisWeek, lang, "starts")}
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${tr(lang, "nowTitle")} - Korea Now Guide`,
+    description: tr(lang, "nowText"),
+    body,
+    canonicalPath: `/${lang}/now/`,
+    currentPathBuilder: (code) => `/${code}/now/`,
+    schemaData: [
+      schema(lang, `${tr(lang, "nowTitle")} - Korea Now Guide`, tr(lang, "nowText"), `/${lang}/now/`),
+      itemListSchema(lang, tr(lang, "nowTitle"), combined, `/${lang}/now/`)
+    ]
+  });
 }
 
 function renderCategory(lang, category) {
@@ -1999,6 +2123,7 @@ async function build() {
   await writeHtml("index.html", renderHome("en", "/"));
   for (const lang of Object.keys(languages)) {
     await writeHtml(`${lang}/index.html`, renderHome(lang));
+    await writeHtml(`${lang}/now/index.html`, renderNow(lang));
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
     await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
@@ -2062,7 +2187,7 @@ function headers() {
 function sitemap() {
   const urls = ["/"];
   for (const lang of Object.keys(languages)) {
-    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/watchlist/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
+    urls.push(`/${lang}/`, `/${lang}/now/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/watchlist/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
     for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
     for (const city of citiesWithEvents()) urls.push(cityHref(lang, city));
     for (const route of routes) urls.push(routeHref(lang, route));

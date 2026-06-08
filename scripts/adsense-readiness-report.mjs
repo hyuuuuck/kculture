@@ -151,6 +151,35 @@ function thumbnailStats() {
   };
 }
 
+function calendarStats() {
+  const missingPages = [];
+  const missingLinks = [];
+  for (const lang of languages) {
+    const relativePath = `dist/${lang}/calendar/index.html`;
+    if (!exists(relativePath)) {
+      missingPages.push(lang);
+      continue;
+    }
+    const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
+    for (const event of events) {
+      if (!html.includes(`href="/${lang}/events/${event.slug}.html"`)) missingLinks.push(`${lang}:${event.slug}`);
+    }
+  }
+  const icsBlocks = exists("dist/events.ics")
+    ? (fssync.readFileSync(path.join(root, "dist", "events.ics"), "utf8").match(/BEGIN:VEVENT/g) || []).length
+    : 0;
+  return {
+    expectedPages: languages.length,
+    presentPages: languages.length - missingPages.length,
+    expectedLinks: languages.length * events.length,
+    presentLinks: languages.length * events.length - missingLinks.length,
+    expectedIcsBlocks: events.length,
+    icsBlocks,
+    missingPages,
+    missingLinks
+  };
+}
+
 function sourceHaystack(source) {
   return [
     source.name,
@@ -298,6 +327,13 @@ function runChecks() {
     pass("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`);
   } else {
     fail("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`, `Run npm.cmd run validate:images and fix ${[...thumbnails.missing, ...thumbnails.invalid].slice(0, 4).join(", ")}.`);
+  }
+
+  const calendar = calendarStats();
+  if (calendar.presentPages === calendar.expectedPages && calendar.presentLinks === calendar.expectedLinks && calendar.icsBlocks === calendar.expectedIcsBlocks) {
+    pass("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`);
+  } else {
+    fail("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`, "Run npm.cmd run validate:calendar and rebuild if any event is missing.");
   }
 
   const officialEvents = events.filter((event) => /^official/.test(event.verification || "")).length;

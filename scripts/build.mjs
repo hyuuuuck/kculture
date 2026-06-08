@@ -101,6 +101,7 @@ let dict = {
     routePages: "Travel routes",
     categoryPages: "Browse by topic",
     verifyBefore: "Verify on the official source before visiting.",
+    relatedEventsTitle: "Nearby and similar events",
     relatedGuides: "Related guides",
     category: "Category",
     all: "All",
@@ -410,6 +411,7 @@ dict = {
     categoryPages: "Browse by topic",
     cityPages: "Browse by city",
     verifyBefore: "Verify on the official source before visiting.",
+    relatedEventsTitle: "Nearby and similar events",
     relatedGuides: "Related guides",
     category: "Category",
     all: "All",
@@ -1148,6 +1150,31 @@ function routesForEvent(event) {
 
   const fallback = routes.filter((route) => route.regions?.some((region) => regionKeys.has(region)));
   return (matches.length ? matches : fallback).slice(0, 3);
+}
+
+function eventDateDistanceDays(a, b) {
+  const aTime = Date.parse(`${a.startDate}T00:00:00Z`);
+  const bTime = Date.parse(`${b.startDate}T00:00:00Z`);
+  if (Number.isNaN(aTime) || Number.isNaN(bTime)) return 365;
+  return Math.abs(aTime - bTime) / dayMs;
+}
+
+function relatedEventsForEvent(event) {
+  return events
+    .filter((candidate) => candidate.slug !== event.slug)
+    .map((candidate) => {
+      const score =
+        (candidate.city === event.city ? 50 : 0) +
+        (candidate.category === event.category ? 35 : 0) +
+        (candidate.weatherRegion === event.weatherRegion ? 15 : 0) +
+        (statusOf(candidate) !== "ended" ? 10 : 0) +
+        Number(candidate.priority || 0) / 100 -
+        Math.min(eventDateDistanceDays(event, candidate), 120) / 4;
+      return { event: candidate, score };
+    })
+    .sort((a, b) => b.score - a.score || statusSort(a.event, b.event))
+    .map((item) => item.event)
+    .slice(0, 6);
 }
 
 function eventsForRoute(route) {
@@ -2073,6 +2100,7 @@ function renderEvent(event, lang) {
   const freshness = freshnessInfo(event, lang);
   const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
   const routeIdeas = routesForEvent(event);
+  const relatedEvents = relatedEventsForEvent(event);
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
   const region = weatherInfo.baseline;
   const description = local(event.summary, lang);
@@ -2129,6 +2157,14 @@ function renderEvent(event, lang) {
             <h2>${tr(lang, "routeIdeas")}</h2>
             <div class="route-grid">
               ${routeIdeas.map((route) => routeLinkCard(route, lang)).join("")}
+            </div>
+          </section>` : ""}
+
+        ${relatedEvents.length ? `
+          <section class="detail-section related-events-section">
+            <h2>${tr(lang, "relatedEventsTitle")}</h2>
+            <div class="gallery-grid">
+              ${relatedEvents.map((item) => eventCard(item, lang)).join("")}
             </div>
           </section>` : ""}
 

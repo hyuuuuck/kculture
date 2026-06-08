@@ -57,6 +57,26 @@
     "reviewNotes": "Queue individual Ticketlink event or notice URLs when a relevant K-pop concert, fan meeting, or pop-up-linked reservation opens."
   },
   {
+    "id": "kpop-nol-world-ticket-watch",
+    "status": "active",
+    "priority": 85,
+    "category": "kpop",
+    "sourceName": "NOL World Ticket",
+    "sourceUrl": "https://world.nol.com",
+    "label": "NOL World global K-pop and pop-up ticket watch",
+    "owner": "NOL / Interpark ticketing ecosystem",
+    "artistOrBrand": "NOL World",
+    "topics": [
+      "global tickets",
+      "K-pop concerts",
+      "fan meetings",
+      "pop-up offers",
+      "foreign visitor activities"
+    ],
+    "refreshCadence": "manual queue; hourly around major ticket openings",
+    "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+  },
+  {
     "id": "kpop-yes24-english-watch",
     "status": "active",
     "priority": 84,

@@ -68,12 +68,20 @@ function dateSignals(draft) {
   return signals.slice(0, 8).map((signal) => `<span class=\"date-chip\">${esc(signal.date)}</span>`).join("");
 }
 
+function discoveryRows(draft) {
+  const rows = [];
+  if (draft.evidence?.leadKind) rows.push(`<div><dt>Lead</dt><dd>${esc(draft.evidence.leadKind)}</dd></div>`);
+  if (draft.evidence?.linkScore) rows.push(`<div><dt>Link score</dt><dd>${esc(draft.evidence.linkScore)}${draft.evidence.linkReason ? ` (${esc(draft.evidence.linkReason)})` : ""}</dd></div>`);
+  if (draft.evidence?.discoveredFrom) rows.push(`<div><dt>Found on</dt><dd><a href="${esc(draft.evidence.discoveredFrom)}" target="_blank" rel="noreferrer">${esc(draft.evidence.discoveredFrom)}</a></dd></div>`);
+  return rows.join("");
+}
+
 async function card(draft, index) {
   const image = await dataUri(draft.thumbnail);
   const mergeJson = JSON.stringify(cleanMergeCandidate(draft), null, 2);
   const draftJson = JSON.stringify(draft, null, 2);
   return `
-    <article class="card" data-category="${esc(draft.category)}" data-text="${esc(`${draft.title?.en} ${draft.sourceName} ${draft.category} ${draft.city}`.toLowerCase())}">
+    <article class="card" data-category="${esc(draft.category)}" data-text="${esc(`${draft.title?.en} ${draft.sourceName} ${draft.category} ${draft.city} ${draft.evidence?.linkText || ""}`.toLowerCase())}">
       <div class="thumb">${image ? `<img src="${image}" alt="">` : `<span>No image</span>`}</div>
       <div class="card-body">
         <div class="meta">
@@ -88,6 +96,7 @@ async function card(draft, index) {
           <div><dt>Dates</dt><dd>${esc(draft.startDate)} to ${esc(draft.endDate)}</dd></div>
           <div><dt>Source</dt><dd><a href="${esc(draft.sourceUrl)}" target="_blank" rel="noreferrer">${esc(draft.sourceName)}</a></dd></div>
           <div><dt>Slug</dt><dd><code>${esc(draft.slug)}</code></dd></div>
+          ${discoveryRows(draft)}
         </dl>
         <div class="signals">${dateSignals(draft)}</div>
         <details>

@@ -24,9 +24,9 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
-- `scripts/collect-official-pages.mjs`: collects official page candidates for review
-- `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
-- `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from the latest candidate feed
+- `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
+- `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
+- `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from page-level and link-level candidates
 - `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
@@ -150,6 +150,14 @@ npm.cmd run check:sources
 npm.cmd run collect:official
 ```
 
+The collector also scores official same-site links found inside listing pages. Tune the review volume when needed:
+
+```powershell
+$env:COLLECT_MAX_LINKS="24"
+$env:COLLECT_MIN_LINK_SCORE="9"
+npm.cmd run collect:official
+```
+
 4. Create a review report from the latest candidate feed:
 
 ```powershell
@@ -218,8 +226,11 @@ The source registry is set up to watch official sources for:
 - OLIVE YOUNG Global beauty sales, coupons, gifts, and country eligibility notes
 - Department store shopping news: Lotte Department Store, Hyundai Department Store, and Shinsegae official press updates
 - Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, and culture-related public sources
+- Seoul visitor event discovery through Visit Seoul, Seoul city notices, DDP, COEX, and Seoul Grand Park
 - K-pop pop-ups and merch reservations through Weverse and official artist/company channels
-- K-pop ticketing and fan meeting discovery through YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
+- K-pop ticketing and fan meeting discovery through NOL World, YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
+
+The collector now stores discovered same-site official links in each candidate feed. This is useful for listing-heavy sources such as NOL World, YES24, DDP, OLIVE YOUNG, duty-free boards, and department-store newsrooms where the useful item is often an individual detail link inside the official page.
 
 Not every official site exposes a clean API. The safe operating model is to collect candidates automatically, then publish only manually verified summaries with official source links, last-checked dates, and practical visitor notes.
 

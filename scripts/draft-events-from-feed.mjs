@@ -12,6 +12,7 @@ const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json
 const existingSlugs = new Set(events.map((event) => event.slug));
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const existingSourceUrls = new Set(events.map((event) => normalizeUrl(event.sourceUrl)).filter(Boolean));
+const draftedSourceUrls = new Set();
 
 async function latestFeedFile() {
   const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);
@@ -64,12 +65,13 @@ function hasAny(text, needles) {
 }
 
 function inferCategory(candidate) {
-  if (categories.has(candidate.queueCategory)) return candidate.queueCategory;
-  const text = `${candidate.sourceName} ${(candidate.keywordHits || []).join(" ")} ${candidate.pageTitle || ""}`.toLowerCase();
+  if (candidate.leadKind !== "discovered-link" && categories.has(candidate.queueCategory)) return candidate.queueCategory;
+  const keywordText = candidate.leadKind === "discovered-link" ? "" : (candidate.keywordHits || []).join(" ");
+  const text = `${candidate.sourceName} ${keywordText} ${candidate.pageTitle || ""} ${candidate.linkText || ""}`.toLowerCase();
   if (hasAny(text, ["olive young", "beauty", "cosmetic"])) return "beauty";
   if (hasAny(text, ["duty free", "dfs", "免税"])) return "duty-free";
   if (hasAny(text, ["department store", "hyundai", "shinsegae group", "lotte department"])) return "department-store";
-  if (hasAny(text, ["weverse", "k-pop", "kpop", "artist", "idol"])) return "kpop";
+  if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
   if (hasAny(text, ["festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
   if (hasAny(text, ["benefit", "travel", "tourism", "korea grand sale"])) return "travel-benefits";
   return "shopping";
@@ -122,17 +124,47 @@ function draftPriority(candidate, category) {
   const dateScore = Math.min(candidate.dateSignals?.length || 0, 8);
   const keywordScore = Math.min(candidate.keywordHits?.length || 0, 8);
   const categoryBoost = ["kpop", "beauty", "duty-free", "department-store"].includes(category) ? 5 : 0;
-  const detected = 70 + dateScore + keywordScore + categoryBoost;
+  const linkBoost = Math.min(Math.floor((candidate.linkScore || 0) / 2), 12);
+  const detected = 70 + dateScore + keywordScore + categoryBoost + linkBoost;
   return Number.isFinite(candidate.queuePriority) ? Math.max(detected, candidate.queuePriority) : detected;
 }
 
 function titleFor(candidate) {
   const source = cleanText(candidate.sourceName);
+  if (candidate.leadKind === "discovered-link") {
+    const linkTitle = shortLabel(candidate.pageTitle || candidate.linkText, 110);
+    if (linkTitle) return `${source}: ${linkTitle}`;
+  }
   const queueLabel = cleanText(candidate.queueLabel);
   if (queueLabel) return `${source}: ${queueLabel}`;
   const pageTitle = cleanText(candidate.pageTitle).replace(/\s*[-|]\s*Korea Now Guide$/i, "");
   if (pageTitle && pageTitle.toLowerCase() !== source.toLowerCase()) return `${source}: ${pageTitle}`;
   return `${source} official event candidate`;
+}
+
+function shortLabel(value, max = 120) {
+  const text = cleanText(value);
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 3).replace(/\s+\S*$/, "").trim()}...`;
+}
+
+function expandCandidate(candidate) {
+  const base = [{ ...candidate, leadKind: "source-page" }];
+  const links = (candidate.discoveredLinks || []).map((link) => ({
+    ...candidate,
+    leadKind: "discovered-link",
+    sourcePageUrl: candidate.finalUrl || candidate.url,
+    finalUrl: link.url,
+    url: link.url,
+    pageTitle: link.text || candidate.pageTitle,
+    linkText: link.text,
+    linkScore: link.score,
+    linkReason: link.reason,
+    keywordHits: [...new Set([...(candidate.keywordHits || []), ...(link.keywordHits || [])])],
+    dateSignals: link.dateSignals || [],
+    snippets: [link.context, ...(candidate.snippets || [])].filter(Boolean).slice(0, 4)
+  }));
+  return base.concat(links);
 }
 
 function draftFor(candidate) {
@@ -144,7 +176,9 @@ function draftFor(candidate) {
   const title = titleFor(candidate);
   const slug = uniqueSlug(`${slugify(title)}-${dates.startDate.slice(0, 7)}`);
   const sourceUrl = candidate.finalUrl || candidate.url;
-  if (existingSourceUrls.has(normalizeUrl(sourceUrl))) return null;
+  const normalizedSourceUrl = normalizeUrl(sourceUrl);
+  if (existingSourceUrls.has(normalizedSourceUrl) || draftedSourceUrls.has(normalizedSourceUrl)) return null;
+  draftedSourceUrls.add(normalizedSourceUrl);
   const keywordText = (candidate.keywordHits || []).slice(0, 6).join(", ") || "official listing";
 
   return {
@@ -187,11 +221,16 @@ function draftFor(candidate) {
       "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
     ],
     evidence: {
+      leadKind: candidate.leadKind,
       pageTitle: cleanText(candidate.pageTitle),
       checkedAt: candidate.checkedAt,
       keywordHits: candidate.keywordHits || [],
       dateSignals: candidate.dateSignals || [],
       snippets: (candidate.snippets || []).slice(0, 3).map(cleanText),
+      discoveredFrom: candidate.sourcePageUrl,
+      linkText: candidate.linkText,
+      linkScore: candidate.linkScore,
+      linkReason: candidate.linkReason,
       queueId: candidate.queueId,
       queueLabel: candidate.queueLabel,
       artistOrBrand: candidate.artistOrBrand,
@@ -208,6 +247,7 @@ if (!feedFile) {
 
 const feed = JSON.parse(await fs.readFile(feedFile, "utf8"));
 const drafts = (feed.candidates || [])
+  .flatMap(expandCandidate)
   .map(draftFor)
   .filter(Boolean)
   .sort((a, b) => b.priority - a.priority || a.startDate.localeCompare(b.startDate));

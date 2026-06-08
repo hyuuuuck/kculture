@@ -7,6 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const today = todayString();
 const timeoutMs = Number(process.env.COLLECT_TIMEOUT_MS || 10000);
+const maxLinksPerSource = Number(process.env.COLLECT_MAX_LINKS || 18);
+const minLinkScore = Number(process.env.COLLECT_MIN_LINK_SCORE || 7);
 const extraUrls = (process.env.MONITOR_URLS || "")
   .split(",")
   .map((url) => url.trim())
@@ -81,6 +83,133 @@ function stripHtml(html) {
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function cleanText(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/[\u0000-\u001F\u007F]/g, "")
+    .trim();
+}
+
+function cleanAnchorLabel(value) {
+  return cleanText(value)
+    .replace(/\[[^\]]{1,120}\]/g, " ")
+    .replace(/\b(?:w|h|bdr|obj-f|bg|c|d|p|m|ta|fw|fs|lh|bd|radius|aspect|grid|flex|gap|pos|top|left|right|bottom|z|op|translate|scale|rotate|overflow|display|items|justify|rounded|shadow|text|font|leading|tracking|line-clamp)_[^\s]+/gi, " ")
+    .replace(/(?:^|\s)[_*>\]:.-]{2,}(?=\s|$)/g, " ")
+    .replace(/^(?:\s*[:|/\\-]+\s*)+/, "")
+    .replace(/\s+(?:[:|/\\-]\s*){2,}/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function attrValue(tag, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = tag.match(new RegExp(`\\s${escaped}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"));
+  return decodeEntities(match?.[2] || match?.[3] || match?.[4] || "");
+}
+
+function officialHostKey(hostname) {
+  const parts = String(hostname || "").toLowerCase().replace(/^www\./, "").split(".").filter(Boolean);
+  if (parts.length <= 2) return parts.join(".");
+  const lastTwo = parts.slice(-2).join(".");
+  if (lastTwo === "kr" && parts.length >= 3) return parts.slice(-3).join(".");
+  if (/^(co|or|go|ne|ac)\.kr$/.test(lastTwo) && parts.length >= 3) return parts.slice(-3).join(".");
+  return parts.slice(-2).join(".");
+}
+
+function normalizeCandidateUrl(value) {
+  try {
+    const url = new URL(value);
+    url.hash = "";
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return "";
+  }
+}
+
+function isOfficialSameSite(url, baseUrl) {
+  try {
+    const parsed = new URL(url);
+    const base = new URL(baseUrl);
+    if (!["http:", "https:"].includes(parsed.protocol)) return false;
+    return officialHostKey(parsed.hostname) === officialHostKey(base.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function isSkippableLink(url, label) {
+  const value = `${url} ${label}`.toLowerCase();
+  return /(?:^|[#?/])(login|logout|signin|signup|join|mypage|cart|basket|privacy|terms|policy|customer|faq|notice$|search|language|lang=|javascript|mailto:|tel:)/i.test(value)
+    || /^(home|menu|search|login|sign in|cart|my page|privacy policy|terms|facebook|instagram|youtube|wechat|close)$/i.test(cleanText(label));
+}
+
+function scoreDiscoveredLink({ url, label, context }) {
+  const text = `${label} ${url} ${context}`;
+  const lower = text.toLowerCase();
+  const hits = keywordHits(text);
+  const dates = extractPageDateSignals(text);
+  let score = hits.length * 4 + dates.length * 3;
+  if (/(event|festival|notice|planning|popup|pop-up|concert|ticket|sale|coupon|benefit|exhibit|show|detail|view|product|contents)/i.test(lower)) score += 5;
+  if (/20\d{2}/.test(text)) score += 3;
+  if (/(k-pop|kpop|weverse|artist|idol|fan|merch|reservation|duty.?free|olive.?young|department.?store)/i.test(lower)) score += 4;
+  if (/(\uD589\uC0AC|\uCD95\uC81C|\uC138\uC77C|\uD560\uC778|\uBA74\uC138|\uBC31\uD654\uC810|\uD31D\uC5C5|\uAD7F\uC988|\uC608\uB9E4|\uC608\uC57D)/.test(text)) score += 4;
+  if (label.length >= 12) score += 1;
+  return { score, hits, dates };
+}
+
+function extractOfficialLinks(html, baseUrl) {
+  const links = [];
+  const seen = new Set();
+
+  for (const match of html.matchAll(/<a\b[\s\S]*?<\/a>/gi)) {
+    const raw = match[0];
+    const openTag = raw.match(/^<a\b[^>]*>/i)?.[0] || raw;
+    const href = attrValue(openTag, "href");
+    if (!href || /^#/.test(href) || /^(javascript|mailto|tel):/i.test(href)) continue;
+
+    let parsed;
+    try {
+      parsed = new URL(href, baseUrl);
+    } catch {
+      continue;
+    }
+
+    const normalized = normalizeCandidateUrl(parsed.toString());
+    if (!normalized || seen.has(normalized) || !isOfficialSameSite(normalized, baseUrl)) continue;
+
+    const label = cleanAnchorLabel([
+      stripHtml(raw),
+      attrValue(openTag, "aria-label"),
+      attrValue(openTag, "title")
+    ].filter(Boolean).join(" "));
+    if (label.length < 2 || isSkippableLink(normalized, label)) continue;
+
+    const contextHtml = html.slice(Math.max(0, match.index - 360), Math.min(html.length, match.index + raw.length + 420));
+    const context = cleanText(stripHtml(contextHtml));
+    const scored = scoreDiscoveredLink({ url: normalized, label, context });
+    if (scored.score < minLinkScore) continue;
+
+    seen.add(normalized);
+    links.push({
+      url: normalized,
+      text: label.slice(0, 180),
+      score: scored.score,
+      keywordHits: scored.hits,
+      dateSignals: scored.dates,
+      context: context.slice(0, 520),
+      reason: [
+        scored.hits.length ? `${scored.hits.length} keyword hits` : "",
+        scored.dates.length ? `${scored.dates.length} date signals` : "",
+        /20\d{2}/.test(context) ? "year signal" : ""
+      ].filter(Boolean).join("; ") || "official same-site link"
+    });
+  }
+
+  return links
+    .sort((a, b) => b.score - a.score || b.dateSignals.length - a.dateSignals.length || a.text.localeCompare(b.text))
+    .slice(0, maxLinksPerSource);
 }
 
 function extractTitle(html, fallback) {
@@ -229,6 +358,7 @@ async function fetchSource(source) {
     const html = await decodeHtml(response);
     const text = stripHtml(html);
     const dates = extractPageDateSignals(text);
+    const discoveredLinks = extractOfficialLinks(html, response.url || source.url);
     return {
       sourceName: source.name,
       owner: source.owner,
@@ -241,6 +371,7 @@ async function fetchSource(source) {
       pageTitle: extractTitle(html, source.name),
       keywordHits: keywordHits(text),
       dateSignals: dates,
+      discoveredLinks,
       snippets: snippetsAroundDates(text, dates),
       reviewRequired: true,
       publishable: false,
@@ -299,6 +430,7 @@ console.table(candidates.map((item) => ({
   status: item.status,
   source: item.sourceName,
   dates: item.dateSignals?.length || 0,
+  links: item.discoveredLinks?.length || 0,
   keywords: item.keywordHits?.join(", ") || "",
   error: item.error || ""
 })));

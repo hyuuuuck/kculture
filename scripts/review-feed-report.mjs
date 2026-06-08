@@ -20,6 +20,7 @@ async function latestFeedFile() {
 function actionFor(candidate) {
   if (!candidate.ok) return "Manual browser check";
   if (["curation-queue", "curated-official-url"].includes(candidate.type) || /weverse|artist|company social/i.test(candidate.sourceName)) return "Manual curation only";
+  if ((candidate.discoveredLinks?.length || 0) > 0) return "Review discovered official links";
   if ((candidate.dateSignals?.length || 0) > 0 && (candidate.keywordHits?.length || 0) > 0) return "Review and draft event";
   if ((candidate.keywordHits?.length || 0) > 0) return "Scan page for hidden dates";
   return "Watch only";
@@ -28,6 +29,8 @@ function actionFor(candidate) {
 function priorityFor(candidate) {
   if (!candidate.ok) return "blocked";
   if (actionFor(candidate) === "Manual curation only") return "manual";
+  if ((candidate.discoveredLinks?.length || 0) >= 5) return "high";
+  if ((candidate.discoveredLinks?.length || 0) > 0) return "medium";
   if ((candidate.dateSignals?.length || 0) >= 3 && (candidate.keywordHits?.length || 0) >= 2) return "high";
   if ((candidate.dateSignals?.length || 0) > 0 || (candidate.keywordHits?.length || 0) > 0) return "medium";
   return "low";
@@ -52,6 +55,7 @@ const rows = candidates.map((candidate) => ({
   queue: candidate.queueLabel || candidate.queueId || "",
   status: candidate.status,
   dates: candidate.dateSignals?.length || 0,
+  links: candidate.discoveredLinks?.length || 0,
   keywords: candidate.keywordHits?.join(", ") || "-",
   url: candidate.finalUrl || candidate.url,
   error: candidate.error || ""
@@ -85,9 +89,18 @@ ${rows.map((row, index) => `### ${index + 1}. ${row.source}
 - Queue: ${row.queue || "-"}
 - Status: ${row.status}${row.error ? ` (${row.error})` : ""}
 - Date signals: ${row.dates}
+- Discovered links: ${row.links}
 - Keywords: ${row.keywords}
 - URL: ${row.url}
 `).join("\n")}
+
+## Discovered Official Links
+
+${candidates.map((candidate) => {
+  const links = (candidate.discoveredLinks || []).slice(0, 8);
+  if (!links.length) return "";
+  return `### ${candidate.sourceName}\n\n${links.map((link, index) => `- ${index + 1}. ${line(link.text)}\n  - Score: ${link.score} / Dates: ${link.dateSignals?.map((signal) => signal.date).join(", ") || "-"} / Keywords: ${link.keywordHits?.join(", ") || "-"}\n  - URL: ${link.url}`).join("\n")}`;
+}).filter(Boolean).join("\n\n") || "No scored same-site official links discovered in this run."}
 
 ## Useful Snippets
 
@@ -111,6 +124,7 @@ console.table(rows.map((row) => ({
   action: row.action,
   source: row.source,
   dates: row.dates,
+  links: row.links,
   status: row.status,
   error: row.error
 })));

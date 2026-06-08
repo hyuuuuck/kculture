@@ -80,6 +80,36 @@
     "notes": "Use for Seoul Grand Park program dates and status labels. Main page can expose current and recently ended events."
   },
   {
+    "name": "Visit Seoul",
+    "type": "official-page-monitor",
+    "owner": "Seoul Tourism Organization",
+    "url": "https://english.visitseoul.net",
+    "coverage": ["Seoul events", "tourism guides", "neighborhood routes", "foreign visitor planning"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Seoul tourism site. Use as a discovery layer for visitor-friendly events, routes, and area guides, then verify individual event links."
+  },
+  {
+    "name": "COEX Event Calendar",
+    "type": "official-listing-monitor",
+    "owner": "COEX",
+    "url": "https://www.coexcenter.com/event-calendar/",
+    "coverage": ["exhibitions", "trade fairs", "fan events", "K-beauty fairs", "conference venue schedules"],
+    "refreshCadence": "daily for Seoul convention and pop-up-heavy seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official venue calendar. COEX is often the venue rather than organizer, so follow the event's official website before publishing visitor guidance."
+  },
+  {
+    "name": "Dongdaemun Design Plaza",
+    "type": "official-listing-monitor",
+    "owner": "Seoul Design Foundation",
+    "url": "https://www.ddp.or.kr",
+    "coverage": ["design exhibitions", "Seoul Fashion Week", "DDP markets", "brand pop-ups", "night light events"],
+    "refreshCadence": "daily during design, fashion, and tourism campaign seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official DDP site. Good for fashion, design, pop-up, and exhibition discovery around Dongdaemun."
+  },
+  {
     "name": "SHOWALA exhibition listing",
     "type": "official-listing-monitor",
     "owner": "SHOWALA",
@@ -198,6 +228,16 @@
     "refreshCadence": "daily; hourly around comebacks and tours",
     "automationStatus": "monitor-and-curate",
     "notes": "Use list pages for discovery and individual official notices for final source links."
+  },
+  {
+    "name": "NOL World Ticket",
+    "type": "curation-root",
+    "owner": "NOL / Interpark ticketing ecosystem",
+    "url": "https://world.nol.com",
+    "coverage": ["global tickets", "K-pop concerts", "fan meetings", "pop-up-linked offers", "foreign visitor activities"],
+    "refreshCadence": "manual queue; hourly around major ticket openings",
+    "automationStatus": "curation-queue",
+    "notes": "Use as a global ticketing discovery source. Publish only individual official ticket or event pages after confirming identity checks, pickup rules, language, and refund terms."
   },
   {
     "name": "YES24 Ticket English",

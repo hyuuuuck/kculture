@@ -118,6 +118,7 @@ let dict = {
     relatedEventsTitle: "Nearby and similar events",
     relatedGuides: "Related guides",
     category: "Category",
+    allCities: "All cities",
     all: "All",
     festival: "Festivals",
     kpop: "K-pop pop-ups",
@@ -436,6 +437,7 @@ dict = {
     relatedEventsTitle: "Nearby and similar events",
     relatedGuides: "Related guides",
     category: "Category",
+    allCities: "All cities",
     all: "All",
     festival: "Festivals",
     kpop: "K-pop pop-ups",
@@ -1599,9 +1601,9 @@ function eventSearchText(event, lang) {
   ].filter(Boolean).join(" ");
 }
 
-function galleryControls(lang, { categories = false } = {}) {
+function galleryControls(lang, { categories = false, cities = false } = {}) {
   return `
-        <div class="gallery-tools" data-gallery-controls data-count-template="${esc(tr(lang, "resultCountTemplate"))}" data-count-one-template="${esc(tr(lang, "resultCountOneTemplate"))}">
+        <div class="gallery-tools${cities ? " has-city-filter" : ""}" data-gallery-controls data-count-template="${esc(tr(lang, "resultCountTemplate"))}" data-count-one-template="${esc(tr(lang, "resultCountOneTemplate"))}">
           <label class="search-field">
             <span>${tr(lang, "searchEvents")}</span>
             <input type="search" data-gallery-search placeholder="${esc(tr(lang, "searchPlaceholder"))}">
@@ -1615,6 +1617,14 @@ function galleryControls(lang, { categories = false } = {}) {
               <option value="ended">${tr(lang, "statusEnded")}</option>
             </select>
           </label>
+          ${cities ? `
+          <label class="select-field">
+            <span>${tr(lang, "location")}</span>
+            <select data-city-filter>
+              <option value="all">${tr(lang, "allCities")}</option>
+              ${citiesWithEvents().map((city) => `<option value="${esc(city)}">${esc(city)}</option>`).join("")}
+            </select>
+          </label>` : ""}
           ${categories ? `
           <div class="filter-bar" data-filters>
             ${filterButton(lang, "all", "all", true)}
@@ -1635,7 +1645,7 @@ function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
   return `
-    <article class="event-card" data-card data-category="${esc(event.category)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
+    <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
       <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
         <span class="badge ${status}">${statusLabel(lang, status)}</span>
@@ -2088,14 +2098,16 @@ function renderCalendar(lang) {
         <p>${tr(lang, "calendarText")}</p>
         <a class="button primary" href="/events.ics">${tr(lang, "downloadCalendar")}</a>
       </section>
-      <section class="calendar-list">
+      <section class="calendar-list calendar-filterable" data-gallery-scope>
+        ${galleryControls(lang, { categories: true, cities: true })}
         ${[...groups.entries()].map(([key, items]) => `
-          <div class="month-block">
+          <div class="month-block" data-filter-group>
             <h2>${monthText(lang, key)}</h2>
             <div class="month-events">
               ${items.map((event) => calendarItem(event, lang)).join("")}
             </div>
           </div>`).join("")}
+        <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
       </section>
     </main>`;
   return layout({
@@ -2114,7 +2126,7 @@ function calendarItem(event, lang) {
   const baseline = weatherInfo.baseline;
   const pack = (baseline.packing || []).slice(0, 2).join(", ");
   return `
-    <a class="calendar-item" href="/${lang}/events/${event.slug}.html">
+    <a class="calendar-item" href="/${lang}/events/${event.slug}.html" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
       <span class="date-pill">${dateText(lang, event.startDate)}<small>${dateText(lang, event.endDate)}</small></span>
       <span>
         <strong>${esc(local(event.title, lang))}</strong>

@@ -294,6 +294,10 @@ img {
   margin: 0 0 18px;
 }
 
+.gallery-tools.has-city-filter {
+  grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, 0.34fr)) auto auto;
+}
+
 .gallery-tools .filter-bar {
   grid-column: 1 / -1;
   justify-content: flex-start;
@@ -498,6 +502,11 @@ img {
   display: none;
 }
 
+.calendar-item.is-hidden,
+.month-block.is-hidden {
+  display: none;
+}
+
 .event-thumb {
   position: relative;
   display: block;
@@ -665,6 +674,10 @@ img {
 .source-table {
   display: grid;
   gap: 18px;
+}
+
+.calendar-filterable .gallery-tools {
+  margin-bottom: 0;
 }
 
 .now-grid {
@@ -1587,6 +1600,10 @@ img {
     grid-template-columns: minmax(0, 1fr) minmax(150px, 0.5fr);
   }
 
+  .gallery-tools.has-city-filter {
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.5fr);
+  }
+
   .clear-filters,
   .result-count {
     justify-content: start;
@@ -1607,6 +1624,7 @@ img {
   .stats-band,
   .gallery-grid,
   .gallery-tools,
+  .gallery-tools.has-city-filter,
   .guide-grid,
   .guide-grid.wide,
   .fact-grid,

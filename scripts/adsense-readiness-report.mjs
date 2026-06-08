@@ -66,6 +66,14 @@ function exists(relativePath) {
   return fssync.existsSync(path.join(root, relativePath));
 }
 
+function readJson(relativePath) {
+  try {
+    return JSON.parse(fssync.readFileSync(path.join(root, relativePath), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 function structuredEventStats() {
   const missing = [];
   let ok = 0;
@@ -258,6 +266,7 @@ function runChecks() {
     "dist/events.ics",
     "dist/feed.xml",
     "dist/latest.json",
+    "dist/source-refresh.json",
     "dist/_headers"
   ];
   for (const file of requiredFiles) {
@@ -276,6 +285,23 @@ function runChecks() {
   const missingPolicy = policyPages.filter((page) => !exists(`dist/en/${page}/index.html`));
   if (!missingPolicy.length) pass("Trust", "English policy/source pages", `${policyPages.length} required pages present`);
   else fail("Trust", "English policy/source pages", `Missing ${missingPolicy.join(", ")}`, "Run build and keep all trust pages available.");
+
+  const publicSourceRefresh = readJson("dist/source-refresh.json");
+  const watchlistHtml = exists("dist/en/watchlist/index.html")
+    ? fssync.readFileSync(path.join(root, "dist", "en", "watchlist", "index.html"), "utf8")
+    : "";
+  if (publicSourceRefresh?.generatedAt && Number(publicSourceRefresh.counts?.auditedSources || 0) >= 20) {
+    pass("Trust", "Public source refresh status", `${publicSourceRefresh.counts.auditedSources} audited sources`);
+  } else if (publicSourceRefresh) {
+    warn("Trust", "Public source refresh status", "present but empty", "Run npm.cmd run source:refresh before a major content push or AdSense application.");
+  } else {
+    fail("Trust", "Public source refresh status", "missing or invalid", "Run npm.cmd run build after a source refresh summary is available.");
+  }
+  if (watchlistHtml.includes("source-refresh-panel") && watchlistHtml.includes("/source-refresh.json")) {
+    pass("Trust", "Watchlist source refresh panel", "present");
+  } else {
+    fail("Trust", "Watchlist source refresh panel", "missing", "Rebuild the site and confirm /en/watchlist/ links to /source-refresh.json.");
+  }
 
   if (publisherId && /^pub-\d{16}$/.test(publisherId)) {
     pass("AdSense", "Publisher ID", publisherId);

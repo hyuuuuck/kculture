@@ -329,6 +329,8 @@ The curation queue is still non-public. It only helps the review board surface o
 - `CONTACT_EMAIL` set before final build
 - Search Console verified through DNS or `GOOGLE_SITE_VERIFICATION`
 - GitHub Actions deploy variables and Cloudflare secrets configured
+- `/source-refresh.json` generated from the latest official-source refresh
+- `/en/watchlist/` shows the latest source refresh panel
 - `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/` working
 - At least 30 verified event, guide, or archive pages
 - No broken images or broken internal links

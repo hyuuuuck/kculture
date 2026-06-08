@@ -10,6 +10,7 @@ const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLO
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
+const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"), "utf8"));
 const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
@@ -42,6 +43,14 @@ function fail(message) {
 
 function warn(message) {
   warnings.push(message);
+}
+
+function readJsonIfExists(file) {
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    return null;
+  }
 }
 
 try {
@@ -83,6 +92,14 @@ const dist = path.resolve("dist");
 const distIndex = path.join(dist, "index.html");
 if (!fs.existsSync(distIndex)) {
   fail("dist/index.html is missing. Run npm run build first.");
+}
+
+const sourceRefreshFile = path.join(dist, "source-refresh.json");
+const sourceRefresh = readJsonIfExists(sourceRefreshFile);
+if (!sourceRefresh) {
+  fail("dist/source-refresh.json is missing or invalid. Run npm run build after a source refresh summary exists.");
+} else if (!sourceRefresh.generatedAt || Number(sourceRefresh.counts?.auditedSources || 0) < Math.min(20, sources.length)) {
+  warn("dist/source-refresh.json exists but does not contain a useful latest source refresh summary. Run npm run source:refresh before an AdSense application.");
 }
 
 if (publisherId) {

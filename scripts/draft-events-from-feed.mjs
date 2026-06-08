@@ -87,6 +87,10 @@ function hasAny(text, needles) {
   return needles.some((needle) => text.includes(needle));
 }
 
+function normalizedComparableText(value) {
+  return cleanText(value).toLowerCase().replace(/[–—]/g, "-").replace(/\s+/g, " ");
+}
+
 function inferCategory(candidate) {
   if (candidate.leadKind !== "discovered-link" && categories.has(candidate.queueCategory)) return candidate.queueCategory;
   const keywordText = candidate.leadKind === "discovered-link" ? "" : (candidate.keywordHits || []).join(" ");
@@ -94,7 +98,7 @@ function inferCategory(candidate) {
   if (hasAny(text, ["olive young", "beauty", "cosmetic"])) return "beauty";
   if (hasAny(text, ["duty free", "dfs", "免税"])) return "duty-free";
   if (hasAny(text, ["department store", "hyundai", "shinsegae group", "lotte department"])) return "department-store";
-  if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
+  if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "birthday cafe", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
   if (hasAny(text, ["ticket", "yes24", "melon ticket", "nol world", "concert", "live concert", "tour", "music", "festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
   if (hasAny(text, ["benefit", "travel", "tourism", "korea grand sale"])) return "travel-benefits";
   return "shopping";
@@ -113,10 +117,24 @@ function thumbnailFor(category) {
 }
 
 function inferRegion(candidate) {
-  const text = `${candidate.sourceName} ${candidate.pageTitle || ""} ${(candidate.snippets || []).join(" ")}`.toLowerCase();
-  if (text.includes("busan")) return { city: "Busan", weatherRegion: "Busan" };
-  if (hasAny(text, ["seoul", "myeongdong", "yongsan", "gangnam", "hongdae", "shilla", "shinsegae", "lotte", "olive young", "weverse"])) {
-    return { city: "Seoul", weatherRegion: "Seoul" };
+  const titleText = `${candidate.pageTitle || ""} ${candidate.linkText || ""}`.toLowerCase();
+  const fullText = `${titleText} ${candidate.sourceName} ${(candidate.snippets || []).join(" ")}`.toLowerCase();
+  const regionRules = [
+    { city: "Busan", weatherRegion: "Busan", needles: ["busan", "haeundae", "gwangalli", "centum", "dadaepo"] },
+    { city: "Seoul", weatherRegion: "Seoul", needles: ["seoul", "myeongdong", "yongsan", "gangnam", "hongdae", "hongik", "seongsu", "ddp", "coex", "jamsil"] },
+    { city: "Incheon", weatherRegion: "Nationwide", needles: ["incheon", "songdo"] },
+    { city: "Goyang", weatherRegion: "Nationwide", needles: ["goyang"] },
+    { city: "Daegu", weatherRegion: "Nationwide", needles: ["daegu"] },
+    { city: "Jeju", weatherRegion: "Nationwide", needles: ["jeju"] },
+    { city: "Gwangju", weatherRegion: "Nationwide", needles: ["gwangju"] },
+    { city: "Daejeon", weatherRegion: "Nationwide", needles: ["daejeon"] },
+    { city: "Jeonju", weatherRegion: "Nationwide", needles: ["jeonju"] },
+    { city: "Gyeongju", weatherRegion: "Nationwide", needles: ["gyeongju"] }
+  ];
+  for (const corpus of [titleText, fullText]) {
+    for (const rule of regionRules) {
+      if (hasAny(corpus, rule.needles)) return { city: rule.city, weatherRegion: rule.weatherRegion };
+    }
   }
   return { city: "Nationwide", weatherRegion: "Nationwide" };
 }
@@ -130,7 +148,8 @@ function addDays(dateString, days) {
 function dateRange(candidate) {
   const earliest = addDays(today, -365);
   const latest = addDays(today, 365);
-  const dates = (candidate.dateSignals || [])
+  const signals = candidateDateSignals(candidate);
+  const dates = signals
     .map((signal) => signal.date)
     .filter(Boolean)
     .filter((date) => date >= earliest && date <= latest)
@@ -142,6 +161,17 @@ function dateRange(candidate) {
     endDate: dates.at(-1),
     dateLabel: `Current-window candidate dates detected on official page: ${[...new Set(dates)].slice(0, 6).join(", ")}`
   };
+}
+
+function candidateDateSignals(candidate) {
+  const signals = candidate.dateSignals || [];
+  if (candidate.leadKind !== "discovered-link") return signals;
+  const titleText = normalizedComparableText(`${candidate.pageTitle || ""} ${candidate.linkText || ""}`);
+  const titleSignals = signals.filter((signal) => {
+    const raw = normalizedComparableText(signal.raw || "");
+    return raw && titleText.includes(raw);
+  });
+  return titleSignals.length ? titleSignals : signals;
 }
 
 function draftPriority(candidate, category) {
@@ -175,6 +205,16 @@ function textQuality(candidate, title) {
   ].filter(Boolean);
   if (fields.some(hasMojibake)) return "mojibake text detected";
   if (mostlyNumericOrPunctuation(title)) return "title is too generic or numeric";
+  const titleText = normalizedComparableText(title);
+  const url = normalizedComparableText(candidate.finalUrl || candidate.url || "");
+  const queueLabel = normalizedComparableText(candidate.queueLabel || "");
+  if (hasAny(titleText, ["top picks", "all products", "ticket watch", "reservation root", "official social intake"])) {
+    return "listing page is not a specific event";
+  }
+  if (url.includes("/categories/all/products")) return "listing page is not a specific event";
+  if (candidate.leadKind === "source-page" && hasAny(queueLabel, ["watch", "root", "intake"])) {
+    return "curation root is not a specific event";
+  }
   return "";
 }
 

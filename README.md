@@ -263,6 +263,7 @@ The source registry is set up to watch official sources for:
 - Department store shopping news: Lotte Department Store, Hyundai Department Store, and Shinsegae official press updates
 - Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, and culture-related public sources
 - Seoul visitor event discovery through Visit Seoul, Seoul city notices, DDP, COEX, and Seoul Grand Park
+- Busan visitor event discovery through Busan Metropolitan City event pages, English news, and Visit Busan fallbacks
 - K-pop pop-ups and merch reservations through Weverse and official artist/company channels
 - K-pop ticketing and fan meeting discovery through NOL World, YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
 

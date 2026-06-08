@@ -104,6 +104,20 @@
     "notes": "Official Seoul tourism site. Use as a discovery layer for visitor-friendly events, routes, and area guides, then verify individual event links."
   },
   {
+    "name": "Busan Metropolitan City Events and English News",
+    "type": "official-page-monitor",
+    "owner": "Busan Metropolitan City",
+    "url": "https://www.busan.go.kr/eng/bsevents",
+    "alternateUrls": [
+      "https://www.busan.go.kr/bige/enjoy-busan",
+      "https://www.visitbusan.net"
+    ],
+    "coverage": ["Busan festivals", "city events", "English visitor news", "tourism programs"],
+    "refreshCadence": "daily during Busan festival seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Busan city event and English news pages. Use individual event pages for dates, venue, and visitor notes; cross-check ticket links when registration is external."
+  },
+  {
     "name": "COEX Event Calendar",
     "type": "official-listing-monitor",
     "owner": "COEX",

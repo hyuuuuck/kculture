@@ -118,6 +118,39 @@ function manualAdSlotStats(slotId) {
   };
 }
 
+function recognizedImage(file) {
+  try {
+    const buffer = fssync.readFileSync(file);
+    return (
+      (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) ||
+      (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) ||
+      (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP")
+    );
+  } catch {
+    return false;
+  }
+}
+
+function thumbnailStats() {
+  const missing = [];
+  const invalid = [];
+  for (const event of events) {
+    if (!event.thumbnail) {
+      missing.push(event.slug);
+      continue;
+    }
+    const file = path.join(root, event.thumbnail);
+    if (!fssync.existsSync(file)) missing.push(event.slug);
+    else if (!recognizedImage(file)) invalid.push(event.slug);
+  }
+  return {
+    expected: events.length,
+    ok: events.length - missing.length - invalid.length,
+    missing,
+    invalid
+  };
+}
+
 function sourceHaystack(source) {
   return [
     source.name,
@@ -259,6 +292,13 @@ function runChecks() {
 
   if (guides.length >= 10) pass("Content", "Evergreen guides", `${guides.length} guides`);
   else fail("Content", "Evergreen guides", `${guides.length} guides`, "Add at least 10 useful visitor guides.");
+
+  const thumbnails = thumbnailStats();
+  if (thumbnails.ok === thumbnails.expected) {
+    pass("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`);
+  } else {
+    fail("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`, `Run npm.cmd run validate:images and fix ${[...thumbnails.missing, ...thumbnails.invalid].slice(0, 4).join(", ")}.`);
+  }
 
   const officialEvents = events.filter((event) => /^official/.test(event.verification || "")).length;
   if (officialEvents === events.length) pass("Trust", "Official verification labels", `${officialEvents}/${events.length} events`);

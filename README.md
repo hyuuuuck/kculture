@@ -29,6 +29,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-source-coverage.mjs`: verifies required official-source buckets for tourism, government, OLIVE YOUNG, duty-free, department stores, K-pop, ticketing, shopping campaigns, and weather
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
+- `scripts/validate-images.mjs`: checks event thumbnails, generated image assets, image signatures, minimum dimensions, and non-decorative image alt text
 - `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks

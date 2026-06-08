@@ -27,8 +27,8 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
-- `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from page-level and link-level candidates
-- `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts
+- `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
+- `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts, including skipped-candidate reason counts
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
@@ -178,6 +178,8 @@ npm.cmd run review:feed
 ```powershell
 npm.cmd run draft:events
 ```
+
+Draft generation intentionally skips already published URLs, failed source fetches, expired candidate windows, and candidates with broken text encoding. The skipped reasons are saved with the draft feed so the editor can audit what was filtered out.
 
 6. Build a private gallery-style review board:
 

@@ -126,10 +126,22 @@ if (!draftFile) {
 
 const payload = JSON.parse(await fs.readFile(draftFile, "utf8"));
 const drafts = payload.drafts || [];
+const skipped = payload.skipped || [];
 const categories = [...new Set(drafts.map((draft) => draft.category))].sort();
 const cards = [];
 for (let index = 0; index < drafts.length; index += 1) {
   cards.push(await card(drafts[index], index));
+}
+
+function skippedSummaryRows() {
+  const counts = skipped.reduce((acc, item) => {
+    acc[item.reason] = (acc[item.reason] || 0) + 1;
+    return acc;
+  }, {});
+  const rows = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([reason, count]) => `<div><dt>${esc(reason)}</dt><dd>${esc(count)}</dd></div>`);
+  return rows.length ? rows.join("") : "<p class=\"muted\">No skipped candidates recorded.</p>";
 }
 
 const html = `<!doctype html>
@@ -203,7 +215,7 @@ const html = `<!doctype html>
     }
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -215,6 +227,33 @@ const html = `<!doctype html>
     }
     .stat strong { display: block; font-size: 1.5rem; }
     .stat span { color: var(--muted); font-size: 0.86rem; }
+    .skip-summary {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff8ea;
+    }
+    .skip-summary h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    .skip-summary dl {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0;
+    }
+    .skip-summary dl div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      background: white;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -320,7 +359,7 @@ const html = `<!doctype html>
     }
     .toast.show { opacity: 1; transform: translateY(0); }
     @media (max-width: 980px) {
-      .grid, .stats { grid-template-columns: 1fr; }
+      .grid, .stats, .skip-summary dl { grid-template-columns: 1fr; }
       .card { grid-template-columns: 1fr; }
       .thumb img { aspect-ratio: 16 / 8; min-height: 0; }
     }
@@ -339,9 +378,14 @@ const html = `<!doctype html>
   <main>
     <section class="stats" aria-label="Review stats">
       <div class="stat"><strong>${esc(drafts.length)}</strong><span>drafts</span></div>
+      <div class="stat"><strong>${esc(skipped.length)}</strong><span>skipped</span></div>
       <div class="stat"><strong>${esc(categories.length)}</strong><span>categories</span></div>
       <div class="stat"><strong>${esc(payload.sourceFeed)}</strong><span>source feed</span></div>
       <div class="stat"><strong>${esc(new Date(payload.generatedAt).toISOString().slice(0, 10))}</strong><span>generated</span></div>
+    </section>
+    <section class="skip-summary" aria-label="Skipped candidate summary">
+      <h2>Skipped candidate reasons</h2>
+      <dl>${skippedSummaryRows()}</dl>
     </section>
     <section id="grid" class="grid">
       ${cards.join("")}

@@ -13,6 +13,7 @@ const existingSlugs = new Set(events.map((event) => event.slug));
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const existingSourceUrls = new Set(events.map((event) => normalizeUrl(event.sourceUrl)).filter(Boolean));
 const draftedSourceUrls = new Set();
+const skippedDrafts = [];
 
 async function latestFeedFile() {
   const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);
@@ -28,6 +29,28 @@ function cleanText(value) {
     .replace(/\s+/g, " ")
     .replace(/[\u0000-\u001F\u007F]/g, "")
     .trim();
+}
+
+function hasMojibake(value) {
+  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}|(?:[?][\u3131-\uD79D])|(?:[\u3131-\uD79D][?])/.test(String(value || ""));
+}
+
+function mostlyNumericOrPunctuation(value) {
+  const text = cleanText(value);
+  if (!text) return true;
+  const letters = [...text].filter((char) => /[A-Za-z\u3131-\uD79D\u3400-\u9fff]/u.test(char)).length;
+  return letters < Math.max(3, Math.floor(text.length * 0.16));
+}
+
+function skipDraft(candidate, reason) {
+  skippedDrafts.push({
+    reason,
+    sourceName: candidate.sourceName,
+    leadKind: candidate.leadKind,
+    url: candidate.finalUrl || candidate.url,
+    pageTitle: shortLabel(candidate.pageTitle || candidate.linkText || "", 140)
+  });
+  return null;
 }
 
 function normalizeUrl(value) {
@@ -72,7 +95,7 @@ function inferCategory(candidate) {
   if (hasAny(text, ["duty free", "dfs", "免税"])) return "duty-free";
   if (hasAny(text, ["department store", "hyundai", "shinsegae group", "lotte department"])) return "department-store";
   if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
-  if (hasAny(text, ["festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
+  if (hasAny(text, ["ticket", "yes24", "melon ticket", "nol world", "concert", "live concert", "tour", "music", "festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
   if (hasAny(text, ["benefit", "travel", "tourism", "korea grand sale"])) return "travel-benefits";
   return "shopping";
 }
@@ -113,6 +136,7 @@ function dateRange(candidate) {
     .filter((date) => date >= earliest && date <= latest)
     .sort();
   if (!dates.length) return null;
+  if (dates.at(-1) < today) return null;
   return {
     startDate: dates[0],
     endDate: dates.at(-1),
@@ -142,6 +166,18 @@ function titleFor(candidate) {
   return `${source} official event candidate`;
 }
 
+function textQuality(candidate, title) {
+  const fields = [
+    title,
+    candidate.pageTitle,
+    candidate.linkText,
+    ...(candidate.snippets || []).slice(0, 2)
+  ].filter(Boolean);
+  if (fields.some(hasMojibake)) return "mojibake text detected";
+  if (mostlyNumericOrPunctuation(title)) return "title is too generic or numeric";
+  return "";
+}
+
 function shortLabel(value, max = 120) {
   const text = cleanText(value);
   if (text.length <= max) return text;
@@ -169,15 +205,19 @@ function expandCandidate(candidate) {
 
 function draftFor(candidate) {
   const dates = dateRange(candidate);
-  if (!candidate.ok || !dates) return null;
+  if (!candidate.ok) return skipDraft(candidate, "source fetch did not succeed");
+  if (!dates) return skipDraft(candidate, "no current or upcoming date range");
 
   const category = inferCategory(candidate);
   const region = inferRegion(candidate);
   const title = titleFor(candidate);
+  const qualityIssue = textQuality(candidate, title);
+  if (qualityIssue) return skipDraft(candidate, qualityIssue);
   const slug = uniqueSlug(`${slugify(title)}-${dates.startDate.slice(0, 7)}`);
   const sourceUrl = candidate.finalUrl || candidate.url;
   const normalizedSourceUrl = normalizeUrl(sourceUrl);
-  if (existingSourceUrls.has(normalizedSourceUrl) || draftedSourceUrls.has(normalizedSourceUrl)) return null;
+  if (existingSourceUrls.has(normalizedSourceUrl)) return skipDraft(candidate, "already published source URL");
+  if (draftedSourceUrls.has(normalizedSourceUrl)) return skipDraft(candidate, "duplicate draft source URL");
   draftedSourceUrls.add(normalizedSourceUrl);
   const keywordText = (candidate.keywordHits || []).slice(0, 6).join(", ") || "official listing";
 
@@ -257,6 +297,8 @@ const payload = {
   sourceFeed: path.basename(feedFile),
   policy: "Drafts are not public content. Review and rewrite before copying selected items into data/events.json.",
   count: drafts.length,
+  skippedCount: skippedDrafts.length,
+  skipped: skippedDrafts,
   drafts
 };
 
@@ -272,6 +314,12 @@ Generated: ${payload.generatedAt}
 Source feed: ${payload.sourceFeed}
 
 These drafts are not public content. Verify the official page, rewrite the summary, and then copy approved items into \`data/events.json\`.
+
+## Skipped Candidates
+
+Skipped: ${skippedDrafts.length}
+
+${skippedDrafts.slice(0, 40).map((item, index) => `- ${index + 1}. ${item.reason} | ${item.sourceName} | ${item.pageTitle || item.url}`).join("\n") || "- None"}
 
 ${drafts.map((draft, index) => `## ${index + 1}. ${draft.title.en}
 
@@ -296,5 +344,6 @@ console.table(drafts.map((draft) => ({
   source: draft.sourceName,
   slug: draft.slug
 })));
+console.log(`Skipped draft candidates: ${skippedDrafts.length}`);
 console.log(`Saved draft events: ${jsonOut}`);
 console.log(`Saved draft report: ${mdOut}`);

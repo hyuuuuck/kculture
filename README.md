@@ -97,6 +97,7 @@ Use GitHub plus Cloudflare Pages.
 - Build output directory: `dist`
 - Root directory: this project root
 - Pages project name: `korea-now-guide` by default, or set `CLOUDFLARE_PAGES_PROJECT_NAME`
+- Use the Cloudflare `pages.dev` URL only for preview. For AdSense review, connect a custom domain and set `SITE_URL` to that custom `https://` domain.
 
 Before production build, set:
 
@@ -119,6 +120,8 @@ npm.cmd run build
 npm.cmd run validate:production
 npm.cmd run report:adsense
 ```
+
+`validate:production` fails on common platform preview subdomains such as `pages.dev`, `netlify.app`, `vercel.app`, and `github.io` so the AdSense launch path stays focused on a real custom domain. For a non-AdSense preview deploy only, set `ALLOW_PLATFORM_SUBDOMAIN=1`.
 
 Manual Wrangler deploy after the production preflight:
 

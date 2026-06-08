@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
+const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
 const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
@@ -14,6 +15,8 @@ const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"),
 const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
+const languages = ["en", "es", "zh", "pt", "ru"];
+const requiredPolicyPages = ["about", "contact", "privacy", "terms", "editorial-policy", "sources", "freshness", "watchlist"];
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();
@@ -53,10 +56,37 @@ function readJsonIfExists(file) {
   }
 }
 
+function readTextIfExists(file) {
+  try {
+    return fs.readFileSync(file, "utf8");
+  } catch {
+    return "";
+  }
+}
+
+function requireFile(relativePath) {
+  const file = path.join(dist, relativePath);
+  if (!fs.existsSync(file)) fail(`dist/${relativePath} is missing. Run npm run build first.`);
+  return file;
+}
+
+function collectFiles(dir, predicate, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) collectFiles(file, predicate, out);
+    else if (predicate(file)) out.push(file);
+  }
+  return out;
+}
+
 try {
   const parsed = new URL(siteUrl);
   if (parsed.protocol !== "https:") fail("SITE_URL must use https.");
   if (["example.com", "your-domain.com", "localhost", "127.0.0.1"].includes(parsed.hostname)) fail("SITE_URL must be the real production domain.");
+  if (!allowPlatformSubdomain && /\.(pages\.dev|netlify\.app|vercel\.app|github\.io)$/i.test(parsed.hostname)) {
+    fail("SITE_URL should be a custom domain for AdSense review, not a platform preview subdomain. Set ALLOW_PLATFORM_SUBDOMAIN=1 only for non-AdSense preview deploys.");
+  }
 } catch {
   fail("SITE_URL must be set to the real production URL, for example https://example.kr.");
 }
@@ -92,6 +122,77 @@ const dist = path.resolve("dist");
 const distIndex = path.join(dist, "index.html");
 if (!fs.existsSync(distIndex)) {
   fail("dist/index.html is missing. Run npm run build first.");
+}
+
+for (const required of [
+  "index.html",
+  "sitemap.xml",
+  "robots.txt",
+  "events.ics",
+  "feed.xml",
+  "latest.json",
+  "source-refresh.json",
+  "_headers"
+]) {
+  requireFile(required);
+}
+
+for (const lang of languages) {
+  for (const page of requiredPolicyPages) {
+    requireFile(path.join(lang, page, "index.html"));
+  }
+}
+
+const keyFiles = [
+  distIndex,
+  path.join(dist, "robots.txt"),
+  path.join(dist, "sitemap.xml"),
+  path.join(dist, "feed.xml"),
+  path.join(dist, "latest.json"),
+  path.join(dist, "source-refresh.json")
+];
+for (const lang of languages) {
+  for (const page of ["contact", "privacy", "about", "terms"]) {
+    keyFiles.push(path.join(dist, lang, page, "index.html"));
+  }
+}
+
+for (const file of keyFiles) {
+  const text = readTextIfExists(file);
+  if (text.includes("https://example.com") || text.includes("your-domain.com")) {
+    fail(`${path.relative(dist, file)} still contains a placeholder domain. Rebuild with SITE_URL set.`);
+  }
+  if (text.includes("hello@example.com")) {
+    fail(`${path.relative(dist, file)} still contains the placeholder contact email. Rebuild with CONTACT_EMAIL set.`);
+  }
+  if (/should be updated|TODO|lorem ipsum/i.test(text)) {
+    fail(`${path.relative(dist, file)} contains unfinished placeholder copy.`);
+  }
+}
+
+const generatedHtmlFiles = collectFiles(dist, (file) => file.endsWith(".html"));
+for (const file of generatedHtmlFiles) {
+  const text = readTextIfExists(file);
+  if (/<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(text)) {
+    fail(`${path.relative(dist, file)} contains a noindex robots meta tag.`);
+  }
+}
+
+const robotsText = readTextIfExists(path.join(dist, "robots.txt"));
+if (siteUrl && !robotsText.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) {
+  fail("dist/robots.txt must point to the production sitemap URL.");
+}
+
+const sitemapText = readTextIfExists(path.join(dist, "sitemap.xml"));
+if (siteUrl && !sitemapText.includes(`<loc>${siteUrl}/`)) {
+  fail("dist/sitemap.xml does not contain production SITE_URL loc entries.");
+}
+
+if (fs.existsSync(distIndex)) {
+  const home = readTextIfExists(distIndex);
+  if (siteUrl && !home.includes(`<link rel="canonical" href="${siteUrl}/">`)) {
+    fail("dist/index.html does not contain the production canonical URL.");
+  }
 }
 
 const sourceRefreshFile = path.join(dist, "source-refresh.json");

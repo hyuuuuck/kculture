@@ -2670,7 +2670,7 @@ function staticPage(lang, kind) {
     privacy: [
       "This static site does not require user accounts. Basic hosting logs may be processed by the hosting provider.",
       "If Google AdSense is enabled later, Google and its partners may use cookies or similar technologies to serve and measure ads.",
-      "Visitors can manage cookies in their browser settings. This policy should be updated with the real domain, publisher ID, and consent tool before monetization."
+      "Visitors can manage cookies in their browser settings. This policy is reviewed when advertising tools, consent requirements, or data-processing partners change."
     ],
     terms: [
       "Information is provided for travel planning and may change without notice.",

@@ -27,6 +27,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from the latest candidate feed
 - `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts
+- `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
 - `scripts/source-audit.mjs`: checks source URL availability
@@ -155,11 +156,25 @@ npm.cmd run import:weather
 
 8. Open `data/feeds/review-board-YYYY-MM-DD.html`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
 
-9. Validate, build, and deploy:
+9. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
+
+```powershell
+npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
+```
+
+10. If the dry run passes, write the reviewed events into public data:
+
+```powershell
+npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write
+```
+
+11. Validate, build, and deploy:
 
 ```powershell
 npm.cmd run verify
 ```
+
+The publisher rejects draft placeholders such as `draft-needs-review`, `Needs editor review`, generic draft summaries, review-only fields, duplicate slugs, unknown sources, invalid dates, and missing visitor value.
 
 ## Latest Event Coverage
 

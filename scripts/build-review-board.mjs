@@ -99,7 +99,7 @@ async function card(draft, index) {
           <div class="snippets">${evidenceText(draft)}</div>
         </details>
         <div class="actions">
-          <button type="button" data-copy="merge-${index}">Copy reviewed-event JSON</button>
+          <button type="button" data-copy="merge-${index}">Copy event starter JSON</button>
           <button type="button" data-copy="draft-${index}">Copy full draft JSON</button>
           <a href="${esc(draft.sourceUrl)}" target="_blank" rel="noreferrer">Open official source</a>
         </div>

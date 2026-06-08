@@ -9,6 +9,7 @@ const today = todayString();
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 
 const timeoutMs = Number(process.env.SOURCE_TIMEOUT_MS || 8000);
+const concurrency = Math.max(1, Number(process.env.SOURCE_CONCURRENCY || 6));
 const userAgent = process.env.SOURCE_USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 KoreaNowGuide/0.1";
 const strict = process.env.SOURCE_AUDIT_STRICT === "1";
 const feedDir = path.join(root, "data", "feeds");
@@ -34,11 +35,14 @@ async function checkUrl(url) {
         "user-agent": userAgent
       }
     });
+    await response.body?.cancel();
+    const apiKeyRequired = response.status === 401 && /\/\/apis\.data\.go\.kr\//.test(response.url);
     return {
       requestedUrl: url,
       finalUrl: response.url,
       status: response.status,
-      ok: response.ok
+      ok: response.ok || apiKeyRequired,
+      apiKeyRequired
     };
   } catch (error) {
     return {
@@ -74,14 +78,30 @@ async function check(source) {
     status: successful?.status || primary?.status || "ERR",
     ok: Boolean(successful),
     fallbackUsed,
+    apiKeyRequired: Boolean(successful?.apiKeyRequired),
     attempts,
     error: successful ? "" : attempts.map((attempt) => attempt.error).filter(Boolean).at(-1) || ""
   };
 }
 
+async function mapLimit(items, limit, mapper) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (nextIndex < items.length) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 function markdownReport(results) {
   const failed = results.filter((item) => !item.ok);
   const fallback = results.filter((item) => item.fallbackUsed);
+  const apiKeyRequired = results.filter((item) => item.apiKeyRequired);
   const ok = results.filter((item) => item.ok);
   const lines = [
     "# Source Audit Report",
@@ -92,6 +112,7 @@ function markdownReport(results) {
     "",
     `- OK: ${ok.length}`,
     `- OK through fallback URL: ${fallback.length}`,
+    `- API endpoints requiring keys but reachable: ${apiKeyRequired.length}`,
     `- Needs review: ${failed.length}`,
     "",
     "## Needs Review",
@@ -126,17 +147,14 @@ function markdownReport(results) {
 
   lines.push("## Full Results", "");
   for (const item of results) {
-    lines.push(`- ${item.ok ? "OK" : "CHECK"} ${item.name} (${item.status}) ${item.fallbackUsed ? "[fallback]" : ""}`);
+    lines.push(`- ${item.ok ? "OK" : "CHECK"} ${item.name} (${item.status}) ${item.fallbackUsed ? "[fallback]" : ""}${item.apiKeyRequired ? " [api-key-required]" : ""}`);
     lines.push(`  - Active URL: ${item.activeUrl}`);
   }
 
   return `${lines.join("\n")}\n`;
 }
 
-const results = [];
-for (const source of sources) {
-  results.push(await check(source));
-}
+const results = await mapLimit(sources, concurrency, check);
 
 await fs.mkdir(feedDir, { recursive: true });
 const jsonOut = path.join(feedDir, `source-audit-${today}.json`);
@@ -147,6 +165,7 @@ await fs.writeFile(mdOut, markdownReport(results), "utf8");
 console.table(results.map((item) => ({
   ok: item.ok,
   fallback: item.fallbackUsed,
+  apiKey: item.apiKeyRequired,
   status: item.status,
   type: item.type,
   name: item.name,

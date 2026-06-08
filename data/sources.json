@@ -68,6 +68,9 @@
     "type": "official-api",
     "owner": "Korea Meteorological Administration",
     "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
+    "alternateUrls": [
+      "https://www.data.go.kr/data/15059093/openapi.do"
+    ],
     "coverage": ["previous-year daily weather", "temperature", "precipitation", "humidity"],
     "refreshCadence": "daily for upcoming event windows",
     "automationStatus": "planned-api",
@@ -116,6 +119,48 @@
     "refreshCadence": "daily during Busan festival seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Busan city event and English news pages. Use individual event pages for dates, venue, and visitor notes; cross-check ticket links when registration is external."
+  },
+  {
+    "name": "Visit Jeju Festival Calendar",
+    "type": "official-page-monitor",
+    "owner": "Jeju Tourism Organization",
+    "url": "https://www.visitjeju.net/en/festival/list?cate1cd=cate0000001360&menuId=DOM_000001718007000000",
+    "alternateUrls": [
+      "https://www.visitjeju.net/en",
+      "https://www.visitjeju.net/en/themtour"
+    ],
+    "coverage": ["Jeju monthly festivals", "island events", "tourism programs", "visitor-friendly festival listings"],
+    "refreshCadence": "daily for current and next-month festival windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Jeju Tourism Organization festival list. Verify individual festival pages for exact dates, venue, transport, and weather-sensitive island notes before publishing."
+  },
+  {
+    "name": "Incheon Tourism Organization Festival Programs",
+    "type": "official-page-monitor",
+    "owner": "Incheon Tourism Organization",
+    "url": "https://www.ito.or.kr/foreign/english/main/sub/business1_3.jsp",
+    "alternateUrls": [
+      "https://www.ito.or.kr/main",
+      "https://www.incheon.go.kr/en/EN020401"
+    ],
+    "coverage": ["Incheon festivals", "Pentaport", "INK Concert", "open-port night events", "regional tourism programs"],
+    "refreshCadence": "weekly; daily around Incheon music and open-port festival seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Incheon tourism organization page for signature festivals and tourism programs. Use city news or event websites as final source links when available."
+  },
+  {
+    "name": "Daegu Tourist Information Festival Schedule",
+    "type": "official-page-monitor",
+    "owner": "Daegu Metropolitan City",
+    "url": "https://tour.daegu.go.kr/index.do?menu_id=00002932",
+    "alternateUrls": [
+      "https://daegu.go.kr/cts/index.do",
+      "https://www.buk.daegu.kr/eng/index.do?menu_id=00004291"
+    ],
+    "coverage": ["Daegu annual festivals", "food festivals", "culture events", "district tourism programs"],
+    "refreshCadence": "weekly; daily near major Daegu festival months",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Daegu tourism festival schedule. District pages can provide stronger details for specific events such as food, music, or neighborhood festivals."
   },
   {
     "name": "COEX Event Calendar",
@@ -243,6 +288,33 @@
     "notes": "Official press feed for Shinsegae Department Store, Shinsegae Duty Free, outlets, pop-ups, and foreign visitor promotions."
   },
   {
+    "name": "Galleria Department Store",
+    "type": "official-page-monitor",
+    "owner": "Hanwha Galleria",
+    "url": "https://dept.galleria.co.kr/en",
+    "alternateUrls": [
+      "https://dept.galleria.co.kr/",
+      "https://m.galleria.co.kr/store-info/luxuryhall/promotion/e-dm"
+    ],
+    "coverage": ["luxury department store events", "foreign visitor benefits", "branch e-DM", "tax refund guidance", "brand pop-ups"],
+    "refreshCadence": "daily for Seoul luxury shopping and foreign visitor campaign periods",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Galleria department store site. English pages are good for service basics; Korean branch e-DM and event pages may reveal current pop-ups earlier."
+  },
+  {
+    "name": "AK Plaza Events",
+    "type": "official-page-monitor",
+    "owner": "AK Plaza",
+    "url": "https://www.akplaza.com/",
+    "alternateUrls": [
+      "https://www.akplaza.com/main"
+    ],
+    "coverage": ["department store events", "shopping news", "gifts and promotions", "Hongdae and regional mall pop-ups"],
+    "refreshCadence": "daily for Hongdae, Suwon, Bundang, and seasonal campaign windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official AK Plaza site. Useful for Hongdae and regional shopping events, but Korean-only event details need original visitor-focused rewriting."
+  },
+  {
     "name": "Weverse Shop Notices",
     "type": "curation-root",
     "owner": "Weverse Company",
@@ -261,6 +333,46 @@
     "refreshCadence": "daily; hourly around comebacks and tours",
     "automationStatus": "monitor-and-curate",
     "notes": "Use list pages for discovery and individual official notices for final source links."
+  },
+  {
+    "name": "FANS Shop Notices",
+    "type": "curation-root",
+    "owner": "FANS / JYP commerce ecosystem",
+    "url": "https://app.fans/shop/i/notice/525omt8rct",
+    "alternateUrls": [
+      "https://app.fans/shop",
+      "https://www.jype.com/Board?PgIndex=0&gubun=notice"
+    ],
+    "coverage": ["JYP official merch", "FANS shop notices", "restock schedules", "sales windows", "fanclub-linked commerce"],
+    "refreshCadence": "daily; hourly around JYP artist comeback, concert, and fan-meeting merch windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "FANS replaced JYP SHOP for current JYP commerce. Verify app-only rules, shipping country, purchase limits, and official JYP notice links before publishing."
+  },
+  {
+    "name": "SMTOWN andSTORE Notices",
+    "type": "curation-root",
+    "owner": "SM Brand Marketing",
+    "url": "https://www.smtownandstore.com/board/index.html",
+    "alternateUrls": [
+      "https://www.smtownandstore.com/"
+    ],
+    "coverage": ["SM artist official merch", "SMTOWN store notices", "fanclub goods", "event-limited merchandise", "online store events"],
+    "refreshCadence": "daily; hourly around SM artist concerts, fan meetings, and anniversary campaigns",
+    "automationStatus": "curation-queue",
+    "notes": "Use the official store notice board and individual product/event pages. Confirm whether a campaign is online-only, Korea-only, or linked to a physical pop-up."
+  },
+  {
+    "name": "YG SELECT Notices",
+    "type": "curation-root",
+    "owner": "YG PLUS",
+    "url": "https://www.ygselect.com/board/index.html",
+    "alternateUrls": [
+      "https://www.ygselect.com/"
+    ],
+    "coverage": ["YG official merch", "BLACKPINK and YG artist pop-ups", "album merchandise", "store events", "fan commerce notices"],
+    "refreshCadence": "daily; hourly around YG artist comeback, tour, and pop-up periods",
+    "automationStatus": "curation-queue",
+    "notes": "Use YG SELECT as the official commerce source for YG artist merchandise and pop-up-linked offers. Avoid reposts and verify venue, stock, and purchase limits."
   },
   {
     "name": "NOL World Ticket",

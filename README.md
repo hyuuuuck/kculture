@@ -260,11 +260,11 @@ The source registry is set up to watch official sources for:
 
 - Korea duty-free offers: Lotte, Shilla, Shinsegae, and campaign pages
 - OLIVE YOUNG Global beauty sales, coupons, gifts, and country eligibility notes
-- Department store shopping news: Lotte Department Store, Hyundai Department Store, and Shinsegae official press updates
-- Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, and culture-related public sources
+- Department store shopping news: Lotte Department Store, Hyundai Department Store, Shinsegae official press updates, Galleria, and AK Plaza
+- Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, Jeju, Incheon, Daegu, and culture-related public sources
 - Seoul visitor event discovery through Visit Seoul, Seoul city notices, DDP, COEX, and Seoul Grand Park
 - Busan visitor event discovery through Busan Metropolitan City event pages, English news, and Visit Busan fallbacks
-- K-pop pop-ups and merch reservations through Weverse and official artist/company channels
+- K-pop pop-ups and merch reservations through Weverse, FANS Shop, SMTOWN &STORE, YG SELECT, and official artist/company channels
 - K-pop ticketing and fan meeting discovery through NOL World, YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
 
 The collector now stores discovered same-site official links in each candidate feed. This is useful for listing-heavy sources such as NOL World, YES24, DDP, OLIVE YOUNG, duty-free boards, and department-store newsrooms where the useful item is often an individual detail link inside the official page.
@@ -333,6 +333,14 @@ Some official sites block bot-like checks. By default, `check:sources` reports f
 
 ```powershell
 $env:SOURCE_AUDIT_STRICT="1"
+npm.cmd run check:sources
+```
+
+The audit closes response bodies immediately and checks sources with limited parallelism. If a source starts rate-limiting, lower concurrency or increase the timeout:
+
+```powershell
+$env:SOURCE_CONCURRENCY="3"
+$env:SOURCE_TIMEOUT_MS="12000"
 npm.cmd run check:sources
 ```
 

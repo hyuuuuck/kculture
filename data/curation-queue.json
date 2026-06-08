@@ -19,6 +19,63 @@
     "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
   },
   {
+    "id": "kpop-fans-shop-jyp-notices",
+    "status": "active",
+    "priority": 91,
+    "category": "kpop",
+    "sourceName": "FANS Shop Notices",
+    "sourceUrl": "https://app.fans/shop/i/notice/525omt8rct",
+    "label": "FANS Shop JYP official commerce notices",
+    "owner": "FANS / JYP commerce ecosystem",
+    "artistOrBrand": "JYP artists",
+    "topics": [
+      "official merch",
+      "restock schedule",
+      "sales window",
+      "fanclub shop rules"
+    ],
+    "refreshCadence": "daily; hourly around JYP comeback and concert merch windows",
+    "reviewNotes": "FANS can be app-driven. Verify whether the notice is web-readable, whether foreign visitors can purchase, and whether pickup or shipping limits apply."
+  },
+  {
+    "id": "kpop-smtown-andstore-watch",
+    "status": "active",
+    "priority": 89,
+    "category": "kpop",
+    "sourceName": "SMTOWN andSTORE Notices",
+    "sourceUrl": "https://www.smtownandstore.com/board/index.html",
+    "label": "SMTOWN andSTORE official notice watch",
+    "owner": "SM Brand Marketing",
+    "artistOrBrand": "SM artists",
+    "topics": [
+      "official merch",
+      "fanclub goods",
+      "store event",
+      "campaign notice"
+    ],
+    "refreshCadence": "daily; hourly around SM artist concert and fan meeting periods",
+    "reviewNotes": "Queue individual notice or product pages after confirming artist, sale period, physical pickup or pop-up venue, country restrictions, and purchase limits."
+  },
+  {
+    "id": "kpop-ygselect-notice-watch",
+    "status": "active",
+    "priority": 88,
+    "category": "kpop",
+    "sourceName": "YG SELECT Notices",
+    "sourceUrl": "https://www.ygselect.com/board/index.html",
+    "label": "YG SELECT official notice watch",
+    "owner": "YG PLUS",
+    "artistOrBrand": "YG artists",
+    "topics": [
+      "official merch",
+      "pop-up store",
+      "album goods",
+      "store event"
+    ],
+    "refreshCadence": "daily; hourly around YG artist comeback, tour, and pop-up periods",
+    "reviewNotes": "Publish only individual YG SELECT or official YG-family notice pages after checking dates, venue, stock, reservation, and foreign-card or shipping rules."
+  },
+  {
     "id": "kpop-weverse-lucky-store-yongsan",
     "status": "active",
     "priority": 92,

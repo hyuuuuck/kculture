@@ -16,6 +16,7 @@
     "draft:events": "node scripts/draft-events-from-feed.mjs",
     "review:board": "node scripts/build-review-board.mjs",
     "publish:reviewed": "node scripts/publish-reviewed-events.mjs",
+    "queue:source": "node scripts/queue-official-url.mjs",
     "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events && npm run review:board",
     "import:tourapi": "node scripts/import-tourapi.mjs",
     "import:weather": "node scripts/import-kma-weather.mjs",

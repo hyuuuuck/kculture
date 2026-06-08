@@ -50,6 +50,7 @@ Travel, shopping, and beauty pages can vary widely by country and season.
 - Use `npm run draft:events` to create non-public event drafts from the latest official-source feed. These drafts speed up writing, but they must be verified, rewritten, and manually merged into `data/events.json` before becoming public.
 - Use `npm run review:board` to inspect draft candidates as a private gallery with thumbnails, dates, official links, evidence snippets, and copyable JSON.
 - Use `npm run publish:reviewed -- --file ...` as a guarded dry run before writing reviewed events into public data. This keeps unedited machine drafts out of the live site.
+- Use `npm run queue:source -- --url ...` when a K-pop pop-up, ticketing page, fanclub notice, or official SNS link appears outside the regular source list. This keeps scattered official notices in the same review flow without treating fan reposts as sources.
 
 ## Suggested Ad Layout After Approval
 

@@ -181,7 +181,7 @@
   },
   {
     "name": "Weverse Shop Notices",
-    "type": "official-page-monitor",
+    "type": "curation-root",
     "owner": "Weverse Company",
     "url": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
     "coverage": ["official merch stores", "K-pop reservations", "fan commerce notices"],
@@ -191,7 +191,7 @@
   },
   {
     "name": "Weverse Shop BTS Notices",
-    "type": "official-page-monitor",
+    "type": "curation-root",
     "owner": "Weverse Company",
     "url": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
     "coverage": ["official K-pop merchandise notices", "pop-up reservations", "fan commerce", "tour-linked products"],
@@ -200,8 +200,38 @@
     "notes": "Use list pages for discovery and individual official notices for final source links."
   },
   {
+    "name": "YES24 Ticket English",
+    "type": "curation-root",
+    "owner": "YES24 Ticket",
+    "url": "https://ticket.yes24.com/english",
+    "coverage": ["K-pop concerts", "fan meetings", "global ticket notices", "venue listings"],
+    "refreshCadence": "manual queue; hourly around ticket openings",
+    "automationStatus": "curation-queue",
+    "notes": "Use as an official ticketing root for discovery. Publish only individual performance pages or official notices after checking identity, pickup, mobile ticket, and refund rules."
+  },
+  {
+    "name": "Ticketlink Global",
+    "type": "curation-root",
+    "owner": "Ticketlink",
+    "url": "https://www.ticketlink.co.kr/global/en/linkon/main",
+    "coverage": ["K-pop concerts", "fan concerts", "global reservation pages", "fanclub presales"],
+    "refreshCadence": "manual queue; hourly around ticket openings",
+    "automationStatus": "curation-queue",
+    "notes": "Use official Ticketlink notices and global reservation pages as source links. Confirm whether fanclub verification was completed on Korean or global pages."
+  },
+  {
+    "name": "Melon Ticket",
+    "type": "curation-root",
+    "owner": "Kakao Entertainment / Melon Ticket",
+    "url": "https://ticket.melon.com/main/index.htm",
+    "coverage": ["concerts", "fan meetings", "festival ticketing", "K-pop ticket notices"],
+    "refreshCadence": "manual queue; hourly around ticket openings",
+    "automationStatus": "curation-queue",
+    "notes": "Use official performance pages for final publication. Many listings are Korean-first, so verify global purchase availability and identity pickup rules before recommending to foreign visitors."
+  },
+  {
     "name": "Official artist/company social channels",
-    "type": "curation-queue",
+    "type": "curation-root",
     "owner": "Entertainment companies and artists",
     "url": "https://www.weverse.io",
     "coverage": ["K-pop pop-ups", "fan sign notices", "ticketing changes"],

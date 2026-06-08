@@ -10,9 +10,13 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
+const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => []);
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const sourceNames = new Set(sources.map((source) => source.name));
+const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
 const errors = [];
 const warnings = [];
@@ -131,6 +135,28 @@ for (const source of sources) {
   if (!source.automationStatus) push(errors, id, "automationStatus is required.");
 }
 
+if (!Array.isArray(curationQueue)) {
+  push(errors, "curation-queue", "data/curation-queue.json must contain an array.");
+}
+
+const queueSeen = new Set();
+for (const item of Array.isArray(curationQueue) ? curationQueue : []) {
+  const id = item.id || "(missing queue id)";
+  if (!item.id) push(errors, id, "curation queue id is required.");
+  if (queueSeen.has(item.id)) push(errors, id, "duplicate curation queue id.");
+  queueSeen.add(item.id);
+  if (!queueStatuses.has(item.status)) push(errors, id, "status must be active, paused, or archived.");
+  if (!sourceNames.has(item.sourceName)) push(errors, id, "sourceName must match data/sources.json.");
+  if (!categories.has(item.category)) push(errors, id, `unknown curation category: ${item.category}`);
+  if (!Number.isFinite(item.priority) || item.priority < 1 || item.priority > 100) push(errors, id, "priority must be a number from 1 to 100.");
+  if (!item.label) push(errors, id, "label is required.");
+  if (!item.owner) push(errors, id, "owner is required.");
+  if (!item.artistOrBrand) push(errors, id, "artistOrBrand is required.");
+  if (!item.reviewNotes) push(errors, id, "reviewNotes is required.");
+  if (!Array.isArray(item.topics) || !item.topics.length) push(errors, id, "topics must contain at least one item.");
+  assertUrl(id, "sourceUrl", item.sourceUrl);
+}
+
 if (guides.length < 10) {
   push(errors, "guides", "at least 10 evergreen guides are required for AdSense readiness.");
 }
@@ -181,5 +207,5 @@ if (errors.length) {
   console.table(errors);
   process.exitCode = 1;
 } else {
-  console.log(`Content validation passed: ${events.length} events, ${sources.length} sources, ${guides.length} guides, ${routes.length} routes.`);
+  console.log(`Content validation passed: ${events.length} events, ${sources.length} sources, ${guides.length} guides, ${routes.length} routes, ${Array.isArray(curationQueue) ? curationQueue.length : 0} curation items.`);
 }

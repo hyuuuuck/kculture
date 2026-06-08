@@ -10,6 +10,8 @@ const today = todayString();
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const existingSlugs = new Set(events.map((event) => event.slug));
+const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
+const existingSourceUrls = new Set(events.map((event) => normalizeUrl(event.sourceUrl)).filter(Boolean));
 
 async function latestFeedFile() {
   const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);
@@ -25,6 +27,16 @@ function cleanText(value) {
     .replace(/\s+/g, " ")
     .replace(/[\u0000-\u001F\u007F]/g, "")
     .trim();
+}
+
+function normalizeUrl(value) {
+  try {
+    const url = new URL(value);
+    url.hash = "";
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return "";
+  }
 }
 
 function slugify(value) {
@@ -52,6 +64,7 @@ function hasAny(text, needles) {
 }
 
 function inferCategory(candidate) {
+  if (categories.has(candidate.queueCategory)) return candidate.queueCategory;
   const text = `${candidate.sourceName} ${(candidate.keywordHits || []).join(" ")} ${candidate.pageTitle || ""}`.toLowerCase();
   if (hasAny(text, ["olive young", "beauty", "cosmetic"])) return "beauty";
   if (hasAny(text, ["duty free", "dfs", "免税"])) return "duty-free";
@@ -109,11 +122,14 @@ function draftPriority(candidate, category) {
   const dateScore = Math.min(candidate.dateSignals?.length || 0, 8);
   const keywordScore = Math.min(candidate.keywordHits?.length || 0, 8);
   const categoryBoost = ["kpop", "beauty", "duty-free", "department-store"].includes(category) ? 5 : 0;
-  return 70 + dateScore + keywordScore + categoryBoost;
+  const detected = 70 + dateScore + keywordScore + categoryBoost;
+  return Number.isFinite(candidate.queuePriority) ? Math.max(detected, candidate.queuePriority) : detected;
 }
 
 function titleFor(candidate) {
   const source = cleanText(candidate.sourceName);
+  const queueLabel = cleanText(candidate.queueLabel);
+  if (queueLabel) return `${source}: ${queueLabel}`;
   const pageTitle = cleanText(candidate.pageTitle).replace(/\s*[-|]\s*Korea Now Guide$/i, "");
   if (pageTitle && pageTitle.toLowerCase() !== source.toLowerCase()) return `${source}: ${pageTitle}`;
   return `${source} official event candidate`;
@@ -128,6 +144,7 @@ function draftFor(candidate) {
   const title = titleFor(candidate);
   const slug = uniqueSlug(`${slugify(title)}-${dates.startDate.slice(0, 7)}`);
   const sourceUrl = candidate.finalUrl || candidate.url;
+  if (existingSourceUrls.has(normalizeUrl(sourceUrl))) return null;
   const keywordText = (candidate.keywordHits || []).slice(0, 6).join(", ") || "official listing";
 
   return {
@@ -174,7 +191,11 @@ function draftFor(candidate) {
       checkedAt: candidate.checkedAt,
       keywordHits: candidate.keywordHits || [],
       dateSignals: candidate.dateSignals || [],
-      snippets: (candidate.snippets || []).slice(0, 3).map(cleanText)
+      snippets: (candidate.snippets || []).slice(0, 3).map(cleanText),
+      queueId: candidate.queueId,
+      queueLabel: candidate.queueLabel,
+      artistOrBrand: candidate.artistOrBrand,
+      reviewNotes: candidate.reviewNotes
     }
   };
 }

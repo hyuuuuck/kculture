@@ -1,0 +1,116 @@
+[
+  {
+    "id": "kpop-weverse-bts-notices",
+    "status": "active",
+    "priority": 94,
+    "category": "kpop",
+    "sourceName": "Weverse Shop BTS Notices",
+    "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+    "label": "BTS official merch and pop-up notice list",
+    "owner": "Weverse Company",
+    "artistOrBrand": "BTS",
+    "topics": [
+      "official merch",
+      "pop-up reservations",
+      "fan commerce",
+      "tour-linked products"
+    ],
+    "refreshCadence": "daily; hourly around comebacks and tour announcements",
+    "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+  },
+  {
+    "id": "kpop-weverse-lucky-store-yongsan",
+    "status": "active",
+    "priority": 92,
+    "category": "kpop",
+    "sourceName": "Weverse Shop Notices",
+    "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
+    "label": "Weverse Lucky Store Yongsan official notice",
+    "owner": "Weverse Company",
+    "artistOrBrand": "Weverse",
+    "topics": [
+      "official merch store",
+      "reservation",
+      "Yongsan",
+      "tax refund"
+    ],
+    "refreshCadence": "daily while notice remains active or inventory-dependent",
+    "reviewNotes": "Confirm whether reservations, QR entry, purchase limits, and tax refund notes changed before updating the public event page."
+  },
+  {
+    "id": "kpop-ticketlink-global-watch",
+    "status": "active",
+    "priority": 86,
+    "category": "kpop",
+    "sourceName": "Ticketlink Global",
+    "sourceUrl": "https://www.ticketlink.co.kr/global/en/linkon/main",
+    "label": "Ticketlink global K-pop reservation root",
+    "owner": "Ticketlink",
+    "artistOrBrand": "Ticketlink",
+    "topics": [
+      "concert tickets",
+      "fanclub presale",
+      "global reservation",
+      "identity checks"
+    ],
+    "refreshCadence": "manual queue; hourly around announced ticket openings",
+    "reviewNotes": "Queue individual Ticketlink event or notice URLs when a relevant K-pop concert, fan meeting, or pop-up-linked reservation opens."
+  },
+  {
+    "id": "kpop-yes24-english-watch",
+    "status": "active",
+    "priority": 84,
+    "category": "kpop",
+    "sourceName": "YES24 Ticket English",
+    "sourceUrl": "https://ticket.yes24.com/english",
+    "label": "YES24 English K-pop and fan meeting root",
+    "owner": "YES24 Ticket",
+    "artistOrBrand": "YES24 Ticket",
+    "topics": [
+      "concert tickets",
+      "fan meetings",
+      "global purchase",
+      "venue listings"
+    ],
+    "refreshCadence": "manual queue; hourly around announced ticket openings",
+    "reviewNotes": "Use the root page for discovery only. Publish individual performance pages after verifying global purchase support, pickup, mobile ticket, and refund conditions."
+  },
+  {
+    "id": "kpop-melon-ticket-watch",
+    "status": "active",
+    "priority": 82,
+    "category": "kpop",
+    "sourceName": "Melon Ticket",
+    "sourceUrl": "https://ticket.melon.com/main/index.htm",
+    "label": "Melon Ticket K-pop opening watch",
+    "owner": "Kakao Entertainment / Melon Ticket",
+    "artistOrBrand": "Melon Ticket",
+    "topics": [
+      "concert tickets",
+      "ticket open notices",
+      "festival tickets",
+      "global availability"
+    ],
+    "refreshCadence": "manual queue; hourly around announced ticket openings",
+    "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+  },
+  {
+    "id": "kpop-official-social-intake",
+    "status": "active",
+    "priority": 80,
+    "category": "kpop",
+    "sourceName": "Official artist/company social channels",
+    "sourceUrl": "https://www.weverse.io",
+    "label": "Official artist and agency social intake",
+    "owner": "Entertainment companies and artists",
+    "artistOrBrand": "Multiple artists",
+    "topics": [
+      "official SNS",
+      "fanclub notices",
+      "pop-ups",
+      "ticket changes"
+    ],
+    "refreshCadence": "manual queue; hourly for tracked artist campaigns",
+    "reviewNotes": "Do not publish from fan reposts. Queue only official artist, agency, venue, ticketing, or shop URLs and verify the final official notice before publication."
+  }
+]

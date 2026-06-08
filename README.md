@@ -17,6 +17,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 
 - `data/events.json`: approved public events and deals
 - `data/sources.json`: official APIs, official page monitors, and K-pop curation queues
+- `data/curation-queue.json`: official one-off URLs and K-pop/social/ticketing links waiting for manual review
 - `data/guides.json`: original evergreen guide content
 - `data/weather-baselines.json`: fallback weather planning notes
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
@@ -28,6 +29,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from the latest candidate feed
 - `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
+- `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
 - `scripts/source-audit.mjs`: checks source URL availability
@@ -104,31 +106,39 @@ npm.cmd run validate:production
 
 ## Daily Operating Routine
 
-1. Check source availability:
+1. Add newly discovered official notice URLs to the curation queue when they are not yet in `data/sources.json`:
+
+```powershell
+npm.cmd run queue:source -- --url "https://official.example/notice" --source "Official artist/company social channels" --category kpop --label "Artist pop-up notice" --priority 90 --topics "pop-up,merch,reservation"
+```
+
+Only queue official artist, agency, venue, ticketing, shop, government, or brand URLs. Do not queue fan reposts as publishable sources.
+
+2. Check source availability:
 
 ```powershell
 npm.cmd run check:sources
 ```
 
-2. Collect official page candidates:
+3. Collect official page candidates and active curation queue URLs:
 
 ```powershell
 npm.cmd run collect:official
 ```
 
-3. Create a review report from the latest candidate feed:
+4. Create a review report from the latest candidate feed:
 
 ```powershell
 npm.cmd run review:feed
 ```
 
-4. Create non-public event drafts from the latest candidate feed:
+5. Create non-public event drafts from the latest candidate feed:
 
 ```powershell
 npm.cmd run draft:events
 ```
 
-5. Build a private gallery-style review board:
+6. Build a private gallery-style review board:
 
 ```powershell
 npm.cmd run review:board
@@ -140,35 +150,35 @@ Or run the local source workflow in one command:
 npm.cmd run source:refresh
 ```
 
-6. Import Korea Tourism Organization TourAPI candidates:
+7. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
 $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-7. Import previous-year KMA weather observations:
+8. Import previous-year KMA weather observations:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-8. Open `data/feeds/review-board-YYYY-MM-DD.html`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
+9. Open `data/feeds/review-board-YYYY-MM-DD.html`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
 
-9. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
+10. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
 ```
 
-10. If the dry run passes, write the reviewed events into public data:
+11. If the dry run passes, write the reviewed events into public data:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write
 ```
 
-11. Validate, build, and deploy:
+12. Validate, build, and deploy:
 
 ```powershell
 npm.cmd run verify
@@ -185,6 +195,7 @@ The source registry is set up to watch official sources for:
 - Department store shopping news: Lotte Department Store, Hyundai Department Store, and Shinsegae official press updates
 - Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, and culture-related public sources
 - K-pop pop-ups and merch reservations through Weverse and official artist/company channels
+- K-pop ticketing and fan meeting discovery through YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
 
 Not every official site exposes a clean API. The safe operating model is to collect candidates automatically, then publish only manually verified summaries with official source links, last-checked dates, and practical visitor notes.
 
@@ -196,6 +207,14 @@ To check a one-off official notice without editing `data/sources.json`:
 $env:MONITOR_URLS="https://example.com/official-event,https://example.com/notice"
 npm.cmd run collect:official
 ```
+
+To keep that notice in the recurring review flow, register it in `data/curation-queue.json`:
+
+```powershell
+npm.cmd run queue:source -- --url "https://official.example/notice" --source "YES24 Ticket English" --category kpop --label "Concert ticket notice" --priority 88 --topics "concert,ticketing,identity check"
+```
+
+The curation queue is still non-public. It only helps the review board surface official URLs faster.
 
 ## Source Rules
 

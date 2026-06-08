@@ -13,8 +13,37 @@ const extraUrls = (process.env.MONITOR_URLS || "")
   .filter(Boolean);
 
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
+const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => []);
+const sourceByName = new Map(sources.map((source) => [source.name, source]));
+
+function curationSource(item) {
+  const registrySource = sourceByName.get(item.sourceName) || {};
+  return {
+    name: item.sourceName,
+    type: "curated-official-url",
+    owner: item.owner || registrySource.owner || "curation",
+    url: item.sourceUrl,
+    coverage: item.topics || [item.category || "manual curation"],
+    refreshCadence: item.refreshCadence || registrySource.refreshCadence || "manual",
+    automationStatus: "curation-queue",
+    notes: item.reviewNotes || registrySource.notes || "Curated official URL queued for manual review.",
+    queueId: item.id,
+    queueLabel: item.label,
+    queueCategory: item.category,
+    queuePriority: item.priority,
+    artistOrBrand: item.artistOrBrand,
+    reviewNotes: item.reviewNotes
+  };
+}
+
+const queueSources = curationQueue
+  .filter((item) => item.status === "active")
+  .map(curationSource);
 const monitorSources = sources
   .filter((source) => ["official-page-monitor", "official-listing-monitor", "curation-queue"].includes(source.type))
+  .concat(queueSources)
   .concat(extraUrls.map((url) => ({
     name: `Manual URL: ${url}`,
     type: "manual-url",
@@ -215,7 +244,13 @@ async function fetchSource(source) {
       snippets: snippetsAroundDates(text, dates),
       reviewRequired: true,
       publishable: false,
-      notes: source.notes
+      notes: source.notes,
+      queueId: source.queueId,
+      queueLabel: source.queueLabel,
+      queueCategory: source.queueCategory,
+      queuePriority: source.queuePriority,
+      artistOrBrand: source.artistOrBrand,
+      reviewNotes: source.reviewNotes
     };
   } catch (error) {
     return {
@@ -229,7 +264,13 @@ async function fetchSource(source) {
       error: error.name === "AbortError" ? "timeout" : error.message,
       reviewRequired: true,
       publishable: false,
-      notes: source.notes
+      notes: source.notes,
+      queueId: source.queueId,
+      queueLabel: source.queueLabel,
+      queueCategory: source.queueCategory,
+      queuePriority: source.queuePriority,
+      artistOrBrand: source.artistOrBrand,
+      reviewNotes: source.reviewNotes
     };
   } finally {
     clearTimeout(timeout);

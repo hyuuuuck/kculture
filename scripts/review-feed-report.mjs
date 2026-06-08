@@ -19,7 +19,7 @@ async function latestFeedFile() {
 
 function actionFor(candidate) {
   if (!candidate.ok) return "Manual browser check";
-  if (candidate.type === "curation-queue" || /weverse|artist|company social/i.test(candidate.sourceName)) return "Manual curation only";
+  if (["curation-queue", "curated-official-url"].includes(candidate.type) || /weverse|artist|company social/i.test(candidate.sourceName)) return "Manual curation only";
   if ((candidate.dateSignals?.length || 0) > 0 && (candidate.keywordHits?.length || 0) > 0) return "Review and draft event";
   if ((candidate.keywordHits?.length || 0) > 0) return "Scan page for hidden dates";
   return "Watch only";
@@ -49,6 +49,7 @@ const rows = candidates.map((candidate) => ({
   priority: priorityFor(candidate),
   action: actionFor(candidate),
   source: candidate.sourceName,
+  queue: candidate.queueLabel || candidate.queueId || "",
   status: candidate.status,
   dates: candidate.dateSignals?.length || 0,
   keywords: candidate.keywordHits?.join(", ") || "-",
@@ -81,6 +82,7 @@ ${rows.map((row, index) => `### ${index + 1}. ${row.source}
 
 - Priority: ${row.priority}
 - Action: ${row.action}
+- Queue: ${row.queue || "-"}
 - Status: ${row.status}${row.error ? ` (${row.error})` : ""}
 - Date signals: ${row.dates}
 - Keywords: ${row.keywords}

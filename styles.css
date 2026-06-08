@@ -1224,6 +1224,111 @@ img {
   font-weight: 760;
 }
 
+.source-refresh-panel {
+  display: grid;
+  gap: 16px;
+  margin: 18px 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.source-refresh-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.source-refresh-head h2 {
+  margin: 4px 0 8px;
+  font-size: 1.45rem;
+}
+
+.source-refresh-head p,
+.source-refresh-head small {
+  color: var(--muted);
+}
+
+.source-refresh-stats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.source-refresh-stats div {
+  display: grid;
+  gap: 4px;
+  min-height: 88px;
+  align-content: center;
+  padding: 12px;
+  border: 1px solid #e8edea;
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.source-refresh-stats strong {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.source-refresh-stats span,
+.source-refresh-columns span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.source-refresh-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.source-refresh-columns article {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #e8edea;
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.source-refresh-columns h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.source-refresh-columns ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.source-refresh-columns li {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.source-refresh-columns a,
+.source-refresh-columns strong {
+  overflow-wrap: anywhere;
+  color: var(--teal-dark);
+  font-weight: 840;
+}
+
+.source-refresh-rule {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff5df;
+  color: #705021;
+  font-weight: 720;
+}
+
 .watch-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1452,8 +1557,13 @@ img {
 
   .watch-stats,
   .watch-grid,
-  .watch-pipeline {
+  .watch-pipeline,
+  .source-refresh-columns {
     grid-template-columns: 1fr;
+  }
+
+  .source-refresh-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .now-dashboard {
@@ -1502,6 +1612,7 @@ img {
   .fact-grid,
   .route-grid,
   .watch-stats,
+  .source-refresh-stats,
   .watch-card dl,
   .now-dashboard,
   .now-grid,
@@ -1515,6 +1626,10 @@ img {
   .map-links-section,
   .map-link-list {
     grid-template-columns: 1fr;
+  }
+
+  .source-refresh-head {
+    display: grid;
   }
 
   .stats-band {

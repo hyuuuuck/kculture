@@ -22,6 +22,7 @@ const curationQueue = JSON.parse(await fs.readFile(path.join(root, "data", "cura
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
+const sourceRefreshSummary = await latestFeedJson(/^source-refresh-summary-\d{4}-\d{2}-\d{2}\.json$/);
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();
@@ -58,6 +59,19 @@ function normalizeGoogleSiteVerification(value) {
   if (!trimmed) return "";
   const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
   return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
+}
+
+async function latestFeedJson(pattern) {
+  const feedDir = path.join(root, "data", "feeds");
+  const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);
+  const fileName = entries
+    .filter((entry) => entry.isFile() && pattern.test(entry.name))
+    .map((entry) => entry.name)
+    .sort()
+    .at(-1);
+  if (!fileName) return null;
+  const data = await fs.readFile(path.join(feedDir, fileName), "utf8").then(JSON.parse).catch(() => null);
+  return data ? { fileName, data } : null;
 }
 
 let languages = {
@@ -119,6 +133,14 @@ let dict = {
     packHint: "Pack",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    sourceRefreshTitle: "Latest source refresh",
+    sourceRefreshText: "A public operating snapshot from the latest official-source monitor run.",
+    sourceRefreshNoData: "No source refresh summary has been generated yet.",
+    sourceRefreshJson: "Open public JSON",
+    sourceRefreshAttention: "Sources needing attention",
+    sourceRefreshCandidates: "High-signal candidate pages",
+    sourceRefreshDraftSources: "Top draft sources",
+    sourceRefreshRule: "Candidates are not published directly. Each item still needs official date, venue, eligibility, inventory, and original-summary review.",
     navWatchlist: "Watchlist",
     watchlistTitle: "Official Monitoring Watchlist",
     watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
@@ -429,6 +451,14 @@ dict = {
     packHint: "Pack",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
+    sourceRefreshTitle: "Latest source refresh",
+    sourceRefreshText: "A public operating snapshot from the latest official-source monitor run.",
+    sourceRefreshNoData: "No source refresh summary has been generated yet.",
+    sourceRefreshJson: "Open public JSON",
+    sourceRefreshAttention: "Sources needing attention",
+    sourceRefreshCandidates: "High-signal candidate pages",
+    sourceRefreshDraftSources: "Top draft sources",
+    sourceRefreshRule: "Candidates are not published directly. Each item still needs official date, venue, eligibility, inventory, and original-summary review.",
     navWatchlist: "Watchlist",
     watchlistTitle: "Official Monitoring Watchlist",
     watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
@@ -2334,6 +2364,117 @@ function sourceAlternateLinks(source) {
     </details>`;
 }
 
+function compactCount(value) {
+  return Number.isFinite(Number(value)) ? Number(value).toLocaleString("en-US") : "0";
+}
+
+function sourceRefreshPublicSummary() {
+  if (!sourceRefreshSummary?.data) return null;
+  const summary = sourceRefreshSummary.data;
+  return {
+    generatedAt: summary.generatedAt,
+    fileName: sourceRefreshSummary.fileName,
+    counts: summary.counts || {},
+    failedSources: (summary.failedSources || []).slice(0, 12).map((item) => ({
+      sourceName: item.sourceName,
+      status: item.status,
+      error: item.error || ""
+    })),
+    topDraftSources: (summary.topDraftSources || []).slice(0, 8),
+    topDraftCategories: (summary.topDraftCategories || []).slice(0, 8),
+    highSignalCandidates: (summary.highSignalCandidates || []).slice(0, 8).map((item) => ({
+      sourceName: item.sourceName,
+      url: item.url,
+      links: item.links,
+      dates: item.dates,
+      keywords: item.keywords,
+      score: item.score
+    })),
+    publishingRule: tr("en", "sourceRefreshRule")
+  };
+}
+
+function sourceRefreshPanel(lang) {
+  const summary = sourceRefreshPublicSummary();
+  if (!summary) {
+    return `
+      <section class="source-refresh-panel">
+        <div>
+          <p class="eyebrow">${tr(lang, "sourceRefreshTitle")}</p>
+          <h2>${tr(lang, "sourceRefreshTitle")}</h2>
+          <p>${tr(lang, "sourceRefreshNoData")}</p>
+        </div>
+      </section>`;
+  }
+
+  const counts = summary.counts || {};
+  const stats = [
+    ["Audited sources", counts.auditedSources],
+    ["Monitor checks", counts.monitorSources],
+    ["Discovered official links", counts.discoveredLinks],
+    ["Date signals", counts.dateSignals],
+    ["Draft candidates", counts.draftCandidates],
+    ["Skipped leads", counts.skippedCandidates]
+  ];
+  const generated = summary.generatedAt ? new Date(summary.generatedAt) : null;
+  const generatedText = generated && !Number.isNaN(generated.getTime())
+    ? new Intl.DateTimeFormat(languages[lang].locale, { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" }).format(generated)
+    : summary.fileName;
+
+  return `
+    <section class="source-refresh-panel" aria-label="${esc(tr(lang, "sourceRefreshTitle"))}">
+      <div class="source-refresh-head">
+        <div>
+          <p class="eyebrow">${tr(lang, "sourceRefreshTitle")}</p>
+          <h2>${tr(lang, "sourceRefreshTitle")}</h2>
+          <p>${tr(lang, "sourceRefreshText")}</p>
+          <small>Generated: ${esc(generatedText)} UTC</small>
+        </div>
+        <a class="button light" href="/source-refresh.json">${tr(lang, "sourceRefreshJson")}</a>
+      </div>
+      <div class="source-refresh-stats">
+        ${stats.map(([label, value]) => `
+          <div>
+            <strong>${esc(compactCount(value))}</strong>
+            <span>${esc(label)}</span>
+          </div>`).join("")}
+      </div>
+      <div class="source-refresh-columns">
+        <article>
+          <h3>${tr(lang, "sourceRefreshAttention")}</h3>
+          <ul>
+            ${summary.failedSources.length ? summary.failedSources.map((item) => `
+              <li>
+                <strong>${esc(item.sourceName)}</strong>
+                <span>${esc(item.status || "ERR")}${item.error ? ` - ${esc(item.error)}` : ""}</span>
+              </li>`).join("") : "<li><strong>No failed sources</strong><span>Latest run did not report source failures.</span></li>"}
+          </ul>
+        </article>
+        <article>
+          <h3>${tr(lang, "sourceRefreshDraftSources")}</h3>
+          <ul>
+            ${summary.topDraftSources.length ? summary.topDraftSources.map((item) => `
+              <li>
+                <strong>${esc(item.key)}</strong>
+                <span>${esc(compactCount(item.count))} draft candidates</span>
+              </li>`).join("") : "<li><strong>No draft candidates</strong><span>Run the source refresh workflow after adding monitors.</span></li>"}
+          </ul>
+        </article>
+        <article>
+          <h3>${tr(lang, "sourceRefreshCandidates")}</h3>
+          <ul>
+            ${summary.highSignalCandidates.length ? summary.highSignalCandidates.slice(0, 5).map((item) => `
+              <li>
+                <a href="${esc(item.url)}" rel="nofollow noopener" target="_blank">${esc(item.sourceName)}</a>
+                <span>${esc(compactCount(item.links))} links / ${esc(compactCount(item.dates))} date signals / score ${esc(compactCount(item.score))}</span>
+              </li>`).join("") : "<li><strong>No high-signal pages</strong><span>Latest run did not surface candidate pages.</span></li>"}
+          </ul>
+        </article>
+      </div>
+      <p class="source-refresh-rule">${tr(lang, "sourceRefreshRule")}</p>
+    </section>`;
+}
+
 function renderWatchlist(lang) {
   const activeQueue = curationQueue.filter((item) => item.status === "active");
   const officialApis = sources.filter((source) => source.type === "official-api").length;
@@ -2361,6 +2502,8 @@ function renderWatchlist(lang) {
         ${watchlistStat("curation roots", curationRoots)}
         ${watchlistStat("active manual queues", activeQueue.length)}
       </section>
+
+      ${sourceRefreshPanel(lang)}
 
       <section class="watch-grid" aria-label="Official monitoring groups">
         ${watchlistGroups.map((group) => {
@@ -2563,6 +2706,7 @@ async function build() {
   await writeHtml("index.html", renderHome("en", "/"));
   await writeText("feed.xml", rssFeed("en", "/feed.xml"));
   await writeText("latest.json", jsonFeed("en", "/latest.json"));
+  await writeText("source-refresh.json", `${JSON.stringify(sourceRefreshPublicSummary() || { generatedAt: null, counts: {}, failedSources: [], highSignalCandidates: [] }, null, 2)}\n`);
   for (const lang of Object.keys(languages)) {
     await writeHtml(`${lang}/index.html`, renderHome(lang));
     await writeText(`${lang}/feed.xml`, rssFeed(lang));
@@ -2648,6 +2792,10 @@ function headers() {
 
 /latest.json
   Content-Type: application/feed+json; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/source-refresh.json
+  Content-Type: application/json; charset=utf-8
   Cache-Control: public, max-age=1800
 
 /*/latest.json

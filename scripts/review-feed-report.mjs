@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const feedDir = path.join(root, "data", "feeds");
-const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
+const today = todayString();
 
 async function latestFeedFile() {
   const entries = await fs.readdir(feedDir, { withFileTypes: true }).catch(() => []);

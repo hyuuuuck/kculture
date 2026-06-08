@@ -48,6 +48,7 @@ Travel, shopping, and beauty pages can vary widely by country and season.
 - Treat OLIVE YOUNG, duty-free, department-store, and K-pop pop-up pages as fast-changing offers. Public pages need `lastChecked`, an official source link, and a clear warning that inventory, coupon eligibility, and reservation slots can change.
 - Never publish directly from scraped text. Convert the candidate into an original visitor-focused summary after checking the official page.
 - Use `npm run draft:events` to create non-public event drafts from the latest official-source feed. These drafts speed up writing, but they must be verified, rewritten, and manually merged into `data/events.json` before becoming public.
+- Use `npm run review:board` to inspect draft candidates as a private gallery with thumbnails, dates, official links, evidence snippets, and copyable JSON.
 
 ## Suggested Ad Layout After Approval
 

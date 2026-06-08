@@ -14,7 +14,8 @@
     "check:sources": "node scripts/source-audit.mjs",
     "collect:official": "node scripts/collect-official-pages.mjs",
     "draft:events": "node scripts/draft-events-from-feed.mjs",
-    "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events",
+    "review:board": "node scripts/build-review-board.mjs",
+    "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events && npm run review:board",
     "import:tourapi": "node scripts/import-tourapi.mjs",
     "import:weather": "node scripts/import-kma-weather.mjs",
     "preview": "npx wrangler pages dev dist"

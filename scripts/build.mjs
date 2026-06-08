@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
-const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
+const today = todayString();
 const siteUrl = process.env.SITE_URL || "https://example.com";
 const contactEmail = process.env.CONTACT_EMAIL || "hello@example.com";
 const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");

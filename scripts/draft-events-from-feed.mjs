@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const feedDir = path.join(root, "data", "feeds");
-const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
+const today = todayString();
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const existingSlugs = new Set(events.map((event) => event.slug));

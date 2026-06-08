@@ -1,10 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
+const today = todayString();
 const timeoutMs = Number(process.env.COLLECT_TIMEOUT_MS || 10000);
 const extraUrls = (process.env.MONITOR_URLS || "")
   .split(",")
@@ -58,6 +59,35 @@ function extractTitle(html, fallback) {
     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
   const title = og?.[1] || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1];
   return decodeEntities((title || fallback).replace(/\s+/g, " ").trim());
+}
+
+function normalizeCharset(charset) {
+  const value = String(charset || "").trim().toLowerCase().replace(/^["']|["']$/g, "");
+  if (!value) return "";
+  if (["ks_c_5601-1987", "ks_c_5601", "x-windows-949", "cp949", "ms949"].includes(value)) return "euc-kr";
+  if (value === "utf8") return "utf-8";
+  return value;
+}
+
+function sniffCharset(headers, bytes) {
+  const contentType = headers.get("content-type") || "";
+  const headerCharset = contentType.match(/charset=([^;\s]+)/i)?.[1];
+  if (headerCharset) return normalizeCharset(headerCharset);
+
+  const asciiPreview = new TextDecoder("windows-1252").decode(bytes.slice(0, 4096));
+  const metaCharset = asciiPreview.match(/<meta[^>]+charset=["']?\s*([^"'\s/>]+)/i)?.[1]
+    || asciiPreview.match(/<meta[^>]+content=["'][^"']*charset=([^"'\s;>]+)/i)?.[1];
+  return normalizeCharset(metaCharset) || "utf-8";
+}
+
+async function decodeHtml(response) {
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const charset = sniffCharset(response.headers, bytes);
+  try {
+    return new TextDecoder(charset).decode(bytes);
+  } catch {
+    return new TextDecoder("utf-8").decode(bytes);
+  }
 }
 
 function extractDateSignals(text) {
@@ -167,7 +197,7 @@ async function fetchSource(source) {
         "user-agent": "Mozilla/5.0 KoreaNowGuideCollector/0.1"
       }
     });
-    const html = await response.text();
+    const html = await decodeHtml(response);
     const text = stripHtml(html);
     const dates = extractPageDateSignals(text);
     return {

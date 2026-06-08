@@ -43,6 +43,9 @@ jobs:
       - name: Create draft event candidates
         run: npm run draft:events
 
+      - name: Build private review board
+        run: npm run review:board
+
       - name: Verify current site data
         run: npm run verify
 

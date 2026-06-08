@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const serviceKey = process.env.KTO_SERVICE_KEY;
-const startDate = process.env.KTO_START_DATE || new Date().toISOString().slice(0, 10).replaceAll("-", "");
+const startDate = process.env.KTO_START_DATE || todayString().replaceAll("-", "");
 const rows = process.env.KTO_ROWS || "30";
 
 if (!serviceKey) {

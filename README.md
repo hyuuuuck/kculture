@@ -26,13 +26,14 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/collect-official-pages.mjs`: collects official page candidates for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from the latest candidate feed
+- `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
 - `scripts/source-audit.mjs`: checks source URL availability
 - `monetization-plan.md`: traffic and AdSense operating plan
 
-Generated feed files under `data/feeds/*.json` are ignored by Git. Review them and merge only verified items into `data/events.json`.
-Generated review reports under `data/feeds/*.md` are also ignored by Git.
+Generated review artifacts under `data/feeds/` are ignored by Git. Review them and merge only verified items into `data/events.json`.
+Source review artifact filenames use the Asia/Seoul date by default. Set `SITE_TODAY=YYYY-MM-DD` to reproduce a specific run.
 
 ## Local Build
 
@@ -126,29 +127,35 @@ npm.cmd run review:feed
 npm.cmd run draft:events
 ```
 
+5. Build a private gallery-style review board:
+
+```powershell
+npm.cmd run review:board
+```
+
 Or run the local source workflow in one command:
 
 ```powershell
 npm.cmd run source:refresh
 ```
 
-5. Import Korea Tourism Organization TourAPI candidates:
+6. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
 $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-6. Import previous-year KMA weather observations:
+7. Import previous-year KMA weather observations:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-7. Review `data/feeds/*.json` and `data/feeds/*.md`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
+8. Open `data/feeds/review-board-YYYY-MM-DD.html`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
 
-8. Validate, build, and deploy:
+9. Validate, build, and deploy:
 
 ```powershell
 npm.cmd run verify

@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const serviceKey = process.env.KMA_SERVICE_KEY || process.env.DATA_GO_KR_SERVICE_KEY;
-const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
+const today = todayString();
 const maxDays = Number(process.env.KMA_MAX_DAYS || 31);
 
 const stationByRegion = {

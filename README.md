@@ -264,6 +264,7 @@ The source registry is set up to watch official sources for:
 - Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, Jeju, Incheon, Daegu, and culture-related public sources
 - Seoul visitor event discovery through Visit Seoul, Seoul city notices, DDP, COEX, and Seoul Grand Park
 - Busan visitor event discovery through Busan Metropolitan City event pages, English news, and Visit Busan fallbacks
+- Representative regional festival sites such as Pentaport, Boryeong Mud, Daegu Chimac, Andong Maskdance, and Jinju Namgang Yudeung
 - K-pop pop-ups and merch reservations through Weverse, FANS Shop, SMTOWN &STORE, YG SELECT, and official artist/company channels
 - K-pop ticketing and fan meeting discovery through NOL World, YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
 

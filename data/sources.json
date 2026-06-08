@@ -149,6 +149,19 @@
     "notes": "Official Incheon tourism organization page for signature festivals and tourism programs. Use city news or event websites as final source links when available."
   },
   {
+    "name": "Incheon Pentaport Music Festival",
+    "type": "official-page-monitor",
+    "owner": "Incheon Metropolitan City / Incheon Tourism Organization",
+    "url": "https://pentaport.co.kr/",
+    "alternateUrls": [
+      "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=APD21112609184717505&pgListMode=M"
+    ],
+    "coverage": ["Incheon Pentaport Rock Festival", "music festival notices", "lineup notices", "ticketing and venue updates"],
+    "refreshCadence": "daily during lineup, ticketing, and festival operation windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Pentaport festival site plus Incheon Tour listing. Use official festival notices for dates, venue, lineup, ticketing, and operating rules."
+  },
+  {
     "name": "Daegu Tourist Information Festival Schedule",
     "type": "official-page-monitor",
     "owner": "Daegu Metropolitan City",
@@ -161,6 +174,59 @@
     "refreshCadence": "weekly; daily near major Daegu festival months",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Daegu tourism festival schedule. District pages can provide stronger details for specific events such as food, music, or neighborhood festivals."
+  },
+  {
+    "name": "Daegu Chimac Festival",
+    "type": "official-page-monitor",
+    "owner": "Daegu Chimac Festival Organizing Committee",
+    "url": "https://www.chimacfestival.com/",
+    "alternateUrls": [
+      "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=351&vcontsId=80237"
+    ],
+    "coverage": ["Daegu Chimac Festival", "food festival programs", "K-pop concert notes", "reservation zones", "visitor safety notes"],
+    "refreshCadence": "daily during June and July festival setup",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Chimac site and KTO detail page. Confirm exact program zones, adult beverage rules, heat notices, and reservation areas before publishing updates."
+  },
+  {
+    "name": "Boryeong Mud Festival",
+    "type": "official-page-monitor",
+    "owner": "Boryeong Festival Tourism Foundation",
+    "url": "https://www.mudfestival.or.kr/en/festival/main.html",
+    "alternateUrls": [
+      "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96386"
+    ],
+    "coverage": ["Boryeong Mud Festival", "Daecheon Beach events", "mud experience zones", "ticket information", "summer beach programs"],
+    "refreshCadence": "daily during ticketing and festival operation windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official English festival site. Check ticket bracelets, paid zone rules, beach safety, operating hours, and weather-related changes before publishing updates."
+  },
+  {
+    "name": "Andong Maskdance Festival",
+    "type": "official-page-monitor",
+    "owner": "Andong-si / Korea Foundation for Cultures and Ethics",
+    "url": "https://en.maskdance.com/",
+    "alternateUrls": [
+      "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
+      "https://www.tourandong.com/eng/sub2/sub1.cshtml"
+    ],
+    "coverage": ["Andong Maskdance Festival", "traditional performances", "UNESCO-linked mask dance", "Hahoe Village routes"],
+    "refreshCadence": "weekly; daily during September and October festival operation",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official English festival site. Confirm venue splits between Old Andong Station, Mask Dance Park, Hahoe Village, and downtown before publishing itineraries."
+  },
+  {
+    "name": "Jinju Namgang Yudeung Festival",
+    "type": "official-page-monitor",
+    "owner": "Jinju-si / Jinju Namgang Yudeung Festival Committee",
+    "url": "https://yudeung.com/",
+    "alternateUrls": [
+      "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362"
+    ],
+    "coverage": ["Jinju Namgang Yudeung Festival", "lantern displays", "night routes", "fireworks and drone show notices", "festival transport"],
+    "refreshCadence": "weekly; daily during September and October festival setup",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official festival site plus KTO detail page. The official site may update year-specific content later than KTO, so cross-check dates before publication."
   },
   {
     "name": "COEX Event Calendar",

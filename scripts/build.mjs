@@ -884,6 +884,35 @@ function monthText(lang, key) {
   return new Intl.DateTimeFormat(languages[lang].locale, { month: "long", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
+function monthNameFromIso(iso) {
+  const date = new Date(`${String(iso || today).slice(0, 7)}-01T00:00:00Z`);
+  return new Intl.DateTimeFormat("en-US", { month: "long", timeZone: "UTC" }).format(date);
+}
+
+function weatherBaseline(regionName, iso) {
+  const regionKey = weather.regions[regionName] ? regionName : "Nationwide";
+  const monthName = monthNameFromIso(iso);
+  const regionData = weather.regions[regionKey] || weather.regions.Nationwide;
+  const nationalData = weather.regions.Nationwide || {};
+  const baseline = regionData[monthName] || nationalData[monthName] || regionData.June || nationalData.June;
+  return {
+    regionKey,
+    monthName,
+    baseline
+  };
+}
+
+function weatherIsoForEvent(event) {
+  const status = statusOf(event);
+  if (status === "live") return today;
+  if (status === "ended") return event.endDate || event.startDate || today;
+  return event.startDate || event.endDate || today;
+}
+
+function representativeWeatherIso(items) {
+  return items[0] ? weatherIsoForEvent(items[0]) : today;
+}
+
 function pagePath(lang, page = "") {
   return `/${lang}/${page}`;
 }
@@ -1243,7 +1272,8 @@ function renderCity(lang, city) {
       return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || a.startDate.localeCompare(b.startDate) || b.priority - a.priority;
     });
   const weatherRegion = meta.weatherRegion || city;
-  const region = weather.regions[weatherRegion]?.June || weather.regions.Nationwide.June;
+  const weatherInfo = weatherBaseline(weatherRegion, representativeWeatherIso(items));
+  const region = weatherInfo.baseline;
   const routeIdeas = routesForCity(city);
   const liveCount = items.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = items.filter((event) => statusOf(event) === "upcoming").length;
@@ -1270,9 +1300,10 @@ function renderCity(lang, city) {
       <section class="detail-section two-col">
         <div>
           <h2>${tr(lang, "weatherPlan")}</h2>
-          <p><strong>${esc(weatherRegion)}</strong>: ${esc(region.range)}</p>
+          <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
           <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
-          <p class="source-note">Previous-year baseline: ${esc(weather.source.name)}</p>
+          <p>${esc(region.outdoorAdvice)}</p>
+          <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>
         </div>
         <div>
           <h2>${tr(lang, "routeIdeas")}</h2>
@@ -1466,7 +1497,8 @@ function renderEvent(event, lang) {
   const status = statusOf(event);
   const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
   const routeIdeas = routesForEvent(event);
-  const region = weather.regions[event.weatherRegion]?.June || weather.regions.Nationwide.June;
+  const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
+  const region = weatherInfo.baseline;
   const description = local(event.summary, lang);
   const body = `
     <main class="page">
@@ -1499,10 +1531,10 @@ function renderEvent(event, lang) {
         <section class="detail-section two-col">
           <div>
             <h2>${tr(lang, "weatherPlan")}</h2>
-            <p><strong>${esc(event.weatherRegion)}</strong>: ${esc(region.range)}</p>
+            <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
             <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
             <p>${esc(region.outdoorAdvice)}</p>
-            <p class="source-note">Weather connector: ${esc(weather.source.name)}</p>
+            <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>
           </div>
           <div>
             <h2>${tr(lang, "travelIdeas")}</h2>

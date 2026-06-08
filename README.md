@@ -7,7 +7,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 ## What It Builds
 
 - Gallery-style event homepage with thumbnails, dates, categories, and status labels
-- Event detail pages with official source links, last-checked date, weather planning notes, and nearby travel ideas
+- Event detail pages with official source links, last-checked date, schedule-month previous-year weather planning notes, and nearby travel ideas
 - Event calendar page plus `/events.ics`
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
 - Language versions for English, Spanish, Chinese, Portuguese, and Russian
@@ -19,7 +19,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/sources.json`: official APIs, official page monitors, and K-pop curation queues
 - `data/curation-queue.json`: official one-off URLs and K-pop/social/ticketing links waiting for manual review
 - `data/guides.json`: original evergreen guide content
-- `data/weather-baselines.json`: fallback weather planning notes
+- `data/weather-baselines.json`: schedule-month previous-year weather planning baselines by region
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
@@ -31,7 +31,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
-- `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
+- `scripts/import-kma-weather.mjs`: imports exact same-period previous-year KMA ASOS weather observations when an API key is available
 - `scripts/source-audit.mjs`: checks source URL availability
 - `monetization-plan.md`: traffic and AdSense operating plan
 
@@ -189,7 +189,7 @@ $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-8. Import previous-year KMA weather observations:
+8. Import exact same-period previous-year KMA weather observations when an API key is available. Until then, event detail pages use the relevant schedule month from `data/weather-baselines.json`:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
@@ -258,7 +258,8 @@ The curation queue is still non-public. It only helps the review board surface o
 3. Every public event must include `sourceUrl`, `lastChecked`, `collectionMode`, and `verification`.
 4. Expired events must be labeled as ended or archived.
 5. Do not copy full official-page text. Write original summaries and practical travel notes.
-6. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
+6. Weather planning notes must match the relevant schedule month: current month for live long-running events, start month for upcoming events, and end month for archived events. Monthly baselines are planning guidance until exact KMA observations are imported.
+7. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
 
 ## AdSense Readiness Checklist
 

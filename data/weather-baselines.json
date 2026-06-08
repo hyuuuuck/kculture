@@ -2,29 +2,194 @@
   "source": {
     "name": "KMA ASOS Daily Weather API",
     "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
-    "mode": "previous-year connector planned",
-    "note": "These are launch planning notes. Production should calculate exact same-period previous-year weather with the KMA ASOS API once an API key is configured."
+    "mode": "monthly previous-year planning baseline until API key is configured",
+    "note": "These are same-month planning baselines for launch. Production can replace them with exact same-period previous-year observations from the KMA ASOS API once a service key is configured."
   },
   "regions": {
     "Seoul": {
+      "January": {
+        "range": "cold and dry, with freezing mornings and possible icy sidewalks",
+        "packing": ["thermal base layer", "winter coat", "gloves", "lip balm", "shoes with grip"],
+        "outdoorAdvice": "For outdoor queues and palace routes, keep indoor alternatives nearby and check wind chill before leaving."
+      },
+      "February": {
+        "range": "cold late-winter weather, slowly brighter but still below freezing at times",
+        "packing": ["warm coat", "scarf", "gloves", "layered tops", "hand warmers"],
+        "outdoorAdvice": "Plan shorter outdoor stops and use cafes, museums, or department stores between event visits."
+      },
+      "March": {
+        "range": "early spring swings, chilly mornings, milder afternoons, and fine-dust checks",
+        "packing": ["light down or wool coat", "layers", "mask for dust days", "comfortable walking shoes"],
+        "outdoorAdvice": "For flower, culture, or shopping routes, check temperature gaps between day and evening."
+      },
+      "April": {
+        "range": "mild spring weather with blossom crowds, dust risk, and occasional rain",
+        "packing": ["light jacket", "umbrella", "mask for dust days", "camera-friendly layers"],
+        "outdoorAdvice": "Outdoor festivals are easier to combine with walking routes, but rain and air quality can change plans."
+      },
+      "May": {
+        "range": "warm spring to early-summer weather, good for outdoor festivals but UV rises",
+        "packing": ["breathable layers", "sunscreen", "cap or hat", "portable umbrella", "walking shoes"],
+        "outdoorAdvice": "For parks, pop-up queues, and river events, check UV and late-afternoon temperature before leaving."
+      },
       "June": {
         "range": "warm, increasingly humid, rain risk rising",
         "packing": ["light breathable clothes", "portable umbrella", "UV protection", "comfortable walking shoes"],
         "outdoorAdvice": "For outdoor plazas, pop-up queues, and palace routes, check same-day rain and UV before leaving."
+      },
+      "July": {
+        "range": "hot, humid, and monsoon-prone, with sudden heavy rain possible",
+        "packing": ["quick-dry clothes", "compact umbrella", "portable fan", "water bottle", "sandals or rain-safe shoes"],
+        "outdoorAdvice": "Avoid long exposed queues at midday and keep indoor backup stops near malls or museums."
+      },
+      "August": {
+        "range": "very hot and humid, with storm and heat-advisory risk",
+        "packing": ["cooling towel", "portable fan", "sun protection", "rain layer", "extra water"],
+        "outdoorAdvice": "For K-pop or shopping events, arrive early, hydrate, and check official heat or crowd-control notices."
+      },
+      "September": {
+        "range": "late-summer to early-autumn weather, still warm with typhoon-season rain risk",
+        "packing": ["light layers", "umbrella", "comfortable shoes", "sun protection"],
+        "outdoorAdvice": "Outdoor festivals are pleasant after sunset, but monitor rain and transport changes."
+      },
+      "October": {
+        "range": "comfortable autumn weather with cooler evenings and high walking demand",
+        "packing": ["light jacket", "long sleeves", "comfortable walking shoes", "small day bag"],
+        "outdoorAdvice": "A strong month for festival hopping; book popular routes and photo spots early."
+      },
+      "November": {
+        "range": "cool late autumn turning cold, with crisp evenings",
+        "packing": ["warm jacket", "layers", "scarf", "comfortable shoes"],
+        "outdoorAdvice": "Plan indoor stops after sunset and check closing times for outdoor attractions."
+      },
+      "December": {
+        "range": "cold winter weather, dry air, and possible freezing evenings",
+        "packing": ["winter coat", "thermal layer", "gloves", "scarf", "moisturizer"],
+        "outdoorAdvice": "For holiday markets, pop-ups, and shopping routes, shorten outdoor waits and use subway-connected venues."
       }
     },
     "Busan": {
+      "January": {
+        "range": "cool coastal winter, usually milder than Seoul but windy near water",
+        "packing": ["warm jacket", "windproof layer", "scarf", "comfortable shoes"],
+        "outdoorAdvice": "Waterfront events can feel colder than the forecast, so plan wind protection and transit time."
+      },
+      "February": {
+        "range": "cool late-winter coastal weather with chilly mornings",
+        "packing": ["warm layers", "windproof jacket", "comfortable shoes"],
+        "outdoorAdvice": "Combine indoor markets, cafes, and museums with shorter beach or harbor stops."
+      },
+      "March": {
+        "range": "mild early spring by the coast, with wind and temperature swings",
+        "packing": ["light jacket", "layers", "windproof outerwear", "walking shoes"],
+        "outdoorAdvice": "Good for seaside walks, but check wind when planning outdoor queues or photo routes."
+      },
+      "April": {
+        "range": "mild spring coastal weather, comfortable for festivals and harbor routes",
+        "packing": ["light jacket", "umbrella", "comfortable shoes", "camera-friendly layers"],
+        "outdoorAdvice": "Outdoor events pair well with beaches and markets, but allow extra time on crowded weekends."
+      },
+      "May": {
+        "range": "warm and breezy, good for seaside festivals before peak summer humidity",
+        "packing": ["breathable layers", "sun protection", "light jacket for evenings", "walking shoes"],
+        "outdoorAdvice": "Plan sunset waterfront stops and check event crowd notices near beach districts."
+      },
       "June": {
         "range": "warm coastal weather, humidity and evening crowd risk",
         "packing": ["light layers", "portable fan", "rain layer", "water bottle"],
         "outdoorAdvice": "For stadium and waterfront events, plan post-event transit and allow time for crowds near beaches and stations."
+      },
+      "July": {
+        "range": "hot, humid, and rainy, with beach crowds and sudden showers",
+        "packing": ["quick-dry clothes", "rain gear", "sun protection", "water bottle", "portable fan"],
+        "outdoorAdvice": "For beach or festival plans, check rain, waves, and crowd-control updates before leaving."
+      },
+      "August": {
+        "range": "peak summer heat and humidity, busy beaches, and storm risk",
+        "packing": ["cool clothing", "sun protection", "portable fan", "rain layer", "extra water"],
+        "outdoorAdvice": "Keep indoor cooling breaks and avoid long midday waits near exposed waterfront areas."
+      },
+      "September": {
+        "range": "warm early autumn with possible typhoon-season rain",
+        "packing": ["light layers", "umbrella", "comfortable shoes", "water bottle"],
+        "outdoorAdvice": "Good for festivals and night views, but check transport and weather alerts on rain days."
+      },
+      "October": {
+        "range": "comfortable autumn coastal weather, strong for festivals and outdoor concerts",
+        "packing": ["light jacket", "long sleeves", "comfortable walking shoes"],
+        "outdoorAdvice": "Book transport early for major festival weekends and leave extra time after concerts."
+      },
+      "November": {
+        "range": "cool coastal autumn, breezy evenings near beaches and bridges",
+        "packing": ["warm jacket", "layers", "windproof outerwear", "comfortable shoes"],
+        "outdoorAdvice": "Night views are pleasant but windy; pair outdoor stops with indoor dining or markets."
+      },
+      "December": {
+        "range": "cool to cold coastal winter with windier waterfront conditions",
+        "packing": ["warm coat", "windproof layer", "scarf", "comfortable shoes"],
+        "outdoorAdvice": "For winter lights and shopping routes, plan warm-up stops around stations and markets."
       }
     },
     "Nationwide": {
+      "January": {
+        "range": "winter varies by region; inland areas can be far colder than coastal cities",
+        "packing": ["winter coat", "thermal layer", "gloves", "weather-aware shoes"],
+        "outdoorAdvice": "Use this as a reminder to check the event city forecast, road conditions, and official venue notices."
+      },
+      "February": {
+        "range": "late winter with regional cold snaps and dry air",
+        "packing": ["warm layers", "scarf", "gloves", "moisturizer"],
+        "outdoorAdvice": "Confirm local forecasts and keep indoor alternatives for long waits."
+      },
+      "March": {
+        "range": "spring transition, temperature gaps, and fine-dust checks vary by city",
+        "packing": ["layers", "light coat", "mask for dust days", "walking shoes"],
+        "outdoorAdvice": "Check the event city forecast and air quality before planning outdoor-heavy routes."
+      },
+      "April": {
+        "range": "mild spring, blossom crowds, regional rain, and dust risk",
+        "packing": ["light jacket", "umbrella", "comfortable shoes", "sun protection"],
+        "outdoorAdvice": "Use city-specific weather and official notices for festivals, parks, and long-distance travel."
+      },
+      "May": {
+        "range": "warm spring to early summer, with rising UV and busy festival weekends",
+        "packing": ["breathable layers", "sunscreen", "cap or hat", "walking shoes"],
+        "outdoorAdvice": "Check local UV, heat, and crowd notices before committing to outdoor queues."
+      },
       "June": {
         "range": "regional variation; city-specific weather check required",
         "packing": ["umbrella", "sun protection", "light layers"],
         "outdoorAdvice": "Use this as a pre-trip reminder, then confirm local forecasts and official venue notices."
+      },
+      "July": {
+        "range": "hot, humid, and monsoon-prone across many regions",
+        "packing": ["rain gear", "quick-dry clothes", "portable fan", "water bottle"],
+        "outdoorAdvice": "Confirm rain alerts, transport changes, and indoor backup options before travel."
+      },
+      "August": {
+        "range": "peak heat and humidity, with regional storm and heat-advisory risk",
+        "packing": ["cool clothing", "sun protection", "rain layer", "extra water"],
+        "outdoorAdvice": "Check heat advisories and event crowd guidance, especially for outdoor festivals."
+      },
+      "September": {
+        "range": "late-summer to autumn transition with possible typhoon-season rain",
+        "packing": ["light layers", "umbrella", "comfortable shoes"],
+        "outdoorAdvice": "Use official transport and weather alerts when planning intercity event trips."
+      },
+      "October": {
+        "range": "comfortable autumn weather, but mountain and coastal areas cool differently",
+        "packing": ["light jacket", "layers", "walking shoes"],
+        "outdoorAdvice": "A strong month for travel routes; book busy weekends early and check evening temperatures."
+      },
+      "November": {
+        "range": "cool late autumn, with colder inland evenings",
+        "packing": ["warm jacket", "layers", "scarf"],
+        "outdoorAdvice": "Plan indoor breaks and check last transport times for regional events."
+      },
+      "December": {
+        "range": "winter weather with regional snow, dry air, and cold nights",
+        "packing": ["winter coat", "thermal layer", "gloves", "scarf"],
+        "outdoorAdvice": "Confirm city-specific weather, road conditions, and official event status before departure."
       }
     }
   }

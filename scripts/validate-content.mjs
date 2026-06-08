@@ -18,6 +18,10 @@ const categories = new Set(["festival", "kpop", "beauty", "duty-free", "departme
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
+const requiredWeatherMonths = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 const errors = [];
 const warnings = [];
 
@@ -133,6 +137,19 @@ for (const source of sources) {
   if (!Array.isArray(source.coverage) || !source.coverage.length) push(errors, id, "coverage must contain at least one item.");
   if (!source.refreshCadence) push(errors, id, "refreshCadence is required.");
   if (!source.automationStatus) push(errors, id, "automationStatus is required.");
+}
+
+for (const [regionName, months] of Object.entries(weather.regions || {})) {
+  for (const month of requiredWeatherMonths) {
+    const item = months?.[month];
+    if (!item) {
+      push(errors, `weather:${regionName}`, `${month} weather baseline is required.`);
+      continue;
+    }
+    if (!String(item.range || "").trim()) push(errors, `weather:${regionName}:${month}`, "range is required.");
+    if (!Array.isArray(item.packing) || item.packing.length < 3) push(errors, `weather:${regionName}:${month}`, "packing must contain at least three items.");
+    if (!String(item.outdoorAdvice || "").trim()) push(errors, `weather:${regionName}:${month}`, "outdoorAdvice is required.");
+  }
 }
 
 if (!Array.isArray(curationQueue)) {

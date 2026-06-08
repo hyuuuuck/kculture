@@ -90,6 +90,11 @@ let dict = {
     period: "Period",
     location: "Location",
     venue: "Venue",
+    mapLinksTitle: "Map and transit checks",
+    googleMap: "Google Maps",
+    naverMap: "Naver Map",
+    kakaoMap: "Kakao Map",
+    mapNote: "Map links are search shortcuts. Confirm the exact entrance, reservation desk, and operating rules on the official source before visiting.",
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
@@ -391,6 +396,11 @@ dict = {
     period: "Period",
     location: "Location",
     venue: "Venue",
+    mapLinksTitle: "Map and transit checks",
+    googleMap: "Google Maps",
+    naverMap: "Naver Map",
+    kakaoMap: "Kakao Map",
+    mapNote: "Map links are search shortcuts. Confirm the exact entrance, reservation desk, and operating rules on the official source before visiting.",
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
@@ -1172,6 +1182,50 @@ function routeLinkCard(route, lang) {
       <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
       <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </a>`;
+}
+
+function eventPlaceQuery(event) {
+  const parts = [event.venue, event.district, event.city, "Korea"]
+    .map((part) => String(part || "").trim())
+    .filter(Boolean);
+  return [...new Set(parts)].join(" ");
+}
+
+function mapLinks(event, lang) {
+  const query = eventPlaceQuery(event);
+  const encoded = encodeURIComponent(query);
+  return [
+    {
+      label: tr(lang, "googleMap"),
+      href: `https://www.google.com/maps/search/?api=1&query=${encoded}`
+    },
+    {
+      label: tr(lang, "naverMap"),
+      href: `https://map.naver.com/p/search/${encoded}`
+    },
+    {
+      label: tr(lang, "kakaoMap"),
+      href: `https://map.kakao.com/?q=${encoded}`
+    }
+  ];
+}
+
+function mapLinkSection(event, lang) {
+  return `
+        <section class="detail-section map-links-section">
+          <div>
+            <h2>${tr(lang, "mapLinksTitle")}</h2>
+            <p><strong>${esc(event.venue)}</strong> · ${esc(event.district)}, ${esc(event.city)}</p>
+            <p class="source-note">${tr(lang, "mapNote")}</p>
+          </div>
+          <div class="map-link-list">
+            ${mapLinks(event, lang).map((link) => `
+              <a href="${esc(link.href)}" rel="nofollow noopener" target="_blank">
+                <strong>${esc(link.label)}</strong>
+                <span>${esc(eventPlaceQuery(event))}</span>
+              </a>`).join("")}
+          </div>
+        </section>`;
 }
 
 function dateText(lang, iso) {
@@ -2057,6 +2111,7 @@ function renderEvent(event, lang) {
             <ul>${event.travelTips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
           </div>
         </section>
+        ${mapLinkSection(event, lang)}
 
         ${routeIdeas.length ? `
           <section class="detail-section">

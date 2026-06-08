@@ -19,6 +19,7 @@ const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.
   .catch(() => []);
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
+const requiredLanguages = ["en", "es", "zh", "pt", "ru"];
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
@@ -65,8 +66,18 @@ function hasBrokenLocalizedText(value) {
   return /�|\?{2,}|[A-Za-zÀ-ž]\?[A-Za-zÀ-ž]|^\?|\s\?/.test(text);
 }
 
-function validateLocalizedObject(id, field, value) {
-  if (!value || typeof value !== "object") return;
+function validateLocalizedObject(id, field, value, { requireAll = false } = {}) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    if (requireAll) push(errors, id, `${field} must contain ${requiredLanguages.join(", ")} localized values.`);
+    return;
+  }
+  if (requireAll) {
+    for (const lang of requiredLanguages) {
+      if (!String(value[lang] || "").trim()) {
+        push(errors, id, `${field}.${lang} is required for multilingual publication.`);
+      }
+    }
+  }
   for (const [lang, text] of Object.entries(value)) {
     if (lang === "en") continue;
     if (hasBrokenLocalizedText(text)) {
@@ -154,9 +165,9 @@ for (const event of events) {
   if (!localEn(event.title)) push(errors, id, "title.en is required.");
   if (!localEn(event.summary)) push(errors, id, "summary.en is required.");
   if (!localEn(event.whyGo)) push(errors, id, "whyGo.en is required.");
-  validateLocalizedObject(id, "title", event.title);
-  validateLocalizedObject(id, "summary", event.summary);
-  validateLocalizedObject(id, "whyGo", event.whyGo);
+  validateLocalizedObject(id, "title", event.title, { requireAll: true });
+  validateLocalizedObject(id, "summary", event.summary, { requireAll: true });
+  validateLocalizedObject(id, "whyGo", event.whyGo, { requireAll: true });
   if (!event.city) push(errors, id, "city is required.");
   if (!event.venue) push(errors, id, "venue is required.");
   if (!event.sourceName) push(errors, id, "sourceName is required.");
@@ -251,8 +262,8 @@ for (const guide of guides) {
   if (!categories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
   if (!localEn(guide.title)) push(errors, id, "guide title.en is required.");
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
-  validateLocalizedObject(id, "guide.title", guide.title);
-  validateLocalizedObject(id, "guide.summary", guide.summary);
+  validateLocalizedObject(id, "guide.title", guide.title, { requireAll: true });
+  validateLocalizedObject(id, "guide.summary", guide.summary, { requireAll: true });
   const sections = guideSections(guide.sections);
   if (sections.length < 2) push(errors, id, "guide needs at least two English sections.");
   for (const section of sections) {

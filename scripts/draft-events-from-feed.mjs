@@ -298,6 +298,7 @@ function draftFor(candidate) {
       "Confirm start date, end date, time zone, and whether the offer can end early.",
       "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
       "Replace this draft summary with an original multilingual visitor summary before publishing.",
+      "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
       "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
     ],
     evidence: {

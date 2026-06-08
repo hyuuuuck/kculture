@@ -9,6 +9,7 @@ const fileArg = valueFor("--file");
 const write = args.includes("--write");
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
+const requiredLanguages = ["en", "es", "zh", "pt", "ru"];
 const draftTextPatterns = [
   /draft-needs-review/i,
   /needs editor review/i,
@@ -40,6 +41,11 @@ function asArray(payload) {
 function localEn(value) {
   if (typeof value === "string") return value.trim();
   return String(value?.en || "").trim();
+}
+
+function localText(value, lang) {
+  if (typeof value === "string") return lang === "en" ? value.trim() : "";
+  return String(value?.[lang] || "").trim();
 }
 
 function textBlob(event) {
@@ -93,6 +99,13 @@ function validateEvent(event, context) {
   if (!localEn(event.title) || localEn(event.title).length < 12) pushError(errors, event, "title.en must be a reviewed title.");
   if (!localEn(event.summary) || localEn(event.summary).length < 80) pushError(errors, event, "summary.en must be a reviewed visitor summary of at least 80 characters.");
   if (!localEn(event.whyGo) || localEn(event.whyGo).length < 70) pushError(errors, event, "whyGo.en must explain visitor value in at least 70 characters.");
+  for (const field of ["title", "summary", "whyGo"]) {
+    for (const lang of requiredLanguages) {
+      if (!localText(event[field], lang)) {
+        pushError(errors, event, `${field}.${lang} is required before publishing multilingual content.`);
+      }
+    }
+  }
   if (!event.city) pushError(errors, event, "city is required.");
   if (!event.venue) pushError(errors, event, "venue is required.");
   if (!event.sourceName) pushError(errors, event, "sourceName is required.");

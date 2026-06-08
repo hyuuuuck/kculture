@@ -10,6 +10,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - Event detail pages with official source links, last-checked date, schedule-month previous-year weather planning notes, and nearby travel ideas
 - A `/now/` page for live, ending-soon, newly checked, and this-week events
 - Event calendar page plus `/events.ics`
+- RSS and JSON Feed output at `/feed.xml`, `/latest.json`, and each language folder for recrawl signals, subscriptions, newsletters, and future automation
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
 - Language versions for English, Spanish, Chinese, Portuguese, and Russian
 - Static output in `dist/` for Cloudflare Pages
@@ -22,6 +23,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/guides.json`: original evergreen guide content
 - `data/weather-baselines.json`: schedule-month previous-year weather planning baselines by region
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
+- Generated feed files: `/feed.xml`, `/latest.json`, `/{lang}/feed.xml`, and `/{lang}/latest.json`
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
@@ -58,6 +60,8 @@ Run build, content checks, generated HTML text checks, and internal link checks:
 ```powershell
 npm.cmd run verify
 ```
+
+The build also writes latest-event RSS and JSON feeds. Submit `/sitemap.xml` to Search Console, and keep `/feed.xml` available for users, feed readers, newsletters, or social-post automation.
 
 Before an AdSense application or a production content push, run the freshness gate in strict mode so live and upcoming listings cannot stay stale:
 

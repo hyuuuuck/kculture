@@ -750,6 +750,10 @@ function esc(value) {
     .replaceAll("'", "&#39;");
 }
 
+function xmlEsc(value) {
+  return esc(value);
+}
+
 function tr(lang, key) {
   const value = dict[lang]?.[key] || dict.en[key] || key;
   return hasMojibake(value) ? (dict.en[key] || key) : value;
@@ -896,6 +900,88 @@ function nowGroups() {
 
 function categoryLabel(lang, category) {
   return tr(lang, categoryLabels[category] || category);
+}
+
+function maxIso(values, fallback = today) {
+  const dates = values.filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(String(value || "")));
+  return dates.length ? dates.sort().at(-1) : fallback;
+}
+
+function feedEvents(limit = 30) {
+  return [...events]
+    .sort((a, b) => {
+      const checked = b.lastChecked.localeCompare(a.lastChecked);
+      if (checked) return checked;
+      return statusSort(a, b) || b.priority - a.priority;
+    })
+    .slice(0, limit);
+}
+
+function kstDateTime(iso) {
+  return `${iso}T00:00:00+09:00`;
+}
+
+function rfc2822Date(iso) {
+  return new Date(kstDateTime(iso)).toUTCString();
+}
+
+function eventPublicUrl(event, lang) {
+  return absoluteUrl(`/${lang}/events/${event.slug}.html`);
+}
+
+function eventFeedSummary(event, lang) {
+  const status = statusLabel(lang, statusOf(event));
+  const category = categoryLabel(lang, event.category);
+  return `${local(event.summary, lang)} ${status}. ${category}. ${event.dateLabel || `${event.startDate} - ${event.endDate}`}. Official source: ${event.sourceUrl}`;
+}
+
+function rssFeed(lang, feedPath = `/${lang}/feed.xml`) {
+  const items = feedEvents();
+  const feedUrl = absoluteUrl(feedPath);
+  const homeUrl = absoluteUrl(`/${lang}/`);
+  const lastBuildDate = rfc2822Date(maxIso(items.map((event) => event.lastChecked)));
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(`Korea Now Guide - ${languages[lang].name}`)}</title>\n    <link>${xmlEsc(homeUrl)}</link>\n    <description>${xmlEsc(tr(lang, "nowText"))}</description>\n    <language>${xmlEsc(languages[lang].locale)}</language>\n    <lastBuildDate>${xmlEsc(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${xmlEsc(feedUrl)}" rel="self" type="application/rss+xml"/>\n${items.map((event) => {
+    const url = eventPublicUrl(event, lang);
+    return `    <item>\n      <title>${xmlEsc(local(event.title, lang))}</title>\n      <link>${xmlEsc(url)}</link>\n      <guid isPermaLink="true">${xmlEsc(url)}</guid>\n      <pubDate>${xmlEsc(rfc2822Date(event.lastChecked))}</pubDate>\n      <category>${xmlEsc(categoryLabel(lang, event.category))}</category>\n      <description>${xmlEsc(eventFeedSummary(event, lang))}</description>\n      <source url="${xmlEsc(event.sourceUrl)}">${xmlEsc(event.sourceName)}</source>\n    </item>`;
+  }).join("\n")}\n  </channel>\n</rss>\n`;
+}
+
+function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
+  const items = feedEvents();
+  return JSON.stringify({
+    version: "https://jsonfeed.org/version/1.1",
+    title: `Korea Now Guide - ${languages[lang].name}`,
+    home_page_url: absoluteUrl(`/${lang}/`),
+    feed_url: absoluteUrl(feedPath),
+    language: languages[lang].locale,
+    description: tr(lang, "nowText"),
+    authors: [{ name: "Korea Now Guide" }],
+    items: items.map((event) => ({
+      id: eventPublicUrl(event, lang),
+      url: eventPublicUrl(event, lang),
+      external_url: event.sourceUrl,
+      title: local(event.title, lang),
+      summary: local(event.summary, lang),
+      content_text: eventFeedSummary(event, lang),
+      image: absoluteUrl(`/${event.thumbnail}`),
+      date_published: kstDateTime(event.lastChecked),
+      date_modified: kstDateTime(event.lastChecked),
+      tags: [categoryLabel(lang, event.category), event.city, statusLabel(lang, statusOf(event))],
+      _korea_now_guide: {
+        category: event.category,
+        status: statusOf(event),
+        city: event.city,
+        venue: event.venue,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        dateLabel: event.dateLabel || "",
+        lastChecked: event.lastChecked,
+        sourceName: event.sourceName,
+        sourceUrl: event.sourceUrl,
+        freshness: freshnessInfo(event, lang)
+      }
+    }))
+  }, null, 2);
 }
 
 function categoryHref(lang, category) {
@@ -1161,6 +1247,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="${siteUrl}${canonicalPath}">
   ${alternateLinks(currentPathBuilder, canonicalPath)}
+  <link rel="alternate" type="application/rss+xml" title="Korea Now Guide RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
+  <link rel="alternate" type="application/feed+json" title="Korea Now Guide JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
@@ -2113,6 +2201,12 @@ async function writeHtml(relativePath, html) {
   await fs.writeFile(file, html, "utf8");
 }
 
+async function writeText(relativePath, text) {
+  const file = path.join(dist, relativePath);
+  await fs.mkdir(path.dirname(file), { recursive: true });
+  await fs.writeFile(file, text, "utf8");
+}
+
 async function build() {
   await fs.rm(dist, { recursive: true, force: true });
   await fs.mkdir(dist, { recursive: true });
@@ -2121,8 +2215,12 @@ async function build() {
   await fs.copyFile(path.join(root, "app.js"), path.join(dist, "app.js"));
 
   await writeHtml("index.html", renderHome("en", "/"));
+  await writeText("feed.xml", rssFeed("en", "/feed.xml"));
+  await writeText("latest.json", jsonFeed("en", "/latest.json"));
   for (const lang of Object.keys(languages)) {
     await writeHtml(`${lang}/index.html`, renderHome(lang));
+    await writeText(`${lang}/feed.xml`, rssFeed(lang));
+    await writeText(`${lang}/latest.json`, jsonFeed(lang));
     await writeHtml(`${lang}/now/index.html`, renderNow(lang));
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
@@ -2181,20 +2279,61 @@ function headers() {
 
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/*/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/latest.json
+  Content-Type: application/feed+json; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/*/latest.json
+  Content-Type: application/feed+json; charset=utf-8
+  Cache-Control: public, max-age=1800
 `;
 }
 
 function sitemap() {
-  const urls = ["/"];
+  const entries = [{ url: "/", lastmod: maxIso(events.map((event) => event.lastChecked)) }];
   for (const lang of Object.keys(languages)) {
-    urls.push(`/${lang}/`, `/${lang}/now/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/watchlist/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
-    for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
-    for (const city of citiesWithEvents()) urls.push(cityHref(lang, city));
-    for (const route of routes) urls.push(routeHref(lang, route));
-    for (const event of events) urls.push(`/${lang}/events/${event.slug}.html`);
-    for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);
+    const latestEventCheck = maxIso(events.map((event) => event.lastChecked));
+    entries.push(
+      { url: `/${lang}/`, lastmod: latestEventCheck },
+      { url: `/${lang}/now/`, lastmod: today },
+      { url: `/${lang}/calendar/`, lastmod: today },
+      { url: `/${lang}/guides/`, lastmod: today },
+      { url: `/${lang}/routes/`, lastmod: latestEventCheck },
+      { url: `/${lang}/sources/`, lastmod: today },
+      { url: `/${lang}/watchlist/`, lastmod: today },
+      { url: `/${lang}/freshness/`, lastmod: today },
+      { url: `/${lang}/editorial-policy/`, lastmod: today },
+      { url: `/${lang}/about/`, lastmod: today },
+      { url: `/${lang}/contact/`, lastmod: today },
+      { url: `/${lang}/privacy/`, lastmod: today },
+      { url: `/${lang}/terms/`, lastmod: today }
+    );
+    for (const category of Object.keys(categoryDefinitions)) {
+      const categoryEvents = events.filter((event) => event.category === category);
+      entries.push({ url: categoryHref(lang, category), lastmod: maxIso(categoryEvents.map((event) => event.lastChecked), latestEventCheck) });
+    }
+    for (const city of citiesWithEvents()) {
+      const cityEvents = events.filter((event) => event.city === city);
+      entries.push({ url: cityHref(lang, city), lastmod: maxIso(cityEvents.map((event) => event.lastChecked), latestEventCheck) });
+    }
+    for (const route of routes) {
+      const routeEvents = eventsForRoute(route);
+      entries.push({ url: routeHref(lang, route), lastmod: maxIso(routeEvents.map((event) => event.lastChecked), latestEventCheck) });
+    }
+    for (const event of events) entries.push({ url: `/${lang}/events/${event.slug}.html`, lastmod: event.lastChecked || latestEventCheck });
+    for (const guide of guides) entries.push({ url: `/${lang}/guides/${guide.slug}.html`, lastmod: today });
   }
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${siteUrl}${url}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map((entry) => `  <url><loc>${xmlEsc(`${siteUrl}${entry.url}`)}</loc><lastmod>${xmlEsc(entry.lastmod)}</lastmod></url>`).join("\n")}\n</urlset>\n`;
 }
 
 function icsDate(iso, addOneDay = false) {

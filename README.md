@@ -77,6 +77,7 @@ Use GitHub plus Cloudflare Pages.
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Root directory: this project root
+- Pages project name: `korea-now-guide` by default, or set `CLOUDFLARE_PAGES_PROJECT_NAME`
 
 Before production build, set:
 
@@ -98,11 +99,34 @@ npm.cmd run build
 npm.cmd run validate:production
 ```
 
+Manual Wrangler deploy after the production preflight:
+
+```powershell
+npm.cmd run deploy:cloudflare
+```
+
+For GitHub Actions deployment through Wrangler, set these repository variables:
+
+- `SITE_URL`: real production URL, for example `https://your-domain.com`
+- `CONTACT_EMAIL`: public contact email shown in policy pages
+- `CLOUDFLARE_PAGES_PROJECT_NAME`: Cloudflare Pages project name, default `korea-now-guide`
+- `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
+- `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
+
+Set these repository secrets:
+
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN`
+
+`.github/workflows/deploy-cloudflare-pages.yml` builds with the real domain, runs production preflight, validates content and links, then deploys `dist/` to Cloudflare Pages with `wrangler pages deploy`.
+
 ## GitHub Verification
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
 `.github/workflows/source-refresh.yml` runs official source collection three times per day and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+
+`.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 
 ## Daily Operating Routine
 
@@ -230,6 +254,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - Real custom domain connected
 - `SITE_URL` set before final build
 - `CONTACT_EMAIL` set before final build
+- GitHub Actions deploy variables and Cloudflare secrets configured
 - `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/` working
 - At least 30 verified event, guide, or archive pages
 - No broken images or broken internal links

@@ -1,0 +1,86 @@
+name: Deploy Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      require_adsense:
+        description: "Require AdSense publisher ID before deploying"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: cloudflare-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+      CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+      GOOGLE_ADSENSE_PUBLISHER_ID: ${{ vars.GOOGLE_ADSENSE_PUBLISHER_ID }}
+      GOOGLE_ADSENSE_CLIENT: ${{ vars.GOOGLE_ADSENSE_CLIENT }}
+      CLOUDFLARE_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'korea-now-guide' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check deployment configuration
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$SITE_URL" || { echo "SITE_URL repository variable is required."; exit 1; }
+          test -n "$CONTACT_EMAIL" || { echo "CONTACT_EMAIL repository variable is required."; exit 1; }
+          test -n "$CLOUDFLARE_PAGES_PROJECT_NAME" || { echo "CLOUDFLARE_PAGES_PROJECT_NAME repository variable is required."; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required."; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID secret is required."; exit 1; }
+
+      - name: Build production site
+        run: npm run build
+
+      - name: Validate production build
+        env:
+          REQUIRE_ADSENSE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
+        run: |
+          if [ "$REQUIRE_ADSENSE" = "1" ]; then
+            npm run preflight:adsense
+          else
+            npm run validate:production
+          fi
+          npm run validate:content
+          npm run validate:links
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print deployment URL
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+          DEPLOYMENT_ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+        run: |
+          echo "Deployment URL: $DEPLOYMENT_URL"
+          echo "Deployment alias URL: $DEPLOYMENT_ALIAS_URL"

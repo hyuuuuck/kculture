@@ -20,10 +20,11 @@
     "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events && npm run review:board",
     "import:tourapi": "node scripts/import-tourapi.mjs",
     "import:weather": "node scripts/import-kma-weather.mjs",
-    "preview": "npx wrangler pages dev dist"
+    "preview": "npx wrangler pages dev dist",
+    "deploy:cloudflare": "npx wrangler pages deploy dist --project-name korea-now-guide"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

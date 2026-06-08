@@ -839,10 +839,18 @@ img {
 }
 
 .date-pill small,
-.calendar-item em {
+.calendar-item em,
+.calendar-weather {
   color: var(--muted);
   font-style: normal;
   font-weight: 650;
+}
+
+.calendar-weather {
+  display: block;
+  margin: 3px 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
 .calendar-item b {

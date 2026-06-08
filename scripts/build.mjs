@@ -114,6 +114,8 @@ let dict = {
     calendarTitle: "Event Calendar",
     calendarText: "Dates are shown as planning ranges. Offers may end early, so every detail page links back to the official source.",
     downloadCalendar: "Download calendar file",
+    calendarWeather: "Weather planning",
+    packHint: "Pack",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
     navWatchlist: "Watchlist",
@@ -421,6 +423,8 @@ dict = {
     calendarTitle: "Event Calendar",
     calendarText: "Dates are shown as planning ranges. Offers may end early, so every detail page links back to the official source.",
     downloadCalendar: "Download calendar file",
+    calendarWeather: "Weather planning",
+    packHint: "Pack",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
     navWatchlist: "Watchlist",
@@ -2049,11 +2053,15 @@ function renderCalendar(lang) {
 
 function calendarItem(event, lang) {
   const status = statusOf(event);
+  const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
+  const baseline = weatherInfo.baseline;
+  const pack = (baseline.packing || []).slice(0, 2).join(", ");
   return `
     <a class="calendar-item" href="/${lang}/events/${event.slug}.html">
       <span class="date-pill">${dateText(lang, event.startDate)}<small>${dateText(lang, event.endDate)}</small></span>
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
+        <small class="calendar-weather">${esc(tr(lang, "calendarWeather"))}: ${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)} - ${esc(baseline.range)}${pack ? ` · ${esc(tr(lang, "packHint"))}: ${esc(pack)}` : ""}</small>
         <em>${esc(event.city)} · ${categoryLabel(lang, event.category)}</em>
       </span>
       <b class="${status}">${statusLabel(lang, status)}</b>

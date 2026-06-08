@@ -70,6 +70,14 @@ function requireFile(relativePath) {
   return file;
 }
 
+function manualAdSlotFiles() {
+  return [
+    "index.html",
+    path.join("en", "events", `${events[0]?.slug || ""}.html`),
+    path.join("en", "guides", `${guides[0]?.slug || ""}.html`)
+  ].filter((relativePath) => !relativePath.includes("undefined") && fs.existsSync(path.join(dist, relativePath)));
+}
+
 function collectFiles(dir, predicate, out = []) {
   if (!fs.existsSync(dir)) return out;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -220,7 +228,12 @@ if (publisherId) {
 if (clientId && fs.existsSync(distIndex)) {
   const home = fs.readFileSync(distIndex, "utf8");
   if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/index.html.");
-  if (slotId && !home.includes(`data-ad-slot="${slotId}"`)) fail("Manual AdSense slot was not found in dist/index.html.");
+  if (slotId) {
+    const missingSlotFiles = manualAdSlotFiles().filter((relativePath) => !readTextIfExists(path.join(dist, relativePath)).includes(`data-ad-slot="${slotId}"`));
+    if (missingSlotFiles.length) fail(`Manual AdSense slot was not found in checked pages: ${missingSlotFiles.join(", ")}.`);
+  }
+} else if (slotId) {
+  fail("GOOGLE_ADSENSE_SLOT requires GOOGLE_ADSENSE_CLIENT or GOOGLE_ADSENSE_PUBLISHER_ID.");
 }
 
 if (googleSiteVerification) {

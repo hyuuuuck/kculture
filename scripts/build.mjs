@@ -2471,6 +2471,7 @@ function renderGuide(guide, lang) {
         <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
         <h1>${esc(local(guide.title, lang))}</h1>
         <p class="lede">${esc(local(guide.summary, lang))}</p>
+        ${adUnit("article")}
         ${sections.map((section, index) => `
           <section>
             <h2>${esc(guideSectionHeading(section, index))}</h2>

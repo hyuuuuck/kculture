@@ -229,6 +229,11 @@ img {
   margin: 0;
 }
 
+.ad-band.article {
+  width: 100%;
+  margin: 18px 0 6px;
+}
+
 .stats-band {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -138,7 +138,7 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 - `CLOUDFLARE_PAGES_PROJECT_NAME`: Cloudflare Pages project name, default `korea-now-guide`
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
 - `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
-- `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved in-page ad placements after approval
+- `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved placements on the home page, event detail pages, and guide articles after approval
 - `GOOGLE_SITE_VERIFICATION`: optional Search Console HTML tag content. You may paste either the content token or the full meta tag.
 
 Set these repository secrets:

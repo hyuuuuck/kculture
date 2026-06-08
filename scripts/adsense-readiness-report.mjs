@@ -104,6 +104,20 @@ function structuredEventStats() {
   };
 }
 
+function manualAdSlotStats(slotId) {
+  const checks = [
+    "dist/index.html",
+    `dist/en/events/${events[0]?.slug || ""}.html`,
+    `dist/en/guides/${guides[0]?.slug || ""}.html`
+  ].filter((relativePath) => !relativePath.includes("undefined") && exists(relativePath));
+  const ok = checks.filter((relativePath) => fssync.readFileSync(path.join(root, relativePath), "utf8").includes(`data-ad-slot="${slotId}"`));
+  return {
+    expected: checks.length,
+    ok: ok.length,
+    missing: checks.filter((relativePath) => !ok.includes(relativePath))
+  };
+}
+
 function sourceHaystack(source) {
   return [
     source.name,
@@ -321,11 +335,11 @@ function runChecks() {
   }
 
   if (slotId && /^\d{8,20}$/.test(slotId) && exists("dist/index.html")) {
-    const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
-    if (home.includes(`data-ad-slot="${slotId}"`)) {
-      pass("AdSense", "Manual ad slot", slotId);
+    const adSlots = manualAdSlotStats(slotId);
+    if (adSlots.expected && adSlots.ok === adSlots.expected) {
+      pass("AdSense", "Manual ad slot", `${slotId} on ${adSlots.ok}/${adSlots.expected} checked pages`);
     } else {
-      fail("AdSense", "Manual ad slot", "configured but missing from home page", "Rebuild with GOOGLE_ADSENSE_SLOT set.");
+      fail("AdSense", "Manual ad slot", `${adSlots.ok}/${adSlots.expected} checked pages`, `Rebuild with GOOGLE_ADSENSE_SLOT set and inspect ${adSlots.missing.slice(0, 3).join(", ")}.`);
     }
   } else if (slotId) {
     fail("AdSense", "Manual ad slot", "invalid", "Use the numeric ad slot ID from an AdSense ad unit.");

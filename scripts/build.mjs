@@ -89,6 +89,15 @@ let dict = {
     watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
     freshnessTitle: "Freshness Log",
     freshnessText: "Every listing shows when it was last checked and which official source was used.",
+    freshness: "Freshness",
+    freshnessFresh: "Fresh",
+    freshnessCurrent: "Recently checked",
+    freshnessSoon: "Recheck soon",
+    freshnessStale: "Needs official recheck",
+    freshnessArchive: "Archive check",
+    checkedToday: "checked today",
+    checkedYesterday: "checked yesterday",
+    daysAgo: "days ago",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -356,6 +365,15 @@ dict = {
     watchlistText: "The official sources, listing pages, ticketing roots, and curation queues checked before new public event pages are published.",
     freshnessTitle: "Freshness Log",
     freshnessText: "Every listing shows when it was last checked and which official source was used.",
+    freshness: "Freshness",
+    freshnessFresh: "Fresh",
+    freshnessCurrent: "Recently checked",
+    freshnessSoon: "Recheck soon",
+    freshnessStale: "Needs official recheck",
+    freshnessArchive: "Archive check",
+    checkedToday: "checked today",
+    checkedYesterday: "checked yesterday",
+    daysAgo: "days ago",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -609,6 +627,9 @@ const categoryLabels = {
   "travel-benefits": "benefits"
 };
 
+const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
+const dayMs = 24 * 60 * 60 * 1000;
+
 const categoryDefinitions = {
   festival: {
     title: "Korea festivals and cultural events",
@@ -771,6 +792,56 @@ function statusOf(event) {
 
 function statusLabel(lang, status) {
   return status === "live" ? tr(lang, "statusLive") : status === "upcoming" ? tr(lang, "statusUpcoming") : tr(lang, "statusEnded");
+}
+
+function daysSince(iso) {
+  return Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${iso}T00:00:00Z`)) / dayMs);
+}
+
+function freshnessLimitDays(event) {
+  const status = statusOf(event);
+  if (status === "ended") return 45;
+  if (status === "live") return fastMovingCategories.has(event.category) ? 2 : 3;
+  return fastMovingCategories.has(event.category) ? 3 : 7;
+}
+
+function freshnessAgeText(lang, days) {
+  if (days <= 0) return tr(lang, "checkedToday");
+  if (days === 1) return tr(lang, "checkedYesterday");
+  return `${days} ${tr(lang, "daysAgo")}`;
+}
+
+function freshnessInfo(event, lang) {
+  const ageDays = daysSince(event.lastChecked);
+  const limitDays = freshnessLimitDays(event);
+  const status = statusOf(event);
+  let tone = "fresh";
+  let label = tr(lang, "freshnessFresh");
+
+  if (Number.isNaN(ageDays) || ageDays < 0) {
+    tone = "stale";
+    label = tr(lang, "freshnessStale");
+  } else if (status === "ended" && ageDays > limitDays) {
+    tone = "archive";
+    label = tr(lang, "freshnessArchive");
+  } else if (ageDays > limitDays + 3) {
+    tone = "stale";
+    label = tr(lang, "freshnessStale");
+  } else if (ageDays > limitDays) {
+    tone = "soon";
+    label = tr(lang, "freshnessSoon");
+  } else if (ageDays > 1) {
+    tone = "current";
+    label = tr(lang, "freshnessCurrent");
+  }
+
+  return {
+    ageDays,
+    limitDays,
+    label,
+    tone,
+    text: Number.isNaN(ageDays) ? label : `${label} · ${freshnessAgeText(lang, ageDays)}`
+  };
 }
 
 function categoryLabel(lang, category) {
@@ -1095,6 +1166,7 @@ function schema(lang, title, description, canonicalPath) {
 
 function eventCard(event, lang) {
   const status = statusOf(event);
+  const freshness = freshnessInfo(event, lang);
   return `
     <article class="event-card" data-card data-category="${esc(event.category)}" data-status="${status}">
       <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
@@ -1111,6 +1183,7 @@ function eventCard(event, lang) {
         <dl class="compact-facts">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`)}</dd></div>
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
+          <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
         </dl>
       </div>
     </article>`;
@@ -1495,6 +1568,7 @@ function calendarItem(event, lang) {
 
 function renderEvent(event, lang) {
   const status = statusOf(event);
+  const freshness = freshnessInfo(event, lang);
   const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
   const routeIdeas = routesForEvent(event);
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
@@ -1517,6 +1591,7 @@ function renderEvent(event, lang) {
           ${fact(tr(lang, "period"), event.dateLabel || `${event.startDate} - ${event.endDate}`)}
           ${fact(tr(lang, "venue"), `${event.venue}, ${event.district}`)}
           ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked))}
+          ${fact(tr(lang, "freshness"), freshness.text)}
           ${fact(tr(lang, "collectionMode"), event.collectionMode)}
           ${fact("Verification", event.verification)}
           ${fact(tr(lang, "location"), event.city)}
@@ -1792,16 +1867,20 @@ function renderFreshness(lang) {
         <p>${tr(lang, "freshnessText")}</p>
       </section>
       <section class="freshness-list">
-        ${items.map((event) => `
-          <article>
+        ${items.map((event) => {
+          const freshness = freshnessInfo(event, lang);
+          return `
+          <article class="freshness-row ${freshness.tone}">
             <div>
               <span>${dateText(lang, event.lastChecked)}</span>
               <strong><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
               <em>${esc(event.city)} · ${categoryLabel(lang, event.category)} · ${statusLabel(lang, statusOf(event))}</em>
+              <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
             </div>
             <p>${esc(local(event.summary, lang))}</p>
             <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(event.sourceName)}</a>
-          </article>`).join("")}
+          </article>`;
+        }).join("")}
       </section>
     </main>`;
   return layout({

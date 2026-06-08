@@ -476,6 +476,42 @@ img {
   font-weight: 760;
 }
 
+.freshness-chip {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 8px;
+  border: 1px solid #b7ded5;
+  border-radius: 999px;
+  color: #0b625b;
+  background: #eaf7f2;
+  font-size: 0.76rem;
+  font-weight: 840;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.freshness-chip.current {
+  color: #315271;
+  border-color: #c1d6eb;
+  background: #eef6ff;
+}
+
+.freshness-chip.soon {
+  color: #73511d;
+  border-color: #f2d38f;
+  background: #fff7df;
+}
+
+.freshness-chip.stale,
+.freshness-chip.archive {
+  color: #7c2c2c;
+  border-color: #efb4b4;
+  background: #fff0f0;
+}
+
 .split-band {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -993,6 +1029,26 @@ img {
   font-size: 0.84rem;
   font-style: normal;
   font-weight: 720;
+}
+
+.freshness-list .freshness-chip {
+  margin-top: 6px;
+  color: #0b625b;
+  font-size: 0.76rem;
+  font-weight: 840;
+}
+
+.freshness-list .freshness-chip.current {
+  color: #315271;
+}
+
+.freshness-list .freshness-chip.soon {
+  color: #73511d;
+}
+
+.freshness-list .freshness-chip.stale,
+.freshness-list .freshness-chip.archive {
+  color: #7c2c2c;
 }
 
 .freshness-list p {

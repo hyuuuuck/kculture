@@ -1,9 +1,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
+const today = todayString();
+const dayMs = 24 * 60 * 60 * 1000;
+const freshnessStrict = process.env.CONTENT_FRESHNESS_STRICT === "1";
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -18,6 +22,7 @@ const categories = new Set(["festival", "kpop", "beauty", "duty-free", "departme
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
+const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
 const requiredWeatherMonths = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -31,6 +36,23 @@ function push(list, id, message) {
 
 function isDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(Date.parse(`${value}T00:00:00Z`));
+}
+
+function statusOf(event) {
+  if (event.endDate < today) return "ended";
+  if (event.startDate > today) return "upcoming";
+  return "live";
+}
+
+function daysSince(iso) {
+  return Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${iso}T00:00:00Z`)) / dayMs);
+}
+
+function freshnessLimitDays(event) {
+  const status = statusOf(event);
+  if (status === "ended") return 45;
+  if (status === "live") return fastMovingCategories.has(event.category) ? 2 : 3;
+  return fastMovingCategories.has(event.category) ? 3 : 7;
 }
 
 function localEn(value) {
@@ -97,6 +119,23 @@ for (const event of events) {
   if (!isDate(event.endDate)) push(errors, id, "endDate must be YYYY-MM-DD.");
   if (isDate(event.startDate) && isDate(event.endDate) && event.startDate > event.endDate) push(errors, id, "startDate is after endDate.");
   if (!isDate(event.lastChecked)) push(errors, id, "lastChecked must be YYYY-MM-DD.");
+  if (isDate(event.lastChecked)) {
+    const ageDays = daysSince(event.lastChecked);
+    if (ageDays < 0) {
+      push(errors, id, "lastChecked cannot be in the future.");
+    }
+    if (ageDays >= 0 && isDate(event.startDate) && isDate(event.endDate)) {
+      const status = statusOf(event);
+      const limitDays = freshnessLimitDays(event);
+      const freshnessTarget = freshnessStrict ? errors : warnings;
+      if (ageDays > limitDays) {
+        push(freshnessTarget, id, `${status} listing was last checked ${ageDays} days ago; limit is ${limitDays} days.`);
+      }
+      if (status === "live" && event.lastChecked < event.startDate) {
+        push(freshnessTarget, id, "live listing should be rechecked on or after its start date.");
+      }
+    }
+  }
   if (!localEn(event.title)) push(errors, id, "title.en is required.");
   if (!localEn(event.summary)) push(errors, id, "summary.en is required.");
   if (!localEn(event.whyGo)) push(errors, id, "whyGo.en is required.");

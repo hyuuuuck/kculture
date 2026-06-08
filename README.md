@@ -58,6 +58,13 @@ Run build, content checks, generated HTML text checks, and internal link checks:
 npm.cmd run verify
 ```
 
+Before an AdSense application or a production content push, run the freshness gate in strict mode so live and upcoming listings cannot stay stale:
+
+```powershell
+$env:CONTENT_FRESHNESS_STRICT="1"
+npm.cmd run validate:content
+```
+
 Preview:
 
 ```powershell
@@ -127,6 +134,7 @@ Set these repository secrets:
 `.github/workflows/source-refresh.yml` runs official source collection three times per day and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
 
 `.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
+Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
 
 ## Daily Operating Routine
 
@@ -216,6 +224,13 @@ npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write
 npm.cmd run verify
 ```
 
+For production content pushes, also enable the strict freshness gate:
+
+```powershell
+$env:CONTENT_FRESHNESS_STRICT="1"
+npm.cmd run validate:content
+```
+
 The publisher rejects draft placeholders such as `draft-needs-review`, `Needs editor review`, generic draft summaries, review-only fields, duplicate slugs, unknown sources, invalid dates, and missing visitor value.
 
 ## Latest Event Coverage
@@ -259,7 +274,8 @@ The curation queue is still non-public. It only helps the review board surface o
 4. Expired events must be labeled as ended or archived.
 5. Do not copy full official-page text. Write original summaries and practical travel notes.
 6. Weather planning notes must match the relevant schedule month: current month for live long-running events, start month for upcoming events, and end month for archived events. Monthly baselines are planning guidance until exact KMA observations are imported.
-7. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
+7. Live and upcoming listings should be rechecked frequently. Fast-moving K-pop, beauty, duty-free, and department-store items have shorter freshness windows than evergreen festival archives.
+8. Before AdSense application, update the real domain, email address, privacy policy, `ads.txt`, Search Console, and sitemap.
 
 ## AdSense Readiness Checklist
 

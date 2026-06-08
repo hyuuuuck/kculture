@@ -11,6 +11,11 @@ on:
         required: false
         type: boolean
         default: false
+      strict_freshness:
+        description: "Fail if live/upcoming listings exceed freshness windows"
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: cloudflare-pages-${{ github.ref }}
@@ -59,13 +64,18 @@ jobs:
       - name: Validate production build
         env:
           REQUIRE_ADSENSE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
+          STRICT_FRESHNESS: ${{ github.event_name == 'workflow_dispatch' && inputs.strict_freshness && '1' || '0' }}
         run: |
           if [ "$REQUIRE_ADSENSE" = "1" ]; then
             npm run preflight:adsense
           else
             npm run validate:production
           fi
-          npm run validate:content
+          if [ "$STRICT_FRESHNESS" = "1" ]; then
+            CONTENT_FRESHNESS_STRICT=1 npm run validate:content
+          else
+            npm run validate:content
+          fi
           npm run validate:links
 
       - name: Deploy to Cloudflare Pages

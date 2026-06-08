@@ -12,6 +12,7 @@ const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
+const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 
 const languages = {
   en: { name: "English", locale: "en-US" },
@@ -44,6 +45,8 @@ const dict = {
     venue: "Venue",
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
+    routeIdeas: "Nearby route ideas",
+    categoryPages: "Browse by topic",
     verifyBefore: "Verify on the official source before visiting.",
     relatedGuides: "Related guides",
     category: "Category",
@@ -279,6 +282,37 @@ const categoryLabels = {
   "travel-benefits": "benefits"
 };
 
+const categoryDefinitions = {
+  festival: {
+    title: "Korea festivals and cultural events",
+    description: "Officially checked Korea festivals, river events, concerts, performances, and cultural calendars for foreign visitors."
+  },
+  kpop: {
+    title: "K-pop pop-ups, merch stores, and fan events",
+    description: "Official K-pop pop-up, merch, reservation, and fan commerce notices with travel planning notes."
+  },
+  beauty: {
+    title: "K-beauty deals and OLIVE YOUNG promotions",
+    description: "Official K-beauty sale pages, coupon windows, tax-refund notes, and shopping routes for Korea travelers."
+  },
+  "duty-free": {
+    title: "Korea duty-free events and airport pickup deals",
+    description: "Monitored Shilla, Lotte, Shinsegae, and official duty-free offers with eligibility reminders."
+  },
+  "department-store": {
+    title: "Korea department store sales and pop-ups",
+    description: "Department-store sales, cultural exhibitions, pop-up stores, and branch-specific events for foreign shoppers."
+  },
+  shopping: {
+    title: "Korea shopping festivals and seasonal sale archives",
+    description: "Seasonal shopping campaigns, Korea Grand Sale archives, and official sale planning pages."
+  },
+  "travel-benefits": {
+    title: "Korea travel benefits and visitor coupons",
+    description: "Official visitor benefits, partner offers, attraction deals, and recurring travel coupon hubs."
+  }
+};
+
 function esc(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -310,6 +344,43 @@ function statusLabel(lang, status) {
 
 function categoryLabel(lang, category) {
   return tr(lang, categoryLabels[category] || category);
+}
+
+function categoryHref(lang, category) {
+  return `/${lang}/categories/${category}/`;
+}
+
+function categoryLinkStrip(lang) {
+  return Object.keys(categoryDefinitions).map((category) => {
+    const count = events.filter((event) => event.category === category).length;
+    return `
+      <a class="category-pill" href="${categoryHref(lang, category)}">
+        <strong>${categoryLabel(lang, category)}</strong>
+        <span>${count} items</span>
+      </a>`;
+  }).join("");
+}
+
+function routesForEvent(event) {
+  const regionKeys = new Set([event.city, event.weatherRegion, "Nationwide"].filter(Boolean));
+  const matches = routes.filter((route) => {
+    const regionMatch = route.regions?.some((region) => regionKeys.has(region));
+    const categoryMatch = route.categories?.includes(event.category);
+    return regionMatch && categoryMatch;
+  });
+
+  const fallback = routes.filter((route) => route.regions?.some((region) => regionKeys.has(region)));
+  return (matches.length ? matches : fallback).slice(0, 3);
+}
+
+function routeCard(route) {
+  return `
+    <article class="route-card">
+      <span>${esc(route.bestFor)}</span>
+      <h3>${esc(route.title)}</h3>
+      <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
+      <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+    </article>`;
 }
 
 function dateText(lang, iso) {
@@ -481,8 +552,13 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
             ${filterButton(lang, "kpop", "kpop")}
             ${filterButton(lang, "beauty", "beauty")}
             ${filterButton(lang, "duty-free", "dutyfree")}
+            ${filterButton(lang, "department-store", "department")}
             ${filterButton(lang, "shopping", "shopping")}
+            ${filterButton(lang, "travel-benefits", "benefits")}
           </div>
+        </div>
+        <div class="category-strip" aria-label="${tr(lang, "categoryPages")}">
+          ${categoryLinkStrip(lang)}
         </div>
         <div class="gallery-grid">
           ${sorted.map((event) => eventCard(event, lang)).join("")}
@@ -517,6 +593,41 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
 function filterButton(lang, category, labelKey, active = false) {
   return `<button type="button" data-filter="${category}"${active ? " aria-pressed=\"true\"" : ""}>${tr(lang, labelKey)}</button>`;
+}
+
+function renderCategory(lang, category) {
+  const meta = categoryDefinitions[category];
+  const items = events
+    .filter((event) => event.category === category)
+    .sort((a, b) => {
+      const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+      return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || b.priority - a.priority;
+    });
+  const title = meta?.title || categoryLabel(lang, category);
+  const description = meta?.description || `Fresh Korea ${categoryLabel(lang, category)} listings from official sources.`;
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "category")}</p>
+        <h1>${esc(title)}</h1>
+        <p>${esc(description)}</p>
+      </section>
+      <section class="category-strip page-strip" aria-label="${tr(lang, "categoryPages")}">
+        ${categoryLinkStrip(lang)}
+      </section>
+      <section class="gallery-grid">
+        ${items.map((event) => eventCard(event, lang)).join("")}
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${title} - Korea Now Guide`,
+    description,
+    body,
+    canonicalPath: categoryHref(lang, category),
+    currentPathBuilder: (code) => categoryHref(code, category)
+  });
 }
 
 function renderCalendar(lang) {
@@ -572,6 +683,7 @@ function calendarItem(event, lang) {
 function renderEvent(event, lang) {
   const status = statusOf(event);
   const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
+  const routeIdeas = routesForEvent(event);
   const region = weather.regions[event.weatherRegion]?.June || weather.regions.Nationwide.June;
   const description = local(event.summary, lang);
   const body = `
@@ -615,6 +727,14 @@ function renderEvent(event, lang) {
             <ul>${event.travelTips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
           </div>
         </section>
+
+        ${routeIdeas.length ? `
+          <section class="detail-section">
+            <h2>${tr(lang, "routeIdeas")}</h2>
+            <div class="route-grid">
+              ${routeIdeas.map(routeCard).join("")}
+            </div>
+          </section>` : ""}
 
         <section class="detail-section">
           <h2>${tr(lang, "relatedGuides")}</h2>
@@ -798,6 +918,9 @@ async function build() {
     await writeHtml(`${lang}/contact/index.html`, staticPage(lang, "contact"));
     await writeHtml(`${lang}/privacy/index.html`, staticPage(lang, "privacy"));
     await writeHtml(`${lang}/terms/index.html`, staticPage(lang, "terms"));
+    for (const category of Object.keys(categoryDefinitions)) {
+      await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
+    }
     for (const event of events) {
       await writeHtml(`${lang}/events/${event.slug}.html`, renderEvent(event, lang));
     }
@@ -816,6 +939,7 @@ function sitemap() {
   const urls = ["/"];
   for (const lang of Object.keys(languages)) {
     urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/sources/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
+    for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
     for (const event of events) urls.push(`/${lang}/events/${event.slug}.html`);
     for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);
   }

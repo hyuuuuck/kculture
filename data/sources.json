@@ -60,6 +60,16 @@
     "notes": "Use to calculate same-period previous-year weather notes per city."
   },
   {
+    "name": "Seoul Metropolitan Government Monthly Event Calendar",
+    "type": "official-page-monitor",
+    "owner": "Seoul Metropolitan Government",
+    "url": "https://english.seoul.go.kr/june-2026-cultural-events/",
+    "coverage": ["Seoul festivals", "free performances", "river events", "monthly cultural calendar"],
+    "refreshCadence": "weekly; daily near month rollover",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Strong official source for Seoul event dates, venues, admission notes, and official event websites."
+  },
+  {
     "name": "OLIVE YOUNG Global",
     "type": "official-page-monitor",
     "owner": "CJ Olive Young",
@@ -98,6 +108,26 @@
     "refreshCadence": "daily for major branches",
     "automationStatus": "monitor-and-curate",
     "notes": "Branch pages often reveal events earlier than English travel sites."
+  },
+  {
+    "name": "Shinsegae Duty Free",
+    "type": "official-page-monitor",
+    "owner": "Shinsegae Duty Free",
+    "url": "https://www.shinsegaedf.com/store/jp/eventList",
+    "coverage": ["duty-free events", "Myeongdong offers", "airport store offers", "foreign visitor shopping"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official event list exposes branch date ranges; language selector is available on page."
+  },
+  {
+    "name": "Shinsegae Group Newsroom",
+    "type": "official-page-monitor",
+    "owner": "Shinsegae Group",
+    "url": "https://www.shinsegaegroupnewsroom.com/shinsegae-department-store-to-host-spring-only-shinsegae-sale-festival/",
+    "coverage": ["department store sales", "pop-up stores", "foreign visitor promotions", "brand campaigns"],
+    "refreshCadence": "weekly; daily during major sale seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use official press releases for department-store sale context; verify active branch details before publishing."
   },
   {
     "name": "Weverse Shop Notices",

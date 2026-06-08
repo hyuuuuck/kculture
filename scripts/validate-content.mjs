@@ -30,6 +30,12 @@ function localEn(value) {
   return (value?.en || "").trim();
 }
 
+function guideSections(value) {
+  if (Array.isArray(value)) return value;
+  if (Array.isArray(value?.en)) return value.en;
+  return [];
+}
+
 function assertUrl(id, field, value, required = true) {
   if (!value) {
     if (required) push(errors, id, `${field} is required.`);
@@ -61,7 +67,7 @@ async function collectFiles(dir, predicate, out = []) {
 async function validateGeneratedText() {
   const dist = path.join(root, "dist");
   const files = await collectFiles(dist, (file) => file.endsWith(".html"));
-  const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]/;
+  const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");
     if (mojibake.test(text)) {
@@ -138,8 +144,9 @@ for (const guide of guides) {
   if (!categories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
   if (!localEn(guide.title)) push(errors, id, "guide title.en is required.");
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
-  if (!Array.isArray(guide.sections) || guide.sections.length < 2) push(errors, id, "guide needs at least two sections.");
-  for (const section of guide.sections || []) {
+  const sections = guideSections(guide.sections);
+  if (sections.length < 2) push(errors, id, "guide needs at least two English sections.");
+  for (const section of sections) {
     if (String(section || "").trim().length < 60) push(errors, id, "guide sections should be substantial visitor guidance.");
   }
 }

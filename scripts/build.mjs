@@ -681,7 +681,7 @@ function tr(lang, key) {
 }
 
 function hasMojibake(value) {
-  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]/.test(String(value ?? ""));
+  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}|[A-Za-zÀ-ÿ]\?[A-Za-zÀ-ÿ]/.test(String(value ?? ""));
 }
 
 function local(value, lang) {
@@ -692,6 +692,41 @@ function local(value, lang) {
   const english = value.en;
   if (english && !hasMojibake(english)) return english;
   return Object.values(value).find((item) => item && !hasMojibake(item)) || "";
+}
+
+function localList(value, lang) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.filter((item) => item && !hasMojibake(item));
+  const localized = value[lang];
+  if (Array.isArray(localized) && localized.length && !localized.some(hasMojibake)) return localized;
+  const english = value.en;
+  if (Array.isArray(english) && english.length && !english.some(hasMojibake)) return english;
+  return Object.values(value).find((items) => Array.isArray(items) && items.length && !items.some(hasMojibake)) || [];
+}
+
+function trimHeading(value, maxLength = 64) {
+  if (value.length <= maxLength) return value;
+  const clipped = value.slice(0, maxLength);
+  const lastSpace = clipped.lastIndexOf(" ");
+  if (lastSpace > maxLength * 0.55) return clipped.slice(0, lastSpace);
+  const punctuation = Math.max(
+    clipped.lastIndexOf("。"),
+    clipped.lastIndexOf("，"),
+    clipped.lastIndexOf("、"),
+    clipped.lastIndexOf("."),
+    clipped.lastIndexOf(",")
+  );
+  if (punctuation > maxLength * 0.45) return clipped.slice(0, punctuation + 1);
+  return clipped;
+}
+
+function guideSectionHeading(section, index) {
+  const compact = String(section || "").replace(/\s+/g, " ").trim();
+  const firstSentence = compact.match(/^.+?[.!?。！？]/u)?.[0] || compact;
+  const hasCjk = /[\u3400-\u9fff]/u.test(firstSentence);
+  const words = firstSentence.split(" ").filter(Boolean);
+  const title = hasCjk || words.length < 5 ? trimHeading(firstSentence) : words.slice(0, 5).join(" ");
+  return `${index + 1}. ${title}`;
 }
 
 function statusOf(event) {
@@ -1510,15 +1545,16 @@ function renderGuides(lang) {
 }
 
 function renderGuide(guide, lang) {
+  const sections = localList(guide.sections, lang);
   const body = `
     <main class="page">
       <article class="article-page">
         <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
         <h1>${esc(local(guide.title, lang))}</h1>
         <p class="lede">${esc(local(guide.summary, lang))}</p>
-        ${guide.sections.map((section, index) => `
+        ${sections.map((section, index) => `
           <section>
-            <h2>${index + 1}. ${esc(section.split(" ").slice(0, 5).join(" "))}</h2>
+            <h2>${esc(guideSectionHeading(section, index))}</h2>
             <p>${esc(section)}</p>
           </section>`).join("")}
       </article>

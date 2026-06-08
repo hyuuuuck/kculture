@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Korea Tourism Organization TourAPI",
+    "type": "official-api",
+    "owner": "Korea Tourism Organization",
+    "url": "https://www.data.go.kr/en/data/15101753/openapi.do",
+    "coverage": ["festivals", "attractions", "accommodation", "images", "sync-list"],
+    "refreshCadence": "daily after API key approval",
+    "automationStatus": "ready-with-api-key",
+    "notes": "Use EngService2/searchFestival2 for English event data. Add Kor/Jpn/Chs/Cht/Spn/Rus language services as needed."
+  },
+  {
+    "name": "VISITKOREA",
+    "type": "official-page-monitor",
+    "owner": "Korea Tourism Organization",
+    "url": "https://english.visitkorea.or.kr",
+    "coverage": ["travel news", "festival calendar", "benefits", "K-pop tourism guides"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use official articles as source links; write original summaries instead of copying full text."
+  },
+  {
+    "name": "Korea Grand Sale / Visit Korea Committee",
+    "type": "official-page-monitor",
+    "owner": "Visit Korea Committee",
+    "url": "https://en.koreagrandsale.co.kr",
+    "coverage": ["shopping tourism", "winter sale", "foreign visitor benefits"],
+    "refreshCadence": "weekly; daily during campaign",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Seasonal anchor source for winter shopping tourism pages."
+  },
+  {
+    "name": "Ministry of Culture, Sports and Tourism",
+    "type": "official-page-monitor",
+    "owner": "MCST",
+    "url": "https://www.mcst.go.kr/english/policy/press.jsp",
+    "coverage": ["policy-backed festivals", "tourism campaigns", "official releases"],
+    "refreshCadence": "weekly",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use for validation when a tourism campaign is government-backed."
+  },
+  {
+    "name": "Culture Portal API",
+    "type": "official-api",
+    "owner": "Culture Portal / MCST ecosystem",
+    "url": "https://www.culture.go.kr/portal/main/contents.do?menuNo=200155",
+    "coverage": ["performances", "exhibitions", "culture spaces"],
+    "refreshCadence": "daily after API key approval",
+    "automationStatus": "planned-api",
+    "notes": "Best fit for performances and exhibitions that are not covered by TourAPI."
+  },
+  {
+    "name": "KMA ASOS Daily Weather API",
+    "type": "official-api",
+    "owner": "Korea Meteorological Administration",
+    "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
+    "coverage": ["previous-year daily weather", "temperature", "precipitation", "humidity"],
+    "refreshCadence": "daily for upcoming event windows",
+    "automationStatus": "planned-api",
+    "notes": "Use to calculate same-period previous-year weather notes per city."
+  },
+  {
+    "name": "OLIVE YOUNG Global",
+    "type": "official-page-monitor",
+    "owner": "CJ Olive Young",
+    "url": "https://global.oliveyoung.com/event/planning?plndpNo=2400",
+    "coverage": ["K-beauty sales", "global coupons", "brand promotions"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Some offers are country-specific and app-only; always show eligibility warnings."
+  },
+  {
+    "name": "The Shilla Duty Free",
+    "type": "official-page-monitor",
+    "owner": "Hotel Shilla",
+    "url": "https://www.shilladfs.com/comm/kr/en/eventMain",
+    "coverage": ["duty-free events", "branch-specific offers"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Store numbers and branch restrictions need human-readable mapping before publication."
+  },
+  {
+    "name": "Lotte Duty Free",
+    "type": "official-page-monitor",
+    "owner": "Lotte Duty Free",
+    "url": "https://eng.lottedfs.com/kr/event",
+    "coverage": ["duty-free events", "online duty-free", "airport pickup"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Duty-free rules depend on itinerary, product category, and departure airport."
+  },
+  {
+    "name": "Hyundai Department Store",
+    "type": "official-page-monitor",
+    "owner": "Hyundai Department Store",
+    "url": "https://home.e-hyundai.com/lang/en/index.do",
+    "coverage": ["department store events", "branch pages", "culture exhibitions", "pop-ups"],
+    "refreshCadence": "daily for major branches",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Branch pages often reveal events earlier than English travel sites."
+  },
+  {
+    "name": "Weverse Shop Notices",
+    "type": "official-page-monitor",
+    "owner": "Weverse Company",
+    "url": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
+    "coverage": ["official merch stores", "K-pop reservations", "fan commerce notices"],
+    "refreshCadence": "daily; hourly around comebacks",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use only official notices and artist/company channels; avoid unverified fan rumors."
+  },
+  {
+    "name": "Official artist/company social channels",
+    "type": "curation-queue",
+    "owner": "Entertainment companies and artists",
+    "url": "https://www.weverse.io",
+    "coverage": ["K-pop pop-ups", "fan sign notices", "ticketing changes"],
+    "refreshCadence": "hourly when tracked artist list is active",
+    "automationStatus": "manual-review-required",
+    "notes": "Instagram/X/fanclub notices are scattered. Queue links for human review before publishing."
+  }
+]

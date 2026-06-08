@@ -1,0 +1,31 @@
+{
+  "source": {
+    "name": "KMA ASOS Daily Weather API",
+    "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
+    "mode": "previous-year connector planned",
+    "note": "These are launch planning notes. Production should calculate exact same-period previous-year weather with the KMA ASOS API once an API key is configured."
+  },
+  "regions": {
+    "Seoul": {
+      "June": {
+        "range": "warm, increasingly humid, rain risk rising",
+        "packing": ["light breathable clothes", "portable umbrella", "UV protection", "comfortable walking shoes"],
+        "outdoorAdvice": "For outdoor plazas, pop-up queues, and palace routes, check same-day rain and UV before leaving."
+      }
+    },
+    "Busan": {
+      "June": {
+        "range": "warm coastal weather, humidity and evening crowd risk",
+        "packing": ["light layers", "portable fan", "rain layer", "water bottle"],
+        "outdoorAdvice": "For stadium and waterfront events, plan post-event transit and allow time for crowds near beaches and stations."
+      }
+    },
+    "Nationwide": {
+      "June": {
+        "range": "regional variation; city-specific weather check required",
+        "packing": ["umbrella", "sun protection", "light layers"],
+        "outdoorAdvice": "Use this as a pre-trip reminder, then confirm local forecasts and official venue notices."
+      }
+    }
+  }
+}

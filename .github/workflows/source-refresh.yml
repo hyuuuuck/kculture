@@ -1,0 +1,52 @@
+name: Refresh official source candidates
+
+on:
+  schedule:
+    - cron: "20 0,6,12 * * *"
+  workflow_dispatch:
+    inputs:
+      monitor_urls:
+        description: "Comma-separated extra official URLs to scan once"
+        required: false
+        type: string
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check source availability
+        run: npm run check:sources
+        env:
+          SOURCE_TIMEOUT_MS: "12000"
+
+      - name: Collect official page candidates
+        run: npm run collect:official
+        env:
+          COLLECT_TIMEOUT_MS: "15000"
+          MONITOR_URLS: ${{ github.event.inputs.monitor_urls || '' }}
+
+      - name: Build review report
+        run: npm run review:feed
+
+      - name: Verify current site data
+        run: npm run verify
+
+      - name: Upload review artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-source-review-${{ github.run_id }}
+          path: data/feeds/
+          if-no-files-found: error
+          retention-days: 14

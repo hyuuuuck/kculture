@@ -41,6 +41,13 @@ Travel, shopping, and beauty pages can vary widely by country and season.
 6. K-pop: Weverse, official artist channels, official agency notices, and venue pages, always with manual review
 7. KMA ASOS: previous-year same-period weather observations
 
+## Freshness Operating Model
+
+- GitHub Actions should refresh official page candidates three times per day by default.
+- During major K-pop comeback, concert, Korea Grand Sale, or seasonal department-store sale periods, run the source refresh workflow manually with extra official notice URLs.
+- Treat OLIVE YOUNG, duty-free, department-store, and K-pop pop-up pages as fast-changing offers. Public pages need `lastChecked`, an official source link, and a clear warning that inventory, coupon eligibility, and reservation slots can change.
+- Never publish directly from scraped text. Convert the candidate into an original visitor-focused summary after checking the official page.
+
 ## Suggested Ad Layout After Approval
 
 - Homepage: one display ad after the first event grid

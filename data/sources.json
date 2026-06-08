@@ -120,6 +120,26 @@
     "notes": "Duty-free rules depend on itinerary, product category, and departure airport."
   },
   {
+    "name": "Lotte Duty Free Online Sale",
+    "type": "official-listing-monitor",
+    "owner": "Lotte Duty Free",
+    "url": "https://eng.lottedfs.com/kr/eventmain/onLineSale",
+    "coverage": ["limited-time duty-free deals", "brand discounts", "online duty-free", "airport pickup"],
+    "refreshCadence": "daily; hourly during peak travel sale windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use as a deal discovery signal; verify stock, eligibility, pickup rules, and active date range before publishing."
+  },
+  {
+    "name": "Lotte Department Store Global",
+    "type": "official-page-monitor",
+    "owner": "Lotte Department Store",
+    "url": "https://global.lotteshopping.com/eng/main",
+    "coverage": ["department store events", "foreign visitor benefits", "branch shopping news", "tax refund guidance"],
+    "refreshCadence": "daily for Seoul and Busan flagship branches",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Good official source for flagship branch hours, shopping news links, foreign visitor benefits, and tax refund guidance."
+  },
+  {
     "name": "Hyundai Department Store",
     "type": "official-page-monitor",
     "owner": "Hyundai Department Store",
@@ -140,14 +160,24 @@
     "notes": "Official event list exposes branch date ranges; language selector is available on page."
   },
   {
+    "name": "Shinsegae Duty Free English Events",
+    "type": "official-page-monitor",
+    "owner": "Shinsegae Duty Free",
+    "url": "https://www.shinsegaedf.com/store/en/eventList",
+    "coverage": ["duty-free events", "Myeongdong offers", "airport store offers", "foreign visitor shopping"],
+    "refreshCadence": "daily",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use the English event list when available, but compare against the Korean/Japanese pages when date ranges differ."
+  },
+  {
     "name": "Shinsegae Group Newsroom",
     "type": "official-page-monitor",
     "owner": "Shinsegae Group",
-    "url": "https://www.shinsegaegroupnewsroom.com/shinsegae-department-store-to-host-spring-only-shinsegae-sale-festival/",
+    "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
     "coverage": ["department store sales", "pop-up stores", "foreign visitor promotions", "brand campaigns"],
-    "refreshCadence": "weekly; daily during major sale seasons",
+    "refreshCadence": "daily during major sale seasons",
     "automationStatus": "monitor-and-curate",
-    "notes": "Use official press releases for department-store sale context; verify active branch details before publishing."
+    "notes": "Official press feed for Shinsegae Department Store, Shinsegae Duty Free, outlets, pop-ups, and foreign visitor promotions."
   },
   {
     "name": "Weverse Shop Notices",
@@ -158,6 +188,16 @@
     "refreshCadence": "daily; hourly around comebacks",
     "automationStatus": "monitor-and-curate",
     "notes": "Use only official notices and artist/company channels; avoid unverified fan rumors."
+  },
+  {
+    "name": "Weverse Shop BTS Notices",
+    "type": "official-page-monitor",
+    "owner": "Weverse Company",
+    "url": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+    "coverage": ["official K-pop merchandise notices", "pop-up reservations", "fan commerce", "tour-linked products"],
+    "refreshCadence": "daily; hourly around comebacks and tours",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use list pages for discovery and individual official notices for final source links."
   },
   {
     "name": "Official artist/company social channels",

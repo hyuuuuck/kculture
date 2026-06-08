@@ -97,6 +97,8 @@ npm.cmd run validate:production
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
+`.github/workflows/source-refresh.yml` runs official source collection three times per day and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+
 ## Daily Operating Routine
 
 1. Check source availability:
@@ -115,6 +117,12 @@ npm.cmd run collect:official
 
 ```powershell
 npm.cmd run review:feed
+```
+
+Or run the local source workflow in one command:
+
+```powershell
+npm.cmd run source:refresh
 ```
 
 4. Import Korea Tourism Organization TourAPI candidates:
@@ -138,6 +146,18 @@ npm.cmd run import:weather
 ```powershell
 npm.cmd run verify
 ```
+
+## Latest Event Coverage
+
+The source registry is set up to watch official sources for:
+
+- Korea duty-free offers: Lotte, Shilla, Shinsegae, and campaign pages
+- OLIVE YOUNG Global beauty sales, coupons, gifts, and country eligibility notes
+- Department store shopping news: Lotte Department Store, Hyundai Department Store, and Shinsegae official press updates
+- Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, and culture-related public sources
+- K-pop pop-ups and merch reservations through Weverse and official artist/company channels
+
+Not every official site exposes a clean API. The safe operating model is to collect candidates automatically, then publish only manually verified summaries with official source links, last-checked dates, and practical visitor notes.
 
 ## Extra Official URLs
 

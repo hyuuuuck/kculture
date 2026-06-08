@@ -14,6 +14,7 @@ const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
@@ -51,6 +52,13 @@ function normalizeAdSenseClientId(value) {
   if (!trimmed) return "";
   if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
   return trimmed;
+}
+
+function normalizeGoogleSiteVerification(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
+  return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
 }
 
 function exists(relativePath) {
@@ -284,6 +292,17 @@ function runChecks() {
     warn("AdSense", "Auto ads client", "not set", "Add GOOGLE_ADSENSE_CLIENT after the publisher ID is issued.");
   }
 
+  if (googleSiteVerification && exists("dist/index.html")) {
+    const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
+    if (home.includes(`name="google-site-verification"`) && home.includes(`content="${googleSiteVerification}"`)) {
+      pass("Search", "Search Console meta verification", "present");
+    } else {
+      fail("Search", "Search Console meta verification", "configured but missing from dist/index.html", "Rebuild with GOOGLE_SITE_VERIFICATION set.");
+    }
+  } else {
+    warn("Search", "Search Console meta verification", "not set", "Set GOOGLE_SITE_VERIFICATION or verify the domain through DNS before submitting the sitemap.");
+  }
+
   if (sources.length >= 20) pass("Operations", "Official source registry", `${sources.length} sources`);
   else warn("Operations", "Official source registry", `${sources.length} sources`, "Keep expanding official monitors.");
 
@@ -321,6 +340,7 @@ const result = {
   contactEmail,
   publisherIdSet: Boolean(publisherId),
   clientIdSet: Boolean(clientId),
+  googleSiteVerificationSet: Boolean(googleSiteVerification),
   stats,
   score: score(),
   checks

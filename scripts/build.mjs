@@ -11,6 +11,7 @@ const siteUrl = process.env.SITE_URL || "https://example.com";
 const contactEmail = process.env.CONTACT_EMAIL || "hello@example.com";
 const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
+const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -32,6 +33,13 @@ function normalizeAdSenseClientId(value) {
   if (!trimmed) return "";
   if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
   return trimmed;
+}
+
+function normalizeGoogleSiteVerification(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
+  return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
 }
 
 let languages = {
@@ -1277,6 +1285,11 @@ function adsenseHeadScript() {
   return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adsenseClientId)}" crossorigin="anonymous"></script>`;
 }
 
+function googleVerificationMeta() {
+  if (!googleSiteVerification) return "";
+  return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
+}
+
 function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   return `<!doctype html>
@@ -1294,6 +1307,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
   <meta name="theme-color" content="#0d7f75">
+  ${googleVerificationMeta()}
   <link rel="stylesheet" href="/styles.css">
   ${adsenseHeadScript()}
   ${structuredDataScript(structuredData)}

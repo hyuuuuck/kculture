@@ -101,6 +101,7 @@ Before production build, set:
 ```powershell
 $env:SITE_URL="https://your-domain.com"
 $env:CONTACT_EMAIL="hello@your-domain.com"
+$env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run build
 ```
 
@@ -130,6 +131,7 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 - `CLOUDFLARE_PAGES_PROJECT_NAME`: Cloudflare Pages project name, default `korea-now-guide`
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
 - `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
+- `GOOGLE_SITE_VERIFICATION`: optional Search Console HTML tag content. You may paste either the content token or the full meta tag.
 
 Set these repository secrets:
 
@@ -253,6 +255,7 @@ Then generate the private AdSense readiness scorecard:
 ```powershell
 $env:SITE_URL="https://your-domain.com"
 $env:CONTACT_EMAIL="hello@your-domain.com"
+$env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run report:adsense
 ```
 
@@ -314,6 +317,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - Real custom domain connected
 - `SITE_URL` set before final build
 - `CONTACT_EMAIL` set before final build
+- Search Console verified through DNS or `GOOGLE_SITE_VERIFICATION`
 - GitHub Actions deploy variables and Cloudflare secrets configured
 - `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/` working
 - At least 30 verified event, guide, or archive pages

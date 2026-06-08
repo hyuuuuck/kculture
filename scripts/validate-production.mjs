@@ -6,6 +6,7 @@ const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
 const errors = [];
@@ -25,6 +26,13 @@ function normalizeAdSenseClientId(value) {
   if (!trimmed) return "";
   if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
   return trimmed;
+}
+
+function normalizeGoogleSiteVerification(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
+  return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
 }
 
 function fail(message) {
@@ -87,6 +95,19 @@ if (publisherId) {
 if (clientId && fs.existsSync(distIndex)) {
   const home = fs.readFileSync(distIndex, "utf8");
   if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/index.html.");
+}
+
+if (googleSiteVerification) {
+  if (!/^[A-Za-z0-9._:+/=-]{8,300}$/.test(googleSiteVerification)) {
+    fail("GOOGLE_SITE_VERIFICATION should be the Search Console meta content token, or the full meta tag copied from Search Console.");
+  } else if (fs.existsSync(distIndex)) {
+    const home = fs.readFileSync(distIndex, "utf8");
+    if (!home.includes(`name="google-site-verification"`) || !home.includes(`content="${googleSiteVerification}"`)) {
+      fail("Search Console verification meta tag was not found in dist/index.html.");
+    }
+  }
+} else {
+  warn("GOOGLE_SITE_VERIFICATION is not set. DNS verification is fine, but meta verification will not be available in the deployed HTML.");
 }
 
 if (warnings.length) {

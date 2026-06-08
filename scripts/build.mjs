@@ -2085,7 +2085,10 @@ function renderEvent(event, lang) {
             <p class="eyebrow">${categoryLabel(lang, event.category)} · ${statusLabel(lang, status)}</p>
             <h1>${esc(local(event.title, lang))}</h1>
             <p>${esc(description)}</p>
-            <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
+            <div class="detail-actions">
+              <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
+              <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
+            </div>
           </div>
         </header>
 
@@ -2566,6 +2569,9 @@ async function build() {
   }
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
   await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
+  for (const event of events) {
+    await writeText(`events/${event.slug}.ics`, singleEventIcs(event));
+  }
 }
 
 function headers() {
@@ -2594,6 +2600,14 @@ function headers() {
 
 /*/feed.xml
   Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/*.ics
+  Content-Type: text/calendar; charset=utf-8
+  Cache-Control: public, max-age=1800
+
+/events/*.ics
+  Content-Type: text/calendar; charset=utf-8
   Cache-Control: public, max-age=1800
 
 /latest.json
@@ -2668,34 +2682,45 @@ function foldIcsLine(line) {
   return chunks.join("\r\n");
 }
 
-function ics() {
-  const stamp = `${today.replaceAll("-", "")}T000000Z`;
+function eventIcsLines(event, stamp = `${today.replaceAll("-", "")}T000000Z`) {
+  return [
+    "BEGIN:VEVENT",
+    `UID:${event.slug}@korea-now-guide`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART;VALUE=DATE:${icsDate(event.startDate)}`,
+    `DTEND;VALUE=DATE:${icsDate(event.endDate, true)}`,
+    `SUMMARY:${icsEscape(local(event.title, "en"))}`,
+    `DESCRIPTION:${icsEscape(`${local(event.summary, "en")} Official source: ${event.sourceUrl}`)}`,
+    `LOCATION:${icsEscape(`${event.venue}, ${event.city}`)}`,
+    `URL:${event.sourceUrl}`,
+    "END:VEVENT"
+  ];
+}
+
+function calendarIcs(calendarName, calendarEvents) {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "PRODID:-//Korea Now Guide//Events//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:Korea Now Guide Events"
+    `X-WR-CALNAME:${icsEscape(calendarName)}`
   ];
 
-  for (const event of events) {
-    lines.push(
-      "BEGIN:VEVENT",
-      `UID:${event.slug}@korea-now-guide`,
-      `DTSTAMP:${stamp}`,
-      `DTSTART;VALUE=DATE:${icsDate(event.startDate)}`,
-      `DTEND;VALUE=DATE:${icsDate(event.endDate, true)}`,
-      `SUMMARY:${icsEscape(local(event.title, "en"))}`,
-      `DESCRIPTION:${icsEscape(`${local(event.summary, "en")} Official source: ${event.sourceUrl}`)}`,
-      `LOCATION:${icsEscape(`${event.venue}, ${event.city}`)}`,
-      `URL:${event.sourceUrl}`,
-      "END:VEVENT"
-    );
+  for (const event of calendarEvents) {
+    lines.push(...eventIcsLines(event));
   }
 
   lines.push("END:VCALENDAR");
   return `${lines.map(foldIcsLine).join("\r\n")}\r\n`;
+}
+
+function ics() {
+  return calendarIcs("Korea Now Guide Events", events);
+}
+
+function singleEventIcs(event) {
+  return calendarIcs(`Korea Now Guide - ${local(event.title, "en")}`, [event]);
 }
 
 await build();

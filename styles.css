@@ -185,6 +185,17 @@ img {
   background: rgba(255, 255, 255, 0.12);
 }
 
+.button.light {
+  color: var(--teal-dark);
+  border-color: var(--line);
+  background: var(--white);
+}
+
+.button.light:hover {
+  border-color: rgba(13, 127, 117, 0.44);
+  background: #edf7f3;
+}
+
 .text-link {
   display: inline-flex;
   margin-top: 12px;
@@ -902,6 +913,12 @@ img {
 .detail-hero p {
   color: var(--muted);
   font-size: 1.08rem;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .fact-grid {

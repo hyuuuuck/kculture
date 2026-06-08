@@ -13,7 +13,8 @@
     "verify": "npm run build && npm run validate:content && npm run validate:links",
     "check:sources": "node scripts/source-audit.mjs",
     "collect:official": "node scripts/collect-official-pages.mjs",
-    "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed",
+    "draft:events": "node scripts/draft-events-from-feed.mjs",
+    "source:refresh": "npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events",
     "import:tourapi": "node scripts/import-tourapi.mjs",
     "import:weather": "node scripts/import-kma-weather.mjs",
     "preview": "npx wrangler pages dev dist"

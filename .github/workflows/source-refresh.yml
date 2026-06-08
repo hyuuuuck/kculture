@@ -40,6 +40,9 @@ jobs:
       - name: Build review report
         run: npm run review:feed
 
+      - name: Create draft event candidates
+        run: npm run draft:events
+
       - name: Verify current site data
         run: npm run verify
 

@@ -25,6 +25,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/collect-official-pages.mjs`: collects official page candidates for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
+- `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from the latest candidate feed
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports previous-year KMA ASOS weather observations
 - `scripts/source-audit.mjs`: checks source URL availability
@@ -119,29 +120,35 @@ npm.cmd run collect:official
 npm.cmd run review:feed
 ```
 
+4. Create non-public event drafts from the latest candidate feed:
+
+```powershell
+npm.cmd run draft:events
+```
+
 Or run the local source workflow in one command:
 
 ```powershell
 npm.cmd run source:refresh
 ```
 
-4. Import Korea Tourism Organization TourAPI candidates:
+5. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
 $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-5. Import previous-year KMA weather observations:
+6. Import previous-year KMA weather observations:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-6. Review `data/feeds/*.json` and `data/feeds/*.md`, verify official source pages, and manually merge publishable items into `data/events.json`.
+7. Review `data/feeds/*.json` and `data/feeds/*.md`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
 
-7. Validate, build, and deploy:
+8. Validate, build, and deploy:
 
 ```powershell
 npm.cmd run verify

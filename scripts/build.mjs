@@ -11,6 +11,7 @@ const siteUrl = process.env.SITE_URL || "https://example.com";
 const contactEmail = process.env.CONTACT_EMAIL || "hello@example.com";
 const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
+const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
@@ -33,6 +34,10 @@ function normalizeAdSenseClientId(value) {
   if (!trimmed) return "";
   if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
   return trimmed;
+}
+
+function normalizeAdSenseSlotId(value) {
+  return String(value || "").trim();
 }
 
 function normalizeGoogleSiteVerification(value) {
@@ -1285,6 +1290,25 @@ function adsenseHeadScript() {
   return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adsenseClientId)}" crossorigin="anonymous"></script>`;
 }
 
+function manualAdsEnabled() {
+  return /^ca-pub-\d{16}$/.test(adsenseClientId) && /^\d{8,20}$/.test(adsenseSlotId);
+}
+
+function adUnit(placement = "inline") {
+  if (!manualAdsEnabled()) return "";
+  return `
+        <aside class="ad-band ${esc(placement)}" aria-label="Advertisement">
+          <span>Advertisement</span>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="${esc(adsenseClientId)}"
+               data-ad-slot="${esc(adsenseSlotId)}"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </aside>`;
+}
+
 function googleVerificationMeta() {
   if (!googleSiteVerification) return "";
   return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
@@ -1422,6 +1446,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <div><strong>${archiveCount}</strong><span>${tr(lang, "archive")}</span></div>
         <div><strong>${sources.length}</strong><span>${tr(lang, "navSources")}</span></div>
       </section>
+      ${adUnit("home")}
 
       <section class="content-shell" id="events">
         <div class="section-head">
@@ -1869,6 +1894,7 @@ function renderEvent(event, lang) {
           <p>${esc(local(event.whyGo, lang))}</p>
           <p class="notice">${tr(lang, "verifyBefore")}</p>
         </section>
+        ${adUnit("detail")}
 
         <section class="detail-section two-col">
           <div>

@@ -6,6 +6,7 @@ const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
@@ -65,6 +66,10 @@ if (clientId && !/^ca-pub-\d{16}$/.test(clientId)) {
   fail("GOOGLE_ADSENSE_CLIENT must look like ca-pub-0000000000000000.");
 }
 
+if (slotId && !/^\d{8,20}$/.test(slotId)) {
+  fail("GOOGLE_ADSENSE_SLOT must be the numeric ad slot ID from an AdSense ad unit.");
+}
+
 if (requireAdsense && !publisherId) {
   fail("GOOGLE_ADSENSE_PUBLISHER_ID is required for AdSense preflight.");
 }
@@ -95,6 +100,7 @@ if (publisherId) {
 if (clientId && fs.existsSync(distIndex)) {
   const home = fs.readFileSync(distIndex, "utf8");
   if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/index.html.");
+  if (slotId && !home.includes(`data-ad-slot="${slotId}"`)) fail("Manual AdSense slot was not found in dist/index.html.");
 }
 
 if (googleSiteVerification) {

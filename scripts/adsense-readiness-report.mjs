@@ -14,6 +14,7 @@ const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
 const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
@@ -292,6 +293,19 @@ function runChecks() {
     warn("AdSense", "Auto ads client", "not set", "Add GOOGLE_ADSENSE_CLIENT after the publisher ID is issued.");
   }
 
+  if (slotId && /^\d{8,20}$/.test(slotId) && exists("dist/index.html")) {
+    const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
+    if (home.includes(`data-ad-slot="${slotId}"`)) {
+      pass("AdSense", "Manual ad slot", slotId);
+    } else {
+      fail("AdSense", "Manual ad slot", "configured but missing from home page", "Rebuild with GOOGLE_ADSENSE_SLOT set.");
+    }
+  } else if (slotId) {
+    fail("AdSense", "Manual ad slot", "invalid", "Use the numeric ad slot ID from an AdSense ad unit.");
+  } else {
+    warn("AdSense", "Manual ad slot", "not set", "Optional before approval; add GOOGLE_ADSENSE_SLOT to enable reserved in-page ad placements.");
+  }
+
   if (googleSiteVerification && exists("dist/index.html")) {
     const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
     if (home.includes(`name="google-site-verification"`) && home.includes(`content="${googleSiteVerification}"`)) {
@@ -340,6 +354,7 @@ const result = {
   contactEmail,
   publisherIdSet: Boolean(publisherId),
   clientIdSet: Boolean(clientId),
+  slotIdSet: Boolean(slotId),
   googleSiteVerificationSet: Boolean(googleSiteVerification),
   stats,
   score: score(),

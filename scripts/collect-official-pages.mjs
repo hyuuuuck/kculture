@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const today = todayString();
 const timeoutMs = Number(process.env.COLLECT_TIMEOUT_MS || 10000);
+const concurrency = Math.max(1, Number(process.env.COLLECT_CONCURRENCY || 6));
 const userAgent = process.env.SOURCE_USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 KoreaNowGuide/0.1";
 const maxLinksPerSource = Number(process.env.COLLECT_MAX_LINKS || 18);
 const minLinkScore = Number(process.env.COLLECT_MIN_LINK_SCORE || 7);
@@ -468,14 +469,59 @@ async function fetchSource(source) {
   };
 }
 
-const candidates = [];
-for (const source of monitorSources) {
-  candidates.push(await fetchSource(source));
+async function mapLimit(items, limit, mapper) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (nextIndex < items.length) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  });
+  await Promise.all(workers);
+  return results;
 }
 
+function tally(items, keyFor) {
+  return items.reduce((acc, item) => {
+    const key = keyFor(item) || "unknown";
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function feedSummary(candidates) {
+  const ok = candidates.filter((item) => item.ok);
+  const failed = candidates.filter((item) => !item.ok);
+  const totalDiscoveredLinks = candidates.reduce((sum, item) => sum + (item.discoveredLinks?.length || 0), 0);
+  const totalDateSignals = candidates.reduce((sum, item) => sum + (item.dateSignals?.length || 0), 0);
+  return {
+    monitorSourceCount: monitorSources.length,
+    okCount: ok.length,
+    failedCount: failed.length,
+    totalDiscoveredLinks,
+    totalDateSignals,
+    byType: tally(candidates, (item) => item.type),
+    failedSources: failed.map((item) => ({
+      sourceName: item.sourceName,
+      status: item.status,
+      error: item.error || ""
+    }))
+  };
+}
+
+const candidates = await mapLimit(monitorSources, concurrency, fetchSource);
 const feed = {
   generatedAt: new Date().toISOString(),
   policy: "Candidates are not auto-published. Review official source, date range, eligibility, and rights before merging into data/events.json.",
+  settings: {
+    timeoutMs,
+    concurrency,
+    maxLinksPerSource,
+    minLinkScore
+  },
+  summary: feedSummary(candidates),
   count: candidates.length,
   candidates
 };
@@ -494,4 +540,5 @@ console.table(candidates.map((item) => ({
   keywords: item.keywordHits?.join(", ") || "",
   error: item.error || ""
 })));
+console.log(`Collected ${feed.summary.okCount}/${feed.summary.monitorSourceCount} sources with ${feed.summary.totalDiscoveredLinks} discovered links and ${feed.summary.totalDateSignals} date signals.`);
 console.log(`Saved review feed: ${out}`);

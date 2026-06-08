@@ -40,6 +40,19 @@
     "notes": "Seasonal anchor source for winter shopping tourism pages. If the campaign platform blocks automated checks, use the Visit Korea Committee project page or MCST press release as official fallback evidence."
   },
   {
+    "name": "Korea Sale FESTA",
+    "type": "official-page-monitor",
+    "owner": "Korea Sale FESTA Promotion Committee / MOTIE ecosystem",
+    "url": "https://www.koreasalefesta.co.kr/en",
+    "alternateUrls": [
+      "https://www.koreasalefesta.co.kr/"
+    ],
+    "coverage": ["national sale festival", "shopping tourism", "retail promotions", "foreign visitor shopping calendar"],
+    "refreshCadence": "weekly; daily during campaign announcement and operation windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use as the national retail sale anchor. Confirm participant brands, date range, foreign visitor relevance, and whether offers are online-only before publishing."
+  },
+  {
     "name": "Ministry of Culture, Sports and Tourism",
     "type": "official-page-monitor",
     "owner": "MCST",
@@ -52,6 +65,16 @@
     "refreshCadence": "weekly",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for validation when a tourism campaign is government-backed."
+  },
+  {
+    "name": "Korea Policy Briefing",
+    "type": "official-page-monitor",
+    "owner": "Government of Korea",
+    "url": "https://www.korea.kr/news/policyNewsList.do",
+    "coverage": ["government-backed festivals", "tourism campaigns", "shopping policy releases", "culture and travel announcements"],
+    "refreshCadence": "weekly; daily when campaign launches are expected",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use as official government confirmation for national campaigns such as sale festivals, tourism weeks, and ministry-backed cultural programs."
   },
   {
     "name": "Culture Portal API",
@@ -259,6 +282,36 @@
     "notes": "Use as an exhibition listing source only; confirm with the event website when it contains current-year details."
   },
   {
+    "name": "NOL World Seoul Pop-ups",
+    "type": "official-listing-monitor",
+    "owner": "NOL / Interpark ticketing ecosystem",
+    "url": "https://world.nol.com/en/regions/seoul/festas",
+    "coverage": ["Seoul pop-ups", "K-pop pop-ups", "brand collaborations", "foreign visitor activities", "ticket-linked experiences"],
+    "refreshCadence": "daily; hourly around major K-pop comeback and Seoul pop-up windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use as a high-signal discovery board for Seoul pop-ups and K-pop activity. Publish only after verifying the final official brand, venue, ticketing, or shop page."
+  },
+  {
+    "name": "NOL World Busan Pop-ups",
+    "type": "official-listing-monitor",
+    "owner": "NOL / Interpark ticketing ecosystem",
+    "url": "https://world.nol.com/en/regions/busan/festas",
+    "coverage": ["Busan pop-ups", "K-pop regional events", "festival-linked activities", "foreign visitor ticket packages"],
+    "refreshCadence": "daily during Busan festival and K-pop event windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use for Busan pop-up and K-pop discovery. Cross-check Busan city, venue, official festival, or ticketing pages before publishing visitor guidance."
+  },
+  {
+    "name": "NOL World Jeju Pop-ups",
+    "type": "official-listing-monitor",
+    "owner": "NOL / Interpark ticketing ecosystem",
+    "url": "https://world.nol.com/en/regions/jeju/festas",
+    "coverage": ["Jeju pop-ups", "tourist shopping activations", "brand experiences", "seasonal visitor activities"],
+    "refreshCadence": "daily during Jeju travel season and campaign windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use for Jeju pop-up discovery only. Confirm official brand or venue pages, dates, reservation needs, and visitor eligibility before publishing."
+  },
+  {
     "name": "OLIVE YOUNG Global",
     "type": "official-page-monitor",
     "owner": "CJ Olive Young",
@@ -267,6 +320,16 @@
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Some offers are country-specific and app-only; always show eligibility warnings."
+  },
+  {
+    "name": "CJ Olive Young Newsroom",
+    "type": "official-page-monitor",
+    "owner": "CJ Olive Young / CJ Newsroom",
+    "url": "https://newsroom.cj.net/?s=Olive+Young",
+    "coverage": ["OLIVE YOUNG sale campaigns", "K-beauty festivals", "global promotions", "offline store and pop-up news"],
+    "refreshCadence": "daily during Big Bang Sale, Olive Young Festa, and global campaign periods",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use official CJ newsroom releases to confirm sale period, scale, target market, and brand participation. Do not copy article text; rewrite visitor-focused summaries."
   },
   {
     "name": "The Shilla Duty Free",
@@ -324,6 +387,16 @@
     "notes": "Branch pages often reveal events earlier than English travel sites. Use the newer ehyundai portal as the automated fallback when the English language entry blocks fetch."
   },
   {
+    "name": "Hyundai Department Store Events",
+    "type": "official-listing-monitor",
+    "owner": "Hyundai Department Store",
+    "url": "https://www.ehyundai.com/newPortal/index.do",
+    "coverage": ["The Hyundai Seoul pop-ups", "department store events", "brand collaborations", "culture exhibitions", "foreign visitor shopping routes"],
+    "refreshCadence": "daily for The Hyundai Seoul, trade center, and flagship branch campaign windows",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use the portal as a discovery layer for current branch events and pop-ups. Verify individual event pages, branch, floor, date range, and reservation rules before publishing."
+  },
+  {
     "name": "Shinsegae Duty Free",
     "type": "official-page-monitor",
     "owner": "Shinsegae Duty Free",
@@ -352,6 +425,16 @@
     "refreshCadence": "daily during major sale seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official press feed for Shinsegae Department Store, Shinsegae Duty Free, outlets, pop-ups, and foreign visitor promotions."
+  },
+  {
+    "name": "Shinsegae Department Store Events",
+    "type": "official-listing-monitor",
+    "owner": "Shinsegae Department Store",
+    "url": "https://deptmapp.shinsegae.com/events/main.do",
+    "coverage": ["department store events", "brand pop-ups", "luxury shopping promotions", "regional branch campaigns"],
+    "refreshCadence": "daily for Myeongdong, Gangnam, Centum City, and pop-up-heavy seasons",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use the official events board for branch-level discovery. Confirm exact branch, period, member-only restrictions, tax refund fit, and foreign visitor usefulness before publishing."
   },
   {
     "name": "Galleria Department Store",

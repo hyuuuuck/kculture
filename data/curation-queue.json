@@ -19,6 +19,44 @@
     "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
   },
   {
+    "id": "kpop-weverse-lucky-store-yongsan",
+    "status": "active",
+    "priority": 92,
+    "category": "kpop",
+    "sourceName": "Weverse Shop Notices",
+    "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
+    "label": "Weverse Lucky Store Yongsan official notice",
+    "owner": "Weverse Company",
+    "artistOrBrand": "Weverse",
+    "topics": [
+      "official merch store",
+      "reservation",
+      "Yongsan",
+      "tax refund"
+    ],
+    "refreshCadence": "daily while notice remains active or inventory-dependent",
+    "reviewNotes": "Confirm whether reservations, QR entry, purchase limits, and tax refund notes changed before updating the public event page."
+  },
+  {
+    "id": "kpop-2026-bof-with-nol-10th-anniversary-k-pop",
+    "status": "active",
+    "priority": 91,
+    "category": "kpop",
+    "sourceName": "NOL World Ticket",
+    "sourceUrl": "https://world.nol.com/en/content/articles/326e1aee-bed5-41cc-bd8e-348947e09e68",
+    "label": "2026 BOF with NOL 10th Anniversary K-POP",
+    "owner": "NOL / Busan One Asia Festival",
+    "artistOrBrand": "Multiple K-pop artists",
+    "topics": [
+      "K-pop festival",
+      "Busan",
+      "ticketing",
+      "foreign visitors"
+    ],
+    "refreshCadence": "manual until promoted to source registry",
+    "reviewNotes": "Confirm BOF official site or Busan city source, ticket sales window, lineup, venue entry rules, and foreign visitor purchase conditions before publishing."
+  },
+  {
     "id": "kpop-fans-shop-jyp-notices",
     "status": "active",
     "priority": 91,
@@ -74,25 +112,6 @@
     ],
     "refreshCadence": "daily; hourly around YG artist comeback, tour, and pop-up periods",
     "reviewNotes": "Publish only individual YG SELECT or official YG-family notice pages after checking dates, venue, stock, reservation, and foreign-card or shipping rules."
-  },
-  {
-    "id": "kpop-weverse-lucky-store-yongsan",
-    "status": "active",
-    "priority": 92,
-    "category": "kpop",
-    "sourceName": "Weverse Shop Notices",
-    "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
-    "label": "Weverse Lucky Store Yongsan official notice",
-    "owner": "Weverse Company",
-    "artistOrBrand": "Weverse",
-    "topics": [
-      "official merch store",
-      "reservation",
-      "Yongsan",
-      "tax refund"
-    ],
-    "refreshCadence": "daily while notice remains active or inventory-dependent",
-    "reviewNotes": "Confirm whether reservations, QR entry, purchase limits, and tax refund notes changed before updating the public event page."
   },
   {
     "id": "kpop-ticketlink-global-watch",

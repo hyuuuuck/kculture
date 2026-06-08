@@ -2,7 +2,7 @@ name: Refresh official source candidates
 
 on:
   schedule:
-    - cron: "20 0,6,12 * * *"
+    - cron: "20 */4 * * *"
   workflow_dispatch:
     inputs:
       monitor_urls:
@@ -30,11 +30,15 @@ jobs:
         run: npm run check:sources
         env:
           SOURCE_TIMEOUT_MS: "12000"
+          SOURCE_CONCURRENCY: "8"
 
       - name: Collect official page candidates
         run: npm run collect:official
         env:
           COLLECT_TIMEOUT_MS: "15000"
+          COLLECT_CONCURRENCY: "8"
+          COLLECT_MAX_LINKS: "24"
+          COLLECT_MIN_LINK_SCORE: "7"
           MONITOR_URLS: ${{ github.event.inputs.monitor_urls || '' }}
 
       - name: Build review report

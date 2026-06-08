@@ -138,7 +138,7 @@ Set these repository secrets:
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
-`.github/workflows/source-refresh.yml` runs official source collection three times per day and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+`.github/workflows/source-refresh.yml` runs official source collection every four hours and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
 
 `.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
@@ -260,12 +260,13 @@ The source registry is set up to watch official sources for:
 
 - Korea duty-free offers: Lotte, Shilla, Shinsegae, and campaign pages
 - OLIVE YOUNG Global beauty sales, coupons, gifts, and country eligibility notes
-- Department store shopping news: Lotte Department Store, Hyundai Department Store, Shinsegae official press updates, Galleria, and AK Plaza
+- Department store shopping news: Lotte Department Store, Hyundai Department Store, The Hyundai event portal, Shinsegae event board and newsroom, Galleria, and AK Plaza
 - Korea tourism and festival calendars from KTO, VISITKOREA, Seoul, Jeju, Incheon, Daegu, and culture-related public sources
+- National shopping campaigns such as Korea Grand Sale and Korea Sale FESTA, with MCST and Korea Policy Briefing fallbacks for government-backed confirmations
 - Seoul visitor event discovery through Visit Seoul, Seoul city notices, DDP, COEX, and Seoul Grand Park
 - Busan visitor event discovery through Busan Metropolitan City event pages, English news, and Visit Busan fallbacks
 - Representative regional festival sites such as Pentaport, Boryeong Mud, Daegu Chimac, Andong Maskdance, and Jinju Namgang Yudeung
-- K-pop pop-ups and merch reservations through Weverse, FANS Shop, SMTOWN &STORE, YG SELECT, and official artist/company channels
+- K-pop pop-ups and merch reservations through Weverse, FANS Shop, SMTOWN &STORE, YG SELECT, NOL World regional pop-up boards, and official artist/company channels
 - K-pop ticketing and fan meeting discovery through NOL World, YES24 Ticket English, Ticketlink Global, Melon Ticket, Weverse, and official company/artist notices
 
 The collector now stores discovered same-site official links in each candidate feed. This is useful for listing-heavy sources such as NOL World, YES24, DDP, OLIVE YOUNG, duty-free boards, and department-store newsrooms where the useful item is often an individual detail link inside the official page.

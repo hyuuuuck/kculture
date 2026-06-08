@@ -9,6 +9,7 @@
     "validate:links": "node scripts/validate-links.mjs",
     "validate:production": "node scripts/validate-production.mjs",
     "preflight:adsense": "node scripts/validate-production.mjs --require-adsense",
+    "report:adsense": "node scripts/adsense-readiness-report.mjs",
     "review:feed": "node scripts/review-feed-report.mjs",
     "verify": "npm run build && npm run validate:content && npm run validate:links",
     "check:sources": "node scripts/source-audit.mjs",

@@ -27,6 +27,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
+- `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
@@ -109,6 +110,7 @@ $env:SITE_URL="https://your-domain.com"
 $env:CONTACT_EMAIL="hello@your-domain.com"
 npm.cmd run build
 npm.cmd run validate:production
+npm.cmd run report:adsense
 ```
 
 Manual Wrangler deploy after the production preflight:
@@ -240,6 +242,16 @@ $env:CONTENT_FRESHNESS_STRICT="1"
 npm.cmd run validate:content
 ```
 
+Then generate the private AdSense readiness scorecard:
+
+```powershell
+$env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="hello@your-domain.com"
+npm.cmd run report:adsense
+```
+
+The scorecard is saved under `data/feeds/adsense-readiness-YYYY-MM-DD.md` and `.json`. These files are ignored by Git because they are operating artifacts.
+
 The publisher rejects draft placeholders such as `draft-needs-review`, `Needs editor review`, generic draft summaries, review-only fields, duplicate slugs, unknown sources, invalid dates, and missing visitor value.
 
 ## Latest Event Coverage
@@ -302,6 +314,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - `GOOGLE_ADSENSE_PUBLISHER_ID` set after AdSense publisher ID is issued
 - `GOOGLE_ADSENSE_CLIENT` or the derived `ca-pub-...` Auto ads client available before enabling ads
 - `ads.txt` generated at `/ads.txt` after publisher ID is issued
+- Private `npm.cmd run report:adsense` scorecard reviewed before applying
 
 AdSense preflight after you have the publisher ID:
 

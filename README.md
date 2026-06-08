@@ -140,7 +140,7 @@ Set these repository secrets:
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_API_TOKEN`
 
-`.github/workflows/deploy-cloudflare-pages.yml` builds with the real domain, runs production preflight, validates content and links, then deploys `dist/` to Cloudflare Pages with `wrangler pages deploy`.
+`.github/workflows/deploy-cloudflare-pages.yml` refreshes official source candidates, builds with the real domain, runs production preflight, validates content and links, uploads the source refresh artifacts, then deploys `dist/` to Cloudflare Pages with `wrangler pages deploy`.
 
 ## GitHub Verification
 
@@ -150,6 +150,7 @@ Set these repository secrets:
 
 `.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
+Manual runs can disable `refresh_sources` for emergency rebuilds, or pass `monitor_urls` with extra official notice URLs that should be scanned once before the production build.
 
 ## Daily Operating Routine
 

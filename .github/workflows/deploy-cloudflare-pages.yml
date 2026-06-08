@@ -16,6 +16,15 @@ on:
         required: false
         type: boolean
         default: false
+      refresh_sources:
+        description: "Refresh official source candidates before building"
+        required: false
+        type: boolean
+        default: true
+      monitor_urls:
+        description: "Comma-separated extra official URLs to scan once"
+        required: false
+        type: string
 
 concurrency:
   group: cloudflare-pages-${{ github.ref }}
@@ -60,6 +69,18 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required."; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID secret is required."; exit 1; }
 
+      - name: Refresh official source status
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.refresh_sources }}
+        run: npm run source:refresh
+        env:
+          SOURCE_TIMEOUT_MS: "12000"
+          SOURCE_CONCURRENCY: "8"
+          COLLECT_TIMEOUT_MS: "15000"
+          COLLECT_CONCURRENCY: "8"
+          COLLECT_MAX_LINKS: "24"
+          COLLECT_MIN_LINK_SCORE: "7"
+          MONITOR_URLS: ${{ inputs.monitor_urls || '' }}
+
       - name: Build production site
         run: npm run build
 
@@ -81,6 +102,15 @@ jobs:
           npm run validate:sources
           npm run validate:links
           npm run validate:structured
+
+      - name: Upload source refresh artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-source-refresh-${{ github.run_id }}
+          path: data/feeds/
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Deploy to Cloudflare Pages
         id: deploy

@@ -10,9 +10,15 @@ on:
         required: false
         type: string
 
+concurrency:
+  group: official-source-refresh
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -50,10 +56,14 @@ jobs:
       - name: Build private review board
         run: npm run review:board
 
+      - name: Summarize refresh results
+        run: npm run source:summary
+
       - name: Verify current site data
         run: npm run verify
 
       - name: Upload review artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: official-source-review-${{ github.run_id }}

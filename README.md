@@ -34,6 +34,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
 - `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts, including skipped-candidate reason counts
+- `scripts/source-refresh-summary.mjs`: summarizes the latest source audit, official candidates, draft candidates, failed sources, and review-board artifact for quick operations triage
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
@@ -145,7 +146,7 @@ Set these repository secrets:
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
-`.github/workflows/source-refresh.yml` runs official source collection every four hours and uploads the candidate feed plus review report as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+`.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, and uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact. It can also be started manually with extra official URLs.
 
 `.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
@@ -202,35 +203,43 @@ Draft generation intentionally skips already published URLs, failed source fetch
 npm.cmd run review:board
 ```
 
+7. Summarize the latest source refresh run:
+
+```powershell
+npm.cmd run source:summary
+```
+
+This writes `data/feeds/source-refresh-summary-YYYY-MM-DD.md` and `.json` with failed sources, draft counts, top categories, skipped reasons, and high-signal candidate pages.
+
 Or run the local source workflow in one command:
 
 ```powershell
 npm.cmd run source:refresh
 ```
 
-7. Import Korea Tourism Organization TourAPI candidates:
+8. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
 $env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:tourapi
 ```
 
-8. Import exact same-period previous-year KMA weather observations when an API key is available. Until then, event detail pages use the relevant schedule month from `data/weather-baselines.json`:
+9. Import exact same-period previous-year KMA weather observations when an API key is available. Until then, event detail pages use the relevant schedule month from `data/weather-baselines.json`:
 
 ```powershell
 $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-9. Open `data/feeds/review-board-YYYY-MM-DD.html`, verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
+10. Open `data/feeds/source-refresh-summary-YYYY-MM-DD.md` first, then `data/feeds/review-board-YYYY-MM-DD.html`; verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
 
-10. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
+11. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
 ```
 
-11. If the dry run passes, write the reviewed events into public data:
+12. If the dry run passes, write the reviewed events into public data:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write

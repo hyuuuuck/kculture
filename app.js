@@ -77,3 +77,90 @@ for (const scope of galleryScopes) {
 
   applyFilters();
 }
+
+const savedKey = "koreaNowGuide.savedEvents.v1";
+const saveButtons = [...document.querySelectorAll("[data-save-event]")];
+const planner = document.querySelector("[data-saved-planner]");
+const savedCount = planner?.querySelector("[data-saved-count]");
+const savedList = planner?.querySelector("[data-saved-list]");
+const clearSaved = planner?.querySelector("[data-clear-saved]");
+let volatileSavedEvents = [];
+
+function readSavedEvents() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(savedKey) || "[]");
+    return Array.isArray(parsed) ? parsed.filter((item) => item?.slug && item?.title && item?.url) : [];
+  } catch {
+    return volatileSavedEvents;
+  }
+}
+
+function writeSavedEvents(items) {
+  volatileSavedEvents = items.slice(0, 24);
+  try {
+    localStorage.setItem(savedKey, JSON.stringify(volatileSavedEvents));
+  } catch {
+    // Keep the in-memory planner working when storage is unavailable.
+  }
+}
+
+function savedEventFromButton(button) {
+  return {
+    slug: button.dataset.eventSlug,
+    title: button.dataset.eventTitle,
+    date: button.dataset.eventDate,
+    city: button.dataset.eventCity,
+    url: button.dataset.eventUrl
+  };
+}
+
+function setButtonState(button, saved) {
+  button.setAttribute("aria-pressed", String(saved));
+  button.textContent = saved ? button.dataset.savedLabel || "Saved" : button.dataset.saveLabel || "Save";
+}
+
+function renderSavedPlanner() {
+  const saved = readSavedEvents();
+  const savedSlugs = new Set(saved.map((item) => item.slug));
+
+  for (const button of saveButtons) {
+    setButtonState(button, savedSlugs.has(button.dataset.eventSlug));
+  }
+
+  if (!planner || !savedCount || !savedList) return;
+  planner.hidden = saved.length === 0;
+  const oneTemplate = savedCount.dataset.countOneTemplate || "1 saved event";
+  const countTemplate = savedCount.dataset.countTemplate || "{count} saved events";
+  savedCount.textContent = saved.length === 1 ? oneTemplate : countTemplate.replace("{count}", String(saved.length));
+  savedList.replaceChildren(...saved.slice(0, 4).map((item) => {
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.className = "saved-planner-item";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+    const meta = document.createElement("span");
+    meta.textContent = [item.city, item.date].filter(Boolean).join(" · ");
+
+    link.append(title, meta);
+    return link;
+  }));
+}
+
+for (const button of saveButtons) {
+  button.addEventListener("click", () => {
+    const event = savedEventFromButton(button);
+    if (!event.slug) return;
+    const saved = readSavedEvents();
+    const exists = saved.some((item) => item.slug === event.slug);
+    writeSavedEvents(exists ? saved.filter((item) => item.slug !== event.slug) : [event, ...saved.filter((item) => item.slug !== event.slug)]);
+    renderSavedPlanner();
+  });
+}
+
+clearSaved?.addEventListener("click", () => {
+  writeSavedEvents([]);
+  renderSavedPlanner();
+});
+
+renderSavedPlanner();

@@ -181,6 +181,14 @@ let dict = {
     clearFilters: "Reset",
     resultCountOneTemplate: "1 event shown",
     resultCountTemplate: "{count} events shown",
+    saveEvent: "Save",
+    savedEvent: "Saved",
+    savedPlannerTitle: "Saved Korea plan",
+    savedPlannerEmpty: "Save events to compare dates, cities, and official links.",
+    savedPlannerCountOne: "1 saved event",
+    savedPlannerCount: "{count} saved events",
+    clearSaved: "Clear saved",
+    openSavedEvent: "Open",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -500,6 +508,14 @@ dict = {
     clearFilters: "Reset",
     resultCountOneTemplate: "1 event shown",
     resultCountTemplate: "{count} events shown",
+    saveEvent: "Save",
+    savedEvent: "Saved",
+    savedPlannerTitle: "Saved Korea plan",
+    savedPlannerEmpty: "Save events to compare dates, cities, and official links.",
+    savedPlannerCountOne: "1 saved event",
+    savedPlannerCount: "{count} saved events",
+    clearSaved: "Clear saved",
+    openSavedEvent: "Open",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -1571,6 +1587,14 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
     </div>
   </footer>
+  <aside class="saved-planner" data-saved-planner hidden aria-live="polite">
+    <div>
+      <strong>${tr(lang, "savedPlannerTitle")}</strong>
+      <span data-saved-count data-count-one-template="${esc(tr(lang, "savedPlannerCountOne"))}" data-count-template="${esc(tr(lang, "savedPlannerCount"))}">${tr(lang, "savedPlannerEmpty")}</span>
+    </div>
+    <div class="saved-planner-list" data-saved-list></div>
+    <button type="button" class="saved-clear" data-clear-saved>${tr(lang, "clearSaved")}</button>
+  </aside>
   <script src="/app.js?v=${assetVersion}" defer></script>
 </body>
 </html>`;
@@ -1670,8 +1694,13 @@ function eventCard(event, lang) {
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
           <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
         </dl>
+        ${saveEventButton(event, lang)}
       </div>
     </article>`;
+}
+
+function saveEventButton(event, lang) {
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-city="${esc(event.city)}" data-event-url="/${lang}/events/${event.slug}.html" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false">${tr(lang, "saveEvent")}</button>`;
 }
 
 function renderHome(lang, canonicalPath = `/${lang}/`) {
@@ -2166,6 +2195,7 @@ function renderEvent(event, lang) {
             <div class="detail-actions">
               <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
+              ${saveEventButton(event, lang)}
             </div>
           </div>
         </header>

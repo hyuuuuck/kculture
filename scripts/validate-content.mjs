@@ -125,13 +125,23 @@ for (const source of sources) {
   if (!source.automationStatus) push(errors, id, "automationStatus is required.");
 }
 
+if (guides.length < 10) {
+  push(errors, "guides", "at least 10 evergreen guides are required for AdSense readiness.");
+}
+
+const guideSlugs = new Set();
 for (const guide of guides) {
   const id = guide.slug || "(missing guide slug)";
   if (!guide.slug) push(errors, id, "guide slug is required.");
+  if (guideSlugs.has(guide.slug)) push(errors, id, "duplicate guide slug.");
+  guideSlugs.add(guide.slug);
   if (!categories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
   if (!localEn(guide.title)) push(errors, id, "guide title.en is required.");
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
   if (!Array.isArray(guide.sections) || guide.sections.length < 2) push(errors, id, "guide needs at least two sections.");
+  for (const section of guide.sections || []) {
+    if (String(section || "").trim().length < 60) push(errors, id, "guide sections should be substantial visitor guidance.");
+  }
 }
 
 const routeSlugs = new Set();

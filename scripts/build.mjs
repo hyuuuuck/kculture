@@ -7,12 +7,30 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const today = process.env.SITE_TODAY || new Date().toISOString().slice(0, 10);
 const siteUrl = process.env.SITE_URL || "https://example.com";
+const contactEmail = process.env.CONTACT_EMAIL || "hello@example.com";
+const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
+const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
+
+function normalizePublisherId(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  if (/^ca-pub-\d{16}$/.test(trimmed)) return trimmed.replace("ca-", "");
+  if (/^pub-\d{16}$/.test(trimmed)) return trimmed;
+  return trimmed;
+}
+
+function normalizeAdSenseClientId(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return "";
+  if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
+  return trimmed;
+}
 
 let languages = {
   en: { name: "English", locale: "en-US" },
@@ -873,6 +891,11 @@ function eventSchema(event, lang) {
   };
 }
 
+function adsenseHeadScript() {
+  if (!/^ca-pub-\d{16}$/.test(adsenseClientId)) return "";
+  return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adsenseClientId)}" crossorigin="anonymous"></script>`;
+}
+
 function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   return `<!doctype html>
@@ -889,6 +912,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
   <meta name="theme-color" content="#0d7f75">
   <link rel="stylesheet" href="/styles.css">
+  ${adsenseHeadScript()}
   ${structuredDataScript(structuredData)}
 </head>
 <body>
@@ -1493,7 +1517,7 @@ function staticPage(lang, kind) {
       "K-pop pop-ups and social-only announcements are queued for curation before publication."
     ],
     contact: [
-      "For corrections, source suggestions, or partnership inquiries, email hello@example.com.",
+      `For corrections, source suggestions, or partnership inquiries, email ${contactEmail}.`,
       "Please include the official event URL, date range, venue, and language preference."
     ],
     privacy: [
@@ -1576,7 +1600,11 @@ async function build() {
 
   await fs.writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`, "utf8");
   await fs.writeFile(path.join(dist, "_headers"), headers(), "utf8");
-  await fs.writeFile(path.join(dist, "ads.txt.example"), "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n", "utf8");
+  if (/^pub-\d{16}$/.test(adsensePublisherId)) {
+    await fs.writeFile(path.join(dist, "ads.txt"), `google.com, ${adsensePublisherId}, DIRECT, f08c47fec0942fa0\n`, "utf8");
+  } else {
+    await fs.writeFile(path.join(dist, "ads.txt.example"), "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n", "utf8");
+  }
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
   await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
 }

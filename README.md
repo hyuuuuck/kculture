@@ -22,6 +22,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
+- `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/collect-official-pages.mjs`: collects official page candidates for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed into a human review report
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
@@ -76,11 +77,21 @@ Before production build, set:
 
 ```powershell
 $env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="hello@your-domain.com"
 npm.cmd run build
 ```
 
 `wrangler.toml` already sets `pages_build_output_dir = "dist"`.
 The build also writes Cloudflare Pages `_headers` for basic security headers and asset caching.
+
+Production preflight:
+
+```powershell
+$env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="hello@your-domain.com"
+npm.cmd run build
+npm.cmd run validate:production
+```
 
 ## GitHub Verification
 
@@ -150,12 +161,25 @@ npm.cmd run collect:official
 
 - Real custom domain connected
 - `SITE_URL` set before final build
+- `CONTACT_EMAIL` set before final build
 - `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/` working
 - At least 30 verified event, guide, or archive pages
 - No broken images or broken internal links
 - Mobile layout checked
 - No ad-click encouragement text
-- `ads.txt` updated after AdSense publisher ID is issued
+- `GOOGLE_ADSENSE_PUBLISHER_ID` set after AdSense publisher ID is issued
+- `GOOGLE_ADSENSE_CLIENT` or the derived `ca-pub-...` Auto ads client available before enabling ads
+- `ads.txt` generated at `/ads.txt` after publisher ID is issued
+
+AdSense preflight after you have the publisher ID:
+
+```powershell
+$env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
+npm.cmd run build
+npm.cmd run preflight:adsense
+```
 
 ## Strict Source Audit
 

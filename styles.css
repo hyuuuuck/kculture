@@ -1645,6 +1645,109 @@ img {
   background: #edf7f3;
 }
 
+.saved-planner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: end;
+}
+
+.saved-open,
+.planner-card-actions a,
+.planner-card-actions button {
+  min-height: 40px;
+  display: inline-grid;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--teal-dark);
+  background: var(--white);
+  font: inherit;
+  font-weight: 820;
+  cursor: pointer;
+}
+
+.saved-open:hover,
+.planner-card-actions a:hover,
+.planner-card-actions button:hover {
+  border-color: rgba(13, 127, 117, 0.44);
+  background: #edf7f3;
+}
+
+.button:disabled,
+.planner-card-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.page-hero.compact h1 {
+  max-width: 16ch;
+}
+
+.planner-board {
+  display: grid;
+  gap: 18px;
+}
+
+.planner-empty {
+  display: grid;
+  gap: 4px;
+  padding: 18px;
+  border: 1px dashed rgba(13, 127, 117, 0.42);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.planner-empty[hidden] {
+  display: none;
+}
+
+.planner-empty span {
+  color: var(--muted);
+  font-weight: 720;
+}
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.planner-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 10px 24px rgba(18, 32, 38, 0.06);
+}
+
+.planner-card-meta {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.planner-card > strong {
+  line-height: 1.18;
+  font-size: 1.08rem;
+}
+
+.planner-card > span {
+  color: var(--muted);
+  font-weight: 720;
+}
+
+.planner-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 @media (max-width: 980px) {
   .site-header {
     grid-template-columns: 1fr;
@@ -1717,6 +1820,14 @@ img {
     grid-template-columns: 1fr;
     align-items: stretch;
   }
+
+  .saved-planner-actions {
+    justify-content: start;
+  }
+
+  .planner-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 680px) {
@@ -1783,6 +1894,10 @@ img {
   }
 
   .saved-planner-list {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-grid {
     grid-template-columns: 1fr;
   }
 }

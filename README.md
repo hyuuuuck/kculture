@@ -10,6 +10,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - Event detail pages with official source links, last-checked date, schedule-month previous-year weather planning notes, and nearby travel ideas
 - A `/now/` page for live, ending-soon, newly checked, and this-week events
 - Event calendar page plus `/events.ics`
+- A saved-event planner page where visitors can compare saved events on the same device and export a saved calendar file
 - RSS and JSON Feed output at `/feed.xml`, `/latest.json`, and each language folder for recrawl signals, subscriptions, newsletters, and future automation
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
 - Language versions for English, Spanish, Chinese, Portuguese, and Russian

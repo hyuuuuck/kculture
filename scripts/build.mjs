@@ -88,6 +88,7 @@ let dict = {
     navNow: "Now",
     navCalendar: "Calendar",
     navGuides: "Guides",
+    navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
     heroEyebrow: "Korea events, pop-ups, beauty deals, duty-free offers",
@@ -187,8 +188,16 @@ let dict = {
     savedPlannerEmpty: "Save events to compare dates, cities, and official links.",
     savedPlannerCountOne: "1 saved event",
     savedPlannerCount: "{count} saved events",
+    openPlanner: "Open planner",
     clearSaved: "Clear saved",
+    removeSaved: "Remove",
     openSavedEvent: "Open",
+    plannerTitle: "Saved event planner",
+    plannerText: "Compare the Korea events you saved on this device, then open official sources before booking or changing plans.",
+    plannerEmptyTitle: "No saved events yet",
+    plannerEmptyText: "Save events from the gallery or detail pages to build a simple Korea trip shortlist.",
+    downloadSavedCalendar: "Download saved calendar",
+    officialLabel: "Official",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -414,6 +423,7 @@ dict = {
     navNow: "Now",
     navCalendar: "Calendar",
     navGuides: "Guides",
+    navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
     heroEyebrow: "Korea events, pop-ups, beauty deals, duty-free offers",
@@ -514,8 +524,16 @@ dict = {
     savedPlannerEmpty: "Save events to compare dates, cities, and official links.",
     savedPlannerCountOne: "1 saved event",
     savedPlannerCount: "{count} saved events",
+    openPlanner: "Open planner",
     clearSaved: "Clear saved",
+    removeSaved: "Remove",
     openSavedEvent: "Open",
+    plannerTitle: "Saved event planner",
+    plannerText: "Compare the Korea events you saved on this device, then open official sources before booking or changing plans.",
+    plannerEmptyTitle: "No saved events yet",
+    plannerEmptyText: "Save events from the gallery or detail pages to build a simple Korea trip shortlist.",
+    downloadSavedCalendar: "Download saved calendar",
+    officialLabel: "Official",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -1368,6 +1386,7 @@ function nav(lang) {
       <a href="/${lang}/#events">${tr(lang, "navEvents")}</a>
       <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
       <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
+      <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
       <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
@@ -1578,6 +1597,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
     </div>
     <div class="footer-links">
       <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
+      <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
@@ -1593,7 +1613,10 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <span data-saved-count data-count-one-template="${esc(tr(lang, "savedPlannerCountOne"))}" data-count-template="${esc(tr(lang, "savedPlannerCount"))}">${tr(lang, "savedPlannerEmpty")}</span>
     </div>
     <div class="saved-planner-list" data-saved-list></div>
-    <button type="button" class="saved-clear" data-clear-saved>${tr(lang, "clearSaved")}</button>
+    <div class="saved-planner-actions">
+      <a class="saved-open" href="/${lang}/planner/">${tr(lang, "openPlanner")}</a>
+      <button type="button" class="saved-clear" data-clear-saved>${tr(lang, "clearSaved")}</button>
+    </div>
   </aside>
   <script src="/app.js?v=${assetVersion}" defer></script>
 </body>
@@ -1700,7 +1723,7 @@ function eventCard(event, lang) {
 }
 
 function saveEventButton(event, lang) {
-  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-city="${esc(event.city)}" data-event-url="/${lang}/events/${event.slug}.html" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false">${tr(lang, "saveEvent")}</button>`;
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false">${tr(lang, "saveEvent")}</button>`;
 }
 
 function renderHome(lang, canonicalPath = `/${lang}/`) {
@@ -2172,6 +2195,38 @@ function calendarItem(event, lang) {
       </span>
       <b class="${status}">${statusLabel(lang, status)}</b>
     </a>`;
+}
+
+function renderPlanner(lang) {
+  const body = `
+    <main class="page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "navPlanner")}</p>
+        <h1>${tr(lang, "plannerTitle")}</h1>
+        <p>${tr(lang, "plannerText")}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="/${lang}/#events">${tr(lang, "ctaEvents")}</a>
+          <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
+          <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
+        </div>
+      </section>
+      <section class="planner-board">
+        <div class="planner-empty" data-planner-empty>
+          <strong>${tr(lang, "plannerEmptyTitle")}</strong>
+          <span>${tr(lang, "plannerEmptyText")}</span>
+        </div>
+        <div class="planner-grid" data-planner-grid></div>
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${tr(lang, "plannerTitle")} - Korea Now Guide`,
+    description: tr(lang, "plannerText"),
+    body,
+    canonicalPath: `/${lang}/planner/`,
+    currentPathBuilder: (code) => `/${code}/planner/`
+  });
 }
 
 function renderEvent(event, lang) {
@@ -2765,6 +2820,7 @@ async function build() {
     await writeText(`${lang}/latest.json`, jsonFeed(lang));
     await writeHtml(`${lang}/now/index.html`, renderNow(lang));
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
+    await writeHtml(`${lang}/planner/index.html`, renderPlanner(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
     await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
     await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
@@ -2864,6 +2920,7 @@ function sitemap() {
       { url: `/${lang}/`, lastmod: latestEventCheck },
       { url: `/${lang}/now/`, lastmod: today },
       { url: `/${lang}/calendar/`, lastmod: today },
+      { url: `/${lang}/planner/`, lastmod: today },
       { url: `/${lang}/guides/`, lastmod: today },
       { url: `/${lang}/routes/`, lastmod: latestEventCheck },
       { url: `/${lang}/sources/`, lastmod: today },

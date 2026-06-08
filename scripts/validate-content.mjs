@@ -134,9 +134,12 @@ for (const guide of guides) {
   if (!Array.isArray(guide.sections) || guide.sections.length < 2) push(errors, id, "guide needs at least two sections.");
 }
 
+const routeSlugs = new Set();
 for (const route of routes) {
   const id = route.slug || "(missing route slug)";
   if (!route.slug) push(errors, id, "route slug is required.");
+  if (routeSlugs.has(route.slug)) push(errors, id, "duplicate route slug.");
+  routeSlugs.add(route.slug);
   if (!Array.isArray(route.regions) || !route.regions.length) push(errors, id, "route regions are required.");
   if (!Array.isArray(route.categories) || !route.categories.length) push(errors, id, "route categories are required.");
   for (const category of route.categories || []) {
@@ -145,6 +148,8 @@ for (const route of routes) {
   if (!route.title) push(errors, id, "route title is required.");
   if (!Array.isArray(route.stops) || route.stops.length < 3) push(errors, id, "route needs at least three stops.");
   if (!Array.isArray(route.tips) || route.tips.length < 2) push(errors, id, "route needs at least two tips.");
+  const relatedEvents = events.filter((event) => route.regions?.includes(event.city) && route.categories?.includes(event.category));
+  if (!relatedEvents.length) push(warnings, id, "route has no directly related events yet.");
 }
 
 await validateGeneratedText();

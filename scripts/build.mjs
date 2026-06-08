@@ -64,6 +64,7 @@ let dict = {
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
+    routePages: "Travel routes",
     categoryPages: "Browse by topic",
     verifyBefore: "Verify on the official source before visiting.",
     relatedGuides: "Related guides",
@@ -326,6 +327,7 @@ dict = {
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
+    routePages: "Travel routes",
     categoryPages: "Browse by topic",
     cityPages: "Browse by city",
     verifyBefore: "Verify on the official source before visiting.",
@@ -382,6 +384,7 @@ dict = {
     weatherPlan: "Plan de clima",
     travelIdeas: "Ideas de viaje",
     routeIdeas: "Rutas cercanas",
+    routePages: "Rutas de viaje",
     categoryPages: "Explorar por tema",
     cityPages: "Explorar por ciudad",
     verifyBefore: "Verifica la fuente oficial antes de visitar.",
@@ -438,6 +441,7 @@ dict = {
     weatherPlan: "天气规划",
     travelIdeas: "旅行建议",
     routeIdeas: "附近路线建议",
+    routePages: "旅行路线",
     categoryPages: "按主题浏览",
     cityPages: "按城市浏览",
     verifyBefore: "出发前请在官方来源确认。",
@@ -494,6 +498,7 @@ dict = {
     weatherPlan: "Planejamento de clima",
     travelIdeas: "Ideias de viagem",
     routeIdeas: "Roteiros próximos",
+    routePages: "Roteiros de viagem",
     categoryPages: "Explorar por tema",
     cityPages: "Explorar por cidade",
     verifyBefore: "Confirme na fonte oficial antes de visitar.",
@@ -550,6 +555,7 @@ dict = {
     weatherPlan: "План по погоде",
     travelIdeas: "Идеи для поездки",
     routeIdeas: "Маршруты рядом",
+    routePages: "Маршруты",
     categoryPages: "По темам",
     cityPages: "По городам",
     verifyBefore: "Перед визитом проверьте официальный источник.",
@@ -729,6 +735,10 @@ function cityHref(lang, city) {
   return `/${lang}/cities/${citySlug(city)}/`;
 }
 
+function routeHref(lang, route) {
+  return `/${lang}/routes/${route.slug}.html`;
+}
+
 function cityLinkStrip(lang) {
   return citiesWithEvents().map((city) => {
     const count = events.filter((event) => event.city === city).length;
@@ -752,6 +762,17 @@ function routesForEvent(event) {
   return (matches.length ? matches : fallback).slice(0, 3);
 }
 
+function eventsForRoute(route) {
+  const regionSet = new Set(route.regions || []);
+  const categorySet = new Set(route.categories || []);
+  return events
+    .filter((event) => (regionSet.has(event.city) || regionSet.has(event.weatherRegion) || regionSet.has("Nationwide")) && categorySet.has(event.category))
+    .sort((a, b) => {
+      const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+      return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || a.startDate.localeCompare(b.startDate) || b.priority - a.priority;
+    });
+}
+
 function routesForCity(city) {
   const weatherRegion = cityDefinitions[city]?.weatherRegion || city;
   return routes
@@ -767,6 +788,16 @@ function routeCard(route) {
       <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
       <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </article>`;
+}
+
+function routeLinkCard(route, lang) {
+  return `
+    <a class="route-card" href="${routeHref(lang, route)}">
+      <span>${esc(route.bestFor)}</span>
+      <h3>${esc(route.title)}</h3>
+      <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
+      <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+    </a>`;
 }
 
 function dateText(lang, iso) {
@@ -801,6 +832,7 @@ function nav(lang) {
       <a href="/${lang}/#events">${tr(lang, "navEvents")}</a>
       <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
+      <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
       <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
       <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
     </nav>`;
@@ -1174,7 +1206,7 @@ function renderCity(lang, city) {
           <h2>${tr(lang, "routeIdeas")}</h2>
           <div class="route-mini-list">
             ${routeIdeas.map((route) => `
-              <a href="#events">
+              <a href="${routeHref(lang, route)}">
                 <strong>${esc(route.title)}</strong>
                 <span>${esc(route.bestFor)}</span>
               </a>`).join("")}
@@ -1200,6 +1232,109 @@ function renderCity(lang, city) {
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
         { name: city, url: cityHref(lang, city) }
+      ])
+    ]
+  });
+}
+
+function renderRoutes(lang) {
+  const description = "Practical Korea travel routes connected to official events, shopping pages, weather notes, and nearby visitor plans.";
+  const body = `
+    <main class="page">
+      <section class="page-hero compact">
+        <p class="eyebrow">${tr(lang, "routePages")}</p>
+        <h1>${tr(lang, "routePages")}</h1>
+        <p>${esc(description)}</p>
+      </section>
+      <section class="route-grid wide-route-grid">
+        ${routes.map((route) => routeLinkCard(route, lang)).join("")}
+      </section>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${tr(lang, "routePages")} - Korea Now Guide`,
+    description,
+    body,
+    canonicalPath: `/${lang}/routes/`,
+    currentPathBuilder: (code) => `/${code}/routes/`,
+    schemaData: [
+      schema(lang, `${tr(lang, "routePages")} - Korea Now Guide`, description, `/${lang}/routes/`),
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: tr(lang, "routePages"),
+        inLanguage: lang,
+        url: absoluteUrl(`/${lang}/routes/`),
+        numberOfItems: routes.length,
+        itemListElement: routes.map((route, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: absoluteUrl(routeHref(lang, route)),
+          name: route.title
+        }))
+      }
+    ]
+  });
+}
+
+function renderRoute(route, lang) {
+  const relatedEvents = eventsForRoute(route).slice(0, 9);
+  const description = `${route.bestFor} Stops include ${route.stops.join(", ")}.`;
+  const body = `
+    <main class="page">
+      <article class="detail-layout">
+        <section class="page-hero compact">
+          <p class="eyebrow">${tr(lang, "routePages")}</p>
+          <h1>${esc(route.title)}</h1>
+          <p>${esc(route.bestFor)}</p>
+        </section>
+
+        <section class="detail-section two-col">
+          <div>
+            <h2>${tr(lang, "travelIdeas")}</h2>
+            <ol class="stop-list">${route.stops.map((stop) => `<li><strong>${esc(stop)}</strong></li>`).join("")}</ol>
+          </div>
+          <div>
+            <h2>${tr(lang, "weatherPlan")}</h2>
+            <ul>${route.tips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <h2>${tr(lang, "cityPages")}</h2>
+          <div class="city-strip page-strip">
+            ${route.regions.map((region) => cityDefinitions[region] ? `
+              <a class="city-pill" href="${cityHref(lang, region)}">
+                <strong>${esc(region)}</strong>
+                <span>${events.filter((event) => event.city === region).length} events</span>
+              </a>` : "").join("")}
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <h2>${tr(lang, "relatedGuides")}</h2>
+          <div class="gallery-grid">
+            ${relatedEvents.length ? relatedEvents.map((event) => eventCard(event, lang)).join("") : guides.slice(0, 3).map((guide) => guideCard(guide, lang)).join("")}
+          </div>
+        </section>
+      </article>
+    </main>`;
+
+  return layout({
+    lang,
+    title: `${route.title} - Korea Now Guide`,
+    description,
+    body,
+    canonicalPath: routeHref(lang, route),
+    currentPathBuilder: (code) => routeHref(code, route),
+    schemaData: [
+      schema(lang, `${route.title} - Korea Now Guide`, description, routeHref(lang, route)),
+      itemListSchema(lang, route.title, relatedEvents, routeHref(lang, route)),
+      breadcrumbSchema(lang, [
+        { name: "Home", url: `/${lang}/` },
+        { name: tr(lang, "routePages"), url: `/${lang}/routes/` },
+        { name: route.title, url: routeHref(lang, route) }
       ])
     ]
   });
@@ -1307,7 +1442,7 @@ function renderEvent(event, lang) {
           <section class="detail-section">
             <h2>${tr(lang, "routeIdeas")}</h2>
             <div class="route-grid">
-              ${routeIdeas.map(routeCard).join("")}
+              ${routeIdeas.map((route) => routeLinkCard(route, lang)).join("")}
             </div>
           </section>` : ""}
 
@@ -1577,6 +1712,7 @@ async function build() {
     await writeHtml(`${lang}/index.html`, renderHome(lang));
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
+    await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
     await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
     await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));
     await writeHtml(`${lang}/editorial-policy/index.html`, renderEditorialPolicy(lang));
@@ -1589,6 +1725,9 @@ async function build() {
     }
     for (const city of citiesWithEvents()) {
       await writeHtml(`${lang}/cities/${citySlug(city)}/index.html`, renderCity(lang, city));
+    }
+    for (const route of routes) {
+      await writeHtml(`${lang}/routes/${route.slug}.html`, renderRoute(route, lang));
     }
     for (const event of events) {
       await writeHtml(`${lang}/events/${event.slug}.html`, renderEvent(event, lang));
@@ -1633,9 +1772,10 @@ function headers() {
 function sitemap() {
   const urls = ["/"];
   for (const lang of Object.keys(languages)) {
-    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/sources/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
+    urls.push(`/${lang}/`, `/${lang}/calendar/`, `/${lang}/guides/`, `/${lang}/routes/`, `/${lang}/sources/`, `/${lang}/freshness/`, `/${lang}/editorial-policy/`, `/${lang}/about/`, `/${lang}/contact/`, `/${lang}/privacy/`, `/${lang}/terms/`);
     for (const category of Object.keys(categoryDefinitions)) urls.push(categoryHref(lang, category));
     for (const city of citiesWithEvents()) urls.push(cityHref(lang, city));
+    for (const route of routes) urls.push(routeHref(lang, route));
     for (const event of events) urls.push(`/${lang}/events/${event.slug}.html`);
     for (const guide of guides) urls.push(`/${lang}/guides/${guide.slug}.html`);
   }

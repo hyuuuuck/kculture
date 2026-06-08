@@ -909,6 +909,37 @@ img {
   font-weight: 850;
 }
 
+.source-copy {
+  align-content: center;
+}
+
+.source-copy p {
+  margin: 0;
+}
+
+.source-alternates {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.source-alternates summary {
+  cursor: pointer;
+  color: var(--teal-dark);
+  font-weight: 820;
+}
+
+.source-alternates ul {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.source-alternates a {
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
 .split-links {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

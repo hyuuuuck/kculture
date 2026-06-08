@@ -1939,7 +1939,10 @@ function renderSources(lang) {
               <strong>${esc(source.name)}</strong>
               <span>${esc(source.type)} · ${esc(source.refreshCadence)}</span>
             </div>
-            <p>${esc(source.notes)}</p>
+            <div class="source-copy">
+              <p>${esc(source.notes)}</p>
+              ${sourceAlternateLinks(source)}
+            </div>
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
           </article>`).join("")}
       </section>
@@ -1986,6 +1989,18 @@ function sourceCoverage(source) {
 
 function watchlistStat(label, value) {
   return `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`;
+}
+
+function sourceAlternateLinks(source) {
+  const links = source.alternateUrls || [];
+  if (!links.length) return "";
+  return `
+    <details class="source-alternates">
+      <summary>${esc(links.length)} official fallback ${links.length === 1 ? "link" : "links"}</summary>
+      <ul>
+        ${links.map((url) => `<li><a href="${esc(url)}" rel="nofollow noopener" target="_blank">${esc(url)}</a></li>`).join("")}
+      </ul>
+    </details>`;
 }
 
 function renderWatchlist(lang) {

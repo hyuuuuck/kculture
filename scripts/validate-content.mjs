@@ -176,6 +176,13 @@ for (const source of sources) {
   if (!Array.isArray(source.coverage) || !source.coverage.length) push(errors, id, "coverage must contain at least one item.");
   if (!source.refreshCadence) push(errors, id, "refreshCadence is required.");
   if (!source.automationStatus) push(errors, id, "automationStatus is required.");
+  if (source.alternateUrls !== undefined) {
+    if (!Array.isArray(source.alternateUrls)) {
+      push(errors, id, "alternateUrls must be an array when provided.");
+    } else {
+      source.alternateUrls.forEach((url, index) => assertUrl(id, `alternateUrls[${index}]`, url));
+    }
+  }
 }
 
 for (const [regionName, months] of Object.entries(weather.regions || {})) {

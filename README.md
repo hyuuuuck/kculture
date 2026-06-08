@@ -35,7 +35,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
 - `scripts/import-kma-weather.mjs`: imports exact same-period previous-year KMA ASOS weather observations when an API key is available
-- `scripts/source-audit.mjs`: checks source URL availability
+- `scripts/source-audit.mjs`: checks primary and fallback source URL availability and writes a private audit report
 - `monetization-plan.md`: traffic and AdSense operating plan
 
 Generated review artifacts under `data/feeds/` are ignored by Git. Review them and merge only verified items into `data/events.json`.
@@ -157,6 +157,8 @@ Only queue official artist, agency, venue, ticketing, shop, government, or brand
 npm.cmd run check:sources
 ```
 
+The source audit tries each source's primary `url` and any `alternateUrls`, then saves `data/feeds/source-audit-YYYY-MM-DD.json` and `.md`. If a site blocks the default request profile, set `SOURCE_USER_AGENT` before running the audit or collector.
+
 3. Collect official page candidates and active curation queue URLs:
 
 ```powershell
@@ -254,6 +256,8 @@ The source registry is set up to watch official sources for:
 
 The collector now stores discovered same-site official links in each candidate feed. This is useful for listing-heavy sources such as NOL World, YES24, DDP, OLIVE YOUNG, duty-free boards, and department-store newsrooms where the useful item is often an individual detail link inside the official page.
 
+Some official sites change paths or block one request profile while allowing another. Keep official fallback paths in `alternateUrls`; the audit and collector will try those before marking a source blocked. Current fallback examples include Korea Grand Sale through the Visit Korea Committee page and Hyundai Department Store through the newer ehyundai portal.
+
 Not every official site exposes a clean API. The safe operating model is to collect candidates automatically, then publish only manually verified summaries with official source links, last-checked dates, and practical visitor notes.
 
 ## Extra Official URLs
@@ -317,3 +321,5 @@ Some official sites block bot-like checks. By default, `check:sources` reports f
 $env:SOURCE_AUDIT_STRICT="1"
 npm.cmd run check:sources
 ```
+
+If a known official source starts returning 403/timeout while it still opens in a browser, set `SOURCE_USER_AGENT` or add a verified official `alternateUrls` entry before treating the source as unavailable.

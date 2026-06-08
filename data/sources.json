@@ -4,6 +4,10 @@
     "type": "official-api",
     "owner": "Korea Tourism Organization",
     "url": "https://www.data.go.kr/en/data/15101753/openapi.do",
+    "alternateUrls": [
+      "https://www.data.go.kr/data/15101753/openapi.do",
+      "https://apis.data.go.kr/B551011/EngService2/searchFestival2"
+    ],
     "coverage": ["festivals", "attractions", "accommodation", "images", "sync-list"],
     "refreshCadence": "daily after API key approval",
     "automationStatus": "ready-with-api-key",
@@ -23,17 +27,27 @@
     "name": "Korea Grand Sale / Visit Korea Committee",
     "type": "official-page-monitor",
     "owner": "Visit Korea Committee",
-    "url": "https://en.koreagrandsale.co.kr",
+    "url": "https://www.koreagrandsale.co.kr/kgs",
+    "alternateUrls": [
+      "https://www.koreagrandsale.co.kr/",
+      "https://vkc.or.kr/en/main-project/korea-grand-sale/",
+      "https://vkc.or.kr/content/",
+      "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=575"
+    ],
     "coverage": ["shopping tourism", "winter sale", "foreign visitor benefits"],
     "refreshCadence": "weekly; daily during campaign",
     "automationStatus": "monitor-and-curate",
-    "notes": "Seasonal anchor source for winter shopping tourism pages."
+    "notes": "Seasonal anchor source for winter shopping tourism pages. If the campaign platform blocks automated checks, use the Visit Korea Committee project page or MCST press release as official fallback evidence."
   },
   {
     "name": "Ministry of Culture, Sports and Tourism",
     "type": "official-page-monitor",
     "owner": "MCST",
-    "url": "https://www.mcst.go.kr/english/policy/pressList.jsp?pCurrentPage=1",
+    "url": "https://www.mcst.go.kr/english/policy/pressList.jsp",
+    "alternateUrls": [
+      "https://mcst.go.kr/english/policy/pressList.jsp?pCurrentPage=1",
+      "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=575"
+    ],
     "coverage": ["policy-backed festivals", "tourism campaigns", "official releases"],
     "refreshCadence": "weekly",
     "automationStatus": "monitor-and-curate",
@@ -174,10 +188,15 @@
     "type": "official-page-monitor",
     "owner": "Hyundai Department Store",
     "url": "https://home.e-hyundai.com/lang/en/index.do",
+    "alternateUrls": [
+      "https://www.ehyundai.com/newPortal/index.do",
+      "https://www.ehyundai.com/newPortal/DP/DP000000_V.do",
+      "https://home.e-hyundai.com/newPortal/index.do"
+    ],
     "coverage": ["department store events", "branch pages", "culture exhibitions", "pop-ups"],
     "refreshCadence": "daily for major branches",
     "automationStatus": "monitor-and-curate",
-    "notes": "Branch pages often reveal events earlier than English travel sites."
+    "notes": "Branch pages often reveal events earlier than English travel sites. Use the newer ehyundai portal as the automated fallback when the English language entry blocks fetch."
   },
   {
     "name": "Shinsegae Duty Free",

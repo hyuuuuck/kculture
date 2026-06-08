@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const today = todayString();
 const timeoutMs = Number(process.env.COLLECT_TIMEOUT_MS || 10000);
+const userAgent = process.env.SOURCE_USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 KoreaNowGuide/0.1";
 const maxLinksPerSource = Number(process.env.COLLECT_MAX_LINKS || 18);
 const minLinkScore = Number(process.env.COLLECT_MIN_LINK_SCORE || 7);
 const extraUrls = (process.env.MONITOR_URLS || "")
@@ -56,6 +57,13 @@ const monitorSources = sources
     automationStatus: "monitor-and-curate",
     notes: "Added through MONITOR_URLS."
   })));
+
+function sourceUrls(source) {
+  const urls = [source.url, ...(source.alternateUrls || [])]
+    .map((url) => String(url || "").trim())
+    .filter(Boolean);
+  return [...new Set(urls)];
+}
 
 function normalizeDate(year, month, day) {
   const y = String(year).padStart(4, "0");
@@ -342,28 +350,29 @@ function keywordHits(text) {
   return keywords.filter((keyword) => lower.includes(keyword));
 }
 
-async function fetchSource(source) {
+async function fetchSourceUrl(source, url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetch(source.url, {
+    const response = await fetch(url, {
       redirect: "follow",
       signal: controller.signal,
       headers: {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "accept-language": "en-US,en;q=0.9,ko;q=0.8",
-        "user-agent": "Mozilla/5.0 KoreaNowGuideCollector/0.1"
+        "user-agent": userAgent
       }
     });
     const html = await decodeHtml(response);
     const text = stripHtml(html);
     const dates = extractPageDateSignals(text);
-    const discoveredLinks = extractOfficialLinks(html, response.url || source.url);
+    const discoveredLinks = extractOfficialLinks(html, response.url || url);
     return {
       sourceName: source.name,
       owner: source.owner,
       type: source.type,
       url: source.url,
+      requestedUrl: url,
       finalUrl: response.url,
       status: response.status,
       ok: response.ok,
@@ -389,6 +398,7 @@ async function fetchSource(source) {
       owner: source.owner,
       type: source.type,
       url: source.url,
+      requestedUrl: url,
       status: "ERR",
       ok: false,
       checkedAt: new Date().toISOString(),
@@ -406,6 +416,56 @@ async function fetchSource(source) {
   } finally {
     clearTimeout(timeout);
   }
+}
+
+async function fetchSource(source) {
+  const attempts = [];
+  for (const url of sourceUrls(source)) {
+    const candidate = await fetchSourceUrl(source, url);
+    attempts.push({
+      requestedUrl: candidate.requestedUrl || url,
+      finalUrl: candidate.finalUrl || candidate.requestedUrl || url,
+      status: candidate.status,
+      ok: candidate.ok,
+      error: candidate.error || ""
+    });
+
+    if (candidate.ok) {
+      const primaryUrl = sourceUrls(source)[0];
+      return {
+        ...candidate,
+        attempts,
+        fallbackUsed: candidate.requestedUrl !== primaryUrl,
+        alternateUrls: source.alternateUrls || []
+      };
+    }
+  }
+
+  const last = attempts.at(-1);
+  return {
+    sourceName: source.name,
+    owner: source.owner,
+    type: source.type,
+    url: source.url,
+    requestedUrl: last?.requestedUrl || source.url,
+    finalUrl: last?.finalUrl || source.url,
+    status: last?.status || "ERR",
+    ok: false,
+    checkedAt: new Date().toISOString(),
+    error: last?.error || "all source URLs failed",
+    attempts,
+    fallbackUsed: false,
+    alternateUrls: source.alternateUrls || [],
+    reviewRequired: true,
+    publishable: false,
+    notes: source.notes,
+    queueId: source.queueId,
+    queueLabel: source.queueLabel,
+    queueCategory: source.queueCategory,
+    queuePriority: source.queuePriority,
+    artistOrBrand: source.artistOrBrand,
+    reviewNotes: source.reviewNotes
+  };
 }
 
 const candidates = [];

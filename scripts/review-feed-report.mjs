@@ -58,6 +58,8 @@ const rows = candidates.map((candidate) => ({
   links: candidate.discoveredLinks?.length || 0,
   keywords: candidate.keywordHits?.join(", ") || "-",
   url: candidate.finalUrl || candidate.url,
+  fallback: candidate.fallbackUsed ? "yes" : "no",
+  attempts: candidate.attempts?.length || 1,
   error: candidate.error || ""
 }));
 
@@ -88,6 +90,8 @@ ${rows.map((row, index) => `### ${index + 1}. ${row.source}
 - Action: ${row.action}
 - Queue: ${row.queue || "-"}
 - Status: ${row.status}${row.error ? ` (${row.error})` : ""}
+- Fallback used: ${row.fallback}
+- URL attempts: ${row.attempts}
 - Date signals: ${row.dates}
 - Discovered links: ${row.links}
 - Keywords: ${row.keywords}
@@ -126,6 +130,8 @@ console.table(rows.map((row) => ({
   dates: row.dates,
   links: row.links,
   status: row.status,
+  fallback: row.fallback,
+  attempts: row.attempts,
   error: row.error
 })));
 console.log(`Saved review report: ${out}`);

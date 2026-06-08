@@ -23,6 +23,18 @@ const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.
   .catch(() => []);
 const languages = ["en", "es", "zh", "pt", "ru"];
 const eventRichResultCategories = new Set(["festival", "kpop"]);
+const sourceCoverageBuckets = [
+  { id: "tourism-festivals", minSources: 12, pattern: /\b(tourism|tourist|visitkorea|tourapi|festival|visit seoul|visit jeju|busan|incheon|daegu|boryeong|andong|jinju|coex|ddp)\b/i },
+  { id: "government-culture", minSources: 4, pattern: /\b(ministry|mcst|government|policy briefing|culture portal|culture|metropolitan government|kofice)\b/i },
+  { id: "sale-shopping", minSources: 4, pattern: /\b(korea grand sale|korea sale festa|shopping|sale|retail|benefits|promotion)\b/i },
+  { id: "beauty-olive-young", minSources: 2, pattern: /\b(olive young|beauty|cosmetic|cj olive)\b/i },
+  { id: "duty-free", minSources: 4, pattern: /\b(duty free|duty-free|dfs|shilla|lottedfs|shinsegaedf)\b/i },
+  { id: "department-store", minSources: 5, pattern: /\b(department store|lotte department|hyundai department|shinsegae department|galleria|ak plaza|e-hyundai|ehyundai)\b/i },
+  { id: "kpop-popups", minSources: 8, pattern: /\b(k-pop|kpop|pop-up|popup|weverse|fans shop|smtown|yg select|nol world|artist|fan|merch)\b/i },
+  { id: "ticketing", minSources: 4, pattern: /\b(ticket|ticketing|yes24|ticketlink|melon ticket|nol world|reservation)\b/i },
+  { id: "weather", minSources: 1, pattern: /\b(weather|meteorological|kma|asos|temperature|precipitation)\b/i }
+];
+const sourceAutomationStatuses = new Set(["ready-with-api-key", "planned-api", "monitor-and-curate"]);
 
 const checks = [];
 
@@ -72,6 +84,34 @@ function structuredEventStats() {
     expected: events.length * languages.length,
     ok,
     missing
+  };
+}
+
+function sourceHaystack(source) {
+  return [
+    source.name,
+    source.type,
+    source.owner,
+    source.url,
+    ...(source.alternateUrls || []),
+    ...(source.coverage || []),
+    source.refreshCadence,
+    source.automationStatus,
+    source.notes
+  ].filter(Boolean).join(" ");
+}
+
+function sourceCoverageStats() {
+  const active = sources.filter((source) => sourceAutomationStatuses.has(source.automationStatus));
+  const buckets = sourceCoverageBuckets.map((bucket) => ({
+    id: bucket.id,
+    minSources: bucket.minSources,
+    count: active.filter((source) => bucket.pattern.test(sourceHaystack(source))).length
+  }));
+  return {
+    active: active.length,
+    buckets,
+    missing: buckets.filter((bucket) => bucket.count < bucket.minSources)
   };
 }
 
@@ -246,6 +286,13 @@ function runChecks() {
 
   if (sources.length >= 20) pass("Operations", "Official source registry", `${sources.length} sources`);
   else warn("Operations", "Official source registry", `${sources.length} sources`, "Keep expanding official monitors.");
+
+  const sourceCoverage = sourceCoverageStats();
+  if (!sourceCoverage.missing.length) {
+    pass("Operations", "Required source coverage", `${sourceCoverage.buckets.length} buckets covered by ${sourceCoverage.active} active automation sources`);
+  } else {
+    fail("Operations", "Required source coverage", `${sourceCoverage.missing.length} missing buckets`, sourceCoverage.missing.map((bucket) => `${bucket.id} ${bucket.count}/${bucket.minSources}`).join(", "));
+  }
 
   const latestAudit = latestMatchingFile(/^source-audit-\d{4}-\d{2}-\d{2}\.md$/);
   if (latestAudit) pass("Operations", "Source audit report", latestAudit);

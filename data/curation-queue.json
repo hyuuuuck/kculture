@@ -208,5 +208,81 @@
     ],
     "refreshCadence": "manual queue; hourly for tracked artist campaigns",
     "reviewNotes": "Do not publish from fan reposts. Queue only official artist, agency, venue, ticketing, or shop URLs and verify the final official notice before publication."
+  },
+  {
+    "id": "beauty-olive-young-global-planning-watch",
+    "status": "active",
+    "priority": 83,
+    "category": "beauty",
+    "sourceName": "OLIVE YOUNG Global",
+    "sourceUrl": "https://global.oliveyoung.com/event/planning?plndpNo=2400",
+    "label": "OLIVE YOUNG Global planning event watch",
+    "owner": "CJ Olive Young",
+    "artistOrBrand": "OLIVE YOUNG",
+    "topics": [
+      "beauty promotion",
+      "global shipping",
+      "foreign visitor demand",
+      "campaign period"
+    ],
+    "refreshCadence": "daily; hourly during major seasonal beauty campaigns",
+    "reviewNotes": "Publish only after confirming campaign period, country eligibility, online/offline availability, coupon rules, and whether the offer is useful to inbound travelers."
+  },
+  {
+    "id": "duty-free-shilla-event-watch",
+    "status": "active",
+    "priority": 82,
+    "category": "duty-free",
+    "sourceName": "The Shilla Duty Free",
+    "sourceUrl": "https://www.shilladfs.com/comm/kr/en/eventMain",
+    "label": "The Shilla Duty Free official event watch",
+    "owner": "The Shilla Duty Free",
+    "artistOrBrand": "The Shilla Duty Free",
+    "topics": [
+      "duty-free event",
+      "foreign visitor benefits",
+      "coupon",
+      "pickup rules"
+    ],
+    "refreshCadence": "daily; hourly during peak travel and shopping seasons",
+    "reviewNotes": "Verify passport, departure, pickup, membership, card, coupon, and branch conditions before publishing any traveler recommendation."
+  },
+  {
+    "id": "department-store-shinsegae-event-watch",
+    "status": "active",
+    "priority": 81,
+    "category": "department-store",
+    "sourceName": "Shinsegae Department Store Events",
+    "sourceUrl": "https://deptmapp.shinsegae.com/events/main.do",
+    "label": "Shinsegae Department Store official event watch",
+    "owner": "Shinsegae Department Store",
+    "artistOrBrand": "Shinsegae Department Store",
+    "topics": [
+      "department store event",
+      "pop-up",
+      "sale",
+      "branch schedule"
+    ],
+    "refreshCadence": "daily; hourly around branch pop-up openings",
+    "reviewNotes": "Confirm branch, floor, dates, foreign visitor benefit relevance, reservation needs, and whether the event is open to walk-in tourists."
+  },
+  {
+    "id": "shopping-korea-sale-festa-watch",
+    "status": "active",
+    "priority": 78,
+    "category": "shopping",
+    "sourceName": "Korea Sale FESTA",
+    "sourceUrl": "https://www.koreasalefesta.co.kr/en",
+    "label": "Korea Sale FESTA official campaign watch",
+    "owner": "Korea Sale FESTA Promotion Committee",
+    "artistOrBrand": "Korea Sale FESTA",
+    "topics": [
+      "national sale festival",
+      "shopping tourism",
+      "participant brands",
+      "campaign dates"
+    ],
+    "refreshCadence": "weekly; daily during announcement and operation windows",
+    "reviewNotes": "Use as a national campaign signal. Publish individual traveler-facing pages only after checking current-year dates, participating brands, and foreign visitor usability."
   }
 ]

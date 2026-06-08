@@ -25,7 +25,9 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
 - Generated feed files: `/feed.xml`, `/latest.json`, `/{lang}/feed.xml`, and `/{lang}/latest.json`
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
+- `scripts/validate-source-coverage.mjs`: verifies required official-source buckets for tourism, government, OLIVE YOUNG, duty-free, department stores, K-pop, ticketing, shopping campaigns, and weather
 - `scripts/validate-links.mjs`: checks generated HTML for missing local links and images
+- `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
@@ -56,11 +58,13 @@ Validate content before deploying:
 npm.cmd run validate:content
 ```
 
-Run build, content checks, generated HTML text checks, and internal link checks:
+Run build, content checks, official-source coverage checks, generated HTML link checks, and structured-data checks:
 
 ```powershell
 npm.cmd run verify
 ```
+
+The source coverage check keeps the monetization premise from drifting: it fails if the registry loses required official coverage for tourism/festivals, government and culture confirmation, OLIVE YOUNG, duty-free, department-store, sale/shopping campaigns, K-pop pop-ups, ticketing, or weather data.
 
 The build also writes latest-event RSS and JSON feeds. Submit `/sitemap.xml` to Search Console, and keep `/feed.xml` available for users, feed readers, newsletters, or social-post automation.
 
@@ -234,6 +238,8 @@ npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write
 ```powershell
 npm.cmd run verify
 ```
+
+`verify` now blocks deploys if any required source bucket disappears or if a generated detail page has the wrong structured-data type. Festivals and K-pop pop-ups use event markup; OLIVE YOUNG, duty-free, department-store, and sale information pages use page markup to avoid treating ordinary promotions as events.
 
 For production content pushes, also enable the strict freshness gate:
 

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,6 +14,7 @@ const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLI
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
+const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -27,6 +29,17 @@ function normalizePublisherId(value) {
   if (/^ca-pub-\d{16}$/.test(trimmed)) return trimmed.replace("ca-", "");
   if (/^pub-\d{16}$/.test(trimmed)) return trimmed;
   return trimmed;
+}
+
+async function sourceAssetVersion() {
+  const hash = createHash("sha256");
+  const [css, js] = await Promise.all([
+    fs.readFile(path.join(root, "styles.css")),
+    fs.readFile(path.join(root, "app.js"))
+  ]);
+  hash.update(css);
+  hash.update(js);
+  return hash.digest("hex").slice(0, 12);
 }
 
 function normalizeAdSenseClientId(value) {
@@ -130,6 +143,13 @@ let dict = {
     daysLeft: "days left",
     startsIn: "starts in",
     noItemsYet: "No matching items right now. Check the calendar or source watchlist.",
+    searchEvents: "Search",
+    searchPlaceholder: "Title, city, venue, source",
+    statusFilter: "Status",
+    allStatuses: "All statuses",
+    clearFilters: "Reset",
+    resultCountOneTemplate: "1 event shown",
+    resultCountTemplate: "{count} events shown",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -425,6 +445,13 @@ dict = {
     daysLeft: "days left",
     startsIn: "starts in",
     noItemsYet: "No matching items right now. Check the calendar or source watchlist.",
+    searchEvents: "Search",
+    searchPlaceholder: "Title, city, venue, source",
+    statusFilter: "Status",
+    allStatuses: "All statuses",
+    clearFilters: "Reset",
+    resultCountOneTemplate: "1 event shown",
+    resultCountTemplate: "{count} events shown",
     editorialTitle: "Editorial Policy",
     editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
     guidesTitle: "Visitor Guides",
@@ -1389,7 +1416,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta property="og:image" content="${siteUrl}/assets/hero.jpg">
   <meta name="theme-color" content="#0d7f75">
   ${googleVerificationMeta()}
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
   ${adsenseHeadScript()}
   ${structuredDataScript(structuredData)}
 </head>
@@ -1419,7 +1446,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
     </div>
   </footer>
-  <script src="/app.js" defer></script>
+  <script src="/app.js?v=${assetVersion}" defer></script>
 </body>
 </html>`;
 }
@@ -1440,11 +1467,60 @@ function schema(lang, title, description, canonicalPath) {
   };
 }
 
+function eventSearchText(event, lang) {
+  return [
+    local(event.title, lang),
+    local(event.summary, lang),
+    local(event.whyGo, lang),
+    event.city,
+    event.district,
+    event.venue,
+    event.sourceName,
+    event.category,
+    event.dateLabel,
+    event.startDate,
+    event.endDate,
+    ...(event.travelTips || [])
+  ].filter(Boolean).join(" ");
+}
+
+function galleryControls(lang, { categories = false } = {}) {
+  return `
+        <div class="gallery-tools" data-gallery-controls data-count-template="${esc(tr(lang, "resultCountTemplate"))}" data-count-one-template="${esc(tr(lang, "resultCountOneTemplate"))}">
+          <label class="search-field">
+            <span>${tr(lang, "searchEvents")}</span>
+            <input type="search" data-gallery-search placeholder="${esc(tr(lang, "searchPlaceholder"))}">
+          </label>
+          <label class="select-field">
+            <span>${tr(lang, "statusFilter")}</span>
+            <select data-status-filter>
+              <option value="all">${tr(lang, "allStatuses")}</option>
+              <option value="live">${tr(lang, "statusLive")}</option>
+              <option value="upcoming">${tr(lang, "statusUpcoming")}</option>
+              <option value="ended">${tr(lang, "statusEnded")}</option>
+            </select>
+          </label>
+          ${categories ? `
+          <div class="filter-bar" data-filters>
+            ${filterButton(lang, "all", "all", true)}
+            ${filterButton(lang, "festival", "festival")}
+            ${filterButton(lang, "kpop", "kpop")}
+            ${filterButton(lang, "beauty", "beauty")}
+            ${filterButton(lang, "duty-free", "dutyfree")}
+            ${filterButton(lang, "department-store", "department")}
+            ${filterButton(lang, "shopping", "shopping")}
+            ${filterButton(lang, "travel-benefits", "benefits")}
+          </div>` : ""}
+          <button type="button" class="clear-filters" data-clear-filters>${tr(lang, "clearFilters")}</button>
+          <span class="result-count" data-result-count aria-live="polite"></span>
+        </div>`;
+}
+
 function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
   return `
-    <article class="event-card" data-card data-category="${esc(event.category)}" data-status="${status}">
+    <article class="event-card" data-card data-category="${esc(event.category)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
       <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
         <span class="badge ${status}">${statusLabel(lang, status)}</span>
@@ -1505,23 +1581,14 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
       ${adUnit("home")}
 
-      <section class="content-shell" id="events">
+      <section class="content-shell" id="events" data-gallery-scope>
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "navEvents")}</p>
             <h2>${tr(lang, "heroTitle")}</h2>
           </div>
-          <div class="filter-bar" data-filters>
-            ${filterButton(lang, "all", "all", true)}
-            ${filterButton(lang, "festival", "festival")}
-            ${filterButton(lang, "kpop", "kpop")}
-            ${filterButton(lang, "beauty", "beauty")}
-            ${filterButton(lang, "duty-free", "dutyfree")}
-            ${filterButton(lang, "department-store", "department")}
-            ${filterButton(lang, "shopping", "shopping")}
-            ${filterButton(lang, "travel-benefits", "benefits")}
-          </div>
         </div>
+        ${galleryControls(lang, { categories: true })}
         <div class="category-strip" aria-label="${tr(lang, "categoryPages")}">
           ${categoryLinkStrip(lang)}
         </div>
@@ -1531,6 +1598,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <div class="gallery-grid">
           ${sorted.map((event) => eventCard(event, lang)).join("")}
         </div>
+        <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
       </section>
 
       <section class="split-band">
@@ -1673,8 +1741,12 @@ function renderCategory(lang, category) {
       <section class="category-strip page-strip" aria-label="${tr(lang, "categoryPages")}">
         ${categoryLinkStrip(lang)}
       </section>
-      <section class="gallery-grid">
-        ${items.map((event) => eventCard(event, lang)).join("")}
+      <section data-gallery-scope>
+        ${galleryControls(lang)}
+        <div class="gallery-grid">
+          ${items.map((event) => eventCard(event, lang)).join("")}
+        </div>
+        <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
       </section>
     </main>`;
 
@@ -1754,8 +1826,12 @@ function renderCity(lang, city) {
         </div>
       </section>
 
-      <section id="events" class="gallery-grid city-gallery">
-        ${items.map((event) => eventCard(event, lang)).join("")}
+      <section id="events" class="city-gallery" data-gallery-scope>
+        ${galleryControls(lang)}
+        <div class="gallery-grid">
+          ${items.map((event) => eventCard(event, lang)).join("")}
+        </div>
+        <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
       </section>
     </main>`;
 

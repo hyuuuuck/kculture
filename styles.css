@@ -275,6 +275,52 @@ img {
   justify-content: flex-end;
 }
 
+.gallery-tools {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(150px, 0.34fr) auto auto;
+  gap: 10px;
+  align-items: end;
+  margin: 0 0 18px;
+}
+
+.gallery-tools .filter-bar {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+}
+
+.search-field,
+.select-field {
+  display: grid;
+  gap: 5px;
+}
+
+.search-field span,
+.select-field span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.search-field input,
+.select-field select {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: var(--white);
+  font: inherit;
+  font-weight: 650;
+}
+
+.search-field input:focus,
+.select-field select:focus {
+  outline: 3px solid rgba(13, 127, 117, 0.18);
+  border-color: var(--teal);
+}
+
 .filter-bar button {
   color: var(--muted);
   background: var(--white);
@@ -286,6 +332,36 @@ img {
   color: var(--white);
   background: var(--teal-dark);
   border-color: var(--teal-dark);
+}
+
+.clear-filters {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--teal-dark);
+  background: #fbfcfa;
+  font: inherit;
+  font-weight: 820;
+  cursor: pointer;
+}
+
+.clear-filters:hover {
+  border-color: rgba(13, 127, 117, 0.44);
+  background: #edf7f3;
+}
+
+.result-count {
+  min-height: 44px;
+  display: inline-grid;
+  align-items: center;
+  justify-content: end;
+  color: var(--muted);
+  font-weight: 780;
+}
+
+.gallery-empty {
+  margin-top: 18px;
 }
 
 .category-strip,
@@ -1335,6 +1411,15 @@ img {
   .city-dashboard {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .gallery-tools {
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.5fr);
+  }
+
+  .clear-filters,
+  .result-count {
+    justify-content: start;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1350,6 +1435,7 @@ img {
 
   .stats-band,
   .gallery-grid,
+  .gallery-tools,
   .guide-grid,
   .guide-grid.wide,
   .fact-grid,

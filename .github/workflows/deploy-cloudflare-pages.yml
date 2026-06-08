@@ -101,6 +101,7 @@ jobs:
           fi
           npm run validate:sources
           npm run validate:links
+          npm run validate:sitemap
           npm run validate:structured
 
       - name: Upload source refresh artifacts

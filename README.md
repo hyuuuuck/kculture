@@ -35,6 +35,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
 - `scripts/build-review-board.mjs`: creates a private gallery-style review board from non-public drafts, including skipped-candidate reason counts
 - `scripts/source-refresh-summary.mjs`: summarizes the latest source audit, official candidates, draft candidates, failed sources, and review-board artifact for quick operations triage
+- `scripts/source-refresh-issue-body.mjs`: builds the Markdown body used by GitHub Actions to keep a single source-review issue updated
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
 - `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
@@ -146,7 +147,7 @@ Set these repository secrets:
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
-`.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, and uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+`.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, updates one open GitHub issue labeled `source-review`, and uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact. It can also be started manually with extra official URLs.
 
 `.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
@@ -211,6 +212,14 @@ npm.cmd run source:summary
 ```
 
 This writes `data/feeds/source-refresh-summary-YYYY-MM-DD.md` and `.json` with failed sources, draft counts, top categories, skipped reasons, and high-signal candidate pages.
+
+To preview the GitHub issue digest locally:
+
+```powershell
+npm.cmd run source:issue
+```
+
+This writes `data/feeds/source-refresh-issue.md`. In GitHub Actions, the scheduled source refresh workflow uses that file to create or update the single `Official source review queue` issue.
 
 Or run the local source workflow in one command:
 

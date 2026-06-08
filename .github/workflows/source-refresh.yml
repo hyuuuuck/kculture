@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -58,6 +59,21 @@ jobs:
 
       - name: Summarize refresh results
         run: npm run source:summary
+
+      - name: Build GitHub issue digest
+        run: npm run source:issue
+
+      - name: Update source review issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create source-review --color 0d7f75 --description "Official source monitoring queue" || true
+          ISSUE_NUMBER="$(gh issue list --state open --label source-review --json number --jq '.[0].number')"
+          if [ -n "$ISSUE_NUMBER" ]; then
+            gh issue edit "$ISSUE_NUMBER" --title "Official source review queue" --body-file data/feeds/source-refresh-issue.md --add-label source-review
+          else
+            gh issue create --title "Official source review queue" --body-file data/feeds/source-refresh-issue.md --label source-review
+          fi
 
       - name: Verify current site data
         run: npm run verify

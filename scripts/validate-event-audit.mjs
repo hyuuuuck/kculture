@@ -167,6 +167,24 @@ async function checkSourceEvidence(event) {
         push(warnings, id, `official evidence source returned allowed blocked status ${source.status}: ${evidence.url} (${evidence.blockedReason})`);
         continue;
       }
+      if (evidence.snapshotPath) {
+        const snapshotFile = path.resolve(root, evidence.snapshotPath);
+        if (!snapshotFile.startsWith(root)) {
+          push(errors, id, `sourceEvidence.snapshotPath escapes project root: ${evidence.snapshotPath}`);
+          continue;
+        }
+        try {
+          const snapshotText = await fs.readFile(snapshotFile, "utf8");
+          for (const token of evidence.mustContain || []) {
+            assertContains(id, snapshotText, token, `${evidence.sourceName || evidence.url} audited snapshot`);
+          }
+          push(warnings, id, `official evidence source failed live fetch; used audited snapshot ${evidence.snapshotPath}: ${evidence.url} (${source.status}${source.error ? ` ${source.error}` : ""})`);
+          continue;
+        } catch (error) {
+          push(errors, id, `official evidence source failed and snapshot could not be read: ${evidence.url} (${evidence.snapshotPath}; ${error.message})`);
+          continue;
+        }
+      }
       push(errors, id, `official evidence source failed: ${evidence.url} (${source.status}${source.error ? ` ${source.error}` : ""})`);
       continue;
     }

@@ -113,7 +113,7 @@ let dict = {
     googleMap: "Google Maps",
     naverMap: "Naver Map",
     kakaoMap: "Kakao Map",
-    mapNote: "Map links are search shortcuts. Confirm the exact entrance, reservation desk, and operating rules on the official source before visiting.",
+    mapNote: "Use the Korean place name for the most accurate map result.",
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
@@ -478,7 +478,7 @@ dict = {
     googleMap: "Google Maps",
     naverMap: "Naver Map",
     kakaoMap: "Kakao Map",
-    mapNote: "Map links are search shortcuts. Confirm the exact entrance, reservation desk, and operating rules on the official source before visiting.",
+    mapNote: "Use the Korean place name for the most accurate map result.",
     weatherPlan: "Weather planning",
     travelIdeas: "Travel ideas",
     routeIdeas: "Nearby route ideas",
@@ -1650,9 +1650,8 @@ function mapLinkSection(event, lang) {
         <section class="detail-section map-links-section">
           <div>
             <h2>${tr(lang, "mapLinksTitle")}</h2>
-            <p><strong>${esc(eventPlaceQuery(event))}</strong></p>
-            <p class="source-note">${esc(event.venue)} · ${esc(event.district)}, ${esc(event.city)}</p>
-            <p class="source-note">${tr(lang, "mapNote")}</p>
+            <p class="map-place"><strong>${esc(eventPlaceQuery(event))}</strong><span>${esc(event.district)}, ${esc(event.city)}</span></p>
+            <p class="meta-note">${tr(lang, "mapNote")}</p>
           </div>
           <div class="map-link-list">
             ${mapLinks(event, lang).map((link) => `
@@ -2010,15 +2009,14 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
           <p><strong>KMA short-term forecast / ${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</strong>: ${esc(forecastSummaryText(forecast))}</p>
           <ul>${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
           <p>${esc(forecastAdvice(forecast))}</p>
-          <p class="source-note">Current forecast snapshot: ${esc(forecast.source?.name || "KMA forecast RSS")}, updated ${esc(kmaBaseTimeText(forecast.baseTime))}. Source: Korea Meteorological Administration.</p>
-          <p class="source-note">Fallback planning baseline: Previous-year monthly baseline, ${esc(weather.source.name)}.</p>`;
+          <p class="meta-note">KMA forecast updated ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> Forecast source: ${esc(forecast.source?.name || "KMA forecast RSS")}. Previous-year monthly baseline: ${esc(weather.source.name)}.</span></p>`;
   }
   return `
           <h2>${tr(lang, "weatherPlan")}</h2>
           <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
           <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
           <p>${esc(region.outdoorAdvice)}</p>
-          <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>`;
+          <p class="meta-note">Weather baseline: ${esc(weather.source.name)}<span class="sr-only"> Previous-year monthly baseline.</span></p>`;
 }
 
 function calendarWeatherText(event, lang) {

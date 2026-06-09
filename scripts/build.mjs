@@ -460,6 +460,11 @@ dict = {
     routePages: "Travel routes",
     categoryPages: "Browse by topic",
     cityPages: "Browse by city",
+    browseDirectory: "Browse event types and places",
+    browseTypeTitle: "Event types",
+    browseTypeText: "Start with festivals, K-pop pop-ups, beauty, duty-free, shopping, or visitor benefits.",
+    browsePlaceTitle: "Places",
+    browsePlaceText: "City and nationwide pages are separated from topics so visitors can scan by destination.",
     verifyBefore: "Verify on the official source before visiting.",
     relatedEventsTitle: "Nearby and similar events",
     relatedGuides: "Related guides",
@@ -2037,12 +2042,32 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           </div>
         </div>
         ${galleryControls(lang, { categories: true })}
-        <div class="category-strip" aria-label="${tr(lang, "categoryPages")}">
-          ${categoryLinkStrip(lang)}
-        </div>
-        <div class="city-strip" aria-label="${tr(lang, "cityPages")}">
-          ${cityLinkStrip(lang)}
-        </div>
+        <section class="browse-directory" aria-label="${tr(lang, "browseDirectory")}">
+          <div class="browse-group browse-group-types">
+            <div class="browse-head">
+              <div>
+                <p class="eyebrow">${tr(lang, "categoryPages")}</p>
+                <h3>${tr(lang, "browseTypeTitle")}</h3>
+              </div>
+              <p>${tr(lang, "browseTypeText")}</p>
+            </div>
+            <div class="category-strip home-category-strip" aria-label="${tr(lang, "categoryPages")}">
+              ${categoryLinkStrip(lang)}
+            </div>
+          </div>
+          <div class="browse-group browse-group-places">
+            <div class="browse-head">
+              <div>
+                <p class="eyebrow">${tr(lang, "location")}</p>
+                <h3>${tr(lang, "browsePlaceTitle")}</h3>
+              </div>
+              <p>${tr(lang, "browsePlaceText")}</p>
+            </div>
+            <div class="city-strip home-city-strip" aria-label="${tr(lang, "cityPages")}">
+              ${cityLinkStrip(lang)}
+            </div>
+          </div>
+        </section>
         <div class="gallery-grid">
           ${sorted.map((event) => eventCard(event, lang)).join("")}
         </div>

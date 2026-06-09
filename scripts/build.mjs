@@ -3011,14 +3011,13 @@ function renderEvent(event, lang) {
         </section>
         ${adUnit("detail")}
 
-        <section class="detail-section two-col">
-          <div>
-            ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
-          </div>
-          <div>
-            <h2>${tr(lang, "travelIdeas")}</h2>
-            <ul>${event.travelTips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
-          </div>
+        <section class="detail-section weather-detail-section">
+          ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
+        </section>
+
+        <section class="detail-section travel-ideas-section">
+          <h2>${tr(lang, "travelIdeas")}</h2>
+          <ul>${event.travelTips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
         </section>
         ${mapLinkSection(event, lang)}
 

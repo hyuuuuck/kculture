@@ -1517,7 +1517,7 @@ img {
 
 .forecast-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
   gap: 10px;
   margin: 12px 0 18px;
 }
@@ -1533,8 +1533,8 @@ img {
 }
 
 .forecast-card-head {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 10px;
   align-items: start;
 }
@@ -1565,6 +1565,11 @@ img {
 
 .forecast-card-head b {
   font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.forecast-card-head p > span {
+  white-space: nowrap;
 }
 
 .forecast-card-head em {

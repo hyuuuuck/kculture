@@ -204,6 +204,85 @@
     "mapQueryKo": "하이커 그라운드"
   },
   {
+    "slug": "blackpink-tamagotchi-seoul-forest-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 93,
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-28",
+    "dateLabel": "2026-06-15 - 2026-06-28 KST; Seoul Forest pop-up store",
+    "city": "Seoul",
+    "district": "Seongdong-gu",
+    "venue": "Seoul Forest",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019e90e9-98f1-7795-bc39-ee0a50680cbb",
+    "officialWebsiteName": "NOL World BLACKPINK x TAMAGOTCHI Pop-Up",
+    "officialWebsiteUrl": "https://world.nol.com/en/content/festas/019e90e9-98f1-7795-bc39-ee0a50680cbb",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world-listing",
+    "thumbnail": "assets/event-thumbnails/official/blackpink-tamagotchi-seoul-forest-2026.jpg",
+    "title": {
+      "en": "BLACKPINK x TAMAGOTCHI Pop-Up at Seoul Forest",
+      "es": "BLACKPINK x TAMAGOTCHI pop-up en Seoul Forest",
+      "zh": "BLACKPINK x TAMAGOTCHI 首尔森林快闪店",
+      "pt": "BLACKPINK x TAMAGOTCHI pop-up no Seoul Forest",
+      "ru": "BLACKPINK x TAMAGOTCHI pop-up в Seoul Forest",
+      "ja": "BLACKPINK x TAMAGOTCHI Seoul Forest ポップアップ"
+    },
+    "summary": {
+      "en": "NOL World lists a BLACKPINK x TAMAGOTCHI Seoul pop-up store at Seoul Forest from June 15 to June 28, 2026, with the official poster image showing the BLACKPINK x TAMAGOTCHI collaboration and Seoul Forest location.",
+      "es": "NOL World lista una tienda pop-up BLACKPINK x TAMAGOTCHI en Seoul Forest del 15 al 28 de junio de 2026, con cartel oficial de la colaboracion y ubicacion Seoul Forest.",
+      "zh": "NOL World 列出 BLACKPINK x TAMAGOTCHI 首尔森林快闪店，期间为2026年6月15日至6月28日，官方海报显示联名标识与 Seoul Forest 地点。",
+      "pt": "A NOL World lista uma loja pop-up BLACKPINK x TAMAGOTCHI no Seoul Forest de 15 a 28 de junho de 2026, com poster oficial da colaboracao e local Seoul Forest.",
+      "ru": "NOL World указывает pop-up store BLACKPINK x TAMAGOTCHI в Seoul Forest с 15 по 28 июня 2026 года; официальный постер показывает коллаборацию и локацию Seoul Forest.",
+      "ja": "NOL World は、BLACKPINK x TAMAGOTCHI の Seoul Forest ポップアップストアを2026年6月15日から6月28日まで掲載しています。公式ポスターにはコラボ名と Seoul Forest の場所が表示されています。"
+    },
+    "whyGo": {
+      "en": "A compact high-intent K-pop stop for fans who want collaboration merchandise, photo-friendly Seoul Forest routing, and a same-day plan with Seongsu cafes or Ttukseom Hangang Park.",
+      "es": "Una parada K-pop de alta intencion para fans que buscan merch de colaboracion, una ruta por Seoul Forest y combinacion con cafes de Seongsu o Ttukseom Hangang Park.",
+      "zh": "适合 BLACKPINK 粉丝规划联名商品、首尔森林拍照路线，并顺路安排圣水咖啡馆或纛岛汉江公园。",
+      "pt": "Uma parada K-pop forte para fas que querem merch da colaboracao, rota fotografavel por Seoul Forest e combinacao com cafes de Seongsu ou Ttukseom Hangang Park.",
+      "ru": "Удобная K-pop остановка для фанатов: collaboration merch, Seoul Forest photo route и маршрут с Seongsu cafes или Ttukseom Hangang Park.",
+      "ja": "コラボグッズ、Seoul Forest 周辺の写真ルート、聖水カフェやトゥクソム漢江公園と組み合わせたいファン向けの K-pop スポットです。"
+    },
+    "travelTips": [
+      "Use 서울숲 as the Korean map query; NOL World lists the address as 273, Ttukseom-ro, Seongdong-gu, Seoul.",
+      "The poster shows June 15, but the NOL listing states the event runs June 15 to June 28, 2026; use the listing for planning the full period.",
+      "Expect fan traffic after school or work hours, so visit earlier in the day if you mainly want photos or merchandise browsing.",
+      "Pair the stop with Seongsu cafes, Ttukseom Hangang Park, or Konkuk University food streets if the queue is long."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-06-15",
+      "expectedEndDate": "2026-06-28",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019e90e9-98f1-7795-bc39-ee0a50680cbb",
+      "localMustContain": [
+        "BLACKPINK x TAMAGOTCHI",
+        "Seoul Forest",
+        "273, Ttukseom-ro",
+        "June 15 to June 28, 2026"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e90e9-98f1-7795-bc39-ee0a50680cbb",
+          "mustContain": [
+            "BLACKPINK X TAMAGOTCHI POP-UP",
+            "Seoul Forest",
+            "June 15 (Mon) - June 28 (Sun), 2026",
+            "273, Ttukseom-ro",
+            "2026. 06. 15 ~ 2026. 06. 28"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "서울숲"
+  },
+  {
     "slug": "busan-one-asia-festival-2026",
     "category": "kpop",
     "priority": 94,

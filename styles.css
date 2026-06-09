@@ -2464,6 +2464,10 @@ img {
   gap: 10px;
 }
 
+.map-link-list.has-campaign {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .map-link-list a {
   display: grid;
   gap: 4px;
@@ -3399,7 +3403,8 @@ img {
   .source-table article,
   .freshness-list article,
   .map-links-section,
-  .map-link-list {
+  .map-link-list,
+  .map-link-list.has-campaign {
     grid-template-columns: 1fr;
   }
 

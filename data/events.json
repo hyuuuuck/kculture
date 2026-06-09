@@ -3199,6 +3199,88 @@
     "mapQueryKo": "한성백제박물관"
   },
   {
+    "slug": "korea-accommodation-sale-festa-summer-2026",
+    "category": "travel-benefits",
+    "eventKind": "benefit",
+    "priority": 86,
+    "startDate": "2026-06-11",
+    "endDate": "2026-07-31",
+    "dateLabel": "Coupon issue and stay period: 2026-06-11 - 2026-07-31 KST; daily first-come issue from 10:00",
+    "city": "Nationwide",
+    "district": "85 eligible non-capital population-decline municipalities",
+    "venue": "Participating online travel agencies and eligible lodging properties",
+    "sourceName": "KTO Accommodation Sale Festa",
+    "sourceUrl": "https://ktostay.visitkorea.or.kr/",
+    "officialWebsiteName": "2026 Korea Accommodation Sale Festa",
+    "officialWebsiteUrl": "https://ktostay.visitkorea.or.kr/",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-campaign",
+    "verification": "official-kto-campaign",
+    "thumbnail": "assets/event-thumbnails/official/korea-accommodation-sale-festa-summer-2026.png",
+    "title": {
+      "en": "2026 Korea Accommodation Sale Festa Summer Coupons",
+      "es": "Cupones de verano Korea Accommodation Sale Festa 2026",
+      "zh": "2026韩国住宿优惠节夏季住宿券",
+      "pt": "Cupons de verão Korea Accommodation Sale Festa 2026",
+      "ru": "Летние купоны Korea Accommodation Sale Festa 2026",
+      "ja": "2026 Korea Accommodation Sale Festa 夏の宿泊クーポン"
+    },
+    "summary": {
+      "en": "KTO's official Accommodation Sale Festa issues first-come lodging coupons from June 11 to July 31, 2026, for stays in 85 eligible non-capital population-decline municipalities through participating online travel agencies.",
+      "es": "La campaña oficial de KTO Accommodation Sale Festa emite cupones de alojamiento por orden de llegada del 11 de junio al 31 de julio de 2026, para estancias en 85 municipios elegibles fuera del área capital mediante agencias de viaje online participantes.",
+      "zh": "韩国观光公社官方 Accommodation Sale Festa 于2026年6月11日至7月31日每天先到先得发放住宿券，适用于通过参与在线旅行社预订的85个非首都圈人口减少地区住宿。",
+      "pt": "A campanha oficial Accommodation Sale Festa da KTO libera cupons de hospedagem por ordem de chegada de 11 de junho a 31 de julho de 2026, para estadias em 85 municipios elegiveis fora da regiao metropolitana por agencias online participantes.",
+      "ru": "Официальная кампания KTO Accommodation Sale Festa выдает купоны на проживание с 11 июня по 31 июля 2026 года по принципу first-come, для поездок в 85 допустимых муниципалитетов вне столичного региона через участвующие онлайн-агентства.",
+      "ja": "KTO公式の Accommodation Sale Festa は、2026年6月11日から7月31日まで、参加オンライン旅行会社を通じて予約する首都圏外の人口減少地域85自治体向け宿泊クーポンを先着順で発行します。"
+    },
+    "whyGo": {
+      "en": "Useful for visitors planning regional Korea routes beyond Seoul because the coupon rules highlight eligible areas, daily 10:00 issue timing, and discount tiers before booking.",
+      "es": "Útil para visitantes que planean rutas regionales fuera de Seúl, porque las reglas muestran zonas elegibles, emisión diaria a las 10:00 y tramos de descuento antes de reservar.",
+      "zh": "适合计划首尔以外地方旅行的游客；页面在预订前清楚标出可用地区、每天10点发券和折扣区间。",
+      "pt": "Util para visitantes planejando rotas regionais fora de Seul, pois as regras mostram areas elegiveis, emissao diaria as 10:00 e faixas de desconto antes da reserva.",
+      "ru": "Полезно тем, кто планирует региональные маршруты вне Seoul: правила заранее показывают подходящие районы, выдачу купонов каждый день в 10:00 и уровни скидок.",
+      "ja": "ソウル以外の地方旅行を計画する訪問者に便利です。対象地域、毎日10:00の発行タイミング、割引区分を予約前に確認できます。"
+    },
+    "travelTips": [
+      "Coupons are issued daily from 10:00 KST and may run out before the campaign end date, so check the official page before planning around a discount.",
+      "The official page lists 85 eligible non-capital population-decline municipalities; do not assume Seoul or the wider capital area is eligible.",
+      "Discount tiers listed by KTO include 20,000 KRW below 70,000 KRW, 30,000 KRW from 70,000 KRW, 50,000 KRW below 140,000 KRW for multi-night stays, and 70,000 KRW from 140,000 KRW for multi-night stays.",
+      "Use participating online travel agencies only, and verify whether login, payment method, foreign-card support, and cancellation rules work for your traveler profile.",
+      "For maps, use the Korean place name of your actual booked lodging; the KTO center link is only an official information anchor."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "benefit",
+      "expectedStartDate": "2026-06-11",
+      "expectedEndDate": "2026-07-31",
+      "expectedSourceName": "KTO Accommodation Sale Festa",
+      "expectedSourceUrl": "https://ktostay.visitkorea.or.kr/",
+      "localMustContain": [
+        "85 eligible non-capital population-decline municipalities",
+        "10:00 KST",
+        "20,000 KRW",
+        "70,000 KRW"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "KTO Accommodation Sale Festa",
+          "url": "https://ktostay.visitkorea.or.kr/",
+          "snapshotPath": "data/audit-snapshots/korea-accommodation-sale-festa-summer-2026.txt",
+          "mustContain": [
+            "2026 대한민국 숙박세일 페스타",
+            "발급기간 2026.6.11",
+            "입실기간 2026. 6.11",
+            "비수도권 인구감소지역",
+            "85개 지자체",
+            "7만원 이상 국내 숙박상품 예약 시 3만원 할인"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Nationwide",
+    "mapQueryKo": "한국관광공사 서울센터"
+  },
+  {
     "slug": "korea-grand-sale-2026-archive",
     "category": "shopping",
     "priority": 64,

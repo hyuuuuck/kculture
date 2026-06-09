@@ -21,6 +21,16 @@ function sourceUrls(source) {
   return [...new Set(urls)];
 }
 
+function normalizeText(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .replace(/[\u2010-\u2015]/g, "-")
+    .replace(/\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
 async function checkUrl(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -57,6 +67,51 @@ async function checkUrl(url) {
   }
 }
 
+async function checkSnapshot(source) {
+  if (!source.auditSnapshotPath) return null;
+
+  const snapshotFile = path.resolve(root, source.auditSnapshotPath);
+  if (!snapshotFile.startsWith(root)) {
+    return {
+      requestedUrl: source.auditSnapshotPath,
+      finalUrl: source.auditSnapshotPath,
+      status: "SNAPSHOT_ERR",
+      ok: false,
+      error: "auditSnapshotPath escapes project root"
+    };
+  }
+
+  try {
+    const snapshotText = await fs.readFile(snapshotFile, "utf8");
+    const missing = (source.auditMustContain || []).filter((token) => !normalizeText(snapshotText).includes(normalizeText(token)));
+    if (missing.length) {
+      return {
+        requestedUrl: source.auditSnapshotPath,
+        finalUrl: source.auditSnapshotPath,
+        status: "SNAPSHOT_ERR",
+        ok: false,
+        error: `snapshot missing tokens: ${missing.join(", ")}`
+      };
+    }
+
+    return {
+      requestedUrl: source.auditSnapshotPath,
+      finalUrl: source.auditSnapshotPath,
+      status: "SNAPSHOT",
+      ok: true,
+      snapshotUsed: true
+    };
+  } catch (error) {
+    return {
+      requestedUrl: source.auditSnapshotPath,
+      finalUrl: source.auditSnapshotPath,
+      status: "SNAPSHOT_ERR",
+      ok: false,
+      error: error.message
+    };
+  }
+}
+
 async function check(source) {
   const attempts = [];
   for (const url of sourceUrls(source)) {
@@ -65,7 +120,15 @@ async function check(source) {
     if (attempt.ok) break;
   }
 
-  const successful = attempts.find((attempt) => attempt.ok) || null;
+  let successful = attempts.find((attempt) => attempt.ok) || null;
+  if (!successful && source.auditSnapshotPath) {
+    const snapshotAttempt = await checkSnapshot(source);
+    if (snapshotAttempt) {
+      attempts.push(snapshotAttempt);
+      if (snapshotAttempt.ok) successful = snapshotAttempt;
+    }
+  }
+
   const primary = attempts[0] || null;
   const fallbackUsed = Boolean(successful && primary && successful.requestedUrl !== primary.requestedUrl);
 
@@ -79,6 +142,7 @@ async function check(source) {
     ok: Boolean(successful),
     fallbackUsed,
     apiKeyRequired: Boolean(successful?.apiKeyRequired),
+    snapshotUsed: Boolean(successful?.snapshotUsed),
     attempts,
     error: successful ? "" : attempts.map((attempt) => attempt.error).filter(Boolean).at(-1) || ""
   };
@@ -102,6 +166,7 @@ function markdownReport(results) {
   const failed = results.filter((item) => !item.ok);
   const fallback = results.filter((item) => item.fallbackUsed);
   const apiKeyRequired = results.filter((item) => item.apiKeyRequired);
+  const snapshot = results.filter((item) => item.snapshotUsed);
   const ok = results.filter((item) => item.ok);
   const lines = [
     "# Source Audit Report",
@@ -112,6 +177,7 @@ function markdownReport(results) {
     "",
     `- OK: ${ok.length}`,
     `- OK through fallback URL: ${fallback.length}`,
+    `- OK through audited snapshot: ${snapshot.length}`,
     `- API endpoints requiring keys but reachable: ${apiKeyRequired.length}`,
     `- Needs review: ${failed.length}`,
     "",
@@ -140,14 +206,15 @@ function markdownReport(results) {
     lines.push("No fallback URL was needed in this run.", "");
   } else {
     for (const item of fallback) {
-      lines.push(`- ${item.name}: ${item.primaryUrl} -> ${item.activeUrl}`);
+      const label = item.snapshotUsed ? "audited snapshot" : item.activeUrl;
+      lines.push(`- ${item.name}: ${item.primaryUrl} -> ${label}`);
     }
     lines.push("");
   }
 
   lines.push("## Full Results", "");
   for (const item of results) {
-    lines.push(`- ${item.ok ? "OK" : "CHECK"} ${item.name} (${item.status}) ${item.fallbackUsed ? "[fallback]" : ""}${item.apiKeyRequired ? " [api-key-required]" : ""}`);
+    lines.push(`- ${item.ok ? "OK" : "CHECK"} ${item.name} (${item.status}) ${item.fallbackUsed ? "[fallback]" : ""}${item.snapshotUsed ? " [audited-snapshot]" : ""}${item.apiKeyRequired ? " [api-key-required]" : ""}`);
     lines.push(`  - Active URL: ${item.activeUrl}`);
   }
 
@@ -165,6 +232,7 @@ await fs.writeFile(mdOut, markdownReport(results), "utf8");
 console.table(results.map((item) => ({
   ok: item.ok,
   fallback: item.fallbackUsed,
+  snapshot: item.snapshotUsed,
   apiKey: item.apiKeyRequired,
   status: item.status,
   type: item.type,

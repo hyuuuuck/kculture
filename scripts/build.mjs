@@ -118,6 +118,11 @@ let dict = {
     location: "Location",
     venue: "Venue",
     mapLinksTitle: "Map and transit checks",
+    campaignChecksTitle: "Campaign and booking checks",
+    campaignNoFixedVenue: "No fixed event venue",
+    campaignMapSub: "Confirm the eligible region, then search the Korean name of your booked lodging.",
+    campaignMapNote: "Nationwide benefits can depend on coupon inventory, partner OTA rules, and the actual lodging region. Use the official campaign page first, then search the lodging's Korean place name.",
+    officialCampaign: "Official campaign",
     googleMap: "Google Maps",
     naverMap: "Naver Map",
     kakaoMap: "Kakao Map",
@@ -483,6 +488,11 @@ dict = {
     location: "Location",
     venue: "Venue",
     mapLinksTitle: "Map and transit checks",
+    campaignChecksTitle: "Campaign and booking checks",
+    campaignNoFixedVenue: "No fixed event venue",
+    campaignMapSub: "Confirm the eligible region, then search the Korean name of your booked lodging.",
+    campaignMapNote: "Nationwide benefits can depend on coupon inventory, partner OTA rules, and the actual lodging region. Use the official campaign page first, then search the lodging's Korean place name.",
+    officialCampaign: "Official campaign",
     googleMap: "Google Maps",
     naverMap: "Naver Map",
     kakaoMap: "Kakao Map",
@@ -1693,6 +1703,10 @@ function eventPlaceQuery(event) {
   return String(event.mapQueryKo || event.venue || event.city || "").trim();
 }
 
+function isNationwideTravelBenefit(event) {
+  return event.category === "travel-benefits" && event.city === "Nationwide";
+}
+
 function mapLinks(event, lang) {
   const query = eventPlaceQuery(event);
   const encoded = encodeURIComponent(query);
@@ -1713,14 +1727,24 @@ function mapLinks(event, lang) {
 }
 
 function mapLinkSection(event, lang) {
+  const nationwideBenefit = isNationwideTravelBenefit(event);
+  const placeLabel = nationwideBenefit ? tr(lang, "campaignNoFixedVenue") : eventPlaceQuery(event);
+  const placeSub = nationwideBenefit ? tr(lang, "campaignMapSub") : `${esc(event.district)}, ${esc(event.city)}`;
+  const note = nationwideBenefit ? tr(lang, "campaignMapNote") : tr(lang, "mapNote");
+  const campaignCard = nationwideBenefit ? `
+              <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">
+                <strong>${tr(lang, "officialCampaign")}</strong>
+                <span>${esc(event.sourceName)}</span>
+              </a>` : "";
   return `
         <section class="detail-section map-links-section">
           <div>
-            <h2>${tr(lang, "mapLinksTitle")}</h2>
-            <p class="map-place"><strong>${esc(eventPlaceQuery(event))}</strong><span>${esc(event.district)}, ${esc(event.city)}</span></p>
-            <p class="meta-note">${tr(lang, "mapNote")}</p>
+            <h2>${nationwideBenefit ? tr(lang, "campaignChecksTitle") : tr(lang, "mapLinksTitle")}</h2>
+            <p class="map-place"><strong>${esc(placeLabel)}</strong><span>${placeSub}</span></p>
+            <p class="meta-note">${esc(note)}</p>
           </div>
-          <div class="map-link-list">
+          <div class="map-link-list${nationwideBenefit ? " has-campaign" : ""}">
+            ${campaignCard}
             ${mapLinks(event, lang).map((link) => `
               <a href="${esc(link.href)}" rel="nofollow noopener" target="_blank">
                 <strong>${esc(link.label)}</strong>

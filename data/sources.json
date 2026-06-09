@@ -24,6 +24,20 @@
     "notes": "Use official articles as source links; write original summaries instead of copying full text."
   },
   {
+    "name": "KTO Accommodation Sale Festa",
+    "type": "official-campaign-monitor",
+    "owner": "Korea Tourism Organization / Ministry of Culture, Sports and Tourism",
+    "url": "https://ktostay.visitkorea.or.kr/",
+    "alternateUrls": [
+      "https://korean.visitkorea.or.kr/main/main.do",
+      "https://www.mcst.go.kr/english/policy/pressList.jsp"
+    ],
+    "coverage": ["accommodation coupons", "regional travel benefits", "domestic lodging discounts", "participating online travel agencies"],
+    "refreshCadence": "daily during coupon issue period; hourly near 10:00 KST while coupons are first-come-first-served",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Official Korea accommodation sale campaign page. Confirm issue period, stay period, eligible regions, participating online travel agencies, and coupon inventory before publishing visitor recommendations."
+  },
+  {
     "name": "Korea Grand Sale / Visit Korea Committee",
     "type": "official-page-monitor",
     "owner": "Visit Korea Committee",
@@ -52,6 +66,13 @@
     "coverage": ["national sale festival", "shopping tourism", "retail promotions", "foreign visitor shopping calendar"],
     "refreshCadence": "weekly; daily during campaign announcement and operation windows",
     "automationStatus": "monitor-and-curate",
+    "auditSnapshotPath": "data/audit-snapshots/korea-sale-festa-source-watch.txt",
+    "auditMustContain": [
+      "Korea Sale FESTA",
+      "koreasalefesta.co.kr",
+      "MOTIE",
+      "manual official source watch"
+    ],
     "notes": "Use as the national retail sale anchor. The campaign domain can be slow or block automated checks, so MOTIE/MOTIR search and press-release pages are official fallback evidence. Confirm participant brands, date range, foreign visitor relevance, and whether offers are online-only before publishing."
   },
   {

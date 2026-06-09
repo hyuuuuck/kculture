@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "name": "K-Spot Now Quality Council",
+  "mission": "Ship a visitor-grade Korea event platform that can stand beside official tourism, shopping, and brand websites by enforcing source accuracy, design quality, publishing hygiene, and CEO task dispatch before launch.",
+  "benchmarks": [
+    {
+      "name": "VISITKOREA",
+      "url": "https://english.visitkorea.or.kr/svc/main/index.do",
+      "standard": "Official multilingual Korea travel platform with destination discovery, practical visitor information, campaigns, and trusted source posture."
+    },
+    {
+      "name": "Korea Tourism Organization",
+      "url": "https://knto.or.kr/eng/index",
+      "standard": "Institutional trust, official tourism authority context, and reliable public-facing information."
+    },
+    {
+      "name": "OLIVE YOUNG Global",
+      "url": "https://global.oliveyoung.com/event/main",
+      "standard": "High-intent foreign shopper experience with strong campaign imagery, clear product/event entry points, and mobile commerce polish."
+    },
+    {
+      "name": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "standard": "City-level visitor information, event discovery, and travel-ready context."
+    }
+  ],
+  "roles": [
+    {
+      "id": "ceo",
+      "name": "CEO",
+      "responsibility": "Own final quality target, review audit comments, approve release only after hard gates pass, and assign new tasks from warnings."
+    },
+    {
+      "id": "planner",
+      "name": "Planner",
+      "responsibility": "Own visitor intent, event coverage, source expansion, route usefulness, and content priorities."
+    },
+    {
+      "id": "designer",
+      "name": "Designer",
+      "responsibility": "Own visual hierarchy, carousel behavior, imagery, responsive composition, readability, and benchmark-level polish."
+    },
+    {
+      "id": "publisher",
+      "name": "Publisher",
+      "responsibility": "Own production variables, sitemap, feeds, policy pages, Cloudflare deploy readiness, and Search/AdSense hygiene."
+    },
+    {
+      "id": "audit-institution",
+      "name": "Audit Institution",
+      "responsibility": "Independently verify facts, source trust, translation presence, thumbnail provenance, high-risk event dates, and release readiness."
+    }
+  ],
+  "releasePolicy": {
+    "failDecision": "REWORK_REQUIRED",
+    "warningDecision": "APPROVED_WITH_CEO_TASKS",
+    "passDecision": "APPROVED_FOR_PUBLISH",
+    "hardFailRule": "Any failed audit item blocks release until the responsible department fixes it and the audit institution re-runs the review.",
+    "warningRule": "Warnings do not block an emergency release, but the CEO must assign them as next tasks and review them again before AdSense submission."
+  }
+}

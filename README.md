@@ -36,6 +36,8 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-event-audit.mjs`: checks high-risk event audit blocks against official evidence pages so concert dates, city-project dates, and shopping campaign windows do not get merged by mistake
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
+- `data/quality-system.json`: defines the CEO, planner, designer, publisher, audit institution, benchmark websites, and release policy
+- `scripts/ceo-quality-review.mjs`: writes the CEO quality review and task dispatch after the audit institution checks design, planning, publishing, source trust, and benchmark parity
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
@@ -72,6 +74,18 @@ Run build, content checks, official-source coverage checks, generated HTML link 
 ```powershell
 npm.cmd run verify
 ```
+
+Run the CEO quality review after building and generating the AdSense scorecard:
+
+```powershell
+$env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="contact@your-domain.com"
+npm.cmd run build
+npm.cmd run report:adsense
+npm.cmd run quality:ceo
+```
+
+The CEO quality review creates `data/feeds/ceo-quality-review-YYYY-MM-DD.md` and `.json`. It separates the planner, designer, publisher, and audit institution sign-offs, then turns warnings and failures into CEO task dispatch items. Any hard failure exits non-zero and blocks release.
 
 The source coverage check keeps the monetization premise from drifting: it fails if the registry loses required official coverage for tourism/festivals, government and culture confirmation, OLIVE YOUNG, duty-free, department-store, sale/shopping campaigns, K-pop pop-ups, ticketing, or weather data.
 
@@ -163,6 +177,7 @@ Set these repository secrets:
 - `CLOUDFLARE_API_TOKEN`
 
 `.github/workflows/deploy-cloudflare-pages.yml` refreshes official source candidates, builds with the real domain, runs production preflight, validates content and links, uploads the source refresh artifacts, then deploys `dist/` to the `kculture` Cloudflare Worker with `wrangler deploy`.
+It also runs the CEO quality review before deploying. If the audit institution finds a hard failure, the workflow stops before Cloudflare deployment.
 
 ## GitHub Verification
 

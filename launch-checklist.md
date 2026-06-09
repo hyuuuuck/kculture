@@ -76,6 +76,7 @@ Publishing uses four quality gates before a public launch:
 - Editorial audit: original summaries, visitor-useful travel notes, map-ready Korean place names, and correction-policy pages.
 - Translation audit: English, Spanish, Chinese, Portuguese, Russian, and Japanese pages must build without missing public pages.
 - UX audit: carousel navigation, calendar month headings, detail fact strips, weather blocks, map cards, and responsive page structure.
+- CEO quality review: the planner, designer, publisher, and audit institution are scored separately; hard failures block release and warnings become CEO task dispatch items.
 
 Run this before pushing a production launch build:
 
@@ -85,6 +86,8 @@ $env:CONTACT_EMAIL="contact@your-domain.com"
 $env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run preflight:launch
 ```
+
+The CEO report is written under `data/feeds/ceo-quality-review-YYYY-MM-DD.md`. Read it before a launch decision. A release can proceed only when the decision is `APPROVED_FOR_PUBLISH` or `APPROVED_WITH_CEO_TASKS`; `REWORK_REQUIRED` means the audit institution blocked release.
 
 After AdSense gives a publisher ID and ad unit slot, run:
 

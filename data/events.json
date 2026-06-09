@@ -733,6 +733,85 @@
     "mapQueryKo": "롯데월드몰"
   },
   {
+    "slug": "le-sserafim-osulloc-pureflow-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 89,
+    "startDate": "2026-05-22",
+    "endDate": "2026-06-21",
+    "dateLabel": "2026-05-22 - 2026-06-21 KST; select O'sulloc Tea House branches",
+    "city": "Seoul",
+    "district": "Yongsan / Bukchon / MMCA Seoul / Haeundae",
+    "venue": "O'sulloc Tea House selected branches",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019ea9f2-d407-7ea2-9a48-0c25a153e9aa",
+    "officialWebsiteName": "LE SSERAFIM Weverse Official Notice",
+    "officialWebsiteUrl": "https://weverse.io/lesserafim/notice/35771",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world-weverse-crosscheck",
+    "thumbnail": "assets/event-thumbnails/official/le-sserafim-osulloc-pureflow-2026.jpg",
+    "title": {
+      "en": "LE SSERAFIM x OSULLOC PUREFLOW Menu Event",
+      "es": "LE SSERAFIM x OSULLOC PUREFLOW menu event",
+      "zh": "LE SSERAFIM x OSULLOC PUREFLOW 联名菜单活动",
+      "pt": "LE SSERAFIM x OSULLOC PUREFLOW menu event",
+      "ru": "LE SSERAFIM x OSULLOC PUREFLOW menu event",
+      "ja": "LE SSERAFIM x OSULLOC PUREFLOW メニューイベント"
+    },
+    "summary": {
+      "en": "NOL World lists a LE SSERAFIM x OSULLOC collaboration menu event from May 22 to June 21, 2026 at selected O'sulloc Tea House branches, featuring PUREFLOW Milk Tea, a PUREFLOW Sampler Set, and random member portrait coasters with qualifying menu purchases.",
+      "es": "NOL World lista una colaboracion LE SSERAFIM x OSULLOC del 22 de mayo al 21 de junio de 2026 en sucursales seleccionadas de O'sulloc Tea House, con PUREFLOW Milk Tea, PUREFLOW Sampler Set y posavasos aleatorios de integrantes con compras de menu.",
+      "zh": "NOL World 列出 LE SSERAFIM x OSULLOC 联名菜单活动，2026年5月22日至6月21日在部分 O'sulloc Tea House 门店进行，包含 PUREFLOW Milk Tea、PUREFLOW Sampler Set，以及购买指定菜单可获得随机成员肖像杯垫。",
+      "pt": "A NOL World lista uma colaboracao LE SSERAFIM x OSULLOC de 22 de maio a 21 de junho de 2026 em lojas selecionadas da O'sulloc Tea House, com PUREFLOW Milk Tea, PUREFLOW Sampler Set e porta-copos aleatorios das integrantes em compras qualificadas.",
+      "ru": "NOL World указывает коллаборацию LE SSERAFIM x OSULLOC с 22 мая по 21 июня 2026 года в выбранных филиалах O'sulloc Tea House: PUREFLOW Milk Tea, PUREFLOW Sampler Set и случайные костеры с портретами участниц при покупке меню.",
+      "ja": "NOL World は、LE SSERAFIM x OSULLOC のコラボメニューイベントを2026年5月22日から6月21日まで一部の O'sulloc Tea House 店舗で掲載しています。PUREFLOW Milk Tea、PUREFLOW Sampler Set、対象メニュー購入時のランダムメンバーコースターがあります。"
+    },
+    "whyGo": {
+      "en": "A strong K-pop plus cafe stop for visitors who want limited collaboration drinks, member coaster benefits, and easy pairing with Bukchon, Yongsan, MMCA Seoul, or Haeundae routes.",
+      "es": "Una parada K-pop y cafe clara para visitantes que buscan bebidas limitadas, beneficios de posavasos de integrantes y rutas por Bukchon, Yongsan, MMCA Seoul o Haeundae.",
+      "zh": "这是 K-pop 与茶饮联名的高意图路线，适合想体验限定饮品、成员杯垫福利，并顺路安排北村、龙山、MMCA Seoul 或海云台的游客。",
+      "pt": "Uma parada K-pop e cafe para visitantes que querem bebidas limitadas, porta-copos das integrantes e rotas por Bukchon, Yongsan, MMCA Seoul ou Haeundae.",
+      "ru": "Хорошая K-pop и cafe остановка для гостей, которым нужны лимитированные напитки, костеры участниц и маршрут через Bukchon, Yongsan, MMCA Seoul или Haeundae.",
+      "ja": "限定ドリンク、メンバーコースター特典、北村・龍山・MMCA Seoul・海雲台ルートを組み合わせたい旅行者向けの K-pop カフェ系スポットです。"
+    },
+    "travelTips": [
+      "NOL World lists O'sulloc Tea House Yongsan Park, Bukchon, MMCA Seoul, and Haeundae branches; choose the branch first before opening a map app.",
+      "Use 오설록 티하우스 북촌 as a representative Korean map search only if you are planning the Bukchon route; the event is not limited to one branch.",
+      "The page notes that Yongsan Park branch was closed on May 25, so verify branch-specific operating notes before visiting.",
+      "Random portrait coasters depend on collaboration menu purchases and may run out before the listed end date."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-05-22",
+      "expectedEndDate": "2026-06-21",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019ea9f2-d407-7ea2-9a48-0c25a153e9aa",
+      "localMustContain": [
+        "PUREFLOW Milk Tea",
+        "O'sulloc Tea House Yongsan Park",
+        "random member portrait coasters"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019ea9f2-d407-7ea2-9a48-0c25a153e9aa",
+          "mustContain": [
+            "LE SSERAFIM X OSULLOC",
+            "PUREFLOW Milk Tea",
+            "PUREFLOW Sampler Set",
+            "O'sulloc Tea House",
+            "May 22 (Fri) - Jun 21 (Sun), 2026",
+            "random coaster"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "오설록 티하우스 북촌"
+  },
+  {
     "slug": "incheon-pentaport-rock-festival-2026",
     "category": "festival",
     "priority": 93,

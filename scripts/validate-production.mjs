@@ -210,7 +210,7 @@ const sourceRefresh = readJsonIfExists(sourceRefreshFile);
 if (!sourceRefresh) {
   fail("dist/source-refresh.json is missing or invalid. Run npm run build after a source refresh summary exists.");
 } else if (!sourceRefresh.generatedAt || Number(sourceRefresh.counts?.auditedSources || 0) < Math.min(20, sources.length)) {
-  warn("dist/source-refresh.json exists but does not contain a useful latest source refresh summary. Run npm run source:refresh before an AdSense application.");
+  fail("dist/source-refresh.json does not contain a useful latest source refresh summary. Run npm run source:refresh before an AdSense application.");
 }
 
 if (publisherId) {

@@ -26,7 +26,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
-const sourceRefreshSummary = await latestFeedJson(/^source-refresh-summary-\d{4}-\d{2}-\d{2}\.json$/);
+const sourceRefreshSummary = await latestSourceRefreshSummary();
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();
@@ -76,6 +76,14 @@ async function latestFeedJson(pattern) {
   if (!fileName) return null;
   const data = await fs.readFile(path.join(feedDir, fileName), "utf8").then(JSON.parse).catch(() => null);
   return data ? { fileName, data } : null;
+}
+
+async function latestSourceRefreshSummary() {
+  const snapshotFile = path.join(root, "data", "source-refresh-summary.json");
+  const data = await fs.readFile(snapshotFile, "utf8").then(JSON.parse).catch(() => null);
+  if (data) return { fileName: "source-refresh-summary.json", data };
+
+  return latestFeedJson(/^source-refresh-summary-\d{4}-\d{2}-\d{2}\.json$/);
 }
 
 let languages = {

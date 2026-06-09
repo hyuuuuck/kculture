@@ -185,8 +185,10 @@ Do not publish directly from this summary. Open the official source, confirm dat
 await fs.mkdir(feedDir, { recursive: true });
 const jsonOut = path.join(feedDir, `source-refresh-summary-${today}.json`);
 const mdOut = path.join(feedDir, `source-refresh-summary-${today}.md`);
+const snapshotOut = path.join(root, "data", "source-refresh-summary.json");
 await fs.writeFile(jsonOut, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 await fs.writeFile(mdOut, markdown, "utf8");
+await fs.writeFile(snapshotOut, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 
 if (process.env.GITHUB_STEP_SUMMARY) {
   await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, `\n${markdown}\n`, "utf8");
@@ -194,3 +196,4 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 
 console.table(summary.counts);
 console.log(`Saved source refresh summary: ${mdOut}`);
+console.log(`Saved deployable source refresh snapshot: ${snapshotOut}`);

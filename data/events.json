@@ -522,6 +522,84 @@
     "mapQueryKo": "더현대 서울"
   },
   {
+    "slug": "port-village-busan-2026",
+    "category": "festival",
+    "eventKind": "festival",
+    "priority": 93,
+    "startDate": "2026-06-04",
+    "endDate": "2026-06-21",
+    "dateLabel": "2026-06-04 - 2026-06-21 KST; open Thu-Sun during the event period",
+    "city": "Busan",
+    "district": "Jung-gu / Nampodong",
+    "venue": "Busan Port Pier 1",
+    "sourceName": "NOL World Busan Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019e682b-239f-7ac5-a7d6-6baf2406e4b1",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world",
+    "thumbnail": "assets/event-thumbnails/official/port-village-busan-2026.webp",
+    "title": {
+      "en": "Port Village Busan 2026 at Busan Port Pier 1",
+      "es": "Port Village Busan 2026 en el muelle 1 del Puerto de Busan",
+      "zh": "Port Village Busan 2026：釜山港第1码头",
+      "pt": "Port Village Busan 2026 no Pier 1 do Porto de Busan",
+      "ru": "Port Village Busan 2026 на причале 1 порта Пусан",
+      "ja": "Port Village Busan 2026：釜山港第1埠頭"
+    },
+    "summary": {
+      "en": "NOL World lists Port Village Busan 2026 at Busan Port Pier 1 from June 4 to June 21, 2026, open Thursday through Sunday with Busan signature food, hands-on experiences, a flea market, photo booths, and theme-park-style areas.",
+      "es": "NOL World lista Port Village Busan 2026 en el muelle 1 del Puerto de Busan del 4 al 21 de junio de 2026, abierto de jueves a domingo, con comida representativa de Busan, experiencias, flea market, photo booths y zonas estilo parque tematico.",
+      "zh": "NOL World 列出 Port Village Busan 2026 于2026年6月4日至6月21日在釜山港第1码头举行，活动期间周四至周日开放，包含釜山代表美食、体验项目、跳蚤市场、拍照区和主题乐园式区域。",
+      "pt": "A NOL World lista o Port Village Busan 2026 no Pier 1 do Porto de Busan de 4 a 21 de junho de 2026, aberto de quinta a domingo, com comidas de Busan, experiencias praticas, flea market, photo booths e areas no estilo parque tematico.",
+      "ru": "NOL World указывает Port Village Busan 2026 на причале 1 порта Пусан с 4 по 21 июня 2026 года, открытый с четверга по воскресенье, с фирменной едой Пусана, практическими активностями, flea market, фотозонами и зонами в стиле theme park.",
+      "ja": "NOL Worldは、Port Village Busan 2026を2026年6月4日から6月21日まで釜山港第1埠頭で開催と掲載しています。期間中は木曜から日曜に開き、釜山グルメ、体験、フリーマーケット、フォトブース、テーマパーク風エリアがあります。"
+    },
+    "whyGo": {
+      "en": "A current Busan waterfront festival that works well for visitors who want food, market browsing, photos, and an evening route near Nampodong, Jagalchi, Busan Station, and the port.",
+      "es": "Un festival actual junto al puerto de Busan, util para visitantes que quieren comida, mercado, fotos y una ruta de tarde cerca de Nampodong, Jagalchi, Busan Station y el puerto.",
+      "zh": "适合想在南浦洞、札嘎其、釜山站和港口附近安排美食、市集、拍照和傍晚路线的游客。",
+      "pt": "Um festival atual na orla portuaria de Busan, bom para visitantes que querem comida, mercado, fotos e uma rota de fim de dia perto de Nampodong, Jagalchi, Busan Station e do porto.",
+      "ru": "Актуальный фестиваль у порта Пусан для гостей, которым нужны еда, рынок, фото и вечерний маршрут рядом с Nampodong, Jagalchi, Busan Station и портом.",
+      "ja": "南浦洞、チャガルチ、釜山駅、港周辺で食事・マーケット・写真・夕方ルートを組みたい旅行者に向いた、開催中の釜山ウォーターフロント系フェスティバルです。"
+    },
+    "travelTips": [
+      "Use the NOL World page before visiting because the event is open only Thursday through Sunday, with Thursday and Friday evening hours and longer Saturday-Sunday hours.",
+      "Search maps with 부산항 제1부두; the NOL page's structured address says Seoul, but the visible page, Nampodong label, Busan Port venue, and Jungang Station transit note point to Busan.",
+      "Pair it with Nampodong, Jagalchi Market, Busan Station, or a short waterfront walk, and leave buffer time if visiting after sunset.",
+      "Because this is a port-side outdoor festival, check KMA rain and wind notes before relying on photo booths, flea market browsing, or evening food plans."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "festival",
+      "expectedStartDate": "2026-06-04",
+      "expectedEndDate": "2026-06-21",
+      "expectedSourceName": "NOL World Busan Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019e682b-239f-7ac5-a7d6-6baf2406e4b1",
+      "localMustContain": [
+        "Busan Port Pier 1",
+        "Thursday through Sunday",
+        "signature food",
+        "flea market"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e682b-239f-7ac5-a7d6-6baf2406e4b1",
+          "mustContain": [
+            "Port Village Busan 2026",
+            "Busan Port, Pier 1",
+            "Jun 4 (Thu) - Jun 21 (Sun), 2026",
+            "signature food",
+            "flea market",
+            "photo booths"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Busan",
+    "mapQueryKo": "부산항 제1부두"
+  },
+  {
     "slug": "bts-world-tour-busan-2026",
     "category": "kpop",
     "eventKind": "concert",

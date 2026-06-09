@@ -100,9 +100,10 @@ function inferCategory(candidate) {
   const text = `${candidate.sourceName} ${keywordText} ${candidate.pageTitle || ""} ${candidate.linkText || ""}`.toLowerCase();
   if (hasAny(text, ["olive young", "beauty", "cosmetic"])) return "beauty";
   if (hasAny(text, ["duty free", "dfs", "?띸쮱"])) return "duty-free";
-  if (hasAny(text, ["department store", "hyundai", "shinsegae group", "lotte department"])) return "department-store";
-  if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "birthday cafe", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
-  if (hasAny(text, ["ticket", "yes24", "melon ticket", "nol world", "concert", "live concert", "tour", "music", "festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
+  if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "fan-con", "fancon", "birthday cafe", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws", "day6", "meovv", "le sserafim", "lesserafim", "hyeri"])) return "kpop";
+  if (hasAny(text, ["visit seoul", "busan metropolitan"]) && hasAny(text, ["events", "exhibitions", "festival", "traditional experience", "light show", "drone show"])) return "festival";
+  if (hasAny(text, ["ticket", "yes24", "melon ticket", "concert", "live concert", "tour", "music", "festival", "culture", "mcst", "seoul metropolitan", "exhibition", "museum", "gallery", "musical", "theater", "theatre", "dance", "performance", "rock", "waterbomb"])) return "festival";
+  if (hasAny(text, ["department store", "the hyundai", "hyundai department", "shinsegae department", "shinsegae group", "lotte department", "popup zone", "pop-up zone", "pop-up store"])) return "department-store";
   if (hasAny(text, ["benefit", "travel", "tourism", "korea grand sale"])) return "travel-benefits";
   return "shopping";
 }
@@ -169,12 +170,49 @@ function dateRange(candidate) {
 function candidateDateSignals(candidate) {
   const signals = candidate.dateSignals || [];
   if (candidate.leadKind !== "discovered-link") return signals;
+  const exactTitleSignals = dateSignalsFromTitle(candidate);
+  if (exactTitleSignals.length) return exactTitleSignals;
   const titleText = normalizedComparableText(`${candidate.pageTitle || ""} ${candidate.linkText || ""}`);
   const titleSignals = signals.filter((signal) => {
     const raw = normalizedComparableText(signal.raw || "");
     return raw && titleText.includes(raw);
   });
-  return titleSignals.length ? titleSignals : signals;
+  return titleSignals;
+}
+
+function validDate(year, month, day) {
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  if (Number.isNaN(date.getTime())) return "";
+  if (date.getUTCFullYear() !== Number(year) || date.getUTCMonth() !== Number(month) - 1 || date.getUTCDate() !== Number(day)) return "";
+  return date.toISOString().slice(0, 10);
+}
+
+function dateSignalsFromTitle(candidate) {
+  const text = cleanText(`${candidate.pageTitle || ""} ${candidate.linkText || ""}`);
+  const signals = [];
+  for (const match of text.matchAll(/\b(20\d{2})[-./](\d{1,2})[-./](\d{1,2})\b/g)) {
+    const date = validDate(match[1], match[2], match[3]);
+    if (date) signals.push({ date, raw: match[0] });
+  }
+  const months = {
+    jan: "01", january: "01",
+    feb: "02", february: "02",
+    mar: "03", march: "03",
+    apr: "04", april: "04",
+    may: "05",
+    jun: "06", june: "06",
+    jul: "07", july: "07",
+    aug: "08", august: "08",
+    sep: "09", sept: "09", september: "09",
+    oct: "10", october: "10",
+    nov: "11", november: "11",
+    dec: "12", december: "12"
+  };
+  for (const match of text.matchAll(/\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+(\d{1,2}),?\s+(20\d{2})\b/gi)) {
+    const date = validDate(match[3], months[match[1].toLowerCase().replace(/\.$/, "")], match[2]);
+    if (date) signals.push({ date, raw: match[0] });
+  }
+  return [...new Map(signals.map((signal) => [signal.date, signal])).values()];
 }
 
 function draftPriority(candidate, category) {
@@ -209,16 +247,46 @@ function textQuality(candidate, title) {
   if (fields.some(hasMojibake)) return "mojibake text detected";
   if (mostlyNumericOrPunctuation(title)) return "title is too generic or numeric";
   const titleText = normalizedComparableText(title);
+  const plainTitleText = titleText.replace(/[^a-z0-9\u3131-\uD79D]+/gu, " ").replace(/\s+/g, " ").trim();
   const url = normalizedComparableText(candidate.finalUrl || candidate.url || "");
   const queueLabel = normalizedComparableText(candidate.queueLabel || "");
   if (hasAny(titleText, ["top picks", "all products", "ticket watch", "reservation root", "official social intake"])) {
     return "listing page is not a specific event";
   }
+  if (hasAny(titleText, [
+    "visitkorea imagine your korea",
+    "event calendar coex",
+    "coex event calendar",
+    "welcome to the website of",
+    "the official website of",
+    "monthly event calendar november 2024",
+    "culture calendar seoul metropolitan government"
+  ])) {
+    return "listing page is not a specific event";
+  }
+  if (hasAny(plainTitleText, [
+    "visitkorea visitkorea imagine your korea",
+    "monthly event calendar november 2024",
+    "seoul metropolitan government monthly event calendar"
+  ])) {
+    return "listing page is not a specific event";
+  }
+  if (titleOnlyHasPastYears(title)) return "older-year page is not a current specific event";
   if (url.includes("/categories/all/products")) return "listing page is not a specific event";
+  if (/\/regions\/[^/]+\/festas\/?$/.test(url)) return "listing page is not a specific event";
+  if (hasAny(titleText, ["k-pop pop-ups festivals nol world", "k-pop - pop-ups - festivals nol world"])) {
+    return "listing page is not a specific event";
+  }
   if (candidate.leadKind === "source-page" && hasAny(queueLabel, ["watch", "root", "intake"])) {
     return "curation root is not a specific event";
   }
   return "";
+}
+
+function titleOnlyHasPastYears(value) {
+  const currentYear = Number(today.slice(0, 4));
+  const years = [...String(value || "").matchAll(/\b(20\d{2})\b/g)].map((match) => Number(match[1]));
+  return years.length > 0 && years.every((year) => year < currentYear);
 }
 
 function shortLabel(value, max = 120) {

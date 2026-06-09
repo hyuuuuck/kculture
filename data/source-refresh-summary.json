@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T18:20:13.112Z",
+  "generatedAt": "2026-06-09T18:25:19.343Z",
   "files": {
     "audit": "source-audit-2026-06-10.json",
     "candidates": "official-page-candidates-2026-06-10.json",
@@ -17,25 +17,17 @@
     "candidateFailed": 0,
     "discoveredLinks": 609,
     "dateSignals": 298,
-    "draftCandidates": 109,
-    "skippedCandidates": 553
+    "draftCandidates": 73,
+    "skippedCandidates": 589
   },
   "failedSources": [],
   "topDraftSources": [
-    {
-      "key": "YES24 Ticket English",
-      "count": 18
-    },
     {
       "key": "Melon Ticket",
       "count": 16
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 14
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
       "count": 13
     },
     {
@@ -45,24 +37,32 @@
     {
       "key": "Visit Seoul",
       "count": 12
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 11
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 63
-    },
-    {
-      "key": "shopping",
-      "count": 21
+      "count": 48
     },
     {
       "key": "kpop",
-      "count": 18
+      "count": 14
+    },
+    {
+      "key": "shopping",
+      "count": 6
     },
     {
       "key": "department-store",
-      "count": 5
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -72,27 +72,27 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 516
+      "count": 551
     },
     {
       "key": "already published source URL",
-      "count": 16
+      "count": 12
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 10
     },
     {
       "key": "duplicate draft source URL",
-      "count": 9
-    },
-    {
-      "key": "mojibake text detected",
-      "count": 6
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 2
+      "key": "mojibake text detected",
+      "count": 3
     }
   ],
   "highSignalCandidates": [

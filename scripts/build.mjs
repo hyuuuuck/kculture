@@ -2143,8 +2143,6 @@ function nav(lang) {
       <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
       <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
-      <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
-      <a href="/${lang}/watchlist/">${tr(lang, "navWatchlist")}</a>
       <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
     </nav>`;
 }

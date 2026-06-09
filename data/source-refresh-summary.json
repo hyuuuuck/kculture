@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T19:37:30.329Z",
+  "generatedAt": "2026-06-09T21:53:24.413Z",
   "files": {
     "audit": "source-audit-2026-06-10.json",
     "candidates": "official-page-candidates-2026-06-10.json",
@@ -9,26 +9,28 @@
   },
   "counts": {
     "auditedSources": 53,
-    "auditOk": 53,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 52,
+    "auditFailed": 1,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 53,
     "candidateFailed": 0,
-    "discoveredLinks": 609,
-    "dateSignals": 298,
-    "draftCandidates": 65,
-    "skippedCandidates": 597
+    "discoveredLinks": 608,
+    "dateSignals": 308,
+    "draftCandidates": 58,
+    "skippedCandidates": 603
   },
-  "failedSources": [],
+  "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    }
+  ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
       "count": 15
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 13
     },
     {
       "key": "Visit Seoul",
@@ -36,11 +38,15 @@
     },
     {
       "key": "Busan Metropolitan City Events and English News",
-      "count": 11
+      "count": 10
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 8
     },
     {
       "key": "NOL World Ticket",
-      "count": 6
+      "count": 3
     },
     {
       "key": "Hyundai Department Store",
@@ -53,16 +59,16 @@
       "count": 45
     },
     {
-      "key": "kpop",
-      "count": 9
+      "key": "shopping",
+      "count": 5
     },
     {
-      "key": "shopping",
-      "count": 6
+      "key": "kpop",
+      "count": 4
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -72,11 +78,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 548
     },
     {
       "key": "already published source URL",
-      "count": 20
+      "count": 30
     },
     {
       "key": "listing page is not a specific event",
@@ -84,7 +90,7 @@
     },
     {
       "key": "duplicate draft source URL",
-      "count": 8
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
@@ -92,7 +98,7 @@
     },
     {
       "key": "mojibake text detected",
-      "count": 3
+      "count": 4
     }
   ],
   "highSignalCandidates": [

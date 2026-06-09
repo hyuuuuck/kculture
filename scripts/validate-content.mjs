@@ -170,6 +170,11 @@ for (const event of events) {
   validateLocalizedObject(id, "whyGo", event.whyGo, { requireAll: true });
   if (!event.city) push(errors, id, "city is required.");
   if (!event.venue) push(errors, id, "venue is required.");
+  if (!event.mapQueryKo) {
+    push(errors, id, "mapQueryKo is required for Korean map search links.");
+  } else if (!/[\uac00-\ud7a3]/.test(event.mapQueryKo)) {
+    push(errors, id, "mapQueryKo must include a Korean place name.");
+  }
   if (!event.sourceName) push(errors, id, "sourceName is required.");
   if (!event.collectionMode) push(errors, id, "collectionMode is required.");
   if (!event.verification) push(errors, id, "verification is required.");

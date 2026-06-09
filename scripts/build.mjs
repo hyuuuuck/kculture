@@ -1543,10 +1543,7 @@ function routeLinkCard(route, lang) {
 }
 
 function eventPlaceQuery(event) {
-  const parts = [event.venue, event.district, event.city, "Korea"]
-    .map((part) => String(part || "").trim())
-    .filter(Boolean);
-  return [...new Set(parts)].join(" ");
+  return String(event.mapQueryKo || event.venue || event.city || "").trim();
 }
 
 function mapLinks(event, lang) {
@@ -1573,7 +1570,8 @@ function mapLinkSection(event, lang) {
         <section class="detail-section map-links-section">
           <div>
             <h2>${tr(lang, "mapLinksTitle")}</h2>
-            <p><strong>${esc(event.venue)}</strong> · ${esc(event.district)}, ${esc(event.city)}</p>
+            <p><strong>${esc(eventPlaceQuery(event))}</strong></p>
+            <p class="source-note">${esc(event.venue)} · ${esc(event.district)}, ${esc(event.city)}</p>
             <p class="source-note">${tr(lang, "mapNote")}</p>
           </div>
           <div class="map-link-list">

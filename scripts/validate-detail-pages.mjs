@@ -132,6 +132,8 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, "www.google.com/maps/search", id, "Google Maps shortcut is missing.");
   assertIncludes(html, "map.naver.com", id, "Naver Map shortcut is missing.");
   assertIncludes(html, "map.kakao.com", id, "Kakao Map shortcut is missing.");
+  assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing.");
+  assertIncludes(html, encodeURIComponent(event.mapQueryKo), id, "encoded Korean map search query is missing from map links.");
 
   if (!routeIdeas.length) {
     push(id, "at least one nearby travel route should be available.");

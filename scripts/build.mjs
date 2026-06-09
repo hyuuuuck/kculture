@@ -1422,8 +1422,11 @@ function categoryLinkStrip(lang) {
     const count = events.filter((event) => event.category === category).length;
     return `
       <a class="category-pill" href="${categoryHref(lang, category)}">
-        <strong>${categoryLabel(lang, category)}</strong>
-        <span>${count} items</span>
+        <span class="pill-marker" aria-hidden="true">${esc(categoryLabel(lang, category).slice(0, 1).toUpperCase())}</span>
+        <span class="pill-copy">
+          <strong>${categoryLabel(lang, category)}</strong>
+          <span>${count} items</span>
+        </span>
       </a>`;
   }).join("");
 }
@@ -1450,8 +1453,11 @@ function cityLinkStrip(lang) {
     const count = events.filter((event) => event.city === city).length;
     return `
       <a class="city-pill" href="${cityHref(lang, city)}">
-        <strong>${esc(city)}</strong>
-        <span>${count} events</span>
+        <span class="pill-marker" aria-hidden="true">${esc(city.slice(0, 1).toUpperCase())}</span>
+        <span class="pill-copy">
+          <strong>${esc(city)}</strong>
+          <span>${count} events</span>
+        </span>
       </a>`;
   }).join("");
 }

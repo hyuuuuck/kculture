@@ -1777,6 +1777,97 @@
     "mapQueryKo": "더현대 서울"
   },
   {
+    "slug": "gwangalli-m-drone-light-show-2026",
+    "category": "festival",
+    "eventKind": "festival",
+    "priority": 91,
+    "startDate": "2026-01-03",
+    "endDate": "2026-12-31",
+    "dateLabel": "Every Saturday in 2026: 2026-01-03 - 2026-12-31; Mar-Sep 20:00/22:00, Oct-Feb 19:00/21:00",
+    "city": "Busan",
+    "district": "Suyeong-gu",
+    "venue": "Gwangalli Beach",
+    "sourceName": "Busan Metropolitan City Events and English News",
+    "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+    "officialWebsiteName": "Gwangalli M Drone Light Show",
+    "officialWebsiteUrl": "https://www.gwangallimdrone.co.kr/en/home",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-busan-city-drone-site-crosscheck",
+    "thumbnail": "assets/event-thumbnails/official/gwangalli-m-drone-light-show-2026.jpg",
+    "title": {
+      "en": "Gwangalli M Drone Light Show",
+      "es": "Gwangalli M Drone Light Show",
+      "zh": "广安里 M 无人机灯光秀",
+      "pt": "Gwangalli M Drone Light Show",
+      "ru": "Gwangalli M Drone Light Show",
+      "ja": "広安里 M ドローンライトショー"
+    },
+    "summary": {
+      "en": "Busan's official event calendar lists the Gwangalli M Drone Light Show at Gwangalli Beach throughout 2026, with the official show information noting Saturday night performances, seasonal time slots, about 12 minutes of themed drone visuals, and free admission.",
+      "es": "El calendario oficial de Busan lista Gwangalli M Drone Light Show en Gwangalli Beach durante 2026, con funciones los sabados por la noche, horarios por temporada, unos 12 minutos de visuales con drones y entrada gratuita.",
+      "zh": "釜山官方活动日历列出2026年广安里 M 无人机灯光秀，地点为广安里海水浴场。官方信息注明周六夜间演出、季节性时段、约12分钟主题无人机表演，并且免费入场。",
+      "pt": "O calendario oficial de Busan lista o Gwangalli M Drone Light Show na Gwangalli Beach durante 2026, com apresentacoes aos sabados a noite, horarios sazonais, cerca de 12 minutos de visuais com drones e entrada gratuita.",
+      "ru": "Официальный календарь Пусана указывает Gwangalli M Drone Light Show на Gwangalli Beach в течение 2026 года: субботние вечерние показы, сезонное расписание, около 12 минут тематических дрон-визуалов и бесплатный вход.",
+      "ja": "釜山公式イベントカレンダーは、2026年の Gwangalli M Drone Light Show を Gwangalli Beach で掲載しています。公式情報では土曜夜の公演、季節別の時間帯、約12分のテーマ型ドローン演出、無料入場が案内されています。"
+    },
+    "whyGo": {
+      "en": "A reliable night-plan anchor for Busan visitors who want a free Gwangalli Beach stop, bridge views, photo time, and an easy pairing with Millak waterfront dining or Centum City.",
+      "es": "Un punto nocturno fiable para visitantes de Busan que quieren una parada gratuita en Gwangalli Beach, vistas del puente, fotos y combinacion con comida en Millak o Centum City.",
+      "zh": "适合釜山游客安排夜间路线：免费广安里海边停留、广安大桥夜景、拍照时间，并可顺路安排民乐海边餐饮或 Centum City。",
+      "pt": "Um ponto noturno confiavel para visitantes de Busan que querem uma parada gratuita em Gwangalli Beach, vistas da ponte, fotos e combinacao com Millak ou Centum City.",
+      "ru": "Надежная вечерняя точка для гостей Пусана: бесплатная остановка у Gwangalli Beach, виды на мост, фотографии и маршрут с Millak waterfront dining или Centum City.",
+      "ja": "無料で広安里ビーチ、橋の夜景、写真撮影を楽しみたい釜山旅行者向けの夜ルートです。民楽ウォーターフロントや Centum City と組み合わせやすいです。"
+    },
+    "travelTips": [
+      "Use 광안리해수욕장 as the Korean map query and arrive early for the clearest bridge-facing view.",
+      "Busan's official listing says March to September shows are at 20:00 and 22:00, while October to February shows are at 19:00 and 21:00.",
+      "The show is free and runs for about 12 minutes, but weather, wind, or crowd-control notices can change operations; check the official website before leaving.",
+      "Pair it with Millak The Market, Gwangalli cafes, or Centum City, and save your return route before the beach gets crowded after the show."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "festival",
+      "expectedStartDate": "2026-01-03",
+      "expectedEndDate": "2026-12-31",
+      "expectedSourceName": "Busan Metropolitan City Events and English News",
+      "expectedSourceUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+      "localMustContain": [
+        "Every Saturday",
+        "20:00 and 22:00",
+        "19:00 and 21:00",
+        "about 12 minutes",
+        "free"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Busan Metropolitan City",
+          "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+          "mustContain": [
+            "Gwangalli M Drone Light Show",
+            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
+            "Gwangalli Marvelous Drone Light Show",
+            "Every Saturday, at 20:00, 22:00",
+            "Gwangalli Beach",
+            "Free admission"
+          ]
+        },
+        {
+          "sourceName": "Gwangalli M Drone Light Show",
+          "url": "https://www.gwangallimdrone.co.kr/en/home",
+          "mustContain": [
+            "Every Saturday",
+            "Gwangalli Beach",
+            "held weekly on Saturdays",
+            "Lasting around 12 minutes"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Busan",
+    "mapQueryKo": "광안리해수욕장"
+  },
+  {
     "slug": "gwangalli-eobang-festival-2026",
     "category": "festival",
     "priority": 91,

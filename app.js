@@ -13,7 +13,14 @@ for (const carousel of spotlightCarousels) {
   let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
 
   function showSlide(index) {
+    const previousIndex = currentIndex;
     currentIndex = (index + slides.length) % slides.length;
+    const direction = currentIndex === previousIndex
+      ? "still"
+      : (currentIndex > previousIndex || (previousIndex === slides.length - 1 && currentIndex === 0)) ? "forward" : "back";
+
+    carousel.classList.toggle("is-moving-back", direction === "back");
+    carousel.classList.toggle("is-moving-forward", direction === "forward");
 
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === currentIndex;
@@ -35,6 +42,17 @@ for (const carousel of spotlightCarousels) {
 
   dots.forEach((dot, dotIndex) => {
     dot.addEventListener("click", () => showSlide(dotIndex));
+  });
+
+  carousel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showSlide(currentIndex - 1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showSlide(currentIndex + 1);
+    }
   });
 
   showSlide(currentIndex);

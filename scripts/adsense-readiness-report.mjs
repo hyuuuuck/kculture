@@ -133,7 +133,8 @@ function recognizedImage(file) {
     return (
       (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) ||
       (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) ||
-      (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP")
+      (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP") ||
+      buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").includes("<svg")
     );
   } catch {
     return false;
@@ -143,6 +144,7 @@ function recognizedImage(file) {
 function thumbnailStats() {
   const missing = [];
   const invalid = [];
+  const generatedFallbacks = [];
   for (const event of events) {
     if (!event.thumbnail) {
       missing.push(event.slug);
@@ -151,12 +153,14 @@ function thumbnailStats() {
     const file = path.join(root, event.thumbnail);
     if (!fssync.existsSync(file)) missing.push(event.slug);
     else if (!recognizedImage(file)) invalid.push(event.slug);
+    if (!String(event.thumbnail).includes("/official/")) generatedFallbacks.push(event.slug);
   }
   return {
     expected: events.length,
     ok: events.length - missing.length - invalid.length,
     missing,
-    invalid
+    invalid,
+    generatedFallbacks
   };
 }
 
@@ -367,6 +371,9 @@ function runChecks() {
   const thumbnails = thumbnailStats();
   if (thumbnails.ok === thumbnails.expected) {
     pass("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`);
+    if (thumbnails.generatedFallbacks.length) {
+      warn("UX", "Official thumbnail coverage", `${events.length - thumbnails.generatedFallbacks.length}/${events.length} official or collected images`, `Replace generated fallbacks when official event, brand, or venue images become available: ${thumbnails.generatedFallbacks.slice(0, 4).join(", ")}.`);
+    }
   } else {
     fail("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`, `Run npm.cmd run validate:images and fix ${[...thumbnails.missing, ...thumbnails.invalid].slice(0, 4).join(", ")}.`);
   }

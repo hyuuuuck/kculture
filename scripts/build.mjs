@@ -1017,8 +1017,8 @@ const categoryDefinitions = {
     description: "Officially checked Korea festivals, river events, concerts, performances, and cultural calendars for foreign visitors."
   },
   kpop: {
-    title: "K-pop pop-ups, merch stores, and fan events",
-    description: "Official K-pop pop-up, merch, reservation, and fan commerce notices with travel planning notes."
+    title: "K-pop concerts, pop-ups, merch stores, and fan events",
+    description: "Official K-pop concert, ticketing, fan meeting, pop-up, merch, reservation, and fan commerce notices with travel planning notes."
   },
   beauty: {
     title: "K-beauty deals and OLIVE YOUNG promotions",
@@ -2548,12 +2548,12 @@ function spotlightCarousel(slides, lang) {
               </div>
               ${usableSlides.length > 1 ? `
               <div class="spotlight-controls" aria-label="Featured event controls">
-                <button type="button" data-spotlight-prev aria-label="Previous highlight">&lt;</button>
-                <div class="spotlight-dots">
-                  ${usableSlides.map((event, index) => `<button type="button" data-spotlight-dot="${index}" aria-label="Show highlight ${index + 1}"${index === 0 ? " aria-current=\"true\"" : ""}></button>`).join("")}
+                <button class="spotlight-arrow" type="button" data-spotlight-prev aria-label="Previous highlight">&lt;</button>
+                <div class="spotlight-tabs">
+                  ${usableSlides.map((event, index) => `<button class="spotlight-tab" type="button" data-spotlight-dot="${index}" aria-label="Show ${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span>${String(index + 1).padStart(2, "0")}</span><strong>${esc(trimHeading(local(event.title, lang), 28))}</strong></button>`).join("")}
                 </div>
                 <span class="spotlight-count" data-spotlight-count>1 / ${usableSlides.length}</span>
-                <button type="button" data-spotlight-next aria-label="Next highlight">&gt;</button>
+                <button class="spotlight-arrow" type="button" data-spotlight-next aria-label="Next highlight">&gt;</button>
               </div>` : ""}
             </div>`;
 }
@@ -3045,7 +3045,7 @@ function renderCalendar(lang) {
         ${galleryControls(lang, { categories: true, cities: true })}
         ${[...groups.entries()].map(([key, items]) => `
           <div class="month-block" data-filter-group>
-            <h2>${monthText(lang, key)}</h2>
+            ${calendarMonthHeading(lang, key)}
             <div class="month-events">
               ${items.map((event) => calendarItem(event, lang)).join("")}
             </div>
@@ -3061,6 +3061,13 @@ function renderCalendar(lang) {
     canonicalPath: `/${lang}/calendar/`,
     currentPathBuilder: (code) => `/${code}/calendar/`
   });
+}
+
+function calendarMonthHeading(lang, key) {
+  const [year] = key.split("-");
+  const date = new Date(`${key}-01T00:00:00Z`);
+  const monthName = new Intl.DateTimeFormat(languages[lang]?.locale || "en-US", { month: "long", timeZone: "UTC" }).format(date);
+  return `<h2 class="calendar-month-heading"><span>${esc(monthName)}</span><span>${esc(year || "")}</span></h2>`;
 }
 
 function calendarItem(event, lang) {
@@ -3562,7 +3569,7 @@ function renderWatchlist(lang) {
         </div>
         <div>
           <h2>K-pop curation queue</h2>
-          <p>K-pop pop-ups, fan meetings, ticket changes, birthday cafes, and merch stores are intentionally kept in a review queue until an official source is confirmed.</p>
+          <p>K-pop concerts, ticket openings, fan meetings, pop-ups, birthday cafes, and merch stores stay in a review queue until an official artist, agency, venue, ticketing, or shop source is confirmed.</p>
           <div class="queue-list">
             ${activeQueue.map((item) => `
               <a href="${esc(item.sourceUrl)}" rel="nofollow noopener" target="_blank">

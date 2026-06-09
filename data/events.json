@@ -2,6 +2,7 @@
   {
     "slug": "bts-city-arirang-busan-2026",
     "category": "kpop",
+    "eventKind": "city-project",
     "priority": 98,
     "startDate": "2026-06-05",
     "endDate": "2026-06-21",
@@ -11,19 +12,20 @@
     "venue": "Multiple Busan venues",
     "sourceName": "VISITKOREA",
     "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
-    "lastChecked": "2026-06-08",
+    "lastChecked": "2026-06-09",
     "collectionMode": "official-page-monitor",
     "verification": "official",
     "thumbnail": "assets/thumb-kpop.jpg",
     "title": {
-      "en": "BTS THE CITY ARIRANG BUSAN",
-      "es": "BTS THE CITY ARIRANG BUSAN",
-      "zh": "BTS THE CITY ARIRANG BUSAN",
-      "pt": "BTS THE CITY ARIRANG BUSAN",
-      "ru": "BTS THE CITY ARIRANG BUSAN"
+      "en": "BTS THE CITY ARIRANG BUSAN City Project",
+      "es": "BTS THE CITY ARIRANG BUSAN City Project",
+      "zh": "BTS THE CITY ARIRANG BUSAN City Project",
+      "pt": "BTS THE CITY ARIRANG BUSAN City Project",
+      "ru": "BTS THE CITY ARIRANG BUSAN City Project",
+      "ja": "BTS THE CITY ARIRANG BUSAN City Project"
     },
     "summary": {
-      "en": "A citywide Busan project with media art, exhibitions, photo zones, pop-up stores, and fan activities around the tour dates.",
+      "en": "A citywide Busan fan project running June 5-21, separate from the June 12-13 stadium concerts, with media art, exhibitions, photo zones, pop-up stores, and fan activities around the tour dates.",
       "es": "Proyecto urbano en Busan con arte multimedia, exposiciones, zonas de foto, pop-ups y actividades para fans.",
       "zh": "釜山市内项目，包含媒体艺术、展览、拍照区、快闪店和粉丝活动。",
       "pt": "Projeto pela cidade de Busan com media art, exposições, photo zones, pop-ups e atividades para fãs.",
@@ -37,10 +39,39 @@
       "ru": "K-pop туристы обычно подробно планируют транспорт, жилье, мерч и соседние места."
     },
     "travelTips": [
+      "This listing is the citywide project, not the stadium concert listing; use the BTS World Tour page for June 12-13 ticket planning.",
       "Expect heavy demand near Haeundae, Gwangalli, Busan Station, and concert-linked venues.",
       "Book KTX, hotel, and airport transfer early.",
       "Use official reservation links for pop-ups; unofficial resale can be risky."
     ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "city-project",
+      "expectedStartDate": "2026-06-05",
+      "expectedEndDate": "2026-06-21",
+      "expectedSourceName": "VISITKOREA",
+      "expectedSourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
+      "localMustContain": ["city project", "June 12-13 stadium concerts"],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-12",
+          "endDate": "2026-06-13",
+          "reason": "June 12-13 is the BTS World Tour concert range, not the citywide THE CITY project range."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
+          "mustContain": [
+            "BTS THE CITY ARIRANG BUSAN",
+            "Dates: June 5-21, 2026",
+            "Venue: Across Busan",
+            "citywide project"
+          ]
+        }
+      ]
+    },
     "weatherRegion": "Busan"
   },
   {
@@ -310,28 +341,29 @@
   {
     "slug": "bts-world-tour-busan-2026",
     "category": "kpop",
+    "eventKind": "concert",
     "priority": 92,
     "startDate": "2026-06-12",
     "endDate": "2026-06-13",
-    "dateLabel": "2026-06-12 - 2026-06-13",
+    "dateLabel": "2026-06-12 - 2026-06-13 KST",
     "city": "Busan",
     "district": "Yeonje-gu",
     "venue": "Busan Asiad Main Stadium",
-    "sourceName": "VISITKOREA",
-    "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
-    "lastChecked": "2026-06-08",
+    "sourceName": "BTS Weverse Official Notices",
+    "sourceUrl": "https://concerts.weverse.io/events/bts_arirang_busan",
+    "lastChecked": "2026-06-09",
     "collectionMode": "official-page-monitor",
     "verification": "official",
     "thumbnail": "assets/thumb-kpop.jpg",
     "title": {
-      "en": "BTS World Tour in Busan",
-      "es": "BTS World Tour en Busan",
+      "en": "BTS WORLD TOUR 'ARIRANG' IN BUSAN",
+      "es": "BTS WORLD TOUR 'ARIRANG' IN BUSAN",
       "zh": "BTS 釜山世界巡演",
       "pt": "BTS World Tour em Busan",
       "ru": "BTS World Tour в Пусане"
     },
     "summary": {
-      "en": "Two Busan concert dates with related city events, safety guidance, and high travel demand.",
+      "en": "The official concert listing covers the June 12-13 Busan stadium dates. Related THE CITY activities run longer across Busan, so confirm the concert page before planning tickets or streaming.",
       "es": "Dos fechas de concierto en Busan con eventos relacionados, guías de seguridad y alta demanda turística.",
       "zh": "釜山两场演唱会，伴随城市活动、安全指南和高旅行需求。",
       "pt": "Duas datas de show em Busan com eventos relacionados, orientação de segurança e alta demanda turística.",
@@ -345,10 +377,38 @@
       "ru": "Страницы концертов получают повторные визиты, потому что транспорт, толпы, жилье и погода быстро меняются."
     },
     "travelTips": [
+      "Use the official Weverse concert page for ticket or streaming rules, and do not confuse it with the June 5-21 city project window.",
       "Arrive early and plan a post-show subway or taxi fallback.",
       "Check official crowd control notices on the day of travel.",
       "Combine with Gwangalli, Haeundae, and local food routes outside peak show hours."
     ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "concert",
+      "expectedStartDate": "2026-06-12",
+      "expectedEndDate": "2026-06-13",
+      "expectedSourceName": "BTS Weverse Official Notices",
+      "expectedSourceUrl": "https://concerts.weverse.io/events/bts_arirang_busan",
+      "localMustContain": ["official concert listing", "June 12-13 Busan stadium dates"],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-05",
+          "endDate": "2026-06-21",
+          "reason": "June 5-21 is the THE CITY project range, not the BTS World Tour concert range."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
+          "mustContain": [
+            "BTS WORLD TOUR",
+            "Dates: June 12 (FRI) - June 13 (SAT), 2026",
+            "Venue: Busan Asiad Main Stadium"
+          ]
+        }
+      ]
+    },
     "weatherRegion": "Busan"
   },
   {

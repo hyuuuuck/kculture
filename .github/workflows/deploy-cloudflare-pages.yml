@@ -104,6 +104,7 @@ jobs:
           npm run validate:details
           npm run validate:sitemap
           npm run validate:structured
+          npm run validate:event-audit
           npm run report:adsense
 
       - name: Upload source refresh artifacts

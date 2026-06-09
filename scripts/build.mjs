@@ -1264,6 +1264,28 @@ function categoryLabel(lang, category) {
   return tr(lang, categoryLabels[category] || category);
 }
 
+function eventKindLabel(event, lang = "en") {
+  const labels = {
+    "city-project": {
+      en: "City project",
+      es: "City project",
+      zh: "City project",
+      pt: "City project",
+      ru: "City project",
+      ja: "City project"
+    },
+    concert: {
+      en: "Concert",
+      es: "Concert",
+      zh: "Concert",
+      pt: "Concert",
+      ru: "Concert",
+      ja: "Concert"
+    }
+  };
+  return labels[event.eventKind]?.[lang] || labels[event.eventKind]?.en || "";
+}
+
 function thumbnailBrand(event) {
   const text = `${event.sourceName || ""} ${local(event.title, "en") || ""}`.toLowerCase();
   if (text.includes("olive young")) return "OLIVE YOUNG";
@@ -1942,6 +1964,7 @@ function eventCard(event, lang) {
       <div class="event-body">
         <div class="event-meta">
           <span>${categoryLabel(lang, event.category)}</span>
+          ${eventKindLabel(event, lang) ? `<span>${esc(eventKindLabel(event, lang))}</span>` : ""}
           <span>${esc(event.city)}</span>
         </div>
         <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
@@ -2522,6 +2545,7 @@ function renderEvent(event, lang) {
 
         <section class="fact-grid" aria-label="Event facts">
           ${fact(tr(lang, "period"), event.dateLabel || `${event.startDate} - ${event.endDate}`)}
+          ${eventKindLabel(event, lang) ? fact("Date basis", eventKindLabel(event, lang)) : ""}
           ${fact(tr(lang, "venue"), `${event.venue}, ${event.district}`)}
           ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked))}
           ${fact(tr(lang, "freshness"), freshness.text)}

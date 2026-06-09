@@ -33,6 +33,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-calendar.mjs`: checks that all events appear in the calendar page and downloadable `events.ics` with correct date ranges
 - `scripts/validate-detail-pages.mjs`: checks generated event detail pages for official source links, calendar downloads, saved-planner metadata, previous-year weather, map shortcuts, travel routes, and related guides
 - `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
+- `scripts/validate-event-audit.mjs`: checks high-risk event audit blocks against official evidence pages so concert dates, city-project dates, and shopping campaign windows do not get merged by mistake
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
 - `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
@@ -73,6 +74,8 @@ npm.cmd run verify
 ```
 
 The source coverage check keeps the monetization premise from drifting: it fails if the registry loses required official coverage for tourism/festivals, government and culture confirmation, OLIVE YOUNG, duty-free, department-store, sale/shopping campaigns, K-pop pop-ups, ticketing, or weather data.
+
+The event audit check is a stricter guard for high-risk items. For example, BTS World Tour Busan is audited as a June 12-13 concert, while BTS THE CITY ARIRANG BUSAN is audited separately as a June 5-21 city project. If those date ranges are accidentally swapped or merged, `npm.cmd run verify` fails before deployment.
 
 The build also writes latest-event RSS and JSON feeds. Submit `/sitemap.xml` to Search Console, and keep `/feed.xml` available for users, feed readers, newsletters, or social-post automation.
 

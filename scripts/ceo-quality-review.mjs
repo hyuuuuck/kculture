@@ -144,6 +144,21 @@ function collectHomeUx() {
   } else {
     warn("designer", "Hero", "Visitor-facing summary stats", "Hero summary may expose operational source counts.", "Designer: use visitor-facing counts such as guides, languages, live, and upcoming instead of source totals.");
   }
+
+  const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
+  const cityMediaCards = countMatches(home, /class="city-pill[^"]*has-media/g);
+  if (categoryMediaCards >= 7 && cityMediaCards >= 3) {
+    pass("designer", "Browse", "Representative browse cards", `${categoryMediaCards} topic cards and ${cityMediaCards} place cards use real event thumbnails.`);
+  } else {
+    fail("designer", "Browse", "Representative browse cards", `${categoryMediaCards} topic cards and ${cityMediaCards} place cards use real event thumbnails.`, "Designer/Planner: use representative event or brand imagery for browse cards so visitors can recognize topics and destinations at a glance.");
+  }
+
+  const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
+  if (splitBand && !splitBand.includes("/en/sources/") && splitBand.includes("/en/routes/")) {
+    pass("planner", "Homepage utility", "Visitor-facing next step", "Homepage promotes routes and calendar instead of operational source pages.");
+  } else {
+    warn("planner", "Homepage utility", "Visitor-facing next step", "Homepage split band may still promote operational pages.", "Planner: route visitors toward calendar, routes, planner, or guides before source/audit pages.");
+  }
 }
 
 function collectCalendarUx() {

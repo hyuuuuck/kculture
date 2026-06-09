@@ -1481,15 +1481,43 @@ function categoryHref(lang, category) {
   return `/${lang}/categories/${category}/`;
 }
 
+function representativeEventFor(predicate) {
+  const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+  return [...events]
+    .filter(predicate)
+    .sort((a, b) => {
+      const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
+      if (statusDiff) return statusDiff;
+      const priorityDiff = (b.priority || 0) - (a.priority || 0);
+      if (priorityDiff) return priorityDiff;
+      return String(a.startDate || "").localeCompare(String(b.startDate || ""));
+    })[0] || null;
+}
+
+function representativeMedia(event, lang, fallbackLabel, className = "pill-media") {
+  if (!event?.thumbnail) {
+    return `<span class="pill-marker" aria-hidden="true">${esc(String(fallbackLabel || "").slice(0, 1).toUpperCase())}</span>`;
+  }
+  return `
+        <span class="${className}">
+          <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))}" loading="lazy">
+          <span>${esc(thumbnailBrand(event))}</span>
+        </span>`;
+}
+
 function categoryLinkStrip(lang) {
   return Object.keys(categoryDefinitions).map((category) => {
     const count = events.filter((event) => event.category === category).length;
+    const representative = representativeEventFor((event) => event.category === category);
+    const exampleTitle = representative ? trimHeading(local(representative.title, lang), 48) : "";
+    const label = categoryLabel(lang, category);
     return `
-      <a class="category-pill category-${esc(category)}" href="${categoryHref(lang, category)}">
-        <span class="pill-marker" aria-hidden="true">${esc(categoryLabel(lang, category).slice(0, 1).toUpperCase())}</span>
+      <a class="category-pill category-${esc(category)}${representative ? " has-media" : ""}" href="${categoryHref(lang, category)}">
+        ${representativeMedia(representative, lang, label)}
         <span class="pill-copy">
-          <strong>${categoryLabel(lang, category)}</strong>
+          <strong>${label}</strong>
           <span>${count} items</span>
+          ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;
   }).join("");
@@ -1536,12 +1564,15 @@ function cityLinkStrip(lang) {
   const counts = cityCounts();
   return citiesWithEvents().map((city) => {
     const count = counts.get(city) || 0;
+    const representative = representativeEventFor((event) => event.city === city);
+    const exampleTitle = representative ? trimHeading(local(representative.title, lang), 42) : "";
     return `
-      <a class="city-pill" href="${cityHref(lang, city)}">
-        <span class="pill-marker" aria-hidden="true">${esc(city.slice(0, 1).toUpperCase())}</span>
+      <a class="city-pill${representative ? " has-media" : ""}" href="${cityHref(lang, city)}">
+        ${representativeMedia(representative, lang, city)}
         <span class="pill-copy">
           <strong>${esc(city)}</strong>
           <span>${count} events</span>
+          ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;
   }).join("");
@@ -2653,10 +2684,15 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <a class="text-link" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
         </div>
         <div>
-          <p class="eyebrow">${tr(lang, "navSources")}</p>
-          <h2>${tr(lang, "sourcesTitle")}</h2>
-          <p>${tr(lang, "sourcesText")}</p>
-          <a class="text-link" href="/${lang}/sources/">${tr(lang, "navSources")}</a>
+          <p class="eyebrow">${tr(lang, "routePages")}</p>
+          <h2>${tr(lang, "routePages")}</h2>
+          <p>${esc(local({
+            en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
+            es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
+            pt: "Combine eventos salvos com compras, transporte, clima e roteiros curtos antes de sair.",
+            ja: "保存したイベントを周辺の買い物、移動、天気、短いモデルルートと一緒に確認できます。"
+          }, lang))}</p>
+          <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
         </div>
       </section>
     </main>`;

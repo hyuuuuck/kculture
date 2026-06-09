@@ -68,6 +68,18 @@ if (summaryBlock.includes("<dt>Sources</dt>")) {
 if (home.includes("spotlight-dots")) {
   push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
 }
+const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
+if (categoryMediaCards < 7) {
+  push("en/index.html", `home category cards should use representative event thumbnails; found ${categoryMediaCards}.`);
+}
+const cityMediaCards = countMatches(home, /class="city-pill[^"]*has-media/g);
+if (cityMediaCards < 3) {
+  push("en/index.html", `home city cards should use representative event thumbnails; found ${cityMediaCards}.`);
+}
+const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
+if (splitBand.includes("/en/sources/")) {
+  push("en/index.html", "homepage split band should promote visitor routes/guides, not operational source pages.");
+}
 
 const activeEvents = events.filter((event) => event.endDate >= today).slice(0, 6);
 for (const event of activeEvents) {

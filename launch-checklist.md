@@ -75,7 +75,7 @@ Publishing uses four quality gates before a public launch:
 - Source audit: official URLs, last-checked dates, fast-moving recheck windows, and K-pop ticketing/pop-up queues.
 - Editorial audit: original summaries, visitor-useful travel notes, map-ready Korean place names, and correction-policy pages.
 - Translation audit: English, Spanish, Chinese, Portuguese, Russian, and Japanese pages must build without missing public pages.
-- UX audit: carousel navigation, calendar month headings, detail fact strips, weather blocks, map cards, and responsive page structure.
+- UX audit: carousel navigation, official or audited source-card thumbnails, calendar month headings, detail fact strips, weather blocks, map cards, and responsive page structure.
 - CEO quality review: the planner, designer, publisher, and audit institution are scored separately; hard failures block release and warnings become CEO task dispatch items.
 
 Run this before pushing a production launch build:

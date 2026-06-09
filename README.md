@@ -22,6 +22,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/events.json`: approved public events and deals
 - `data/sources.json`: official APIs, official page monitors, and K-pop curation queues
 - `data/curation-queue.json`: official one-off URLs and K-pop/social/ticketing links waiting for manual review
+- `data/official-thumbnail-overrides.json`: audited official-image downloads and official source identity-card overrides for pages that do not expose reusable event images
 - `data/guides.json`: original evergreen guide content
 - `data/weather-baselines.json`: schedule-month previous-year weather planning baselines by region
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
@@ -38,6 +39,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
 - `data/quality-system.json`: defines the CEO, planner, designer, publisher, audit institution, benchmark websites, and release policy
 - `scripts/ceo-quality-review.mjs`: writes the CEO quality review and task dispatch after the audit institution checks design, planning, publishing, source trust, and benchmark parity
+- `scripts/apply-official-thumbnail-overrides.mjs`: applies audited official-image or official source identity-card replacements so event thumbnails do not fall back to generic generated art
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
 - `scripts/draft-events-from-feed.mjs`: creates non-public event drafts from current/upcoming page-level and link-level candidates, while recording skipped stale, duplicate, failed, or mojibake candidates
@@ -90,6 +92,16 @@ The CEO quality review creates `data/feeds/ceo-quality-review-YYYY-MM-DD.md` and
 The source coverage check keeps the monetization premise from drifting: it fails if the registry loses required official coverage for tourism/festivals, government and culture confirmation, OLIVE YOUNG, duty-free, department-store, sale/shopping campaigns, K-pop pop-ups, ticketing, or weather data.
 
 The event audit check is a stricter guard for high-risk items. For example, BTS World Tour Busan is audited as a June 12-13 concert, while BTS THE CITY ARIRANG BUSAN is audited separately as a June 5-21 city project. If those date ranges are accidentally swapped or merged, `npm.cmd run verify` fails before deployment.
+
+Official thumbnails are collected first from official pages. When a trusted source does not expose a reusable image, use an audited source identity card instead of generic category art:
+
+```powershell
+npm.cmd run collect:thumbnails
+npm.cmd run apply:official-thumbnails
+npm.cmd run validate:thumbnail-audit
+```
+
+Every override must stay in `data/official-thumbnail-overrides.json` with the official source page, method, context, and score so the audit institution can trace why it was accepted.
 
 The build also writes latest-event RSS and JSON feeds. Submit `/sitemap.xml` to Search Console, and keep `/feed.xml` available for users, feed readers, newsletters, or social-post automation.
 

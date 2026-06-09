@@ -19,6 +19,7 @@
     "validate:ux": "node scripts/validate-ux-quality.mjs",
     "generate:thumbnails": "node scripts/generate-event-thumbnails.mjs",
     "collect:thumbnails": "node scripts/collect-official-thumbnails.mjs",
+    "apply:official-thumbnails": "node scripts/apply-official-thumbnail-overrides.mjs",
     "preflight:adsense": "node scripts/validate-production.mjs --require-adsense",
     "preflight:launch": "npm run build && npm run validate:production && npm run validate:content && npm run validate:sources && npm run validate:links && npm run validate:images && npm run validate:thumbnail-audit && npm run validate:calendar && npm run validate:details && npm run validate:ux && npm run validate:sitemap && npm run validate:structured && npm run validate:event-audit && npm run report:adsense && npm run quality:ceo",
     "report:adsense": "node scripts/adsense-readiness-report.mjs",

@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const eventsFile = path.join(root, "data", "events.json");
+const thumbnailSourcesFile = path.join(root, "data", "thumbnail-sources.json");
 const outputDir = path.join(root, "assets", "event-thumbnails", "official");
 const reportFile = path.join(root, "data", "feeds", `official-thumbnails-${new Date().toISOString().slice(0, 10)}.json`);
 const timeoutMs = Number(process.env.THUMBNAIL_TIMEOUT_MS || 12000);
@@ -147,15 +148,52 @@ function textTerms(event) {
     "duty", "free", "festival", "popup", "pop-up", "concert", "sale"
   ].filter((term) => text.includes(term));
   const words = text
-    .replace(/[^a-z0-9가-힣]+/gi, " ")
+    .replace(/[^a-z0-9]+/gi, " ")
     .split(/\s+/)
-    .filter((word) => word.length >= 4 && !/^(2026|event|events|korea|seoul|busan|official|global)$/.test(word));
+    .filter((word) => word.length >= 4 && !/^(2026|event|events|korea|seoul|busan|official|global|main|park|grand)$/.test(word));
   return [...new Set([...extra, ...words])].slice(0, 36);
 }
 
+function strongEventTerms(event) {
+  return textTerms(event).filter((term) => (
+    term.length >= 4
+    && !/^(event|events|korea|seoul|busan|official|global|main|park|grand|festival|popup|pop-up)$/.test(term)
+  ));
+}
+
+function candidateHaystack(candidate) {
+  return `${candidate.url} ${candidate.alt} ${candidate.context} ${candidate.kind}`.toLowerCase();
+}
+
+function thumbnailAuditReasons(candidate, event) {
+  const haystack = candidateHaystack(candidate);
+  const eventTitle = typeof event.title === "string" ? event.title : event.title?.en || "";
+  const eventIsPopup = /\bpop-?up\b/i.test(eventTitle);
+  const reasons = [];
+
+  if (/(?:no-img|no_image|placeholder|blank|favicon|sprite|sns-|ico_|icon_|\/icons?\/|thumb_v01|head_logo|logo_footer|comm\/logo|coex-logo-white|weverseshop-og|mainvisual_txt_bg|wa-mark|visitseoul-banner|news-?letter|newsletter|btn\.svg|button)/i.test(haystack)) {
+    reasons.push("site-generic-image");
+  }
+  if (/(?:공무원\s*사칭|사칭\s*피해|피해\s*주의|선급금|물품\s*납품|입금\s*요구|거래\s*전)/i.test(haystack)) {
+    reasons.push("fraud-or-scam-warning");
+  }
+  if (/(?:\/upload\/popup\/|\/popup\/|popupzone|layerpopup)/i.test(haystack) && !eventIsPopup) {
+    reasons.push("homepage-popup-image");
+  }
+
+  const parsedSource = new URL(event.sourceUrl);
+  const broadSourcePage = /(?:^\/?$|\/main\.do$|\/index\.(?:do|php|html?)$)/i.test(parsedSource.pathname);
+  const strongHits = strongEventTerms(event).filter((term) => haystack.includes(term.toLowerCase()));
+  if (broadSourcePage && strongHits.length === 0 && !/og:image|twitter:image|json-ld/i.test(candidate.kind)) {
+    reasons.push("broad-source-without-event-term");
+  }
+
+  return reasons;
+}
+
 function candidateScore(candidate, event) {
-  const haystack = `${candidate.url} ${candidate.alt} ${candidate.context} ${candidate.kind}`.toLowerCase();
-  if (/(?:no-img|no_image|placeholder|blank|favicon|sprite|sns-|ico_|icon_|\/icons?\/|thumb_v01|head_logo|logo_footer|comm\/logo|coex-logo-white|weverseshop-og|mainvisual_txt_bg|wa-mark)/i.test(haystack)) {
+  const haystack = candidateHaystack(candidate);
+  if (thumbnailAuditReasons(candidate, event).length) {
     return -100;
   }
   const terms = textTerms(event);
@@ -301,12 +339,13 @@ async function collectForEvent(event) {
     if (!response.ok) throw new Error(`source page HTTP ${response.status}`);
     const html = await response.text();
     const candidates = extractCandidates(html, event.sourceUrl)
-      .map((candidate) => ({ ...candidate, score: candidateScore(candidate, event) }))
+      .map((candidate) => ({ ...candidate, score: candidateScore(candidate, event), auditReasons: thumbnailAuditReasons(candidate, event) }))
       .sort((a, b) => b.score - a.score);
     result.candidates = candidates.slice(0, 8);
 
     for (const candidate of candidates.slice(0, 8)) {
       if (candidate.score < 8) continue;
+      if (candidate.auditReasons.length) continue;
       try {
         const downloaded = await downloadImage(candidate, event);
         result.selected = { ...candidate, ...downloaded, localPath: `assets/event-thumbnails/official/${downloaded.fileName}` };
@@ -334,5 +373,20 @@ for (const event of events) {
 }
 
 const downloaded = results.filter((item) => item.selected).length;
+const sources = Object.fromEntries(results
+  .filter((item) => item.selected)
+  .map((item) => [item.slug, {
+    localPath: item.selected.localPath,
+    sourceUrl: item.selected.url,
+    sourcePage: item.sourceUrl,
+    kind: item.selected.kind,
+    score: item.selected.score,
+    width: item.selected.width,
+    height: item.selected.height,
+    alt: item.selected.alt,
+    context: item.selected.context,
+    collectedAt: new Date().toISOString()
+  }]));
 await fs.writeFile(reportFile, `${JSON.stringify({ generatedAt: new Date().toISOString(), downloaded, total: events.length, results }, null, 2)}\n`, "utf8");
+await fs.writeFile(thumbnailSourcesFile, `${JSON.stringify(sources, null, 2)}\n`, "utf8");
 console.log(`Official thumbnail collection finished: ${downloaded}/${events.length}. Report: ${path.relative(root, reportFile)}`);

@@ -23,7 +23,7 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
   .then(JSON.parse)
   .catch(() => []);
-const languages = ["en", "es", "zh", "pt", "ru"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const eventRichResultCategories = new Set(["festival", "kpop"]);
 const sourceCoverageBuckets = [
   { id: "tourism-festivals", minSources: 12, pattern: /\b(tourism|tourist|visitkorea|tourapi|festival|visit seoul|visit jeju|busan|incheon|daegu|boryeong|andong|jinju|coex|ddp)\b/i },

@@ -4,7 +4,7 @@ import path from "node:path";
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
-const languages = ["en", "es", "zh", "pt", "ru"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const errors = [];
 
 function push(id, message) {

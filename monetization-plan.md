@@ -8,7 +8,7 @@ This project is structured to increase the chance of useful traffic:
 
 - Repeat planning behavior: event dates, reservations, weather, transport, stock, and official rule checks
 - High-intent search topics: Korea shopping sale, Olive Young sale Korea, Korea duty free deal, K-pop pop-up Seoul, Korea festival calendar
-- Multilingual long-tail traffic: English, Spanish, Chinese, Portuguese, and Russian visitor queries
+- Multilingual long-tail traffic: English, Spanish, Chinese, Portuguese, Russian, and Japanese visitor queries
 - Seasonal archives: ended events stay useful as next-season planning pages
 - Trust signals: official sources, last-checked dates, privacy/contact/about/terms pages
 

@@ -15,7 +15,7 @@ const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"),
 const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
-const languages = ["en", "es", "zh", "pt", "ru"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const requiredPolicyPages = ["about", "contact", "privacy", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 
 function normalizePublisherId(value) {

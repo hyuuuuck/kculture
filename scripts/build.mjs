@@ -795,6 +795,145 @@ dict = {
   }
 };
 
+languages.ja = { name: "日本語", locale: "ja-JP" };
+
+dict.ja = {
+  ...dict.en,
+  navEvents: "イベント",
+  navNow: "今見る",
+  navCalendar: "カレンダー",
+  navGuides: "ガイド",
+  navPlanner: "保存リスト",
+  navSources: "情報源",
+  navAbout: "概要",
+  navWatchlist: "監視リスト",
+  heroEyebrow: "韓国イベント、K-popポップアップ、ビューティー、免税店セール",
+  heroTitle: "韓国のイベントを見逃す前にチェック。",
+  heroText: "公式情報、日程、サムネイル、カレンダー、過去の天気目安、周辺旅行情報をまとめた訪韓者向け多言語ガイド。",
+  ctaEvents: "イベントを見る",
+  ctaCalendar: "カレンダーを開く",
+  liveNow: "開催中",
+  upcoming: "近日開催",
+  archive: "終了",
+  official: "公式情報",
+  lastChecked: "最終確認",
+  collectionMode: "収集方法",
+  period: "期間",
+  location: "場所",
+  venue: "会場",
+  mapLinksTitle: "地図・交通確認",
+  mapNote: "地図リンクは検索用ショートカットです。訪問前に公式情報で入口、予約場所、運営ルールを確認してください。",
+  weatherPlan: "天気の目安",
+  travelIdeas: "旅行メモ",
+  routeIdeas: "近くのモデルルート",
+  routePages: "旅行ルート",
+  categoryPages: "テーマ別に見る",
+  cityPages: "都市別に見る",
+  verifyBefore: "訪問前に必ず公式情報を確認してください。",
+  relatedEventsTitle: "近く・関連イベント",
+  relatedGuides: "関連ガイド",
+  category: "カテゴリ",
+  allCities: "すべての都市",
+  all: "すべて",
+  festival: "祭り・文化イベント",
+  kpop: "K-popポップアップ",
+  beauty: "ビューティーセール",
+  dutyfree: "免税店",
+  department: "百貨店",
+  shopping: "ショッピング",
+  benefits: "旅行特典",
+  calendarTitle: "イベントカレンダー",
+  calendarText: "日付は旅行計画用の範囲です。セールやイベントは早期終了する場合があるため、詳細ページの公式リンクを確認してください。",
+  downloadCalendar: "カレンダーをダウンロード",
+  calendarWeather: "天気の目安",
+  packHint: "持ち物",
+  sourcesTitle: "公式情報システム",
+  sourcesText: "公式API、公式ページ監視、K-popキュレーション待ちを分けて、旅行者とAdSense向けに安全な更新体制を保ちます。",
+  sourceRefreshTitle: "最新の情報源チェック",
+  sourceRefreshText: "公式情報モニターの最新運用スナップショットです。",
+  sourceRefreshNoData: "まだ情報源チェックの要約がありません。",
+  sourceRefreshJson: "公開JSONを開く",
+  sourceRefreshAttention: "確認が必要な情報源",
+  sourceRefreshCandidates: "有力な候補ページ",
+  sourceRefreshDraftSources: "下書き候補の主な情報源",
+  sourceRefreshRule: "候補は自動公開されません。日程、会場、対象条件、在庫、独自要約の確認が必要です。",
+  watchlistTitle: "公式監視リスト",
+  watchlistText: "新しい公開ページを作る前に確認する公式情報、一覧ページ、チケットサイト、キュレーション待ちです。",
+  freshnessTitle: "更新ログ",
+  freshnessText: "各掲載情報には最終確認日と使用した公式情報源を表示します。",
+  freshness: "更新状態",
+  freshnessFresh: "新しい",
+  freshnessCurrent: "最近確認",
+  freshnessSoon: "再確認予定",
+  freshnessStale: "公式再確認が必要",
+  freshnessArchive: "終了後チェック",
+  checkedToday: "本日確認",
+  checkedYesterday: "昨日確認",
+  daysAgo: "日前",
+  nowTitle: "今チェックする情報",
+  nowText: "開催中、終了間近、新規確認、今週の韓国イベントを公式情報からまとめます。",
+  nowDashboard: "更新スナップショット",
+  monitoredSources: "監視中の情報源",
+  activeQueue: "確認待ちキュー",
+  fastMovingTopics: "変化が早いテーマ",
+  latestCheckedGallery: "最新確認ギャラリー",
+  latestCheckedText: "イベント、ショッピング、免税、ポップアップ告知の最新公式チェックです。",
+  rssFeedLabel: "RSSフィード",
+  jsonFeedLabel: "JSONフィード",
+  freshnessLogLabel: "更新ログ",
+  recheckQueueTitle: "公式再確認キュー",
+  recheckQueueText: "近日中に公式ページを再確認すべき開催中・開催予定の情報です。",
+  recheckDueNow: "今すぐ再確認",
+  recheckDueToday: "本日中",
+  recheckDueTomorrow: "明日まで",
+  recheckDueInDays: "{count}日後",
+  sourceLink: "情報源",
+  livePanel: "開催中",
+  endingSoon: "終了間近",
+  newlyChecked: "新規確認",
+  thisWeek: "今週",
+  daysLeft: "日残り",
+  startsIn: "開始まで",
+  noItemsYet: "該当する項目がありません。カレンダーまたは情報源リストを確認してください。",
+  searchEvents: "検索",
+  searchPlaceholder: "タイトル、都市、会場、情報源",
+  statusFilter: "ステータス",
+  allStatuses: "すべてのステータス",
+  clearFilters: "リセット",
+  resultCountOneTemplate: "1件表示",
+  resultCountTemplate: "{count}件表示",
+  saveEvent: "保存",
+  savedEvent: "保存済み",
+  savedPlannerTitle: "韓国旅行の保存リスト",
+  savedPlannerEmpty: "イベントを保存して日程、都市、公式リンクを比較できます。",
+  savedPlannerCountOne: "保存済み1件",
+  savedPlannerCount: "保存済み{count}件",
+  openPlanner: "保存リストを開く",
+  clearSaved: "保存を消去",
+  removeSaved: "削除",
+  openSavedEvent: "開く",
+  plannerTitle: "保存したイベント",
+  plannerText: "この端末に保存した韓国イベントを比較し、予約や移動前に公式情報を確認できます。",
+  plannerEmptyTitle: "まだ保存されたイベントはありません",
+  plannerEmptyText: "ギャラリーや詳細ページからイベントを保存して、旅行候補リストを作れます。",
+  downloadSavedCalendar: "保存カレンダーをダウンロード",
+  officialLabel: "公式",
+  editorialTitle: "編集方針",
+  editorialText: "Korea Now Guideがイベント情報を収集、確認、翻訳、公開する方法です。",
+  correctionsTitle: "訂正と更新",
+  correctionsText: "古い情報や誤りを報告する方法です。",
+  guidesTitle: "訪問者ガイド",
+  aboutTitle: "Korea Now Guideについて",
+  contactTitle: "お問い合わせ",
+  privacyTitle: "プライバシーポリシー",
+  termsTitle: "利用規約",
+  statusLive: "開催中",
+  statusUpcoming: "近日開催",
+  statusEnded: "終了",
+  readDetails: "詳細",
+  sourceWarning: "公式情報は変更される場合があります。訪問前に最新の規則、場所、対象条件、在庫を必ず確認してください。"
+};
+
 const categoryLabels = {
   festival: "festival",
   kpop: "kpop",
@@ -1123,6 +1262,26 @@ function nowFeedLinks(lang) {
 
 function categoryLabel(lang, category) {
   return tr(lang, categoryLabels[category] || category);
+}
+
+function thumbnailBrand(event) {
+  const text = `${event.sourceName || ""} ${local(event.title, "en") || ""}`.toLowerCase();
+  if (text.includes("olive young")) return "OLIVE YOUNG";
+  if (text.includes("duty free") || text.includes("shilla") || text.includes("lotte duty")) return "DUTY FREE";
+  if (text.includes("shinsegae")) return "SHINSEGAE";
+  if (text.includes("hyundai")) return "HYUNDAI";
+  if (text.includes("lotte")) return "LOTTE";
+  if (text.includes("weverse") || text.includes("bts") || text.includes("k-pop") || event.category === "kpop") return "K-POP";
+  if (text.includes("visitkorea") || text.includes("korea tourism")) return "VISITKOREA";
+  if (text.includes("seoul")) return "SEOUL";
+  if (text.includes("busan")) return "BUSAN";
+  if (event.category === "festival") return "FESTIVAL";
+  return categoryLabel("en", event.category).toUpperCase();
+}
+
+function thumbnailContext(event, lang) {
+  const date = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  return `${event.city} · ${date}`;
 }
 
 function maxIso(values, fallback = today) {
@@ -1774,6 +1933,11 @@ function eventCard(event, lang) {
       <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
         <span class="badge ${status}">${statusLabel(lang, status)}</span>
+        <span class="thumb-overlay">
+          <span class="thumb-brand">${esc(thumbnailBrand(event))}</span>
+          <strong>${esc(trimHeading(local(event.title, lang), 54))}</strong>
+          <span>${esc(thumbnailContext(event, lang))}</span>
+        </span>
       </a>
       <div class="event-body">
         <div class="event-meta">

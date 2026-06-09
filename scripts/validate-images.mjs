@@ -4,6 +4,7 @@ import path from "node:path";
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
+const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const errors = [];
 const warnings = [];
 const checkedImages = new Map();
@@ -132,6 +133,19 @@ if (!fs.existsSync(dist)) {
   push(errors, "dist", "dist/ is missing; run npm.cmd run build before image validation");
 } else {
   const htmlFiles = walkHtml(dist);
+  for (const lang of languages) {
+    const home = path.join(dist, lang, "index.html");
+    if (!fs.existsSync(home)) {
+      push(errors, `gallery:${lang}`, "localized gallery page is missing.");
+      continue;
+    }
+    const homeHtml = fs.readFileSync(home, "utf8");
+    const overlayCount = (homeHtml.match(/class="thumb-overlay"/g) || []).length;
+    const brandCount = (homeHtml.match(/class="thumb-brand"/g) || []).length;
+    if (overlayCount < events.length || brandCount < events.length) {
+      push(errors, `gallery:${lang}`, `event gallery should show brand/source overlays on every thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${events.length} events.`);
+    }
+  }
   for (const file of htmlFiles) {
     const html = fs.readFileSync(file, "utf8");
     for (const match of html.matchAll(/<img\b[^>]*>/gi)) {

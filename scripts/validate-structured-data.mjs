@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
-const languages = ["en", "es", "zh", "pt", "ru"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const scriptRe = /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi;
 const dateRe = /^\d{4}-\d{2}-\d{2}$/;
 const badTextRe = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;

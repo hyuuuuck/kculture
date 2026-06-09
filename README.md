@@ -14,7 +14,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - RSS and JSON Feed output at `/feed.xml`, `/latest.json`, and each language folder for recrawl signals, subscriptions, newsletters, and future automation
 - A `/recheck.json` operations feed and `/now/` panel for live or upcoming listings that need official-source rechecks soon
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
-- Language versions for English, Spanish, Chinese, Portuguese, and Russian
+- Language versions for English, Spanish, Chinese, Portuguese, Russian, and Japanese
 - Static output in `dist/` for Cloudflare Pages
 
 ## Project Files

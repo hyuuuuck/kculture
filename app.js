@@ -1,5 +1,45 @@
 ﻿const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
 
+const spotlightCarousels = [...document.querySelectorAll("[data-spotlight-carousel]")];
+
+for (const carousel of spotlightCarousels) {
+  const slides = [...carousel.querySelectorAll("[data-spotlight-slide]")];
+  const previousButton = carousel.querySelector("[data-spotlight-prev]");
+  const nextButton = carousel.querySelector("[data-spotlight-next]");
+  const dots = [...carousel.querySelectorAll("[data-spotlight-dot]")];
+  const count = carousel.querySelector("[data-spotlight-count]");
+  if (slides.length <= 1) continue;
+
+  let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+
+  function showSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === currentIndex;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+      slide.tabIndex = active ? 0 : -1;
+    });
+
+    dots.forEach((dot, dotIndex) => {
+      if (dotIndex === currentIndex) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+
+    if (count) count.textContent = `${currentIndex + 1} / ${slides.length}`;
+  }
+
+  previousButton?.addEventListener("click", () => showSlide(currentIndex - 1));
+  nextButton?.addEventListener("click", () => showSlide(currentIndex + 1));
+
+  dots.forEach((dot, dotIndex) => {
+    dot.addEventListener("click", () => showSlide(dotIndex));
+  });
+
+  showSlide(currentIndex);
+}
+
 for (const scope of galleryScopes) {
   const cards = [...scope.querySelectorAll("[data-card]")];
   if (!cards.length) continue;

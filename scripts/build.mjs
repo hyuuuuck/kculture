@@ -2500,6 +2500,64 @@ function saveEventButton(event, lang) {
   return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false">${tr(lang, "saveEvent")}</button>`;
 }
 
+function spotlightEvents(sorted) {
+  const candidates = sorted.filter((event) => event.thumbnail && statusOf(event) !== "ended");
+  const fallback = sorted.filter((event) => event.thumbnail);
+  const source = candidates.length >= 3 ? candidates : fallback;
+  const selected = [];
+  const usedSlugs = new Set();
+  const usedCategories = new Set();
+
+  for (const event of source) {
+    if (usedCategories.has(event.category)) continue;
+    selected.push(event);
+    usedSlugs.add(event.slug);
+    usedCategories.add(event.category);
+    if (selected.length >= 5) return selected;
+  }
+
+  for (const event of source) {
+    if (usedSlugs.has(event.slug)) continue;
+    selected.push(event);
+    usedSlugs.add(event.slug);
+    if (selected.length >= 5) break;
+  }
+
+  return selected.slice(0, 5);
+}
+
+function spotlightCarousel(slides, lang) {
+  const usableSlides = slides.slice(0, 5);
+  return `
+            <div class="spotlight-carousel" data-spotlight-carousel>
+              <div class="spotlight-track">
+                ${usableSlides.map((event, index) => {
+                  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+                  const active = index === 0;
+                  return `
+                <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}">
+                  <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}">
+                  <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
+                  <span class="spotlight-content">
+                    <span>${tr(lang, "officialLabel")} highlight</span>
+                    <strong>${esc(local(event.title, lang))}</strong>
+                    <em>${esc(event.city)} / ${esc(period)}</em>
+                  </span>
+                </a>`;
+                }).join("")}
+              </div>
+              ${usableSlides.length > 1 ? `
+              <div class="spotlight-controls" aria-label="Featured event controls">
+                <button type="button" data-spotlight-prev aria-label="Previous highlight">&lt;</button>
+                <div class="spotlight-dots">
+                  ${usableSlides.map((event, index) => `<button type="button" data-spotlight-dot="${index}" aria-label="Show highlight ${index + 1}"${index === 0 ? " aria-current=\"true\"" : ""}></button>`).join("")}
+                </div>
+                <span class="spotlight-count" data-spotlight-count>1 / ${usableSlides.length}</span>
+                <button type="button" data-spotlight-next aria-label="Next highlight">&gt;</button>
+              </div>` : ""}
+            </div>`;
+}
+
 function renderHome(lang, canonicalPath = `/${lang}/`) {
   const sorted = [...events].sort((a, b) => {
     const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -2508,8 +2566,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const liveCount = events.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = events.filter((event) => statusOf(event) === "upcoming").length;
   const archiveCount = events.filter((event) => statusOf(event) === "ended").length;
-  const spotlight = sorted.find((event) => statusOf(event) === "live" && event.thumbnail) || sorted.find((event) => event.thumbnail) || sorted[0];
-  const spotlightPeriod = spotlight.dateLabel || `${dateText(lang, spotlight.startDate)} - ${dateText(lang, spotlight.endDate)}`;
+  const spotlights = spotlightEvents(sorted);
   const description = local({
     en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
@@ -2533,15 +2590,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
             </div>
           </div>
           <div class="service-visual">
-            <a class="spotlight-card" href="/${lang}/events/${spotlight.slug}.html">
-              <img src="/${spotlight.thumbnail}" alt="${esc(local(spotlight.title, lang))}">
-              <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(spotlight)))} / ${categoryLabel(lang, spotlight.category)}</span>
-              <span class="spotlight-content">
-                <span>${tr(lang, "officialLabel")} highlight</span>
-                <strong>${esc(local(spotlight.title, lang))}</strong>
-                <em>${esc(spotlight.city)} / ${esc(spotlightPeriod)}</em>
-              </span>
-            </a>
+            ${spotlightCarousel(spotlights, lang)}
             <dl class="service-summary" aria-label="Event status summary">
               <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
               <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>

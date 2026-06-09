@@ -510,6 +510,92 @@
     "mapQueryKo": "인천아시아드주경기장"
   },
   {
+    "slug": "day6-decade-finale-seoul-2026",
+    "category": "kpop",
+    "eventKind": "concert",
+    "priority": 94,
+    "startDate": "2026-07-03",
+    "endDate": "2026-07-05",
+    "dateLabel": "2026-07-03 - 2026-07-05 KST",
+    "city": "Seoul",
+    "district": "Songpa-gu",
+    "venue": "KSPO DOME",
+    "sourceName": "NOL World Ticket",
+    "sourceUrl": "https://world.nol.com/en/ticket/places/26000595/products/26007498",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official",
+    "thumbnail": "assets/event-thumbnails/official/day6-decade-finale-seoul-2026.png",
+    "title": {
+      "en": "DAY6 10th Anniversary Tour The DECADE FINALE in SEOUL",
+      "es": "DAY6 10th Anniversary Tour The DECADE FINALE en Seul",
+      "zh": "DAY6十周年巡演The DECADE首尔最终场",
+      "pt": "DAY6 10th Anniversary Tour The DECADE FINALE em Seul",
+      "ru": "DAY6 10th Anniversary Tour The DECADE: финал в Сеуле",
+      "ja": "DAY6 10th Anniversary Tour The DECADE FINALE in SEOUL"
+    },
+    "summary": {
+      "en": "NOL World lists DAY6's 10th anniversary tour finale for July 3-5, 2026 at KSPO DOME in Seoul, with official ticketing, verified-account, and mobile-ticket details visitors should confirm before booking.",
+      "es": "NOL World lista la final de la gira del 10 aniversario de DAY6 del 3 al 5 de julio de 2026 en KSPO DOME, Seul, con detalles de venta oficial, cuenta verificada y boleto movil.",
+      "zh": "NOL World列出DAY6十周年巡演首尔最终场，时间为2026年7月3日至5日，地点为首尔KSPO DOME，游客购票前应确认官方售票、实名账户和移动票规则。",
+      "pt": "A NOL World lista a final da turne de 10 anos do DAY6 de 3 a 5 de julho de 2026 no KSPO DOME, em Seul, com detalhes de venda oficial, conta verificada e ingresso movel.",
+      "ru": "NOL World указывает финальные концерты тура DAY6 к 10-летию на 3-5 июля 2026 года в KSPO DOME в Сеуле; перед бронированием стоит проверить официальную продажу, verified-account и mobile-ticket.",
+      "ja": "NOL WorldはDAY6の10周年ツアーファイナルを2026年7月3日から5日、ソウルのKSPO DOMEで開催と掲載しています。予約前に公式販売、本人確認済みアカウント、モバイルチケット規則を確認してください。"
+    },
+    "whyGo": {
+      "en": "A timely K-pop concert planning page for fans comparing ticket rules, Olympic Park access, post-show transit, lodging, and summer weather.",
+      "es": "Una pagina oportuna para fans K-pop que comparan reglas de boletos, acceso a Olympic Park, transporte despues del show, alojamiento y clima de verano.",
+      "zh": "适合K-pop粉丝及时规划门票规则、奥林匹克公园交通、演出后返程、住宿和夏季天气。",
+      "pt": "Uma pagina util para fãs de K-pop compararem regras de ingresso, acesso ao Olympic Park, transporte apos o show, hospedagem e clima de verão.",
+      "ru": "Актуальная страница для K-pop фанатов, которые сравнивают правила билетов, доступ к Olympic Park, транспорт после шоу, жилье и летнюю погоду.",
+      "ja": "チケット規則、オリンピック公園へのアクセス、終演後の移動、宿泊、夏の天気を比較するK-popファン向けの実用ページです。"
+    },
+    "travelTips": [
+      "Use the NOL World official ticket page before payment because verified-account, passport-name, mobile-ticket, and pickup rules can affect foreign visitors.",
+      "Search maps with 올림픽공원 KSPO DOME; Olympic Park stations can be crowded after the show, so keep a taxi or subway fallback.",
+      "July in Seoul can be humid and rainy, so check the event-day forecast and keep light rain gear.",
+      "If staying outside Songpa, avoid the last-train risk by planning a late-night return route before the concert."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "concert",
+      "expectedStartDate": "2026-07-03",
+      "expectedEndDate": "2026-07-05",
+      "expectedSourceName": "NOL World Ticket",
+      "expectedSourceUrl": "https://world.nol.com/en/ticket/places/26000595/products/26007498",
+      "localMustContain": [
+        "KSPO DOME",
+        "verified-account",
+        "mobile-ticket"
+      ],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-12",
+          "endDate": "2026-06-13",
+          "reason": "June 12-13 belongs to BTS Busan concert planning, not DAY6 The DECADE Finale."
+        },
+        {
+          "startDate": "2026-06-20",
+          "endDate": "2026-06-21",
+          "reason": "June 20-21 belongs to SEVENTEEN CARAT LAND, not DAY6 The DECADE Finale."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000595/products/26007498",
+          "mustContain": [
+            "DAY6 10th Anniversary Tour",
+            "Jul 03, 2026 - Jul 05, 2026",
+            "KSPO DOME"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "올림픽공원 KSPO DOME"
+  },
+  {
     "slug": "daegu-chimac-festival-2026",
     "category": "festival",
     "priority": 92,

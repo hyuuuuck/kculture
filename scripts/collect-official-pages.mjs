@@ -29,6 +29,7 @@ function curationSource(item) {
     type: "curated-official-url",
     owner: item.owner || registrySource.owner || "curation",
     url: item.sourceUrl,
+    alternateUrls: item.alternateUrls || registrySource.alternateUrls || [],
     coverage: item.topics || [item.category || "manual curation"],
     refreshCadence: item.refreshCadence || registrySource.refreshCadence || "manual",
     automationStatus: "curation-queue",

@@ -45,12 +45,14 @@
     "owner": "Korea Sale FESTA Promotion Committee / MOTIE ecosystem",
     "url": "https://www.koreasalefesta.co.kr/en",
     "alternateUrls": [
-      "https://www.koreasalefesta.co.kr/"
+      "https://www.koreasalefesta.co.kr/",
+      "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "https://english.motir.go.kr/eng/article/EATCLdfa319ada?searchKeyword=Korea%20Sale%20FESTA"
     ],
     "coverage": ["national sale festival", "shopping tourism", "retail promotions", "foreign visitor shopping calendar"],
     "refreshCadence": "weekly; daily during campaign announcement and operation windows",
     "automationStatus": "monitor-and-curate",
-    "notes": "Use as the national retail sale anchor. Confirm participant brands, date range, foreign visitor relevance, and whether offers are online-only before publishing."
+    "notes": "Use as the national retail sale anchor. The campaign domain can be slow or block automated checks, so MOTIE/MOTIR search and press-release pages are official fallback evidence. Confirm participant brands, date range, foreign visitor relevance, and whether offers are online-only before publishing."
   },
   {
     "name": "Ministry of Culture, Sports and Tourism",
@@ -71,10 +73,14 @@
     "type": "official-page-monitor",
     "owner": "Government of Korea",
     "url": "https://www.korea.kr/news/policyNewsList.do",
+    "alternateUrls": [
+      "https://www.korea.kr/news/policyNewsList.do?sectId=policy",
+      "https://www.korea.kr/briefing/pressReleaseList.do"
+    ],
     "coverage": ["government-backed festivals", "tourism campaigns", "shopping policy releases", "culture and travel announcements"],
     "refreshCadence": "weekly; daily when campaign launches are expected",
     "automationStatus": "monitor-and-curate",
-    "notes": "Use as official government confirmation for national campaigns such as sale festivals, tourism weeks, and ministry-backed cultural programs."
+    "notes": "Use as official government confirmation for national campaigns such as sale festivals, tourism weeks, and ministry-backed cultural programs. Keep the press-release list as a fallback when the policy news list intermittently fails automated fetch."
   },
   {
     "name": "Culture Portal API",

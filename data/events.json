@@ -505,6 +505,82 @@
     "mapQueryKo": "망원역 2번출구"
   },
   {
+    "slug": "meovv-bite-now-popup-jamsil-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 93,
+    "startDate": "2026-06-01",
+    "endDate": "2026-06-14",
+    "dateLabel": "2026-06-01 - 2026-06-14 KST; daily 10:30-22:00",
+    "city": "Seoul",
+    "district": "Songpa-gu / Jamsil",
+    "venue": "Lotte World Mall Jamsil, B1F",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019ea4a1-93e0-740b-90e0-8b06525e8e87",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world",
+    "thumbnail": "assets/event-thumbnails/official/meovv-bite-now-popup-jamsil-2026.jpg",
+    "title": {
+      "en": "MEOVV BITE NOW Pop-up at Lotte World Mall",
+      "es": "MEOVV BITE NOW pop-up en Lotte World Mall",
+      "zh": "MEOVV BITE NOW 乐天世界购物中心快闪",
+      "pt": "MEOVV BITE NOW pop-up no Lotte World Mall",
+      "ru": "MEOVV BITE NOW pop-up в Lotte World Mall",
+      "ja": "MEOVV BITE NOW ロッテワールドモール・ポップアップ"
+    },
+    "summary": {
+      "en": "NOL World lists MEOVV's official [BITE NOW] pop-up at Lotte World Mall Jamsil, B1F from June 1-14, 2026, with daily 10:30-22:00 hours, exclusive merch, and photo zones.",
+      "es": "NOL World lista el pop-up oficial [BITE NOW] de MEOVV en Lotte World Mall Jamsil, B1F, del 1 al 14 de junio de 2026, con horario diario 10:30-22:00, merch exclusivo y photo zones.",
+      "zh": "NOL World 列出 MEOVV 官方 [BITE NOW] 快闪，2026年6月1日至14日在乐天世界购物中心蚕室 B1F 举行，每日10:30-22:00开放，包含限定周边和拍照区。",
+      "pt": "A NOL World lista o pop-up oficial [BITE NOW] do MEOVV no Lotte World Mall Jamsil, B1F, de 1 a 14 de junho de 2026, com horario diario 10:30-22:00, merch exclusivo e photo zones.",
+      "ru": "NOL World указывает официальный pop-up MEOVV [BITE NOW] в Lotte World Mall Jamsil, B1F с 1 по 14 июня 2026 года, ежедневно 10:30-22:00, с эксклюзивным мерчем и фотозонами.",
+      "ja": "NOL World は、MEOVV 公式 [BITE NOW] ポップアップをロッテワールドモール蚕室 B1F で2026年6月1日から14日まで掲載しています。営業時間は毎日10:30-22:00で、限定グッズとフォトゾーンがあります。"
+    },
+    "whyGo": {
+      "en": "This is a compact album-release pop-up with clear shopping, photo, and transit intent, useful for visitors already planning Lotte World Mall, Jamsil Station, or nearby evening routes.",
+      "es": "Es un pop-up compacto de lanzamiento de album con compras, fotos y transporte claros, util para visitantes que ya planean Lotte World Mall, Jamsil Station o rutas cercanas por la tarde.",
+      "zh": "这是专辑发行相关的快闪，购物、拍照和交通需求明确，适合已经计划前往乐天世界购物中心、蚕室站或附近夜间路线的游客。",
+      "pt": "E um pop-up compacto de lancamento de album com compras, fotos e acesso claros, util para visitantes que ja planejam Lotte World Mall, Jamsil Station ou rotas noturnas proximas.",
+      "ru": "Это компактный pop-up к релизу альбома с понятной целью для покупок, фото и маршрута, удобный для гостей Lotte World Mall, станции Jamsil и вечерних планов поблизости.",
+      "ja": "アルバムリリース連動のポップアップで、買い物、写真、交通の目的が明確です。ロッテワールドモール、蚕室駅、周辺の夜ルートと合わせやすいです。"
+    },
+    "travelTips": [
+      "Use the venue and map query as Lotte World Mall Jamsil, not the broad Gangnam category label shown on the NOL page.",
+      "NOL World lists a 5-minute walk from Jamsil Station Exit 1 on Lines 2 and 8.",
+      "Daily hours are 10:30-22:00, but merch and photo-zone queues can close earlier than the mall itself.",
+      "Pair it with Lotte World Mall, Seokchon Lake, or Jamsil food routes only if you leave queue buffer time."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-06-01",
+      "expectedEndDate": "2026-06-14",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019ea4a1-93e0-740b-90e0-8b06525e8e87",
+      "localMustContain": [
+        "Lotte World Mall Jamsil, B1F",
+        "Jamsil Station Exit 1",
+        "10:30-22:00"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019ea4a1-93e0-740b-90e0-8b06525e8e87",
+          "mustContain": [
+            "MEOVV [BITE NOW] POP-UP",
+            "Lotte World Mall Jamsil, B1F",
+            "Jun 1 (Mon) - Jun 14 (Sun), 2026",
+            "Daily 10:30 AM - 10:00 PM",
+            "Jamsil Station Exit 1"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "롯데월드몰"
+  },
+  {
     "slug": "incheon-pentaport-rock-festival-2026",
     "category": "festival",
     "priority": 93,

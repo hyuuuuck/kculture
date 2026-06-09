@@ -1890,22 +1890,25 @@ function weatherSymbol(kind, label) {
   return `<span class="weather-symbol ${esc(kind)}" title="${esc(label || kind)}" aria-label="${esc(label || kind)}"></span>`;
 }
 
+function visitorWeatherLabel(weatherText, rainLikely = false, rainPeak = null) {
+  const peak = Number.isFinite(rainPeak) ? rainPeak : 0;
+  if (peak >= 50) return "PM rain risk";
+  if (rainLikely) return "Rain possible";
+  return weatherText || "Forecast";
+}
+
 function periodForecastBlock(period, label, lang) {
   if (!period) {
     return `
               <div class="forecast-period missing">
                 <span>${esc(label)}</span>
-                <span class="weather-symbol empty" aria-label="${esc(tr(lang, "forecastNoData"))}"></span>
                 <strong>-</strong>
               </div>`;
   }
-  const weatherText = period.weatherEn || period.weatherKo || "Forecast";
-  const kind = weatherKind(weatherText, period.rainLikely);
   const rain = Number.isFinite(period.maxPopPct) ? `${Math.round(period.maxPopPct)}%` : "-";
   return `
               <div class="forecast-period">
                 <span>${esc(label)}</span>
-                ${weatherSymbol(kind, weatherText)}
                 <strong>${esc(rain)}</strong>
               </div>`;
 }
@@ -1913,7 +1916,11 @@ function periodForecastBlock(period, label, lang) {
 function forecastDayCard(day, lang) {
   const low = Number.isFinite(day.minTempC) ? Math.round(day.minTempC) : "-";
   const high = Number.isFinite(day.maxTempC) ? Math.round(day.maxTempC) : "-";
-  const kind = weatherKind(day.weatherEn || day.weatherKo, day.rainLikely);
+  const weatherText = day.weatherEn || day.weatherKo || "Forecast";
+  const rainRisk = day.rainLikely || (day.maxPopPct || 0) >= 50;
+  const kind = weatherKind(weatherText, rainRisk);
+  const rain = Number.isFinite(day.maxPopPct) ? `${Math.round(day.maxPopPct)}%` : rainMood(day);
+  const visitorLabel = visitorWeatherLabel(weatherText, rainRisk, day.maxPopPct);
   return `
             <article class="forecast-card ${kind}">
               <div class="forecast-card-head">
@@ -1922,6 +1929,13 @@ function forecastDayCard(day, lang) {
                   <span>${esc(forecastShortDate(day.date))}</span>
                 </div>
                 <p><span>${tr(lang, "forecastLowHigh")}</span><b><em class="low">${esc(low)}</em>&deg; / <em class="high">${esc(high)}</em>&deg;</b></p>
+              </div>
+              <div class="forecast-condition">
+                ${weatherSymbol(kind, visitorLabel)}
+                <div>
+                  <strong>${esc(visitorLabel)}</strong>
+                  <span>Rain peak ${esc(rain)}</span>
+                </div>
               </div>
               <div class="forecast-periods">
                 ${periodForecastBlock(day.periods?.am, tr(lang, "forecastMorning"), lang)}
@@ -1973,6 +1987,63 @@ function forecastSummaryText(forecast) {
   return `${temperatureMood(forecast.maxTempC)}${temp ? `, ${temp}` : ""}; ${pop}; ${humidityText}; most hours: ${forecast.weather}.`;
 }
 
+function degreeRangeHtml(minTempC, maxTempC) {
+  if (!Number.isFinite(minTempC) || !Number.isFinite(maxTempC)) return "-";
+  return `${Math.round(minTempC)}-${Math.round(maxTempC)}&deg;C`;
+}
+
+function rainPeakText(forecast) {
+  if (Number.isFinite(forecast.maxPopPct)) return `${Math.round(forecast.maxPopPct)}% peak`;
+  return rainMood(forecast);
+}
+
+function humidityRangeText(forecast) {
+  const humidity = percentRange(forecast.minHumidityPct, forecast.maxHumidityPct);
+  return humidity || humidityMood(forecast);
+}
+
+function weatherTakeaway(forecast) {
+  const rainPeak = Number.isFinite(forecast.maxPopPct) ? forecast.maxPopPct : 0;
+  const warm = (forecast.maxTempC || 0) >= 24;
+  const hot = (forecast.maxTempC || 0) >= 28;
+  const humid = (forecast.maxHumidityPct || 0) >= 75;
+  if (rainPeak >= 50 && humid) return "Umbrella window, humid walk";
+  if (rainPeak >= 50) return "Rain backup recommended";
+  if (hot && humid) return "Hot, humid afternoon";
+  if (warm && humid) return "Warm and humid";
+  if (warm) return "Warm walking weather";
+  return "Good walking window";
+}
+
+function weatherMetric(label, value, note) {
+  return `
+            <div class="weather-metric">
+              <span>${esc(label)}</span>
+              <strong>${value}</strong>
+              <em>${esc(note)}</em>
+            </div>`;
+}
+
+function weatherTags(items) {
+  return `<div class="weather-tags">${items.map((item) => `<span>${esc(item)}</span>`).join("")}</div>`;
+}
+
+function forecastOverview(forecast) {
+  return `
+          <div class="weather-overview">
+            <div class="weather-takeaway">
+              <span>At a glance</span>
+              <strong>${esc(weatherTakeaway(forecast))}</strong>
+              <p>${esc(forecastAdvice(forecast))}</p>
+            </div>
+            <div class="weather-metrics" aria-label="Weather summary">
+              ${weatherMetric("Temperature", degreeRangeHtml(forecast.minTempC, forecast.maxTempC), temperatureMood(forecast.maxTempC))}
+              ${weatherMetric("Rain", esc(rainPeakText(forecast)), rainMood(forecast))}
+              ${weatherMetric("Humidity", esc(humidityRangeText(forecast)), humidityMood(forecast))}
+            </div>
+          </div>`;
+}
+
 function forecastPacking(forecast) {
   const items = [];
   if ((forecast.maxTempC || 0) >= 24) items.push("water bottle");
@@ -2005,17 +2076,27 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
     const items = forecastPacking(forecast);
     return `
           <h2>${tr(lang, "weatherPlan")}</h2>
+          ${forecastOverview(forecast)}
           ${forecastStrip(forecast, lang)}
-          <p><strong>KMA short-term forecast / ${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</strong>: ${esc(forecastSummaryText(forecast))}</p>
-          <ul>${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
-          <p>${esc(forecastAdvice(forecast))}</p>
+          <p class="weather-source-line"><strong>KMA short-term forecast</strong><span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast))}</span></p>
+          ${weatherTags(items)}
           <p class="meta-note">KMA forecast updated ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> Forecast source: ${esc(forecast.source?.name || "KMA forecast RSS")}. Previous-year monthly baseline: ${esc(weather.source.name)}.</span></p>`;
   }
   return `
           <h2>${tr(lang, "weatherPlan")}</h2>
-          <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
-          <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
-          <p>${esc(region.outdoorAdvice)}</p>
+          <div class="weather-overview">
+            <div class="weather-takeaway">
+              <span>Seasonal baseline</span>
+              <strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>
+              <p>${esc(region.outdoorAdvice)}</p>
+            </div>
+            <div class="weather-metrics" aria-label="Weather baseline">
+              ${weatherMetric("Typical range", esc(region.range), "previous-year pattern")}
+              ${weatherMetric("Plan with", esc((region.packing || []).slice(0, 2).join(", ") || "walking basics"), "visitor packing")}
+              ${weatherMetric("Check", "Live forecast", "before leaving")}
+            </div>
+          </div>
+          ${weatherTags(region.packing)}
           <p class="meta-note">Weather baseline: ${esc(weather.source.name)}<span class="sr-only"> Previous-year monthly baseline.</span></p>`;
 }
 

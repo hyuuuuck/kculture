@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T21:53:24.413Z",
+  "generatedAt": "2026-06-09T22:14:07.250Z",
   "files": {
     "audit": "source-audit-2026-06-10.json",
     "candidates": "official-page-candidates-2026-06-10.json",
@@ -9,9 +9,9 @@
   },
   "counts": {
     "auditedSources": 53,
-    "auditOk": 52,
-    "auditFailed": 1,
-    "fallbackSources": 5,
+    "auditOk": 53,
+    "auditFailed": 0,
+    "fallbackSources": 6,
     "monitorSources": 53,
     "candidateOk": 53,
     "candidateFailed": 0,
@@ -20,13 +20,7 @@
     "draftCandidates": 58,
     "skippedCandidates": 603
   },
-  "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    }
-  ],
+  "failedSources": [],
   "topDraftSources": [
     {
       "key": "Melon Ticket",

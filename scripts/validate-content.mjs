@@ -113,6 +113,19 @@ function nonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function shortHash(value) {
+  let hash = 0;
+  for (const char of String(value || "")) {
+    hash = ((hash << 5) - hash + char.charCodeAt(0)) | 0;
+  }
+  return Math.abs(hash).toString(36).slice(0, 6) || "0";
+}
+
+function citySlugForValidation(city) {
+  const slug = String(city || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return slug || `city-${shortHash(city)}`;
+}
+
 async function collectFiles(dir, predicate, out = []) {
   let entries = [];
   try {
@@ -141,6 +154,7 @@ async function validateGeneratedText() {
 }
 
 const eventSlugs = new Set();
+const cityWeatherRegions = new Map();
 for (const event of events) {
   const id = event.slug || "(missing event slug)";
   if (!event.slug) push(errors, id, "slug is required.");
@@ -176,7 +190,15 @@ for (const event of events) {
   validateLocalizedObject(id, "title", event.title, { requireAll: true });
   validateLocalizedObject(id, "summary", event.summary, { requireAll: true });
   validateLocalizedObject(id, "whyGo", event.whyGo, { requireAll: true });
-  if (!event.city) push(errors, id, "city is required.");
+  if (!event.city) {
+    push(errors, id, "city is required.");
+  } else if (event.weatherRegion) {
+    const previousWeatherRegion = cityWeatherRegions.get(event.city);
+    if (previousWeatherRegion && previousWeatherRegion !== event.weatherRegion) {
+      push(errors, id, `city uses inconsistent weatherRegion values: ${event.city} is both ${previousWeatherRegion} and ${event.weatherRegion}.`);
+    }
+    cityWeatherRegions.set(event.city, event.weatherRegion);
+  }
   if (!event.venue) push(errors, id, "venue is required.");
   if (!event.mapQueryKo) {
     push(errors, id, "mapQueryKo is required for Korean map search links.");
@@ -255,6 +277,23 @@ for (const event of events) {
   }
 }
 
+const citySlugSeen = new Map();
+for (const city of new Set(events.map((event) => event.city).filter(Boolean))) {
+  const slug = citySlugForValidation(city);
+  if (!slug) {
+    push(errors, `city:${city}`, "city slug must not be empty.");
+    continue;
+  }
+  const previousCity = citySlugSeen.get(slug);
+  if (previousCity && previousCity !== city) {
+    push(errors, `city:${city}`, `city slug collision with ${previousCity}: ${slug}.`);
+  }
+  citySlugSeen.set(slug, city);
+  if (!/[A-Za-z]/.test(city)) {
+    push(warnings, `city:${city}`, "city should use a Romanized public label for foreign visitors; put Korean search text in mapQueryKo.");
+  }
+}
+
 const sourceSeen = new Set();
 for (const source of sources) {
   const id = source.name || "(missing source name)";
@@ -296,12 +335,18 @@ if (!currentWeather?.source?.name) {
     push(errors, "kma-forecast", "source.name should be KMA 1-hour Village Forecast RSS.");
   }
   const forecastRegions = currentWeather.regions || {};
-  for (const city of new Set(events.map((event) => event.city))) {
-    const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[city];
-    if (!key || !forecastRegions[key]?.summary?.days?.length) {
+  for (const [city, weatherRegion] of cityWeatherRegions) {
+    const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[weatherRegion] || currentWeather.weatherRegionMap?.[city] || weatherRegion || "Nationwide";
+    const usableKey = forecastRegions[key]?.summary?.days?.length
+      ? key
+      : (forecastRegions.Nationwide?.summary?.days?.length ? "Nationwide" : "");
+    if (!usableKey) {
       push(errors, `kma-forecast:${city}`, `missing current KMA forecast region for city: ${city}.`);
     } else {
-      for (const day of forecastRegions[key].summary.days) {
+      if (!currentWeather.cityMap?.[city]) {
+        push(warnings, `kma-forecast:${city}`, `city has no direct KMA cityMap entry; using ${usableKey} forecast fallback.`);
+      }
+      for (const day of forecastRegions[usableKey].summary.days) {
         if (!day.periods || typeof day.periods !== "object") {
           push(errors, `kma-forecast:${city}:${day.date}`, "daily forecast must include periods.am and periods.pm containers.");
         } else if (!("am" in day.periods) || !("pm" in day.periods)) {

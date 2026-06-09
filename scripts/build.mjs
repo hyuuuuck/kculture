@@ -1492,13 +1492,33 @@ function categoryLinkStrip(lang) {
   }).join("");
 }
 
+function cityCounts() {
+  const counts = new Map();
+  for (const event of events) {
+    if (!event.city) continue;
+    counts.set(event.city, (counts.get(event.city) || 0) + 1);
+  }
+  return counts;
+}
+
 function citiesWithEvents() {
-  return [...new Set(events.map((event) => event.city))]
-    .sort((a, b) => events.filter((event) => event.city === b).length - events.filter((event) => event.city === a).length || a.localeCompare(b));
+  const counts = cityCounts();
+  return [...counts.keys()]
+    .sort((a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b));
+}
+
+function shortHash(value) {
+  let hash = 0;
+  for (const char of String(value || "")) {
+    hash = ((hash << 5) - hash + char.charCodeAt(0)) | 0;
+  }
+  return Math.abs(hash).toString(36).slice(0, 6) || "0";
 }
 
 function citySlug(city) {
-  return cityDefinitions[city]?.slug || city.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  if (cityDefinitions[city]?.slug) return cityDefinitions[city].slug;
+  const slug = city.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return slug || `city-${shortHash(city)}`;
 }
 
 function cityHref(lang, city) {
@@ -1510,8 +1530,9 @@ function routeHref(lang, route) {
 }
 
 function cityLinkStrip(lang) {
+  const counts = cityCounts();
   return citiesWithEvents().map((city) => {
-    const count = events.filter((event) => event.city === city).length;
+    const count = counts.get(city) || 0;
     return `
       <a class="city-pill" href="${cityHref(lang, city)}">
         <span class="pill-marker" aria-hidden="true">${esc(city.slice(0, 1).toUpperCase())}</span>

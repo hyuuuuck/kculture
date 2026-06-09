@@ -444,6 +444,84 @@
     "mapQueryKo": "신세계백화점 강남점"
   },
   {
+    "slug": "toy-story-5-hyundai-popup-2026",
+    "category": "department-store",
+    "eventKind": "pop-up",
+    "priority": 92,
+    "startDate": "2026-04-30",
+    "endDate": "2026-07-12",
+    "dateLabel": "2026-04-30 - 2026-07-12 KST; relay dates can differ by branch",
+    "city": "Seoul",
+    "district": "Yeongdeungpo-gu / Hyundai Department Store relay branches",
+    "venue": "The Hyundai Seoul and Hyundai Department Store relay locations",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world",
+    "thumbnail": "assets/event-thumbnails/official/toy-story-5-hyundai-popup-2026.jpg",
+    "title": {
+      "en": "Toy Story 5 POP-UP at The Hyundai Seoul and Hyundai Department Store",
+      "es": "Toy Story 5 POP-UP en The Hyundai Seoul y Hyundai Department Store",
+      "zh": "Toy Story 5 快闪店：The Hyundai Seoul 与现代百货",
+      "pt": "Toy Story 5 POP-UP no The Hyundai Seoul e Hyundai Department Store",
+      "ru": "Toy Story 5 pop-up в The Hyundai Seoul и Hyundai Department Store",
+      "ja": "Toy Story 5ポップアップ：The Hyundai Seoulと現代百貨店"
+    },
+    "summary": {
+      "en": "NOL World lists a Toy Story 5 pop-up relay at seven Hyundai Department Store locations from April 30 to July 12, 2026, including The Hyundai Seoul, with new keyrings, dolls, toys, blind boxes, and a photo challenge event.",
+      "es": "NOL World lista un relevo de pop-ups de Toy Story 5 en siete sedes de Hyundai Department Store del 30 de abril al 12 de julio de 2026, incluido The Hyundai Seoul, con llaveros, munecos, juguetes, blind boxes y un reto de fotos.",
+      "zh": "NOL World 列出 Toy Story 5 快闪活动，2026年4月30日至7月12日在包括 The Hyundai Seoul 在内的7个现代百货地点轮流举行，内容包括钥匙扣、玩偶、玩具、盲盒和拍照挑战。",
+      "pt": "A NOL World lista um circuito de pop-ups de Toy Story 5 em sete unidades da Hyundai Department Store de 30 de abril a 12 de julho de 2026, incluindo The Hyundai Seoul, com chaveiros, bonecos, brinquedos, blind boxes e desafio de fotos.",
+      "ru": "NOL World указывает relay pop-up Toy Story 5 в семи локациях Hyundai Department Store с 30 апреля по 12 июля 2026 года, включая The Hyundai Seoul, с брелоками, куклами, игрушками, blind boxes и фото-челленджем.",
+      "ja": "NOL Worldは、The Hyundai Seoulを含む現代百貨店7か所で2026年4月30日から7月12日までToy Story 5ポップアップをリレー開催すると掲載しています。キーリング、ぬいぐるみ、玩具、ブラインドボックス、フォトチャレンジがあります。"
+    },
+    "whyGo": {
+      "en": "A strong indoor shopping stop for families, Pixar fans, and visitors who want a recognizable brand pop-up near Yeouido, IFC Mall, and the Hangang route.",
+      "es": "Una parada interior solida para familias, fans de Pixar y visitantes que quieren un pop-up de marca reconocible cerca de Yeouido, IFC Mall y el rio Hangang.",
+      "zh": "适合家庭、Pixar 粉丝以及想在汝矣岛、IFC Mall 和汉江路线附近加入品牌快闪行程的游客。",
+      "pt": "Uma boa parada indoor para familias, fas da Pixar e visitantes que querem um pop-up de marca facil de reconhecer perto de Yeouido, IFC Mall e da rota do rio Hangang.",
+      "ru": "Удобная indoor-остановка для семей, поклонников Pixar и гостей, которым нужен узнаваемый брендовый pop-up рядом с Yeouido, IFC Mall и маршрутом вдоль Hangang.",
+      "ja": "家族旅行、Pixarファン、汝矣島・IFC Mall・漢江ルート周辺で分かりやすいブランド系ポップアップを入れたい旅行者に向いています。"
+    },
+    "travelTips": [
+      "Check the NOL World page before visiting because each Hyundai Department Store branch can have different relay dates, stock, queues, and photo-event rules.",
+      "Use the Korean map query 더현대 서울 for the flagship stop; long English venue strings can miss the exact place on Korean map apps.",
+      "Pair the pop-up with IFC Mall, Yeouido Hangang Park, or a rainy-day department-store meal instead of crossing town for another short pop-up.",
+      "If buying character goods, check tax-refund counters, luggage space, and whether blind-box purchases are easy to carry for the rest of the day."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-04-30",
+      "expectedEndDate": "2026-07-12",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9",
+      "localMustContain": [
+        "Toy Story 5",
+        "seven Hyundai Department Store locations",
+        "The Hyundai Seoul",
+        "keyrings"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9",
+          "mustContain": [
+            "Toy Story 5 POP-UP",
+            "7 Hyundai Department Stores",
+            "The Hyundai Seoul",
+            "keyrings",
+            "photo challenge",
+            "Apr 30 (Thu) - Jul 12 (Sun), 2026"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "더현대 서울"
+  },
+  {
     "slug": "bts-world-tour-busan-2026",
     "category": "kpop",
     "eventKind": "concert",

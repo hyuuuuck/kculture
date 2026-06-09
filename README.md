@@ -129,7 +129,7 @@ http://127.0.0.1:8766/
 Use GitHub plus Cloudflare Workers Builds or Cloudflare Pages. The currently connected Cloudflare project is the Workers project `kculture`, so `wrangler.toml` is configured to deploy the generated `dist/` folder as static assets through `wrangler deploy`.
 
 - Build command: `npm run build`
-- Deploy command for Workers Builds: `npx wrangler deploy`
+- Deploy command for Workers Builds: `npx wrangler deploy --assets=./dist`
 - Static assets directory in `wrangler.toml`: `dist`
 - Root directory: this project root
 - Worker project name: `kculture`

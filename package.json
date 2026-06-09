@@ -39,7 +39,7 @@
     "import:tourapi": "node scripts/import-tourapi.mjs",
     "import:weather": "node scripts/import-kma-weather.mjs",
     "preview": "npm run build && wrangler dev",
-    "deploy:cloudflare": "npm run build && wrangler deploy"
+    "deploy:cloudflare": "npm run build && wrangler deploy --assets=./dist"
   },
   "engines": {
     "node": ">=22"

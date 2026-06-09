@@ -61,7 +61,7 @@ Path B, Cloudflare dashboard Git integration:
 
 - Connect the GitHub repository from Cloudflare Pages.
 - Build command: `npm run build`
-- Deploy command for Workers Builds: `npx wrangler deploy`
+- Deploy command for Workers Builds: `npx wrangler deploy --assets=./dist`
 - Root directory: project root
 - Set the same production environment variables in the Cloudflare Pages project settings.
 - This is the recommended first launch path because Cloudflare handles the GitHub webhook and deployment.

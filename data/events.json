@@ -259,6 +259,98 @@
     "mapQueryKo": "신세계백화점 센텀시티점"
   },
   {
+    "slug": "nike-bts-pop-up-busan-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 96,
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-13",
+    "dateLabel": "2026-06-12 - 2026-06-13, 10:00-21:00 KST",
+    "city": "Busan",
+    "district": "Suyeong-gu",
+    "venue": "Millac The Market",
+    "sourceName": "NOL World Busan Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019e8093-4edb-7e6a-8125-b83462337289",
+    "officialWebsiteName": "Nike newsroom release",
+    "officialWebsiteUrl": "https://about.nike.com/en/newsroom/releases/nike-and-bts-introduce-bts-world-tour-arirang-merch-and-nike-by-you-customization-experience",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-and-nike-linked",
+    "thumbnail": "assets/event-thumbnails/official/nike-bts-pop-up-busan-2026.webp",
+    "title": {
+      "en": "NIKE X BTS POP-UP: Nike By You in Busan",
+      "es": "NIKE X BTS POP-UP: Nike By You en Busan",
+      "zh": "NIKE X BTS釜山快闪：Nike By You",
+      "pt": "NIKE X BTS POP-UP: Nike By You em Busan",
+      "ru": "NIKE X BTS pop-up in Busan: Nike By You",
+      "ja": "NIKE X BTS釜山ポップアップ：Nike By You"
+    },
+    "summary": {
+      "en": "NOL World lists a June 12-13, 2026 Nike By You x BTS pop-up at Millac The Market in Busan, with limited BTS World Tour Arirang apparel, Korea-only hats, and 10:00-21:00 opening hours.",
+      "es": "NOL World lista un pop-up Nike By You x BTS del 12 al 13 de junio de 2026 en Millac The Market, Busan, con prendas BTS World Tour Arirang, gorras solo para Corea y horario 10:00-21:00.",
+      "zh": "NOL World列出2026年6月12日至13日在釜山Millac The Market举行的Nike By You x BTS快闪，包含BTS World Tour Arirang限定服饰、韩国限定帽款和10:00-21:00营业时间。",
+      "pt": "A NOL World lista um pop-up Nike By You x BTS em 12 e 13 de junho de 2026 no Millac The Market, em Busan, com roupas BTS World Tour Arirang, bonés exclusivos da Coreia e horário 10:00-21:00.",
+      "ru": "NOL World lists a June 12-13, 2026 Nike By You x BTS pop-up at Millac The Market in Busan, with limited BTS World Tour Arirang apparel, Korea-only hats, and 10:00-21:00 opening hours.",
+      "ja": "NOL Worldは、2026年6月12日から13日まで釜山Millac The MarketでNike By You x BTSポップアップを開催と掲載しています。BTS World Tour Arirang限定アパレル、韓国限定キャップ、10:00-21:00の営業時間を確認できます。"
+    },
+    "whyGo": {
+      "en": "A short two-day Busan fan-shopping stop that can be paired with BTS ARIRANG concert plans, Gwangalli routes, and Millac waterfront food breaks.",
+      "es": "Una parada fan-shopping de solo dos dias en Busan que se puede combinar con planes del concierto BTS ARIRANG, rutas por Gwangalli y comida junto al mar en Millac.",
+      "zh": "适合把两天限定粉丝购物点与BTS ARIRANG演唱会、广安里路线和民乐海边美食一起规划。",
+      "pt": "Uma parada fan-shopping de dois dias em Busan que combina com planos do show BTS ARIRANG, rotas por Gwangalli e comida na orla de Millac.",
+      "ru": "A short two-day Busan fan-shopping stop that pairs well with BTS ARIRANG concert plans, Gwangalli routes, and Millac waterfront food breaks.",
+      "ja": "2日間限定の釜山ファン向けショッピングスポットで、BTS ARIRANG公演計画、広安里ルート、民楽の海辺グルメと組み合わせやすいページです。"
+    },
+    "travelTips": [
+      "Use the NOL World page and linked Nike newsroom release before visiting because limited apparel and Korea-only hats can sell out or change quickly.",
+      "Search maps with 밀락 더 마켓; the NOL page's structured address says Seoul, but the visible page, coordinates, related spot, and venue context point to Busan.",
+      "Pair the pop-up with Gwangalli Beach only if you leave buffer time for queues, payment, customization, and late-night concert traffic.",
+      "For concert-weekend fans, save a return route before entering because taxis and subway transfers around Gwangalli can slow down after evening events."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-06-12",
+      "expectedEndDate": "2026-06-13",
+      "expectedSourceName": "NOL World Busan Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019e8093-4edb-7e6a-8125-b83462337289",
+      "localMustContain": [
+        "Millac The Market",
+        "Korea-only hats",
+        "10:00-21:00"
+      ],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-05",
+          "endDate": "2026-06-21",
+          "reason": "June 5-21 is the broader BTS THE CITY ARIRANG BUSAN project window, not this Nike x BTS pop-up."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e8093-4edb-7e6a-8125-b83462337289",
+          "mustContain": [
+            "NIKE X BTS POP-UP",
+            "Millac the Market",
+            "Jun 12 (Fri) - Jun 13 (Sat), 2026",
+            "10:00 ~ 21:00"
+          ]
+        },
+        {
+          "sourceName": "Nike newsroom",
+          "url": "https://about.nike.com/en/newsroom/releases/nike-and-bts-introduce-bts-world-tour-arirang-merch-and-nike-by-you-customization-experience",
+          "mustContain": [
+            "Nike and BTS",
+            "BTS WORLD TOUR"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Busan",
+    "mapQueryKo": "밀락 더 마켓"
+  },
+  {
     "slug": "incheon-pentaport-rock-festival-2026",
     "category": "festival",
     "priority": 93,

@@ -1365,6 +1365,14 @@ function eventKindLabel(event, lang = "en") {
       pt: "Concert",
       ru: "Concert",
       ja: "Concert"
+    },
+    "pop-up": {
+      en: "Pop-up",
+      es: "Pop-up",
+      zh: "Pop-up",
+      pt: "Pop-up",
+      ru: "Pop-up",
+      ja: "Pop-up"
     }
   };
   return labels[event.eventKind]?.[lang] || labels[event.eventKind]?.en || "";

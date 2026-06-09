@@ -219,6 +219,18 @@ let dict = {
     statusUpcoming: "Upcoming",
     statusEnded: "Ended",
     readDetails: "Details",
+    officialVisitorInfo: "Official visitor info",
+    venueScheduleTitle: "Venue schedule",
+    officialHighlightsTitle: "Official highlights",
+    eventWebsite: "Event website",
+    eventTheme: "Theme",
+    hoursOfOperation: "Hours",
+    programHours: "Program hours",
+    websiteLanguages: "Website languages",
+    address: "Address",
+    transportation: "Transportation",
+    parking: "Parking",
+    smartGuide: "Smart guide",
     sourceWarning: "Official details can change. Always confirm the latest rules, location, eligibility, and inventory."
   },
   es: {
@@ -569,6 +581,18 @@ dict = {
     statusUpcoming: "Upcoming",
     statusEnded: "Ended",
     readDetails: "Details",
+    officialVisitorInfo: "Official visitor info",
+    venueScheduleTitle: "Venue schedule",
+    officialHighlightsTitle: "Official highlights",
+    eventWebsite: "Event website",
+    eventTheme: "Theme",
+    hoursOfOperation: "Hours",
+    programHours: "Program hours",
+    websiteLanguages: "Website languages",
+    address: "Address",
+    transportation: "Transportation",
+    parking: "Parking",
+    smartGuide: "Smart guide",
     sourceWarning: "Official details can change. Always confirm the latest rules, location, eligibility, and inventory."
   },
   es: {
@@ -1585,6 +1609,77 @@ function mapLinkSection(event, lang) {
         </section>`;
 }
 
+const visitorInfoLabels = {
+  theme: "eventTheme",
+  hours: "hoursOfOperation",
+  programHours: "programHours",
+  websiteLanguages: "websiteLanguages",
+  address: "address",
+  transportation: "transportation",
+  parking: "parking",
+  smartGuide: "smartGuide"
+};
+
+function visitorInfoValue(value) {
+  if (Array.isArray(value)) return value.join(", ");
+  return String(value || "").trim();
+}
+
+function visitorInfoSection(event, lang) {
+  const info = event.visitorInfo || {};
+  const infoItems = Object.entries(visitorInfoLabels)
+    .map(([key, labelKey]) => ({ label: tr(lang, labelKey), value: visitorInfoValue(info[key]) }))
+    .filter((item) => item.value);
+  if (event.officialWebsiteUrl) {
+    infoItems.push({
+      label: tr(lang, "eventWebsite"),
+      value: `<a href="${esc(event.officialWebsiteUrl)}" rel="nofollow noopener" target="_blank">${esc(event.officialWebsiteName || event.officialWebsiteUrl)}</a>`,
+      html: true
+    });
+  }
+
+  const schedules = event.venueSchedule || [];
+  const highlights = event.officialHighlights || [];
+  if (!infoItems.length && !schedules.length && !highlights.length) return "";
+
+  return `
+        <section class="detail-section visitor-info-section">
+          <div class="detail-section-head">
+            <div>
+              <p class="eyebrow">${esc(event.sourceName)}</p>
+              <h2>${tr(lang, "officialVisitorInfo")}</h2>
+            </div>
+            <p>${tr(lang, "verifyBefore")}</p>
+          </div>
+          ${infoItems.length ? `
+            <div class="visitor-info-grid">
+              ${infoItems.map((item) => `
+                <div class="visitor-info-item">
+                  <span>${esc(item.label)}</span>
+                  <strong>${item.html ? item.value : esc(item.value)}</strong>
+                </div>`).join("")}
+            </div>` : ""}
+          ${schedules.length ? `
+            <div class="venue-schedule">
+              <h3>${tr(lang, "venueScheduleTitle")}</h3>
+              <div class="venue-schedule-list">
+                ${schedules.map((item) => `
+                  <article>
+                    <span>${esc(dateText(lang, item.startDate))} - ${esc(dateText(lang, item.endDate))}</span>
+                    <strong>${esc(item.venue)}</strong>
+                    <p>${[item.status, item.theme].filter(Boolean).map(esc).join(" / ")}</p>
+                    ${item.note ? `<p>${esc(item.note)}</p>` : ""}
+                  </article>`).join("")}
+              </div>
+            </div>` : ""}
+          ${highlights.length ? `
+            <div class="official-highlights">
+              <h3>${tr(lang, "officialHighlightsTitle")}</h3>
+              <ul>${highlights.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+            </div>` : ""}
+        </section>`;
+}
+
 function dateText(lang, iso) {
   const date = new Date(`${iso}T00:00:00Z`);
   return new Intl.DateTimeFormat(languages[lang].locale, { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
@@ -1957,13 +2052,13 @@ function eventSchema(event, lang) {
         "@type": "PostalAddress",
         addressCountry: "KR",
         addressLocality: event.city,
-        streetAddress: event.district
+        streetAddress: event.visitorInfo?.address || event.district
       }
     },
     organizer: {
       "@type": "Organization",
       name: event.sourceName,
-      url: event.sourceUrl
+      url: event.officialWebsiteUrl || event.sourceUrl
     }
   };
 }
@@ -2088,6 +2183,15 @@ function schema(lang, title, description, canonicalPath) {
 }
 
 function eventSearchText(event, lang) {
+  const visitorInfo = Object.values(event.visitorInfo || {}).flat();
+  const venueSchedule = (event.venueSchedule || []).flatMap((item) => [
+    item.venue,
+    item.startDate,
+    item.endDate,
+    item.status,
+    item.theme,
+    item.note
+  ]);
   return [
     local(event.title, lang),
     local(event.summary, lang),
@@ -2100,7 +2204,10 @@ function eventSearchText(event, lang) {
     event.dateLabel,
     event.startDate,
     event.endDate,
-    ...(event.travelTips || [])
+    ...(event.travelTips || []),
+    ...visitorInfo,
+    ...venueSchedule,
+    ...(event.officialHighlights || [])
   ].filter(Boolean).join(" ");
 }
 
@@ -2763,6 +2870,8 @@ function renderEvent(event, lang) {
           ${fact("Verification", event.verification)}
           ${fact(tr(lang, "location"), event.city)}
         </section>
+
+        ${visitorInfoSection(event, lang)}
 
         <section class="detail-section">
           <h2>${tr(lang, "readDetails")}</h2>

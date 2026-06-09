@@ -27,6 +27,7 @@ const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
 const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
+const visitorInfoRequiredFields = ["theme", "hours", "address", "transportation"];
 const requiredWeatherMonths = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -108,6 +109,10 @@ function assertUrl(id, field, value, required = true) {
   }
 }
 
+function nonEmptyString(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
 async function collectFiles(dir, predicate, out = []) {
   let entries = [];
   try {
@@ -184,6 +189,55 @@ for (const event of events) {
   if (!Array.isArray(event.travelTips) || event.travelTips.length < 2) push(errors, id, "at least two travelTips are required.");
   if (!weatherRegions.has(event.weatherRegion)) push(errors, id, `weatherRegion is not configured: ${event.weatherRegion}`);
   assertUrl(id, "sourceUrl", event.sourceUrl);
+  assertUrl(id, "officialWebsiteUrl", event.officialWebsiteUrl, false);
+  if (event.officialWebsiteUrl && !nonEmptyString(event.officialWebsiteName)) {
+    push(errors, id, "officialWebsiteName is required when officialWebsiteUrl is present.");
+  }
+
+  if (event.visitorInfo !== undefined) {
+    if (!event.visitorInfo || typeof event.visitorInfo !== "object" || Array.isArray(event.visitorInfo)) {
+      push(errors, id, "visitorInfo must be an object when provided.");
+    } else {
+      for (const field of visitorInfoRequiredFields) {
+        if (!nonEmptyString(event.visitorInfo[field])) {
+          push(errors, id, `visitorInfo.${field} is required when visitorInfo is provided.`);
+        }
+      }
+      if (event.visitorInfo.websiteLanguages !== undefined) {
+        if (!Array.isArray(event.visitorInfo.websiteLanguages) || !event.visitorInfo.websiteLanguages.every(nonEmptyString)) {
+          push(errors, id, "visitorInfo.websiteLanguages must be an array of language names.");
+        }
+      }
+    }
+  }
+
+  if (event.venueSchedule !== undefined) {
+    if (!Array.isArray(event.venueSchedule) || !event.venueSchedule.length) {
+      push(errors, id, "venueSchedule must be a non-empty array when provided.");
+    } else {
+      event.venueSchedule.forEach((item, index) => {
+        const field = `venueSchedule[${index}]`;
+        if (!nonEmptyString(item?.venue)) push(errors, id, `${field}.venue is required.`);
+        if (!isDate(item?.startDate)) push(errors, id, `${field}.startDate must be YYYY-MM-DD.`);
+        if (!isDate(item?.endDate)) push(errors, id, `${field}.endDate must be YYYY-MM-DD.`);
+        if (isDate(item?.startDate) && isDate(item?.endDate) && item.startDate > item.endDate) {
+          push(errors, id, `${field}.startDate must not be after endDate.`);
+        }
+        if (isDate(item?.startDate) && item.startDate < event.startDate) {
+          push(errors, id, `${field}.startDate is outside the parent event period.`);
+        }
+        if (isDate(item?.endDate) && item.endDate > event.endDate) {
+          push(errors, id, `${field}.endDate is outside the parent event period.`);
+        }
+      });
+    }
+  }
+
+  if (event.officialHighlights !== undefined) {
+    if (!Array.isArray(event.officialHighlights) || event.officialHighlights.length < 2 || !event.officialHighlights.every(nonEmptyString)) {
+      push(errors, id, "officialHighlights must contain at least two visible strings when provided.");
+    }
+  }
 
   if (event.thumbnail) {
     const thumb = path.join(root, event.thumbnail);

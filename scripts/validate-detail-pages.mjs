@@ -14,6 +14,14 @@ const currentWeather = fs.existsSync(path.join(root, "data", "kma-forecast.json"
   ? JSON.parse(fs.readFileSync(path.join(root, "data", "kma-forecast.json"), "utf8"))
   : null;
 const languages = ["en", "es", "zh", "pt", "ru", "ja"];
+const languageLocales = {
+  en: "en-US",
+  es: "es-ES",
+  zh: "zh-CN",
+  pt: "pt-BR",
+  ru: "ru-RU",
+  ja: "ja-JP"
+};
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseSlotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const errors = [];
@@ -51,6 +59,11 @@ function statusOf(event) {
 function monthNameFromIso(iso) {
   const date = new Date(`${String(iso || today).slice(0, 7)}-01T00:00:00Z`);
   return new Intl.DateTimeFormat("en-US", { month: "long", timeZone: "UTC" }).format(date);
+}
+
+function dateText(lang, iso) {
+  const date = new Date(`${iso}T00:00:00Z`);
+  return new Intl.DateTimeFormat(languageLocales[lang] || "en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
 function weatherIsoForEvent(event) {
@@ -137,6 +150,25 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, esc(event.venue), id, "event venue is missing from visible facts.");
   assertIncludes(html, esc(event.city), id, "event city is missing from visible facts.");
   assertIncludes(html, esc(event.sourceName), id, "official source name is missing from the page.");
+  if (event.officialWebsiteUrl) {
+    assertIncludes(html, `href="${esc(event.officialWebsiteUrl)}"`, id, "official event website link is missing.");
+    assertIncludes(html, esc(event.officialWebsiteName || event.officialWebsiteUrl), id, "official event website label is missing.");
+  }
+  if (event.visitorInfo) {
+    for (const value of Object.values(event.visitorInfo).flat().filter(Boolean)) {
+      assertIncludes(html, esc(value), id, `visitorInfo value is missing from the detail page: ${value}`);
+    }
+  }
+  for (const item of event.venueSchedule || []) {
+    assertIncludes(html, esc(item.venue), id, `venue schedule venue is missing: ${item.venue}`);
+    assertIncludes(html, esc(dateText(lang, item.startDate)), id, `venue schedule start date is missing: ${item.startDate}`);
+    assertIncludes(html, esc(dateText(lang, item.endDate)), id, `venue schedule end date is missing: ${item.endDate}`);
+    if (item.theme) assertIncludes(html, esc(item.theme), id, `venue schedule theme is missing: ${item.theme}`);
+    if (item.note) assertIncludes(html, esc(item.note), id, `venue schedule note is missing: ${item.note}`);
+  }
+  for (const item of (event.officialHighlights || []).slice(0, 2)) {
+    assertIncludes(html, esc(item), id, `official highlight is missing: ${item}`);
+  }
 
   assertIncludes(html, "Previous-year monthly baseline", id, "previous-year weather baseline label is missing.");
   assertIncludes(html, esc(weather.source.name), id, "weather source name is missing.");

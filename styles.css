@@ -1488,8 +1488,107 @@ img {
   gap: 28px;
 }
 
+.detail-section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+}
+
+.detail-section-head .eyebrow {
+  margin-bottom: 6px;
+}
+
+.detail-section-head h2 {
+  margin: 0;
+}
+
+.detail-section-head > p {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .detail-section ul {
   padding-left: 20px;
+}
+
+.visitor-info-section {
+  display: grid;
+  gap: 22px;
+}
+
+.visitor-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.visitor-info-item,
+.venue-schedule-list article {
+  display: grid;
+  gap: 7px;
+  padding: 15px;
+  border: 1px solid #e7ece9;
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.visitor-info-item {
+  min-height: 90px;
+}
+
+.visitor-info-item span,
+.venue-schedule-list span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.visitor-info-item strong,
+.venue-schedule-list strong {
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+
+.visitor-info-item a {
+  color: var(--teal-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.venue-schedule,
+.official-highlights {
+  display: grid;
+  gap: 12px;
+}
+
+.venue-schedule h3,
+.official-highlights h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.venue-schedule-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.venue-schedule-list p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.official-highlights ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
 }
 
 .map-links-section {
@@ -2362,6 +2461,8 @@ img {
   .guide-grid,
   .guide-grid.wide,
   .fact-grid,
+  .visitor-info-grid,
+  .venue-schedule-list,
   .route-grid,
   .watch-stats,
   .source-refresh-stats,
@@ -2395,6 +2496,10 @@ img {
 
   .home-category-strip {
     grid-template-columns: 1fr;
+  }
+
+  .detail-section-head {
+    display: grid;
   }
 
   .home-city-strip {

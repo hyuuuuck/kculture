@@ -33,6 +33,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Import current KMA forecast
+        run: npm run import:forecast
+
       - name: Check source availability
         run: npm run check:sources
         env:

@@ -300,6 +300,14 @@ if (!currentWeather?.source?.name) {
     const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[city];
     if (!key || !forecastRegions[key]?.summary?.days?.length) {
       push(errors, `kma-forecast:${city}`, `missing current KMA forecast region for city: ${city}.`);
+    } else {
+      for (const day of forecastRegions[key].summary.days) {
+        if (!day.periods || typeof day.periods !== "object") {
+          push(errors, `kma-forecast:${city}:${day.date}`, "daily forecast must include periods.am and periods.pm containers.");
+        } else if (!("am" in day.periods) || !("pm" in day.periods)) {
+          push(errors, `kma-forecast:${city}:${day.date}`, "daily forecast periods must include both am and pm keys.");
+        }
+      }
     }
   }
 }

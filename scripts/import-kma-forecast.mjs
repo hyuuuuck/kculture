@@ -100,6 +100,18 @@ function rainSignal(row) {
   return row.pty !== 0 || (row.popPct || 0) >= 50 || /rain|shower|비|소나기/i.test(`${row.weatherEn} ${row.weatherKo}`);
 }
 
+function summarizePeriod(rows) {
+  if (!rows.length) return null;
+  return {
+    weatherEn: mode(rows.map((row) => row.weatherEn)),
+    weatherKo: mode(rows.map((row) => row.weatherKo)),
+    maxPopPct: max(rows.map((row) => row.popPct)),
+    minTempC: min(rows.map((row) => row.tempC)),
+    maxTempC: max(rows.map((row) => row.tempC)),
+    rainLikely: rows.some(rainSignal)
+  };
+}
+
 function summarizeDay(date, rows) {
   const weatherEn = mode(rows.map((row) => row.weatherEn));
   const weatherKo = mode(rows.map((row) => row.weatherKo));
@@ -110,6 +122,8 @@ function summarizeDay(date, rows) {
   const avgHumidityPct = average(rows.map((row) => row.humidityPct));
   const minHumidityPct = min(rows.map((row) => row.humidityPct));
   const maxHumidityPct = max(rows.map((row) => row.humidityPct));
+  const amRows = rows.filter((row) => row.hour < 12);
+  const pmRows = rows.filter((row) => row.hour >= 12);
   return {
     date,
     hourCount: rows.length,
@@ -121,7 +135,11 @@ function summarizeDay(date, rows) {
     avgHumidityPct,
     minHumidityPct,
     maxHumidityPct,
-    rainLikely
+    rainLikely,
+    periods: {
+      am: summarizePeriod(amRows),
+      pm: summarizePeriod(pmRows)
+    }
   };
 }
 

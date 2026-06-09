@@ -134,6 +134,14 @@ let dict = {
     downloadCalendar: "Download calendar file",
     calendarWeather: "Weather planning",
     packHint: "Pack",
+    forecastStripTitle: "KMA day-by-day forecast",
+    forecastMorning: "AM",
+    forecastAfternoon: "PM",
+    forecastLowHigh: "Low / High",
+    forecastRainChance: "Rain",
+    forecastNoData: "No period data",
+    todayLabel: "Today",
+    tomorrowLabel: "Tomorrow",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
     sourceRefreshTitle: "Latest source refresh",
@@ -496,6 +504,14 @@ dict = {
     downloadCalendar: "Download calendar file",
     calendarWeather: "Weather planning",
     packHint: "Pack",
+    forecastStripTitle: "KMA day-by-day forecast",
+    forecastMorning: "AM",
+    forecastAfternoon: "PM",
+    forecastLowHigh: "Low / High",
+    forecastRainChance: "Rain",
+    forecastNoData: "No period data",
+    todayLabel: "Today",
+    tomorrowLabel: "Tomorrow",
     sourcesTitle: "Source System",
     sourcesText: "The site separates official APIs, official page monitoring, and K-pop curation queues so fresh content stays safer for AdSense and travelers.",
     sourceRefreshTitle: "Latest source refresh",
@@ -877,6 +893,14 @@ dict.ja = {
   downloadCalendar: "カレンダーをダウンロード",
   calendarWeather: "天気の目安",
   packHint: "持ち物",
+  forecastStripTitle: "気象庁の日別予報",
+  forecastMorning: "午前",
+  forecastAfternoon: "午後",
+  forecastLowHigh: "最低 / 最高",
+  forecastRainChance: "降水",
+  forecastNoData: "時間帯データなし",
+  todayLabel: "今日",
+  tomorrowLabel: "明日",
   sourcesTitle: "公式情報システム",
   sourcesText: "公式API、公式ページ監視、K-popキュレーション待ちを分けて、旅行者とAdSense向けに安全な更新体制を保ちます。",
   sourceRefreshTitle: "最新の情報源チェック",
@@ -1764,7 +1788,8 @@ function combineForecastDays(region, days) {
     minHumidityPct,
     maxHumidityPct,
     humidityTrend,
-    rainLikely
+    rainLikely,
+    days
   };
 }
 
@@ -1806,6 +1831,82 @@ function kmaBaseTimeText(baseTime) {
 function forecastRangeText(lang, forecast) {
   if (forecast.startDate === forecast.endDate) return dateText(lang, forecast.startDate);
   return `${dateText(lang, forecast.startDate)} - ${dateText(lang, forecast.endDate)}`;
+}
+
+function forecastShortDate(iso) {
+  const match = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const month = match?.[2];
+  const day = match?.[3];
+  if (!month || !day) return iso;
+  return `${Number(month)}.${Number(day)}.`;
+}
+
+function forecastDayName(lang, iso) {
+  const offset = daysFromToday(iso);
+  if (offset === 0) return tr(lang, "todayLabel");
+  if (offset === 1) return tr(lang, "tomorrowLabel");
+  return new Intl.DateTimeFormat(languages[lang]?.locale || "en-US", { weekday: "short", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+}
+
+function weatherKind(weatherText, rainLikely = false) {
+  const text = String(weatherText || "").toLowerCase();
+  if (rainLikely || /rain|shower|비|소나기/.test(text)) return "rain";
+  if (/snow|눈/.test(text)) return "snow";
+  if (/cloud|overcast|흐림|구름/.test(text)) return "cloud";
+  return "sun";
+}
+
+function weatherSymbol(kind, label) {
+  return `<span class="weather-symbol ${esc(kind)}" title="${esc(label || kind)}" aria-label="${esc(label || kind)}"></span>`;
+}
+
+function periodForecastBlock(period, label, lang) {
+  if (!period) {
+    return `
+              <div class="forecast-period missing">
+                <span>${esc(label)}</span>
+                <span class="weather-symbol empty" aria-label="${esc(tr(lang, "forecastNoData"))}"></span>
+                <strong>-</strong>
+              </div>`;
+  }
+  const weatherText = period.weatherEn || period.weatherKo || "Forecast";
+  const kind = weatherKind(weatherText, period.rainLikely);
+  const rain = Number.isFinite(period.maxPopPct) ? `${Math.round(period.maxPopPct)}%` : "-";
+  return `
+              <div class="forecast-period">
+                <span>${esc(label)}</span>
+                ${weatherSymbol(kind, weatherText)}
+                <strong>${esc(rain)}</strong>
+              </div>`;
+}
+
+function forecastDayCard(day, lang) {
+  const low = Number.isFinite(day.minTempC) ? Math.round(day.minTempC) : "-";
+  const high = Number.isFinite(day.maxTempC) ? Math.round(day.maxTempC) : "-";
+  const kind = weatherKind(day.weatherEn || day.weatherKo, day.rainLikely);
+  return `
+            <article class="forecast-card ${kind}">
+              <div class="forecast-card-head">
+                <div>
+                  <strong>${esc(forecastDayName(lang, day.date))}</strong>
+                  <span>${esc(forecastShortDate(day.date))}</span>
+                </div>
+                <p><span>${tr(lang, "forecastLowHigh")}</span><b><em class="low">${esc(low)}</em>&deg; / <em class="high">${esc(high)}</em>&deg;</b></p>
+              </div>
+              <div class="forecast-periods">
+                ${periodForecastBlock(day.periods?.am, tr(lang, "forecastMorning"), lang)}
+                ${periodForecastBlock(day.periods?.pm, tr(lang, "forecastAfternoon"), lang)}
+              </div>
+            </article>`;
+}
+
+function forecastStrip(forecast, lang) {
+  const days = (forecast.days || []).filter((day) => day.date >= today).slice(0, 7);
+  if (!days.length) return "";
+  return `
+          <div class="forecast-strip" aria-label="${esc(tr(lang, "forecastStripTitle"))}">
+            ${days.map((day) => forecastDayCard(day, lang)).join("")}
+          </div>`;
 }
 
 function temperatureMood(maxTempC) {
@@ -1874,6 +1975,7 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
     const items = forecastPacking(forecast);
     return `
           <h2>${tr(lang, "weatherPlan")}</h2>
+          ${forecastStrip(forecast, lang)}
           <p><strong>KMA short-term forecast / ${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</strong>: ${esc(forecastSummaryText(forecast))}</p>
           <ul>${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
           <p>${esc(forecastAdvice(forecast))}</p>

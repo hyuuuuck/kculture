@@ -22,6 +22,18 @@ const languageLocales = {
   ru: "ru-RU",
   ja: "ja-JP"
 };
+const forecastLabels = {
+  en: {
+    lowHigh: "Low / High",
+    morning: "AM",
+    afternoon: "PM"
+  },
+  ja: {
+    lowHigh: "最低 / 最高",
+    morning: "午前",
+    afternoon: "午後"
+  }
+};
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseSlotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const errors = [];
@@ -64,6 +76,12 @@ function monthNameFromIso(iso) {
 function dateText(lang, iso) {
   const date = new Date(`${iso}T00:00:00Z`);
   return new Intl.DateTimeFormat(languageLocales[lang] || "en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
+}
+
+function forecastShortDate(iso) {
+  const match = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return iso;
+  return `${Number(match[2])}.${Number(match[3])}.`;
 }
 
 function weatherIsoForEvent(event) {
@@ -127,6 +145,10 @@ function assertIncludes(html, needle, id, message) {
   if (!html.includes(needle)) push(id, message);
 }
 
+function forecastLabel(lang, key) {
+  return forecastLabels[lang]?.[key] || forecastLabels.en[key];
+}
+
 function validateDetailPage(event, lang) {
   const relativePath = path.join("dist", lang, "events", `${event.slug}.html`);
   const file = path.join(root, relativePath);
@@ -176,6 +198,13 @@ function validateDetailPage(event, lang) {
     assertIncludes(html, "KMA short-term forecast", id, "current KMA forecast label is missing.");
     assertIncludes(html, esc(currentWeather.source.name), id, "current KMA forecast source is missing.");
     assertIncludes(html, esc(forecastInfo.region.label), id, "current KMA forecast location is missing.");
+    assertIncludes(html, "forecast-strip", id, "day-by-day forecast strip is missing.");
+    assertIncludes(html, forecastLabel(lang, "lowHigh"), id, "forecast low/high label is missing.");
+    assertIncludes(html, forecastLabel(lang, "morning"), id, "forecast morning period is missing.");
+    assertIncludes(html, forecastLabel(lang, "afternoon"), id, "forecast afternoon period is missing.");
+    for (const day of forecastInfo.days.slice(0, 2)) {
+      assertIncludes(html, esc(forecastShortDate(day.date)), id, `forecast day card is missing short date: ${day.date}`);
+    }
   } else {
     assertIncludes(html, esc(weatherInfo.regionKey), id, "weather region is missing.");
     assertIncludes(html, esc(weatherInfo.monthName), id, "weather month is missing.");

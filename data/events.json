@@ -683,6 +683,93 @@
     "mapQueryKo": "올림픽공원 KSPO DOME"
   },
   {
+    "slug": "p1harmony-fan-meeting-goyang-2026",
+    "category": "kpop",
+    "eventKind": "concert",
+    "priority": 94,
+    "startDate": "2026-07-11",
+    "endDate": "2026-07-12",
+    "dateLabel": "2026-07-11 - 2026-07-12 KST",
+    "city": "Goyang",
+    "district": "Ilsanseo-gu",
+    "venue": "KINTEX Exhibition Center 2, Hall 9B",
+    "sourceName": "Melon Ticket",
+    "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213323",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official",
+    "thumbnail": "assets/event-thumbnails/official/p1harmony-fan-meeting-goyang-2026.png",
+    "title": {
+      "en": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]",
+      "es": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]",
+      "zh": "2026 P1Harmony粉丝见面会[P1uspace H: Horror Haven]",
+      "pt": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]",
+      "ru": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]",
+      "ja": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]"
+    },
+    "summary": {
+      "en": "Melon Ticket lists P1Harmony's 2026 fan meeting for July 11-12, 2026 at KINTEX Exhibition Center 2 Hall 9B in Goyang, with certified booking and venue details visitors should confirm before buying.",
+      "es": "Melon Ticket lista el fan meeting 2026 de P1Harmony del 11 al 12 de julio de 2026 en KINTEX Exhibition Center 2 Hall 9B, Goyang, con detalles de reserva certificada y recinto.",
+      "zh": "Melon Ticket列出P1Harmony 2026粉丝见面会，时间为2026年7月11日至12日，地点为高阳KINTEX第二展厅9B馆，并提示购票前确认认证预订和场馆信息。",
+      "pt": "A Melon Ticket lista o fan meeting 2026 do P1Harmony em 11 e 12 de julho de 2026 no KINTEX Exhibition Center 2 Hall 9B, em Goyang, com reserva certificada e detalhes do local.",
+      "ru": "Melon Ticket lists the 2026 P1Harmony fan meeting for July 11-12, 2026 at KINTEX Exhibition Center 2 Hall 9B in Goyang, with certified booking and venue details visitors should confirm before buying.",
+      "ja": "Melon TicketはP1Harmonyの2026年ファンミーティングを2026年7月11日から12日、高陽KINTEX第2展示場9Bホールで開催と掲載しています。購入前に認証予約と会場情報を確認してください。"
+    },
+    "whyGo": {
+      "en": "A practical KINTEX fan-meeting page for fans comparing ticket rules, Daehwa Station access, Goyang lodging, and late-night return routes to Seoul.",
+      "es": "Una pagina practica para fans que comparan reglas de boletos, acceso desde Daehwa Station, alojamiento en Goyang y regreso nocturno a Seul.",
+      "zh": "适合粉丝比较票务规则、大化站交通、高阳住宿，以及返回首尔夜间路线。",
+      "pt": "Uma pagina pratica para fans compararem regras de ingresso, acesso pela Daehwa Station, hospedagem em Goyang e retorno noturno a Seul.",
+      "ru": "A practical page for fans comparing ticket rules, Daehwa Station access, Goyang lodging, and late-night return routes to Seoul.",
+      "ja": "チケット規則、大化駅からのアクセス、高陽周辺の宿泊、ソウルへの夜の帰路を比較するファン向けの実用ページです。"
+    },
+    "travelTips": [
+      "Use the Melon Ticket official page before payment because certified booking, account verification, pickup, and cancellation rules can affect foreign visitors.",
+      "Search maps with 킨텍스 제2전시장 9B홀; KINTEX is in Goyang/Ilsan, not central Seoul, so compare Daehwa Station, taxi, and hotel options.",
+      "KINTEX events can create long taxi and subway queues after the show, so save a late-return route to Seoul before entering the venue.",
+      "July can be hot and rainy around Goyang, so check the KMA forecast and keep quick-dry clothes or a compact umbrella."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "concert",
+      "expectedStartDate": "2026-07-11",
+      "expectedEndDate": "2026-07-12",
+      "expectedSourceName": "Melon Ticket",
+      "expectedSourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213323",
+      "localMustContain": [
+        "KINTEX",
+        "certified booking",
+        "Goyang"
+      ],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-12",
+          "endDate": "2026-06-14",
+          "reason": "June 12-14 belongs to ALPHA DRIVE ONE in Incheon, not P1Harmony."
+        },
+        {
+          "startDate": "2026-07-03",
+          "endDate": "2026-07-05",
+          "reason": "July 3-5 belongs to DAY6 The DECADE Finale, not P1Harmony."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Melon Ticket",
+          "url": "https://ticket.melon.com/performance/index.htm?prodId=213323",
+          "mustContain": [
+            "2026 P1Harmony FAN MEETING",
+            "Horror Haven",
+            "2026.07.11 - 2026.07.12",
+            "일산 킨텍스(KINTEX) 제2전시장 9B홀"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Goyang",
+    "mapQueryKo": "킨텍스 제2전시장 9B홀"
+  },
+  {
     "slug": "daegu-chimac-festival-2026",
     "category": "festival",
     "priority": 92,
@@ -907,7 +994,7 @@
       "KINTEX is outside central Seoul; plan extra subway, taxi, or shuttle time from Hongdae, Myeongdong, or Gangnam lodging.",
       "Pair the festival with Ilsan Lake Park or Starfield Goyang only if the concert entry and return transport timing still work."
     ],
-    "weatherRegion": "Seoul",
+    "weatherRegion": "Goyang",
     "mapQueryKo": "킨텍스"
   },
   {

@@ -127,7 +127,7 @@ function inferRegion(candidate) {
     { city: "Busan", weatherRegion: "Busan", needles: ["busan", "haeundae", "gwangalli", "centum", "dadaepo"] },
     { city: "Seoul", weatherRegion: "Seoul", needles: ["seoul", "myeongdong", "yongsan", "gangnam", "hongdae", "hongik", "seongsu", "ddp", "coex", "jamsil"] },
     { city: "Incheon", weatherRegion: "Incheon", needles: ["incheon", "songdo", "inspire arena"] },
-    { city: "Goyang", weatherRegion: "Nationwide", needles: ["goyang"] },
+    { city: "Goyang", weatherRegion: "Goyang", needles: ["goyang", "ilsan", "kintex"] },
     { city: "Daegu", weatherRegion: "Nationwide", needles: ["daegu"] },
     { city: "Jeju", weatherRegion: "Nationwide", needles: ["jeju"] },
     { city: "Gwangju", weatherRegion: "Nationwide", needles: ["gwangju"] },

@@ -1069,6 +1069,12 @@ const cityDefinitions = {
     description: "Incheon stadium, arena, airport-area, and Songdo event pages with weather, map, and late-return planning notes.",
     weatherRegion: "Incheon"
   },
+  Goyang: {
+    slug: "goyang",
+    title: "Goyang KINTEX events and fan meeting planner",
+    description: "KINTEX, Ilsan, and Goyang event pages with weather, map, lodging, and late-return planning notes.",
+    weatherRegion: "Goyang"
+  },
   Seongnam: {
     slug: "seongnam",
     title: "Seongnam and Pangyo shopping events",
@@ -3184,7 +3190,7 @@ function renderEvent(event, lang) {
     <main class="page">
       <article class="detail-layout">
         <header class="detail-hero">
-          <img src="/${event.thumbnail}" alt="" aria-hidden="true">
+          <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))}">
           <div>
             <p class="eyebrow">${categoryLabel(lang, event.category)} · ${statusLabel(lang, status)}</p>
             <h1>${esc(local(event.title, lang))}</h1>

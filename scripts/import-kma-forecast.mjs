@@ -39,6 +39,7 @@ const weatherRegionMap = {
   Seoul: "Seoul",
   Busan: "Busan",
   Incheon: "Incheon",
+  Goyang: "Goyang",
   Nationwide: "Nationwide"
 };
 

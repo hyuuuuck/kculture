@@ -1063,6 +1063,12 @@ const cityDefinitions = {
     description: "Busan concert, fan project, pop-up, and city event pages for visitors planning transport, lodging, and coastal routes.",
     weatherRegion: "Busan"
   },
+  Incheon: {
+    slug: "incheon",
+    title: "Incheon concerts, airport-area events, and Songdo festivals",
+    description: "Incheon stadium, arena, airport-area, and Songdo event pages with weather, map, and late-return planning notes.",
+    weatherRegion: "Incheon"
+  },
   Seongnam: {
     slug: "seongnam",
     title: "Seongnam and Pangyo shopping events",

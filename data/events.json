@@ -303,7 +303,7 @@
       "Use Incheon Subway Line 1 toward Songdo, but plan a return backup because late-night festival exits can be crowded.",
       "Book nearby lodging early if attending more than one day; same-day returns to Seoul can be tiring after a full outdoor festival."
     ],
-    "weatherRegion": "Nationwide",
+    "weatherRegion": "Incheon",
     "mapQueryKo": "송도달빛축제공원"
   },
   {
@@ -429,6 +429,93 @@
     "mapQueryKo": "부산아시아드주경기장"
   },
   {
+    "slug": "alpha-drive-one-star-road-incheon-2026",
+    "category": "kpop",
+    "eventKind": "concert",
+    "priority": 96,
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-14",
+    "dateLabel": "2026-06-12 - 2026-06-14 KST",
+    "city": "Incheon",
+    "district": "Jung-gu",
+    "venue": "INSPIRE ARENA",
+    "sourceName": "NOL World Ticket",
+    "sourceUrl": "https://world.nol.com/en/ticket/places/26000460/products/26006234",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official",
+    "thumbnail": "assets/event-thumbnails/official/alpha-drive-one-star-road-incheon-2026.png",
+    "title": {
+      "en": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD in INCHEON",
+      "es": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD en Incheon",
+      "zh": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD 仁川场",
+      "pt": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD em Incheon",
+      "ru": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD в Инчхоне",
+      "ja": "2026 ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD in INCHEON"
+    },
+    "summary": {
+      "en": "NOL World lists ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD in Incheon for June 12-14, 2026 at INSPIRE ARENA, with official ticketing details that visitors should verify before booking.",
+      "es": "NOL World lista ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD en Incheon del 12 al 14 de junio de 2026 en INSPIRE ARENA, con detalles oficiales de venta que conviene verificar antes de reservar.",
+      "zh": "NOL World列出ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD仁川场，时间为2026年6月12日至14日，地点为INSPIRE ARENA，游客订票前应确认官方售票规则。",
+      "pt": "A NOL World lista ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD em Incheon de 12 a 14 de junho de 2026 no INSPIRE ARENA, com detalhes oficiais de venda que visitantes devem verificar antes de reservar.",
+      "ru": "NOL World указывает ALPHA DRIVE ONE FAN-CON TOUR STAR ROAD в Инчхоне на 12-14 июня 2026 года в INSPIRE ARENA; перед бронированием стоит проверить официальные правила продажи.",
+      "ja": "NOL WorldはALPHA DRIVE ONE FAN-CON TOUR STAR ROADの仁川公演を2026年6月12日から14日、INSPIRE ARENAで開催と掲載しています。予約前に公式販売情報を確認してください。"
+    },
+    "whyGo": {
+      "en": "A practical airport-area concert page for fans comparing ticket rules, INSPIRE ARENA access, hotel choices near Incheon Airport, and late-night return routes.",
+      "es": "Una pagina practica para fans que comparan reglas de boletos, acceso a INSPIRE ARENA, hoteles cerca del aeropuerto de Incheon y regreso nocturno.",
+      "zh": "适合粉丝比较票务规则、INSPIRE ARENA交通、仁川机场附近住宿和夜间返程路线。",
+      "pt": "Uma pagina pratica para fãs compararem regras de ingresso, acesso ao INSPIRE ARENA, hotéis perto do Aeroporto de Incheon e retorno noturno.",
+      "ru": "Практичная страница для фанатов, которые сравнивают правила билетов, доступ к INSPIRE ARENA, отели у аэропорта Инчхон и поздний обратный маршрут.",
+      "ja": "チケット規則、INSPIRE ARENAへのアクセス、仁川空港周辺の宿泊、夜の帰路を比較するファン向けの実用ページです。"
+    },
+    "travelTips": [
+      "Use the NOL World official ticket page before payment because verified-account, passport-name, mobile-ticket, and pickup rules can affect foreign visitors.",
+      "Search maps with 인스파이어 아레나; INSPIRE ARENA is closer to Incheon Airport than central Seoul, so compare airport hotels and AREX or taxi routes.",
+      "For multi-day fan-con plans, keep enough buffer for airport-area traffic, shuttle queues, and late-night taxi demand.",
+      "June weather in Incheon can be humid with rising rain risk, so check the KMA forecast and venue notices before leaving."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "concert",
+      "expectedStartDate": "2026-06-12",
+      "expectedEndDate": "2026-06-14",
+      "expectedSourceName": "NOL World Ticket",
+      "expectedSourceUrl": "https://world.nol.com/en/ticket/places/26000460/products/26006234",
+      "localMustContain": [
+        "INSPIRE ARENA",
+        "verified-account",
+        "mobile-ticket"
+      ],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-12",
+          "endDate": "2026-06-13",
+          "reason": "June 12-13 alone belongs to BTS Busan concert planning; ALPHA DRIVE ONE runs June 12-14 in Incheon."
+        },
+        {
+          "startDate": "2026-06-20",
+          "endDate": "2026-06-21",
+          "reason": "June 20-21 belongs to SEVENTEEN CARAT LAND, not ALPHA DRIVE ONE."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000460/products/26006234",
+          "mustContain": [
+            "2026 ALPHA DRIVE ONE FAN-CON TOUR",
+            "STAR ROAD",
+            "Jun 12, 2026 - Jun 14, 2026",
+            "INSPIRE ARENA"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Incheon",
+    "mapQueryKo": "인스파이어 아레나"
+  },
+  {
     "slug": "seventeen-carat-land-incheon-2026",
     "category": "kpop",
     "eventKind": "concert",
@@ -506,7 +593,7 @@
         }
       ]
     },
-    "weatherRegion": "Nationwide",
+    "weatherRegion": "Incheon",
     "mapQueryKo": "인천아시아드주경기장"
   },
   {

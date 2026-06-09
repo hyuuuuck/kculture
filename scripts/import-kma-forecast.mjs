@@ -38,6 +38,7 @@ const cityMap = {
 const weatherRegionMap = {
   Seoul: "Seoul",
   Busan: "Busan",
+  Incheon: "Incheon",
   Nationwide: "Nationwide"
 };
 

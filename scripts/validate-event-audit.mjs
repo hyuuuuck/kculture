@@ -162,6 +162,11 @@ async function checkSourceEvidence(event) {
 
     const source = await fetchSource(evidence.url);
     if (!source.ok) {
+      const allowedBlockedStatuses = (evidence.allowBlockedStatuses || []).map(Number);
+      if (allowedBlockedStatuses.includes(Number(source.status)) && evidence.blockedReason) {
+        push(warnings, id, `official evidence source returned allowed blocked status ${source.status}: ${evidence.url} (${evidence.blockedReason})`);
+        continue;
+      }
       push(errors, id, `official evidence source failed: ${evidence.url} (${source.status}${source.error ? ` ${source.error}` : ""})`);
       continue;
     }

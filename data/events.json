@@ -1005,6 +1005,10 @@
         {
           "sourceName": "Melon Ticket",
           "url": "https://ticket.melon.com/performance/index.htm?prodId=213323",
+          "allowBlockedStatuses": [
+            423
+          ],
+          "blockedReason": "Melon Ticket can return HTTP 423 to GitHub Actions or automated datacenter IPs; the official page, dates, venue, and poster were manually rechecked on 2026-06-10.",
           "mustContain": [
             "2026 P1Harmony FAN MEETING",
             "Horror Haven",

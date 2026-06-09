@@ -11,7 +11,7 @@ const today = todayString();
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const existingSlugs = new Set(events.map((event) => event.slug));
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
-const existingSourceUrls = new Set(events.map((event) => normalizeUrl(event.sourceUrl)).filter(Boolean));
+const existingSourceUrls = new Set(events.flatMap((event) => [event.sourceUrl, ...(event.alternateSourceUrls || [])]).map(normalizeUrl).filter(Boolean));
 const draftedSourceUrls = new Set();
 const skippedDrafts = [];
 

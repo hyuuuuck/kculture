@@ -211,6 +211,13 @@ for (const event of events) {
   if (!Array.isArray(event.travelTips) || event.travelTips.length < 2) push(errors, id, "at least two travelTips are required.");
   if (!weatherRegions.has(event.weatherRegion)) push(errors, id, `weatherRegion is not configured: ${event.weatherRegion}`);
   assertUrl(id, "sourceUrl", event.sourceUrl);
+  if (event.alternateSourceUrls !== undefined) {
+    if (!Array.isArray(event.alternateSourceUrls)) {
+      push(errors, id, "alternateSourceUrls must be an array when provided.");
+    } else {
+      event.alternateSourceUrls.forEach((url, index) => assertUrl(id, `alternateSourceUrls[${index}]`, url));
+    }
+  }
   assertUrl(id, "officialWebsiteUrl", event.officialWebsiteUrl, false);
   if (event.officialWebsiteUrl && !nonEmptyString(event.officialWebsiteName)) {
     push(errors, id, "officialWebsiteName is required when officialWebsiteUrl is present.");

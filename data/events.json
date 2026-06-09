@@ -270,6 +270,9 @@
     "venue": "Songdo Moonlight Festival Park",
     "sourceName": "Incheon Pentaport Music Festival",
     "sourceUrl": "https://pentaport.co.kr/",
+    "alternateSourceUrls": [
+      "https://world.nol.com/en/ticket/places/26000456/products/26006159"
+    ],
     "lastChecked": "2026-06-09",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
@@ -426,6 +429,87 @@
     "mapQueryKo": "부산아시아드주경기장"
   },
   {
+    "slug": "seventeen-carat-land-incheon-2026",
+    "category": "kpop",
+    "eventKind": "concert",
+    "priority": 95,
+    "startDate": "2026-06-20",
+    "endDate": "2026-06-21",
+    "dateLabel": "2026-06-20 - 2026-06-21 KST",
+    "city": "Incheon",
+    "district": "Seo-gu",
+    "venue": "Incheon Asiad Main Stadium",
+    "sourceName": "NOL World Ticket",
+    "sourceUrl": "https://world.nol.com/en/ticket/places/26000350/products/26006078",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official",
+    "thumbnail": "assets/event-thumbnails/official/seventeen-carat-land-incheon-2026.svg",
+    "title": {
+      "en": "2026 SVT 10TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉",
+      "es": "Fan meeting SVT 2026 〈SEVENTEEN in CARAT LAND〉",
+      "zh": "2026 SVT粉丝见面会〈SEVENTEEN in CARAT LAND〉",
+      "pt": "Fan meeting SVT 2026 〈SEVENTEEN in CARAT LAND〉",
+      "ru": "Фан-встреча SVT 2026 〈SEVENTEEN in CARAT LAND〉",
+      "ja": "2026 SVTファンミーティング〈SEVENTEEN in CARAT LAND〉"
+    },
+    "summary": {
+      "en": "NOL World lists SEVENTEEN's 10th fan meeting for June 20-21, 2026 at Incheon Asiad Main Stadium, with verified-account and mobile-ticket rules that visitors should check before booking.",
+      "es": "NOL World lista el fan meeting del 10 aniversario de SEVENTEEN del 20 al 21 de junio de 2026 en Incheon Asiad Main Stadium, con reglas de cuenta verificada y boleto movil.",
+      "zh": "NOL World列出SEVENTEEN十周年粉丝见面会，时间为2026年6月20日至21日，地点为仁川亚运主体育场，并提示需确认实名账户和移动票规则。",
+      "pt": "A NOL World lista o fan meeting de 10 anos do SEVENTEEN em 20 e 21 de junho de 2026 no Incheon Asiad Main Stadium, com regras de conta verificada e ingresso móvel.",
+      "ru": "NOL World указывает фан-встречу к 10-летию SEVENTEEN на 20-21 июня 2026 года на Incheon Asiad Main Stadium, с правилами verified account и мобильного билета.",
+      "ja": "NOL Worldは、SEVENTEENの10周年ファンミーティングを2026年6月20日から21日、仁川アシアード主競技場で開催と掲載しています。本人確認済みアカウントとモバイルチケットの規則を確認してください。"
+    },
+    "whyGo": {
+      "en": "A high-intent K-pop trip page for fans comparing ticket rules, airport timing, lodging near Incheon or Seoul, and late-night return options.",
+      "es": "Una pagina util para fans K-pop que comparan reglas de boletos, vuelos, alojamiento en Incheon o Seul y regreso nocturno.",
+      "zh": "适合K-pop粉丝规划门票规则、机场时间、仁川或首尔住宿，以及夜间返程方式。",
+      "pt": "Uma pagina de alta intenção para fãs de K-pop que comparam regras de ingresso, aeroporto, hospedagem em Incheon ou Seul e retorno noturno.",
+      "ru": "Полезная страница для K-pop фанатов, которые сверяют правила билетов, аэропорт, жилье в Инчхоне или Сеуле и поздний обратный маршрут.",
+      "ja": "チケット規則、空港移動、仁川またはソウル周辺の宿泊、夜の帰路を比較するK-popファン向けの高需要ページです。"
+    },
+    "travelTips": [
+      "Use the NOL World official ticket page before payment because verified-account, mobile-ticket, and passport rules can affect foreign visitors.",
+      "Plan the venue as Incheon Asiad Main Stadium, not central Seoul; allow extra transfer time from Incheon Airport, Hongdae, Myeongdong, or Gangnam.",
+      "Mobile tickets may be difficult to load in heavy stadium data traffic, so prepare the ticket screen and battery before arrival.",
+      "Check official transport and shuttle notices again on the event week because crowd-control routes can change."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "concert",
+      "expectedStartDate": "2026-06-20",
+      "expectedEndDate": "2026-06-21",
+      "expectedSourceName": "NOL World Ticket",
+      "expectedSourceUrl": "https://world.nol.com/en/ticket/places/26000350/products/26006078",
+      "localMustContain": [
+        "Incheon Asiad Main Stadium",
+        "mobile-ticket",
+        "verified-account"
+      ],
+      "forbiddenDateRanges": [
+        {
+          "startDate": "2026-06-12",
+          "endDate": "2026-06-13",
+          "reason": "June 12-13 belongs to BTS Busan concert planning, not SEVENTEEN CARAT LAND."
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000350/products/26006078",
+          "mustContain": [
+            "2026 SVT 10TH FAN MEETING",
+            "Jun 20, 2026 - Jun 21, 2026",
+            "INCHEON ASIAD MAIN STADIUM"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Nationwide",
+    "mapQueryKo": "인천아시아드주경기장"
+  },
+  {
     "slug": "daegu-chimac-festival-2026",
     "category": "festival",
     "priority": 92,
@@ -572,6 +656,9 @@
     "venue": "Gwangalli Beach and Suyeong Historical Park",
     "sourceName": "Busan Metropolitan City Events and English News",
     "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1717628",
+    "alternateSourceUrls": [
+      "https://world.nol.com/en/content/festas/019e3f18-87d4-77f7-9b57-942b70310369"
+    ],
     "lastChecked": "2026-06-09",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
@@ -971,6 +1058,9 @@
     "venue": "Millak Waterside Park",
     "sourceName": "Busan Metropolitan City Events and English News",
     "sourceUrl": "https://www.busan.go.kr/bige/enjoy-busan/view?bbsNo=10&dataNo=72859&srchCl=Enjoy+Busan",
+    "alternateSourceUrls": [
+      "https://world.nol.com/en/content/festas/019e808b-2ea1-70a5-98a6-9fe5f8405fd2"
+    ],
     "lastChecked": "2026-06-09",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",

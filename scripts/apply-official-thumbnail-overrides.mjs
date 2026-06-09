@@ -40,12 +40,14 @@ const palettes = {
   coex: { bg: "#0f4c81", panel: "#ffffff", accent: "#75d0ff", ink: "#ffffff", sub: "#dceeff" },
   "seoul-green": { bg: "#0f6248", panel: "#f4fff9", accent: "#b8e65c", ink: "#ffffff", sub: "#d9f4e8" },
   weverse: { bg: "#101820", panel: "#f8fafc", accent: "#00d8c0", ink: "#ffffff", sub: "#d7e1e7" },
+  seventeen: { bg: "#173f5f", panel: "#f6f0ff", accent: "#f7cac9", ink: "#ffffff", sub: "#dce8ff" },
   health: { bg: "#075c6b", panel: "#f7fffb", accent: "#70e1b5", ink: "#ffffff", sub: "#d8f3f0" },
   hyundai: { bg: "#1f2933", panel: "#f8f3ea", accent: "#c8a15a", ink: "#ffffff", sub: "#efe8d7" }
 };
 
 function brandMark(config) {
   const brand = String(config.brand || "").toUpperCase();
+  const brandFontSize = brand.length > 12 ? 32 : brand.length > 8 ? 40 : brand.length > 6 ? 46 : 52;
   if (config.palette === "bts") {
     return `<g transform="translate(70 70)">
         <rect width="250" height="300" rx="8" fill="#202124"/>
@@ -57,7 +59,7 @@ function brandMark(config) {
 
   return `<g transform="translate(70 78)">
       <rect width="300" height="170" rx="18" fill="${palettes[config.palette]?.panel || "#ffffff"}"/>
-      <text x="150" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="${brand.length > 10 ? 35 : 52}" font-weight="800" fill="#102033">${escapeXml(brand)}</text>
+      <text x="150" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="${brandFontSize}" font-weight="800" fill="#102033">${escapeXml(brand)}</text>
     </g>`;
 }
 

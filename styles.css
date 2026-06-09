@@ -1162,7 +1162,20 @@ img {
 
 .detail-actions .save-event {
   width: auto;
+  min-width: 118px;
   margin-top: 0;
+  padding-inline: 16px;
+  background: var(--white);
+}
+
+.detail-actions .save-event[aria-pressed="true"] {
+  color: var(--white);
+  border-color: var(--teal-dark);
+  background: var(--teal-dark);
+}
+
+.detail-actions .save-event[aria-pressed="true"]::before {
+  color: var(--teal-dark);
   background: var(--white);
 }
 

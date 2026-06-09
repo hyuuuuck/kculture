@@ -1190,12 +1190,70 @@ function trimHeading(value, maxLength = 64) {
   return clipped;
 }
 
-function guideSectionHeading(section, index) {
-  const compact = String(section || "").replace(/\s+/g, " ").trim();
-  const firstSentence = compact.match(/^.+?[.!?。！？]/u)?.[0] || compact;
-  const hasCjk = /[\u3400-\u9fff]/u.test(firstSentence);
-  const words = firstSentence.split(" ").filter(Boolean);
-  const title = hasCjk || words.length < 5 ? trimHeading(firstSentence) : words.slice(0, 5).join(" ");
+const guideHeadingSets = {
+  kpop: {
+    en: ["Official notice", "Entry rules", "Risk checks", "Backup plan"],
+    es: ["Aviso oficial", "Reglas de entrada", "Riesgos clave", "Plan alternativo"],
+    zh: ["官方公告", "入场规则", "风险检查", "备用计划"],
+    pt: ["Aviso oficial", "Regras de entrada", "Riscos principais", "Plano alternativo"],
+    ru: ["Официальное уведомление", "Правила входа", "Проверка рисков", "Запасной план"],
+    ja: ["公式告知", "入場ルール", "リスク確認", "代替プラン"]
+  },
+  festival: {
+    en: ["Official basics", "Weather decision", "Route shape", "Final recheck"],
+    es: ["Datos oficiales", "Decision de clima", "Forma de ruta", "Revision final"],
+    zh: ["官方要点", "天气判断", "路线安排", "最终复查"],
+    pt: ["Dados oficiais", "Decisao de clima", "Formato da rota", "Rechecagem final"],
+    ru: ["Официальные основы", "Решение по погоде", "Форма маршрута", "Финальная проверка"],
+    ja: ["公式情報", "天気判断", "ルート設計", "最終確認"]
+  },
+  shopping: {
+    en: ["Sale window", "Visitor eligibility", "Archive safely", "Final source check"],
+    es: ["Ventana de oferta", "Elegibilidad", "Archivo claro", "Chequeo final"],
+    zh: ["促销窗口", "游客资格", "安全归档", "最终核实"],
+    pt: ["Janela de oferta", "Elegibilidade", "Arquivo claro", "Cheque final"],
+    ru: ["Окно распродажи", "Право на участие", "Безопасный архив", "Финальная проверка"],
+    ja: ["セール時期", "旅行者条件", "明確なアーカイブ", "最終ソース確認"]
+  },
+  beauty: {
+    en: ["Official offer", "Neighborhood route", "Stock reality", "Original value"],
+    es: ["Oferta oficial", "Ruta por barrio", "Stock real", "Valor propio"],
+    zh: ["官方优惠", "商圈路线", "库存现实", "原创价值"],
+    pt: ["Oferta oficial", "Rota por bairro", "Estoque real", "Valor proprio"],
+    ru: ["Официальное предложение", "Маршрут по району", "Реальность наличия", "Собственная ценность"],
+    ja: ["公式オファー", "エリア別ルート", "在庫の現実", "独自価値"]
+  },
+  "department-store": {
+    en: ["Official lead", "Branch rules", "Low-friction route", "Archive value"],
+    es: ["Pista oficial", "Reglas de sucursal", "Ruta facil", "Valor de archivo"],
+    zh: ["官方线索", "门店规则", "低负担路线", "归档价值"],
+    pt: ["Pista oficial", "Regras da filial", "Rota facil", "Valor de arquivo"],
+    ru: ["Официальный источник", "Правила филиала", "Маршрут без лишней нагрузки", "Ценность архива"],
+    ja: ["公式の手がかり", "支店ルール", "負担の少ないルート", "アーカイブ価値"]
+  },
+  "duty-free": {
+    en: ["Departure link", "Pickup checklist", "Allowance rules", "Before payment"],
+    es: ["Salida vinculada", "Checklist de recogida", "Reglas de limite", "Antes de pagar"],
+    zh: ["出境绑定", "取货清单", "限额规则", "付款前"],
+    pt: ["Saida vinculada", "Checklist de retirada", "Regras de limite", "Antes de pagar"],
+    ru: ["Связь с вылетом", "Чеклист выдачи", "Лимиты и правила", "Перед оплатой"],
+    ja: ["出国旅程との連動", "受け取り確認", "免税範囲ルール", "決済前"]
+  },
+  "travel-benefits": {
+    en: ["Transit-first plan", "Bag strategy", "Airport buffer", "Exit plan"],
+    es: ["Primero transporte", "Estrategia de equipaje", "Margen de aeropuerto", "Plan de salida"],
+    zh: ["交通优先", "行李策略", "机场缓冲", "离场计划"],
+    pt: ["Transporte primeiro", "Estrategia de bagagem", "Folga de aeroporto", "Plano de saida"],
+    ru: ["Сначала транспорт", "Стратегия багажа", "Запас на аэропорт", "План выхода"],
+    ja: ["交通優先", "荷物戦略", "空港の余裕", "退出計画"]
+  }
+};
+
+function guideSectionHeading(guide, lang, index) {
+  const fallback = guideHeadingSets.festival;
+  const set = guideHeadingSets[guide.category] || fallback;
+  const localized = set[lang] || set.en || fallback.en;
+  const title = localized[index] || fallback[lang]?.[index] || fallback.en[index] || tr(lang, "details");
   return `${index + 1}. ${title}`;
 }
 
@@ -3399,7 +3457,7 @@ function renderGuide(guide, lang) {
         ${adUnit("article")}
         ${sections.map((section, index) => `
           <section>
-            <h2>${esc(guideSectionHeading(section, index))}</h2>
+            <h2>${esc(guideSectionHeading(guide, lang, index))}</h2>
             <p>${esc(section)}</p>
           </section>`).join("")}
       </article>

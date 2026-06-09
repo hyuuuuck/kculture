@@ -7,6 +7,7 @@ const dist = path.join(root, "dist");
 const today = todayString();
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(fs.readFileSync(path.join(root, "data", "sources.json"), "utf8"));
+const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const curationQueue = JSON.parse(fs.readFileSync(path.join(root, "data", "curation-queue.json"), "utf8"));
 const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const errors = [];
@@ -30,6 +31,21 @@ function countMatches(text, pattern) {
 
 function assertIncludes(text, needle, id, message) {
   if (!text.includes(needle)) push(id, message);
+}
+
+function htmlText(value) {
+  return String(value || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function comparableHeading(value) {
+  return htmlText(value).replace(/^\d+\.\s*/, "").trim();
 }
 
 for (const lang of languages) {
@@ -89,6 +105,25 @@ for (const event of activeEvents) {
   }
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
+  }
+}
+
+for (const lang of languages) {
+  for (const guide of guides) {
+    const html = read(path.join(lang, "guides", `${guide.slug}.html`));
+    const sections = [...html.matchAll(/<section>\s*<h2>([\s\S]*?)<\/h2>\s*<p>([\s\S]*?)<\/p>\s*<\/section>/g)];
+    const expectedSections = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].length : 0;
+    if (sections.length !== expectedSections) {
+      push(`${lang}/guides/${guide.slug}.html`, `guide should render ${expectedSections} section headings; found ${sections.length}.`);
+    }
+    for (const [index, match] of sections.entries()) {
+      const heading = comparableHeading(match[1]);
+      const paragraph = htmlText(match[2]);
+      if (!heading) push(`${lang}/guides/${guide.slug}.html`, `guide section ${index + 1} heading is empty.`);
+      if (heading.length > 8 && paragraph.startsWith(heading)) {
+        push(`${lang}/guides/${guide.slug}.html`, `guide section ${index + 1} heading duplicates the paragraph opening.`);
+      }
+    }
   }
 }
 

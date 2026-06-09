@@ -8,7 +8,13 @@
       "https://www.data.go.kr/data/15101753/openapi.do",
       "https://apis.data.go.kr/B551011/EngService2/searchFestival2"
     ],
-    "coverage": ["festivals", "attractions", "accommodation", "images", "sync-list"],
+    "coverage": [
+      "festivals",
+      "attractions",
+      "accommodation",
+      "images",
+      "sync-list"
+    ],
     "refreshCadence": "daily after API key approval",
     "automationStatus": "ready-with-api-key",
     "notes": "Use EngService2/searchFestival2 for English event data. Add Kor/Jpn/Chs/Cht/Spn/Rus language services as needed."
@@ -18,7 +24,12 @@
     "type": "official-page-monitor",
     "owner": "Korea Tourism Organization",
     "url": "https://english.visitkorea.or.kr",
-    "coverage": ["travel news", "festival calendar", "benefits", "K-pop tourism guides"],
+    "coverage": [
+      "travel news",
+      "festival calendar",
+      "benefits",
+      "K-pop tourism guides"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Use official articles as source links; write original summaries instead of copying full text."
@@ -32,7 +43,12 @@
       "https://korean.visitkorea.or.kr/main/main.do",
       "https://www.mcst.go.kr/english/policy/pressList.jsp"
     ],
-    "coverage": ["accommodation coupons", "regional travel benefits", "domestic lodging discounts", "participating online travel agencies"],
+    "coverage": [
+      "accommodation coupons",
+      "regional travel benefits",
+      "domestic lodging discounts",
+      "participating online travel agencies"
+    ],
     "refreshCadence": "daily during coupon issue period; hourly near 10:00 KST while coupons are first-come-first-served",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Korea accommodation sale campaign page. Confirm issue period, stay period, eligible regions, participating online travel agencies, and coupon inventory before publishing visitor recommendations."
@@ -48,7 +64,11 @@
       "https://vkc.or.kr/content/",
       "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=575"
     ],
-    "coverage": ["shopping tourism", "winter sale", "foreign visitor benefits"],
+    "coverage": [
+      "shopping tourism",
+      "winter sale",
+      "foreign visitor benefits"
+    ],
     "refreshCadence": "weekly; daily during campaign",
     "automationStatus": "monitor-and-curate",
     "notes": "Seasonal anchor source for winter shopping tourism pages. If the campaign platform blocks automated checks, use the Visit Korea Committee project page or MCST press release as official fallback evidence."
@@ -63,7 +83,12 @@
       "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "https://english.motir.go.kr/eng/article/EATCLdfa319ada?searchKeyword=Korea%20Sale%20FESTA"
     ],
-    "coverage": ["national sale festival", "shopping tourism", "retail promotions", "foreign visitor shopping calendar"],
+    "coverage": [
+      "national sale festival",
+      "shopping tourism",
+      "retail promotions",
+      "foreign visitor shopping calendar"
+    ],
     "refreshCadence": "weekly; daily during campaign announcement and operation windows",
     "automationStatus": "monitor-and-curate",
     "auditSnapshotPath": "data/audit-snapshots/korea-sale-festa-source-watch.txt",
@@ -84,7 +109,11 @@
       "https://mcst.go.kr/english/policy/pressList.jsp?pCurrentPage=1",
       "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=575"
     ],
-    "coverage": ["policy-backed festivals", "tourism campaigns", "official releases"],
+    "coverage": [
+      "policy-backed festivals",
+      "tourism campaigns",
+      "official releases"
+    ],
     "refreshCadence": "weekly",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for validation when a tourism campaign is government-backed."
@@ -98,7 +127,12 @@
       "https://www.korea.kr/news/policyNewsList.do?sectId=policy",
       "https://www.korea.kr/briefing/pressReleaseList.do"
     ],
-    "coverage": ["government-backed festivals", "tourism campaigns", "shopping policy releases", "culture and travel announcements"],
+    "coverage": [
+      "government-backed festivals",
+      "tourism campaigns",
+      "shopping policy releases",
+      "culture and travel announcements"
+    ],
     "refreshCadence": "weekly; daily when campaign launches are expected",
     "automationStatus": "monitor-and-curate",
     "notes": "Use as official government confirmation for national campaigns such as sale festivals, tourism weeks, and ministry-backed cultural programs. Keep the press-release list as a fallback when the policy news list intermittently fails automated fetch."
@@ -108,7 +142,11 @@
     "type": "official-api",
     "owner": "Culture Portal / MCST ecosystem",
     "url": "https://www.culture.go.kr/portal/main/contents.do?menuNo=200155",
-    "coverage": ["performances", "exhibitions", "culture spaces"],
+    "coverage": [
+      "performances",
+      "exhibitions",
+      "culture spaces"
+    ],
     "refreshCadence": "daily after API key approval",
     "automationStatus": "planned-api",
     "notes": "Best fit for performances and exhibitions that are not covered by TourAPI."
@@ -122,7 +160,13 @@
       "https://www.mykfesta.com/eng/program/live/live.php",
       "https://kofice.or.kr/www/main.do"
     ],
-    "coverage": ["MyK FESTA", "K-culture festival", "K-pop concert", "brand pop-ups", "K-culture business programs"],
+    "coverage": [
+      "MyK FESTA",
+      "K-culture festival",
+      "K-pop concert",
+      "brand pop-ups",
+      "K-culture business programs"
+    ],
     "refreshCadence": "daily during ticketing and festival operation windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Official MyK FESTA site backed by KOFICE and MCST. Verify ticketing, program zones, lineup, and foreign visitor purchase paths before publishing updates."
@@ -135,7 +179,12 @@
     "alternateUrls": [
       "https://www.data.go.kr/data/15059093/openapi.do"
     ],
-    "coverage": ["previous-year daily weather", "temperature", "precipitation", "humidity"],
+    "coverage": [
+      "previous-year daily weather",
+      "temperature",
+      "precipitation",
+      "humidity"
+    ],
     "refreshCadence": "daily for upcoming event windows",
     "automationStatus": "planned-api",
     "notes": "Use to calculate same-period previous-year weather notes per city."
@@ -149,7 +198,13 @@
       "https://www.weather.go.kr/w/rss/dfs/hr1-forecast.do?zone=1114055000",
       "https://www.weather.go.kr/w/weather/forecast/short-term.do"
     ],
-    "coverage": ["short-term forecast", "temperature", "rain chance", "humidity", "city weather planning"],
+    "coverage": [
+      "short-term forecast",
+      "temperature",
+      "rain chance",
+      "humidity",
+      "city weather planning"
+    ],
     "refreshCadence": "daily before public build; more often during major outdoor events",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for current KMA short-term forecast snapshots on event detail, calendar, and city pages. The KMA RSS page states source attribution is required."
@@ -159,7 +214,12 @@
     "type": "official-page-monitor",
     "owner": "Seoul Metropolitan Government",
     "url": "https://english.seoul.go.kr/june-2026-cultural-events/",
-    "coverage": ["Seoul festivals", "free performances", "river events", "monthly cultural calendar"],
+    "coverage": [
+      "Seoul festivals",
+      "free performances",
+      "river events",
+      "monthly cultural calendar"
+    ],
     "refreshCadence": "weekly; daily near month rollover",
     "automationStatus": "monitor-and-curate",
     "notes": "Strong official source for Seoul event dates, venues, admission notes, and official event websites."
@@ -169,7 +229,12 @@
     "type": "official-page-monitor",
     "owner": "Seoul Grand Park / Seoul Metropolitan Government",
     "url": "https://grandpark.seoul.go.kr/main.do",
-    "coverage": ["Seoul Grand Park festivals", "garden events", "family activities", "photo contests"],
+    "coverage": [
+      "Seoul Grand Park festivals",
+      "garden events",
+      "family activities",
+      "photo contests"
+    ],
     "refreshCadence": "weekly; daily during flower festival seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for Seoul Grand Park program dates and status labels. Main page can expose current and recently ended events."
@@ -179,7 +244,12 @@
     "type": "official-page-monitor",
     "owner": "Seoul Tourism Organization",
     "url": "https://english.visitseoul.net",
-    "coverage": ["Seoul events", "tourism guides", "neighborhood routes", "foreign visitor planning"],
+    "coverage": [
+      "Seoul events",
+      "tourism guides",
+      "neighborhood routes",
+      "foreign visitor planning"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Seoul tourism site. Use as a discovery layer for visitor-friendly events, routes, and area guides, then verify individual event links."
@@ -193,7 +263,12 @@
       "https://www.busan.go.kr/bige/enjoy-busan",
       "https://www.visitbusan.net"
     ],
-    "coverage": ["Busan festivals", "city events", "English visitor news", "tourism programs"],
+    "coverage": [
+      "Busan festivals",
+      "city events",
+      "English visitor news",
+      "tourism programs"
+    ],
     "refreshCadence": "daily during Busan festival seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Busan city event and English news pages. Use individual event pages for dates, venue, and visitor notes; cross-check ticket links when registration is external."
@@ -207,7 +282,12 @@
       "https://www.visitjeju.net/en",
       "https://www.visitjeju.net/en/themtour"
     ],
-    "coverage": ["Jeju monthly festivals", "island events", "tourism programs", "visitor-friendly festival listings"],
+    "coverage": [
+      "Jeju monthly festivals",
+      "island events",
+      "tourism programs",
+      "visitor-friendly festival listings"
+    ],
     "refreshCadence": "daily for current and next-month festival windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Jeju Tourism Organization festival list. Verify individual festival pages for exact dates, venue, transport, and weather-sensitive island notes before publishing."
@@ -221,7 +301,13 @@
       "https://www.ito.or.kr/main",
       "https://www.incheon.go.kr/en/EN020401"
     ],
-    "coverage": ["Incheon festivals", "Pentaport", "INK Concert", "open-port night events", "regional tourism programs"],
+    "coverage": [
+      "Incheon festivals",
+      "Pentaport",
+      "INK Concert",
+      "open-port night events",
+      "regional tourism programs"
+    ],
     "refreshCadence": "weekly; daily around Incheon music and open-port festival seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Incheon tourism organization page for signature festivals and tourism programs. Use city news or event websites as final source links when available."
@@ -234,7 +320,12 @@
     "alternateUrls": [
       "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=APD21112609184717505&pgListMode=M"
     ],
-    "coverage": ["Incheon Pentaport Rock Festival", "music festival notices", "lineup notices", "ticketing and venue updates"],
+    "coverage": [
+      "Incheon Pentaport Rock Festival",
+      "music festival notices",
+      "lineup notices",
+      "ticketing and venue updates"
+    ],
     "refreshCadence": "daily during lineup, ticketing, and festival operation windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Pentaport festival site plus Incheon Tour listing. Use official festival notices for dates, venue, lineup, ticketing, and operating rules."
@@ -248,7 +339,12 @@
       "https://daegu.go.kr/cts/index.do",
       "https://www.buk.daegu.kr/eng/index.do?menu_id=00004291"
     ],
-    "coverage": ["Daegu annual festivals", "food festivals", "culture events", "district tourism programs"],
+    "coverage": [
+      "Daegu annual festivals",
+      "food festivals",
+      "culture events",
+      "district tourism programs"
+    ],
     "refreshCadence": "weekly; daily near major Daegu festival months",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Daegu tourism festival schedule. District pages can provide stronger details for specific events such as food, music, or neighborhood festivals."
@@ -261,7 +357,13 @@
     "alternateUrls": [
       "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=351&vcontsId=80237"
     ],
-    "coverage": ["Daegu Chimac Festival", "food festival programs", "K-pop concert notes", "reservation zones", "visitor safety notes"],
+    "coverage": [
+      "Daegu Chimac Festival",
+      "food festival programs",
+      "K-pop concert notes",
+      "reservation zones",
+      "visitor safety notes"
+    ],
     "refreshCadence": "daily during June and July festival setup",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Chimac site and KTO detail page. Confirm exact program zones, adult beverage rules, heat notices, and reservation areas before publishing updates."
@@ -274,7 +376,13 @@
     "alternateUrls": [
       "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96386"
     ],
-    "coverage": ["Boryeong Mud Festival", "Daecheon Beach events", "mud experience zones", "ticket information", "summer beach programs"],
+    "coverage": [
+      "Boryeong Mud Festival",
+      "Daecheon Beach events",
+      "mud experience zones",
+      "ticket information",
+      "summer beach programs"
+    ],
     "refreshCadence": "daily during ticketing and festival operation windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Official English festival site. Check ticket bracelets, paid zone rules, beach safety, operating hours, and weather-related changes before publishing updates."
@@ -288,7 +396,12 @@
       "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
       "https://www.tourandong.com/eng/sub2/sub1.cshtml"
     ],
-    "coverage": ["Andong Maskdance Festival", "traditional performances", "UNESCO-linked mask dance", "Hahoe Village routes"],
+    "coverage": [
+      "Andong Maskdance Festival",
+      "traditional performances",
+      "UNESCO-linked mask dance",
+      "Hahoe Village routes"
+    ],
     "refreshCadence": "weekly; daily during September and October festival operation",
     "automationStatus": "monitor-and-curate",
     "notes": "Official English festival site. Confirm venue splits between Old Andong Station, Mask Dance Park, Hahoe Village, and downtown before publishing itineraries."
@@ -301,7 +414,13 @@
     "alternateUrls": [
       "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362"
     ],
-    "coverage": ["Jinju Namgang Yudeung Festival", "lantern displays", "night routes", "fireworks and drone show notices", "festival transport"],
+    "coverage": [
+      "Jinju Namgang Yudeung Festival",
+      "lantern displays",
+      "night routes",
+      "fireworks and drone show notices",
+      "festival transport"
+    ],
     "refreshCadence": "weekly; daily during September and October festival setup",
     "automationStatus": "monitor-and-curate",
     "notes": "Official festival site plus KTO detail page. The official site may update year-specific content later than KTO, so cross-check dates before publication."
@@ -311,7 +430,13 @@
     "type": "official-listing-monitor",
     "owner": "COEX",
     "url": "https://www.coexcenter.com/event-calendar/",
-    "coverage": ["exhibitions", "trade fairs", "fan events", "K-beauty fairs", "conference venue schedules"],
+    "coverage": [
+      "exhibitions",
+      "trade fairs",
+      "fan events",
+      "K-beauty fairs",
+      "conference venue schedules"
+    ],
     "refreshCadence": "daily for Seoul convention and pop-up-heavy seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official venue calendar. COEX is often the venue rather than organizer, so follow the event's official website before publishing visitor guidance."
@@ -321,7 +446,13 @@
     "type": "official-listing-monitor",
     "owner": "Seoul Design Foundation",
     "url": "https://www.ddp.or.kr",
-    "coverage": ["design exhibitions", "Seoul Fashion Week", "DDP markets", "brand pop-ups", "night light events"],
+    "coverage": [
+      "design exhibitions",
+      "Seoul Fashion Week",
+      "DDP markets",
+      "brand pop-ups",
+      "night light events"
+    ],
     "refreshCadence": "daily during design, fashion, and tourism campaign seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official DDP site. Good for fashion, design, pop-up, and exhibition discovery around Dongdaemun."
@@ -331,7 +462,11 @@
     "type": "official-listing-monitor",
     "owner": "SHOWALA",
     "url": "https://showala.com/ex/ex_detail.php?idx=3900",
-    "coverage": ["exhibitions", "public shows", "venue and date listings"],
+    "coverage": [
+      "exhibitions",
+      "public shows",
+      "venue and date listings"
+    ],
     "refreshCadence": "weekly",
     "automationStatus": "monitor-and-curate",
     "notes": "Use as an exhibition listing source only; confirm with the event website when it contains current-year details."
@@ -341,7 +476,13 @@
     "type": "official-listing-monitor",
     "owner": "NOL / Interpark ticketing ecosystem",
     "url": "https://world.nol.com/en/regions/seoul/festas",
-    "coverage": ["Seoul pop-ups", "K-pop pop-ups", "brand collaborations", "foreign visitor activities", "ticket-linked experiences"],
+    "coverage": [
+      "Seoul pop-ups",
+      "K-pop pop-ups",
+      "brand collaborations",
+      "foreign visitor activities",
+      "ticket-linked experiences"
+    ],
     "refreshCadence": "daily; hourly around major K-pop comeback and Seoul pop-up windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use as a high-signal discovery board for Seoul pop-ups and K-pop activity. Publish only after verifying the final official brand, venue, ticketing, or shop page."
@@ -351,7 +492,12 @@
     "type": "official-listing-monitor",
     "owner": "NOL / Interpark ticketing ecosystem",
     "url": "https://world.nol.com/en/regions/busan/festas",
-    "coverage": ["Busan pop-ups", "K-pop regional events", "festival-linked activities", "foreign visitor ticket packages"],
+    "coverage": [
+      "Busan pop-ups",
+      "K-pop regional events",
+      "festival-linked activities",
+      "foreign visitor ticket packages"
+    ],
     "refreshCadence": "daily during Busan festival and K-pop event windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for Busan pop-up and K-pop discovery. Cross-check Busan city, venue, official festival, or ticketing pages before publishing visitor guidance."
@@ -361,7 +507,12 @@
     "type": "official-listing-monitor",
     "owner": "NOL / Interpark ticketing ecosystem",
     "url": "https://world.nol.com/en/regions/jeju/festas",
-    "coverage": ["Jeju pop-ups", "tourist shopping activations", "brand experiences", "seasonal visitor activities"],
+    "coverage": [
+      "Jeju pop-ups",
+      "tourist shopping activations",
+      "brand experiences",
+      "seasonal visitor activities"
+    ],
     "refreshCadence": "daily during Jeju travel season and campaign windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use for Jeju pop-up discovery only. Confirm official brand or venue pages, dates, reservation needs, and visitor eligibility before publishing."
@@ -371,7 +522,11 @@
     "type": "official-page-monitor",
     "owner": "CJ Olive Young",
     "url": "https://global.oliveyoung.com/event/planning?plndpNo=2400",
-    "coverage": ["K-beauty sales", "global coupons", "brand promotions"],
+    "coverage": [
+      "K-beauty sales",
+      "global coupons",
+      "brand promotions"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Some offers are country-specific and app-only; always show eligibility warnings."
@@ -381,7 +536,12 @@
     "type": "official-page-monitor",
     "owner": "CJ Olive Young / CJ Newsroom",
     "url": "https://newsroom.cj.net/?s=Olive+Young",
-    "coverage": ["OLIVE YOUNG sale campaigns", "K-beauty festivals", "global promotions", "offline store and pop-up news"],
+    "coverage": [
+      "OLIVE YOUNG sale campaigns",
+      "K-beauty festivals",
+      "global promotions",
+      "offline store and pop-up news"
+    ],
     "refreshCadence": "daily during Big Bang Sale, Olive Young Festa, and global campaign periods",
     "automationStatus": "monitor-and-curate",
     "notes": "Use official CJ newsroom releases to confirm sale period, scale, target market, and brand participation. Do not copy article text; rewrite visitor-focused summaries."
@@ -391,7 +551,10 @@
     "type": "official-page-monitor",
     "owner": "Hotel Shilla",
     "url": "https://www.shilladfs.com/comm/kr/en/eventMain",
-    "coverage": ["duty-free events", "branch-specific offers"],
+    "coverage": [
+      "duty-free events",
+      "branch-specific offers"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Store numbers and branch restrictions need human-readable mapping before publication."
@@ -401,7 +564,11 @@
     "type": "official-page-monitor",
     "owner": "Lotte Duty Free",
     "url": "https://eng.lottedfs.com/kr/event",
-    "coverage": ["duty-free events", "online duty-free", "airport pickup"],
+    "coverage": [
+      "duty-free events",
+      "online duty-free",
+      "airport pickup"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Duty-free rules depend on itinerary, product category, and departure airport."
@@ -411,7 +578,12 @@
     "type": "official-listing-monitor",
     "owner": "Lotte Duty Free",
     "url": "https://eng.lottedfs.com/kr/eventmain/onLineSale",
-    "coverage": ["limited-time duty-free deals", "brand discounts", "online duty-free", "airport pickup"],
+    "coverage": [
+      "limited-time duty-free deals",
+      "brand discounts",
+      "online duty-free",
+      "airport pickup"
+    ],
     "refreshCadence": "daily; hourly during peak travel sale windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use as a deal discovery signal; verify stock, eligibility, pickup rules, and active date range before publishing."
@@ -421,7 +593,12 @@
     "type": "official-page-monitor",
     "owner": "Lotte Department Store",
     "url": "https://global.lotteshopping.com/eng/main",
-    "coverage": ["department store events", "foreign visitor benefits", "branch shopping news", "tax refund guidance"],
+    "coverage": [
+      "department store events",
+      "foreign visitor benefits",
+      "branch shopping news",
+      "tax refund guidance"
+    ],
     "refreshCadence": "daily for Seoul and Busan flagship branches",
     "automationStatus": "monitor-and-curate",
     "notes": "Good official source for flagship branch hours, shopping news links, foreign visitor benefits, and tax refund guidance."
@@ -436,7 +613,12 @@
       "https://www.ehyundai.com/newPortal/DP/DP000000_V.do",
       "https://home.e-hyundai.com/newPortal/index.do"
     ],
-    "coverage": ["department store events", "branch pages", "culture exhibitions", "pop-ups"],
+    "coverage": [
+      "department store events",
+      "branch pages",
+      "culture exhibitions",
+      "pop-ups"
+    ],
     "refreshCadence": "daily for major branches",
     "automationStatus": "monitor-and-curate",
     "notes": "Branch pages often reveal events earlier than English travel sites. Use the newer ehyundai portal as the automated fallback when the English language entry blocks fetch."
@@ -446,7 +628,13 @@
     "type": "official-listing-monitor",
     "owner": "Hyundai Department Store",
     "url": "https://www.ehyundai.com/newPortal/index.do",
-    "coverage": ["The Hyundai Seoul pop-ups", "department store events", "brand collaborations", "culture exhibitions", "foreign visitor shopping routes"],
+    "coverage": [
+      "The Hyundai Seoul pop-ups",
+      "department store events",
+      "brand collaborations",
+      "culture exhibitions",
+      "foreign visitor shopping routes"
+    ],
     "refreshCadence": "daily for The Hyundai Seoul, trade center, and flagship branch campaign windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use the portal as a discovery layer for current branch events and pop-ups. Verify individual event pages, branch, floor, date range, and reservation rules before publishing."
@@ -456,7 +644,12 @@
     "type": "official-page-monitor",
     "owner": "Shinsegae Duty Free",
     "url": "https://www.shinsegaedf.com/store/jp/eventList",
-    "coverage": ["duty-free events", "Myeongdong offers", "airport store offers", "foreign visitor shopping"],
+    "coverage": [
+      "duty-free events",
+      "Myeongdong offers",
+      "airport store offers",
+      "foreign visitor shopping"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Official event list exposes branch date ranges; language selector is available on page."
@@ -466,7 +659,12 @@
     "type": "official-page-monitor",
     "owner": "Shinsegae Duty Free",
     "url": "https://www.shinsegaedf.com/store/en/eventList",
-    "coverage": ["duty-free events", "Myeongdong offers", "airport store offers", "foreign visitor shopping"],
+    "coverage": [
+      "duty-free events",
+      "Myeongdong offers",
+      "airport store offers",
+      "foreign visitor shopping"
+    ],
     "refreshCadence": "daily",
     "automationStatus": "monitor-and-curate",
     "notes": "Use the English event list when available, but compare against the Korean/Japanese pages when date ranges differ."
@@ -476,7 +674,12 @@
     "type": "official-page-monitor",
     "owner": "Shinsegae Group",
     "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-    "coverage": ["department store sales", "pop-up stores", "foreign visitor promotions", "brand campaigns"],
+    "coverage": [
+      "department store sales",
+      "pop-up stores",
+      "foreign visitor promotions",
+      "brand campaigns"
+    ],
     "refreshCadence": "daily during major sale seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Official press feed for Shinsegae Department Store, Shinsegae Duty Free, outlets, pop-ups, and foreign visitor promotions."
@@ -486,7 +689,12 @@
     "type": "official-listing-monitor",
     "owner": "Shinsegae Department Store",
     "url": "https://deptmapp.shinsegae.com/events/main.do",
-    "coverage": ["department store events", "brand pop-ups", "luxury shopping promotions", "regional branch campaigns"],
+    "coverage": [
+      "department store events",
+      "brand pop-ups",
+      "luxury shopping promotions",
+      "regional branch campaigns"
+    ],
     "refreshCadence": "daily for Myeongdong, Gangnam, Centum City, and pop-up-heavy seasons",
     "automationStatus": "monitor-and-curate",
     "notes": "Use the official events board for branch-level discovery. Confirm exact branch, period, member-only restrictions, tax refund fit, and foreign visitor usefulness before publishing."
@@ -500,7 +708,13 @@
       "https://dept.galleria.co.kr/",
       "https://m.galleria.co.kr/store-info/luxuryhall/promotion/e-dm"
     ],
-    "coverage": ["luxury department store events", "foreign visitor benefits", "branch e-DM", "tax refund guidance", "brand pop-ups"],
+    "coverage": [
+      "luxury department store events",
+      "foreign visitor benefits",
+      "branch e-DM",
+      "tax refund guidance",
+      "brand pop-ups"
+    ],
     "refreshCadence": "daily for Seoul luxury shopping and foreign visitor campaign periods",
     "automationStatus": "monitor-and-curate",
     "notes": "Official Galleria department store site. English pages are good for service basics; Korean branch e-DM and event pages may reveal current pop-ups earlier."
@@ -513,7 +727,12 @@
     "alternateUrls": [
       "https://www.akplaza.com/main"
     ],
-    "coverage": ["department store events", "shopping news", "gifts and promotions", "Hongdae and regional mall pop-ups"],
+    "coverage": [
+      "department store events",
+      "shopping news",
+      "gifts and promotions",
+      "Hongdae and regional mall pop-ups"
+    ],
     "refreshCadence": "daily for Hongdae, Suwon, Bundang, and seasonal campaign windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Official AK Plaza site. Useful for Hongdae and regional shopping events, but Korean-only event details need original visitor-focused rewriting."
@@ -523,7 +742,11 @@
     "type": "curation-root",
     "owner": "Weverse Company",
     "url": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
-    "coverage": ["official merch stores", "K-pop reservations", "fan commerce notices"],
+    "coverage": [
+      "official merch stores",
+      "K-pop reservations",
+      "fan commerce notices"
+    ],
     "refreshCadence": "daily; hourly around comebacks",
     "automationStatus": "monitor-and-curate",
     "notes": "Use only official notices and artist/company channels; avoid unverified fan rumors."
@@ -537,7 +760,13 @@
       "https://weverse.io/bts/notice/36056",
       "https://concerts.weverse.io/events/bts_arirang_busan"
     ],
-    "coverage": ["BTS official notices", "K-pop pop-up visit guides", "artist city projects", "reservation rules", "fan safety notices"],
+    "coverage": [
+      "BTS official notices",
+      "K-pop pop-up visit guides",
+      "artist city projects",
+      "reservation rules",
+      "fan safety notices"
+    ],
     "refreshCadence": "daily; hourly around BTS pop-up, tour, and city project windows",
     "automationStatus": "monitor-and-curate",
     "notes": "Use only official Weverse notices and linked official reservation pages. Confirm age limits, QR rules, reservation status, inventory, and venue changes before publishing."
@@ -547,7 +776,12 @@
     "type": "curation-root",
     "owner": "Weverse Company",
     "url": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
-    "coverage": ["official K-pop merchandise notices", "pop-up reservations", "fan commerce", "tour-linked products"],
+    "coverage": [
+      "official K-pop merchandise notices",
+      "pop-up reservations",
+      "fan commerce",
+      "tour-linked products"
+    ],
     "refreshCadence": "daily; hourly around comebacks and tours",
     "automationStatus": "monitor-and-curate",
     "notes": "Use list pages for discovery and individual official notices for final source links."
@@ -561,7 +795,13 @@
       "https://app.fans/shop",
       "https://www.jype.com/Board?PgIndex=0&gubun=notice"
     ],
-    "coverage": ["JYP official merch", "FANS shop notices", "restock schedules", "sales windows", "fanclub-linked commerce"],
+    "coverage": [
+      "JYP official merch",
+      "FANS shop notices",
+      "restock schedules",
+      "sales windows",
+      "fanclub-linked commerce"
+    ],
     "refreshCadence": "daily; hourly around JYP artist comeback, concert, and fan-meeting merch windows",
     "automationStatus": "monitor-and-curate",
     "notes": "FANS replaced JYP SHOP for current JYP commerce. Verify app-only rules, shipping country, purchase limits, and official JYP notice links before publishing."
@@ -574,7 +814,13 @@
     "alternateUrls": [
       "https://www.smtownandstore.com/"
     ],
-    "coverage": ["SM artist official merch", "SMTOWN store notices", "fanclub goods", "event-limited merchandise", "online store events"],
+    "coverage": [
+      "SM artist official merch",
+      "SMTOWN store notices",
+      "fanclub goods",
+      "event-limited merchandise",
+      "online store events"
+    ],
     "refreshCadence": "daily; hourly around SM artist concerts, fan meetings, and anniversary campaigns",
     "automationStatus": "curation-queue",
     "notes": "Use the official store notice board and individual product/event pages. Confirm whether a campaign is online-only, Korea-only, or linked to a physical pop-up."
@@ -587,7 +833,13 @@
     "alternateUrls": [
       "https://www.ygselect.com/"
     ],
-    "coverage": ["YG official merch", "BLACKPINK and YG artist pop-ups", "album merchandise", "store events", "fan commerce notices"],
+    "coverage": [
+      "YG official merch",
+      "BLACKPINK and YG artist pop-ups",
+      "album merchandise",
+      "store events",
+      "fan commerce notices"
+    ],
     "refreshCadence": "daily; hourly around YG artist comeback, tour, and pop-up periods",
     "automationStatus": "curation-queue",
     "notes": "Use YG SELECT as the official commerce source for YG artist merchandise and pop-up-linked offers. Avoid reposts and verify venue, stock, and purchase limits."
@@ -597,7 +849,13 @@
     "type": "curation-root",
     "owner": "NOL / Interpark ticketing ecosystem",
     "url": "https://world.nol.com",
-    "coverage": ["global tickets", "K-pop concerts", "fan meetings", "pop-up-linked offers", "foreign visitor activities"],
+    "coverage": [
+      "global tickets",
+      "K-pop concerts",
+      "fan meetings",
+      "pop-up-linked offers",
+      "foreign visitor activities"
+    ],
     "refreshCadence": "manual queue; hourly around major ticket openings",
     "automationStatus": "curation-queue",
     "notes": "Use as a global ticketing discovery source. Publish only individual official ticket or event pages after confirming identity checks, pickup rules, language, and refund terms."
@@ -607,7 +865,12 @@
     "type": "curation-root",
     "owner": "YES24 Ticket",
     "url": "https://ticket.yes24.com/english",
-    "coverage": ["K-pop concerts", "fan meetings", "global ticket notices", "venue listings"],
+    "coverage": [
+      "K-pop concerts",
+      "fan meetings",
+      "global ticket notices",
+      "venue listings"
+    ],
     "refreshCadence": "manual queue; hourly around ticket openings",
     "automationStatus": "curation-queue",
     "notes": "Use as an official ticketing root for discovery. Publish only individual performance pages or official notices after checking identity, pickup, mobile ticket, and refund rules."
@@ -617,7 +880,12 @@
     "type": "curation-root",
     "owner": "Ticketlink",
     "url": "https://www.ticketlink.co.kr/global/en/linkon/main",
-    "coverage": ["K-pop concerts", "fan concerts", "global reservation pages", "fanclub presales"],
+    "coverage": [
+      "K-pop concerts",
+      "fan concerts",
+      "global reservation pages",
+      "fanclub presales"
+    ],
     "refreshCadence": "manual queue; hourly around ticket openings",
     "automationStatus": "curation-queue",
     "notes": "Use official Ticketlink notices and global reservation pages as source links. Confirm whether fanclub verification was completed on Korean or global pages."
@@ -627,7 +895,12 @@
     "type": "curation-root",
     "owner": "Kakao Entertainment / Melon Ticket",
     "url": "https://ticket.melon.com/main/index.htm",
-    "coverage": ["concerts", "fan meetings", "festival ticketing", "K-pop ticket notices"],
+    "coverage": [
+      "concerts",
+      "fan meetings",
+      "festival ticketing",
+      "K-pop ticket notices"
+    ],
     "refreshCadence": "manual queue; hourly around ticket openings",
     "automationStatus": "curation-queue",
     "notes": "Use official performance pages for final publication. Many listings are Korean-first, so verify global purchase availability and identity pickup rules before recommending to foreign visitors."
@@ -637,9 +910,32 @@
     "type": "curation-root",
     "owner": "Entertainment companies and artists",
     "url": "https://www.weverse.io",
-    "coverage": ["K-pop pop-ups", "fan sign notices", "ticketing changes"],
+    "coverage": [
+      "K-pop pop-ups",
+      "fan sign notices",
+      "ticketing changes"
+    ],
     "refreshCadence": "hourly when tracked artist list is active",
     "automationStatus": "manual-review-required",
     "notes": "Instagram/X/fanclub notices are scattered. Queue links for human review before publishing."
+  },
+  {
+    "name": "WATERBOMB Official",
+    "type": "official-event-page",
+    "owner": "WATERBOMB KOREA",
+    "url": "https://www.waterbombfestival.com/en/event-details/waterbomb-seoul-2026",
+    "alternateUrls": [
+      "https://www.waterbombfestival.com",
+      "https://world.nol.com/en/content/festas/019d664a-eb9f-7f11-a2fc-1aa3688bcd92"
+    ],
+    "coverage": [
+      "Waterbomb festival dates",
+      "official festival notices",
+      "ticket link status",
+      "venue confirmation"
+    ],
+    "refreshCadence": "daily during ticket and lineup season",
+    "automationStatus": "active",
+    "notes": "Use the official Waterbomb page for dates and ticket links. Cross-check venue and access details with ticketing or travel partner pages when the official page still shows TBA."
   }
 ]

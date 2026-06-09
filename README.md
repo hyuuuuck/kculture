@@ -181,6 +181,7 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
 - `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
 - `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved placements on the home page, event detail pages, and guide articles after approval
+- `GOOGLE_ADSENSE_CMP_READY`: set to `1` only after a Google-certified CMP is configured for EEA, UK, and Switzerland visitors
 - `GOOGLE_SITE_VERIFICATION`: optional Search Console HTML tag content. You may paste either the content token or the full meta tag.
 
 Set these repository secrets:
@@ -399,6 +400,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - `GOOGLE_ADSENSE_PUBLISHER_ID` set after AdSense publisher ID is issued
 - `GOOGLE_ADSENSE_CLIENT` or the derived `ca-pub-...` Auto ads client available before enabling ads
 - `GOOGLE_ADSENSE_SLOT` set after creating a manual display ad unit, if you want reserved in-page placements
+- `GOOGLE_ADSENSE_CMP_READY=1` set after a Google-certified CMP is configured for EEA, UK, and Switzerland visitors
 - `ads.txt` generated at `/ads.txt` after publisher ID is issued
 - Private `npm.cmd run report:adsense` scorecard reviewed before applying
 
@@ -409,6 +411,7 @@ $env:SITE_URL="https://kspotnow.com"
 $env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
+$env:GOOGLE_ADSENSE_CMP_READY="1"
 npm.cmd run build
 npm.cmd run preflight:adsense
 ```

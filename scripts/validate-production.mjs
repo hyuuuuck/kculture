@@ -9,6 +9,7 @@ const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
+const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
 const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"), "utf8"));
@@ -38,6 +39,10 @@ function normalizeGoogleSiteVerification(value) {
   if (!trimmed) return "";
   const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
   return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
+}
+
+function envFlag(value) {
+  return /^(1|true|yes)$/i.test(String(value || "").trim());
 }
 
 function fail(message) {
@@ -119,6 +124,12 @@ if (slotId && !/^\d{8,20}$/.test(slotId)) {
 
 if (requireAdsense && !publisherId) {
   fail("GOOGLE_ADSENSE_PUBLISHER_ID is required for AdSense preflight.");
+}
+
+if (requireAdsense && !adsenseCmpReady) {
+  fail("GOOGLE_ADSENSE_CMP_READY=1 is required after configuring a Google-certified CMP for EEA, UK, and Switzerland visitors before enabling AdSense ads.");
+} else if ((publisherId || clientId || slotId) && !adsenseCmpReady) {
+  warn("AdSense IDs are configured, but GOOGLE_ADSENSE_CMP_READY is not set. Confirm a Google-certified CMP before serving ads to EEA, UK, and Switzerland visitors.");
 }
 
 const publicContentPages = events.length + guides.length;

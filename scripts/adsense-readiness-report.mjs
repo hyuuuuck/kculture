@@ -16,6 +16,7 @@ const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID
 const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
+const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
@@ -60,6 +61,10 @@ function normalizeGoogleSiteVerification(value) {
   if (!trimmed) return "";
   const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
   return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
+}
+
+function envFlag(value) {
+  return /^(1|true|yes)$/i.test(String(value || "").trim());
 }
 
 function exists(relativePath) {
@@ -479,6 +484,12 @@ function runChecks() {
     warn("AdSense", "Manual ad slot", "not set", "Optional before approval; add GOOGLE_ADSENSE_SLOT to enable reserved in-page ad placements.");
   }
 
+  if (adsenseCmpReady) {
+    pass("AdSense", "Google-certified CMP readiness", "confirmed");
+  } else {
+    warn("AdSense", "Google-certified CMP readiness", "not set", "Choose and configure a Google-certified consent management platform before serving ads to EEA, UK, and Switzerland visitors, then set GOOGLE_ADSENSE_CMP_READY=1.");
+  }
+
   if (googleSiteVerification && exists("dist/index.html")) {
     const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
     if (home.includes(`name="google-site-verification"`) && home.includes(`content="${googleSiteVerification}"`)) {
@@ -529,6 +540,7 @@ const result = {
   clientIdSet: Boolean(clientId),
   slotIdSet: Boolean(slotId),
   googleSiteVerificationSet: Boolean(googleSiteVerification),
+  adsenseCmpReadySet: Boolean(adsenseCmpReady),
   stats,
   score: score(),
   checks

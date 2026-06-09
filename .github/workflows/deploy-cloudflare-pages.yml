@@ -102,8 +102,12 @@ jobs:
           fi
           npm run validate:sources
           npm run validate:links
+          npm run validate:images
+          npm run validate:calendar
+          npm run validate:details
           npm run validate:sitemap
           npm run validate:structured
+          npm run report:adsense
 
       - name: Upload source refresh artifacts
         if: always()

@@ -47,6 +47,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/import-kma-weather.mjs`: imports exact same-period previous-year KMA ASOS weather observations when an API key is available
 - `scripts/source-audit.mjs`: checks primary and fallback source URL availability and writes a private audit report
 - `monetization-plan.md`: traffic and AdSense operating plan
+- `launch-checklist.md`: Cloudflare/GitHub launch steps, required variables/secrets, and public email guidance
 
 Generated review artifacts under `data/feeds/` are ignored by Git. Review them and merge only verified items into `data/events.json`.
 Source review artifact filenames use the Asia/Seoul date by default. Set `SITE_TODAY=YYYY-MM-DD` to reproduce a specific run.
@@ -124,6 +125,14 @@ $env:CONTACT_EMAIL="hello@your-domain.com"
 npm.cmd run build
 npm.cmd run validate:production
 npm.cmd run report:adsense
+```
+
+Full launch preflight:
+
+```powershell
+$env:SITE_URL="https://your-domain.com"
+$env:CONTACT_EMAIL="hello@your-domain.com"
+npm.cmd run preflight:launch
 ```
 
 `validate:production` fails on common platform preview subdomains such as `pages.dev`, `netlify.app`, `vercel.app`, and `github.io` so the AdSense launch path stays focused on a real custom domain. For a non-AdSense preview deploy only, set `ALLOW_PLATFORM_SUBDOMAIN=1`.

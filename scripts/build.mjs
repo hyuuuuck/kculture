@@ -3114,7 +3114,7 @@ function calendarMonthHeading(lang, key) {
   const [year] = key.split("-");
   const date = new Date(`${key}-01T00:00:00Z`);
   const monthName = new Intl.DateTimeFormat(languages[lang]?.locale || "en-US", { month: "long", timeZone: "UTC" }).format(date);
-  return `<h2 class="calendar-month-heading"><span>${esc(monthName)}</span><span>${esc(year || "")}</span></h2>`;
+  return `<h2 class="calendar-month-heading"><span>${esc(monthName)}</span> <span>${esc(year || "")}</span></h2>`;
 }
 
 function calendarItem(event, lang) {

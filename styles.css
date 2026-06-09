@@ -1714,8 +1714,7 @@ img {
 
 .month-block {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 18px;
+  gap: 14px;
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1723,15 +1722,26 @@ img {
 }
 
 .calendar-month-heading {
-  display: grid;
-  gap: 2px;
-  align-content: start;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  line-height: 1.1;
 }
 
 .calendar-month-heading span {
-  display: block;
+  display: inline;
   line-height: 1.05;
   white-space: nowrap;
+}
+
+.calendar-month-heading span:last-child {
+  color: var(--muted);
+  font-size: 0.72em;
+  font-weight: 850;
 }
 
 .month-events {

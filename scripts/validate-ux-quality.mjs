@@ -40,7 +40,7 @@ for (const lang of languages) {
 
   const calendar = read(path.join(lang, "calendar", "index.html"));
   const monthBlocks = countMatches(calendar, /class="month-block"/g);
-  const monthHeadings = countMatches(calendar, /class="calendar-month-heading"><span>[^<]+<\/span><span>\d{4}<\/span>/g);
+  const monthHeadings = countMatches(calendar, /class="calendar-month-heading"><span>[^<]+<\/span>\s*<span>\d{4}<\/span>/g);
   if (!monthBlocks) push(`${lang}/calendar/index.html`, "calendar has no visible month groups.");
   if (monthBlocks !== monthHeadings) {
     push(`${lang}/calendar/index.html`, `month headings must be split into month and year spans; found ${monthHeadings}/${monthBlocks}.`);

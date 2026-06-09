@@ -165,7 +165,7 @@ function collectCalendarUx() {
   for (const lang of languages) {
     const html = readText(`dist/${lang}/calendar/index.html`);
     const blocks = countMatches(html, /class="month-block"/g);
-    const headings = countMatches(html, /class="calendar-month-heading"><span>[^<]+<\/span><span>\d{4}<\/span>/g);
+    const headings = countMatches(html, /class="calendar-month-heading"><span>[^<]+<\/span>\s*<span>\d{4}<\/span>/g);
     if (html && blocks && blocks === headings) {
       pass("designer", "Calendar", `${lang} month heading rhythm`, `${headings}/${blocks} month headings use split month/year spans.`);
     } else {

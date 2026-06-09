@@ -2990,6 +2990,8 @@ function renderEvent(event, lang) {
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
   const forecastInfo = currentForecastForEvent(event);
   const description = local(event.summary, lang);
+  const periodText = event.dateLabel || `${event.startDate} - ${event.endDate}`;
+  const venueText = [event.venue, event.district].filter(Boolean).join(", ");
   const body = `
     <main class="page">
       <article class="detail-layout">
@@ -3008,14 +3010,14 @@ function renderEvent(event, lang) {
         </header>
 
         <section class="fact-grid" aria-label="Event facts">
-          ${fact(tr(lang, "period"), event.dateLabel || `${event.startDate} - ${event.endDate}`)}
-          ${eventKindLabel(event, lang) ? fact("Date basis", eventKindLabel(event, lang)) : ""}
-          ${fact(tr(lang, "venue"), `${event.venue}, ${event.district}`)}
-          ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked))}
-          ${fact(tr(lang, "freshness"), freshness.text)}
-          ${fact(tr(lang, "collectionMode"), event.collectionMode)}
-          ${fact("Verification", event.verification)}
-          ${fact(tr(lang, "location"), event.city)}
+          ${fact(tr(lang, "period"), periodText, "calendar")}
+          ${fact(tr(lang, "venue"), venueText, "pin")}
+          ${fact(tr(lang, "location"), event.city, "place")}
+          ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked), "check")}
+          ${fact(tr(lang, "freshness"), `<span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span>`, "pulse", true)}
+          ${fact("Verification", prettyVerification(event.verification), "shield")}
+          ${fact(tr(lang, "collectionMode"), prettyCollectionMode(event.collectionMode), "review")}
+          ${eventKindLabel(event, lang) ? fact("Date basis", eventKindLabel(event, lang), "basis") : ""}
         </section>
 
         ${visitorInfoSection(event, lang)}
@@ -3082,8 +3084,43 @@ function renderEvent(event, lang) {
   });
 }
 
-function fact(label, value) {
-  return `<div class="fact"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`;
+function titleCaseWords(value) {
+  return String(value || "")
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function prettyCollectionMode(value) {
+  const raw = String(value || "").trim();
+  const labels = {
+    "manual-reviewed-official-page": "Official page review",
+    "official-page-monitor": "Official page monitor",
+    "official-api": "Official API",
+    "official-page": "Official page"
+  };
+  return labels[raw] || titleCaseWords(raw);
+}
+
+function prettyVerification(value) {
+  const raw = String(value || "").trim();
+  const labels = {
+    official: "Official source",
+    "official-ended": "Official archive",
+    "official-listing": "Official listing"
+  };
+  if (labels[raw]) return labels[raw];
+  if (raw.startsWith("official-")) return `Official ${titleCaseWords(raw.replace(/^official-/, "")).toLowerCase()}`;
+  return titleCaseWords(raw);
+}
+
+function fact(label, value, icon = "dot", html = false) {
+  const safeIcon = String(icon || "dot").replace(/[^a-z0-9-]/gi, "");
+  return `
+    <div class="fact fact-${safeIcon}">
+      <span class="fact-icon" aria-hidden="true"></span>
+      <span class="fact-label">${esc(label)}</span>
+      <strong>${html ? value : esc(value)}</strong>
+    </div>`;
 }
 
 function guideCard(guide, lang) {

@@ -21,6 +21,7 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const curationQueue = JSON.parse(await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
+const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const sourceRefreshSummary = await latestFeedJson(/^source-refresh-summary-\d{4}-\d{2}-\d{2}\.json$/);
 
@@ -1616,6 +1617,193 @@ function weatherBaseline(regionName, iso) {
   };
 }
 
+function mode(values) {
+  const counts = new Map();
+  for (const value of values.filter(Boolean)) {
+    counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] || "";
+}
+
+function minValue(values) {
+  const usable = values.filter((value) => Number.isFinite(value));
+  return usable.length ? Math.min(...usable) : null;
+}
+
+function maxValue(values) {
+  const usable = values.filter((value) => Number.isFinite(value));
+  return usable.length ? Math.max(...usable) : null;
+}
+
+function forecastRegionKey(city, weatherRegion) {
+  if (!currentWeather?.regions) return null;
+  const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[weatherRegion] || weatherRegion || "Nationwide";
+  if (currentWeather.regions[key]?.summary?.days?.length) return key;
+  return currentWeather.regions.Nationwide?.summary?.days?.length ? "Nationwide" : null;
+}
+
+function combineForecastDays(region, days) {
+  if (!region || !days.length) return null;
+  const minTempC = minValue(days.map((day) => day.minTempC));
+  const maxTempC = maxValue(days.map((day) => day.maxTempC));
+  const maxPopPct = maxValue(days.map((day) => day.maxPopPct));
+  const minHumidityPct = minValue(days.map((day) => day.minHumidityPct));
+  const maxHumidityPct = maxValue(days.map((day) => day.maxHumidityPct));
+  const firstHumidity = days[0]?.avgHumidityPct;
+  const lastHumidity = days.at(-1)?.avgHumidityPct;
+  const humidityTrend = Number.isFinite(firstHumidity) && Number.isFinite(lastHumidity) ? Number((lastHumidity - firstHumidity).toFixed(1)) : null;
+  const rainLikely = days.some((day) => day.rainLikely) || (maxPopPct || 0) >= 50;
+  return {
+    source: currentWeather.source,
+    locationLabel: region.label,
+    sourceUrl: region.sourceUrl,
+    baseTime: region.baseTime,
+    generatedAt: currentWeather.generatedAt,
+    startDate: days[0].date,
+    endDate: days.at(-1).date,
+    dayCount: days.length,
+    weather: mode(days.map((day) => day.weatherEn)) || mode(days.map((day) => day.weatherKo)) || "mixed conditions",
+    minTempC,
+    maxTempC,
+    maxPopPct,
+    minHumidityPct,
+    maxHumidityPct,
+    humidityTrend,
+    rainLikely
+  };
+}
+
+function currentForecastForEvent(event) {
+  if (statusOf(event) === "ended") return null;
+  const key = forecastRegionKey(event.city, event.weatherRegion);
+  const region = key ? currentWeather.regions[key] : null;
+  const days = region?.summary?.days || [];
+  const startDate = statusOf(event) === "live" ? today : event.startDate;
+  const endDate = event.endDate || event.startDate || startDate;
+  const selected = days.filter((day) => day.date >= startDate && day.date <= endDate);
+  return combineForecastDays(region, selected);
+}
+
+function currentForecastForCity(city, weatherRegion) {
+  const key = forecastRegionKey(city, weatherRegion);
+  const region = key ? currentWeather.regions[key] : null;
+  const days = (region?.summary?.days || []).filter((day) => day.date >= today).slice(0, 4);
+  return combineForecastDays(region, days);
+}
+
+function celsiusRange(minTempC, maxTempC) {
+  if (!Number.isFinite(minTempC) || !Number.isFinite(maxTempC)) return "";
+  return `${Math.round(minTempC)}-${Math.round(maxTempC)}C`;
+}
+
+function percentRange(minPct, maxPct) {
+  if (!Number.isFinite(minPct) || !Number.isFinite(maxPct)) return "";
+  if (Math.round(minPct) === Math.round(maxPct)) return `${Math.round(maxPct)}%`;
+  return `${Math.round(minPct)}-${Math.round(maxPct)}%`;
+}
+
+function kmaBaseTimeText(baseTime) {
+  const value = String(baseTime || "");
+  if (!/^\d{12}$/.test(value)) return "latest KMA RSS";
+  return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)} ${value.slice(8, 10)}:${value.slice(10, 12)} KST`;
+}
+
+function forecastRangeText(lang, forecast) {
+  if (forecast.startDate === forecast.endDate) return dateText(lang, forecast.startDate);
+  return `${dateText(lang, forecast.startDate)} - ${dateText(lang, forecast.endDate)}`;
+}
+
+function temperatureMood(maxTempC) {
+  if (!Number.isFinite(maxTempC)) return "variable temperatures";
+  if (maxTempC >= 32) return "hot";
+  if (maxTempC >= 28) return "very warm";
+  if (maxTempC >= 24) return "warm";
+  if (maxTempC >= 18) return "mild";
+  if (maxTempC >= 10) return "cool";
+  return "cold";
+}
+
+function rainMood(forecast) {
+  if ((forecast.maxPopPct || 0) >= 70) return "high rain chance";
+  if (forecast.rainLikely) return "rain possible";
+  if ((forecast.maxPopPct || 0) >= 30) return "some shower risk";
+  return "low rain chance";
+}
+
+function humidityMood(forecast) {
+  if ((forecast.humidityTrend || 0) >= 8 && (forecast.maxHumidityPct || 0) >= 70) return "humidity increasing";
+  if ((forecast.maxHumidityPct || 0) >= 85 && (forecast.minHumidityPct || 100) <= 55) return "increasingly humid at times";
+  if ((forecast.maxHumidityPct || 0) >= 85) return "very humid at times";
+  if ((forecast.maxHumidityPct || 0) >= 70) return "humid at times";
+  if ((forecast.maxHumidityPct || 0) <= 45) return "fairly dry";
+  return "moderate humidity";
+}
+
+function forecastSummaryText(forecast) {
+  const temp = celsiusRange(forecast.minTempC, forecast.maxTempC);
+  const pop = Number.isFinite(forecast.maxPopPct) ? `rain chance up to ${Math.round(forecast.maxPopPct)}%` : rainMood(forecast);
+  const humidity = percentRange(forecast.minHumidityPct, forecast.maxHumidityPct);
+  const humidityText = humidity ? `${humidityMood(forecast)} (${humidity})` : humidityMood(forecast);
+  return `${temperatureMood(forecast.maxTempC)}${temp ? `, ${temp}` : ""}; ${pop}; ${humidityText}; most hours: ${forecast.weather}.`;
+}
+
+function forecastPacking(forecast) {
+  const items = [];
+  if ((forecast.maxTempC || 0) >= 24) items.push("water bottle");
+  if ((forecast.maxTempC || 0) >= 24) items.push("UV protection");
+  if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 30) items.push("portable umbrella");
+  if ((forecast.maxHumidityPct || 0) >= 70) items.push("breathable clothes");
+  if ((forecast.minTempC || 99) <= 18) items.push("light layer");
+  items.push("comfortable walking shoes");
+  return [...new Set(items)].slice(0, 5);
+}
+
+function forecastAdvice(forecast) {
+  const warm = (forecast.maxTempC || 0) >= 24;
+  const humid = (forecast.maxHumidityPct || 0) >= 70;
+  if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 50) {
+    return "Keep an indoor backup and check official outdoor notices before leaving, especially for parks, riverside routes, and queues.";
+  }
+  if (warm && humid) {
+    return "Use lighter clothing, hydrate, and plan indoor cooling breaks between outdoor photos, queues, and transit transfers.";
+  }
+  if (warm) {
+    return "Plan sun protection and water for afternoon walking, especially around plazas, parks, and department-store approaches.";
+  }
+  return "Good for walking plans, but check the latest KMA update again on the day of travel.";
+}
+
+function weatherPlanInner(lang, forecast, weatherInfo) {
+  const region = weatherInfo.baseline;
+  if (forecast) {
+    const items = forecastPacking(forecast);
+    return `
+          <h2>${tr(lang, "weatherPlan")}</h2>
+          <p><strong>KMA short-term forecast / ${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</strong>: ${esc(forecastSummaryText(forecast))}</p>
+          <ul>${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+          <p>${esc(forecastAdvice(forecast))}</p>
+          <p class="source-note">Current forecast snapshot: ${esc(forecast.source?.name || "KMA forecast RSS")}, updated ${esc(kmaBaseTimeText(forecast.baseTime))}. Source: Korea Meteorological Administration.</p>
+          <p class="source-note">Fallback planning baseline: Previous-year monthly baseline, ${esc(weather.source.name)}.</p>`;
+  }
+  return `
+          <h2>${tr(lang, "weatherPlan")}</h2>
+          <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
+          <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+          <p>${esc(region.outdoorAdvice)}</p>
+          <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>`;
+}
+
+function calendarWeatherText(event, lang) {
+  const forecast = currentForecastForEvent(event);
+  if (forecast) {
+    return `${tr(lang, "calendarWeather")}: KMA ${forecast.locationLabel} / ${forecastRangeText(lang, forecast)} - ${forecastSummaryText(forecast)}`;
+  }
+  const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
+  const baseline = weatherInfo.baseline;
+  const pack = (baseline.packing || []).slice(0, 2).join(", ");
+  return `${tr(lang, "calendarWeather")}: ${weatherInfo.regionKey} / ${weatherInfo.monthName} - ${baseline.range}${pack ? ` · ${tr(lang, "packHint")}: ${pack}` : ""}`;
+}
+
 function weatherIsoForEvent(event) {
   const status = statusOf(event);
   if (status === "live") return today;
@@ -2284,7 +2472,7 @@ function renderCity(lang, city) {
     });
   const weatherRegion = meta.weatherRegion || city;
   const weatherInfo = weatherBaseline(weatherRegion, representativeWeatherIso(items));
-  const region = weatherInfo.baseline;
+  const forecastInfo = currentForecastForCity(city, weatherRegion);
   const routeIdeas = routesForCity(city);
   const liveCount = items.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = items.filter((event) => statusOf(event) === "upcoming").length;
@@ -2310,11 +2498,7 @@ function renderCity(lang, city) {
 
       <section class="detail-section two-col">
         <div>
-          <h2>${tr(lang, "weatherPlan")}</h2>
-          <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
-          <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
-          <p>${esc(region.outdoorAdvice)}</p>
-          <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>
+          ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
         </div>
         <div>
           <h2>${tr(lang, "routeIdeas")}</h2>
@@ -2499,15 +2683,12 @@ function renderCalendar(lang) {
 
 function calendarItem(event, lang) {
   const status = statusOf(event);
-  const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
-  const baseline = weatherInfo.baseline;
-  const pack = (baseline.packing || []).slice(0, 2).join(", ");
   return `
     <a class="calendar-item" href="/${lang}/events/${event.slug}.html" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
       <span class="date-pill">${dateText(lang, event.startDate)}<small>${dateText(lang, event.endDate)}</small></span>
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
-        <small class="calendar-weather">${esc(tr(lang, "calendarWeather"))}: ${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)} - ${esc(baseline.range)}${pack ? ` · ${esc(tr(lang, "packHint"))}: ${esc(pack)}` : ""}</small>
+        <small class="calendar-weather">${esc(calendarWeatherText(event, lang))}</small>
         <em>${esc(event.city)} · ${categoryLabel(lang, event.category)}</em>
       </span>
       <b class="${status}">${statusLabel(lang, status)}</b>
@@ -2553,7 +2734,7 @@ function renderEvent(event, lang) {
   const routeIdeas = routesForEvent(event);
   const relatedEvents = relatedEventsForEvent(event);
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
-  const region = weatherInfo.baseline;
+  const forecastInfo = currentForecastForEvent(event);
   const description = local(event.summary, lang);
   const body = `
     <main class="page">
@@ -2592,11 +2773,7 @@ function renderEvent(event, lang) {
 
         <section class="detail-section two-col">
           <div>
-            <h2>${tr(lang, "weatherPlan")}</h2>
-            <p><strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>: ${esc(region.range)}</p>
-            <ul>${region.packing.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
-            <p>${esc(region.outdoorAdvice)}</p>
-            <p class="source-note">Previous-year monthly baseline: ${esc(weather.source.name)}</p>
+            ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
           </div>
           <div>
             <h2>${tr(lang, "travelIdeas")}</h2>

@@ -13,6 +13,9 @@ const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
+const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => null);
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
   .then(JSON.parse)
@@ -229,6 +232,21 @@ for (const [regionName, months] of Object.entries(weather.regions || {})) {
     if (!String(item.range || "").trim()) push(errors, `weather:${regionName}:${month}`, "range is required.");
     if (!Array.isArray(item.packing) || item.packing.length < 3) push(errors, `weather:${regionName}:${month}`, "packing must contain at least three items.");
     if (!String(item.outdoorAdvice || "").trim()) push(errors, `weather:${regionName}:${month}`, "outdoorAdvice is required.");
+  }
+}
+
+if (!currentWeather?.source?.name) {
+  push(errors, "kma-forecast", "data/kma-forecast.json is required and must include source metadata.");
+} else {
+  if (currentWeather.source.name !== "KMA 1-hour Village Forecast RSS") {
+    push(errors, "kma-forecast", "source.name should be KMA 1-hour Village Forecast RSS.");
+  }
+  const forecastRegions = currentWeather.regions || {};
+  for (const city of new Set(events.map((event) => event.city))) {
+    const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[city];
+    if (!key || !forecastRegions[key]?.summary?.days?.length) {
+      push(errors, `kma-forecast:${city}`, `missing current KMA forecast region for city: ${city}.`);
+    }
   }
 }
 

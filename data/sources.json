@@ -114,6 +114,20 @@
     "notes": "Use to calculate same-period previous-year weather notes per city."
   },
   {
+    "name": "KMA 1-hour Village Forecast RSS",
+    "type": "official-rss",
+    "owner": "Korea Meteorological Administration",
+    "url": "https://www.weather.go.kr/plus/rss.jsp",
+    "alternateUrls": [
+      "https://www.weather.go.kr/w/rss/dfs/hr1-forecast.do?zone=1114055000",
+      "https://www.weather.go.kr/w/weather/forecast/short-term.do"
+    ],
+    "coverage": ["short-term forecast", "temperature", "rain chance", "humidity", "city weather planning"],
+    "refreshCadence": "daily before public build; more often during major outdoor events",
+    "automationStatus": "monitor-and-curate",
+    "notes": "Use for current KMA short-term forecast snapshots on event detail, calendar, and city pages. The KMA RSS page states source attribution is required."
+  },
+  {
     "name": "Seoul Metropolitan Government Monthly Event Calendar",
     "type": "official-page-monitor",
     "owner": "Seoul Metropolitan Government",

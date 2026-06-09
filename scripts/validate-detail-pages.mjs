@@ -10,6 +10,9 @@ const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json")
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
 const weather = JSON.parse(fs.readFileSync(path.join(root, "data", "weather-baselines.json"), "utf8"));
+const currentWeather = fs.existsSync(path.join(root, "data", "kma-forecast.json"))
+  ? JSON.parse(fs.readFileSync(path.join(root, "data", "kma-forecast.json"), "utf8"))
+  : null;
 const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseSlotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
@@ -69,6 +72,24 @@ function weatherBaseline(event) {
   };
 }
 
+function forecastRegionKey(city, weatherRegion) {
+  if (!currentWeather?.regions) return null;
+  const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[weatherRegion] || weatherRegion || "Nationwide";
+  if (currentWeather.regions[key]?.summary?.days?.length) return key;
+  return currentWeather.regions.Nationwide?.summary?.days?.length ? "Nationwide" : null;
+}
+
+function currentForecastForEvent(event) {
+  if (statusOf(event) === "ended") return null;
+  const key = forecastRegionKey(event.city, event.weatherRegion);
+  const region = key ? currentWeather.regions[key] : null;
+  const days = region?.summary?.days || [];
+  const startDate = statusOf(event) === "live" ? today : event.startDate;
+  const endDate = event.endDate || event.startDate || startDate;
+  const selected = days.filter((day) => day.date >= startDate && day.date <= endDate);
+  return selected.length ? { region, days: selected } : null;
+}
+
 function routeHref(lang, route) {
   return `/${lang}/routes/${route.slug}.html`;
 }
@@ -104,6 +125,7 @@ function validateDetailPage(event, lang) {
 
   const html = fs.readFileSync(file, "utf8");
   const weatherInfo = weatherBaseline(event);
+  const forecastInfo = currentForecastForEvent(event);
   const routeIdeas = routesForEvent(event);
   const relatedGuides = guidesForEvent(event);
 
@@ -118,11 +140,17 @@ function validateDetailPage(event, lang) {
 
   assertIncludes(html, "Previous-year monthly baseline", id, "previous-year weather baseline label is missing.");
   assertIncludes(html, esc(weather.source.name), id, "weather source name is missing.");
-  assertIncludes(html, esc(weatherInfo.regionKey), id, "weather region is missing.");
-  assertIncludes(html, esc(weatherInfo.monthName), id, "weather month is missing.");
-  assertIncludes(html, esc(weatherInfo.baseline.range), id, "weather range is missing.");
-  for (const item of (weatherInfo.baseline.packing || []).slice(0, 3)) {
-    assertIncludes(html, esc(item), id, `weather packing item is missing: ${item}`);
+  if (forecastInfo) {
+    assertIncludes(html, "KMA short-term forecast", id, "current KMA forecast label is missing.");
+    assertIncludes(html, esc(currentWeather.source.name), id, "current KMA forecast source is missing.");
+    assertIncludes(html, esc(forecastInfo.region.label), id, "current KMA forecast location is missing.");
+  } else {
+    assertIncludes(html, esc(weatherInfo.regionKey), id, "weather region is missing.");
+    assertIncludes(html, esc(weatherInfo.monthName), id, "weather month is missing.");
+    assertIncludes(html, esc(weatherInfo.baseline.range), id, "weather range is missing.");
+    for (const item of (weatherInfo.baseline.packing || []).slice(0, 3)) {
+      assertIncludes(html, esc(item), id, `weather packing item is missing: ${item}`);
+    }
   }
 
   for (const tip of (event.travelTips || []).slice(0, 2)) {

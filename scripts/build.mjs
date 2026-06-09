@@ -2283,6 +2283,14 @@ function langSwitcher(lang, currentPathBuilder) {
   }).join("");
 }
 
+function languageMenu(lang, currentPathBuilder) {
+  return `
+    <details class="language-menu">
+      <summary aria-label="Language">${languages[lang].name}</summary>
+      <div class="language-menu-panel">${langSwitcher(lang, currentPathBuilder)}</div>
+    </details>`;
+}
+
 function nav(lang) {
   return `
     <nav class="top-nav" aria-label="Primary">
@@ -2490,7 +2498,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <span>${siteName}</span>
     </a>
     ${nav(lang)}
-    <div class="lang-switcher" aria-label="Language">${langSwitcher(lang, currentPathBuilder)}</div>
+    ${languageMenu(lang, currentPathBuilder)}
   </header>
   ${pageBody}
   <footer class="site-footer">

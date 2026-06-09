@@ -53,6 +53,7 @@ for (const lang of languages) {
   assertIncludes(home, `/${lang}/calendar/`, `${lang}/index.html`, "calendar link is missing from the primary experience.");
   assertIncludes(home, `/${lang}/planner/`, `${lang}/index.html`, "planner link is missing from the primary experience.");
   assertIncludes(home, `/${lang}/about/`, `${lang}/index.html`, "about link is missing from the primary experience.");
+  assertIncludes(home, "class=\"language-menu\"", `${lang}/index.html`, "language selector should be compact instead of a full header row.");
 
   const calendar = read(path.join(lang, "calendar", "index.html"));
   const monthBlocks = countMatches(calendar, /class="month-block"/g);
@@ -64,6 +65,7 @@ for (const lang of languages) {
 }
 
 const home = read("en/index.html");
+const styles = read("styles.css");
 const spotlightSlides = countMatches(home, /data-spotlight-slide/g);
 const spotlightTabs = countMatches(home, /class="spotlight-tab"/g);
 if (spotlightSlides < 3 || spotlightSlides > 5) {
@@ -84,6 +86,13 @@ if (summaryBlock.includes("<dt>Sources</dt>")) {
 if (home.includes("spotlight-dots")) {
   push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
 }
+if (home.includes("class=\"lang-switcher\"")) {
+  push("en/index.html", "header should use a compact language menu, not a multi-row language link strip.");
+}
+assertIncludes(home, "class=\"language-menu-panel\"", "en/index.html", "language menu panel is missing.");
+assertIncludes(styles, "@media (max-width: 680px)", "styles.css", "mobile breakpoint is missing.");
+assertIncludes(styles, "grid-template-areas:", "styles.css", "mobile header should explicitly place brand, nav, and language controls.");
+assertIncludes(styles, ".language-menu summary", "styles.css", "compact language menu styling is missing.");
 const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
 if (categoryMediaCards < 7) {
   push("en/index.html", `home category cards should use representative event thumbnails; found ${categoryMediaCards}.`);
@@ -140,4 +149,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("UX quality validation passed: multilingual pages, carousel tabs, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.");
+console.log("UX quality validation passed: compact mobile header, multilingual pages, carousel tabs, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.");

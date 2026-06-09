@@ -95,15 +95,16 @@ Then open:
 http://127.0.0.1:8766/
 ```
 
-## Cloudflare Pages
+## Cloudflare Workers/Pages
 
-Use GitHub plus Cloudflare Pages.
+Use GitHub plus Cloudflare Workers Builds or Cloudflare Pages. The currently connected Cloudflare project is the Workers project `kculture`, so `wrangler.toml` is configured to deploy the generated `dist/` folder as static assets through `wrangler deploy`.
 
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Deploy command for Workers Builds: `npx wrangler deploy`
+- Static assets directory in `wrangler.toml`: `dist`
 - Root directory: this project root
-- Pages project name: `korea-now-guide` by default, or set `CLOUDFLARE_PAGES_PROJECT_NAME`
-- Use the Cloudflare `pages.dev` URL only for preview. For AdSense review, connect a custom domain and set `SITE_URL` to that custom `https://` domain.
+- Worker project name: `kculture`
+- Use the Cloudflare preview URL only for testing. For AdSense review, connect a custom domain and set `SITE_URL` to that custom `https://` domain.
 
 Before production build, set:
 
@@ -114,7 +115,7 @@ $env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run build
 ```
 
-`wrangler.toml` already sets `pages_build_output_dir = "dist"`.
+`wrangler.toml` already sets `[assets] directory = "./dist"`.
 The build also writes Cloudflare Pages `_headers` for basic security headers and asset caching.
 
 Production preflight:
@@ -147,7 +148,7 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 
 - `SITE_URL`: real production URL, for example `https://your-domain.com`
 - `CONTACT_EMAIL`: public contact email shown in policy pages
-- `CLOUDFLARE_PAGES_PROJECT_NAME`: Cloudflare Pages project name, default `korea-now-guide`
+- `CLOUDFLARE_WORKER_NAME`: Cloudflare Worker project name, default `kculture`
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
 - `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
 - `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved placements on the home page, event detail pages, and guide articles after approval
@@ -158,7 +159,7 @@ Set these repository secrets:
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_API_TOKEN`
 
-`.github/workflows/deploy-cloudflare-pages.yml` refreshes official source candidates, builds with the real domain, runs production preflight, validates content and links, uploads the source refresh artifacts, then deploys `dist/` to Cloudflare Pages with `wrangler pages deploy`.
+`.github/workflows/deploy-cloudflare-pages.yml` refreshes official source candidates, builds with the real domain, runs production preflight, validates content and links, uploads the source refresh artifacts, then deploys `dist/` to the `kculture` Cloudflare Worker with `wrangler deploy`.
 
 ## GitHub Verification
 

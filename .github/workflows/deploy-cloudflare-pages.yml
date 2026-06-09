@@ -1,4 +1,4 @@
-name: Deploy Cloudflare Pages
+name: Deploy Cloudflare Worker
 
 on:
   workflow_dispatch:
@@ -41,7 +41,7 @@ jobs:
       GOOGLE_ADSENSE_SLOT: ${{ vars.GOOGLE_ADSENSE_SLOT }}
       GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       ALLOW_PLATFORM_SUBDOMAIN: ${{ vars.ALLOW_PLATFORM_SUBDOMAIN || '0' }}
-      CLOUDFLARE_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'korea-now-guide' }}
+      CLOUDFLARE_WORKER_NAME: ${{ vars.CLOUDFLARE_WORKER_NAME || 'kculture' }}
 
     steps:
       - name: Check out repository
@@ -63,7 +63,7 @@ jobs:
         run: |
           test -n "$SITE_URL" || { echo "SITE_URL repository variable is required."; exit 1; }
           test -n "$CONTACT_EMAIL" || { echo "CONTACT_EMAIL repository variable is required."; exit 1; }
-          test -n "$CLOUDFLARE_PAGES_PROJECT_NAME" || { echo "CLOUDFLARE_PAGES_PROJECT_NAME repository variable is required."; exit 1; }
+          test -n "$CLOUDFLARE_WORKER_NAME" || { echo "CLOUDFLARE_WORKER_NAME repository variable is required."; exit 1; }
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required."; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID secret is required."; exit 1; }
 
@@ -115,13 +115,13 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
+          command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print deployment URL

@@ -32,7 +32,7 @@ Set these in GitHub repository settings under `Secrets and variables` -> `Action
 
 - `SITE_URL`: real production URL, for example `https://your-domain.com`
 - `CONTACT_EMAIL`: public domain email, for example `contact@your-domain.com`
-- `CLOUDFLARE_PAGES_PROJECT_NAME`: `korea-now-guide`
+- `CLOUDFLARE_WORKER_NAME`: `kculture`
 - `GOOGLE_SITE_VERIFICATION`: optional Search Console meta token
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: add after AdSense gives the publisher ID
 - `GOOGLE_ADSENSE_CLIENT`: add after AdSense gives the client ID
@@ -53,7 +53,7 @@ Two deployment paths are supported.
 
 Path A, GitHub Actions deploy:
 
-- Create a Cloudflare Pages project named `korea-now-guide`.
+- Create or use a Cloudflare Workers project named `kculture`.
 - Set the Cloudflare GitHub Action secrets in GitHub.
 - Run `.github/workflows/deploy-cloudflare-pages.yml` manually when you want Wrangler to deploy `dist/`.
 
@@ -61,10 +61,10 @@ Path B, Cloudflare dashboard Git integration:
 
 - Connect the GitHub repository from Cloudflare Pages.
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Deploy command for Workers Builds: `npx wrangler deploy`
 - Root directory: project root
 - Set the same production environment variables in the Cloudflare Pages project settings.
-- This is the recommended first launch path because Cloudflare handles the GitHub webhook and deployment without a separate API token.
+- This is the recommended first launch path because Cloudflare handles the GitHub webhook and deployment.
 
 For AdSense review, connect the custom domain and use that domain as `SITE_URL`. The `pages.dev` URL is only for preview.
 

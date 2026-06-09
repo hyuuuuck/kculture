@@ -20,5 +20,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify static site
-        run: npm run verify
+      - name: Run launch preflight
+        run: npm run preflight:launch
+        env:
+          SITE_URL: https://kspotnow.com
+          CONTACT_EMAIL: contact@kspotnow.com

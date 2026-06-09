@@ -334,32 +334,48 @@ img {
   transform: translateY(-1px);
 }
 
+.spotlight-nav-panel {
+  display: flex;
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #cfd8e6;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
 .spotlight-tabs {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex: 0 0 auto;
   gap: 6px;
   align-items: center;
 }
 
-.spotlight-tab {
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 7px;
-  justify-content: start;
-  padding: 8px 10px;
-  text-align: left;
+.spotlight-controls .spotlight-tab {
+  display: grid;
+  width: 34px;
+  min-height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  padding: 0;
   background: #f8fbff;
 }
 
 .spotlight-tab span {
   color: #6a778a;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 900;
 }
 
-.spotlight-tab strong {
+.spotlight-current-label {
+  min-width: 0;
   overflow: hidden;
-  font-size: 0.78rem;
-  line-height: 1.15;
+  color: var(--blue-dark);
+  font-size: 0.88rem;
+  font-weight: 850;
+  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3342,16 +3358,22 @@ img {
   }
 
   .spotlight-tabs {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
   }
 
-  .spotlight-tab {
-    min-height: 40px;
+  .spotlight-controls .spotlight-tab {
+    width: 30px;
+    min-height: 30px;
     justify-content: center;
-    padding: 8px 4px;
   }
 
-  .spotlight-tab strong {
+  .spotlight-nav-panel {
+    gap: 8px;
+    justify-content: center;
+    padding: 5px 8px;
+  }
+
+  .spotlight-current-label {
     display: none;
   }
 

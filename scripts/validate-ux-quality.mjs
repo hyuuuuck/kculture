@@ -58,6 +58,8 @@ if (spotlightSlides !== spotlightTabs) {
 }
 assertIncludes(home, "data-spotlight-count", "en/index.html", "spotlight count is missing.");
 assertIncludes(home, "class=\"spotlight-tabs\"", "en/index.html", "spotlight titled navigation is missing.");
+assertIncludes(home, "class=\"spotlight-nav-panel\"", "en/index.html", "spotlight compact navigation panel is missing.");
+assertIncludes(home, "data-spotlight-title-label", "en/index.html", "spotlight current title label is missing.");
 if (home.includes("spotlight-dots")) {
   push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
 }

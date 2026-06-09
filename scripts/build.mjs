@@ -2549,8 +2549,11 @@ function spotlightCarousel(slides, lang) {
               ${usableSlides.length > 1 ? `
               <div class="spotlight-controls" aria-label="Featured event controls">
                 <button class="spotlight-arrow" type="button" data-spotlight-prev aria-label="Previous highlight">&lt;</button>
-                <div class="spotlight-tabs">
-                  ${usableSlides.map((event, index) => `<button class="spotlight-tab" type="button" data-spotlight-dot="${index}" aria-label="Show ${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span>${String(index + 1).padStart(2, "0")}</span><strong>${esc(trimHeading(local(event.title, lang), 28))}</strong></button>`).join("")}
+                <div class="spotlight-nav-panel">
+                  <div class="spotlight-tabs" aria-label="Choose featured highlight">
+                    ${usableSlides.map((event, index) => `<button class="spotlight-tab" type="button" data-spotlight-dot="${index}" data-spotlight-title="${esc(trimHeading(local(event.title, lang), 44))}" aria-label="Show ${esc(local(event.title, lang))}" title="${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span>${String(index + 1).padStart(2, "0")}</span></button>`).join("")}
+                  </div>
+                  <span class="spotlight-current-label" data-spotlight-title-label>${esc(trimHeading(local(usableSlides[0].title, lang), 44))}</span>
                 </div>
                 <span class="spotlight-count" data-spotlight-count>1 / ${usableSlides.length}</span>
                 <button class="spotlight-arrow" type="button" data-spotlight-next aria-label="Next highlight">&gt;</button>

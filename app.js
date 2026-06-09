@@ -8,6 +8,7 @@ for (const carousel of spotlightCarousels) {
   const nextButton = carousel.querySelector("[data-spotlight-next]");
   const dots = [...carousel.querySelectorAll("[data-spotlight-dot]")];
   const count = carousel.querySelector("[data-spotlight-count]");
+  const titleLabel = carousel.querySelector("[data-spotlight-title-label]");
   if (slides.length <= 1) continue;
 
   let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
@@ -35,6 +36,7 @@ for (const carousel of spotlightCarousels) {
     });
 
     if (count) count.textContent = `${currentIndex + 1} / ${slides.length}`;
+    if (titleLabel) titleLabel.textContent = dots[currentIndex]?.dataset.spotlightTitle || "";
   }
 
   previousButton?.addEventListener("click", () => showSlide(currentIndex - 1));

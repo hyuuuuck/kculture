@@ -121,10 +121,11 @@ function collectHomeUx() {
 
   const slides = countMatches(home, /data-spotlight-slide/g);
   const tabs = countMatches(home, /class="spotlight-tab"/g);
-  if (slides >= 3 && slides <= 5 && tabs === slides && home.includes("class=\"spotlight-tabs\"") && !home.includes("spotlight-dots")) {
-    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with titled navigation tabs.`);
+  const hasCompactNavigation = home.includes("class=\"spotlight-nav-panel\"") && home.includes("data-spotlight-title-label");
+  if (slides >= 3 && slides <= 5 && tabs === slides && hasCompactNavigation && !home.includes("spotlight-dots")) {
+    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with numbered controls and a readable current-title label.`);
   } else {
-    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${tabs} tabs.`, "Designer: keep 3-5 spotlight slides and titled tabs; remove dot-only navigation.");
+    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${tabs} tabs, compact navigation ${hasCompactNavigation}.`, "Designer: keep 3-5 spotlight slides, compact numbered controls, and a current-title label; remove dot-only navigation.");
   }
 
   if (home.includes("Live Korea events, pop-ups, and deals for visitors.") && home.includes("K-Spot Now")) {

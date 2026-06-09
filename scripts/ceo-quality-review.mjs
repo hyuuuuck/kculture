@@ -293,8 +293,23 @@ function collectPublishing() {
   const adsense = latestJson(/^adsense-readiness-\d{4}-\d{2}-\d{2}\.json$/);
   if (adsense?.score) {
     const failed = Number(adsense.score.failed || 0);
-    if (!failed) pass("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with ${adsense.score.failed} fail, ${adsense.score.warned} warn.`);
-    else fail("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with ${failed} fail.`, "Publisher/CEO: clear AdSense readiness failures before applying.");
+    const warned = Number(adsense.score.warned || 0);
+    const warningItems = Array.isArray(adsense.checks)
+      ? adsense.checks.filter((item) => item.status === "warn").map((item) => item.item).join(", ")
+      : "";
+    if (failed) {
+      fail("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with ${failed} fail.`, "Publisher/CEO: clear AdSense readiness failures before applying.");
+    } else if (warned) {
+      warn(
+        "publisher",
+        "AdSense readiness",
+        "Internal scorecard",
+        `${adsense.score.percent}% with 0 fail, ${warned} warn: ${warningItems || "warning items pending"}.`,
+        "Publisher/CEO: finish the non-code AdSense launch tasks, especially Search Console verification and real AdSense IDs after Google issues them."
+      );
+    } else {
+      pass("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with 0 fail, 0 warn.`);
+    }
   } else {
     warn("publisher", "AdSense readiness", "Internal scorecard", "No latest adsense-readiness JSON found.", "Publisher: run npm.cmd run report:adsense before CEO review.");
   }

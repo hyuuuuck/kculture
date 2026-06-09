@@ -80,8 +80,8 @@ npm.cmd run verify
 Run the CEO quality review after building and generating the AdSense scorecard:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="contact@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 npm.cmd run build
 npm.cmd run report:adsense
 npm.cmd run quality:ceo
@@ -138,8 +138,8 @@ Use GitHub plus Cloudflare Workers Builds or Cloudflare Pages. The currently con
 Before production build, set:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run build
 ```
@@ -150,8 +150,8 @@ The build also writes Cloudflare Pages `_headers` for basic security headers and
 Production preflight:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 npm.cmd run build
 npm.cmd run validate:production
 npm.cmd run report:adsense
@@ -160,8 +160,8 @@ npm.cmd run report:adsense
 Full launch preflight:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 npm.cmd run preflight:launch
 ```
 
@@ -175,7 +175,7 @@ npm.cmd run deploy:cloudflare
 
 For GitHub Actions deployment through Wrangler, set these repository variables:
 
-- `SITE_URL`: real production URL, for example `https://your-domain.com`
+- `SITE_URL`: `https://kspotnow.com`
 - `CONTACT_EMAIL`: public contact email shown in policy pages
 - `CLOUDFLARE_WORKER_NAME`: Cloudflare Worker project name, default `kculture`
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
@@ -322,8 +322,8 @@ npm.cmd run validate:content
 Then generate the private AdSense readiness scorecard:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run report:adsense
 ```
@@ -405,8 +405,8 @@ The curation queue is still non-public. It only helps the review board surface o
 AdSense preflight after you have the publisher ID:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="hello@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
 npm.cmd run build

@@ -5,7 +5,7 @@ Use this checklist when moving K-Spot Now from local build to a real AdSense rev
 ## 1. Domain and Email
 
 - Buy a custom domain and connect it to Cloudflare DNS.
-- Create a public contact address on the same domain, for example `contact@your-domain.com` or `hello@your-domain.com`.
+- Create a public contact address on the same domain: `contact@kspotnow.com`.
 - A separate paid mailbox is not required for launch if you only need to receive mail. A domain email alias that forwards to your existing inbox is enough.
 - Do not expose a personal Gmail address on the site. Use a domain alias for `CONTACT_EMAIL`.
 - If you need to send replies from the domain address, use a real mailbox provider or configure authenticated sending for that domain.
@@ -15,7 +15,7 @@ Use this checklist when moving K-Spot Now from local build to a real AdSense rev
 Create a GitHub repository, then push this project:
 
 ```powershell
-git remote add origin https://github.com/YOUR_ACCOUNT/kspotnow.git
+git remote add origin https://github.com/hyuuuuck/kculture.git
 git branch -M main
 git push -u origin main
 ```
@@ -30,8 +30,8 @@ After the push, confirm that these workflows are visible under GitHub Actions:
 
 Set these in GitHub repository settings under `Secrets and variables` -> `Actions` -> `Variables`:
 
-- `SITE_URL`: real production URL, for example `https://your-domain.com`
-- `CONTACT_EMAIL`: public domain email, for example `contact@your-domain.com`
+- `SITE_URL`: `https://kspotnow.com`
+- `CONTACT_EMAIL`: `contact@kspotnow.com`
 - `CLOUDFLARE_WORKER_NAME`: `kculture`
 - `GOOGLE_SITE_VERIFICATION`: optional Search Console meta token
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: add after AdSense gives the publisher ID
@@ -81,8 +81,8 @@ Publishing uses four quality gates before a public launch:
 Run this before pushing a production launch build:
 
 ```powershell
-$env:SITE_URL="https://your-domain.com"
-$env:CONTACT_EMAIL="contact@your-domain.com"
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_SITE_VERIFICATION="search-console-meta-content"
 npm.cmd run preflight:launch
 ```
@@ -101,7 +101,7 @@ npm.cmd run preflight:adsense
 ## 7. Search and AdSense
 
 - Verify the domain in Google Search Console by DNS or meta tag.
-- Submit `https://your-domain.com/sitemap.xml`.
+- Submit `https://kspotnow.com/sitemap.xml`.
 - Wait until important pages are indexed before applying to AdSense.
 - Apply with the real custom domain, not the Cloudflare preview URL.
 - After approval, add the real AdSense IDs and rebuild so `/ads.txt` and ad placements are generated.

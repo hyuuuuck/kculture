@@ -54,7 +54,8 @@ Two deployment paths are supported.
 Path A, GitHub Actions deploy:
 
 - Create a Cloudflare Pages project named `korea-now-guide`.
-- Let `.github/workflows/deploy-cloudflare-pages.yml` deploy `dist/` using Wrangler.
+- Set the Cloudflare GitHub Action secrets in GitHub.
+- Run `.github/workflows/deploy-cloudflare-pages.yml` manually when you want Wrangler to deploy `dist/`.
 
 Path B, Cloudflare dashboard Git integration:
 
@@ -63,6 +64,7 @@ Path B, Cloudflare dashboard Git integration:
 - Build output directory: `dist`
 - Root directory: project root
 - Set the same production environment variables in the Cloudflare Pages project settings.
+- This is the recommended first launch path because Cloudflare handles the GitHub webhook and deployment without a separate API token.
 
 For AdSense review, connect the custom domain and use that domain as `SITE_URL`. The `pages.dev` URL is only for preview.
 

@@ -166,7 +166,8 @@ Set these repository secrets:
 
 `.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, updates one open GitHub issue labeled `source-review`, and uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact. It can also be started manually with extra official URLs.
 
-`.github/workflows/deploy-cloudflare-pages.yml` deploys the production build on pushes to `main` and can be started manually. Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
+`.github/workflows/deploy-cloudflare-pages.yml` is kept as a manual Wrangler deployment path for later API-token automation. For the first launch, use Cloudflare Pages dashboard Git integration so Cloudflare builds and deploys the GitHub repository directly.
+Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
 Manual runs can also enable `strict_freshness` to fail the deploy when live or upcoming listings exceed the freshness windows.
 Manual runs can disable `refresh_sources` for emergency rebuilds, or pass `monitor_urls` with extra official notice URLs that should be scanned once before the production build.
 

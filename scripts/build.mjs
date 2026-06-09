@@ -222,6 +222,7 @@ let dict = {
     aboutTitle: "About Korea Now Guide",
     contactTitle: "Contact",
     privacyTitle: "Privacy Policy",
+    cookieTitle: "Cookie Policy",
     termsTitle: "Terms",
     statusLive: "Live",
     statusUpcoming: "Upcoming",
@@ -592,6 +593,7 @@ dict = {
     aboutTitle: "About Korea Now Guide",
     contactTitle: "Contact",
     privacyTitle: "Privacy Policy",
+    cookieTitle: "Cookie Policy",
     termsTitle: "Terms",
     statusLive: "Live",
     statusUpcoming: "Upcoming",
@@ -661,6 +663,7 @@ dict = {
     aboutTitle: "Acerca de Korea Now Guide",
     contactTitle: "Contacto",
     privacyTitle: "Política de privacidad",
+    cookieTitle: "Política de cookies",
     termsTitle: "Términos",
     statusLive: "Activo",
     statusUpcoming: "Próximo",
@@ -718,6 +721,7 @@ dict = {
     aboutTitle: "关于Korea Now Guide",
     contactTitle: "联系",
     privacyTitle: "隐私政策",
+    cookieTitle: "Cookie 政策",
     termsTitle: "条款",
     statusLive: "进行中",
     statusUpcoming: "即将开始",
@@ -775,6 +779,7 @@ dict = {
     aboutTitle: "Sobre Korea Now Guide",
     contactTitle: "Contato",
     privacyTitle: "Política de privacidade",
+    cookieTitle: "Política de cookies",
     termsTitle: "Termos",
     statusLive: "Ativo",
     statusUpcoming: "Próximo",
@@ -832,6 +837,7 @@ dict = {
     aboutTitle: "О Korea Now Guide",
     contactTitle: "Контакты",
     privacyTitle: "Политика конфиденциальности",
+    cookieTitle: "Политика cookie",
     termsTitle: "Условия",
     statusLive: "Идет",
     statusUpcoming: "Скоро",
@@ -980,6 +986,7 @@ dict.ja = {
   aboutTitle: "Korea Now Guideについて",
   contactTitle: "お問い合わせ",
   privacyTitle: "プライバシーポリシー",
+  cookieTitle: "Cookieポリシー",
   termsTitle: "利用規約",
   statusLive: "開催中",
   statusUpcoming: "近日開催",
@@ -2243,6 +2250,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
       <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
+      <a href="/${lang}/cookie-policy/">${tr(lang, "cookieTitle")}</a>
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
       <a href="/${lang}/corrections/">${tr(lang, "correctionsTitle")}</a>
@@ -3491,7 +3499,8 @@ function renderCorrections(lang) {
 }
 
 function staticPage(lang, kind) {
-  const title = tr(lang, `${kind}Title`);
+  const titleKey = kind === "cookie-policy" ? "cookieTitle" : `${kind}Title`;
+  const title = tr(lang, titleKey);
   const paragraphs = {
     about: [
       "Korea Now Guide is a multilingual event and shopping radar for visitors planning Korea trips.",
@@ -3503,9 +3512,21 @@ function staticPage(lang, kind) {
       "Please include the official event URL, date range, venue, and language preference."
     ],
     privacy: [
-      "This static site does not require user accounts. Basic hosting logs may be processed by the hosting provider.",
-      "If Google AdSense is enabled later, Google and its partners may use cookies or similar technologies to serve and measure ads.",
-      "Visitors can manage cookies in their browser settings. This policy is reviewed when advertising tools, consent requirements, or data-processing partners change."
+      "This static site does not require user accounts, payments, or login profiles. Basic hosting logs may be processed by the hosting provider for security, abuse prevention, and delivery.",
+      "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. Korea Now Guide does not receive that saved list unless you email it to us.",
+      "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
+      "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
+      "For visitors in the EEA, the UK, and Switzerland, advertising consent should be handled through a Google-certified consent management platform when AdSense ads are served.",
+      "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
+    ],
+    "cookie-policy": [
+      "Korea Now Guide uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
+      "Saved planner storage: when you save an event, the shortlist is stored locally in your browser. It is used only to reopen your own saved event list and calendar download on this device.",
+      "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
+      "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
+      "Personalized advertising choices: visitors can manage Google personalized ads in Google Ads Settings, use browser cookie controls, or use industry opt-out tools where available.",
+      "European consent: for users in the EEA, the UK, and Switzerland, AdSense ads should be paired with a Google-certified consent management platform so visitors can accept, reject, or manage advertising purposes.",
+      `Questions or correction requests can be sent to ${contactEmail}.`
     ],
     terms: [
       "Information is provided for travel planning and may change without notice.",
@@ -3582,6 +3603,7 @@ async function build() {
     await writeHtml(`${lang}/about/index.html`, staticPage(lang, "about"));
     await writeHtml(`${lang}/contact/index.html`, staticPage(lang, "contact"));
     await writeHtml(`${lang}/privacy/index.html`, staticPage(lang, "privacy"));
+    await writeHtml(`${lang}/cookie-policy/index.html`, staticPage(lang, "cookie-policy"));
     await writeHtml(`${lang}/terms/index.html`, staticPage(lang, "terms"));
     for (const category of Object.keys(categoryDefinitions)) {
       await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
@@ -3687,6 +3709,7 @@ function sitemap() {
       { url: `/${lang}/about/`, lastmod: today },
       { url: `/${lang}/contact/`, lastmod: today },
       { url: `/${lang}/privacy/`, lastmod: today },
+      { url: `/${lang}/cookie-policy/`, lastmod: today },
       { url: `/${lang}/terms/`, lastmod: today }
     );
     for (const category of Object.keys(categoryDefinitions)) {

@@ -16,7 +16,7 @@ const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
 const languages = ["en", "es", "zh", "pt", "ru", "ja"];
-const requiredPolicyPages = ["about", "contact", "privacy", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 
 function normalizePublisherId(value) {
   const trimmed = String(value || "").trim();
@@ -162,7 +162,7 @@ const keyFiles = [
   path.join(dist, "source-refresh.json")
 ];
 for (const lang of languages) {
-  for (const page of ["contact", "privacy", "about", "terms"]) {
+  for (const page of ["contact", "privacy", "cookie-policy", "about", "terms"]) {
     keyFiles.push(path.join(dist, lang, page, "index.html"));
   }
 }

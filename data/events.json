@@ -351,6 +351,160 @@
     "mapQueryKo": "밀락 더 마켓"
   },
   {
+    "slug": "hoshi-birthday-cafe-seoul-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 95,
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-15",
+    "dateLabel": "2026-06-12 - 2026-06-15 KST; two Mapo birthday cafe themes",
+    "city": "Seoul",
+    "district": "Mapo-gu / Hongik Univ.",
+    "venue": "Gallery Cafe Bias and Cafe Zigeum",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019e9024-e0e2-70a4-a2e2-cb6bb3944fc9",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world",
+    "thumbnail": "assets/event-thumbnails/official/hoshi-birthday-cafe-seoul-2026.jpg",
+    "title": {
+      "en": "HOSHI Birthday Cafe Pop-up in Seoul",
+      "es": "Cafe pop-up de cumpleaños de HOSHI en Seul",
+      "zh": "HOSHI 首尔生日咖啡快闪",
+      "pt": "Cafe pop-up de aniversario do HOSHI em Seul",
+      "ru": "Birthday Cafe HOSHI в Сеуле",
+      "ja": "HOSHI バースデーカフェ・ソウル"
+    },
+    "summary": {
+      "en": "NOL World lists two Mapo birthday cafe themes for SEVENTEEN HOSHI from June 12-15, 2026: STAY at Gallery Cafe Bias and Superstar Kwon Sunbae at Cafe Zigeum.",
+      "es": "NOL World confirma dos cafes tematicos de cumpleaños de HOSHI en Mapo del 12 al 15 de junio de 2026: STAY en Gallery Cafe Bias y Superstar Kwon Sunbae en Cafe Zigeum.",
+      "zh": "NOL World 列出 SEVENTEEN HOSHI 生日咖啡活动，2026年6月12日至15日在麻浦两处进行：Gallery Cafe Bias 的 STAY 与 Cafe Zigeum 的 Superstar Kwon Sunbae。",
+      "pt": "A NOL World lista dois cafes tematicos de aniversario do HOSHI em Mapo, de 12 a 15 de junho de 2026: STAY no Gallery Cafe Bias e Superstar Kwon Sunbae no Cafe Zigeum.",
+      "ru": "NOL World указывает два тематических birthday cafe HOSHI в районе Mapo с 12 по 15 июня 2026 года: STAY в Gallery Cafe Bias и Superstar Kwon Sunbae в Cafe Zigeum.",
+      "ja": "NOL World は、2026年6月12日から15日まで麻浦で開かれる HOSHI のバースデーカフェ2会場を掲載しています。Gallery Cafe Bias の STAY と Cafe Zigeum の Superstar Kwon Sunbae です。"
+    },
+    "whyGo": {
+      "en": "A compact Hongdae-area fan stop with two venues, photo zones, and special benefit packages that visitors can plan around nearby cafes, subway exits, and merch queues.",
+      "es": "Una parada fan en Hongdae con dos locales, photo zones y beneficios especiales, util para planear cafes cercanos, salidas de metro y posibles filas.",
+      "zh": "这是弘大一带的高意图粉丝路线，包含两处会场、拍照区和特典包，适合顺路规划咖啡店、地铁出口和排队时间。",
+      "pt": "Uma parada de fas na area de Hongdae com dois locais, photo zones e beneficios especiais, boa para planejar cafes proximos, saidas de metro e filas.",
+      "ru": "Компактная фан-точка в районе Hongdae с двумя площадками, фотозонами и специальными пакетами, удобная для планирования маршрута от метро и очередей.",
+      "ja": "弘大エリアで2会場、フォトゾーン、特典パッケージを回れるファン向けスポットで、地下鉄出口や周辺カフェと合わせて計画しやすいです。"
+    },
+    "travelTips": [
+      "The two HOSHI cafe themes are at different Mapo addresses; check which theme you want before opening a map route.",
+      "Use Korean map searches for 갤러리카페 비아스 and 카페 지금, or start from Hongik University Station Exit 7.",
+      "Photo zones and special benefit packages can queue or close early, so check the NOL World page before crossing town.",
+      "Hongdae weekends are crowded; save a nearby cafe or dinner backup if the line moves slowly."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-06-12",
+      "expectedEndDate": "2026-06-15",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019e9024-e0e2-70a4-a2e2-cb6bb3944fc9",
+      "localMustContain": [
+        "Gallery Cafe Bias",
+        "Cafe Zigeum",
+        "Hongik University Station Exit 7"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e9024-e0e2-70a4-a2e2-cb6bb3944fc9",
+          "mustContain": [
+            "HOSHI Birthday Cafe",
+            "Gallery Cafe Bias",
+            "Cafe Zigeum",
+            "June 12 (Fri) - June 15 (Mon), 2026",
+            "Hongik University Station Exit 7"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "갤러리카페 비아스"
+  },
+  {
+    "slug": "shownu-birthday-cafe-seoul-2026",
+    "category": "kpop",
+    "eventKind": "pop-up",
+    "priority": 94,
+    "startDate": "2026-06-14",
+    "endDate": "2026-06-19",
+    "dateLabel": "2026-06-14 - 2026-06-19 KST; two Mapo birthday cafe windows",
+    "city": "Seoul",
+    "district": "Mapo-gu / Hongik Univ.",
+    "venue": "Newcase and Deluna Cafe & Gallery",
+    "sourceName": "NOL World Seoul Pop-ups",
+    "sourceUrl": "https://world.nol.com/en/content/festas/019e9033-7057-7d60-9bcb-b25d72f7b588",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-nol-world",
+    "thumbnail": "assets/event-thumbnails/official/shownu-birthday-cafe-seoul-2026.jpg",
+    "title": {
+      "en": "SHOWNU Birthday Cafe Pop-up in Seoul",
+      "es": "Cafe pop-up de cumpleaños de SHOWNU en Seul",
+      "zh": "SHOWNU 首尔生日咖啡快闪",
+      "pt": "Cafe pop-up de aniversario do SHOWNU em Seul",
+      "ru": "Birthday Cafe SHOWNU в Сеуле",
+      "ja": "SHOWNU バースデーカフェ・ソウル"
+    },
+    "summary": {
+      "en": "NOL World lists two MONSTA X SHOWNU birthday cafe events in Mapo: Sweet Bear at Newcase from June 14-18 and DEAR SAVIOR: Shownu at Deluna Cafe & Gallery from June 17-19, 2026.",
+      "es": "NOL World lista dos eventos de cumpleaños de SHOWNU de MONSTA X en Mapo: Sweet Bear en Newcase del 14 al 18 de junio y DEAR SAVIOR: Shownu en Deluna Cafe & Gallery del 17 al 19 de junio de 2026.",
+      "zh": "NOL World 列出 MONSTA X SHOWNU 在麻浦的两场生日咖啡活动：6月14日至18日 Newcase 的 Sweet Bear，以及6月17日至19日 Deluna Cafe & Gallery 的 DEAR SAVIOR: Shownu。",
+      "pt": "A NOL World lista dois eventos de aniversario do SHOWNU, do MONSTA X, em Mapo: Sweet Bear no Newcase de 14 a 18 de junho e DEAR SAVIOR: Shownu no Deluna Cafe & Gallery de 17 a 19 de junho de 2026.",
+      "ru": "NOL World указывает два birthday cafe SHOWNU из MONSTA X в районе Mapo: Sweet Bear в Newcase 14-18 июня и DEAR SAVIOR: Shownu в Deluna Cafe & Gallery 17-19 июня 2026 года.",
+      "ja": "NOL World は、MONSTA X SHOWNU の麻浦バースデーカフェ2件を掲載しています。Newcase の Sweet Bear は6月14日から18日、Deluna Cafe & Gallery の DEAR SAVIOR: Shownu は6月17日から19日です。"
+    },
+    "whyGo": {
+      "en": "The two windows do not fully overlap, so fans need a clear page to choose the right date, venue, map search, and nearby Hongdae or Mangwon route.",
+      "es": "Las dos fechas no coinciden por completo, asi que los fans necesitan una pagina clara para elegir dia, local, mapa y ruta por Hongdae o Mangwon.",
+      "zh": "两场活动日期不完全重叠，粉丝需要清楚比较日期、会场、地图搜索词以及弘大或望远路线。",
+      "pt": "As duas janelas nao coincidem totalmente, entao fas precisam escolher data, local, busca no mapa e rota por Hongdae ou Mangwon com clareza.",
+      "ru": "Даты двух площадок пересекаются не полностью, поэтому фанатам важно быстро выбрать правильный день, место, поисковый запрос карты и маршрут Hongdae или Mangwon.",
+      "ja": "2会場の日程が完全には重ならないため、訪問日、会場、地図検索、弘大または望遠ルートを一目で選べるページが必要です。"
+    },
+    "travelTips": [
+      "Sweet Bear at Newcase runs June 14-18, while DEAR SAVIOR: Shownu at Deluna Cafe & Gallery runs June 17-19.",
+      "NOL World notes a 25-minute walk from Mangwon Station Exit 2; use that exit as the first transit anchor before choosing a cafe route.",
+      "Use Korean map searches around 망원역 2번출구 first, then confirm the exact cafe address on the NOL World page.",
+      "If you want both cafe themes, target June 17 or June 18 when the windows overlap.",
+      "Mapo cafe events can be small; check official benefit notices before planning merch or photo-zone expectations."
+    ],
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "pop-up",
+      "expectedStartDate": "2026-06-14",
+      "expectedEndDate": "2026-06-19",
+      "expectedSourceName": "NOL World Seoul Pop-ups",
+      "expectedSourceUrl": "https://world.nol.com/en/content/festas/019e9033-7057-7d60-9bcb-b25d72f7b588",
+      "localMustContain": [
+        "Newcase",
+        "Deluna Cafe & Gallery",
+        "Mangwon Station Exit 2"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e9033-7057-7d60-9bcb-b25d72f7b588",
+          "mustContain": [
+            "SHOWNU Birthday Cafe",
+            "Newcase",
+            "Deluna Cafe & Gallery",
+            "June 14 (Sun) - June 18 (Thu), 2026",
+            "June 17 (Wed) - June 19 (Fri), 2026",
+            "Mangwon Station Exit 2"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "망원역 2번출구"
+  },
+  {
     "slug": "incheon-pentaport-rock-festival-2026",
     "category": "festival",
     "priority": 93,

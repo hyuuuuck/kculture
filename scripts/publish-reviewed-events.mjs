@@ -9,7 +9,7 @@ const fileArg = valueFor("--file");
 const write = args.includes("--write");
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
-const requiredLanguages = ["en", "es", "zh", "pt", "ru"];
+const requiredLanguages = ["en", "es", "zh", "pt", "ru", "ja"];
 const draftTextPatterns = [
   /draft-needs-review/i,
   /needs editor review/i,

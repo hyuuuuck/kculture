@@ -2598,7 +2598,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
               <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
               <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
               <div><dt>${tr(lang, "archive")}</dt><dd>${archiveCount}</dd></div>
-              <div><dt>${tr(lang, "navSources")}</dt><dd>${sources.length}</dd></div>
+              <div><dt>${tr(lang, "navGuides")}</dt><dd>${guides.length}</dd></div>
             </dl>
           </div>
         </div>

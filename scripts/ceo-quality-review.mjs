@@ -137,6 +137,13 @@ function collectHomeUx() {
   const navHasOpsNoise = /<nav class="top-nav"[\s\S]*?(Sources|Watchlist)[\s\S]*?<\/nav>/i.test(home);
   if (!navHasOpsNoise) pass("designer", "Navigation", "Visitor-first primary nav", "Operations pages are not in the primary visitor nav.");
   else warn("designer", "Navigation", "Visitor-first primary nav", "Sources or Watchlist appear in primary nav.", "Designer: keep operations pages in footer or trust sections, not the main visitor nav.");
+
+  const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
+  if (summaryBlock.includes("<dt>Guides</dt>") && !summaryBlock.includes("<dt>Sources</dt>")) {
+    pass("designer", "Hero", "Visitor-facing summary stats", "Hero summary shows content value instead of operational source counts.");
+  } else {
+    warn("designer", "Hero", "Visitor-facing summary stats", "Hero summary may expose operational source counts.", "Designer: use visitor-facing counts such as guides, languages, live, and upcoming instead of source totals.");
+  }
 }
 
 function collectCalendarUx() {

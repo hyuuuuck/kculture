@@ -60,6 +60,11 @@ assertIncludes(home, "data-spotlight-count", "en/index.html", "spotlight count i
 assertIncludes(home, "class=\"spotlight-tabs\"", "en/index.html", "spotlight titled navigation is missing.");
 assertIncludes(home, "class=\"spotlight-nav-panel\"", "en/index.html", "spotlight compact navigation panel is missing.");
 assertIncludes(home, "data-spotlight-title-label", "en/index.html", "spotlight current title label is missing.");
+const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
+assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
+if (summaryBlock.includes("<dt>Sources</dt>")) {
+  push("en/index.html", "hero summary should not expose operational source counts.");
+}
 if (home.includes("spotlight-dots")) {
   push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
 }

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">2026 Seoul Baekje Museum Concert</title>
+  <desc id="desc">SEOUL 2026-06-20, 3 PM - 4 PM Seoul / Seoul Metropolitan Government Monthly Event Calendar</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d7f75"/>
+      <stop offset="0.56" stop-color="#2d6cdf"/>
+      <stop offset="1" stop-color="#f4c95d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="76%" cy="18%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0b171b" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+  <path d="M760 -80 C980 40 1100 140 1220 360 L1220 750 L760 750 C840 560 845 350 760 -80Z" fill="#ffffff" opacity="0.13"/>
+  <path d="M-80 580 C180 480 365 500 560 750 L-80 750Z" fill="#0b171b" opacity="0.16"/>
+  <circle cx="1010" cy="122" r="78" fill="#ffffff" opacity="0.15"/>
+  <circle cx="110" cy="624" r="48" fill="#ffffff" opacity="0.12"/>
+  <g filter="url(#shadow)">
+    <rect x="64" y="58" width="1072" height="334" rx="36" fill="#ffffff" opacity="0.94"/>
+    <rect x="86" y="80" width="1028" height="290" rx="28" fill="#0d7f75" opacity="0.08"/>
+    <circle cx="144" cy="128" r="34" fill="#0d7f75"/>
+    <text x="144" y="140" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="900">S</text>
+    <text x="196" y="120" fill="#102027" font-size="25" font-weight="900">SEOUL</text>
+    <text x="196" y="150" fill="#5a686e" font-size="17" font-weight="850">CITY EVENT</text>
+    
+    <g transform="translate(318 108)">
+      <rect x="0" y="0" width="564" height="204" rx="38" fill="#ffffff"/>
+      <path d="M42 142 C146 46 254 42 350 122 C402 166 462 164 522 102" fill="none" stroke="#0d7f75" stroke-width="24" stroke-linecap="round"/>
+      <circle cx="458" cy="62" r="36" fill="#2d6cdf"/>
+      <text x="282" y="126" text-anchor="middle" fill="#102027" font-size="76" font-weight="900" letter-spacing="0">SEOUL</text>
+    </g>
+    <rect x="360" y="300" width="480" height="44" rx="22" fill="#2d6cdf" opacity="0.16"/>
+    <text x="600" y="329" text-anchor="middle" fill="#102027" font-size="21" font-weight="900">FESTIVAL</text>
+  </g>
+  <text x="66" y="442" fill="#ffffff" font-size="22" font-weight="900" opacity="0.88">FESTIVAL</text>
+  <text x="64" y="508" fill="#ffffff" font-size="62" font-weight="900" letter-spacing="0">2026 Seoul Baekje Museum Concert</text>
+  <rect x="64" y="642" width="624" height="58" rx="29" fill="#ffffff" opacity="0.94"/>
+  <text x="96" y="679" fill="#102027" font-size="25" font-weight="900">2026-06-20, 3 PM - 4 PM</text>
+  <text x="96" y="724" fill="#ffffff" font-size="22" font-weight="850" opacity="0.9">Seoul / Seoul Metropolitan Government Monthly Event Calendar</text>
+  <text x="1064" y="692" text-anchor="end" fill="#ffffff" font-size="20" font-weight="900" opacity="0.72">KOREA NOW GUIDE</text>
+</svg>

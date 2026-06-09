@@ -8,7 +8,11 @@ const languages = ["en", "es", "zh", "pt", "ru", "ja"];
 const errors = [];
 const warnings = [];
 const checkedImages = new Map();
-const allowedExt = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+const allowedExt = new Set([".jpg", ".jpeg", ".png", ".webp", ".svg"]);
+
+function readUInt24LE(buffer, offset) {
+  return buffer[offset] | (buffer[offset + 1] << 8) | (buffer[offset + 2] << 16);
+}
 
 function push(list, id, message) {
   list.push({ id, message });
@@ -33,6 +37,29 @@ function imageInfo(file) {
     info.height = buffer.readUInt32BE(20);
   } else if (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP") {
     info.type = "webp";
+    const chunk = buffer.subarray(12, 16).toString("ascii");
+    if (chunk === "VP8X" && buffer.length >= 30) {
+      info.width = readUInt24LE(buffer, 24) + 1;
+      info.height = readUInt24LE(buffer, 27) + 1;
+    } else if (chunk === "VP8L" && buffer.length >= 25) {
+      const b0 = buffer[21];
+      const b1 = buffer[22];
+      const b2 = buffer[23];
+      const b3 = buffer[24];
+      info.width = (((b1 & 0x3f) << 8) | b0) + 1;
+      info.height = (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6)) + 1;
+    } else if (chunk === "VP8 " && buffer.length >= 30) {
+      info.width = buffer.readUInt16LE(26) & 0x3fff;
+      info.height = buffer.readUInt16LE(28) & 0x3fff;
+    }
+  } else if (buffer.subarray(0, 512).toString("utf8").includes("<svg")) {
+    info.type = "svg";
+    const text = buffer.toString("utf8", 0, Math.min(buffer.length, 2048));
+    const width = text.match(/\bwidth="(\d+)"/i)?.[1];
+    const height = text.match(/\bheight="(\d+)"/i)?.[1];
+    const viewBox = text.match(/\bviewBox="[^"]*?(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)"/i);
+    info.width = width ? Number(width) : viewBox ? Number(viewBox[1]) : null;
+    info.height = height ? Number(height) : viewBox ? Number(viewBox[2]) : null;
   } else if (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) {
     info.type = "jpg";
     let offset = 2;
@@ -67,8 +94,8 @@ function requireImage(relativeUrl, context, { eventThumbnail = false } = {}) {
     return null;
   }
 
-  if (eventThumbnail && !clean.startsWith("assets/")) {
-    push(errors, context, `event thumbnail should live under assets/: ${relativeUrl}`);
+  if (eventThumbnail && !clean.startsWith("assets/event-thumbnails/")) {
+    push(errors, context, `event thumbnail should be event-specific under assets/event-thumbnails/: ${relativeUrl}`);
   }
 
   const ext = path.extname(clean).toLowerCase();
@@ -125,6 +152,9 @@ for (const event of events) {
   if (!event.thumbnail) {
     push(errors, event.slug || "event", "thumbnail is required");
     continue;
+  }
+  if (!String(event.thumbnail).includes(event.slug)) {
+    push(errors, event.slug || "event", `thumbnail should include the event slug so generic category images cannot be reused: ${event.thumbnail}`);
   }
   requireImage(event.thumbnail, `event:${event.slug}`, { eventThumbnail: true });
 }

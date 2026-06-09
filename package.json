@@ -15,6 +15,8 @@
     "validate:calendar": "node scripts/validate-calendar.mjs",
     "validate:details": "node scripts/validate-detail-pages.mjs",
     "validate:event-audit": "node scripts/validate-event-audit.mjs",
+    "generate:thumbnails": "node scripts/generate-event-thumbnails.mjs",
+    "collect:thumbnails": "node scripts/collect-official-thumbnails.mjs",
     "preflight:adsense": "node scripts/validate-production.mjs --require-adsense",
     "preflight:launch": "npm run build && npm run validate:production && npm run validate:content && npm run validate:sources && npm run validate:links && npm run validate:images && npm run validate:calendar && npm run validate:details && npm run validate:sitemap && npm run validate:structured && npm run validate:event-audit && npm run report:adsense",
     "report:adsense": "node scripts/adsense-readiness-report.mjs",

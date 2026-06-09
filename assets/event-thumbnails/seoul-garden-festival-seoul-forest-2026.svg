@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">2026 Seoul Garden Festival at Seoul Forest</title>
+  <desc id="desc">SEOUL Weekends from 2026-05-16 to 2026-06-07 Seoul / Seoul Metropolitan Government Monthly Event Calendar</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d7f75"/>
+      <stop offset="0.56" stop-color="#2d6cdf"/>
+      <stop offset="1" stop-color="#f4c95d"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0b171b" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <text x="56" y="62" fill="#ffffff" font-size="20" font-weight="900" opacity="0.86">FESTIVAL</text>
+  <text x="1144" y="62" text-anchor="end" fill="#ffffff" font-size="20" font-weight="900" opacity="0.86">FESTIVAL</text>
+  <g filter="url(#shadow)">
+    
+    <g transform="translate(316 220)">
+      <text x="284" y="76" text-anchor="middle" fill="#ffffff" font-size="110" font-weight="900" letter-spacing="0">SEOUL</text>
+      <path d="M62 150 C150 90 230 90 314 148 C374 188 442 178 506 122" fill="none" stroke="#f4c95d" stroke-width="12" stroke-linecap="round"/>
+    </g>
+  </g>
+  <text x="600" y="562" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="900" opacity="0.92">SEOUL</text>
+  <text x="600" y="604" text-anchor="middle" fill="#ffffff" font-size="23" font-weight="850" opacity="0.82">Weekends from 2026-05-16 to 2026-06-07</text>
+  <text x="1144" y="640" text-anchor="end" fill="#ffffff" font-size="18" font-weight="850" opacity="0.62">KOREA NOW GUIDE</text>
+</svg>

@@ -496,17 +496,29 @@ img {
 
 .category-strip,
 .city-strip {
-  display: grid;
   gap: 10px;
   margin: 0 0 24px;
 }
 
 .category-strip {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 14px;
+}
+
+.category-pill:nth-child(7):last-child {
+  grid-column: 2;
 }
 
 .city-strip {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(217, 224, 221, 0.78);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .category-strip.page-strip {
@@ -523,14 +535,71 @@ img {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 10px;
-  min-height: 78px;
   align-items: center;
-  padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 14px;
   background: var(--white);
   box-shadow: 0 8px 18px rgba(18, 32, 38, 0.04);
   transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.category-pill {
+  --pill-accent: var(--teal);
+  --pill-accent-2: var(--blue);
+  min-height: 112px;
+  padding: 18px 46px 18px 18px;
+  overflow: hidden;
+}
+
+.category-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--pill-accent) 11%, transparent), transparent 48%),
+    radial-gradient(circle at 92% 18%, color-mix(in srgb, var(--pill-accent-2) 18%, transparent), transparent 28%);
+  pointer-events: none;
+}
+
+.category-festival {
+  --pill-accent: #bf3f4a;
+  --pill-accent-2: #f0b84a;
+}
+
+.category-kpop {
+  --pill-accent: #274c9f;
+  --pill-accent-2: #d84875;
+}
+
+.category-beauty {
+  --pill-accent: #2f8b57;
+  --pill-accent-2: #f06f5c;
+}
+
+.category-duty-free {
+  --pill-accent: #193b62;
+  --pill-accent-2: #d8a73b;
+}
+
+.category-department-store {
+  --pill-accent: #5d4a98;
+  --pill-accent-2: #c78b38;
+}
+
+.category-shopping {
+  --pill-accent: #146c94;
+  --pill-accent-2: #49a078;
+}
+
+.category-travel-benefits {
+  --pill-accent: #0d7f75;
+  --pill-accent-2: #f1c75b;
+}
+
+.city-pill {
+  min-height: 46px;
+  padding: 8px 40px 8px 10px;
+  border-radius: 999px;
 }
 
 .category-pill::after,
@@ -544,37 +613,59 @@ img {
   width: 22px;
   height: 22px;
   border-radius: 999px;
-  color: var(--teal-dark);
-  background: #eaf4f0;
+  color: var(--pill-accent, var(--teal-dark));
+  background: color-mix(in srgb, var(--pill-accent, var(--teal)) 11%, white);
   font-size: 0.78rem;
   font-weight: 900;
+}
+
+.city-pill::after {
+  color: var(--teal-dark);
+  background: #eaf4f0;
 }
 
 .pill-marker {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  position: relative;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
   border-radius: 999px;
   color: var(--white);
-  background: linear-gradient(135deg, var(--teal), var(--blue));
+  background: linear-gradient(135deg, var(--pill-accent, var(--teal)), var(--pill-accent-2, var(--blue)));
   font-size: 1rem;
   font-weight: 900;
   line-height: 1;
 }
 
+.city-pill .pill-marker {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #0d7f75, #2e6c9f);
+  font-size: 0.78rem;
+}
+
 .pill-copy {
   display: grid;
   gap: 2px;
+  position: relative;
+  z-index: 1;
   min-width: 0;
   padding-right: 22px;
 }
 
 .category-pill strong,
 .city-pill strong {
-  overflow: hidden;
   line-height: 1.15;
-  text-overflow: ellipsis;
+}
+
+.category-pill strong {
+  font-size: 1.14rem;
+}
+
+.city-pill strong {
+  font-size: 0.95rem;
   white-space: nowrap;
 }
 
@@ -2106,9 +2197,12 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .category-strip,
-  .city-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .category-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-pill:nth-child(7):last-child {
+    grid-column: auto;
   }
 
   .city-dashboard {
@@ -2172,7 +2266,6 @@ img {
   .now-grid,
   .recheck-grid,
   .category-strip,
-  .city-strip,
   .city-dashboard,
   .detail-section.two-col,
   .calendar-item,

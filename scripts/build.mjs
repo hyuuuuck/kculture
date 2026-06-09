@@ -1421,7 +1421,7 @@ function categoryLinkStrip(lang) {
   return Object.keys(categoryDefinitions).map((category) => {
     const count = events.filter((event) => event.category === category).length;
     return `
-      <a class="category-pill" href="${categoryHref(lang, category)}">
+      <a class="category-pill category-${esc(category)}" href="${categoryHref(lang, category)}">
         <span class="pill-marker" aria-hidden="true">${esc(categoryLabel(lang, category).slice(0, 1).toUpperCase())}</span>
         <span class="pill-copy">
           <strong>${categoryLabel(lang, category)}</strong>

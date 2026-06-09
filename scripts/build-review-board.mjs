@@ -1,4 +1,4 @@
-import fs from "node:fs/promises";
+﻿import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
@@ -149,7 +149,7 @@ const html = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Korea Now Guide Review Board</title>
+  <title>K-Spot Now Review Board</title>
   <style>
     :root {
       --bg: #f7f4ee;
@@ -367,7 +367,7 @@ const html = `<!doctype html>
 </head>
 <body>
   <header>
-    <h1>Korea Now Guide Review Board</h1>
+    <h1>K-Spot Now Review Board</h1>
     <p>Non-public editorial board generated from official-source draft candidates. Open the official source, verify date, venue, eligibility, inventory and rights, then rewrite before publishing.</p>
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search title, source, city, category">

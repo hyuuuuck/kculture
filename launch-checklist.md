@@ -1,6 +1,6 @@
-# Cloudflare/GitHub Launch Checklist
+﻿# Cloudflare/GitHub Launch Checklist
 
-Use this checklist when moving Korea Now Guide from local build to a real AdSense review candidate.
+Use this checklist when moving K-Spot Now from local build to a real AdSense review candidate.
 
 ## 1. Domain and Email
 
@@ -15,7 +15,7 @@ Use this checklist when moving Korea Now Guide from local build to a real AdSens
 Create a GitHub repository, then push this project:
 
 ```powershell
-git remote add origin https://github.com/YOUR_ACCOUNT/korea-now-guide.git
+git remote add origin https://github.com/YOUR_ACCOUNT/kspotnow.git
 git branch -M main
 git push -u origin main
 ```

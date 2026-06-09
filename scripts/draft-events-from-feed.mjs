@@ -1,4 +1,4 @@
-import fs from "node:fs/promises";
+﻿import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
@@ -88,7 +88,7 @@ function hasAny(text, needles) {
 }
 
 function normalizedComparableText(value) {
-  return cleanText(value).toLowerCase().replace(/[–—]/g, "-").replace(/\s+/g, " ");
+  return cleanText(value).toLowerCase().replace(/[?볛?/g, "-").replace(/\s+/g, " ");
 }
 
 function inferCategory(candidate) {
@@ -96,7 +96,7 @@ function inferCategory(candidate) {
   const keywordText = candidate.leadKind === "discovered-link" ? "" : (candidate.keywordHits || []).join(" ");
   const text = `${candidate.sourceName} ${keywordText} ${candidate.pageTitle || ""} ${candidate.linkText || ""}`.toLowerCase();
   if (hasAny(text, ["olive young", "beauty", "cosmetic"])) return "beauty";
-  if (hasAny(text, ["duty free", "dfs", "免税"])) return "duty-free";
+  if (hasAny(text, ["duty free", "dfs", "?띸쮱"])) return "duty-free";
   if (hasAny(text, ["department store", "hyundai", "shinsegae group", "lotte department"])) return "department-store";
   if (hasAny(text, ["weverse", "k-pop", "kpop", "idol", "fan meeting", "fanmeeting", "fan concert", "birthday cafe", "bts", "carat", "ateez", "seventeen", "svt", "enhypen", "nct", "boynextdoor", "tws"])) return "kpop";
   if (hasAny(text, ["ticket", "yes24", "melon ticket", "nol world", "concert", "live concert", "tour", "music", "festival", "culture", "mcst", "seoul metropolitan"])) return "festival";
@@ -191,7 +191,7 @@ function titleFor(candidate) {
   }
   const queueLabel = cleanText(candidate.queueLabel);
   if (queueLabel) return `${source}: ${queueLabel}`;
-  const pageTitle = cleanText(candidate.pageTitle).replace(/\s*[-|]\s*Korea Now Guide$/i, "");
+  const pageTitle = cleanText(candidate.pageTitle).replace(/\s*[-|]\s*K-Spot Now$/i, "");
   if (pageTitle && pageTitle.toLowerCase() !== source.toLowerCase()) return `${source}: ${pageTitle}`;
   return `${source} official event candidate`;
 }

@@ -1,4 +1,4 @@
-import fs from "node:fs";
+﻿import fs from "node:fs";
 import path from "node:path";
 
 const root = path.resolve(".");
@@ -88,7 +88,7 @@ function validateIcs() {
   }
 
   for (const event of events) {
-    const uid = `${event.slug}@korea-now-guide`;
+    const uid = `${event.slug}@kspotnow`;
     const block = byUid.get(uid);
     if (!block) {
       push(event.slug, "missing VEVENT in events.ics.");

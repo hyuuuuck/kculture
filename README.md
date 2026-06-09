@@ -1,6 +1,6 @@
-# Korea Now Guide
+﻿# K-Spot Now
 
-Korea Now Guide is a static, multilingual Korea event and shopping radar for foreign visitors.
+K-Spot Now is a static, multilingual Korea event and shopping radar for foreign visitors.
 
 It is designed for AdSense readiness, but AdSense approval and monthly revenue are never guaranteed. The structure focuses on official sources, original summaries, clear date ranges, trust pages, calendar browsing, source freshness labels, and review-first automation.
 
@@ -331,7 +331,7 @@ Not every official site exposes a clean API. The safe operating model is to coll
 To check a one-off official notice without editing `data/sources.json`:
 
 ```powershell
-$env:MONITOR_URLS="https://example.com/official-event,https://example.com/notice"
+$env:MONITOR_URLS="https://kspotnow.com/official-event,https://kspotnow.com/notice"
 npm.cmd run collect:official
 ```
 

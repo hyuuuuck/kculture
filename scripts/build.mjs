@@ -8,8 +8,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const today = todayString();
-const siteUrl = process.env.SITE_URL || "https://example.com";
-const contactEmail = process.env.CONTACT_EMAIL || "hello@example.com";
+const siteName = "K-Spot Now";
+const siteTagline = "Live Korea events, pop-ups, and deals for visitors.";
+const siteDomain = "kspotnow.com";
+const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
+const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
 const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
@@ -92,9 +95,9 @@ let dict = {
     navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
-    heroEyebrow: "Korea events, pop-ups, beauty deals, duty-free offers",
-    heroTitle: "Find Korea events before they disappear.",
-    heroText: "A multilingual radar for foreign visitors: official sources, clear dates, thumbnails, calendar view, weather planning notes, and nearby travel ideas.",
+    heroEyebrow: siteTagline,
+    heroTitle: siteName,
+    heroText: "Live official-source checks for Korea festivals, K-pop pop-ups, beauty deals, duty-free offers, department-store events, weather planning, and map-ready visitor notes.",
     ctaEvents: "Browse events",
     ctaCalendar: "Open calendar",
     liveNow: "Live now",
@@ -215,11 +218,11 @@ let dict = {
     downloadSavedCalendar: "Download saved calendar",
     officialLabel: "Official",
     editorialTitle: "Editorial Policy",
-    editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
+    editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
     correctionsTitle: "Corrections and Updates",
     correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
-    aboutTitle: "About Korea Now Guide",
+    aboutTitle: "About K-Spot Now",
     contactTitle: "Contact",
     privacyTitle: "Privacy Policy",
     cookieTitle: "Cookie Policy",
@@ -281,7 +284,7 @@ let dict = {
     sourcesTitle: "Sistema de fuentes",
     sourcesText: "Separamos APIs oficiales, monitoreo de páginas oficiales y cola de curación K-pop.",
     guidesTitle: "Guías para visitantes",
-    aboutTitle: "Acerca de Korea Now Guide",
+    aboutTitle: "Acerca de K-Spot Now",
     contactTitle: "Contacto",
     privacyTitle: "Política de privacidad",
     termsTitle: "Términos",
@@ -330,7 +333,7 @@ let dict = {
     sourcesTitle: "来源系统",
     sourcesText: "区分官方 API、官方页面监控和 K-pop 人工审核队列。",
     guidesTitle: "游客指南",
-    aboutTitle: "关于 Korea Now Guide",
+    aboutTitle: "关于 K-Spot Now",
     contactTitle: "联系",
     privacyTitle: "隐私政策",
     termsTitle: "条款",
@@ -379,7 +382,7 @@ let dict = {
     sourcesTitle: "Sistema de fontes",
     sourcesText: "Separamos APIs oficiais, monitoramento oficial e curadoria K-pop.",
     guidesTitle: "Guias para visitantes",
-    aboutTitle: "Sobre Korea Now Guide",
+    aboutTitle: "Sobre K-Spot Now",
     contactTitle: "Contato",
     privacyTitle: "Política de privacidade",
     termsTitle: "Termos",
@@ -428,7 +431,7 @@ let dict = {
     sourcesTitle: "Система источников",
     sourcesText: "Отделяем официальные API, мониторинг страниц и K-pop очередь проверки.",
     guidesTitle: "Гайды для туристов",
-    aboutTitle: "О Korea Now Guide",
+    aboutTitle: "О K-Spot Now",
     contactTitle: "Контакт",
     privacyTitle: "Политика конфиденциальности",
     termsTitle: "Условия",
@@ -457,9 +460,9 @@ dict = {
     navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
-    heroEyebrow: "Korea events, pop-ups, beauty deals, duty-free offers",
-    heroTitle: "Find Korea events before they disappear.",
-    heroText: "A multilingual radar for foreign visitors: official sources, clear dates, thumbnails, calendar view, weather planning notes, and nearby travel ideas.",
+    heroEyebrow: siteTagline,
+    heroTitle: siteName,
+    heroText: "Live official-source checks for Korea festivals, K-pop pop-ups, beauty deals, duty-free offers, department-store events, weather planning, and map-ready visitor notes.",
     ctaEvents: "Browse events",
     ctaCalendar: "Open calendar",
     liveNow: "Live now",
@@ -586,11 +589,11 @@ dict = {
     downloadSavedCalendar: "Download saved calendar",
     officialLabel: "Official",
     editorialTitle: "Editorial Policy",
-    editorialText: "How Korea Now Guide collects, reviews, translates, and publishes event information.",
+    editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
     correctionsTitle: "Corrections and Updates",
     correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
-    aboutTitle: "About Korea Now Guide",
+    aboutTitle: "About K-Spot Now",
     contactTitle: "Contact",
     privacyTitle: "Privacy Policy",
     cookieTitle: "Cookie Policy",
@@ -658,9 +661,9 @@ dict = {
     freshnessTitle: "Registro de actualización",
     freshnessText: "Cada ficha muestra cuándo se revisó y qué fuente oficial se usó.",
     editorialTitle: "Política editorial",
-    editorialText: "Cómo Korea Now Guide recopila, revisa, traduce y publica información de eventos.",
+    editorialText: "Cómo K-Spot Now recopila, revisa, traduce y publica información de eventos.",
     guidesTitle: "Guías para visitantes",
-    aboutTitle: "Acerca de Korea Now Guide",
+    aboutTitle: "Acerca de K-Spot Now",
     contactTitle: "Contacto",
     privacyTitle: "Política de privacidad",
     cookieTitle: "Política de cookies",
@@ -716,9 +719,9 @@ dict = {
     freshnessTitle: "更新记录",
     freshnessText: "每个条目都会显示最后检查时间和使用的官方来源。",
     editorialTitle: "编辑政策",
-    editorialText: "Korea Now Guide如何收集、审核、翻译并发布活动信息。",
+    editorialText: "K-Spot Now如何收集、审核、翻译并发布活动信息。",
     guidesTitle: "游客指南",
-    aboutTitle: "关于Korea Now Guide",
+    aboutTitle: "关于K-Spot Now",
     contactTitle: "联系",
     privacyTitle: "隐私政策",
     cookieTitle: "Cookie 政策",
@@ -774,9 +777,9 @@ dict = {
     freshnessTitle: "Registro de atualização",
     freshnessText: "Cada item mostra quando foi checado e qual fonte oficial foi usada.",
     editorialTitle: "Política editorial",
-    editorialText: "Como o Korea Now Guide coleta, revisa, traduz e publica informações de eventos.",
+    editorialText: "Como o K-Spot Now coleta, revisa, traduz e publica informações de eventos.",
     guidesTitle: "Guias para visitantes",
-    aboutTitle: "Sobre Korea Now Guide",
+    aboutTitle: "Sobre K-Spot Now",
     contactTitle: "Contato",
     privacyTitle: "Política de privacidade",
     cookieTitle: "Política de cookies",
@@ -832,9 +835,9 @@ dict = {
     freshnessTitle: "Журнал обновлений",
     freshnessText: "Каждая карточка показывает дату проверки и официальный источник.",
     editorialTitle: "Редакционная политика",
-    editorialText: "Как Korea Now Guide собирает, проверяет, переводит и публикует информацию о событиях.",
+    editorialText: "Как K-Spot Now собирает, проверяет, переводит и публикует информацию о событиях.",
     guidesTitle: "Гиды для посетителей",
-    aboutTitle: "О Korea Now Guide",
+    aboutTitle: "О K-Spot Now",
     contactTitle: "Контакты",
     privacyTitle: "Политика конфиденциальности",
     cookieTitle: "Политика cookie",
@@ -979,11 +982,11 @@ dict.ja = {
   downloadSavedCalendar: "保存カレンダーをダウンロード",
   officialLabel: "公式",
   editorialTitle: "編集方針",
-  editorialText: "Korea Now Guideがイベント情報を収集、確認、翻訳、公開する方法です。",
+  editorialText: "K-Spot Nowがイベント情報を収集、確認、翻訳、公開する方法です。",
   correctionsTitle: "訂正と更新",
   correctionsText: "古い情報や誤りを報告する方法です。",
   guidesTitle: "訪問者ガイド",
-  aboutTitle: "Korea Now Guideについて",
+  aboutTitle: "K-Spot Nowについて",
   contactTitle: "お問い合わせ",
   privacyTitle: "プライバシーポリシー",
   cookieTitle: "Cookieポリシー",
@@ -1405,7 +1408,7 @@ function rssFeed(lang, feedPath = `/${lang}/feed.xml`) {
   const feedUrl = absoluteUrl(feedPath);
   const homeUrl = absoluteUrl(`/${lang}/`);
   const lastBuildDate = rfc2822Date(maxIso(items.map((event) => event.lastChecked)));
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(`Korea Now Guide - ${languages[lang].name}`)}</title>\n    <link>${xmlEsc(homeUrl)}</link>\n    <description>${xmlEsc(tr(lang, "nowText"))}</description>\n    <language>${xmlEsc(languages[lang].locale)}</language>\n    <lastBuildDate>${xmlEsc(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${xmlEsc(feedUrl)}" rel="self" type="application/rss+xml"/>\n${items.map((event) => {
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(`${siteName} - ${languages[lang].name}`)}</title>\n    <link>${xmlEsc(homeUrl)}</link>\n    <description>${xmlEsc(tr(lang, "nowText"))}</description>\n    <language>${xmlEsc(languages[lang].locale)}</language>\n    <lastBuildDate>${xmlEsc(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${xmlEsc(feedUrl)}" rel="self" type="application/rss+xml"/>\n${items.map((event) => {
     const url = eventPublicUrl(event, lang);
     return `    <item>\n      <title>${xmlEsc(local(event.title, lang))}</title>\n      <link>${xmlEsc(url)}</link>\n      <guid isPermaLink="true">${xmlEsc(url)}</guid>\n      <pubDate>${xmlEsc(rfc2822Date(event.lastChecked))}</pubDate>\n      <category>${xmlEsc(categoryLabel(lang, event.category))}</category>\n      <description>${xmlEsc(eventFeedSummary(event, lang))}</description>\n      <source url="${xmlEsc(event.sourceUrl)}">${xmlEsc(event.sourceName)}</source>\n    </item>`;
   }).join("\n")}\n  </channel>\n</rss>\n`;
@@ -1415,12 +1418,12 @@ function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
   const items = feedEvents();
   return JSON.stringify({
     version: "https://jsonfeed.org/version/1.1",
-    title: `Korea Now Guide - ${languages[lang].name}`,
+    title: `${siteName} - ${languages[lang].name}`,
     home_page_url: absoluteUrl(`/${lang}/`),
     feed_url: absoluteUrl(feedPath),
     language: languages[lang].locale,
     description: tr(lang, "nowText"),
-    authors: [{ name: "Korea Now Guide" }],
+    authors: [{ name: siteName }],
     items: items.map((event) => ({
       id: eventPublicUrl(event, lang),
       url: eventPublicUrl(event, lang),
@@ -2148,7 +2151,7 @@ function detailPageSchema(event, lang) {
     },
     isPartOf: {
       "@type": "WebSite",
-      name: "Korea Now Guide",
+      name: "K-Spot Now",
       url: siteUrl
     },
     sameAs: event.sourceUrl
@@ -2226,6 +2229,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   const metaImage = /^https?:\/\//.test(imagePath) ? imagePath : absoluteUrl(imagePath);
   const pageUrl = absoluteUrl(canonicalPath);
+  const pageBody = body.replace("<main", '<main id="main-content" tabindex="-1"');
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -2235,8 +2239,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="${siteUrl}${canonicalPath}">
   ${alternateLinks(currentPathBuilder, canonicalPath)}
-  <link rel="alternate" type="application/rss+xml" title="Korea Now Guide RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
-  <link rel="alternate" type="application/feed+json" title="Korea Now Guide JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
+  <link rel="alternate" type="application/rss+xml" title="${siteName} RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
+  <link rel="alternate" type="application/feed+json" title="${siteName} JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
   <meta property="og:type" content="${esc(pageType)}">
   <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:title" content="${esc(title)}">
@@ -2246,25 +2250,26 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(description)}">
   <meta name="twitter:image" content="${esc(metaImage)}">
-  <meta name="theme-color" content="#0d7f75">
+  <meta name="theme-color" content="#246beb">
   ${googleVerificationMeta()}
   <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
   ${adsenseHeadScript()}
   ${structuredDataScript(structuredData)}
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
-    <a class="brand" href="/${lang}/" aria-label="Korea Now Guide home">
-      <span class="brand-mark">K</span>
-      <span>Korea Now Guide</span>
+    <a class="brand" href="/${lang}/" aria-label="${siteName} home">
+      <span class="brand-mark">KS</span>
+      <span>${siteName}</span>
     </a>
     ${nav(lang)}
     <div class="lang-switcher" aria-label="Language">${langSwitcher(lang, currentPathBuilder)}</div>
   </header>
-  ${body}
+  ${pageBody}
   <footer class="site-footer">
     <div>
-      <strong>Korea Now Guide</strong>
+      <strong>${siteName}</strong>
       <p>${esc(tr(lang, "sourceWarning"))}</p>
     </div>
     <div class="footer-links">
@@ -2301,7 +2306,7 @@ function schema(lang, title, description, canonicalPath) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Korea Now Guide",
+    name: siteName,
     inLanguage: lang,
     url: `${siteUrl}${canonicalPath}`,
     description,
@@ -2436,25 +2441,25 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
   const body = `
     <main>
-      <section class="hero">
-        <img src="/assets/hero.jpg" alt="" aria-hidden="true">
-        <div class="hero-overlay">
-          <p class="eyebrow">${tr(lang, "heroEyebrow")}</p>
-          <h1>${tr(lang, "heroTitle")}</h1>
-          <p>${tr(lang, "heroText")}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#events">${tr(lang, "ctaEvents")}</a>
-            <a class="button secondary" href="/${lang}/now/">${tr(lang, "navNow")}</a>
-            <a class="button secondary" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
+      <section class="service-hero" aria-labelledby="home-title">
+        <div class="service-hero-inner">
+          <div class="service-copy">
+            <p class="eyebrow">${tr(lang, "heroEyebrow")}</p>
+            <h1 id="home-title">${tr(lang, "heroTitle")}</h1>
+            <p>${tr(lang, "heroText")}</p>
+            <div class="service-actions">
+              <a class="button primary" href="#events">${tr(lang, "ctaEvents")}</a>
+              <a class="button secondary" href="/${lang}/now/">${tr(lang, "navNow")}</a>
+              <a class="button light" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
+            </div>
           </div>
+          <dl class="service-summary" aria-label="Event status summary">
+            <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
+            <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
+            <div><dt>${tr(lang, "archive")}</dt><dd>${archiveCount}</dd></div>
+            <div><dt>${tr(lang, "navSources")}</dt><dd>${sources.length}</dd></div>
+          </dl>
         </div>
-      </section>
-
-      <section class="stats-band" aria-label="Event status summary">
-        <div><strong>${liveCount}</strong><span>${tr(lang, "liveNow")}</span></div>
-        <div><strong>${upcomingCount}</strong><span>${tr(lang, "upcoming")}</span></div>
-        <div><strong>${archiveCount}</strong><span>${tr(lang, "archive")}</span></div>
-        <div><strong>${sources.length}</strong><span>${tr(lang, "navSources")}</span></div>
       </section>
       ${adUnit("home")}
 
@@ -2462,7 +2467,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "navEvents")}</p>
-            <h2>${tr(lang, "heroTitle")}</h2>
+            <h2>${siteTagline}</h2>
           </div>
         </div>
         ${galleryControls(lang, { categories: true })}
@@ -2516,14 +2521,14 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
   return layout({
     lang,
-    title: "Korea Now Guide - Events, K-pop Pop-ups, Shopping Deals",
+    title: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
     description,
     body,
     canonicalPath,
     currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
     schemaData: [
-      schema(lang, "Korea Now Guide - Events, K-pop Pop-ups, Shopping Deals", description, canonicalPath),
-      itemListSchema(lang, "Korea Now Guide latest events", sorted.slice(0, 12), canonicalPath)
+      schema(lang, `${siteName} - Events, K-pop Pop-ups, Shopping Deals`, description, canonicalPath),
+      itemListSchema(lang, `${siteName} latest events`, sorted.slice(0, 12), canonicalPath)
     ]
   });
 }
@@ -2637,13 +2642,13 @@ function renderNow(lang) {
 
   return layout({
     lang,
-    title: `${tr(lang, "nowTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "nowTitle")} - K-Spot Now`,
     description: tr(lang, "nowText"),
     body,
     canonicalPath: `/${lang}/now/`,
     currentPathBuilder: (code) => `/${code}/now/`,
     schemaData: [
-      schema(lang, `${tr(lang, "nowTitle")} - Korea Now Guide`, tr(lang, "nowText"), `/${lang}/now/`),
+      schema(lang, `${tr(lang, "nowTitle")} - K-Spot Now`, tr(lang, "nowText"), `/${lang}/now/`),
       itemListSchema(lang, tr(lang, "nowTitle"), combined, `/${lang}/now/`)
     ]
   });
@@ -2680,13 +2685,13 @@ function renderCategory(lang, category) {
 
   return layout({
     lang,
-    title: `${title} - Korea Now Guide`,
+    title: `${title} - K-Spot Now`,
     description,
     body,
     canonicalPath: categoryHref(lang, category),
     currentPathBuilder: (code) => categoryHref(code, category),
     schemaData: [
-      schema(lang, `${title} - Korea Now Guide`, description, categoryHref(lang, category)),
+      schema(lang, `${title} - K-Spot Now`, description, categoryHref(lang, category)),
       itemListSchema(lang, title, items, categoryHref(lang, category)),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
@@ -2761,13 +2766,13 @@ function renderCity(lang, city) {
 
   return layout({
     lang,
-    title: `${meta.title} - Korea Now Guide`,
+    title: `${meta.title} - K-Spot Now`,
     description: meta.description,
     body,
     canonicalPath: cityHref(lang, city),
     currentPathBuilder: (code) => cityHref(code, city),
     schemaData: [
-      schema(lang, `${meta.title} - Korea Now Guide`, meta.description, cityHref(lang, city)),
+      schema(lang, `${meta.title} - K-Spot Now`, meta.description, cityHref(lang, city)),
       itemListSchema(lang, meta.title, items, cityHref(lang, city)),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
@@ -2793,13 +2798,13 @@ function renderRoutes(lang) {
 
   return layout({
     lang,
-    title: `${tr(lang, "routePages")} - Korea Now Guide`,
+    title: `${tr(lang, "routePages")} - K-Spot Now`,
     description,
     body,
     canonicalPath: `/${lang}/routes/`,
     currentPathBuilder: (code) => `/${code}/routes/`,
     schemaData: [
-      schema(lang, `${tr(lang, "routePages")} - Korea Now Guide`, description, `/${lang}/routes/`),
+      schema(lang, `${tr(lang, "routePages")} - K-Spot Now`, description, `/${lang}/routes/`),
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -2863,13 +2868,13 @@ function renderRoute(route, lang) {
 
   return layout({
     lang,
-    title: `${route.title} - Korea Now Guide`,
+    title: `${route.title} - K-Spot Now`,
     description,
     body,
     canonicalPath: routeHref(lang, route),
     currentPathBuilder: (code) => routeHref(code, route),
     schemaData: [
-      schema(lang, `${route.title} - Korea Now Guide`, description, routeHref(lang, route)),
+      schema(lang, `${route.title} - K-Spot Now`, description, routeHref(lang, route)),
       itemListSchema(lang, route.title, relatedEvents, routeHref(lang, route)),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
@@ -2911,7 +2916,7 @@ function renderCalendar(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "calendarTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "calendarTitle")} - K-Spot Now`,
     description: tr(lang, "calendarText"),
     body,
     canonicalPath: `/${lang}/calendar/`,
@@ -2957,7 +2962,7 @@ function renderPlanner(lang) {
 
   return layout({
     lang,
-    title: `${tr(lang, "plannerTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "plannerTitle")} - K-Spot Now`,
     description: tr(lang, "plannerText"),
     body,
     canonicalPath: `/${lang}/planner/`,
@@ -3048,7 +3053,7 @@ function renderEvent(event, lang) {
 
   return layout({
     lang,
-    title: `${local(event.title, lang)} - Korea Now Guide`,
+    title: `${local(event.title, lang)} - K-Spot Now`,
     description,
     body,
     canonicalPath: `/${lang}/events/${event.slug}.html`,
@@ -3093,7 +3098,7 @@ function renderGuides(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "guidesTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "guidesTitle")} - K-Spot Now`,
     description: "Original visitor guides for Korea events, K-pop pop-ups, shopping, duty-free, and weather planning.",
     body,
     canonicalPath: `/${lang}/guides/`,
@@ -3119,7 +3124,7 @@ function renderGuide(guide, lang) {
     </main>`;
   return layout({
     lang,
-    title: `${local(guide.title, lang)} - Korea Now Guide`,
+    title: `${local(guide.title, lang)} - K-Spot Now`,
     description: local(guide.summary, lang),
     body,
     canonicalPath: `/${lang}/guides/${guide.slug}.html`,
@@ -3170,7 +3175,7 @@ function renderSources(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "sourcesTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "sourcesTitle")} - K-Spot Now`,
     description: tr(lang, "sourcesText"),
     body,
     canonicalPath: `/${lang}/sources/`,
@@ -3396,7 +3401,7 @@ function renderWatchlist(lang) {
 
   return layout({
     lang,
-    title: `${tr(lang, "watchlistTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "watchlistTitle")} - K-Spot Now`,
     description: tr(lang, "watchlistText"),
     body,
     canonicalPath: `/${lang}/watchlist/`,
@@ -3432,7 +3437,7 @@ function renderFreshness(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "freshnessTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "freshnessTitle")} - K-Spot Now`,
     description: tr(lang, "freshnessText"),
     body,
     canonicalPath: `/${lang}/freshness/`,
@@ -3471,7 +3476,7 @@ function renderEditorialPolicy(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "editorialTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "editorialTitle")} - K-Spot Now`,
     description: tr(lang, "editorialText"),
     body,
     canonicalPath: `/${lang}/editorial-policy/`,
@@ -3510,7 +3515,7 @@ function renderCorrections(lang) {
     </main>`;
   return layout({
     lang,
-    title: `${tr(lang, "correctionsTitle")} - Korea Now Guide`,
+    title: `${tr(lang, "correctionsTitle")} - K-Spot Now`,
     description: tr(lang, "correctionsText"),
     body,
     canonicalPath: `/${lang}/corrections/`,
@@ -3523,7 +3528,7 @@ function staticPage(lang, kind) {
   const title = tr(lang, titleKey);
   const paragraphs = {
     about: [
-      "Korea Now Guide is a multilingual event and shopping radar for visitors planning Korea trips.",
+      "K-Spot Now is a multilingual event and shopping radar for visitors planning Korea trips.",
       "The site prioritizes official sources, clear date ranges, practical travel notes, and honest freshness labels.",
       "K-pop pop-ups and social-only announcements are queued for curation before publication."
     ],
@@ -3533,14 +3538,14 @@ function staticPage(lang, kind) {
     ],
     privacy: [
       "This static site does not require user accounts, payments, or login profiles. Basic hosting logs may be processed by the hosting provider for security, abuse prevention, and delivery.",
-      "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. Korea Now Guide does not receive that saved list unless you email it to us.",
+      "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. K-Spot Now does not receive that saved list unless you email it to us.",
       "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
       "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
       "For visitors in the EEA, the UK, and Switzerland, advertising consent should be handled through a Google-certified consent management platform when AdSense ads are served.",
       "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
     ],
     "cookie-policy": [
-      "Korea Now Guide uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
+      "K-Spot Now uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
       "Saved planner storage: when you save an event, the shortlist is stored locally in your browser. It is used only to reopen your own saved event list and calendar download on this device.",
       "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
       "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
@@ -3551,7 +3556,7 @@ function staticPage(lang, kind) {
     terms: [
       "Information is provided for travel planning and may change without notice.",
       "Always verify official event pages before visiting, purchasing, reserving, or changing travel plans.",
-      "Korea Now Guide is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated."
+      "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated."
     ]
   };
   const body = `
@@ -3563,7 +3568,7 @@ function staticPage(lang, kind) {
     </main>`;
   return layout({
     lang,
-    title: `${title} - Korea Now Guide`,
+    title: `${title} - K-Spot Now`,
     description: paragraphs[kind][0],
     body,
     canonicalPath: `/${lang}/${kind}/`,
@@ -3793,7 +3798,7 @@ function foldIcsLine(line) {
 function eventIcsLines(event, stamp = `${today.replaceAll("-", "")}T000000Z`) {
   return [
     "BEGIN:VEVENT",
-    `UID:${event.slug}@korea-now-guide`,
+    `UID:${event.slug}@kspotnow`,
     `DTSTAMP:${stamp}`,
     `DTSTART;VALUE=DATE:${icsDate(event.startDate)}`,
     `DTEND;VALUE=DATE:${icsDate(event.endDate, true)}`,
@@ -3809,7 +3814,7 @@ function calendarIcs(calendarName, calendarEvents) {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Korea Now Guide//Events//EN",
+    "PRODID:-//K-Spot Now//Events//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     `X-WR-CALNAME:${icsEscape(calendarName)}`
@@ -3824,11 +3829,11 @@ function calendarIcs(calendarName, calendarEvents) {
 }
 
 function ics() {
-  return calendarIcs("Korea Now Guide Events", events);
+  return calendarIcs("K-Spot Now Events", events);
 }
 
 function singleEventIcs(event) {
-  return calendarIcs(`Korea Now Guide - ${local(event.title, "en")}`, [event]);
+  return calendarIcs(`K-Spot Now - ${local(event.title, "en")}`, [event]);
 }
 
 await build();

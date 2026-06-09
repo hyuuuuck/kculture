@@ -1,4 +1,4 @@
-const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
+﻿const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
 
 for (const scope of galleryScopes) {
   const cards = [...scope.querySelectorAll("[data-card]")];
@@ -251,9 +251,9 @@ function downloadSavedCalendar() {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Korea Now Guide//Saved Planner//EN",
+    "PRODID:-//K-Spot Now//Saved Planner//EN",
     "CALSCALE:GREGORIAN",
-    "X-WR-CALNAME:Korea Now Guide Saved Events"
+    "X-WR-CALNAME:K-Spot Now Saved Events"
   ];
 
   for (const item of saved) {
@@ -262,7 +262,7 @@ function downloadSavedCalendar() {
     if (!start || !end) continue;
     lines.push(
       "BEGIN:VEVENT",
-      `UID:${icsEscape(item.slug)}@korea-now-guide`,
+      `UID:${icsEscape(item.slug)}@kspotnow`,
       `SUMMARY:${icsEscape(item.title)}`,
       `DTSTART;VALUE=DATE:${start}`,
       `DTEND;VALUE=DATE:${end}`,
@@ -278,7 +278,7 @@ function downloadSavedCalendar() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "korea-now-guide-saved-events.ics";
+  link.download = "kspotnow-saved-events.ics";
   document.body.append(link);
   link.click();
   link.remove();

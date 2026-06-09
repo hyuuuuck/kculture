@@ -1366,6 +1366,14 @@ function eventKindLabel(event, lang = "en") {
       ru: "Concert",
       ja: "Concert"
     },
+    festival: {
+      en: "Festival",
+      es: "Festival",
+      zh: "Festival",
+      pt: "Festival",
+      ru: "Festival",
+      ja: "Festival"
+    },
     "pop-up": {
       en: "Pop-up",
       es: "Pop-up",

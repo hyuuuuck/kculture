@@ -124,6 +124,86 @@
     "mapQueryKo": "올리브영 명동타운"
   },
   {
+    "slug": "korea-beauty-festival-2026",
+    "category": "beauty",
+    "eventKind": "festival",
+    "priority": 94,
+    "startDate": "2026-06-24",
+    "endDate": "2026-09-30",
+    "dateLabel": "Overall campaign 2026-06-24 - 2026-09-30 KST; KBF Experience at HiKR Ground 2026-06-24 - 2026-07-19",
+    "city": "Seoul",
+    "district": "Jung-gu / online",
+    "venue": "HiKR Ground and online special pavilion",
+    "sourceName": "VISITKOREA",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+    "officialWebsiteName": "2026 Korea Beauty Festival Overview",
+    "officialWebsiteUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+    "lastChecked": "2026-06-10",
+    "collectionMode": "manual-reviewed-official-page",
+    "verification": "official-kto-page",
+    "thumbnail": "assets/event-thumbnails/official/korea-beauty-festival-2026.png",
+    "title": {
+      "en": "2026 Korea Beauty Festival",
+      "es": "Korea Beauty Festival 2026",
+      "zh": "2026 韩国美妆节",
+      "pt": "Korea Beauty Festival 2026",
+      "ru": "Korea Beauty Festival 2026",
+      "ja": "2026 Korea Beauty Festival"
+    },
+    "summary": {
+      "en": "VISITKOREA lists the 2026 Korea Beauty Festival as a Ministry of Culture, Sports and Tourism and Korea Tourism Organization program running June 24 to September 30, with in-person KBF Experience programs at HiKR Ground from June 24 to July 19 and online special promotions through September 30.",
+      "es": "VISITKOREA presenta Korea Beauty Festival 2026 como un programa del Ministerio de Cultura, Deportes y Turismo y la Korea Tourism Organization del 24 de junio al 30 de septiembre, con experiencias presenciales en HiKR Ground del 24 de junio al 19 de julio y promociones online hasta el 30 de septiembre.",
+      "zh": "VISITKOREA 将 2026 Korea Beauty Festival 列为韩国文化体育观光部与韩国观光公社项目，整体期间为6月24日至9月30日，HiKR Ground 现场体验为6月24日至7月19日，线上特别促销持续到9月30日。",
+      "pt": "A VISITKOREA lista o Korea Beauty Festival 2026 como um programa do Ministry of Culture, Sports and Tourism e da Korea Tourism Organization de 24 de junho a 30 de setembro, com experiencias presenciais no HiKR Ground de 24 de junho a 19 de julho e promocoes online ate 30 de setembro.",
+      "ru": "VISITKOREA указывает Korea Beauty Festival 2026 как программу Ministry of Culture, Sports and Tourism и Korea Tourism Organization с 24 июня по 30 сентября, с очными KBF Experience в HiKR Ground с 24 июня по 19 июля и онлайн-промо до 30 сентября.",
+      "ja": "VISITKOREA は、2026 Korea Beauty Festival を文化体育観光部と韓国観光公社のプログラムとして掲載しています。全体期間は6月24日から9月30日、HiKR Ground の現地 KBF Experience は6月24日から7月19日、オンライン特別プロモーションは9月30日までです。"
+    },
+    "whyGo": {
+      "en": "A strong planning page for beauty-focused visitors who want hands-on K-beauty classes, wellness and styling experiences, brand pop-ups, and travel offers tied to official tourism partners.",
+      "es": "Una pagina util para visitantes interesados en K-beauty que buscan clases practicas, experiencias de wellness y estilo, pop-ups de marcas y ofertas de viaje de socios oficiales.",
+      "zh": "适合以 K-beauty 为目的的游客，用来规划美妆课程、健康与造型体验、品牌快闪，以及官方旅游合作优惠。",
+      "pt": "Uma pagina forte para visitantes focados em K-beauty que procuram aulas praticas, experiencias de wellness e estilo, pop-ups de marcas e ofertas de viagem oficiais.",
+      "ru": "Полезная страница для гостей, которым нужны K-beauty классы, wellness и styling experience, брендовые pop-up зоны и travel offers от официальных туристических партнеров.",
+      "ja": "K-beauty 目的の旅行者が、体験型クラス、ウェルネスやスタイリング、ブランドポップアップ、公式旅行特典をまとめて確認しやすいページです。"
+    },
+    "travelTips": [
+      "Separate the dates before planning: the overall Korea Beauty Festival runs June 24 to September 30, but the in-person KBF Experience at HiKR Ground is June 24 to July 19.",
+      "Use 하이커 그라운드 as the Korean map search for the public HiKR Ground programs; KBF Connection Day at The Shilla Seoul is a business networking program.",
+      "Beauty classes, pop-ups, and OTA promotions can have reservation limits or partner terms, so confirm the official program page before building a fixed itinerary.",
+      "Pair HiKR Ground with Myeongdong, Cheonggyecheon, Euljiro, or Gwanghwamun because the venue sits in central Seoul."
+    ],
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "festival",
+      "expectedStartDate": "2026-06-24",
+      "expectedEndDate": "2026-09-30",
+      "expectedSourceName": "VISITKOREA",
+      "expectedSourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+      "localMustContain": [
+        "KBF Experience",
+        "June 24 to July 19",
+        "HiKR Ground",
+        "online special promotions through September 30"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+          "mustContain": [
+            "Korea Beauty Festival",
+            "June 24 - September 30, 2026",
+            "KBF Experience",
+            "June 24 - July 19, 2026",
+            "HiKR Ground",
+            "Korea Tourism Organization"
+          ]
+        }
+      ]
+    },
+    "weatherRegion": "Seoul",
+    "mapQueryKo": "하이커 그라운드"
+  },
+  {
     "slug": "busan-one-asia-festival-2026",
     "category": "kpop",
     "priority": 94,

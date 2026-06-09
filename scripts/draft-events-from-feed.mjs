@@ -88,7 +88,10 @@ function hasAny(text, needles) {
 }
 
 function normalizedComparableText(value) {
-  return cleanText(value).toLowerCase().replace(/[?볛?/g, "-").replace(/\s+/g, " ");
+  return cleanText(value)
+    .toLowerCase()
+    .replace(/[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D~\uFF5E]+/g, "-")
+    .replace(/\s+/g, " ");
 }
 
 function inferCategory(candidate) {

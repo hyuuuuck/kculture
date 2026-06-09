@@ -402,15 +402,13 @@ for (const guide of guides) {
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
   validateLocalizedObject(id, "guide.title", guide.title, { requireAll: true });
   validateLocalizedObject(id, "guide.summary", guide.summary, { requireAll: true });
-  const sections = guideSections(guide.sections, "en");
-  if (sections.length < 2) push(errors, id, "guide needs at least two English sections.");
-  for (const section of sections) {
-    if (String(section || "").trim().length < 60) push(errors, id, "guide sections should be substantial visitor guidance.");
-  }
-  const japaneseSections = guideSections(guide.sections, "ja");
-  if (japaneseSections.length < 2) push(errors, id, "guide needs at least two Japanese sections.");
-  for (const section of japaneseSections) {
-    if (hasBrokenLocalizedText(section)) push(errors, id, "guide sections.ja appears to contain mojibake or encoding-loss question marks.");
+  for (const lang of requiredLanguages) {
+    const sections = guideSections(guide.sections, lang);
+    if (sections.length < 2) push(errors, id, `guide.sections.${lang} needs at least two localized sections.`);
+    for (const section of sections) {
+      if (lang === "en" && String(section || "").trim().length < 60) push(errors, id, "guide sections should be substantial visitor guidance.");
+      if (lang !== "en" && hasBrokenLocalizedText(section)) push(errors, id, `guide.sections.${lang} appears to contain mojibake or encoding-loss question marks.`);
+    }
   }
 }
 

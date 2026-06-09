@@ -2431,6 +2431,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const liveCount = events.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = events.filter((event) => statusOf(event) === "upcoming").length;
   const archiveCount = events.filter((event) => statusOf(event) === "ended").length;
+  const spotlight = sorted.find((event) => statusOf(event) === "live" && event.thumbnail) || sorted.find((event) => event.thumbnail) || sorted[0];
+  const spotlightPeriod = spotlight.dateLabel || `${dateText(lang, spotlight.startDate)} - ${dateText(lang, spotlight.endDate)}`;
   const description = local({
     en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
@@ -2453,12 +2455,23 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
               <a class="button light" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
             </div>
           </div>
-          <dl class="service-summary" aria-label="Event status summary">
-            <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
-            <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
-            <div><dt>${tr(lang, "archive")}</dt><dd>${archiveCount}</dd></div>
-            <div><dt>${tr(lang, "navSources")}</dt><dd>${sources.length}</dd></div>
-          </dl>
+          <div class="service-visual">
+            <a class="spotlight-card" href="/${lang}/events/${spotlight.slug}.html">
+              <img src="/${spotlight.thumbnail}" alt="${esc(local(spotlight.title, lang))}">
+              <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(spotlight)))} / ${categoryLabel(lang, spotlight.category)}</span>
+              <span class="spotlight-content">
+                <span>${tr(lang, "officialLabel")} highlight</span>
+                <strong>${esc(local(spotlight.title, lang))}</strong>
+                <em>${esc(spotlight.city)} / ${esc(spotlightPeriod)}</em>
+              </span>
+            </a>
+            <dl class="service-summary" aria-label="Event status summary">
+              <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
+              <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
+              <div><dt>${tr(lang, "archive")}</dt><dd>${archiveCount}</dd></div>
+              <div><dt>${tr(lang, "navSources")}</dt><dd>${sources.length}</dd></div>
+            </dl>
+          </div>
         </div>
       </section>
       ${adUnit("home")}

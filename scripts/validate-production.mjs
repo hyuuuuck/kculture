@@ -173,6 +173,9 @@ if (!headersText.includes("Strict-Transport-Security:")) {
 if (!headersText.includes("Content-Security-Policy:")) {
   fail("dist/_headers must send a Content-Security-Policy that allows AdSense domains.");
 }
+if (!headersText.includes("https://kr.trip.com") || !headersText.includes("https://*.trip.com")) {
+  fail("dist/_headers CSP frame-src must allow the Trip.com sponsored iframe.");
+}
 if (!fs.existsSync(path.join(dist, ".well-known", "security.txt"))) {
   fail("dist/.well-known/security.txt is missing. Run npm run build.");
 }

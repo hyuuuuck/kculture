@@ -23,6 +23,8 @@ const defaultTripAffiliate = {
   sid: "318693138",
   sub1: "",
   sub3: "D17791636",
+  displayAdId: "DB17791825",
+  displayAdUrl: "https://kr.trip.com/partners/ad/DB17791825?Allianceid=8627235&SID=318693138&trip_sub1=",
   seoulUrl: "https://www.trip.com/hotels/list?city=274&display=Seoul&optionId=274&optionType=City&optionName=Seoul&Allianceid=8627235&SID=318693138&trip_sub1=&trip_sub3=D17791636"
 };
 const affiliateIds = {
@@ -32,6 +34,8 @@ const affiliateIds = {
   tripSub1: String(process.env.TRIP_SUB1 ?? defaultTripAffiliate.sub1).trim(),
   tripSub3: String(process.env.TRIP_SUB3 || defaultTripAffiliate.sub3).trim(),
   tripSeoulUrl: String(process.env.TRIP_SEOUL_HOTELS_URL || defaultTripAffiliate.seoulUrl).trim(),
+  tripDisplayAdId: String(process.env.TRIP_DISPLAY_AD_ID || defaultTripAffiliate.displayAdId).trim(),
+  tripDisplayAdUrl: String(process.env.TRIP_DISPLAY_AD_URL || defaultTripAffiliate.displayAdUrl).trim(),
   klookAid: String(process.env.KLOOK_AFFILIATE_AID || "").trim(),
   trazyId: String(process.env.TRAZY_AFFILIATE_ID || "").trim()
 };
@@ -3650,6 +3654,27 @@ function hotelAffiliateButton(event, lang) {
   return `<a class="button light affiliate-action" href="${esc(hotelLink.href)}" rel="sponsored nofollow noopener" target="_blank">${esc(label.replace("{city}", cityLabel(lang, hotelLink.city)))}</a>`;
 }
 
+function tripDisplayBanner(lang) {
+  if (!affiliateIds.tripDisplayAdUrl || !affiliateIds.tripDisplayAdId) return "";
+  const copy = {
+    en: "Sponsored travel banner",
+    es: "Banner de viaje patrocinado",
+    zh: "赞助旅行广告",
+    pt: "Banner de viagem patrocinado",
+    ru: "Спонсорский туристический баннер",
+    ja: "スポンサー旅行バナー",
+    fr: "Banniere voyage sponsorisee",
+    de: "Gesponsertes Reisebanner"
+  }[lang] || "Sponsored travel banner";
+  return `
+            <div class="trip-display-banner" aria-label="${esc(copy)}">
+              <span>${esc(copy)}</span>
+              <div class="trip-display-frame">
+                <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="728" height="90" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>`;
+}
+
 function affiliateSection(event, lang) {
   if (!affiliateEnabled) return "";
   const links = affiliateLinksFor(event);
@@ -3853,6 +3878,7 @@ function affiliatePlanningRail(event, lang) {
             </a>
             ${affiliateCards}
           </div>
+          ${tripDisplayBanner(lang)}
         </section>`;
 }
 
@@ -8287,7 +8313,7 @@ function headers() {
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=86400
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagservices.com; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com; connect-src 'self' https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagservices.com; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com https://kr.trip.com https://*.trip.com; connect-src 'self' https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

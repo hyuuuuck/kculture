@@ -16,7 +16,7 @@ const routes = readJson("data/travel-routes.json");
 const thumbnailSources = readJson("data/thumbnail-sources.json", {});
 
 const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
-const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 const checks = [];
 const dayMs = 24 * 60 * 60 * 1000;
 const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);

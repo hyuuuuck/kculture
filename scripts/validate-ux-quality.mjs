@@ -149,6 +149,17 @@ assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must pre
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");
 assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");
+assertIncludes(home, "/en/advertising/", "en/index.html", "footer trust links must include the advertising policy.");
+const advertising = read("en/advertising/index.html");
+assertIncludes(advertising, "Advertising Policy", "en/advertising/index.html", "advertising policy page title is missing.");
+assertIncludes(advertising, "ads cannot buy event inclusion", "en/advertising/index.html", "advertising policy must state ads cannot buy editorial inclusion.");
+assertIncludes(advertising, "K-Spot Now does not process payments", "en/advertising/index.html", "advertising policy must keep payments and official-source actions separated.");
+const frAdvertising = read("fr/advertising/index.html");
+const deAdvertising = read("de/advertising/index.html");
+assertIncludes(frAdvertising, "Politique publicitaire", "fr/advertising/index.html", "French advertising policy title is missing.");
+assertIncludes(frAdvertising, "ne peuvent pas acheter", "fr/advertising/index.html", "French advertising policy must separate ads from editorial placement.");
+assertIncludes(deAdvertising, "Werberichtlinie", "de/advertising/index.html", "German advertising policy title is missing.");
+assertIncludes(deAdvertising, "keinen Eintrag", "de/advertising/index.html", "German advertising policy must separate ads from editorial placement.");
 const frHome = read("fr/index.html");
 const deHome = read("de/index.html");
 assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");

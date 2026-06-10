@@ -242,6 +242,8 @@ let dict = {
     collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
     editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
+    advertisingTitle: "Advertising Policy",
+    advertisingText: "How K-Spot Now keeps ads, sponsorship, source selection, and visitor guidance separated.",
     correctionsTitle: "Corrections and Updates",
     correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
@@ -628,6 +630,8 @@ dict = {
     collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
     editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
+    advertisingTitle: "Advertising Policy",
+    advertisingText: "How K-Spot Now keeps ads, sponsorship, source selection, and visitor guidance separated.",
     correctionsTitle: "Corrections and Updates",
     correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
     guidesTitle: "Visitor Guides",
@@ -711,6 +715,8 @@ dict = {
     freshnessText: "Cada ficha muestra cuándo se revisó y qué fuente oficial se usó.",
     editorialTitle: "Política editorial",
     editorialText: "Cómo K-Spot Now recopila, revisa, traduce y publica información de eventos.",
+    advertisingTitle: "Politica de publicidad",
+    advertisingText: "Como K-Spot Now separa anuncios, patrocinios, seleccion de fuentes y guia para visitantes.",
     correctionsTitle: "Correcciones y actualizaciones",
     correctionsText: "Cómo revisamos y corregimos detalles oficiales que cambian rápido.",
     guidesTitle: "Guías para visitantes",
@@ -943,6 +949,8 @@ dict = {
     freshnessText: "Cada item mostra quando foi checado e qual fonte oficial foi usada.",
     editorialTitle: "Política editorial",
     editorialText: "Como o K-Spot Now coleta, revisa, traduz e publica informações de eventos.",
+    advertisingTitle: "Politica de publicidade",
+    advertisingText: "Como o K-Spot Now separa anuncios, patrocinios, selecao de fontes e orientacao ao visitante.",
     correctionsTitle: "Correções e atualizações",
     correctionsText: "Como revisamos e corrigimos detalhes oficiais que mudam rapidamente.",
     guidesTitle: "Guias para visitantes",
@@ -1421,6 +1429,8 @@ dict.fr = {
   officialLabel: "Officiel",
   editorialTitle: "Politique editoriale",
   editorialText: "Comment K-Spot Now collecte, verifie, traduit et publie les informations d'evenements.",
+  advertisingTitle: "Politique publicitaire",
+  advertisingText: "Comment K-Spot Now separe publicites, partenariats, selection des sources et conseils visiteurs.",
   correctionsTitle: "Corrections et mises a jour",
   correctionsText: "Comment signaler des informations anciennes ou incorrectes.",
   guidesTitle: "Guides visiteurs",
@@ -1599,6 +1609,8 @@ dict.de = {
   officialLabel: "Offiziell",
   editorialTitle: "Redaktionsrichtlinie",
   editorialText: "Wie K-Spot Now Eventinformationen sammelt, pruft, ubersetzt und veroffentlicht.",
+  advertisingTitle: "Werberichtlinie",
+  advertisingText: "Wie K-Spot Now Anzeigen, Partnerschaften, Quellenauswahl und Besucherhinweise trennt.",
   correctionsTitle: "Korrekturen und Updates",
   correctionsText: "Wie Besucher, Veranstalter und Marken veraltete oder falsche Details melden konnen.",
   guidesTitle: "Besucherguides",
@@ -3356,6 +3368,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
       <a href="/${lang}/cookie-policy/">${tr(lang, "cookieTitle")}</a>
+      <a href="/${lang}/advertising/">${tr(lang, "advertisingTitle")}</a>
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
       <a href="/${lang}/corrections/">${tr(lang, "correctionsTitle")}</a>
@@ -6282,6 +6295,13 @@ const extendedStaticPages = {
       "Cookies publicitaires: si AdSense est active, Google et des fournisseurs publicitaires tiers peuvent utiliser des cookies ou technologies similaires.",
       `Questions ou demandes de correction: ${contactEmail}.`
     ],
+    advertising: [
+      "K-Spot Now peut afficher des annonces apres configuration d'un compte publicitaire approuve, mais les annonces ne peuvent pas acheter une fiche, une position, une date de fraicheur ou un label de verification.",
+      "Les sources sont choisies pour leur utilite visiteur: pages officielles, organisateurs, marques, lieux, tourisme, billetterie et campagnes verifiees.",
+      "Les boutons de source envoient vers la page originale pour billets, reservations, stock, achat ou regles finales. K-Spot Now ne prend pas de paiement et ne remplace pas la source officielle.",
+      "Toute publicite ou partenariat doit rester separe de la correction editoriale, des alertes de securite et des notes de visite.",
+      `Questions publicitaires ou corrections: ${contactEmail}.`
+    ],
     terms: [
       "Les informations sont fournies pour la planification de voyage et peuvent changer sans preavis.",
       "Verifiez toujours les pages officielles avant de visiter, acheter, reserver ou modifier un voyage.",
@@ -6311,6 +6331,13 @@ const extendedStaticPages = {
       "Betriebsdaten: Hosting und Sicherheit konnen IP-Adresse, Pfad, User Agent und Zeitstempel verarbeiten, um Seiten auszuliefern und Missbrauch zu verhindern.",
       "Werbe-Cookies: Wenn AdSense aktiviert ist, konnen Google und Drittanbieter Cookies oder ahnliche Technologien nutzen.",
       `Fragen oder Korrekturen: ${contactEmail}.`
+    ],
+    advertising: [
+      "K-Spot Now kann Anzeigen anzeigen, nachdem ein genehmigtes Werbekonto eingerichtet wurde. Anzeigen konnen aber keinen Eintrag, keine Platzierung, kein Aktualitatsdatum und kein Verifizierungslabel kaufen.",
+      "Quellen werden nach Besucherwert ausgewahlt: offizielle Seiten, Veranstalter, Marken, Orte, Tourismus, Ticketing und verifizierte Kampagnen.",
+      "Quellenbuttons fuhren zur Originalseite fur Tickets, Reservierungen, Bestand, Kauf oder finale Regeln. K-Spot Now nimmt keine Zahlungen an und ersetzt keine offizielle Quelle.",
+      "Werbung oder Partnerschaften mussen von redaktionellen Korrekturen, Sicherheitshinweisen und Besuchernotizen getrennt bleiben.",
+      `Werbefragen oder Korrekturen: ${contactEmail}.`
     ],
     terms: [
       "Informationen dienen der Reiseplanung und konnen sich ohne Vorankundigung andern.",
@@ -6488,6 +6515,29 @@ function staticPageParagraphs(lang, kind) {
         `質問や訂正依頼は ${contactEmail} までお送りください。`
       ]
     },
+    advertising: {
+      en: [
+        "K-Spot Now may display advertising after an approved ad account is configured, but ads cannot buy event inclusion, card placement, freshness dates, verification labels, source roles, or safety notes.",
+        "Event and source selection is based on visitor utility: official tourism, organizer, brand, venue, ticketing, shopping, duty-free, and verified campaign sources.",
+        "Source buttons send visitors to the original page for tickets, reservations, stock, purchases, eligibility, or final rules. K-Spot Now does not process payments and does not replace the official source.",
+        "Sponsored inquiries, ad placements, and partnerships are reviewed separately from corrections, audits, and source monitoring.",
+        `Advertising, correction, or source questions: ${contactEmail}.`
+      ],
+      es: [
+        "K-Spot Now puede mostrar anuncios despues de configurar una cuenta publicitaria aprobada, pero los anuncios no pueden comprar inclusion, posicion, fecha de frescura, etiqueta de verificacion, rol de fuente ni notas de seguridad.",
+        "La seleccion de eventos y fuentes se basa en utilidad para visitantes: turismo oficial, organizadores, marcas, recintos, ticketing, compras, duty free y campanas verificadas.",
+        "Los botones de fuente llevan a la pagina original para entradas, reservas, stock, compras, elegibilidad o reglas finales. K-Spot Now no procesa pagos ni reemplaza la fuente oficial.",
+        "Consultas patrocinadas, anuncios y alianzas se revisan por separado de correcciones, auditorias y monitoreo de fuentes.",
+        `Preguntas de publicidad, correccion o fuentes: ${contactEmail}.`
+      ],
+      pt: [
+        "K-Spot Now pode exibir anuncios apos configurar uma conta publicitaria aprovada, mas anuncios nao podem comprar inclusao, posicao, datas de atualizacao, etiquetas de verificacao, papeis de fonte ou notas de seguranca.",
+        "A selecao de eventos e fontes se baseia na utilidade para visitantes: turismo oficial, organizadores, marcas, locais, ticketing, compras, duty free e campanhas verificadas.",
+        "Botoes de fonte levam visitantes a pagina original para ingressos, reservas, estoque, compras, elegibilidade ou regras finais. K-Spot Now nao processa pagamentos nem substitui a fonte oficial.",
+        "Consultas patrocinadas, insercoes publicitarias e parcerias sao revisadas separadamente de correcoes, auditorias e monitoramento de fontes.",
+        `Perguntas sobre publicidade, correcao ou fontes: ${contactEmail}.`
+      ]
+    },
     terms: {
       en: [
         "Information is provided for travel planning and may change without notice.",
@@ -6598,6 +6648,7 @@ async function build() {
     await writeHtml(`${lang}/contact/index.html`, staticPage(lang, "contact"));
     await writeHtml(`${lang}/privacy/index.html`, staticPage(lang, "privacy"));
     await writeHtml(`${lang}/cookie-policy/index.html`, staticPage(lang, "cookie-policy"));
+    await writeHtml(`${lang}/advertising/index.html`, staticPage(lang, "advertising"));
     await writeHtml(`${lang}/terms/index.html`, staticPage(lang, "terms"));
     for (const category of Object.keys(categoryDefinitions)) {
       await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
@@ -6725,6 +6776,7 @@ function sitemap() {
       { url: `/${lang}/contact/`, lastmod: today },
       { url: `/${lang}/privacy/`, lastmod: today },
       { url: `/${lang}/cookie-policy/`, lastmod: today },
+      { url: `/${lang}/advertising/`, lastmod: today },
       { url: `/${lang}/terms/`, lastmod: today }
     );
     for (const category of Object.keys(categoryDefinitions)) {

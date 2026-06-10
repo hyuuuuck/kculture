@@ -2284,6 +2284,90 @@ img {
   line-height: 1.5;
 }
 
+.detail-quick-plan {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.62fr) minmax(0, 1.38fr);
+  gap: 16px;
+  align-items: stretch;
+  padding: 18px;
+  border: 1px solid #c8d7ea;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 30px rgba(6, 58, 116, 0.06);
+}
+
+.quick-plan-copy {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+}
+
+.quick-plan-copy h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.08;
+}
+
+.quick-plan-copy p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+
+.quick-plan-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.quick-plan-card {
+  display: grid;
+  gap: 6px;
+  min-height: 104px;
+  align-content: center;
+  padding: 14px;
+  border: 1px solid #dbe5f2;
+  border-radius: 8px;
+  background: #f8fbff;
+}
+
+.quick-plan-card:hover {
+  border-color: rgba(43, 111, 230, 0.5);
+  background: #eef5ff;
+}
+
+.quick-plan-card span {
+  color: var(--blue-dark);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.quick-plan-card strong {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.18;
+}
+
+.quick-plan-card small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 720;
+  line-height: 1.25;
+}
+
+.quick-plan-card.is-sponsored {
+  border-color: #bfe0d9;
+  background: #f3fbf8;
+}
+
+.quick-plan-card.is-sponsored:hover {
+  border-color: rgba(13, 127, 117, 0.56);
+  background: #e9f8f3;
+}
+
 .fact-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -4148,6 +4232,7 @@ img {
 
   .section-head,
   .detail-hero,
+  .detail-quick-plan,
   .guide-decision-panel,
   .guide-source-strip,
   .month-block,
@@ -4335,6 +4420,10 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .quick-plan-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .fact,
   .fact-pin,
   .fact-review,
@@ -4388,6 +4477,18 @@ img {
 
   .weather-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .detail-quick-plan {
+    padding: 14px;
+  }
+
+  .quick-plan-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-plan-card {
+    min-height: 88px;
   }
 
   .weather-metric {

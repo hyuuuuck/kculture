@@ -3694,6 +3694,151 @@ function affiliateSection(event, lang) {
         </section>`;
 }
 
+function affiliatePlanningRail(event, lang) {
+  const links = affiliateEnabled ? affiliateLinksFor(event) : [];
+  const city = !event.city || event.city === "Nationwide" ? "Seoul" : event.city;
+  const place = eventPlaceQuery(event);
+  const availableMapLinks = mapLinks(event, lang);
+  const mapLink = availableMapLinks[1] || availableMapLinks[0];
+  const copy = {
+    en: {
+      eyebrow: "Before you book",
+      title: "Check the visit context",
+      text: "Confirm the official source, Korean map name, weather, and nearby stays before final booking.",
+      official: "Official source",
+      officialText: "Dates, entry rules, and notices",
+      map: "Korean map search",
+      sponsored: "Sponsored hotel link",
+      commission: "K-Spot Now may earn a commission.",
+      hotels: "Trip.com hotels in {city}",
+      tours: "Tours and tickets in {city}"
+    },
+    es: {
+      eyebrow: "Antes de reservar",
+      title: "Revisa el contexto de la visita",
+      text: "Confirma fuente oficial, nombre coreano del mapa, clima y alojamiento cercano antes de reservar.",
+      official: "Fuente oficial",
+      officialText: "Fechas, reglas de entrada y avisos",
+      map: "Busqueda en mapa coreano",
+      sponsored: "Enlace patrocinado de hotel",
+      commission: "K-Spot Now puede recibir comision.",
+      hotels: "Hoteles Trip.com en {city}",
+      tours: "Tours y entradas en {city}"
+    },
+    zh: {
+      eyebrow: "预订前",
+      title: "先确认到访信息",
+      text: "预订前确认官方来源、韩文地图名、天气和附近住宿。",
+      official: "官方来源",
+      officialText: "日期、入场规则和公告",
+      map: "韩文地图搜索",
+      sponsored: "酒店赞助链接",
+      commission: "K-Spot Now 可能获得佣金。",
+      hotels: "{city} Trip.com 酒店",
+      tours: "{city} 体验和门票"
+    },
+    pt: {
+      eyebrow: "Antes de reservar",
+      title: "Confira o contexto da visita",
+      text: "Confirme fonte oficial, nome coreano no mapa, clima e hospedagem perto antes de reservar.",
+      official: "Fonte oficial",
+      officialText: "Datas, regras de entrada e avisos",
+      map: "Busca no mapa coreano",
+      sponsored: "Link de hotel patrocinado",
+      commission: "K-Spot Now pode receber comissao.",
+      hotels: "Hoteis Trip.com em {city}",
+      tours: "Tours e ingressos em {city}"
+    },
+    ru: {
+      eyebrow: "Перед бронированием",
+      title: "Проверьте контекст визита",
+      text: "Перед бронью проверьте официальный источник, корейское название для карт, погоду и отели рядом.",
+      official: "Официальный источник",
+      officialText: "Даты, правила входа и объявления",
+      map: "Поиск на корейской карте",
+      sponsored: "Спонсорская ссылка на отель",
+      commission: "K-Spot Now может получить комиссию.",
+      hotels: "Отели Trip.com в {city}",
+      tours: "Туры и билеты в {city}"
+    },
+    ja: {
+      eyebrow: "予約前",
+      title: "訪問情報を確認",
+      text: "予約前に公式ソース、韓国語の地図名、天気、近くの宿泊先を確認します。",
+      official: "公式ソース",
+      officialText: "日程、入場ルール、告知",
+      map: "韓国語マップ検索",
+      sponsored: "ホテルのスポンサーリンク",
+      commission: "K-Spot Nowはコミッションを受け取る場合があります。",
+      hotels: "{city}のTrip.comホテル",
+      tours: "{city}のツアーとチケット"
+    },
+    fr: {
+      eyebrow: "Avant de reserver",
+      title: "Verifiez le contexte de visite",
+      text: "Confirmez source officielle, nom coreen de carte, meteo et hotels proches avant de reserver.",
+      official: "Source officielle",
+      officialText: "Dates, regles d'entree et avis",
+      map: "Recherche carte coreenne",
+      sponsored: "Lien hotel sponsorise",
+      commission: "K-Spot Now peut recevoir une commission.",
+      hotels: "Hotels Trip.com a {city}",
+      tours: "Activites et billets a {city}"
+    },
+    de: {
+      eyebrow: "Vor der Buchung",
+      title: "Besuchskontext prufen",
+      text: "Prufen Sie offizielle Quelle, koreanischen Kartennamen, Wetter und nahe Hotels vor der Buchung.",
+      official: "Offizielle Quelle",
+      officialText: "Daten, Einlassregeln und Hinweise",
+      map: "Koreanische Kartensuche",
+      sponsored: "Gesponserter Hotellink",
+      commission: "K-Spot Now kann Provision erhalten.",
+      hotels: "Trip.com Hotels in {city}",
+      tours: "Touren und Tickets in {city}"
+    }
+  }[lang] || {
+    eyebrow: "Before you book",
+    title: "Check the visit context",
+    text: "Confirm the official source, Korean map name, weather, and nearby stays before final booking.",
+    official: "Official source",
+    officialText: "Dates, entry rules, and notices",
+    map: "Korean map search",
+    sponsored: "Sponsored hotel link",
+    commission: "K-Spot Now may earn a commission.",
+    hotels: "Trip.com hotels in {city}",
+    tours: "Tours and tickets in {city}"
+  };
+  const affiliateCards = links.map((link) => `
+            <a class="quick-plan-card is-sponsored" href="${esc(link.href)}" rel="sponsored nofollow noopener" target="_blank">
+              <span>${esc(copy.sponsored)}</span>
+              <strong>${esc((link.type === "hotels" ? copy.hotels : copy.tours).replace("{city}", cityLabel(lang, link.city || city)))}</strong>
+              <small>${esc(link.partner)} · ${esc(copy.commission)}</small>
+            </a>`).join("");
+
+  return `
+        <section class="detail-quick-plan affiliate-section" aria-label="${esc(copy.title)}">
+          <div class="quick-plan-copy">
+            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+            <h2>${esc(copy.title)}</h2>
+            <p>${esc(copy.text)}</p>
+          </div>
+          <div class="quick-plan-actions">
+            <a class="quick-plan-card" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">
+              <span>${esc(copy.official)}</span>
+              <strong>${esc(sourceRoleLabel(event, lang))}</strong>
+              <small>${esc(copy.officialText)}</small>
+            </a>
+            <a class="quick-plan-card" href="${esc(mapLink.href)}" rel="nofollow noopener" target="_blank">
+              <span>${esc(copy.map)}</span>
+              <strong>${esc(place)}</strong>
+              <small>${esc(mapLink.label)}</small>
+            </a>
+            ${affiliateCards}
+          </div>
+        </section>`;
+}
+
 const visitorInfoLabels = {
   theme: "eventTheme",
   hours: "hoursOfOperation",
@@ -6340,6 +6485,7 @@ function renderEvent(event, lang) {
             <p class="handoff-note">${bookingHandoffNote(event, lang)}</p>
           </div>
         </header>
+        ${affiliatePlanningRail(event, lang)}
 
         <section class="fact-grid" aria-label="Event facts">
           ${fact(tr(lang, "period"), periodText, "calendar")}
@@ -6373,7 +6519,6 @@ function renderEvent(event, lang) {
           <ul>${eventTravelTips(event, lang).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
         </section>
         ${mapLinkSection(event, lang)}
-        ${affiliateSection(event, lang)}
 
         ${routeIdeas.length ? `
           <section class="detail-section">

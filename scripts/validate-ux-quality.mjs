@@ -114,8 +114,14 @@ assertIncludes(planningLayer, "Plan first. Book on official sources.", "en/index
 assertIncludes(planningLayer, "not a ticket shop", "en/index.html", "home must clearly distinguish K-Spot Now from ticket shops.");
 assertIncludes(planningLayer, "official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages", "en/index.html", "home must explain the cross-source comparison layer.");
 assertIncludes(planningLayer, "map-ready Korean place names", "en/index.html", "home must explain visitor context beyond raw event listings.");
+assertIncludes(planningLayer, "class=\"planning-flow\"", "en/index.html", "home must show the visitor workflow, not only explanatory copy.");
+assertIncludes(planningLayer, "Find signal", "en/index.html", "home workflow must start with event discovery.");
+assertIncludes(planningLayer, "Verify visitor details", "en/index.html", "home workflow must include date, weather, map, and route verification.");
+assertIncludes(planningLayer, "Continue officially", "en/index.html", "home workflow must hand final action to official sources.");
 assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
+assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
+assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
 const about = read("en/about/index.html");
 assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");
 const frHome = read("fr/index.html");
@@ -133,6 +139,9 @@ for (const event of activeEvents) {
   }
   assertIncludes(html, "class=\"handoff-note\"", `en/events/${event.slug}.html`, "detail page must include an official-source handoff note.");
   assertIncludes(html, "Plan here, then complete tickets, reservations, purchases", `en/events/${event.slug}.html`, "detail page must explain that final action happens on the official source.");
+  assertIncludes(html, "Visit-ready checklist", `en/events/${event.slug}.html`, "detail page must surface an at-a-glance visitor action checklist.");
+  assertIncludes(html, "Confirm on the official page", `en/events/${event.slug}.html`, "detail checklist must direct visitors to final official confirmation.");
+  assertIncludes(html, "Search the Korean place name", `en/events/${event.slug}.html`, "detail checklist must explain map-ready Korean place search.");
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }

@@ -616,6 +616,16 @@ dict = {
     plannerEmptyText: "Save events from the gallery or detail pages to build a simple Korea trip shortlist.",
     downloadSavedCalendar: "Download saved calendar",
     officialLabel: "Official",
+    verification: "Verification",
+    dateBasis: "Date basis",
+    verificationOfficial: "Official source",
+    verificationOfficialArchive: "Official archive",
+    verificationOfficialListing: "Official listing",
+    verificationOfficialPrefix: "Official",
+    collectionOfficialPageReview: "Official page review",
+    collectionOfficialPageMonitor: "Official page monitor",
+    collectionOfficialApi: "Official API",
+    collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
     editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
     correctionsTitle: "Corrections and Updates",
@@ -3488,8 +3498,76 @@ const planningLayerCopy = {
   }
 };
 
+const planningWorkflowCopy = {
+  en: {
+    aria: "How visitors use K-Spot Now",
+    steps: [
+      ["Find signal", "See what is live, ending soon, or worth planning before it disappears."],
+      ["Verify visitor details", "Check dates, venue, weather, Korean map name, and nearby routes in one place."],
+      ["Continue officially", "Move to the organizer, brand, venue, or ticketing page for the final action."]
+    ]
+  },
+  es: {
+    aria: "Como usan K-Spot Now los visitantes",
+    steps: [
+      ["Encuentra la senal", "Ve que esta activo, termina pronto o vale la pena planificar antes de que desaparezca."],
+      ["Verifica detalles", "Consulta fechas, lugar, clima, nombre coreano para mapas y rutas cercanas en un solo lugar."],
+      ["Continua oficialmente", "Pasa al organizador, marca, recinto o pagina de tickets para la accion final."]
+    ]
+  },
+  fr: {
+    aria: "Comment les visiteurs utilisent K-Spot Now",
+    steps: [
+      ["Reperez le signal", "Voyez ce qui est en cours, bientot termine ou utile a planifier avant disparition."],
+      ["Verifiez les details", "Dates, lieu, meteo, nom coreen pour les cartes et itineraires proches sont regroupes."],
+      ["Continuez officiellement", "Passez a l'organisateur, la marque, le lieu ou la billetterie pour l'action finale."]
+    ]
+  },
+  de: {
+    aria: "Wie Besucher K-Spot Now nutzen",
+    steps: [
+      ["Signal finden", "Sehen Sie, was live ist, bald endet oder rechtzeitig geplant werden sollte."],
+      ["Details prufen", "Datum, Ort, Wetter, koreanischer Kartenname und nahe Routen stehen zusammen."],
+      ["Offiziell fortfahren", "Gehen Sie fur die finale Aktion zum Veranstalter, zur Marke, zum Ort oder Ticketing."]
+    ]
+  },
+  zh: {
+    aria: "游客如何使用 K-Spot Now",
+    steps: [
+      ["发现信号", "查看正在进行、即将结束或值得提前规划的韩国活动。"],
+      ["确认细节", "在同一处核对日期、场馆、天气、韩文地图名和附近路线。"],
+      ["前往官方", "最后购买、预约或确认规则时，前往主办方、品牌、场馆或票务页面。"]
+    ]
+  },
+  pt: {
+    aria: "Como visitantes usam o K-Spot Now",
+    steps: [
+      ["Encontre o sinal", "Veja o que esta ao vivo, termina em breve ou merece planejamento antes de sumir."],
+      ["Verifique detalhes", "Datas, local, clima, nome coreano para mapas e rotas proximas ficam juntos."],
+      ["Continue no oficial", "Va ao organizador, marca, local ou pagina de tickets para a acao final."]
+    ]
+  },
+  ru: {
+    aria: "Как гости используют K-Spot Now",
+    steps: [
+      ["Найти сигнал", "Посмотрите, что идет сейчас, скоро закончится или стоит спланировать заранее."],
+      ["Проверить детали", "Даты, место, погода, корейское название для карт и маршруты собраны вместе."],
+      ["Перейти официально", "Для финального действия переходите к организатору, бренду, площадке или билетной странице."]
+    ]
+  },
+  ja: {
+    aria: "訪問者がK-Spot Nowを使う流れ",
+    steps: [
+      ["見つける", "開催中、終了間近、早めに計画したい韓国イベントを確認します。"],
+      ["確認する", "日程、会場、天気、地図用の韓国語名、周辺ルートをまとめて見ます。"],
+      ["公式へ進む", "購入、予約、最終ルール確認は主催者、ブランド、会場、チケットページで行います。"]
+    ]
+  }
+};
+
 function planningLayerSection(lang) {
   const copy = planningLayerCopy[lang] || planningLayerCopy.en;
+  const flow = planningWorkflowCopy[lang] || planningWorkflowCopy.en;
   return `
       <section class="planning-layer" aria-labelledby="planning-layer-title">
         <div class="planning-layer-inner">
@@ -3498,13 +3576,23 @@ function planningLayerSection(lang) {
             <h2 id="planning-layer-title">${esc(copy.title)}</h2>
             <p>${esc(copy.text)}</p>
           </div>
-          <div class="planning-layer-grid">
-            ${copy.items.map(([title, text], index) => `
-              <div class="planning-card">
-                <span>${String(index + 1).padStart(2, "0")}</span>
-                <strong>${esc(title)}</strong>
-                <p>${esc(text)}</p>
-              </div>`).join("")}
+          <div class="planning-layer-body">
+            <div class="planning-flow" aria-label="${esc(flow.aria)}">
+              ${flow.steps.map(([title, text], index) => `
+                <div class="planning-flow-step">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <strong>${esc(title)}</strong>
+                  <p>${esc(text)}</p>
+                </div>`).join("")}
+            </div>
+            <div class="planning-layer-grid">
+              ${copy.items.map(([title, text], index) => `
+                <div class="planning-card">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <strong>${esc(title)}</strong>
+                  <p>${esc(text)}</p>
+                </div>`).join("")}
+            </div>
           </div>
         </div>
       </section>`;
@@ -3523,6 +3611,115 @@ const detailHandoffText = {
 
 function bookingHandoffNote(lang) {
   return esc(detailHandoffText[lang] || detailHandoffText.en);
+}
+
+const visitorActionCopy = {
+  en: {
+    title: "Visit-ready checklist",
+    officialTitle: "Confirm on the official page",
+    officialText: "Use the source below for final tickets, reservations, purchases, operating rules, and entry notices.",
+    mapTitle: "Search the Korean place name",
+    mapText: "Copy this place name into Google, Naver, or Kakao Maps for cleaner local results.",
+    planTitle: "Keep the plan movable",
+    planText: "Save the event or calendar file, then recheck weather and official notices before leaving."
+  },
+  es: {
+    title: "Lista antes de visitar",
+    officialTitle: "Confirma en la pagina oficial",
+    officialText: "Usa la fuente oficial para entradas, reservas, compras, reglas de operacion y avisos de entrada.",
+    mapTitle: "Busca el nombre coreano",
+    mapText: "Copia este nombre en Google, Naver o Kakao Maps para mejores resultados locales.",
+    planTitle: "Mantén el plan flexible",
+    planText: "Guarda el evento o calendario y vuelve a revisar clima y avisos oficiales antes de salir."
+  },
+  fr: {
+    title: "Checklist avant visite",
+    officialTitle: "Confirmez sur la page officielle",
+    officialText: "Utilisez la source officielle pour billets, reservations, achats, regles d'ouverture et avis d'entree.",
+    mapTitle: "Cherchez le nom coreen",
+    mapText: "Copiez ce nom dans Google, Naver ou Kakao Maps pour de meilleurs resultats locaux.",
+    planTitle: "Gardez le plan flexible",
+    planText: "Sauvegardez l'evenement ou le calendrier, puis reverifiez meteo et avis officiels avant de partir."
+  },
+  de: {
+    title: "Besuchs-Checkliste",
+    officialTitle: "Auf der offiziellen Seite bestatigen",
+    officialText: "Nutzen Sie die offizielle Quelle fur Tickets, Reservierungen, Kaufe, Betriebsregeln und Eintrittshinweise.",
+    mapTitle: "Koreanischen Ortsnamen suchen",
+    mapText: "Kopieren Sie diesen Namen in Google, Naver oder Kakao Maps fur bessere lokale Ergebnisse.",
+    planTitle: "Plan beweglich halten",
+    planText: "Speichern Sie Event oder Kalenderdatei und prufen Sie Wetter und offizielle Hinweise vor dem Start erneut."
+  },
+  zh: {
+    title: "出发前检查清单",
+    officialTitle: "在官方页面确认",
+    officialText: "门票、预约、购买、运营规则和入场公告请以官方来源为准。",
+    mapTitle: "搜索韩文地点名",
+    mapText: "把这个名称复制到 Google、Naver 或 Kakao 地图，可获得更准确的本地结果。",
+    planTitle: "保持行程灵活",
+    planText: "保存活动或日历文件，出发前再次确认天气和官方公告。"
+  },
+  pt: {
+    title: "Checklist antes da visita",
+    officialTitle: "Confirme na pagina oficial",
+    officialText: "Use a fonte oficial para ingressos, reservas, compras, regras de operacao e avisos de entrada.",
+    mapTitle: "Pesquise o nome coreano",
+    mapText: "Copie este nome no Google, Naver ou Kakao Maps para resultados locais mais limpos.",
+    planTitle: "Mantenha o plano flexivel",
+    planText: "Salve o evento ou calendario e confira clima e avisos oficiais antes de sair."
+  },
+  ru: {
+    title: "Чеклист перед визитом",
+    officialTitle: "Проверьте официальную страницу",
+    officialText: "Билеты, бронирования, покупки, правила работы и входа подтверждайте в официальном источнике.",
+    mapTitle: "Ищите корейское название места",
+    mapText: "Скопируйте это название в Google, Naver или Kakao Maps для более точных местных результатов.",
+    planTitle: "Оставьте план гибким",
+    planText: "Сохраните событие или календарь, затем перед выходом проверьте погоду и официальные уведомления."
+  },
+  ja: {
+    title: "訪問前チェックリスト",
+    officialTitle: "公式ページで確認",
+    officialText: "チケット、予約、購入、運営ルール、入場案内は公式情報で最終確認します。",
+    mapTitle: "韓国語の場所名で検索",
+    mapText: "この名称をGoogle、Naver、Kakao Mapsにコピーすると現地検索が安定します。",
+    planTitle: "予定を動かせる状態に",
+    planText: "イベントやカレンダーを保存し、出発前に天気と公式案内を再確認します。"
+  }
+};
+
+function visitorActionChecklist(event, lang) {
+  const copy = visitorActionCopy[lang] || visitorActionCopy.en;
+  const sourceName = event.sourceName || "official source";
+  return `
+        <section class="detail-section visitor-action-section" aria-labelledby="visitor-action-title">
+          <div class="detail-section-head">
+            <div>
+              <p class="eyebrow">${tr(lang, "plannerTitle")}</p>
+              <h2 id="visitor-action-title">${esc(copy.title)}</h2>
+            </div>
+          </div>
+          <div class="visitor-action-grid">
+            <article>
+              <span>01</span>
+              <strong>${esc(copy.officialTitle)}</strong>
+              <p>${esc(copy.officialText)}</p>
+              <em>${esc(sourceName)}</em>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>${esc(copy.mapTitle)}</strong>
+              <p>${esc(copy.mapText)}</p>
+              <em>${esc(event.mapQueryKo)}</em>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>${esc(copy.planTitle)}</strong>
+              <p>${esc(copy.planText)}</p>
+              <em>${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}</em>
+            </article>
+          </div>
+        </section>`;
 }
 
 function renderHome(lang, canonicalPath = `/${lang}/`) {
@@ -4143,6 +4340,7 @@ function renderEvent(event, lang) {
           ${eventKindLabel(event, lang) ? fact(tr(lang, "dateBasis"), eventKindLabel(event, lang), "basis") : ""}
         </section>
 
+        ${visitorActionChecklist(event, lang)}
         ${visitorInfoSection(event, lang)}
 
         <section class="detail-section">

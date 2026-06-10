@@ -576,6 +576,58 @@ img {
   line-height: 1.65;
 }
 
+.planning-layer-body {
+  display: grid;
+  gap: 12px;
+}
+
+.planning-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid #bfd0e6;
+  border-radius: 8px;
+  background: #f5f8ff;
+}
+
+.planning-flow-step {
+  display: grid;
+  gap: 7px;
+  min-height: 128px;
+  align-content: center;
+  padding: 16px;
+  border-right: 1px solid #d9e3f2;
+}
+
+.planning-flow-step:last-child {
+  border-right: 0;
+}
+
+.planning-flow-step span {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--blue);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.planning-flow-step strong {
+  color: var(--blue-dark);
+  font-size: 1rem;
+  line-height: 1.18;
+}
+
+.planning-flow-step p {
+  margin: 0;
+  color: #475467;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
 .planning-layer-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2165,6 +2217,64 @@ img {
   padding-left: 20px;
 }
 
+.visitor-action-section {
+  padding: 0;
+  overflow: hidden;
+}
+
+.visitor-action-section .detail-section-head {
+  padding: 22px 22px 0;
+}
+
+.visitor-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.visitor-action-grid article {
+  display: grid;
+  gap: 8px;
+  min-height: 172px;
+  align-content: start;
+  padding: 20px 22px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+.visitor-action-grid article:last-child {
+  border-right: 0;
+}
+
+.visitor-action-grid span {
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.visitor-action-grid strong {
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.22;
+}
+
+.visitor-action-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.48;
+}
+
+.visitor-action-grid em {
+  align-self: end;
+  margin-top: 4px;
+  color: var(--blue-dark);
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.25;
+  word-break: keep-all;
+}
+
 .weather-detail-section {
   display: grid;
   gap: 18px;
@@ -3551,10 +3661,12 @@ img {
   .fact-grid,
   .visitor-info-grid,
   .venue-schedule-list,
+  .visitor-action-grid,
   .route-grid,
   .watch-stats,
   .source-refresh-stats,
   .watch-card dl,
+  .planning-flow,
   .planning-layer-grid,
   .now-dashboard,
   .now-grid,
@@ -3581,6 +3693,26 @@ img {
   .fact {
     min-height: 84px;
     padding: 14px;
+  }
+
+  .planning-flow-step,
+  .visitor-action-grid article {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .planning-flow-step:last-child,
+  .visitor-action-grid article:last-child {
+    border-bottom: 0;
+  }
+
+  .visitor-action-section .detail-section-head {
+    padding: 18px 18px 0;
+  }
+
+  .visitor-action-grid article {
+    padding: 18px;
   }
 
   .weather-metrics {

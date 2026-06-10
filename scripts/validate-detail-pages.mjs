@@ -196,6 +196,9 @@ function validateDetailPage(event, lang) {
   const routeIdeas = routesForEvent(event);
   const relatedGuides = guidesForEvent(event);
 
+  if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) {
+    push(id, "internal verification or collection translation keys are visible on the public detail page.");
+  }
   assertIncludes(html, `href="${esc(event.sourceUrl)}"`, id, "official source link is missing.");
   assertIncludes(html, `href="/events/${event.slug}.ics"`, id, "single-event calendar download link is missing.");
   assertIncludes(html, `data-save-event`, id, "save-event planner button is missing.");
@@ -204,6 +207,8 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, esc(event.venue), id, "event venue is missing from visible facts.");
   assertIncludes(html, esc(event.city), id, "event city is missing from visible facts.");
   assertIncludes(html, esc(event.sourceName), id, "official source name is missing from the page.");
+  assertIncludes(html, "visitor-action-grid", id, "visit-ready action checklist is missing.");
+  assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing from visit-ready checklist.");
   if (event.officialWebsiteUrl) {
     assertIncludes(html, `href="${esc(event.officialWebsiteUrl)}"`, id, "official event website link is missing.");
     assertIncludes(html, esc(event.officialWebsiteName || event.officialWebsiteUrl), id, "official event website label is missing.");

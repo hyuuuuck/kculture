@@ -110,11 +110,18 @@ function dateText(lang, iso) {
   return new Intl.DateTimeFormat(languageLocales[lang] || "en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
+function containsEnglishSourceText(value) {
+  const text = String(value || "").replace(/\b(KST|QR|KMA|BTS|K-POP|KPOP|VIP|UV|AM|PM)\b/g, "");
+  return /\b[A-Za-z]{4,}\b/.test(text);
+}
+
 function eventDateLabel(event, lang, useLocalizedDates = true) {
   const fallback = useLocalizedDates ? `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}` : `${event.startDate} - ${event.endDate}`;
   const raw = String(event.dateLabel || "").trim();
   if (!raw) return fallback;
-  if (lang !== "fr" && lang !== "de") return raw;
+  if (lang === "en") return raw;
+  if (!containsEnglishSourceText(raw)) return raw;
+  if (lang !== "fr" && lang !== "de") return fallback;
   let text = raw
     .replace(/\bFrom\s+(\d{4}-\d{2}-\d{2}),\s*until sold out\b/gi, lang === "fr" ? "Depuis $1, jusqu'a epuisement" : "Seit $1, bis ausverkauft")
     .replace(/\bEvery Saturday in 2026\b/gi, lang === "fr" ? "Chaque samedi en 2026" : "Jeden Samstag 2026")
@@ -129,6 +136,7 @@ function eventDateLabel(event, lang, useLocalizedDates = true) {
     .replace(/\bthrough\b/gi, lang === "fr" ? "jusqu'au" : "bis")
     .replace(/\buntil sold out\b/gi, lang === "fr" ? "jusqu'a epuisement" : "bis ausverkauft");
   if (text === raw && /\b(date range|campaign|selected|daily|through|until|every)\b/i.test(raw)) return fallback;
+  if (containsEnglishSourceText(text)) return fallback;
   return text;
 }
 
@@ -265,19 +273,31 @@ function validateDetailPage(event, lang) {
     assertIncludes(html, esc(event.officialWebsiteName || event.officialWebsiteUrl), id, "official event website label is missing.");
   }
   if (event.visitorInfo) {
-    for (const value of Object.values(event.visitorInfo).flat().filter(Boolean)) {
-      assertIncludes(html, esc(value), id, `visitorInfo value is missing from the detail page: ${value}`);
+    assertIncludes(html, "visitor-info-section", id, "official visitor info section is missing.");
+    if (lang === "en") {
+      for (const value of Object.values(event.visitorInfo).flat().filter(Boolean)) {
+        assertIncludes(html, esc(value), id, `visitorInfo value is missing from the detail page: ${value}`);
+      }
     }
   }
   for (const item of event.venueSchedule || []) {
     assertIncludes(html, esc(item.venue), id, `venue schedule venue is missing: ${item.venue}`);
     assertIncludes(html, esc(dateText(lang, item.startDate)), id, `venue schedule start date is missing: ${item.startDate}`);
     assertIncludes(html, esc(dateText(lang, item.endDate)), id, `venue schedule end date is missing: ${item.endDate}`);
-    if (item.theme) assertIncludes(html, esc(item.theme), id, `venue schedule theme is missing: ${item.theme}`);
-    if (item.note) assertIncludes(html, esc(item.note), id, `venue schedule note is missing: ${item.note}`);
+    if (lang === "en") {
+      if (item.theme) assertIncludes(html, esc(item.theme), id, `venue schedule theme is missing: ${item.theme}`);
+      if (item.note) assertIncludes(html, esc(item.note), id, `venue schedule note is missing: ${item.note}`);
+    } else {
+      assertIncludes(html, "venue-schedule", id, "localized venue schedule section is missing.");
+    }
   }
-  for (const item of (event.officialHighlights || []).slice(0, 2)) {
-    assertIncludes(html, esc(item), id, `official highlight is missing: ${item}`);
+  if (lang === "en") {
+    for (const item of (event.officialHighlights || []).slice(0, 2)) {
+      assertIncludes(html, esc(item), id, `official highlight is missing: ${item}`);
+    }
+  } else if ((event.officialHighlights || []).length) {
+    assertIncludes(html, "official-highlights", id, "localized official highlights section is missing.");
+    assertIncludes(html, esc(event.sourceName), id, "localized official highlights should keep the source name visible.");
   }
 
   assertIncludes(html, weatherLabel(lang, "previousBaseline"), id, "previous-year weather baseline label is missing.");
@@ -311,18 +331,29 @@ function validateDetailPage(event, lang) {
     assertIncludes(html, "localized-visitor-brief", id, "French localized visitor brief is missing.");
     assertIncludes(html, "Brief visiteur localise", id, "French localized visitor brief heading is missing.");
     assertIncludes(html, "Nom officiel a copier", id, "French localized visitor brief should preserve the official searchable name.");
-    assertIncludes(html, "Reverifiez la source officielle", id, "French generated travel tips should mention official recheck.");
-    assertIncludes(html, "Copiez le nom coreen du lieu", id, "French generated travel tips should mention Korean map names.");
   } else if (lang === "de") {
     assertIncludes(html, "localized-visitor-brief", id, "German localized visitor brief is missing.");
     assertIncludes(html, "Lokales Besucherbriefing", id, "German localized visitor brief heading is missing.");
     assertIncludes(html, "Offiziellen Namen kopieren", id, "German localized visitor brief should preserve the official searchable name.");
-    assertIncludes(html, "Prufen Sie die offizielle Quelle", id, "German generated travel tips should mention official recheck.");
-    assertIncludes(html, "Kopieren Sie den koreanischen Ortsnamen", id, "German generated travel tips should mention Korean map names.");
-  } else {
+  }
+
+  const localizedTipProof = {
+    es: "fuente oficial",
+    zh: "官方来源",
+    pt: "fonte oficial",
+    ru: "официальный источник",
+    ja: "公式情報",
+    fr: "source officielle",
+    de: "offizielle Quelle"
+  };
+  if (lang === "en") {
     for (const tip of (event.travelTips || []).slice(0, 2)) {
       assertIncludes(html, esc(tip), id, `travel tip is missing: ${tip}`);
     }
+  } else {
+    assertIncludes(html, "travel-ideas-section", id, "localized travel ideas section is missing.");
+    assertIncludes(html, localizedTipProof[lang], id, "localized travel tips should mention official-source recheck.");
+    assertIncludes(html, "Naver Map", id, "localized travel tips should mention Korean map apps.");
   }
 
   assertIncludes(html, "www.google.com/maps/search", id, "Google Maps shortcut is missing.");

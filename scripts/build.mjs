@@ -2445,7 +2445,274 @@ function localList(value, lang) {
 }
 
 function needsGeneratedVisitorCopy(value, lang) {
-  return (lang === "fr" || lang === "de") && (!value || typeof value === "string" || !String(value[lang] || "").trim() || hasMojibake(value[lang]));
+  if (lang === "en") return false;
+  if (!value || typeof value === "string") return true;
+  const localized = String(value[lang] || "").trim();
+  const english = String(value.en || "").trim();
+  return !localized || hasMojibake(localized) || (english && localized === english);
+}
+
+const generatedVisitorCopy = {
+  en: {
+    eventSummary: ({ title, category, city, period }) => `${title} is a ${category} planning page for ${city}, with a planning period of ${period}. K-Spot Now keeps venue, weather, maps, and the official source together before visitors buy, reserve, or go.`,
+    eventWhyGo: ({ category }) => `Use this ${category} listing to confirm dates, choose the area, check transport, and open the official source for the final action.`,
+    guideSummary: ({ category }) => `A practical Korea ${category} guide for checking official sources, dates, venues, maps, and nearby options before planning.`,
+    guideSections: [
+      "Start with the official organizer, brand, venue, ticketing, or public tourism source.",
+      "Check dates, hours, entry method, purchase limits, and visitor eligibility.",
+      "Copy the Korean place name and compare transport, weather, queues, and nearby options.",
+      "Use K-Spot Now to plan and compare; finish purchases or reservations on the official source."
+    ],
+    travelTips: [
+      "Recheck the official source on the same day, especially for pop-ups, tickets, and limited offers.",
+      "Copy the Korean place name into Naver Map, Kakao Map, or Google Maps before leaving.",
+      "Leave time for queues, weather, and stock changes; keep a nearby indoor backup.",
+      "Complete purchases, reservations, and entry-rule checks only on the official or linked ticketing page."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `${category} visitor planning in ${city}`,
+      hours: "Hours can vary by venue or program; confirm the official source before going.",
+      transportation: ({ place }) => `Search ${place} with the Korean place name in Google, Naver, or Kakao Maps.`,
+      parking: "Check official parking and access notices; use public transport when parking is limited.",
+      smartGuide: "If a QR guide or on-site guide is provided, check available languages at the venue."
+    },
+    venueStatus: "Official planning period",
+    venueTheme: ({ category }) => `${category} program`,
+    venueNote: "Confirm exact program, entry, and operating changes on the official source before leaving.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} is the linked ${role} for final rules and updates.`,
+      `Use the checked period ${period} and the place name ${place} for planning.`,
+      "K-Spot Now adds weather, map, route, and calendar context before the final handoff."
+    ]
+  },
+  es: {
+    eventSummary: ({ title, category, city, period }) => `${title} es una página de planificación de ${category} en ${city}, con periodo ${period}. K-Spot Now reúne lugar, clima, mapas y fuente oficial antes de comprar, reservar o visitar.`,
+    eventWhyGo: ({ category }) => `Usa este listado de ${category} para confirmar fechas, elegir zona, revisar transporte y abrir la fuente oficial para la acción final.`,
+    guideSummary: ({ category }) => `Guía práctica de ${category} en Corea para revisar fuentes oficiales, fechas, lugares, mapas y opciones cercanas antes de planificar.`,
+    guideSections: [
+      "Empieza por la fuente oficial: organizador, marca, recinto, ticketing o turismo público.",
+      "Revisa fechas, horarios, método de entrada, límites de compra y requisitos para visitantes.",
+      "Copia el nombre coreano del lugar y compara transporte, clima, filas y opciones cercanas.",
+      "Usa K-Spot Now para planificar y comparar; finaliza compras o reservas en la fuente oficial."
+    ],
+    travelTips: [
+      "Vuelve a revisar la fuente oficial el mismo día, sobre todo para pop-ups, entradas y ofertas limitadas.",
+      "Copia el nombre coreano del lugar en Naver Map, Kakao Map o Google Maps antes de salir.",
+      "Deja margen para filas, clima y cambios de stock; ten una opción cercana bajo techo.",
+      "Completa compras, reservas y reglas de entrada solo en la fuente oficial o ticketing enlazado."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `Planificación para visitantes de ${category} en ${city}`,
+      hours: "Los horarios pueden variar por sede o programa; confirma la fuente oficial antes de ir.",
+      transportation: ({ place }) => `Busca ${place} con el nombre coreano en Google, Naver o Kakao Maps.`,
+      parking: "Confirma estacionamiento y avisos de acceso en la fuente oficial; usa transporte público si el parking es limitado.",
+      smartGuide: "Si hay guía QR o guía local, revisa los idiomas disponibles en el lugar."
+    },
+    venueStatus: "Periodo oficial de planificación",
+    venueTheme: ({ category }) => `Programa de ${category}`,
+    venueNote: "Confirma programa, entrada y cambios de horario en la fuente oficial antes de salir.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} es la ${role} enlazada para reglas y actualizaciones finales.`,
+      `Usa el periodo verificado ${period} y el nombre de lugar ${place} para planificar.`,
+      "K-Spot Now añade clima, mapas, rutas y calendario antes de la visita final a la fuente."
+    ]
+  },
+  zh: {
+    eventSummary: ({ title, category, city, period }) => `${title} 是 ${city} 的${category}行程规划页，适用日期为 ${period}。K-Spot Now 汇总地点、天气、地图和官方来源，帮助游客在购买、预约或前往前比较。`,
+    eventWhyGo: ({ category }) => `使用这条${category}信息确认日期、选择区域、查看交通，并前往官方来源完成最终操作。`,
+    guideSummary: ({ category }) => `韩国${category}实用指南，用于在规划前核对官方来源、日期、地点、地图和周边选项。`,
+    guideSections: [
+      "先确认官方主办方、品牌、场馆、票务或公共旅游来源。",
+      "核对日期、时间、入场方式、购买限制和游客资格。",
+      "复制韩文地点名，并比较交通、天气、排队和附近选择。",
+      "用 K-Spot Now 做规划和比较；购买或预约请在官方来源完成。"
+    ],
+    travelTips: [
+      "当天再次核对官方来源，尤其是快闪、门票和限量优惠。",
+      "出发前把韩文地点名复制到 Naver Map、Kakao Map 或 Google Maps。",
+      "为排队、天气和库存变化预留时间，并准备附近室内备选点。",
+      "购买、预约和入场规则请只在官方或已链接的票务页面确认。"
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `${city} ${category}游客规划`,
+      hours: "营业或活动时间可能因场馆和节目而变动；出发前请确认官方来源。",
+      transportation: ({ place }) => `用韩文地点名搜索 ${place}，并在 Google、Naver 或 Kakao Maps 中确认路线。`,
+      parking: "请在官方来源确认停车和入场动线；停车有限时优先使用公共交通。",
+      smartGuide: "如现场提供 QR 导览或指南，请在场馆确认可用语言。"
+    },
+    venueStatus: "官方规划时段",
+    venueTheme: ({ category }) => `${category}项目`,
+    venueNote: "出发前请在官方来源确认具体节目、入场和运营变更。",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} 是用于最终规则和更新的已链接${role}。`,
+      `请使用已核对日期 ${period} 和地点名 ${place} 进行规划。`,
+      "K-Spot Now 在跳转官方来源前补充天气、地图、路线和日历信息。"
+    ]
+  },
+  pt: {
+    eventSummary: ({ title, category, city, period }) => `${title} é uma página de planejamento de ${category} em ${city}, com período ${period}. O K-Spot Now reúne local, clima, mapas e fonte oficial antes de comprar, reservar ou visitar.`,
+    eventWhyGo: ({ category }) => `Use esta página de ${category} para confirmar datas, escolher a região, checar transporte e abrir a fonte oficial para a ação final.`,
+    guideSummary: ({ category }) => `Guia prático de ${category} na Coreia para conferir fontes oficiais, datas, locais, mapas e opções próximas antes de planejar.`,
+    guideSections: [
+      "Comece pela fonte oficial: organizador, marca, local, bilheteria ou turismo público.",
+      "Confira datas, horários, método de entrada, limites de compra e elegibilidade de visitantes.",
+      "Copie o nome coreano do local e compare transporte, clima, filas e opções próximas.",
+      "Use o K-Spot Now para planejar e comparar; finalize compras ou reservas na fonte oficial."
+    ],
+    travelTips: [
+      "Confira a fonte oficial no mesmo dia, especialmente para pop-ups, ingressos e ofertas limitadas.",
+      "Copie o nome coreano do local no Naver Map, Kakao Map ou Google Maps antes de sair.",
+      "Reserve tempo para filas, clima e mudanças de estoque; tenha uma alternativa interna por perto.",
+      "Finalize compras, reservas e regras de entrada apenas na fonte oficial ou bilheteria ligada."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `Planejamento de ${category} para visitantes em ${city}`,
+      hours: "Os horários podem variar por local ou programa; confirme a fonte oficial antes de ir.",
+      transportation: ({ place }) => `Pesquise ${place} com o nome coreano no Google, Naver ou Kakao Maps.`,
+      parking: "Confira avisos oficiais de estacionamento e acesso; use transporte público quando houver limite de vagas.",
+      smartGuide: "Se houver guia QR ou guia local, confirme no local quais idiomas estão disponíveis."
+    },
+    venueStatus: "Período oficial de planejamento",
+    venueTheme: ({ category }) => `Programa de ${category}`,
+    venueNote: "Confirme programa, entrada e mudanças de horário na fonte oficial antes de sair.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} é a ${role} ligada para regras finais e atualizações.`,
+      `Use o período verificado ${period} e o nome do local ${place} para planejar.`,
+      "O K-Spot Now acrescenta clima, mapa, rotas e calendário antes do encaminhamento final."
+    ]
+  },
+  ru: {
+    eventSummary: ({ title, category, city, period }) => `${title} — страница планирования ${category} в ${city} на период ${period}. K-Spot Now собирает место, погоду, карты и официальный источник перед покупкой, бронью или визитом.`,
+    eventWhyGo: ({ category }) => `Используйте эту страницу ${category}, чтобы проверить даты, выбрать район, оценить транспорт и открыть официальный источник для финального действия.`,
+    guideSummary: ({ category }) => `Практический гид по ${category} в Корее: официальные источники, даты, места, карты и варианты рядом перед планированием.`,
+    guideSections: [
+      "Начните с официального источника: организатор, бренд, площадка, билетная страница или туристический портал.",
+      "Проверьте даты, часы, способ входа, лимиты покупки и условия для посетителей.",
+      "Скопируйте корейское название места и сравните транспорт, погоду, очереди и варианты рядом.",
+      "Планируйте и сравнивайте в K-Spot Now; покупку или бронь завершайте на официальном источнике."
+    ],
+    travelTips: [
+      "В день визита снова проверьте официальный источник, особенно для pop-up, билетов и лимитированных предложений.",
+      "Перед выходом скопируйте корейское название места в Naver Map, Kakao Map или Google Maps.",
+      "Оставьте запас на очереди, погоду и изменения наличия; держите рядом вариант в помещении.",
+      "Покупку, бронь и правила входа подтверждайте только на официальной или связанной билетной странице."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `Планирование ${category} для посетителей в ${city}`,
+      hours: "Часы могут меняться по площадке или программе; проверьте официальный источник перед визитом.",
+      transportation: ({ place }) => `Ищите ${place} по корейскому названию в Google, Naver или Kakao Maps.`,
+      parking: "Проверьте официальные заметки о парковке и входе; при ограниченной парковке используйте общественный транспорт.",
+      smartGuide: "Если есть QR-гид или гид на месте, уточните доступные языки на площадке."
+    },
+    venueStatus: "Официальный период планирования",
+    venueTheme: ({ category }) => `Программа ${category}`,
+    venueNote: "Перед выходом проверьте точную программу, вход и изменения расписания на официальном источнике.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} — связанный ${role} для финальных правил и обновлений.`,
+      `Используйте проверенный период ${period} и название места ${place} для планирования.`,
+      "K-Spot Now добавляет погоду, карты, маршруты и календарь перед переходом к официальному источнику."
+    ]
+  },
+  ja: {
+    eventSummary: ({ title, category, city, period }) => `${title} は、${city}の${category}を計画するためのページです。対象期間は ${period}。K-Spot Now は、購入・予約・訪問前に場所、天気、地図、公式情報をまとめて比較できるようにします。`,
+    eventWhyGo: ({ category }) => `この${category}情報で日程、エリア、交通を確認し、最後の手続きは公式情報で行ってください。`,
+    guideSummary: ({ category }) => `韓国の${category}を計画する前に、公式情報、日程、場所、地図、周辺候補を確認するための実用ガイドです。`,
+    guideSections: [
+      "まず主催者、ブランド、会場、チケット、公共観光ページなど公式情報を確認します。",
+      "日程、時間、入場方法、購入制限、訪問者向け条件を確認します。",
+      "韓国語の場所名をコピーし、交通、天気、待ち時間、周辺候補を比較します。",
+      "K-Spot Now で計画と比較を行い、購入や予約は公式情報で完了してください。"
+    ],
+    travelTips: [
+      "ポップアップ、チケット、数量限定オファーは、当日に公式情報をもう一度確認してください。",
+      "出発前に韓国語の場所名を Naver Map、Kakao Map、Google Maps にコピーしてください。",
+      "行列、天気、在庫変更に備えて時間に余裕を持ち、近くの屋内候補も用意してください。",
+      "購入、予約、入場ルールは公式またはリンク先のチケットページで確認してください。"
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `${city}の${category}訪問計画`,
+      hours: "営業時間やプログラム時間は会場ごとに変わる場合があります。出発前に公式情報を確認してください。",
+      transportation: ({ place }) => `${place} を韓国語の場所名で Google、Naver、Kakao Maps から検索してください。`,
+      parking: "駐車場と入場動線の公式案内を確認し、駐車が限られる場合は公共交通を使ってください。",
+      smartGuide: "QRガイドや現地ガイドがある場合は、会場で利用可能な言語を確認してください。"
+    },
+    venueStatus: "公式計画期間",
+    venueTheme: ({ category }) => `${category}プログラム`,
+    venueNote: "出発前に公式情報でプログラム、入場、運営変更を確認してください。",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} は最終ルールと更新確認のためのリンク先${role}です。`,
+      `確認済み期間 ${period} と場所名 ${place} を使って計画してください。`,
+      "K-Spot Now は公式情報へ進む前に、天気、地図、ルート、カレンダーを補足します。"
+    ]
+  },
+  fr: {
+    eventSummary: ({ title, category, city, period }) => `${title} est une page ${category} pour ${city}, avec une période de planification ${period}. K-Spot Now rassemble le lieu, la météo, les cartes et la source officielle avant achat, réservation ou visite.`,
+    eventWhyGo: ({ category }) => `Cette fiche ${category} aide à confirmer les dates, choisir le quartier, vérifier le transport et ouvrir la source officielle pour l'action finale.`,
+    guideSummary: ({ category }) => `Guide pratique ${category} en Corée pour vérifier sources officielles, dates, lieux, cartes et options proches avant de planifier.`,
+    guideSections: [
+      "Commencez par la source officielle: organisateur, marque, lieu, billetterie ou page touristique publique.",
+      "Vérifiez les dates, horaires, méthode d'entrée, limites d'achat et conditions pour visiteurs.",
+      "Copiez le nom coréen du lieu et comparez transport, météo, files possibles et options proches.",
+      "Utilisez K-Spot Now pour planifier et comparer; achat ou réservation se finalise sur la source officielle."
+    ],
+    travelTips: [
+      "Revérifiez la source officielle le jour même, surtout pour les pop-ups, tickets et offres limitées.",
+      "Copiez le nom coréen du lieu dans Naver Map, Kakao Map ou Google Maps avant de partir.",
+      "Gardez du temps pour files, météo et stock; prévoyez une option intérieure proche.",
+      "Finalisez achat, réservation et règles d'entrée uniquement sur la source officielle ou billetterie liée."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `Plan visiteur ${category} à ${city}`,
+      hours: "Les horaires peuvent varier selon le lieu ou le programme; confirmez la source officielle avant de partir.",
+      transportation: ({ place }) => `Recherchez ${place} avec le nom coréen dans Google, Naver ou Kakao Maps.`,
+      parking: "Vérifiez les avis officiels de parking et d'accès; privilégiez les transports publics si les places sont limitées.",
+      smartGuide: "Si un guide QR ou sur place est proposé, vérifiez les langues disponibles au lieu."
+    },
+    venueStatus: "Période officielle de planification",
+    venueTheme: ({ category }) => `Programme ${category}`,
+    venueNote: "Confirmez programme, entrée et changements d'horaires sur la source officielle avant de partir.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} est la ${role} liée pour les règles finales et mises à jour.`,
+      `Utilisez la période vérifiée ${period} et le nom du lieu ${place} pour planifier.`,
+      "K-Spot Now ajoute météo, cartes, trajets et calendrier avant le renvoi final."
+    ]
+  },
+  de: {
+    eventSummary: ({ title, category, city, period }) => `${title} ist eine ${category}-Planungsseite für ${city} mit dem Zeitraum ${period}. K-Spot Now bündelt Ort, Wetter, Karten und offizielle Quelle vor Kauf, Reservierung oder Besuch.`,
+    eventWhyGo: ({ category }) => `Diese ${category}-Seite hilft, Daten zu bestätigen, den Stadtteil zu wählen, Verkehr zu prüfen und die offizielle Quelle für die finale Aktion zu öffnen.`,
+    guideSummary: ({ category }) => `Praktischer ${category}-Guide für Korea: offizielle Quellen, Daten, Orte, Karten und nahe Optionen vor der Planung prüfen.`,
+    guideSections: [
+      "Beginnen Sie mit der offiziellen Quelle: Veranstalter, Marke, Ort, Ticketing oder öffentlicher Tourismusseite.",
+      "Prüfen Sie Daten, Zeiten, Eintrittsmethode, Kauflimits und Bedingungen für internationale Besucher.",
+      "Kopieren Sie den koreanischen Ortsnamen und vergleichen Sie Verkehr, Wetter, Warteschlangen und nahe Optionen.",
+      "Nutzen Sie K-Spot Now zum Planen und Vergleichen; Kauf oder Reservierung erfolgt auf der offiziellen Quelle."
+    ],
+    travelTips: [
+      "Prüfen Sie die offizielle Quelle am selben Tag erneut, besonders bei Pop-ups, Tickets und limitierten Angeboten.",
+      "Kopieren Sie den koreanischen Ortsnamen vor der Abfahrt in Naver Map, Kakao Map oder Google Maps.",
+      "Planen Sie Zeit für Warteschlangen, Wetter und Bestandsänderungen ein; halten Sie eine nahe Innenraum-Alternative bereit.",
+      "Schließen Sie Kauf, Reservierung und Einlassregeln nur auf der offiziellen Seite oder verlinkten Ticketingseite ab."
+    ],
+    visitorInfo: {
+      theme: ({ category, city }) => `${category}-Besuchsplanung in ${city}`,
+      hours: "Zeiten können je nach Ort oder Programm wechseln; prüfen Sie die offizielle Quelle vor der Abfahrt.",
+      transportation: ({ place }) => `Suchen Sie ${place} mit dem koreanischen Ortsnamen in Google, Naver oder Kakao Maps.`,
+      parking: "Prüfen Sie offizielle Hinweise zu Parken und Zugang; nutzen Sie öffentliche Verkehrsmittel, wenn Parkplätze begrenzt sind.",
+      smartGuide: "Wenn QR- oder Vor-Ort-Guides angeboten werden, prüfen Sie die verfügbaren Sprachen am Ort."
+    },
+    venueStatus: "Offizieller Planungszeitraum",
+    venueTheme: ({ category }) => `${category}-Programm`,
+    venueNote: "Prüfen Sie Programm, Einlass und Betriebsänderungen vor der Abfahrt auf der offiziellen Quelle.",
+    highlights: ({ sourceName, period, place, role }) => [
+      `${sourceName} ist die verlinkte ${role} für finale Regeln und Updates.`,
+      `Nutzen Sie den geprüften Zeitraum ${period} und den Ortsnamen ${place} für die Planung.`,
+      "K-Spot Now ergänzt Wetter, Karten, Routen und Kalender vor dem finalen Wechsel."
+    ]
+  }
+};
+
+function visitorCopy(lang) {
+  return generatedVisitorCopy[lang] || generatedVisitorCopy.en;
 }
 
 const localizedGuideTitles = {
@@ -2487,68 +2754,39 @@ function guideTitleText(guide, lang) {
 
 function eventSummaryText(event, lang) {
   if (!needsGeneratedVisitorCopy(event.summary, lang)) return local(event.summary, lang);
-  const title = local(event.title, "en") || event.slug;
+  const title = local(event.title, lang) || local(event.title, "en") || event.slug;
   const period = eventDateLabel(event, lang);
   const category = categoryLabel(lang, event.category);
   const city = cityLabel(lang, event.city);
-  if (lang === "fr") {
-    return `${title} est une page ${category} pour ${city}, avec une periode de planification ${period}. K-Spot Now rassemble le lieu, la meteo, les cartes et la source officielle afin de comparer avant d'acheter, reserver ou visiter.`;
-  }
-  return `${title} ist eine ${category}-Planungsseite fur ${city} mit dem Zeitraum ${period}. K-Spot Now bundelt Ort, Wetter, Karten und offizielle Quelle, damit Besucher vor Kauf, Reservierung oder Besuch vergleichen konnen.`;
+  return visitorCopy(lang).eventSummary({ title, period, category, city });
 }
 
 function eventWhyGoText(event, lang) {
   if (!needsGeneratedVisitorCopy(event.whyGo, lang)) return local(event.whyGo, lang);
   const category = categoryLabel(lang, event.category);
-  if (lang === "fr") {
-    return `Cette fiche aide les visiteurs a transformer une annonce ${category} en plan concret: confirmer les dates, choisir le quartier, verifier le transport et ouvrir la source officielle pour l'action finale.`;
-  }
-  return `Diese Seite macht aus einem ${category}-Hinweis einen nutzbaren Plan: Daten bestatigen, Stadtteil wahlen, Verkehr prufen und die offizielle Quelle fur die finale Aktion offnen.`;
+  return visitorCopy(lang).eventWhyGo({ category });
 }
 
 function eventTravelTips(event, lang) {
-  if (lang !== "fr" && lang !== "de") return event.travelTips || [];
-  if (lang === "fr") {
-    return [
-      "Reverifiez la source officielle le jour meme, surtout pour les pop-ups, tickets et offres a stock limite.",
-      "Copiez le nom coreen du lieu dans Naver Map, Kakao Map ou Google Maps avant de partir.",
-      "Gardez une option proche pour repas, achats ou abri interieur si la file, la meteo ou le stock change.",
-      "Finalisez achat, reservation et regles d'entree uniquement sur le site officiel ou la billetterie liee."
-    ];
+  if (lang === "en") return event.travelTips || [];
+  if (event.travelTips && !Array.isArray(event.travelTips)) {
+    const localized = localList(event.travelTips, lang);
+    if (localized.length) return localized;
   }
-  return [
-    "Prufen Sie die offizielle Quelle am selben Tag erneut, besonders bei Pop-ups, Tickets und limitierten Angeboten.",
-    "Kopieren Sie den koreanischen Ortsnamen vor der Abfahrt in Naver Map, Kakao Map oder Google Maps.",
-    "Halten Sie eine nahe Alternative fur Essen, Einkaufen oder Innenraum bereit, falls Warteschlange, Wetter oder Bestand wechseln.",
-    "Schliessen Sie Kauf, Reservierung und Einlassregeln nur auf der offiziellen Seite oder verlinkten Ticketingseite ab."
-  ];
+  return visitorCopy(lang).travelTips;
 }
 
 function guideSummaryText(guide, lang) {
   if (!needsGeneratedVisitorCopy(guide.summary, lang)) return local(guide.summary, lang);
   const category = categoryLabel(lang, guide.category);
-  if (lang === "fr") return `Guide pratique pour verifier les sources officielles, dates, lieux, cartes et options proches avant de planifier une sortie ${category} en Coree.`;
-  return `Praktischer Guide zum Prufen offizieller Quellen, Daten, Orte, Karten und naher Optionen vor einer ${category}-Planung in Korea.`;
+  return visitorCopy(lang).guideSummary({ category });
 }
 
 function guideSectionsForLang(guide, lang) {
-  if (lang !== "fr" && lang !== "de") return localList(guide.sections, lang);
+  if (lang === "en") return localList(guide.sections, lang);
   const localized = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].filter(Boolean) : [];
   if (localized.length) return localized;
-  if (lang === "fr") {
-    return [
-      "Commencez par la source officielle: organisateur, marque, lieu, billetterie ou page touristique publique.",
-      "Verifiez les dates, horaires, methode d'entree, limite d'achat et conditions pour visiteurs etrangers.",
-      "Copiez le nom coreen du lieu et comparez transport, meteo, files possibles et options proches.",
-      "Utilisez K-Spot Now pour planifier et comparer; finalisez achat ou reservation seulement sur la source officielle."
-    ];
-  }
-  return [
-    "Beginnen Sie mit der offiziellen Quelle: Veranstalter, Marke, Ort, Ticketing oder offentlicher Tourismusseite.",
-    "Prufen Sie Daten, Zeiten, Eintrittsmethode, Kauflimits und Bedingungen fur internationale Besucher.",
-    "Kopieren Sie den koreanischen Ortsnamen und vergleichen Sie Verkehr, Wetter, mogliche Warteschlangen und nahe Optionen.",
-    "Nutzen Sie K-Spot Now zum Planen und Vergleichen; Kauf oder Reservierung erfolgen nur auf der offiziellen Quelle."
-  ];
+  return visitorCopy(lang).guideSections;
 }
 
 function trimHeading(value, maxLength = 64) {
@@ -3515,14 +3753,302 @@ const localizedRouteCopy = {
   }
 };
 
+const generatedRouteTitles = {
+  es: {
+    "hangang-evening-route": "Ruta nocturna por Hangang",
+    "central-seoul-shopping-route": "Myeongdong y paseo de palacios",
+    "yongsan-fan-route": "Ruta fan en Yongsan",
+    "palace-jongno-culture-route": "Palacios y cultura en Jongno",
+    "olympic-park-history-route": "Olympic Park e historia Baekje",
+    "busan-concert-weekend": "Fin de semana de concierto en Busan",
+    "regional-summer-festival-rail-route": "Festivales regionales en tren",
+    "autumn-heritage-night-route": "Patrimonio de otoño y luces nocturnas",
+    "pangyo-shopping-culture-route": "Shopping y cultura en Pangyo"
+  },
+  zh: {
+    "hangang-evening-route": "汉江夜间路线",
+    "central-seoul-shopping-route": "明洞购物与宫殿散步",
+    "yongsan-fan-route": "龙山粉丝与室内路线",
+    "palace-jongno-culture-route": "钟路宫殿文化路线",
+    "olympic-park-history-route": "奥林匹克公园与百济历史",
+    "busan-concert-weekend": "釜山演唱会周末路线",
+    "regional-summer-festival-rail-route": "地方夏季庆典铁路路线",
+    "autumn-heritage-night-route": "秋季遗产与夜景路线",
+    "pangyo-shopping-culture-route": "板桥购物与文化路线"
+  },
+  pt: {
+    "hangang-evening-route": "Rota noturna pelo Hangang",
+    "central-seoul-shopping-route": "Myeongdong e caminhada por palácios",
+    "yongsan-fan-route": "Rota de fãs em Yongsan",
+    "palace-jongno-culture-route": "Palácios e cultura em Jongno",
+    "olympic-park-history-route": "Olympic Park e história Baekje",
+    "busan-concert-weekend": "Fim de semana de show em Busan",
+    "regional-summer-festival-rail-route": "Festivais regionais de trem",
+    "autumn-heritage-night-route": "Patrimônio de outono e luzes noturnas",
+    "pangyo-shopping-culture-route": "Compras e cultura em Pangyo"
+  },
+  ru: {
+    "hangang-evening-route": "Вечерний маршрут у реки Хан",
+    "central-seoul-shopping-route": "Мёндон, шопинг и прогулка у дворца",
+    "yongsan-fan-route": "Фан-маршрут в Ёнсане",
+    "palace-jongno-culture-route": "Дворцы и культура в Чонно",
+    "olympic-park-history-route": "Olympic Park и история Пэкче",
+    "busan-concert-weekend": "Концертные выходные в Пусане",
+    "regional-summer-festival-rail-route": "Региональные летние фестивали поездом",
+    "autumn-heritage-night-route": "Осеннее наследие и ночные огни",
+    "pangyo-shopping-culture-route": "Шопинг и культура в Пангё"
+  },
+  ja: {
+    "hangang-evening-route": "漢江イブニングルート",
+    "central-seoul-shopping-route": "明洞ショッピングと宮殿散策",
+    "yongsan-fan-route": "龍山ファンルート",
+    "palace-jongno-culture-route": "鍾路の宮殿文化ルート",
+    "olympic-park-history-route": "Olympic Park と百済歴史ルート",
+    "busan-concert-weekend": "釜山コンサート週末ルート",
+    "regional-summer-festival-rail-route": "地方夏祭り鉄道ルート",
+    "autumn-heritage-night-route": "秋の文化遺産と夜景ルート",
+    "pangyo-shopping-culture-route": "板橋ショッピング文化ルート"
+  }
+};
+
+const generatedRouteBestFor = {
+  es: {
+    "hangang-evening-route": "Festivales al aire libre, conciertos gratuitos y una noche sencilla en Seúl.",
+    "central-seoul-shopping-route": "Compras de belleza, duty free y primera visita a Seúl.",
+    "yongsan-fan-route": "Merch K-pop, centros comerciales y planes bajo techo para calor o lluvia.",
+    "palace-jongno-culture-route": "Cultura tradicional, museos y días tranquilos cerca de palacios.",
+    "olympic-park-history-route": "Museos, parques amplios y compras en la zona de Jamsil.",
+    "busan-concert-weekend": "Conciertos K-pop, proyectos de fans y fines de semana de alta demanda en Busan.",
+    "regional-summer-festival-rail-route": "Festivales fuera de Seúl donde importan transporte, calor y regreso.",
+    "autumn-heritage-night-route": "Festivales tradicionales, linternas y planes regionales con noche incluida.",
+    "pangyo-shopping-culture-route": "Exposiciones de grandes almacenes, restaurantes y compras fuera del centro."
+  },
+  zh: {
+    "hangang-evening-route": "适合户外庆典、免费演出和轻松的首尔夜间计划。",
+    "central-seoul-shopping-route": "适合美妆优惠、免税购物和第一次到首尔的游客。",
+    "yongsan-fan-route": "适合 K-pop 周边、商场和炎热或雨天的室内计划。",
+    "palace-jongno-culture-route": "适合传统文化、博物馆和宫殿周边的一日安排。",
+    "olympic-park-history-route": "适合博物馆、公园散步和蚕室一带购物。",
+    "busan-concert-weekend": "适合 K-pop 演唱会、粉丝企划和釜山高需求周末。",
+    "regional-summer-festival-rail-route": "适合首尔以外的大型夏季庆典，重点关注交通、炎热和返程。",
+    "autumn-heritage-night-route": "适合传统庆典、灯会和需要过夜的地方行程。",
+    "pangyo-shopping-culture-route": "适合百货展览、餐饮和首尔中心外购物。"
+  },
+  pt: {
+    "hangang-evening-route": "Festivais ao ar livre, shows gratuitos e uma noite simples em Seul.",
+    "central-seoul-shopping-route": "Compras de beleza, duty free e primeira visita a Seul.",
+    "yongsan-fan-route": "Merch K-pop, shoppings e planos internos para calor ou chuva.",
+    "palace-jongno-culture-route": "Cultura tradicional, museus e dias tranquilos perto dos palácios.",
+    "olympic-park-history-route": "Museus, parques amplos e compras na região de Jamsil.",
+    "busan-concert-weekend": "Shows K-pop, projetos de fãs e fins de semana concorridos em Busan.",
+    "regional-summer-festival-rail-route": "Festivais fora de Seul em que transporte, calor e retorno importam.",
+    "autumn-heritage-night-route": "Festivais tradicionais, lanternas e viagens regionais com pernoite.",
+    "pangyo-shopping-culture-route": "Exposições em lojas de departamento, restaurantes e compras fora do centro."
+  },
+  ru: {
+    "hangang-evening-route": "Открытые фестивали, бесплатные концерты и простой вечерний план в Сеуле.",
+    "central-seoul-shopping-route": "Бьюти-покупки, duty free и первый визит в Сеул.",
+    "yongsan-fan-route": "K-pop мерч, торговые центры и планы в помещении для жары или дождя.",
+    "palace-jongno-culture-route": "Традиционная культура, музеи и спокойный день у дворцов.",
+    "olympic-park-history-route": "Музеи, большие парки и покупки в районе Чамсиль.",
+    "busan-concert-weekend": "K-pop концерты, фан-проекты и востребованные выходные в Пусане.",
+    "regional-summer-festival-rail-route": "Фестивали вне Сеула, где важны транспорт, жара и возвращение.",
+    "autumn-heritage-night-route": "Традиционные фестивали, фонари и региональные поездки с ночёвкой.",
+    "pangyo-shopping-culture-route": "Универмаги, выставки, рестораны и покупки вне центра Сеула."
+  },
+  ja: {
+    "hangang-evening-route": "屋外フェス、無料コンサート、気軽なソウルの夜計画向け。",
+    "central-seoul-shopping-route": "ビューティー、免税、初めてのソウル買い物向け。",
+    "yongsan-fan-route": "K-pop グッズ、商業施設、暑さや雨の日の屋内計画向け。",
+    "palace-jongno-culture-route": "伝統文化、博物館、宮殿周辺の落ち着いた一日向け。",
+    "olympic-park-history-route": "博物館、広い公園、蚕室エリアの買い物向け。",
+    "busan-concert-weekend": "K-pop コンサート、ファン企画、需要が高い釜山週末向け。",
+    "regional-summer-festival-rail-route": "交通、暑さ、帰路が重要なソウル外の夏祭り向け。",
+    "autumn-heritage-night-route": "伝統祭り、灯り、地方での宿泊を含む計画向け。",
+    "pangyo-shopping-culture-route": "百貨店展示、食事、ソウル中心部外の買い物向け。"
+  }
+};
+
+const routeStopTranslations = {
+  es: {
+    "Event venue": "Lugar del evento",
+    "Riverside picnic spot": "Zona de picnic junto al río",
+    "Convenience store snack stop": "Parada de snacks",
+    "Sunset or night-view walk": "Paseo de atardecer o vista nocturna",
+    "OLIVE YOUNG flagship area": "Zona flagship de OLIVE YOUNG",
+    "Lotte or Shinsegae shopping zone": "Zona comercial Lotte o Shinsegae",
+    "CGV or pop-up venue": "CGV o sede pop-up",
+    "Performance venue": "Lugar del espectáculo",
+    "Concert or pop-up venue": "Lugar de concierto o pop-up",
+    "Busan Station or airport transfer": "Traslado a estación de Busan o aeropuerto",
+    "Festival venue": "Lugar del festival",
+    "Nearest intercity rail or express bus hub": "Estación o terminal interurbana cercana",
+    "Local food street or beach/park walk": "Calle gastronómica local o paseo por playa/parque",
+    "Hotel or return transfer": "Hotel o traslado de regreso",
+    "Main festival gate": "Entrada principal del festival",
+    "Historic district or fortress route": "Barrio histórico o ruta de fortaleza",
+    "Local dinner stop": "Cena local",
+    "Night photo zone": "Zona de fotos nocturna",
+    "Next-morning heritage site": "Sitio histórico para la mañana siguiente",
+    "Culture or exhibition floor": "Planta cultural o de exposición",
+    "Pangyo dining": "Restaurantes de Pangyo",
+    "Cafe Street or return to Gangnam": "Calle de cafés o regreso a Gangnam"
+  },
+  zh: {
+    "Event venue": "活动地点",
+    "Riverside picnic spot": "河边野餐点",
+    "Convenience store snack stop": "便利店小吃点",
+    "Sunset or night-view walk": "日落或夜景散步",
+    "OLIVE YOUNG flagship area": "OLIVE YOUNG 旗舰区域",
+    "Lotte or Shinsegae shopping zone": "乐天或新世界购物区",
+    "CGV or pop-up venue": "CGV 或快闪地点",
+    "Performance venue": "演出场地",
+    "Concert or pop-up venue": "演唱会或快闪地点",
+    "Busan Station or airport transfer": "釜山站或机场换乘",
+    "Festival venue": "庆典场地",
+    "Nearest intercity rail or express bus hub": "最近的城际铁路或高速巴士枢纽",
+    "Local food street or beach/park walk": "当地美食街或海滩/公园散步",
+    "Hotel or return transfer": "酒店或返程换乘",
+    "Main festival gate": "庆典主入口",
+    "Historic district or fortress route": "历史街区或城郭路线",
+    "Local dinner stop": "当地晚餐点",
+    "Night photo zone": "夜景拍照区",
+    "Next-morning heritage site": "次日上午文化遗产点",
+    "Culture or exhibition floor": "文化或展览楼层",
+    "Pangyo dining": "板桥餐饮",
+    "Cafe Street or return to Gangnam": "咖啡街或返回江南"
+  },
+  pt: {
+    "Event venue": "Local do evento",
+    "Riverside picnic spot": "Ponto de piquenique à beira do rio",
+    "Convenience store snack stop": "Parada para snack",
+    "Sunset or night-view walk": "Caminhada ao pôr do sol ou vista noturna",
+    "OLIVE YOUNG flagship area": "Área flagship da OLIVE YOUNG",
+    "Lotte or Shinsegae shopping zone": "Zona de compras Lotte ou Shinsegae",
+    "CGV or pop-up venue": "CGV ou local pop-up",
+    "Performance venue": "Local da apresentação",
+    "Concert or pop-up venue": "Local de show ou pop-up",
+    "Busan Station or airport transfer": "Transfer para estação de Busan ou aeroporto",
+    "Festival venue": "Local do festival",
+    "Nearest intercity rail or express bus hub": "Estação intermunicipal ou terminal expresso próximo",
+    "Local food street or beach/park walk": "Rua gastronômica local ou caminhada por praia/parque",
+    "Hotel or return transfer": "Hotel ou transfer de retorno",
+    "Main festival gate": "Entrada principal do festival",
+    "Historic district or fortress route": "Bairro histórico ou rota de fortaleza",
+    "Local dinner stop": "Parada para jantar local",
+    "Night photo zone": "Zona de fotos noturnas",
+    "Next-morning heritage site": "Patrimônio para a manhã seguinte",
+    "Culture or exhibition floor": "Piso cultural ou de exposição",
+    "Pangyo dining": "Restaurantes em Pangyo",
+    "Cafe Street or return to Gangnam": "Cafe Street ou retorno a Gangnam"
+  },
+  ru: {
+    "Event venue": "Место события",
+    "Riverside picnic spot": "Место для пикника у реки",
+    "Convenience store snack stop": "Остановка за перекусом",
+    "Sunset or night-view walk": "Прогулка на закате или с ночным видом",
+    "OLIVE YOUNG flagship area": "Флагманская зона OLIVE YOUNG",
+    "Lotte or Shinsegae shopping zone": "Торговая зона Lotte или Shinsegae",
+    "CGV or pop-up venue": "CGV или pop-up площадка",
+    "Performance venue": "Площадка выступления",
+    "Concert or pop-up venue": "Концертная или pop-up площадка",
+    "Busan Station or airport transfer": "Трансфер к станции Busan или аэропорту",
+    "Festival venue": "Площадка фестиваля",
+    "Nearest intercity rail or express bus hub": "Ближайшая междугородняя станция или автобусный терминал",
+    "Local food street or beach/park walk": "Местная гастрономическая улица или прогулка у пляжа/парка",
+    "Hotel or return transfer": "Отель или обратный трансфер",
+    "Main festival gate": "Главный вход фестиваля",
+    "Historic district or fortress route": "Исторический район или крепостной маршрут",
+    "Local dinner stop": "Местный ужин",
+    "Night photo zone": "Ночная фотозона",
+    "Next-morning heritage site": "Культурный объект на следующее утро",
+    "Culture or exhibition floor": "Культурный или выставочный этаж",
+    "Pangyo dining": "Рестораны Пангё",
+    "Cafe Street or return to Gangnam": "Cafe Street или возвращение в Gangnam"
+  },
+  ja: {
+    "Event venue": "イベント会場",
+    "Riverside picnic spot": "川沿いのピクニック地点",
+    "Convenience store snack stop": "コンビニ休憩",
+    "Sunset or night-view walk": "夕日または夜景散歩",
+    "OLIVE YOUNG flagship area": "OLIVE YOUNG フラッグシップ周辺",
+    "Lotte or Shinsegae shopping zone": "Lotte または Shinsegae の買い物エリア",
+    "CGV or pop-up venue": "CGV またはポップアップ会場",
+    "Performance venue": "公演会場",
+    "Concert or pop-up venue": "コンサートまたはポップアップ会場",
+    "Busan Station or airport transfer": "釜山駅または空港への移動",
+    "Festival venue": "フェスティバル会場",
+    "Nearest intercity rail or express bus hub": "最寄りの都市間鉄道または高速バスターミナル",
+    "Local food street or beach/park walk": "地元グルメ通りまたは海辺/公園散策",
+    "Hotel or return transfer": "ホテルまたは帰路の移動",
+    "Main festival gate": "フェスティバル正門",
+    "Historic district or fortress route": "歴史地区または城郭ルート",
+    "Local dinner stop": "地元夕食スポット",
+    "Night photo zone": "夜景フォトスポット",
+    "Next-morning heritage site": "翌朝の文化遺産スポット",
+    "Culture or exhibition floor": "文化または展示フロア",
+    "Pangyo dining": "板橋ダイニング",
+    "Cafe Street or return to Gangnam": "カフェ通りまたは江南へ戻る"
+  }
+};
+
+const generatedRouteTips = {
+  es: [
+    "Confirma la página oficial antes de salir.",
+    "Revisa clima, transporte y hora de regreso el mismo día.",
+    "Ten una opción cercana para comer, comprar o esperar bajo techo."
+  ],
+  zh: [
+    "出发前请确认官方页面。",
+    "当天再次查看天气、交通和返程时间。",
+    "准备附近的用餐、购物或室内等待备选点。"
+  ],
+  pt: [
+    "Confirme a página oficial antes de sair.",
+    "Confira clima, transporte e horário de retorno no mesmo dia.",
+    "Mantenha uma opção próxima para comer, comprar ou esperar em local coberto."
+  ],
+  ru: [
+    "Перед выходом проверьте официальную страницу.",
+    "В тот же день уточните погоду, транспорт и время возвращения.",
+    "Держите рядом вариант для еды, покупок или ожидания в помещении."
+  ],
+  ja: [
+    "出発前に公式ページを確認してください。",
+    "当日に天気、交通、帰りの時間をもう一度見てください。",
+    "近くの食事、買い物、屋内待機スポットを用意してください。"
+  ]
+};
+
+function generatedRouteCopy(route, lang = "en") {
+  return {
+    ...route,
+    title: generatedRouteTitles[lang]?.[route.slug] || route.title,
+    bestFor: generatedRouteBestFor[lang]?.[route.slug] || route.bestFor,
+    stops: (route.stops || []).map((stop) => routeStopTranslations[lang]?.[stop] || stop),
+    tips: generatedRouteTips[lang] || route.tips || []
+  };
+}
+
 function routeCopy(route, lang = "en") {
-  return localizedRouteCopy[lang]?.[route.slug] || route;
+  const localized = localizedRouteCopy[lang]?.[route.slug];
+  if (localized) return localized;
+  if (lang === "en") return route;
+  return generatedRouteCopy(route, lang);
 }
 
 function routeDescription(route, lang = "en") {
   const copy = routeCopy(route, lang);
   if (lang === "fr") return `${copy.bestFor} Etapes: ${copy.stops.join(", ")}.`;
   if (lang === "de") return `${copy.bestFor} Stopps: ${copy.stops.join(", ")}.`;
+  const stopLabel = {
+    es: "Paradas",
+    zh: "包括站点",
+    pt: "Paradas",
+    ru: "Остановки",
+    ja: "主な立ち寄り先"
+  }[lang];
+  if (stopLabel) return `${copy.bestFor} ${stopLabel}: ${copy.stops.join(", ")}.`;
   return `${copy.bestFor} Stops include ${copy.stops.join(", ")}.`;
 }
 
@@ -3897,11 +4423,240 @@ function visitorInfoValue(value) {
   return String(value || "").trim();
 }
 
-function visitorInfoSection(event, lang) {
+function containsEnglishSourceText(value) {
+  const text = String(value || "").replace(/\b(KST|QR|KMA|BTS|K-POP|KPOP|VIP|UV|AM|PM)\b/g, "");
+  return /\b[A-Za-z]{4,}\b/.test(text);
+}
+
+const websiteLanguageNames = {
+  en: {
+    KOR: "Korean",
+    KR: "Korean",
+    ENG: "English",
+    EN: "English",
+    CHN: "Chinese",
+    ZH: "Chinese",
+    JPN: "Japanese",
+    JA: "Japanese",
+    SPA: "Spanish",
+    ES: "Spanish",
+    FRA: "French",
+    FR: "French",
+    DEU: "German",
+    DE: "German",
+    POR: "Portuguese",
+    PT: "Portuguese",
+    RUS: "Russian",
+    RU: "Russian"
+  },
+  es: {
+    KOR: "coreano",
+    KR: "coreano",
+    ENG: "inglés",
+    EN: "inglés",
+    CHN: "chino",
+    ZH: "chino",
+    JPN: "japonés",
+    JA: "japonés",
+    SPA: "español",
+    ES: "español",
+    FRA: "francés",
+    FR: "francés",
+    DEU: "alemán",
+    DE: "alemán",
+    POR: "portugués",
+    PT: "portugués",
+    RUS: "ruso",
+    RU: "ruso"
+  },
+  zh: {
+    KOR: "韩语",
+    KR: "韩语",
+    ENG: "英语",
+    EN: "英语",
+    CHN: "中文",
+    ZH: "中文",
+    JPN: "日语",
+    JA: "日语",
+    SPA: "西班牙语",
+    ES: "西班牙语",
+    FRA: "法语",
+    FR: "法语",
+    DEU: "德语",
+    DE: "德语",
+    POR: "葡萄牙语",
+    PT: "葡萄牙语",
+    RUS: "俄语",
+    RU: "俄语"
+  },
+  pt: {
+    KOR: "coreano",
+    KR: "coreano",
+    ENG: "inglês",
+    EN: "inglês",
+    CHN: "chinês",
+    ZH: "chinês",
+    JPN: "japonês",
+    JA: "japonês",
+    SPA: "espanhol",
+    ES: "espanhol",
+    FRA: "francês",
+    FR: "francês",
+    DEU: "alemão",
+    DE: "alemão",
+    POR: "português",
+    PT: "português",
+    RUS: "russo",
+    RU: "russo"
+  },
+  ru: {
+    KOR: "корейский",
+    KR: "корейский",
+    ENG: "английский",
+    EN: "английский",
+    CHN: "китайский",
+    ZH: "китайский",
+    JPN: "японский",
+    JA: "японский",
+    SPA: "испанский",
+    ES: "испанский",
+    FRA: "французский",
+    FR: "французский",
+    DEU: "немецкий",
+    DE: "немецкий",
+    POR: "португальский",
+    PT: "португальский",
+    RUS: "русский",
+    RU: "русский"
+  },
+  ja: {
+    KOR: "韓国語",
+    KR: "韓国語",
+    ENG: "英語",
+    EN: "英語",
+    CHN: "中国語",
+    ZH: "中国語",
+    JPN: "日本語",
+    JA: "日本語",
+    SPA: "スペイン語",
+    ES: "スペイン語",
+    FRA: "フランス語",
+    FR: "フランス語",
+    DEU: "ドイツ語",
+    DE: "ドイツ語",
+    POR: "ポルトガル語",
+    PT: "ポルトガル語",
+    RUS: "ロシア語",
+    RU: "ロシア語"
+  },
+  fr: {
+    KOR: "coréen",
+    KR: "coréen",
+    ENG: "anglais",
+    EN: "anglais",
+    CHN: "chinois",
+    ZH: "chinois",
+    JPN: "japonais",
+    JA: "japonais",
+    SPA: "espagnol",
+    ES: "espagnol",
+    FRA: "français",
+    FR: "français",
+    DEU: "allemand",
+    DE: "allemand",
+    POR: "portugais",
+    PT: "portugais",
+    RUS: "russe",
+    RU: "russe"
+  },
+  de: {
+    KOR: "Koreanisch",
+    KR: "Koreanisch",
+    ENG: "Englisch",
+    EN: "Englisch",
+    CHN: "Chinesisch",
+    ZH: "Chinesisch",
+    JPN: "Japanisch",
+    JA: "Japanisch",
+    SPA: "Spanisch",
+    ES: "Spanisch",
+    FRA: "Französisch",
+    FR: "Französisch",
+    DEU: "Deutsch",
+    DE: "Deutsch",
+    POR: "Portugiesisch",
+    PT: "Portugiesisch",
+    RUS: "Russisch",
+    RU: "Russisch"
+  }
+};
+
+function localizedWebsiteLanguages(value, lang) {
+  const raw = Array.isArray(value) ? value : String(value || "").split(/[,/]/);
+  const names = websiteLanguageNames[lang] || websiteLanguageNames.en;
+  const mapped = raw
+    .map((item) => String(item || "").trim())
+    .filter(Boolean)
+    .map((item) => names[item.toUpperCase().replace(/[^A-Z]/g, "")] || item);
+  return [...new Set(mapped)].join(", ");
+}
+
+function localizedVisitorInfoValue(event, key, value, lang) {
+  const raw = visitorInfoValue(value);
+  if (!raw) return "";
+  if (lang === "en") return raw;
+  if (key === "address") return raw;
+  if (key === "websiteLanguages") return localizedWebsiteLanguages(value, lang) || raw;
+  if (!containsEnglishSourceText(raw) && !["theme", "transportation", "parking", "smartGuide"].includes(key)) return raw;
+
+  const copy = visitorCopy(lang).visitorInfo;
+  const category = categoryLabel(lang, event.category);
+  const city = cityLabel(lang, event.city);
+  const place = eventPlaceQuery(event) || city;
+  if (key === "theme") return copy.theme({ event, category, city, place });
+  if (key === "hours" || key === "programHours") return copy.hours;
+  if (key === "transportation") return copy.transportation({ event, category, city, place });
+  if (key === "parking") return copy.parking;
+  if (key === "smartGuide") return copy.smartGuide;
+  return raw;
+}
+
+function localizedVisitorInfoItems(event, lang) {
   const info = event.visitorInfo || {};
-  const infoItems = Object.entries(visitorInfoLabels)
-    .map(([key, labelKey]) => ({ label: tr(lang, labelKey), value: visitorInfoValue(info[key]) }))
+  return Object.entries(visitorInfoLabels)
+    .map(([key, labelKey]) => ({ label: tr(lang, labelKey), value: localizedVisitorInfoValue(event, key, info[key], lang) }))
     .filter((item) => item.value);
+}
+
+function localizedVenueScheduleItems(event, lang) {
+  const category = categoryLabel(lang, event.category);
+  const copy = visitorCopy(lang);
+  return (event.venueSchedule || []).map((item) => {
+    const rawStatus = visitorInfoValue(item.status);
+    const rawTheme = visitorInfoValue(item.theme);
+    const rawNote = visitorInfoValue(item.note);
+    const status = lang === "en" || (rawStatus && !containsEnglishSourceText(rawStatus)) ? rawStatus : copy.venueStatus;
+    const theme = lang === "en" || (rawTheme && !containsEnglishSourceText(rawTheme)) ? rawTheme : (rawTheme ? copy.venueTheme({ event, category }) : "");
+    const note = lang === "en" || (rawNote && !containsEnglishSourceText(rawNote)) ? rawNote : (rawNote ? copy.venueNote : "");
+    return { ...item, status, theme, note };
+  });
+}
+
+function localizedOfficialHighlights(event, lang) {
+  const highlights = event.officialHighlights || [];
+  if (lang === "en") return highlights;
+  const copy = visitorCopy(lang);
+  return copy.highlights({
+    event,
+    sourceName: event.sourceName,
+    period: eventDateLabel(event, lang),
+    place: eventPlaceQuery(event) || cityLabel(lang, event.city),
+    role: sourceRoleLabel(event, lang)
+  });
+}
+
+function visitorInfoSection(event, lang) {
+  const infoItems = localizedVisitorInfoItems(event, lang);
   if (event.officialWebsiteUrl) {
     infoItems.push({
       label: tr(lang, "eventWebsite"),
@@ -3910,8 +4665,8 @@ function visitorInfoSection(event, lang) {
     });
   }
 
-  const schedules = event.venueSchedule || [];
-  const highlights = event.officialHighlights || [];
+  const schedules = localizedVenueScheduleItems(event, lang);
+  const highlights = localizedOfficialHighlights(event, lang);
   if (!infoItems.length && !schedules.length && !highlights.length) return "";
 
   return `
@@ -3961,7 +4716,9 @@ function eventDateLabel(event, lang, useLocalizedDates = true) {
   const fallback = useLocalizedDates ? `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}` : `${event.startDate} - ${event.endDate}`;
   const raw = String(event.dateLabel || "").trim();
   if (!raw) return fallback;
-  if (lang !== "fr" && lang !== "de") return raw;
+  if (lang === "en") return raw;
+  if (!containsEnglishSourceText(raw)) return raw;
+  if (lang !== "fr" && lang !== "de") return fallback;
 
   let text = raw
     .replace(/\bFrom\s+(\d{4}-\d{2}-\d{2}),\s*until sold out\b/gi, lang === "fr" ? "Depuis $1, jusqu'a epuisement" : "Seit $1, bis ausverkauft")
@@ -3980,6 +4737,7 @@ function eventDateLabel(event, lang, useLocalizedDates = true) {
   if (text === raw && /\b(date range|campaign|selected|daily|through|until|every)\b/i.test(raw)) {
     return fallback;
   }
+  if (containsEnglishSourceText(text)) return fallback;
   return text;
 }
 
@@ -4866,8 +5624,8 @@ function schema(lang, title, description, canonicalPath) {
 }
 
 function eventSearchText(event, lang) {
-  const visitorInfo = Object.values(event.visitorInfo || {}).flat();
-  const venueSchedule = (event.venueSchedule || []).flatMap((item) => [
+  const visitorInfo = localizedVisitorInfoItems(event, lang).map((item) => item.value);
+  const venueSchedule = localizedVenueScheduleItems(event, lang).flatMap((item) => [
     item.venue,
     item.startDate,
     item.endDate,
@@ -4884,13 +5642,13 @@ function eventSearchText(event, lang) {
     event.venue,
     event.sourceName,
     event.category,
-    event.dateLabel,
+    eventDateLabel(event, lang),
     event.startDate,
     event.endDate,
     ...eventTravelTips(event, lang),
     ...visitorInfo,
     ...venueSchedule,
-    ...(event.officialHighlights || [])
+    ...localizedOfficialHighlights(event, lang)
   ].filter(Boolean).join(" ");
 }
 

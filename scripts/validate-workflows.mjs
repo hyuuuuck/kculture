@@ -67,6 +67,12 @@ assertIncludes(draftEventsFile, draftEvents, "already published similar event", 
 assertIncludes(draftEventsFile, draftEvents, "busan one asia festival", "duplicate detection must handle BOF / Busan One Asia Festival aliases.");
 assertIncludes(draftEventsFile, draftEvents, "\\uC6CC\\uD130\\uBC24", "duplicate detection must handle Korean WATERBOMB title aliases.");
 
+const sourceIssueFile = "scripts/source-refresh-issue-body.mjs";
+const sourceIssue = read(sourceIssueFile);
+assertIncludes(sourceIssueFile, sourceIssue, "Title Cleanup Required", "source review issue must separate mojibake/manual-title candidates from clean top drafts.");
+assertIncludes(sourceIssueFile, sourceIssue, "titleNeedsManualCleanup", "source review issue must detect drafts whose titles need manual cleanup.");
+assertIncludes(sourceIssueFile, sourceIssue, "questionMarks >= 2", "source review issue must catch repeated question-mark mojibake in draft titles.");
+
 assertIncludes(launchChecklistFile, launchChecklist, "https://kspotnow.com", "launch checklist must use the intended custom domain.");
 assertIncludes(launchChecklistFile, launchChecklist, "contact@kspotnow.com", "launch checklist must document the public domain contact address.");
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_SITE_VERIFICATION", "launch checklist must document Search Console verification.");

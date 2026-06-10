@@ -40,13 +40,21 @@ function short(value, max = 120) {
 }
 
 function hasMojibake(value) {
-  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{2,}|(?:[?][\u3131-\uD79D])|(?:[\u3131-\uD79D][?])/.test(String(value || ""));
+  const text = String(value || "");
+  const questionMarks = (text.match(/\?/g) || []).length;
+  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{2,}|(?:[?][\u3131-\uD79D])|(?:[\u3131-\uD79D][?])/.test(text)
+    || questionMarks >= 2
+    || /[遺臾댁옄湲곗뾽怨듦퀬꾩꽭쇳럹ㅽ섏뒪곕쾶]/.test(text);
 }
 
 function draftTitle(draft) {
   const raw = draft.title?.en || draft.title || draft.slug || "Untitled draft";
   if (!hasMojibake(raw)) return raw;
   return `${draft.sourceName || "Official source"} lead needs manual title check${draft.slug ? ` (${draft.slug})` : ""}`;
+}
+
+function titleNeedsManualCleanup(draft) {
+  return hasMojibake(draft.title?.en || draft.title || "");
 }
 
 function mdLink(label, url) {
@@ -127,10 +135,15 @@ const summary = await readJson(summaryFile, {});
 const draftFeed = await readJson(draftsFile, {});
 const candidateFeed = await readJson(candidatesFile, {});
 const counts = summary.counts || {};
-const drafts = (draftFeed.drafts || [])
+const allDrafts = (draftFeed.drafts || [])
   .slice()
-  .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0))
+  .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0));
+const drafts = allDrafts
+  .filter((draft) => !titleNeedsManualCleanup(draft))
   .slice(0, 15);
+const titleCleanupDrafts = allDrafts
+  .filter(titleNeedsManualCleanup)
+  .slice(0, 8);
 const recheckItems = recheckQueueItems(Array.isArray(events) ? events : []);
 const failedSources = (summary.failedSources || []).slice(0, 12);
 const highSignalCandidates = (summary.highSignalCandidates || []).slice(0, 12);
@@ -192,6 +205,12 @@ ${drafts.length ? drafts.map((draft, index) => `${index + 1}. ${short(draftTitle
    - Category: ${escapeMd(draft.category)} / City: ${escapeMd(draft.city)} / Dates: ${escapeMd(draft.startDate)} to ${escapeMd(draft.endDate)} / Priority: ${escapeMd(draft.priority)}
    - Source: ${mdLink(short(draft.sourceName || draft.sourceUrl || "Official source", 90), draft.sourceUrl)}`).join("\n") : "No draft candidates were generated in the latest run."}
 
+## Title Cleanup Required
+
+${titleCleanupDrafts.length ? titleCleanupDrafts.map((draft, index) => `${index + 1}. ${short(draftTitle(draft), 150)}
+   - Category: ${escapeMd(draft.category)} / City: ${escapeMd(draft.city)} / Dates: ${escapeMd(draft.startDate)} to ${escapeMd(draft.endDate)} / Priority: ${escapeMd(draft.priority)}
+   - Source: ${mdLink(short(draft.sourceName || draft.sourceUrl || "Official source", 90), draft.sourceUrl)}`).join("\n") : "No high-priority drafts need title cleanup."}
+
 ## High-Signal Official Pages
 
 ${highSignalCandidates.length ? highSignalCandidates.map((item, index) => `${index + 1}. ${escapeMd(item.sourceName)} - ${escapeMd(item.links)} links, ${escapeMd(item.dates)} date signals, ${escapeMd(item.keywords)} keywords
@@ -215,6 +234,7 @@ await fs.writeFile(outFile, body, "utf8");
 console.log(`Saved source refresh issue body: ${outFile}`);
 console.table({
   "draft candidates": drafts.length,
+  "title cleanup": titleCleanupDrafts.length,
   "recheck listings": recheckItems.length,
   "high-signal pages": highSignalCandidates.length,
   "failed sources": failedSources.length,

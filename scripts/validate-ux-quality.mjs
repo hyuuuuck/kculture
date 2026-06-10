@@ -311,6 +311,11 @@ assertIncludes(deNolDetail, "Die verlinkte Listing- oder Ticketquelle", "de/even
 
 const frRouteIndex = read("fr/routes/index.html");
 const deRouteIndex = read("de/routes/index.html");
+const enRouteIndex = read("en/routes/index.html");
+assertIncludes(enRouteIndex, "class=\"routes-with-ad\"", "en/routes/index.html", "Travel routes index must reserve a layout column for the sponsored travel banner.");
+assertIncludes(enRouteIndex, "class=\"routes-ad-rail\"", "en/routes/index.html", "Travel routes index must place the Trip.com skyscraper banner in a left rail.");
+assertIncludes(enRouteIndex, "width=\"120\" height=\"600\"", "en/routes/index.html", "Travel routes Trip.com banner must use the provided 120x600 creative size.");
+assertIncludes(enRouteIndex, "kr.trip.com/partners/ad/DB17791825", "en/routes/index.html", "Travel routes index must include the provided Trip.com skyscraper iframe URL.");
 assertIncludes(frRouteIndex, "Soiree au Hangang", "fr/routes/index.html", "French route index must localize route titles and route copy.");
 assertIncludes(deRouteIndex, "Hangang-Abendroute", "de/routes/index.html", "German route index must localize route titles and route copy.");
 assertIncludes(frDetail, "Vue rapide", "fr/events/bts-city-arirang-busan-2026.html", "French weather overview heading must be localized.");

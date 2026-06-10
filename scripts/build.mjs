@@ -3675,6 +3675,27 @@ function tripDisplayBanner(lang) {
             </div>`;
 }
 
+function tripSkyscraperBanner(lang) {
+  if (!affiliateIds.tripDisplayAdUrl || !affiliateIds.tripDisplayAdId) return "";
+  const copy = {
+    en: "Sponsored travel banner",
+    es: "Banner de viaje patrocinado",
+    zh: "赞助旅行广告",
+    pt: "Banner de viagem patrocinado",
+    ru: "Спонсорский туристический баннер",
+    ja: "スポンサー旅行バナー",
+    fr: "Banniere voyage sponsorisee",
+    de: "Gesponsertes Reisebanner"
+  }[lang] || "Sponsored travel banner";
+  return `
+          <aside class="routes-ad-rail" aria-label="${esc(copy)}">
+            <span>${esc(copy)}</span>
+            <div class="trip-skyscraper-frame">
+              <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="120" height="600" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </aside>`;
+}
+
 function affiliateSection(event, lang) {
   if (!affiliateEnabled) return "";
   const links = affiliateLinksFor(event);
@@ -6296,9 +6317,12 @@ function renderRoutes(lang) {
         <h1>${tr(lang, "routePages")}</h1>
         <p>${esc(description)}</p>
       </section>
-      <section class="route-grid wide-route-grid">
-        ${routes.map((route) => routeLinkCard(route, lang)).join("")}
-      </section>
+      <div class="routes-with-ad">
+        ${tripSkyscraperBanner(lang)}
+        <section class="route-grid wide-route-grid routes-content">
+          ${routes.map((route) => routeLinkCard(route, lang)).join("")}
+        </section>
+      </div>
     </main>`;
 
   return layout({

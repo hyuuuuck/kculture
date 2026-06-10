@@ -5052,20 +5052,20 @@ function planningLayerSection(lang) {
 
 const serviceDifferenceCopy = {
   en: {
-    eyebrow: "Planning desk vs listing page",
-    title: "Before NOL World or ticket pages",
-    text: "Use K-Spot Now to choose. Use the original source for the final action.",
-    listingLabel: "Single-source listing",
-    listingTitle: "When you already know",
+    eyebrow: "Before you go",
+    title: "Check the visit context before you book.",
+    text: "Use K-Spot Now to compare dates, places, weather, routes, and source roles. Finish bookings on the source you choose.",
+    listingLabel: "Official source page",
+    listingTitle: "Best for final details",
     listingPoints: [
-      "One platform detail.",
-      "Final purchase, reservation, coupon, or notice."
+      "Tickets, reservations, coupons, or notices.",
+      "Final rules, inventory, account, and payment status."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Before deciding",
+    kspotTitle: "Best for planning",
     kspotPoints: [
-      "Korean map names, calendar files, weather, route ideas.",
-      "Source labels: official, ticketing, listing, or offer."
+      "Korean map names, calendar, weather, route ideas, and hotels.",
+      "Source-role labels so you know what each link is for."
     ],
     proofs: [
       ["Compare", "Events · offers · routes"],
@@ -5074,20 +5074,20 @@ const serviceDifferenceCopy = {
     ]
   },
   es: {
-    eyebrow: "Planificador vs pagina de listado",
-    title: "Antes de NOL World o tickets",
-    text: "Usa K-Spot Now para elegir. Usa la fuente original para la accion final.",
-    listingLabel: "Listado de una fuente",
-    listingTitle: "Cuando ya sabes",
+    eyebrow: "Antes de salir",
+    title: "Revisa el contexto antes de reservar.",
+    text: "Usa K-Spot Now para comparar fechas, lugares, clima, rutas y roles de fuente. Finaliza en la fuente que elijas.",
+    listingLabel: "Fuente oficial",
+    listingTitle: "Mejor para detalles finales",
     listingPoints: [
-      "Detalle de una plataforma.",
-      "Compra, reserva, cupon o aviso final."
+      "Tickets, reservas, cupones o avisos.",
+      "Reglas finales, inventario, cuenta y pago."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Antes de decidir",
+    kspotTitle: "Mejor para planificar",
     kspotPoints: [
-      "Mapa coreano, calendario, clima y rutas.",
-      "Etiquetas: oficial, tickets, listado u oferta."
+      "Mapa coreano, calendario, clima, rutas y hoteles.",
+      "Etiquetas de fuente para saber para que sirve cada enlace."
     ],
     proofs: [
       ["Comparar", "Eventos · ofertas · rutas"],
@@ -5096,20 +5096,20 @@ const serviceDifferenceCopy = {
     ]
   },
   fr: {
-    eyebrow: "Bureau de planification vs page de listing",
-    title: "Avant NOL World ou la billetterie",
-    text: "Utilisez K-Spot Now pour choisir. Utilisez la source originale pour l'action finale.",
-    listingLabel: "Listing d'une source",
-    listingTitle: "Quand vous savez deja",
+    eyebrow: "Avant de partir",
+    title: "Verifiez le contexte avant de reserver.",
+    text: "Utilisez K-Spot Now pour comparer dates, lieux, meteo, trajets et roles des sources. Finalisez sur la source choisie.",
+    listingLabel: "Source officielle",
+    listingTitle: "Pour les details finaux",
     listingPoints: [
-      "Detail d'une plateforme.",
-      "Achat, reservation, coupon ou avis final."
+      "Billets, reservations, coupons ou avis.",
+      "Regles finales, stock, compte et paiement."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Avant de decider",
+    kspotTitle: "Pour planifier",
     kspotPoints: [
-      "Carte coreenne, calendrier, meteo et trajets.",
-      "Labels: officiel, billetterie, listing ou offre."
+      "Carte coreenne, calendrier, meteo, trajets et hotels.",
+      "Labels de source pour savoir a quoi sert chaque lien."
     ],
     proofs: [
       ["Comparer", "Evenements · offres · trajets"],
@@ -8104,6 +8104,7 @@ async function build() {
 
   await fs.writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`, "utf8");
   await fs.writeFile(path.join(dist, "_headers"), headers(), "utf8");
+  await writeText(".well-known/security.txt", `Contact: mailto:${contactEmail}\nExpires: ${Number(today.slice(0, 4)) + 1}${today.slice(4)}T00:00:00.000Z\nPreferred-Languages: en, ko\nCanonical: ${siteUrl}/.well-known/security.txt\n`);
   if (/^pub-\d{16}$/.test(adsensePublisherId)) {
     await fs.writeFile(path.join(dist, "ads.txt"), `google.com, ${adsensePublisherId}, DIRECT, f08c47fec0942fa0\n`, "utf8");
   } else {
@@ -8122,6 +8123,8 @@ function headers() {
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=86400
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagservices.com; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com; connect-src 'self' https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

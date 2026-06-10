@@ -83,6 +83,34 @@ if (!siteUrl) {
   }
 }
 
+async function fetchRaw(urlString) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(urlString, {
+      cache: "no-store",
+      redirect: "manual",
+      signal: controller.signal,
+      headers: { "user-agent": "KSpotNowDomainCheck/1.0" }
+    });
+    return { status: response.status, headers: response.headers };
+  } catch (error) {
+    return { status: 0, headers: new Headers(), error: error.message };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function expectCanonicalRedirect(fromUrl, label) {
+  const result = await fetchRaw(fromUrl);
+  const location = result.headers.get("location") || "";
+  if ([301, 308].includes(result.status) && location.startsWith(`https://${siteUrl.hostname}`)) {
+    pass(label, `${fromUrl} -> ${result.status} ${location}`);
+  } else {
+    fail(label, `${fromUrl} returned ${result.status || result.error || "fetch failed"}${location ? ` -> ${location}` : ""}`, "Deploy the canonicalizing worker and enable Always Use HTTPS in Cloudflare SSL/TLS settings.");
+  }
+}
+
 if (siteUrl) {
   await expectPage("/", "Home page", ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."]);
   await expectPage("/robots.txt", "robots.txt", ["Sitemap:"]);
@@ -92,6 +120,21 @@ if (siteUrl) {
   await expectPage("/en/advertising/", "Advertising policy", ["Advertising Policy", "ads cannot buy event inclusion"]);
   await expectPage("/en/contact/", "Contact page", [contactEmail]);
   await expectPage("/en/events/bts-city-arirang-busan-2026.html", "Representative event detail", ["Official", "Weather planning", "Map and transit checks"]);
+  await expectPage("/.well-known/security.txt", "security.txt", ["Contact: mailto:"]);
+
+  if (!isPreviewHost(siteUrl.hostname)) {
+    await expectCanonicalRedirect(`http://${siteUrl.hostname}/en/`, "HTTP to HTTPS redirect");
+    await expectCanonicalRedirect(`https://www.${siteUrl.hostname}/en/`, "www to apex redirect");
+
+    const secure = await fetchRaw(`${siteUrl.origin}/en/`);
+    const hsts = secure.headers.get("strict-transport-security") || "";
+    const csp = secure.headers.get("content-security-policy") || "";
+    if (hsts) pass("HSTS header", hsts);
+    else fail("HSTS header", "Strict-Transport-Security missing on live responses", "Redeploy with the hardened _headers file.");
+    if (csp.includes("googlesyndication.com")) pass("CSP header", "present and AdSense-compatible");
+    else if (csp) fail("CSP header", "present but missing AdSense domains", "Use the AdSense-compatible CSP from the hardened _headers file.");
+    else fail("CSP header", "Content-Security-Policy missing on live responses", "Redeploy with the hardened _headers file.");
+  }
 }
 
 const failed = checks.filter((item) => item.status === "fail");

@@ -167,6 +167,19 @@ for (const pattern of ["/", "/*.html", "/*/*.html", "/*/*/*.html", "/*/", "/*/*/
     fail(`dist/_headers is missing UTF-8 HTML content type for ${pattern}.`);
   }
 }
+if (!headersText.includes("Strict-Transport-Security:")) {
+  fail("dist/_headers must send Strict-Transport-Security on production responses.");
+}
+if (!headersText.includes("Content-Security-Policy:")) {
+  fail("dist/_headers must send a Content-Security-Policy that allows AdSense domains.");
+}
+if (!fs.existsSync(path.join(dist, ".well-known", "security.txt"))) {
+  fail("dist/.well-known/security.txt is missing. Run npm run build.");
+}
+const workerSource = readTextIfExists(path.join(root, "src", "worker.js"));
+if (!workerSource.includes("Response.redirect") || !workerSource.includes("www.")) {
+  fail("src/worker.js must 301 plain-HTTP and www requests to the canonical HTTPS host.");
+}
 const wranglerText = readTextIfExists(path.join(root, "wrangler.toml"));
 const workerText = readTextIfExists(path.join(root, "src", "worker.js"));
 if (!wranglerText.includes('main = "src/worker.js"') || !wranglerText.includes('binding = "ASSETS"') || !wranglerText.includes("run_worker_first = true")) {

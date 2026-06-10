@@ -4120,6 +4120,103 @@ function sourceTransparencySection(event, lang) {
         </section>`;
 }
 
+const localizedBriefCopy = {
+  fr: {
+    eyebrow: "Francais",
+    title: "Brief visiteur localise",
+    intro: "Le titre officiel est conserve pour faciliter la recherche, mais le contexte de decision est explique en francais avec dates, lieu, source et action finale.",
+    decisionTitle: "Pourquoi regarder cette fiche",
+    planTitle: "Ce qu'il faut verifier",
+    handoffTitle: "Ou finaliser",
+    planText: ({ period, venue, mapQuery }) => `Periode: ${period}. Lieu: ${venue}. Recherchez le nom coreen ${mapQuery} dans les cartes locales avant de partir.`,
+    handoffText: ({ sourceRole, sourceName }) => `Cette fiche prepare la decision; ${sourceRole} (${sourceName}) reste la page a ouvrir pour billets, reservation, achat, stock ou regles finales.`,
+    originalName: "Nom officiel a copier"
+  },
+  de: {
+    eyebrow: "Deutsch",
+    title: "Lokales Besucherbriefing",
+    intro: "Der offizielle Titel bleibt fur Suche und Karten erhalten, aber der Entscheidungskontext wird auf Deutsch mit Datum, Ort, Quelle und finaler Aktion erklaert.",
+    decisionTitle: "Warum diese Seite wichtig ist",
+    planTitle: "Was vor dem Start zu prufen ist",
+    handoffTitle: "Wo final handeln",
+    planText: ({ period, venue, mapQuery }) => `Zeitraum: ${period}. Ort: ${venue}. Suchen Sie den koreanischen Ortsnamen ${mapQuery} vor der Abfahrt in lokalen Karten.`,
+    handoffText: ({ sourceRole, sourceName }) => `Diese Seite bereitet die Entscheidung vor; ${sourceRole} (${sourceName}) bleibt die Seite fur Tickets, Reservierung, Kauf, Bestand oder finale Regeln.`,
+    originalName: "Offiziellen Namen kopieren"
+  }
+};
+
+const localizedCategoryPurpose = {
+  fr: {
+    kpop: "Les evenements K-pop, pop-ups et cafes anniversaires changent vite; cette page aide a comparer entree, files, stock, reservations et source avant de vous deplacer.",
+    festival: "Les festivals dependent beaucoup de la meteo, du transport et des horaires; cette page transforme l'annonce en plan de visite plus concret.",
+    beauty: "Les offres beaute peuvent changer selon stock, coupon, branche et heure; cette page aide a verifier avant d'ajouter l'arret a votre trajet.",
+    shopping: "Les pages shopping sont utiles quand elles relient offre, quartier, horaires et alternative proche avant l'achat final.",
+    "duty-free": "Les offres duty-free dependent du passeport, depart, retrait et limites; cette page sert de checklist avant paiement.",
+    "department-store": "Les evenements de grands magasins changent par branche et etage; cette page clarifie lieu, dates et suite officielle.",
+    "travel-benefits": "Les avantages voyage dependent souvent d'eligibilite, quota et region; cette page aide a verifier avant de planifier autour de la reduction."
+  },
+  de: {
+    kpop: "K-pop Events, Pop-ups und Birthday-Cafes andern sich schnell; diese Seite hilft bei Eintritt, Warteschlange, Bestand, Reservierung und Quellencheck.",
+    festival: "Festivals hangen stark von Wetter, Verkehr und Programmzeiten ab; diese Seite macht aus der Meldung einen konkreteren Besuchsplan.",
+    beauty: "Beauty-Angebote konnen je nach Bestand, Coupon, Filiale und Uhrzeit wechseln; diese Seite hilft beim Prufen vor dem Umweg.",
+    shopping: "Shopping-Seiten sind nutzlich, wenn Angebot, Stadtteil, Zeiten und nahe Alternativen vor dem finalen Kauf zusammenkommen.",
+    "duty-free": "Duty-free Angebote hangen von Pass, Abflug, Abholung und Limits ab; diese Seite dient als Checkliste vor der Zahlung.",
+    "department-store": "Kaufhaus-Events wechseln nach Filiale und Etage; diese Seite ordnet Ort, Daten und offizielle Folgeseite.",
+    "travel-benefits": "Reisevorteile hangen oft von Berechtigung, Kontingent und Region ab; diese Seite hilft vor der Planung um einen Rabatt."
+  }
+};
+
+function localizedStatusAdvice(event, lang) {
+  const status = statusOf(event);
+  if (lang === "fr") {
+    if (status === "live") return "La fiche est active: recontrolez la source le jour meme avant de changer votre itineraire.";
+    if (status === "upcoming") return "La fiche est a venir: enregistrez-la, comparez la meteo et verifiez les regles proches de la date.";
+    return "La fiche est archivee: utilisez-la comme repere saisonnier et cherchez la prochaine edition avant de planifier.";
+  }
+  if (status === "live") return "Die Seite ist live: Prufen Sie die Quelle am selben Tag erneut, bevor Sie Ihre Route andern.";
+  if (status === "upcoming") return "Die Seite ist bevorstehend: Speichern, Wetter vergleichen und Regeln kurz vor dem Datum erneut prufen.";
+  return "Die Seite ist archiviert: Nutzen Sie sie als saisonalen Vergleich und suchen Sie vor der Planung die nachste Ausgabe.";
+}
+
+function localizedVisitorBriefSection(event, lang) {
+  const copy = localizedBriefCopy[lang];
+  if (!copy) return "";
+  const categoryPurpose = localizedCategoryPurpose[lang]?.[event.category] || localizedCategoryPurpose[lang]?.festival || "";
+  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  const venue = [event.venue, event.district, event.city].filter(Boolean).join(", ");
+  const data = {
+    period,
+    venue,
+    mapQuery: event.mapQueryKo,
+    sourceRole: sourceRoleLabel(event, lang),
+    sourceName: event.sourceName
+  };
+  const cards = [
+    [copy.decisionTitle, `${categoryPurpose} ${localizedStatusAdvice(event, lang)}`],
+    [copy.planTitle, copy.planText(data)],
+    [copy.handoffTitle, copy.handoffText(data)]
+  ];
+  return `
+        <section class="detail-section localized-visitor-brief" aria-labelledby="localized-brief-title">
+          <div class="detail-section-head">
+            <div>
+              <p class="eyebrow">${esc(copy.eyebrow)}</p>
+              <h2 id="localized-brief-title">${esc(copy.title)}</h2>
+            </div>
+            <p>${esc(copy.intro)}</p>
+          </div>
+          <div class="localized-brief-grid">
+            ${cards.map(([title, text], index) => `
+              <article>
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${esc(title)}</strong>
+                <p>${esc(text)}</p>
+              </article>`).join("")}
+          </div>
+          <p class="localized-original-name"><strong>${esc(copy.originalName)}:</strong> ${esc(local(event.title, "en") || event.slug)}</p>
+        </section>`;
+}
+
 const visitorActionCopy = {
   en: {
     title: "Visit-ready checklist",
@@ -4850,6 +4947,7 @@ function renderEvent(event, lang) {
 
         ${visitorActionChecklist(event, lang)}
         ${sourceTransparencySection(event, lang)}
+        ${localizedVisitorBriefSection(event, lang)}
         ${visitorInfoSection(event, lang)}
 
         <section class="detail-section">

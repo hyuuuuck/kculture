@@ -2463,6 +2463,76 @@ img {
   overflow-wrap: anywhere;
 }
 
+.localized-visitor-brief {
+  padding: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.localized-visitor-brief .detail-section-head {
+  padding: 22px 22px 0;
+}
+
+.localized-brief-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.localized-brief-grid article {
+  display: grid;
+  gap: 8px;
+  min-height: 178px;
+  align-content: start;
+  padding: 20px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+.localized-brief-grid article:last-child {
+  border-right: 0;
+}
+
+.localized-brief-grid span {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--blue-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.localized-brief-grid strong {
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.18;
+}
+
+.localized-brief-grid p {
+  margin: 0;
+  color: #475467;
+  font-size: 0.92rem;
+  line-height: 1.52;
+  overflow-wrap: anywhere;
+}
+
+.localized-original-name {
+  margin: 0;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.localized-original-name strong {
+  color: var(--ink);
+}
+
 .weather-detail-section {
   display: grid;
   gap: 18px;
@@ -4023,6 +4093,7 @@ img {
   .visitor-info-grid,
   .venue-schedule-list,
   .visitor-action-grid,
+  .localized-brief-grid,
   .difference-grid,
   .difference-proof-grid,
   .route-grid,
@@ -4074,6 +4145,7 @@ img {
 
   .planning-flow-step,
   .visitor-action-grid article,
+  .localized-brief-grid article,
   .source-transparency-grid div {
     min-height: auto;
     border-right: 0;
@@ -4082,6 +4154,7 @@ img {
 
   .planning-flow-step:last-child,
   .visitor-action-grid article:last-child,
+  .localized-brief-grid article:last-child,
   .source-transparency-grid div:last-child {
     border-bottom: 0;
   }
@@ -4090,7 +4163,8 @@ img {
     padding: 18px 18px 0;
   }
 
-  .visitor-action-grid article {
+  .visitor-action-grid article,
+  .localized-brief-grid article {
     padding: 18px;
   }
 

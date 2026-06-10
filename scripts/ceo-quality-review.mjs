@@ -203,6 +203,7 @@ function collectCalendarUx() {
 function collectDetailUx() {
   let missing = 0;
   let missingChecklist = 0;
+  let missingLocalizedBrief = 0;
   let internalKeyLeaks = 0;
   let checked = 0;
   for (const event of events) {
@@ -213,6 +214,7 @@ function collectDetailUx() {
         if (!html.includes(token)) missing += 1;
       }
       if (!html.includes("visitor-action-grid")) missingChecklist += 1;
+      if ((lang === "fr" || lang === "de") && !html.includes("localized-visitor-brief")) missingLocalizedBrief += 1;
       if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) internalKeyLeaks += 1;
     }
   }
@@ -224,6 +226,12 @@ function collectDetailUx() {
 
   if (!internalKeyLeaks) pass("audit-institution", "Public copy", "No internal label leakage", `${checked} detail pages hide internal verification and collection translation keys.`);
   else fail("audit-institution", "Public copy", "No internal label leakage", `${internalKeyLeaks}/${checked} detail pages expose internal keys.`, "Audit Institution: block release until public labels replace internal translation keys.");
+
+  if (!missingLocalizedBrief) {
+    pass("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${events.length * 2} French/German detail pages include event-specific visitor brief blocks.`);
+  } else {
+    fail("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${missingLocalizedBrief}/${events.length * 2} French/German detail pages are missing localized visitor briefs.`, "Audit Institution: require French/German detail pages to show localized decision, map, and official-handoff context.");
+  }
 }
 
 function collectContentPlanning() {

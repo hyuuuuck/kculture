@@ -253,9 +253,15 @@ function validateDetailPage(event, lang) {
   }
 
   if (lang === "fr") {
+    assertIncludes(html, "localized-visitor-brief", id, "French localized visitor brief is missing.");
+    assertIncludes(html, "Brief visiteur localise", id, "French localized visitor brief heading is missing.");
+    assertIncludes(html, "Nom officiel a copier", id, "French localized visitor brief should preserve the official searchable name.");
     assertIncludes(html, "Reverifiez la source officielle", id, "French generated travel tips should mention official recheck.");
     assertIncludes(html, "Copiez le nom coreen du lieu", id, "French generated travel tips should mention Korean map names.");
   } else if (lang === "de") {
+    assertIncludes(html, "localized-visitor-brief", id, "German localized visitor brief is missing.");
+    assertIncludes(html, "Lokales Besucherbriefing", id, "German localized visitor brief heading is missing.");
+    assertIncludes(html, "Offiziellen Namen kopieren", id, "German localized visitor brief should preserve the official searchable name.");
     assertIncludes(html, "Prufen Sie die offizielle Quelle", id, "German generated travel tips should mention official recheck.");
     assertIncludes(html, "Kopieren Sie den koreanischen Ortsnamen", id, "German generated travel tips should mention Korean map names.");
   } else {

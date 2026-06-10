@@ -140,6 +140,7 @@ assertIncludes(styles, ".difference-proof-grid", "styles.css", "service-differen
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
 assertIncludes(styles, ".source-transparency-grid", "styles.css", "detail source transparency styling is missing.");
+assertIncludes(styles, ".localized-brief-grid", "styles.css", "FR/DE localized visitor brief styling is missing.");
 assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision panel styling is missing.");
 assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
 assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
@@ -180,6 +181,15 @@ for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
   assertNotVisible(localizedHome, /\bOfficial highlight\b|\bSkip to main content\b/, `${lang}/index.html`, "home should not expose English spotlight or skip-link UI labels.");
   assertNotVisible(localizedDetail, /\bSave\b|\bFreshness\b|\bchecked yesterday\b/, `${lang}/events/bts-city-arirang-busan-2026.html`, "detail should not expose English save/freshness UI labels.");
 }
+
+const frDetail = read("fr/events/bts-city-arirang-busan-2026.html");
+const deDetail = read("de/events/bts-city-arirang-busan-2026.html");
+assertIncludes(frDetail, "Brief visiteur localise", "fr/events/bts-city-arirang-busan-2026.html", "French detail must include the localized visitor brief.");
+assertIncludes(frDetail, "Nom officiel a copier", "fr/events/bts-city-arirang-busan-2026.html", "French detail must preserve a searchable official title.");
+assertIncludes(frDetail, "source officielle", "fr/events/bts-city-arirang-busan-2026.html", "French detail must explain the official-source handoff.");
+assertIncludes(deDetail, "Lokales Besucherbriefing", "de/events/bts-city-arirang-busan-2026.html", "German detail must include the localized visitor brief.");
+assertIncludes(deDetail, "Offiziellen Namen kopieren", "de/events/bts-city-arirang-busan-2026.html", "German detail must preserve a searchable official title.");
+assertIncludes(deDetail, "offiziellen", "de/events/bts-city-arirang-busan-2026.html", "German detail must explain the official-source handoff.");
 
 const activeEvents = events.filter((event) => event.endDate >= today).slice(0, 6);
 for (const event of activeEvents) {

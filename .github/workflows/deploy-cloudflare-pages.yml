@@ -79,8 +79,11 @@ jobs:
           test -n "$CLOUDFLARE_WORKER_NAME" || { echo "CLOUDFLARE_WORKER_NAME repository variable is required."; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID secret is required."; exit 1; }
 
+      # Push deploys build from committed, already-verified data so the release
+      # gate stays deterministic. Live source refresh runs in the scheduled
+      # source-refresh workflow, or here via manual dispatch with refresh_sources.
       - name: Refresh official source status
-        if: ${{ github.event_name != 'workflow_dispatch' || inputs.refresh_sources }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.refresh_sources }}
         run: npm run source:refresh
         env:
           SOURCE_TIMEOUT_MS: "12000"

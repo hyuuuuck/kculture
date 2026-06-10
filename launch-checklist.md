@@ -50,22 +50,20 @@ The token should be created in Cloudflare for Pages deployment access to this ac
 
 ## 5. Cloudflare Pages
 
-Two deployment paths are supported.
+The canonical deployment path is the gated GitHub Actions deploy (decided 2026-06-10).
 
-Path A, GitHub Actions deploy:
+Path A, GitHub Actions deploy (canonical):
 
 - Create or use a Cloudflare Workers project named `kculture`.
-- Set the Cloudflare GitHub Action secrets in GitHub.
-- Run `.github/workflows/deploy-cloudflare-pages.yml` manually when you want Wrangler to deploy `dist/`.
+- Create a Cloudflare API token with Workers Scripts Edit permission for this account and save it as the `CLOUDFLARE_API_TOKEN` GitHub Actions secret.
+- Every push to `main` then runs the full validation gate and deploys `dist/` with Wrangler only after all checks pass.
+- Run `.github/workflows/deploy-cloudflare-pages.yml` manually with `refresh_sources` when you want a deploy that refreshes official sources first.
 
-Path B, Cloudflare dashboard Git integration:
+Path B, Cloudflare dashboard Git integration (initial launch only, superseded):
 
-- Connect the GitHub repository from Cloudflare Pages.
-- Build command: `npm run build`
-- Deploy command for Workers Builds: `npx wrangler deploy --assets=./dist`
-- Root directory: project root
-- Set the same production environment variables in the Cloudflare Pages project settings.
-- This is the recommended first launch path because Cloudflare handles the GitHub webhook and deployment.
+- This was the first launch path: Workers Builds with build command `npm run build` and deploy command `npx wrangler deploy --assets=./dist`.
+- It deploys every push without the validation gate. Once the Actions secret works, disable it: Cloudflare dashboard -> Workers & Pages -> `kculture` -> Settings -> Build -> disconnect the Git repository or pause automatic deployments.
+- Keeping both paths active double-deploys and lets unvalidated builds reach production.
 
 For AdSense review, connect the custom domain and use that domain as `SITE_URL`. The `pages.dev` URL is only for preview.
 

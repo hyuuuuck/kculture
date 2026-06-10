@@ -3871,53 +3871,223 @@ function renderCorrections(lang) {
   });
 }
 
+function staticPageParagraphs(lang, kind) {
+  const copy = {
+    about: {
+      en: [
+        "K-Spot Now is a multilingual event and shopping radar for visitors planning Korea trips.",
+        "The site prioritizes official sources, clear date ranges, practical travel notes, and honest freshness labels.",
+        "K-pop pop-ups and social-only announcements are queued for curation before publication."
+      ],
+      es: [
+        "K-Spot Now es un radar multilingue de eventos y compras para visitantes que planean viajar por Corea.",
+        "El sitio prioriza fuentes oficiales, fechas claras, notas practicas para visitantes y etiquetas honestas de frescura.",
+        "Los pop-ups de K-pop y anuncios que aparecen solo en redes sociales pasan por una cola de curacion antes de publicarse."
+      ],
+      zh: [
+        "K-Spot Now 是面向韩国旅行者的多语言活动与购物信息雷达。",
+        "本站优先使用官方来源、清晰日期、实用旅行提示和透明的更新标签。",
+        "K-pop 快闪店和只在社交平台发布的公告会先进入人工审核队列，再公开发布。"
+      ],
+      pt: [
+        "K-Spot Now e um radar multilingue de eventos e compras para visitantes que planejam viagens pela Coreia.",
+        "O site prioriza fontes oficiais, datas claras, notas praticas de viagem e etiquetas honestas de atualizacao.",
+        "Pop-ups de K-pop e anuncios publicados apenas em redes sociais entram em uma fila de curadoria antes da publicacao."
+      ],
+      ru: [
+        "K-Spot Now — многоязычный радар событий и покупок для гостей, планирующих поездку по Корее.",
+        "Сайт отдает приоритет официальным источникам, четким датам, практическим заметкам для путешественников и честным меткам свежести.",
+        "K-pop pop-up события и объявления только из соцсетей сначала попадают в очередь проверки, а затем публикуются."
+      ],
+      ja: [
+        "K-Spot Nowは、韓国旅行を計画する訪問者向けの多言語イベント・ショッピング情報サイトです。",
+        "公式情報源、明確な日程、実用的な旅行メモ、正直な更新ラベルを優先します。",
+        "K-popポップアップやSNSのみの告知は、公開前にキュレーションと確認の対象になります。"
+      ]
+    },
+    contact: {
+      en: [
+        `For corrections, source suggestions, or partnership inquiries, email ${contactEmail}.`,
+        "Please include the official event URL, date range, venue, and language preference."
+      ],
+      es: [
+        `Para correcciones, sugerencias de fuentes o consultas de colaboracion, escribe a ${contactEmail}.`,
+        "Incluye la URL oficial del evento, el rango de fechas, el lugar y el idioma que prefieres."
+      ],
+      zh: [
+        `如需更正、推荐官方来源或合作咨询，请发送邮件至 ${contactEmail}。`,
+        "请附上官方活动网址、日期范围、地点以及希望使用的语言。"
+      ],
+      pt: [
+        `Para correcoes, sugestoes de fontes ou propostas de parceria, envie email para ${contactEmail}.`,
+        "Inclua a URL oficial do evento, periodo, local e idioma de preferencia."
+      ],
+      ru: [
+        `Для исправлений, предложений источников или партнерских запросов напишите на ${contactEmail}.`,
+        "Укажите официальную ссылку события, даты, место проведения и предпочтительный язык."
+      ],
+      ja: [
+        `訂正、情報源の提案、提携に関するお問い合わせは ${contactEmail} までご連絡ください。`,
+        "公式イベントURL、日程、会場、希望する言語を含めてください。"
+      ]
+    },
+    privacy: {
+      en: [
+        "This static site does not require user accounts, payments, or login profiles. Basic hosting logs may be processed by the hosting provider for security, abuse prevention, and delivery.",
+        "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. K-Spot Now does not receive that saved list unless you email it to us.",
+        "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
+        "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
+        "For visitors in the EEA, the UK, and Switzerland, advertising consent should be handled through a Google-certified consent management platform when AdSense ads are served.",
+        "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
+      ],
+      es: [
+        "Este sitio estatico no requiere cuentas, pagos ni perfiles de inicio de sesion. El proveedor de alojamiento puede procesar registros tecnicos basicos por seguridad, prevencion de abuso y entrega de paginas.",
+        "La planificacion guardada usa almacenamiento del navegador en tu propio dispositivo para conservar una lista corta de eventos. K-Spot Now no recibe esa lista salvo que nos la envies por correo.",
+        "Si Google AdSense esta habilitado, Google y sus socios publicitarios pueden usar cookies, almacenamiento local o tecnologias similares para mostrar, personalizar, limitar y medir anuncios.",
+        "Proveedores externos, incluido Google, pueden usar cookies publicitarias segun visitas anteriores a este sitio u otros sitios. Puedes gestionar anuncios personalizados en Google Ads Settings y en los controles del navegador.",
+        "Para visitantes del EEE, Reino Unido y Suiza, el consentimiento publicitario debe gestionarse mediante una plataforma de consentimiento certificada por Google cuando se sirvan anuncios de AdSense.",
+        "Consulta la Politica de cookies para mas detalles sobre cookies publicitarias, almacenamiento local, opciones de exclusion y cambios de consentimiento."
+      ],
+      zh: [
+        "本站为静态网站，不要求用户注册账号、付款或登录。托管服务商可能会为安全、防滥用和页面传输处理基本技术日志。",
+        "保存活动计划时，清单会存储在你自己设备的浏览器中。除非你主动通过邮件发送给我们，K-Spot Now 不会收到该保存清单。",
+        "如果启用 Google AdSense，Google 及其广告合作伙伴可能会使用 Cookie、本地存储或类似技术来投放、个性化、限制和衡量广告。",
+        "包括 Google 在内的第三方供应商，可能会根据访问者此前访问本站或其他网站的记录使用广告 Cookie。访问者可通过 Google Ads Settings 和浏览器控制项管理个性化广告。",
+        "对于欧洲经济区、英国和瑞士的访问者，投放 AdSense 广告时应通过 Google 认证的同意管理平台处理广告同意。",
+        "更多关于广告 Cookie、本地浏览器存储、退出选择和同意更新的信息，请查看 Cookie 政策。"
+      ],
+      pt: [
+        "Este site estatico nao exige contas, pagamentos ou perfis de login. O provedor de hospedagem pode processar logs tecnicos basicos para seguranca, prevencao de abuso e entrega das paginas.",
+        "O planejamento salvo usa armazenamento do navegador no seu proprio dispositivo para manter uma lista curta de eventos. O K-Spot Now nao recebe essa lista salvo se voce a enviar por email.",
+        "Se o Google AdSense estiver ativado, Google e parceiros de publicidade podem usar cookies, armazenamento local ou tecnologias semelhantes para veicular, personalizar, limitar e medir anuncios.",
+        "Fornecedores terceiros, incluindo Google, podem usar cookies de publicidade com base em visitas anteriores a este site ou a outros sites. Visitantes podem gerenciar anuncios personalizados no Google Ads Settings e nos controles do navegador.",
+        "Para visitantes do EEE, Reino Unido e Suica, o consentimento de publicidade deve ser tratado por uma plataforma de gestao de consentimento certificada pelo Google quando anuncios AdSense forem exibidos.",
+        "Veja a Politica de cookies para mais detalhes sobre cookies de publicidade, armazenamento local, opcoes de opt-out e atualizacoes de consentimento."
+      ],
+      ru: [
+        "Этот статический сайт не требует учетных записей, платежей или профилей входа. Провайдер хостинга может обрабатывать базовые технические журналы для безопасности, предотвращения злоупотреблений и доставки страниц.",
+        "Сохранение плана событий использует хранилище браузера на вашем устройстве, чтобы держать короткий список событий. K-Spot Now не получает этот список, если вы сами не отправите его нам по электронной почте.",
+        "Если включен Google AdSense, Google и его рекламные партнеры могут использовать cookie, локальное хранилище или похожие технологии для показа, персонализации, ограничения и измерения рекламы.",
+        "Сторонние поставщики, включая Google, могут использовать рекламные cookie на основе предыдущих посещений этого сайта или других сайтов. Посетители могут управлять персонализированной рекламой в Google Ads Settings и настройках браузера.",
+        "Для посетителей из ЕЭЗ, Великобритании и Швейцарии согласие на рекламу должно обрабатываться через сертифицированную Google платформу управления согласием, когда показывается AdSense.",
+        "Подробнее о рекламных cookie, локальном хранилище браузера, вариантах отказа и обновлении согласия см. в Политике cookie."
+      ],
+      ja: [
+        "この静的サイトでは、アカウント、支払い、ログインプロフィールは必要ありません。ホスティング事業者は、セキュリティ、不正利用防止、配信のために基本的な技術ログを処理する場合があります。",
+        "保存したイベント計画は、ご自身の端末のブラウザストレージに保存されます。メールで送信しない限り、K-Spot Nowが保存リストを受け取ることはありません。",
+        "Google AdSenseを有効にした場合、Googleおよび広告パートナーは、広告の配信、パーソナライズ、頻度制限、測定のためにCookie、ローカルストレージ、類似技術を使用する場合があります。",
+        "Googleを含む第三者ベンダーは、このサイトまたは他のサイトへの過去の訪問に基づいて広告Cookieを使用する場合があります。訪問者はGoogle Ads Settingsやブラウザ設定でパーソナライズ広告を管理できます。",
+        "EEA、英国、スイスの訪問者にAdSense広告を配信する場合は、Google認定の同意管理プラットフォームで広告同意を扱う必要があります。",
+        "広告Cookie、ブラウザ内保存、オプトアウト、同意更新についてはCookieポリシーをご確認ください。"
+      ]
+    },
+    "cookie-policy": {
+      en: [
+        "K-Spot Now uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
+        "Saved planner storage: when you save an event, the shortlist is stored locally in your browser. It is used only to reopen your own saved event list and calendar download on this device.",
+        "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
+        "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
+        "Personalized advertising choices: visitors can manage Google personalized ads in Google Ads Settings, use browser cookie controls, or use industry opt-out tools where available.",
+        "European consent: for users in the EEA, the UK, and Switzerland, AdSense ads should be paired with a Google-certified consent management platform so visitors can accept, reject, or manage advertising purposes.",
+        `Questions or correction requests can be sent to ${contactEmail}.`
+      ],
+      es: [
+        "K-Spot Now usa una pequena cantidad de almacenamiento del navegador para hacer util el sitio y prepararlo para el cumplimiento publicitario.",
+        "Almacenamiento del planificador: cuando guardas un evento, la lista corta se guarda localmente en tu navegador. Solo se usa para volver a abrir tu lista y descargar el calendario en este dispositivo.",
+        "Datos operativos: la capa de alojamiento y seguridad puede procesar datos tecnicos basicos como direccion IP, ruta solicitada, agente de usuario y marcas de tiempo para entregar paginas y prevenir abuso.",
+        "Cookies publicitarias: si Google AdSense esta habilitado, Google y proveedores publicitarios externos pueden usar cookies o tecnologias similares para servir anuncios, personalizarlos cuando este permitido, medir rendimiento, limitar frecuencia y combatir fraude.",
+        "Opciones de publicidad personalizada: los visitantes pueden gestionar anuncios personalizados de Google en Google Ads Settings, usar controles del navegador o herramientas de opt-out disponibles.",
+        "Consentimiento europeo: para usuarios del EEE, Reino Unido y Suiza, los anuncios de AdSense deben ir acompanados de una plataforma de consentimiento certificada por Google para aceptar, rechazar o gestionar fines publicitarios.",
+        `Las preguntas o solicitudes de correccion pueden enviarse a ${contactEmail}.`
+      ],
+      zh: [
+        "K-Spot Now 使用少量浏览器端存储，以便提供保存功能并为广告合规做准备。",
+        "保存计划存储：当你保存活动时，短名单会保存在本机浏览器中，只用于在本设备重新打开保存列表和下载日历。",
+        "运营数据：托管和安全层可能会处理 IP 地址、请求路径、用户代理和时间戳等基本技术数据，用于页面传输和防滥用。",
+        "广告 Cookie：如果启用 Google AdSense，Google 和第三方广告供应商可能会使用 Cookie 或类似技术来投放广告、在允许时个性化广告、衡量效果、限制频率并防止欺诈。",
+        "个性化广告选择：访问者可在 Google Ads Settings、浏览器 Cookie 控制或可用的行业退出工具中管理个性化广告。",
+        "欧洲同意：对于欧洲经济区、英国和瑞士用户，AdSense 广告应配合 Google 认证的同意管理平台，以便用户接受、拒绝或管理广告用途。",
+        `问题或更正请求可发送至 ${contactEmail}。`
+      ],
+      pt: [
+        "K-Spot Now usa uma pequena quantidade de armazenamento do navegador para tornar o site util e preparar a conformidade publicitaria.",
+        "Armazenamento do planejador salvo: ao salvar um evento, a lista curta fica localmente no seu navegador. Ela serve apenas para reabrir sua lista salva e baixar o calendario neste dispositivo.",
+        "Dados operacionais: a camada de hospedagem e seguranca pode processar dados tecnicos basicos, como IP, caminho solicitado, user agent e horarios, para entregar paginas e prevenir abuso.",
+        "Cookies de publicidade: se Google AdSense estiver ativado, Google e fornecedores terceiros podem usar cookies ou tecnologias semelhantes para veicular anuncios, personalizar quando permitido, medir desempenho, limitar frequencia e combater fraude.",
+        "Escolhas de publicidade personalizada: visitantes podem gerenciar anuncios personalizados do Google em Google Ads Settings, nos controles do navegador ou em ferramentas de opt-out disponiveis.",
+        "Consentimento europeu: para usuarios do EEE, Reino Unido e Suica, anuncios AdSense devem ser acompanhados por uma plataforma de consentimento certificada pelo Google para aceitar, rejeitar ou gerenciar finalidades publicitarias.",
+        `Perguntas ou pedidos de correcao podem ser enviados para ${contactEmail}.`
+      ],
+      ru: [
+        "K-Spot Now использует небольшой объем браузерного хранилища, чтобы сделать сайт полезнее и подготовить рекламное соответствие.",
+        "Хранилище сохраненного планера: когда вы сохраняете событие, короткий список хранится локально в вашем браузере. Он используется только для повторного открытия списка и скачивания календаря на этом устройстве.",
+        "Операционные данные: хостинг и слой безопасности могут обрабатывать базовые технические данные, такие как IP-адрес, путь запроса, user agent и время, для доставки страниц и предотвращения злоупотреблений.",
+        "Рекламные cookie: если включен Google AdSense, Google и сторонние рекламные поставщики могут использовать cookie или похожие технологии для показа рекламы, персонализации там, где это разрешено, измерения эффективности, ограничения частоты и борьбы с мошенничеством.",
+        "Выбор персонализированной рекламы: посетители могут управлять персонализированной рекламой Google в Google Ads Settings, настройках браузера или доступных инструментах отказа.",
+        "Европейское согласие: для пользователей из ЕЭЗ, Великобритании и Швейцарии реклама AdSense должна работать вместе с сертифицированной Google платформой согласия, чтобы посетители могли принять, отклонить или управлять рекламными целями.",
+        `Вопросы или запросы на исправление можно отправить на ${contactEmail}.`
+      ],
+      ja: [
+        "K-Spot Nowは、サイトを便利にし広告コンプライアンスに備えるため、少量のブラウザ側ストレージを使用します。",
+        "保存プランナーの保存: イベントを保存すると、候補リストはご自身のブラウザにローカル保存されます。この端末で保存リストを開き直し、カレンダーをダウンロードする目的だけに使われます。",
+        "運用データ: ホスティングとセキュリティ層は、ページ配信と不正利用防止のため、IPアドレス、リクエストパス、ユーザーエージェント、時刻などの基本的な技術データを処理する場合があります。",
+        "広告Cookie: Google AdSenseを有効にした場合、Googleおよび第三者広告ベンダーは、広告配信、許可された範囲でのパーソナライズ、効果測定、頻度制限、不正対策のためにCookieや類似技術を使用する場合があります。",
+        "パーソナライズ広告の選択: 訪問者はGoogle Ads Settings、ブラウザのCookie設定、利用可能な業界オプトアウトツールでパーソナライズ広告を管理できます。",
+        "欧州の同意: EEA、英国、スイスのユーザーにAdSense広告を配信する場合、Google認定の同意管理プラットフォームを組み合わせ、広告目的の承認、拒否、管理を可能にする必要があります。",
+        `質問や訂正依頼は ${contactEmail} までお送りください。`
+      ]
+    },
+    terms: {
+      en: [
+        "Information is provided for travel planning and may change without notice.",
+        "Always verify official event pages before visiting, purchasing, reserving, or changing travel plans.",
+        "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated."
+      ],
+      es: [
+        "La informacion se ofrece para planificar viajes y puede cambiar sin aviso.",
+        "Verifica siempre las paginas oficiales antes de visitar, comprar, reservar o modificar planes de viaje.",
+        "K-Spot Now no esta afiliado a las marcas, artistas, recintos o agencias gubernamentales listadas salvo que se indique expresamente."
+      ],
+      zh: [
+        "本站信息用于旅行计划，可能会在未另行通知的情况下变更。",
+        "访问、购买、预约或更改行程前，请始终以官方活动页面为准。",
+        "除非明确说明，K-Spot Now 与所列品牌、艺人、场馆或政府机构没有隶属关系。"
+      ],
+      pt: [
+        "As informacoes sao fornecidas para planejamento de viagem e podem mudar sem aviso.",
+        "Sempre verifique as paginas oficiais antes de visitar, comprar, reservar ou alterar planos de viagem.",
+        "K-Spot Now nao e afiliado as marcas, artistas, locais ou agencias governamentais listadas, salvo quando declarado explicitamente."
+      ],
+      ru: [
+        "Информация предоставляется для планирования поездки и может измениться без уведомления.",
+        "Всегда проверяйте официальные страницы событий перед посещением, покупкой, бронированием или изменением планов поездки.",
+        "K-Spot Now не связан с указанными брендами, артистами, площадками или государственными организациями, если это явно не указано."
+      ],
+      ja: [
+        "情報は旅行計画のために提供されており、予告なく変更される場合があります。",
+        "訪問、購入、予約、旅行計画の変更前には、必ず公式イベントページを確認してください。",
+        "明記されていない限り、K-Spot Nowは掲載されたブランド、アーティスト、会場、政府機関とは提携していません。"
+      ]
+    }
+  };
+  return copy[kind]?.[lang] || copy[kind]?.en || [];
+}
+
 function staticPage(lang, kind) {
   const titleKey = kind === "cookie-policy" ? "cookieTitle" : `${kind}Title`;
   const title = tr(lang, titleKey);
-  const paragraphs = {
-    about: [
-      "K-Spot Now is a multilingual event and shopping radar for visitors planning Korea trips.",
-      "The site prioritizes official sources, clear date ranges, practical travel notes, and honest freshness labels.",
-      "K-pop pop-ups and social-only announcements are queued for curation before publication."
-    ],
-    contact: [
-      `For corrections, source suggestions, or partnership inquiries, email ${contactEmail}.`,
-      "Please include the official event URL, date range, venue, and language preference."
-    ],
-    privacy: [
-      "This static site does not require user accounts, payments, or login profiles. Basic hosting logs may be processed by the hosting provider for security, abuse prevention, and delivery.",
-      "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. K-Spot Now does not receive that saved list unless you email it to us.",
-      "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
-      "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
-      "For visitors in the EEA, the UK, and Switzerland, advertising consent should be handled through a Google-certified consent management platform when AdSense ads are served.",
-      "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
-    ],
-    "cookie-policy": [
-      "K-Spot Now uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
-      "Saved planner storage: when you save an event, the shortlist is stored locally in your browser. It is used only to reopen your own saved event list and calendar download on this device.",
-      "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
-      "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
-      "Personalized advertising choices: visitors can manage Google personalized ads in Google Ads Settings, use browser cookie controls, or use industry opt-out tools where available.",
-      "European consent: for users in the EEA, the UK, and Switzerland, AdSense ads should be paired with a Google-certified consent management platform so visitors can accept, reject, or manage advertising purposes.",
-      `Questions or correction requests can be sent to ${contactEmail}.`
-    ],
-    terms: [
-      "Information is provided for travel planning and may change without notice.",
-      "Always verify official event pages before visiting, purchasing, reserving, or changing travel plans.",
-      "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated."
-    ]
-  };
+  const paragraphs = staticPageParagraphs(lang, kind);
   const body = `
     <main class="page">
       <article class="article-page">
         <h1>${esc(title)}</h1>
-        ${paragraphs[kind].map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
+        ${paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
       </article>
     </main>`;
   return layout({
     lang,
     title: `${title} - K-Spot Now`,
-    description: paragraphs[kind][0],
+    description: paragraphs[0] || title,
     body,
     canonicalPath: `/${lang}/${kind}/`,
     currentPathBuilder: (code) => `/${code}/${kind}/`

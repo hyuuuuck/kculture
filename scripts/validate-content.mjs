@@ -146,10 +146,35 @@ async function validateGeneratedText() {
   const dist = path.join(root, "dist");
   const files = await collectFiles(dist, (file) => file.endsWith(".html"));
   const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
+  const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms"];
+  const englishTrustPhrases = [
+    "K-Spot Now is a multilingual event and shopping radar",
+    "For corrections, source suggestions, or partnership inquiries",
+    "This static site does not require user accounts",
+    "K-Spot Now uses a small amount of browser-side storage",
+    "Information is provided for travel planning and may change without notice"
+  ];
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");
     if (mojibake.test(text)) {
       push(errors, path.relative(root, file), "generated HTML contains mojibake or replacement characters.");
+    }
+  }
+  for (const lang of requiredLanguages.filter((item) => item !== "en")) {
+    for (const page of localizedTrustPages) {
+      const file = path.join(dist, lang, page, "index.html");
+      let text = "";
+      try {
+        text = await fs.readFile(file, "utf8");
+      } catch {
+        push(errors, path.relative(root, file), "localized trust page is missing.");
+        continue;
+      }
+      for (const phrase of englishTrustPhrases) {
+        if (text.includes(phrase)) {
+          push(errors, path.relative(root, file), "localized trust page still contains English fallback policy copy.");
+        }
+      }
     }
   }
 }

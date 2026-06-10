@@ -83,6 +83,10 @@ assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing
 if (summaryBlock.includes("<dt>Sources</dt>")) {
   push("en/index.html", "hero summary should not expose operational source counts.");
 }
+const primaryNav = home.match(/<nav class="top-nav"[\s\S]*?<\/nav>/)?.[0] || "";
+if (primaryNav.includes("/en/sources/") || primaryNav.includes("/en/watchlist/")) {
+  push("en/index.html", "primary navigation should stay visitor-facing; source and watchlist pages belong in footer trust links.");
+}
 if (home.includes("spotlight-dots")) {
   push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
 }

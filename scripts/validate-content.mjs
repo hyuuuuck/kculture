@@ -146,7 +146,7 @@ async function validateGeneratedText() {
   const dist = path.join(root, "dist");
   const files = await collectFiles(dist, (file) => file.endsWith(".html"));
   const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
-  const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections"];
+  const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections", "sources", "watchlist"];
   const englishTrustPhrases = [
     "K-Spot Now is a multilingual event and shopping radar",
     "For corrections, source suggestions, or partnership inquiries",
@@ -155,6 +155,20 @@ async function validateGeneratedText() {
     "Information is provided for travel planning and may change without notice",
     "Editorial Policy",
     "Corrections and Updates",
+    "Source System",
+    "Official Monitoring Watchlist",
+    "Latest source refresh",
+    "Sources needing attention",
+    "High-signal candidate pages",
+    "Top draft sources",
+    "Audited sources",
+    "Monitor checks",
+    "Discovered official links",
+    "Sources watched",
+    "Refresh model",
+    "Review pipeline",
+    "K-pop curation queue",
+    "official fallback link",
     "Published listings must come from official APIs",
     "Official monitors collect candidate dates",
     "K-pop pop-ups, fan events, ticketing notices",

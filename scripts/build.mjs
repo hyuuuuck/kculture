@@ -676,6 +676,17 @@ dict = {
     downloadCalendar: "Descargar calendario",
     sourcesTitle: "Sistema de fuentes",
     sourcesText: "El sitio separa APIs oficiales, monitoreo de páginas oficiales y colas de curación K-pop.",
+    sourceRefreshTitle: "Última revisión de fuentes",
+    sourceRefreshText: "Resumen público de la última revisión de fuentes oficiales.",
+    sourceRefreshNoData: "Todavía no se ha generado un resumen de revisión de fuentes.",
+    sourceRefreshJson: "Abrir JSON público",
+    sourceRefreshAttention: "Fuentes que requieren atención",
+    sourceRefreshCandidates: "Páginas candidatas destacadas",
+    sourceRefreshDraftSources: "Principales fuentes candidatas",
+    sourceRefreshRule: "Las candidatas no se publican directamente. Cada elemento necesita revisión de fecha oficial, lugar, elegibilidad, inventario y resumen original.",
+    navWatchlist: "Monitor",
+    watchlistTitle: "Monitor oficial de fuentes",
+    watchlistText: "Fuentes oficiales, páginas de listados, ticketing y colas de curación revisadas antes de publicar nuevas páginas.",
     freshnessTitle: "Registro de actualización",
     freshnessText: "Cada ficha muestra cuándo se revisó y qué fuente oficial se usó.",
     editorialTitle: "Política editorial",
@@ -736,6 +747,17 @@ dict = {
     downloadCalendar: "下载日历文件",
     sourcesTitle: "来源系统",
     sourcesText: "本站区分官方API、官方页面监控和K-pop人工审核队列。",
+    sourceRefreshTitle: "最新来源复查",
+    sourceRefreshText: "来自最新官方来源监控运行的公开运营摘要。",
+    sourceRefreshNoData: "尚未生成来源复查摘要。",
+    sourceRefreshJson: "打开公开 JSON",
+    sourceRefreshAttention: "需要关注的来源",
+    sourceRefreshCandidates: "高信号候选页面",
+    sourceRefreshDraftSources: "主要候选来源",
+    sourceRefreshRule: "候选内容不会直接发布。每一项仍需确认官方日期、地点、资格、库存和原创摘要。",
+    navWatchlist: "监控清单",
+    watchlistTitle: "官方来源监控清单",
+    watchlistText: "发布新页面前会检查的官方来源、列表页、票务入口和审核队列。",
     freshnessTitle: "更新记录",
     freshnessText: "每个条目都会显示最后检查时间和使用的官方来源。",
     editorialTitle: "编辑政策",
@@ -796,6 +818,17 @@ dict = {
     downloadCalendar: "Baixar calendário",
     sourcesTitle: "Sistema de fontes",
     sourcesText: "Separamos APIs oficiais, monitoramento oficial e curadoria K-pop.",
+    sourceRefreshTitle: "Última revisão de fontes",
+    sourceRefreshText: "Resumo público da última rodada de monitoramento de fontes oficiais.",
+    sourceRefreshNoData: "Ainda não há resumo de revisão de fontes.",
+    sourceRefreshJson: "Abrir JSON público",
+    sourceRefreshAttention: "Fontes que precisam de atenção",
+    sourceRefreshCandidates: "Páginas candidatas fortes",
+    sourceRefreshDraftSources: "Principais fontes candidatas",
+    sourceRefreshRule: "Candidatos não são publicados diretamente. Cada item ainda precisa de data oficial, local, elegibilidade, estoque e resumo original revisados.",
+    navWatchlist: "Monitor",
+    watchlistTitle: "Monitor oficial de fontes",
+    watchlistText: "Fontes oficiais, páginas de listagem, ticketing e filas de curadoria revisadas antes de publicar novas páginas.",
     freshnessTitle: "Registro de atualização",
     freshnessText: "Cada item mostra quando foi checado e qual fonte oficial foi usada.",
     editorialTitle: "Política editorial",
@@ -856,6 +889,17 @@ dict = {
     downloadCalendar: "Скачать календарь",
     sourcesTitle: "Система источников",
     sourcesText: "Мы разделяем официальные API, мониторинг официальных страниц и K-pop очередь проверки.",
+    sourceRefreshTitle: "Последняя проверка источников",
+    sourceRefreshText: "Публичный операционный срез последнего мониторинга официальных источников.",
+    sourceRefreshNoData: "Сводка проверки источников еще не создана.",
+    sourceRefreshJson: "Открыть публичный JSON",
+    sourceRefreshAttention: "Источники, требующие внимания",
+    sourceRefreshCandidates: "Сильные страницы-кандидаты",
+    sourceRefreshDraftSources: "Главные источники кандидатов",
+    sourceRefreshRule: "Кандидаты не публикуются напрямую. Для каждого пункта нужны проверка официальной даты, места, условий, наличия и оригинального краткого описания.",
+    navWatchlist: "Мониторинг",
+    watchlistTitle: "Мониторинг официальных источников",
+    watchlistText: "Официальные источники, страницы списков, ticketing и очереди проверки перед публикацией новых страниц.",
     freshnessTitle: "Журнал обновлений",
     freshnessText: "Каждая карточка показывает дату проверки и официальный источник.",
     editorialTitle: "Редакционная политика",
@@ -3505,7 +3549,7 @@ function renderSources(lang) {
             </div>
             <div class="source-copy">
               <p>${esc(source.notes)}</p>
-              ${sourceAlternateLinks(source)}
+              ${sourceAlternateLinks(source, lang)}
             </div>
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
           </article>`).join("")}
@@ -3559,12 +3603,12 @@ function watchlistStat(label, value) {
   return `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`;
 }
 
-function sourceAlternateLinks(source) {
+function sourceAlternateLinks(source, lang) {
   const links = source.alternateUrls || [];
   if (!links.length) return "";
   return `
     <details class="source-alternates">
-      <summary>${esc(links.length)} official fallback ${links.length === 1 ? "link" : "links"}</summary>
+      <summary>${esc(links.length)} ${esc(opsText(lang, links.length === 1 ? "officialFallbackLink" : "officialFallbackLinks"))}</summary>
       <ul>
         ${links.map((url) => `<li><a href="${esc(url)}" rel="nofollow noopener" target="_blank">${esc(url)}</a></li>`).join("")}
       </ul>
@@ -3573,6 +3617,292 @@ function sourceAlternateLinks(source) {
 
 function compactCount(value) {
   return Number.isFinite(Number(value)) ? Number(value).toLocaleString("en-US") : "0";
+}
+
+const opsCopy = {
+  en: {
+    generated: "Generated",
+    auditedSources: "Audited sources",
+    monitorChecks: "Monitor checks",
+    discoveredOfficialLinks: "Discovered official links",
+    dateSignals: "Date signals",
+    draftCandidates: "Draft candidates",
+    skippedLeads: "Skipped leads",
+    noFailedSources: "No failed sources",
+    noFailedSourcesText: "Latest run did not report source failures.",
+    noDraftCandidates: "No draft candidates",
+    noDraftCandidatesText: "Run the source refresh workflow after adding monitors.",
+    noHighSignalPages: "No high-signal pages",
+    noHighSignalPagesText: "Latest run did not surface candidate pages.",
+    draftCandidatesLower: "draft candidates",
+    links: "links",
+    score: "score",
+    monitoringStats: "Monitoring stats",
+    monitoringGroups: "Official monitoring groups",
+    officialApis: "official APIs",
+    pageMonitors: "page and listing monitors",
+    curationRoots: "curation roots",
+    activeManualQueues: "active manual queues",
+    sourcesWatched: "Sources watched",
+    refreshModel: "Refresh model",
+    reviewQueue: "review queue",
+    reviewPipeline: "Review pipeline",
+    kpopQueue: "K-pop curation queue",
+    kpopQueueText: "K-pop concerts, ticket openings, fan meetings, pop-ups, birthday cafes, and merch stores stay in a review queue until an official artist, agency, venue, ticketing, or shop source is confirmed.",
+    officialFallbackLink: "official fallback link",
+    officialFallbackLinks: "official fallback links",
+    pipelineSteps: [
+      "Collect official pages and same-site detail links from monitored sources.",
+      "Score candidate links by dates, visitor keywords, source type, and official-site context.",
+      "Open the official source manually for date, venue, eligibility, inventory, ticketing, and rights checks.",
+      "Rewrite summaries and travel notes in original words before publishing a public event page.",
+      "Show last-checked dates, official links, previous-year weather notes, and nearby routes on every detail page."
+    ]
+  },
+  es: {
+    generated: "Generado",
+    auditedSources: "Fuentes auditadas",
+    monitorChecks: "Revisiones del monitor",
+    discoveredOfficialLinks: "Enlaces oficiales detectados",
+    dateSignals: "Señales de fecha",
+    draftCandidates: "Candidatas en borrador",
+    skippedLeads: "Pistas omitidas",
+    noFailedSources: "Sin fuentes fallidas",
+    noFailedSourcesText: "La última ejecución no informó fallos de fuentes.",
+    noDraftCandidates: "Sin candidatas en borrador",
+    noDraftCandidatesText: "Ejecuta la revisión de fuentes después de añadir monitores.",
+    noHighSignalPages: "Sin páginas candidatas fuertes",
+    noHighSignalPagesText: "La última ejecución no encontró páginas candidatas.",
+    draftCandidatesLower: "candidatas en borrador",
+    links: "enlaces",
+    score: "puntaje",
+    monitoringStats: "Estadísticas de monitoreo",
+    monitoringGroups: "Grupos de monitoreo oficial",
+    officialApis: "APIs oficiales",
+    pageMonitors: "monitores de páginas y listados",
+    curationRoots: "raíces de curación",
+    activeManualQueues: "colas manuales activas",
+    sourcesWatched: "Fuentes vigiladas",
+    refreshModel: "Modelo de revisión",
+    reviewQueue: "cola de revisión",
+    reviewPipeline: "Flujo de revisión",
+    kpopQueue: "Cola de curación K-pop",
+    kpopQueueText: "Conciertos K-pop, aperturas de entradas, fan meetings, pop-ups, cafés de cumpleaños y tiendas de merch quedan en revisión hasta confirmar una fuente oficial.",
+    officialFallbackLink: "enlace oficial alternativo",
+    officialFallbackLinks: "enlaces oficiales alternativos",
+    pipelineSteps: [
+      "Recoger páginas oficiales y enlaces internos de detalle desde las fuentes monitoreadas.",
+      "Puntuar enlaces candidatos por fechas, palabras clave de visitantes, tipo de fuente y contexto oficial.",
+      "Abrir la fuente oficial manualmente para revisar fecha, lugar, elegibilidad, inventario, ticketing y derechos.",
+      "Reescribir resúmenes y notas de viaje con palabras originales antes de publicar.",
+      "Mostrar fecha de última revisión, enlaces oficiales, clima histórico y rutas cercanas en cada detalle."
+    ]
+  },
+  zh: {
+    generated: "生成时间",
+    auditedSources: "已审核来源",
+    monitorChecks: "监控检查",
+    discoveredOfficialLinks: "发现的官方链接",
+    dateSignals: "日期信号",
+    draftCandidates: "草稿候选",
+    skippedLeads: "跳过线索",
+    noFailedSources: "没有失败来源",
+    noFailedSourcesText: "最新运行未报告来源失败。",
+    noDraftCandidates: "没有草稿候选",
+    noDraftCandidatesText: "添加监控后运行来源复查流程。",
+    noHighSignalPages: "没有高信号页面",
+    noHighSignalPagesText: "最新运行未发现候选页面。",
+    draftCandidatesLower: "个草稿候选",
+    links: "个链接",
+    score: "评分",
+    monitoringStats: "监控统计",
+    monitoringGroups: "官方监控分组",
+    officialApis: "官方 API",
+    pageMonitors: "页面和列表监控",
+    curationRoots: "审核入口",
+    activeManualQueues: "人工队列",
+    sourcesWatched: "监控来源",
+    refreshModel: "复查模式",
+    reviewQueue: "审核队列",
+    reviewPipeline: "审核流程",
+    kpopQueue: "K-pop 审核队列",
+    kpopQueueText: "K-pop 演唱会、开票、粉丝见面会、快闪、生日咖啡馆和周边店会保留在审核队列中，直到确认官方艺人、公司、场馆、票务或商店来源。",
+    officialFallbackLink: "个官方备用链接",
+    officialFallbackLinks: "个官方备用链接",
+    pipelineSteps: [
+      "从监控来源收集官方页面和同站详情链接。",
+      "按日期、访客关键词、来源类型和官方站点上下文给候选链接打分。",
+      "人工打开官方来源，检查日期、地点、资格、库存、票务和权利信息。",
+      "发布公开页面前，用原创文字重写摘要和旅行提示。",
+      "每个详情页显示最后检查日期、官方链接、往年天气提示和附近路线。"
+    ]
+  },
+  pt: {
+    generated: "Gerado",
+    auditedSources: "Fontes auditadas",
+    monitorChecks: "Checagens do monitor",
+    discoveredOfficialLinks: "Links oficiais descobertos",
+    dateSignals: "Sinais de data",
+    draftCandidates: "Candidatos em rascunho",
+    skippedLeads: "Pistas ignoradas",
+    noFailedSources: "Nenhuma fonte falhou",
+    noFailedSourcesText: "A última execução não relatou falhas de fontes.",
+    noDraftCandidates: "Sem candidatos em rascunho",
+    noDraftCandidatesText: "Rode a revisão de fontes depois de adicionar monitores.",
+    noHighSignalPages: "Sem páginas candidatas fortes",
+    noHighSignalPagesText: "A última execução não encontrou páginas candidatas.",
+    draftCandidatesLower: "candidatos em rascunho",
+    links: "links",
+    score: "pontuação",
+    monitoringStats: "Estatísticas de monitoramento",
+    monitoringGroups: "Grupos de monitoramento oficial",
+    officialApis: "APIs oficiais",
+    pageMonitors: "monitores de páginas e listagens",
+    curationRoots: "raízes de curadoria",
+    activeManualQueues: "filas manuais ativas",
+    sourcesWatched: "Fontes monitoradas",
+    refreshModel: "Modelo de revisão",
+    reviewQueue: "fila de revisão",
+    reviewPipeline: "Fluxo de revisão",
+    kpopQueue: "Fila de curadoria K-pop",
+    kpopQueueText: "Shows K-pop, abertura de ingressos, fan meetings, pop-ups, cafés de aniversário e lojas de merch ficam em revisão até confirmar uma fonte oficial.",
+    officialFallbackLink: "link oficial alternativo",
+    officialFallbackLinks: "links oficiais alternativos",
+    pipelineSteps: [
+      "Coletar páginas oficiais e links internos de detalhe das fontes monitoradas.",
+      "Pontuar links candidatos por datas, palavras-chave de visitantes, tipo de fonte e contexto oficial.",
+      "Abrir a fonte oficial manualmente para checar data, local, elegibilidade, estoque, ticketing e direitos.",
+      "Reescrever resumos e notas de viagem com palavras originais antes de publicar.",
+      "Mostrar última checagem, links oficiais, clima histórico e rotas próximas em cada página de detalhe."
+    ]
+  },
+  ru: {
+    generated: "Создано",
+    auditedSources: "Проверенные источники",
+    monitorChecks: "Проверки монитора",
+    discoveredOfficialLinks: "Найденные официальные ссылки",
+    dateSignals: "Сигналы дат",
+    draftCandidates: "Черновые кандидаты",
+    skippedLeads: "Пропущенные сигналы",
+    noFailedSources: "Нет источников с ошибкой",
+    noFailedSourcesText: "Последний запуск не сообщил об ошибках источников.",
+    noDraftCandidates: "Нет черновых кандидатов",
+    noDraftCandidatesText: "Запустите проверку источников после добавления мониторов.",
+    noHighSignalPages: "Нет сильных страниц-кандидатов",
+    noHighSignalPagesText: "Последний запуск не нашел страницы-кандидаты.",
+    draftCandidatesLower: "черновых кандидатов",
+    links: "ссылок",
+    score: "оценка",
+    monitoringStats: "Статистика мониторинга",
+    monitoringGroups: "Группы официального мониторинга",
+    officialApis: "официальные API",
+    pageMonitors: "мониторы страниц и списков",
+    curationRoots: "источники очереди проверки",
+    activeManualQueues: "активные ручные очереди",
+    sourcesWatched: "Источников под наблюдением",
+    refreshModel: "Модель проверки",
+    reviewQueue: "очередь проверки",
+    reviewPipeline: "Процесс проверки",
+    kpopQueue: "Очередь K-pop проверки",
+    kpopQueueText: "K-pop концерты, открытие билетов, fan meeting, pop-up, birthday cafe и merch-магазины остаются в очереди до подтверждения официального источника.",
+    officialFallbackLink: "официальная резервная ссылка",
+    officialFallbackLinks: "официальные резервные ссылки",
+    pipelineSteps: [
+      "Собирать официальные страницы и внутренние ссылки деталей из мониторимых источников.",
+      "Оценивать кандидатов по датам, ключевым словам посетителей, типу источника и официальному контексту.",
+      "Вручную открыть официальный источник для проверки даты, места, условий, наличия, билетов и прав.",
+      "Переписать описания и советы своими словами перед публикацией.",
+      "Показывать дату проверки, официальные ссылки, погодные заметки и ближайшие маршруты на каждой странице."
+    ]
+  },
+  ja: {
+    generated: "生成",
+    auditedSources: "監査済み情報源",
+    monitorChecks: "監視チェック",
+    discoveredOfficialLinks: "検出した公式リンク",
+    dateSignals: "日付シグナル",
+    draftCandidates: "下書き候補",
+    skippedLeads: "スキップした候補",
+    noFailedSources: "失敗した情報源はありません",
+    noFailedSourcesText: "最新実行で情報源エラーは報告されていません。",
+    noDraftCandidates: "下書き候補はありません",
+    noDraftCandidatesText: "モニター追加後に情報源チェックを実行してください。",
+    noHighSignalPages: "有力候補ページはありません",
+    noHighSignalPagesText: "最新実行では候補ページが見つかりませんでした。",
+    draftCandidatesLower: "件の下書き候補",
+    links: "件のリンク",
+    score: "スコア",
+    monitoringStats: "監視統計",
+    monitoringGroups: "公式監視グループ",
+    officialApis: "公式API",
+    pageMonitors: "ページ・一覧モニター",
+    curationRoots: "キュレーション元",
+    activeManualQueues: "手動確認キュー",
+    sourcesWatched: "監視中の情報源",
+    refreshModel: "再確認モデル",
+    reviewQueue: "確認キュー",
+    reviewPipeline: "確認フロー",
+    kpopQueue: "K-pop確認キュー",
+    kpopQueueText: "K-popコンサート、チケット発売、ファンミーティング、ポップアップ、誕生日カフェ、グッズ販売は公式情報源が確認できるまで確認キューに残します。",
+    officialFallbackLink: "件の公式代替リンク",
+    officialFallbackLinks: "件の公式代替リンク",
+    pipelineSteps: [
+      "監視中の情報源から公式ページと同一サイト内の詳細リンクを集めます。",
+      "日付、訪問者キーワード、情報源タイプ、公式サイト文脈で候補リンクを採点します。",
+      "公式情報源を手動で開き、日程、会場、対象条件、在庫、チケット、権利を確認します。",
+      "公開前に要約と旅行メモを独自の言葉で書き直します。",
+      "各詳細ページに最終確認日、公式リンク、前年天気メモ、周辺ルートを表示します。"
+    ]
+  }
+};
+
+const watchlistGroupCopy = {
+  "tourism-festivals": {
+    en: { title: "Tourism and festival calendars", focus: "Official Korea tourism, Seoul city, culture, exhibition, venue, and festival calendars that can become visitor planning pages." },
+    es: { title: "Calendarios de turismo y festivales", focus: "Turismo oficial de Corea, ciudad de Seúl, cultura, exposiciones, recintos y calendarios de festivales que pueden convertirse en páginas útiles para visitantes." },
+    zh: { title: "旅游与节庆日历", focus: "韩国旅游、首尔市、文化、展览、场馆和节庆官方日历，可转化为访客规划页面。" },
+    pt: { title: "Calendários de turismo e festivais", focus: "Turismo oficial da Coreia, Seoul, cultura, exposições, locais e calendários de festivais que podem virar páginas úteis para visitantes." },
+    ru: { title: "Туризм и фестивальные календари", focus: "Официальные туристические, городские, культурные, выставочные и фестивальные календари Кореи для страниц планирования." },
+    ja: { title: "観光・フェスティバルカレンダー", focus: "韓国観光、ソウル市、文化、展示、会場、フェスティバルの公式カレンダーを訪問計画ページにします。" }
+  },
+  "shopping-beauty-dutyfree": {
+    en: { title: "Shopping, K-beauty, duty-free, and department-store offers", focus: "OLIVE YOUNG, duty-free boards, department-store news, sales, coupons, pop-up stores, tax refund, and foreign visitor benefit pages." },
+    es: { title: "Compras, K-beauty, duty-free y grandes almacenes", focus: "OLIVE YOUNG, duty-free, noticias de grandes almacenes, rebajas, cupones, pop-ups, tax refund y beneficios para visitantes." },
+    zh: { title: "购物、K-beauty、免税与百货优惠", focus: "OLIVE YOUNG、免税、百货新闻、折扣、优惠券、快闪、退税和外国游客福利页面。" },
+    pt: { title: "Compras, K-beauty, duty-free e department stores", focus: "OLIVE YOUNG, duty-free, notícias de lojas de departamento, saldos, cupons, pop-ups, tax refund e benefícios para visitantes." },
+    ru: { title: "Шопинг, K-beauty, duty-free и универмаги", focus: "OLIVE YOUNG, duty-free, новости универмагов, распродажи, купоны, pop-up, tax refund и выгоды для иностранных посетителей." },
+    ja: { title: "ショッピング、K-beauty、免税、百貨店特典", focus: "OLIVE YOUNG、免税、百貨店ニュース、セール、クーポン、ポップアップ、免税還付、外国人向け特典ページを確認します。" }
+  },
+  "kpop-popups-ticketing": {
+    en: { title: "K-pop pop-ups, merch, fan meetings, and ticketing roots", focus: "Official K-pop commerce, ticketing, artist, agency, venue, and global reservation roots that require manual review before publishing." },
+    es: { title: "K-pop pop-ups, merch, fan meetings y ticketing", focus: "Comercio K-pop oficial, ticketing, artistas, agencias, recintos y reservas globales que requieren revisión manual antes de publicar." },
+    zh: { title: "K-pop 快闪、周边、粉丝见面会与票务入口", focus: "官方 K-pop 商城、票务、艺人、公司、场馆和全球预约入口，发布前需要人工复核。" },
+    pt: { title: "K-pop pop-ups, merch, fan meetings e ticketing", focus: "Comércio K-pop oficial, ticketing, artistas, agências, locais e reservas globais que exigem revisão manual antes de publicar." },
+    ru: { title: "K-pop pop-up, merch, fan meeting и билеты", focus: "Официальные K-pop магазины, ticketing, артисты, агентства, площадки и глобальные бронирования, требующие ручной проверки." },
+    ja: { title: "K-popポップアップ、グッズ、ファンミ、チケット", focus: "公式K-popコマース、チケット、アーティスト、事務所、会場、グローバル予約元を公開前に手動確認します。" }
+  },
+  "weather-routes": {
+    en: { title: "Weather and travel-route planning", focus: "Previous-year weather baselines, public data APIs, and route data used to make event pages useful beyond dates and titles." },
+    es: { title: "Clima y rutas de viaje", focus: "Clima histórico, APIs públicas y datos de rutas que hacen que las páginas sean útiles más allá de fechas y títulos." },
+    zh: { title: "天气与旅行路线规划", focus: "往年天气基线、公共数据 API 和路线数据，让活动页面不只提供日期和标题。" },
+    pt: { title: "Clima e rotas de viagem", focus: "Clima histórico, APIs públicas e dados de rotas para tornar páginas úteis além de datas e títulos." },
+    ru: { title: "Погода и маршруты", focus: "Погодные базовые данные прошлых лет, публичные API и маршруты, чтобы страницы были полезнее дат и заголовков." },
+    ja: { title: "天気と旅行ルート計画", focus: "前年天気、公共データAPI、ルート情報を使い、日程とタイトル以上に役立つページにします。" }
+  }
+};
+
+function opsText(lang, key) {
+  const value = opsCopy[lang]?.[key] || opsCopy.en[key] || key;
+  return Array.isArray(value) ? value.join(" ") : value;
+}
+
+function opsList(lang, key) {
+  const value = opsCopy[lang]?.[key] || opsCopy.en[key] || [];
+  return Array.isArray(value) ? value : [];
+}
+
+function watchlistGroupText(group, lang, key) {
+  return watchlistGroupCopy[group.slug]?.[lang]?.[key] || watchlistGroupCopy[group.slug]?.en?.[key] || group[key];
 }
 
 function sourceRefreshPublicSummary() {
@@ -3616,12 +3946,12 @@ function sourceRefreshPanel(lang) {
 
   const counts = summary.counts || {};
   const stats = [
-    ["Audited sources", counts.auditedSources],
-    ["Monitor checks", counts.monitorSources],
-    ["Discovered official links", counts.discoveredLinks],
-    ["Date signals", counts.dateSignals],
-    ["Draft candidates", counts.draftCandidates],
-    ["Skipped leads", counts.skippedCandidates]
+    [opsText(lang, "auditedSources"), counts.auditedSources],
+    [opsText(lang, "monitorChecks"), counts.monitorSources],
+    [opsText(lang, "discoveredOfficialLinks"), counts.discoveredLinks],
+    [opsText(lang, "dateSignals"), counts.dateSignals],
+    [opsText(lang, "draftCandidates"), counts.draftCandidates],
+    [opsText(lang, "skippedLeads"), counts.skippedCandidates]
   ];
   const generated = summary.generatedAt ? new Date(summary.generatedAt) : null;
   const generatedText = generated && !Number.isNaN(generated.getTime())
@@ -3635,7 +3965,7 @@ function sourceRefreshPanel(lang) {
           <p class="eyebrow">${tr(lang, "sourceRefreshTitle")}</p>
           <h2>${tr(lang, "sourceRefreshTitle")}</h2>
           <p>${tr(lang, "sourceRefreshText")}</p>
-          <small>Generated: ${esc(generatedText)} UTC</small>
+          <small>${esc(opsText(lang, "generated"))}: ${esc(generatedText)} UTC</small>
         </div>
         <a class="button light" href="/source-refresh.json">${tr(lang, "sourceRefreshJson")}</a>
       </div>
@@ -3654,7 +3984,7 @@ function sourceRefreshPanel(lang) {
               <li>
                 <strong>${esc(item.sourceName)}</strong>
                 <span>${esc(item.status || "ERR")}${item.error ? ` - ${esc(item.error)}` : ""}</span>
-              </li>`).join("") : "<li><strong>No failed sources</strong><span>Latest run did not report source failures.</span></li>"}
+              </li>`).join("") : `<li><strong>${esc(opsText(lang, "noFailedSources"))}</strong><span>${esc(opsText(lang, "noFailedSourcesText"))}</span></li>`}
           </ul>
         </article>
         <article>
@@ -3663,8 +3993,8 @@ function sourceRefreshPanel(lang) {
             ${summary.topDraftSources.length ? summary.topDraftSources.map((item) => `
               <li>
                 <strong>${esc(item.key)}</strong>
-                <span>${esc(compactCount(item.count))} draft candidates</span>
-              </li>`).join("") : "<li><strong>No draft candidates</strong><span>Run the source refresh workflow after adding monitors.</span></li>"}
+                <span>${esc(compactCount(item.count))} ${esc(opsText(lang, "draftCandidatesLower"))}</span>
+              </li>`).join("") : `<li><strong>${esc(opsText(lang, "noDraftCandidates"))}</strong><span>${esc(opsText(lang, "noDraftCandidatesText"))}</span></li>`}
           </ul>
         </article>
         <article>
@@ -3673,8 +4003,8 @@ function sourceRefreshPanel(lang) {
             ${summary.highSignalCandidates.length ? summary.highSignalCandidates.slice(0, 5).map((item) => `
               <li>
                 <a href="${esc(item.url)}" rel="nofollow noopener" target="_blank">${esc(item.sourceName)}</a>
-                <span>${esc(compactCount(item.links))} links / ${esc(compactCount(item.dates))} date signals / score ${esc(compactCount(item.score))}</span>
-              </li>`).join("") : "<li><strong>No high-signal pages</strong><span>Latest run did not surface candidate pages.</span></li>"}
+                <span>${esc(compactCount(item.links))} ${esc(opsText(lang, "links"))} / ${esc(compactCount(item.dates))} ${esc(opsText(lang, "dateSignals"))} / ${esc(opsText(lang, "score"))} ${esc(compactCount(item.score))}</span>
+              </li>`).join("") : `<li><strong>${esc(opsText(lang, "noHighSignalPages"))}</strong><span>${esc(opsText(lang, "noHighSignalPagesText"))}</span></li>`}
           </ul>
         </article>
       </div>
@@ -3687,13 +4017,7 @@ function renderWatchlist(lang) {
   const officialApis = sources.filter((source) => source.type === "official-api").length;
   const monitors = sources.filter((source) => source.type === "official-page-monitor" || source.type === "official-listing-monitor").length;
   const curationRoots = sources.filter((source) => source.type === "curation-root").length;
-  const pipelineSteps = [
-    "Collect official pages and same-site detail links from monitored sources.",
-    "Score candidate links by dates, visitor keywords, source type, and official-site context.",
-    "Open the official source manually for date, venue, eligibility, inventory, ticketing, and rights checks.",
-    "Rewrite summaries and travel notes in original words before publishing a public event page.",
-    "Show last-checked dates, official links, previous-year weather notes, and nearby routes on every detail page."
-  ];
+  const pipelineSteps = opsList(lang, "pipelineSteps");
 
   const body = `
     <main class="page">
@@ -3703,26 +4027,26 @@ function renderWatchlist(lang) {
         <p>${tr(lang, "watchlistText")}</p>
       </section>
 
-      <section class="watch-stats" aria-label="Monitoring stats">
-        ${watchlistStat("official APIs", officialApis)}
-        ${watchlistStat("page and listing monitors", monitors)}
-        ${watchlistStat("curation roots", curationRoots)}
-        ${watchlistStat("active manual queues", activeQueue.length)}
+      <section class="watch-stats" aria-label="${esc(opsText(lang, "monitoringStats"))}">
+        ${watchlistStat(opsText(lang, "officialApis"), officialApis)}
+        ${watchlistStat(opsText(lang, "pageMonitors"), monitors)}
+        ${watchlistStat(opsText(lang, "curationRoots"), curationRoots)}
+        ${watchlistStat(opsText(lang, "activeManualQueues"), activeQueue.length)}
       </section>
 
       ${sourceRefreshPanel(lang)}
 
-      <section class="watch-grid" aria-label="Official monitoring groups">
+      <section class="watch-grid" aria-label="${esc(opsText(lang, "monitoringGroups"))}">
         ${watchlistGroups.map((group) => {
           const groupSources = sources.filter((source) => sourceMatchesGroup(source, group));
           return `
             <article class="watch-card">
               <span>${esc(group.slug)}</span>
-              <h2>${esc(group.title)}</h2>
-              <p>${esc(group.focus)}</p>
+              <h2>${esc(watchlistGroupText(group, lang, "title"))}</h2>
+              <p>${esc(watchlistGroupText(group, lang, "focus"))}</p>
               <dl>
-                <div><dt>Sources watched</dt><dd>${groupSources.length}</dd></div>
-                <div><dt>Refresh model</dt><dd>${esc(groupSources.map((source) => source.refreshCadence).filter(Boolean).slice(0, 2).join(" / ") || "review queue")}</dd></div>
+                <div><dt>${esc(opsText(lang, "sourcesWatched"))}</dt><dd>${groupSources.length}</dd></div>
+                <div><dt>${esc(opsText(lang, "refreshModel"))}</dt><dd>${esc(groupSources.map((source) => source.refreshCadence).filter(Boolean).slice(0, 2).join(" / ") || opsText(lang, "reviewQueue"))}</dd></div>
               </dl>
               <ul>
                 ${groupSources.slice(0, 7).map((source) => `
@@ -3737,12 +4061,12 @@ function renderWatchlist(lang) {
 
       <section class="watch-pipeline">
         <div>
-          <h2>Review pipeline</h2>
+          <h2>${esc(opsText(lang, "reviewPipeline"))}</h2>
           <ol>${pipelineSteps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
         </div>
         <div>
-          <h2>K-pop curation queue</h2>
-          <p>K-pop concerts, ticket openings, fan meetings, pop-ups, birthday cafes, and merch stores stay in a review queue until an official artist, agency, venue, ticketing, or shop source is confirmed.</p>
+          <h2>${esc(opsText(lang, "kpopQueue"))}</h2>
+          <p>${esc(opsText(lang, "kpopQueueText"))}</p>
           <div class="queue-list">
             ${activeQueue.map((item) => `
               <a href="${esc(item.sourceUrl)}" rel="nofollow noopener" target="_blank">

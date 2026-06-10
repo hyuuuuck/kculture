@@ -200,7 +200,21 @@ async function validateGeneratedText() {
     "Context before checkout",
     "Freshness you can audit",
     "Clean handoff",
-    "Plan here, then complete tickets"
+    "Plan here, then complete tickets",
+    "How to verify a Korea K-pop pop-up before you go",
+    "What tourists should check before using Korea duty-free deals",
+    "Korea shopping sale calendar for foreign visitors",
+    "How to plan Korea events with weather in mind",
+    "How to plan an OLIVE YOUNG shopping day in Korea",
+    "How to use Korea department-store pop-ups while traveling",
+    "How to verify K-pop pop-up notices before planning a Korea trip",
+    "Korea shopping festivals and seasonal sale archives",
+    "Korea department store sales and pop-ups",
+    "Korea travel benefits and visitor coupons",
+    "Korea festivals and cultural events",
+    "K-pop concerts, pop-ups, merch stores, and fan events",
+    "K-beauty deals and OLIVE YOUNG promotions",
+    "Korea duty-free events and airport pickup deals"
   ];
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");

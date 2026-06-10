@@ -1874,6 +1874,230 @@ const categoryDefinitions = {
   }
 };
 
+const localizedCategoryDefinitions = {
+  fr: {
+    festival: {
+      title: "Festivals et evenements culturels en Coree",
+      description: "Festivals, concerts, spectacles, evenements de riviere et calendriers culturels verifies pour les visiteurs etrangers."
+    },
+    kpop: {
+      title: "Concerts K-pop, pop-ups, merch et fan events",
+      description: "Annonces officielles de concerts K-pop, fan meetings, pop-ups, merch, reservations et billetteries avec notes de voyage."
+    },
+    beauty: {
+      title: "Offres K-beauty et promotions OLIVE YOUNG",
+      description: "Pages de soldes K-beauty, coupons, rappels tax refund et itineraires shopping pour voyageurs en Coree."
+    },
+    "duty-free": {
+      title: "Duty-free en Coree et offres avant l'aeroport",
+      description: "Offres Shilla, Lotte, Shinsegae et duty-free verifiees avec rappels d'eligibilite et de retrait."
+    },
+    "department-store": {
+      title: "Grands magasins en Coree, soldes et pop-ups",
+      description: "Soldes, expositions culturelles, pop-ups et evenements par branche pour visiteurs qui font du shopping."
+    },
+    shopping: {
+      title: "Festivals shopping et saisons de soldes en Coree",
+      description: "Campagnes saisonnieres, archives Korea Grand Sale et pages officielles utiles pour preparer ses achats."
+    },
+    "travel-benefits": {
+      title: "Avantages voyage et coupons visiteurs en Coree",
+      description: "Avantages officiels, offres partenaires, reductions d'attractions et hubs de coupons touristiques recurrents."
+    }
+  },
+  de: {
+    festival: {
+      title: "Festivals und Kultur-Events in Korea",
+      description: "Geprufte Korea-Festivals, Fluss-Events, Konzerte, Auffuhrungen und Kulturkalender fur internationale Besucher."
+    },
+    kpop: {
+      title: "K-pop Konzerte, Pop-ups, Merch und Fan-Events",
+      description: "Offizielle K-pop Konzert-, Ticketing-, Fanmeeting-, Pop-up-, Merch- und Reservierungshinweise mit Reiseplanung."
+    },
+    beauty: {
+      title: "K-beauty Deals und OLIVE YOUNG Aktionen",
+      description: "Offizielle K-beauty Sales, Couponfenster, Tax-Refund-Hinweise und Shoppingrouten fur Korea-Reisende."
+    },
+    "duty-free": {
+      title: "Duty-free Events in Korea und Airport-Pickup-Deals",
+      description: "Geprufte Shilla-, Lotte-, Shinsegae- und Duty-free-Angebote mit Eligibility- und Pickup-Hinweisen."
+    },
+    "department-store": {
+      title: "Kaufhaus-Sales und Pop-ups in Korea",
+      description: "Kaufhaus-Sales, Kultur-Ausstellungen, Pop-up Stores und branchenspezifische Events fur Besucher."
+    },
+    shopping: {
+      title: "Shopping-Festivals und Sale-Saisons in Korea",
+      description: "Saisonale Shoppingkampagnen, Korea Grand Sale Archive und offizielle Planungsseiten fur Einkaufe."
+    },
+    "travel-benefits": {
+      title: "Korea Reisevorteile und Besucher-Coupons",
+      description: "Offizielle Besucherangebote, Partner-Deals, Attraktionsrabatte und wiederkehrende Travel-Coupon-Hubs."
+    }
+  },
+  es: {
+    festival: {
+      title: "Festivales y eventos culturales en Corea",
+      description: "Festivales, conciertos, espectáculos, eventos junto al río y calendarios culturales de Corea verificados para visitantes extranjeros."
+    },
+    kpop: {
+      title: "Conciertos K-pop, pop-ups, merch y eventos de fans",
+      description: "Avisos oficiales de conciertos K-pop, ticketing, fan meetings, pop-ups, merch y reservas con notas de planificación de viaje."
+    },
+    beauty: {
+      title: "Ofertas K-beauty y promociones OLIVE YOUNG",
+      description: "Páginas oficiales de rebajas K-beauty, ventanas de cupones, notas de tax refund y rutas de compras para viajeros en Corea."
+    },
+    "duty-free": {
+      title: "Eventos duty-free en Corea y recogida en aeropuerto",
+      description: "Ofertas verificadas de Shilla, Lotte, Shinsegae y duty-free oficiales con recordatorios de elegibilidad."
+    },
+    "department-store": {
+      title: "Rebajas y pop-ups de grandes almacenes en Corea",
+      description: "Rebajas de grandes almacenes, exposiciones culturales, tiendas pop-up y eventos por sucursal para compradores extranjeros."
+    },
+    shopping: {
+      title: "Festivales de compras y temporadas de rebajas en Corea",
+      description: "Campañas de compras estacionales, archivos del Korea Grand Sale y páginas oficiales para planificar compras."
+    },
+    "travel-benefits": {
+      title: "Beneficios de viaje y cupones para visitantes en Corea",
+      description: "Beneficios oficiales para visitantes, ofertas de socios, descuentos en atracciones y hubs recurrentes de cupones de viaje."
+    }
+  },
+  zh: {
+    festival: {
+      title: "韩国节庆与文化活动",
+      description: "经官方来源核实的韩国节庆、江边活动、演唱会、演出与文化日历，面向外国游客。"
+    },
+    kpop: {
+      title: "K-pop 演唱会、快闪店、周边与粉丝活动",
+      description: "K-pop 演唱会、售票、见面会、快闪店、周边与预约的官方公告，附旅行规划提示。"
+    },
+    beauty: {
+      title: "K-beauty 优惠与 OLIVE YOUNG 促销",
+      description: "官方 K-beauty 促销页面、优惠券时段、退税提示与面向韩国旅行者的购物路线。"
+    },
+    "duty-free": {
+      title: "韩国免税店活动与机场提货优惠",
+      description: "经核实的新罗、乐天、新世界及官方免税店优惠，附使用条件提醒。"
+    },
+    "department-store": {
+      title: "韩国百货公司折扣与快闪店",
+      description: "百货公司折扣、文化展览、快闪店与各分店活动，面向外国购物者。"
+    },
+    shopping: {
+      title: "韩国购物节与季节性促销档案",
+      description: "季节性购物活动、Korea Grand Sale 档案与官方促销规划页面。"
+    },
+    "travel-benefits": {
+      title: "韩国旅行优惠与游客优惠券",
+      description: "官方游客福利、合作优惠、景点折扣与定期更新的旅行优惠券入口。"
+    }
+  },
+  pt: {
+    festival: {
+      title: "Festivais e eventos culturais na Coreia",
+      description: "Festivais, shows, apresentações, eventos à beira-rio e calendários culturais da Coreia verificados para visitantes estrangeiros."
+    },
+    kpop: {
+      title: "Shows de K-pop, pop-ups, merch e eventos de fãs",
+      description: "Avisos oficiais de shows de K-pop, ingressos, fan meetings, pop-ups, merch e reservas com notas de planejamento de viagem."
+    },
+    beauty: {
+      title: "Ofertas K-beauty e promoções OLIVE YOUNG",
+      description: "Páginas oficiais de promoções K-beauty, janelas de cupons, notas de tax refund e rotas de compras para viajantes na Coreia."
+    },
+    "duty-free": {
+      title: "Eventos duty-free na Coreia e retirada no aeroporto",
+      description: "Ofertas verificadas da Shilla, Lotte, Shinsegae e duty-free oficiais com lembretes de elegibilidade."
+    },
+    "department-store": {
+      title: "Liquidações e pop-ups de lojas de departamento na Coreia",
+      description: "Liquidações de lojas de departamento, exposições culturais, lojas pop-up e eventos por filial para compradores estrangeiros."
+    },
+    shopping: {
+      title: "Festivais de compras e temporadas de liquidação na Coreia",
+      description: "Campanhas sazonais de compras, arquivos do Korea Grand Sale e páginas oficiais de planejamento de compras."
+    },
+    "travel-benefits": {
+      title: "Benefícios de viagem e cupons para visitantes na Coreia",
+      description: "Benefícios oficiais para visitantes, ofertas de parceiros, descontos em atrações e hubs recorrentes de cupons de viagem."
+    }
+  },
+  ru: {
+    festival: {
+      title: "Фестивали и культурные события в Корее",
+      description: "Проверенные по официальным источникам фестивали, концерты, представления, события у реки и культурные календари Кореи для иностранных гостей."
+    },
+    kpop: {
+      title: "K-pop концерты, поп-апы, мерч и фан-события",
+      description: "Официальные анонсы K-pop концертов, билетов, фан-митингов, поп-апов, мерча и бронирований с заметками для планирования поездки."
+    },
+    beauty: {
+      title: "Акции K-beauty и промо OLIVE YOUNG",
+      description: "Официальные страницы распродаж K-beauty, окна купонов, заметки о tax refund и шопинг-маршруты для путешественников в Корее."
+    },
+    "duty-free": {
+      title: "Duty-free события в Корее и выдача в аэропорту",
+      description: "Проверенные предложения Shilla, Lotte, Shinsegae и официальных duty-free с напоминаниями об условиях."
+    },
+    "department-store": {
+      title: "Распродажи и поп-апы универмагов в Корее",
+      description: "Распродажи универмагов, культурные выставки, поп-ап магазины и события отдельных филиалов для иностранных покупателей."
+    },
+    shopping: {
+      title: "Шопинг-фестивали и сезонные распродажи в Корее",
+      description: "Сезонные шопинг-кампании, архивы Korea Grand Sale и официальные страницы для планирования покупок."
+    },
+    "travel-benefits": {
+      title: "Туристические бонусы и купоны для гостей Кореи",
+      description: "Официальные бонусы для туристов, партнёрские предложения, скидки на достопримечательности и регулярно обновляемые купонные хабы."
+    }
+  },
+  ja: {
+    festival: {
+      title: "韓国のフェスティバルと文化イベント",
+      description: "公式情報で確認した韓国のフェスティバル、川辺イベント、コンサート、公演、文化カレンダーを外国人旅行者向けに紹介。"
+    },
+    kpop: {
+      title: "K-popコンサート、ポップアップ、グッズ、ファンイベント",
+      description: "K-popコンサート、チケット、ファンミーティング、ポップアップ、グッズ、予約の公式告知と旅行計画メモ。"
+    },
+    beauty: {
+      title: "K-beautyセールとOLIVE YOUNGプロモーション",
+      description: "公式K-beautyセールページ、クーポン期間、タックスリファンドの注意点、韓国旅行者向けショッピングルート。"
+    },
+    "duty-free": {
+      title: "韓国免税店イベントと空港受け取り特典",
+      description: "新羅・ロッテ・新世界など公式免税店の確認済み特典と利用条件のリマインド。"
+    },
+    "department-store": {
+      title: "韓国百貨店のセールとポップアップ",
+      description: "百貨店のセール、文化展示、ポップアップストア、店舗別イベントを外国人ショッパー向けに紹介。"
+    },
+    shopping: {
+      title: "韓国ショッピングフェスティバルとセールシーズン",
+      description: "季節のショッピングキャンペーン、Korea Grand Saleアーカイブ、公式セール計画ページ。"
+    },
+    "travel-benefits": {
+      title: "韓国旅行特典と訪問者クーポン",
+      description: "公式の訪問者特典、提携オファー、観光地割引、定期更新のクーポンハブ。"
+    }
+  }
+};
+
+function categoryPageCopy(lang, category) {
+  return localizedCategoryDefinitions[lang]?.[category] || categoryDefinitions[category] || {
+    title: categoryLabel(lang, category),
+    description: lang === "fr"
+      ? `Fiches ${categoryLabel(lang, category)} verifiees avec sources officielles, cartes, meteo et notes de visite.`
+      : lang === "de"
+        ? `Geprufte ${categoryLabel(lang, category)}-Eintrage mit offiziellen Quellen, Karten, Wetter und Besuchsnotizen.`
+        : `Fresh Korea ${categoryLabel(lang, category)} listings from official sources.`
+  };
+}
+
 const cityDefinitions = {
   Seoul: {
     slug: "seoul",
@@ -1918,6 +2142,29 @@ const cityDefinitions = {
     weatherRegion: "Nationwide"
   }
 };
+
+function cityPageCopy(lang, city) {
+  const base = cityDefinitions[city] || {
+    title: `${city} Korea event planner`,
+    description: `Officially checked Korea events and travel planning notes for ${city}.`,
+    weatherRegion: city
+  };
+  if (lang === "fr") {
+    return {
+      ...base,
+      title: `${city}: evenements, pop-ups et shopping en Coree`,
+      description: `Evenements verifies pour ${city} avec dates, meteo, noms coreens de carte, sources officielles et idees de trajet.`
+    };
+  }
+  if (lang === "de") {
+    return {
+      ...base,
+      title: `${city}: Events, Pop-ups und Shopping in Korea`,
+      description: `Geprufte Events fur ${city} mit Daten, Wetter, koreanischen Kartennamen, offiziellen Quellen und Routenideen.`
+    };
+  }
+  return base;
+}
 
 const watchlistGroups = [
   {
@@ -1990,6 +2237,43 @@ function localList(value, lang) {
 
 function needsGeneratedVisitorCopy(value, lang) {
   return (lang === "fr" || lang === "de") && (!value || typeof value === "string" || !String(value[lang] || "").trim() || hasMojibake(value[lang]));
+}
+
+const localizedGuideTitles = {
+  fr: {
+    "how-to-verify-korea-popups": "Verifier un pop-up K-pop en Coree avant d'y aller",
+    "korea-duty-free-before-flight": "Verifier les offres duty-free en Coree avant le vol",
+    "korea-shopping-sale-calendar": "Calendrier des soldes en Coree pour visiteurs etrangers",
+    "weather-for-korea-events": "Planifier les evenements en Coree avec la meteo",
+    "olive-young-shopping-strategy": "Planifier une journee shopping OLIVE YOUNG en Coree",
+    "department-store-popup-planning": "Utiliser les pop-ups de grands magasins pendant un voyage en Coree",
+    "kpop-ticket-merch-safety": "Verifier tickets, merch et pop-ups K-pop sans risque",
+    "festival-day-itinerary-korea": "Construire un itineraire d'une journee de festival en Coree",
+    "korea-event-transport-lockers": "Transport, consignes et bagages pour les evenements en Coree",
+    "tax-refund-payments-korea-shopping": "Tax refund et paiements pour le shopping en Coree",
+    "korea-shopping-sale-season-calendar": "Saisons de soldes en Coree a surveiller",
+    "verify-kpop-popup-notices-korea": "Verifier les annonces de pop-ups K-pop avant de planifier un voyage"
+  },
+  de: {
+    "how-to-verify-korea-popups": "K-pop Pop-ups in Korea vor dem Besuch prufen",
+    "korea-duty-free-before-flight": "Korea Duty-free Deals vor dem Abflug prufen",
+    "korea-shopping-sale-calendar": "Korea-Sale-Kalender fur internationale Besucher",
+    "weather-for-korea-events": "Korea-Events mit Wetterplanung vorbereiten",
+    "olive-young-shopping-strategy": "Einen OLIVE YOUNG Shoppingtag in Korea planen",
+    "department-store-popup-planning": "Kaufhaus-Pop-ups in Korea wahrend der Reise nutzen",
+    "kpop-ticket-merch-safety": "K-pop Tickets, Merch und Pop-ups sicher prufen",
+    "festival-day-itinerary-korea": "Eine eintagige Festivalroute in Korea planen",
+    "korea-event-transport-lockers": "Transport, Schliessfacher und Gepack bei Korea-Events",
+    "tax-refund-payments-korea-shopping": "Tax Refund und Zahlungen beim Shopping in Korea",
+    "korea-shopping-sale-season-calendar": "Wichtige Korea-Shopping-Saisons fur Besucher",
+    "verify-kpop-popup-notices-korea": "K-pop Pop-up Hinweise vor der Korea-Reise prufen"
+  }
+};
+
+function guideTitleText(guide, lang) {
+  const localized = localizedGuideTitles[lang]?.[guide.slug];
+  if (localized) return localized;
+  return local(guide.title, lang);
 }
 
 function eventSummaryText(event, lang) {
@@ -4718,15 +5002,15 @@ function renderNow(lang) {
 }
 
 function renderCategory(lang, category) {
-  const meta = categoryDefinitions[category];
+  const meta = categoryPageCopy(lang, category);
   const items = events
     .filter((event) => event.category === category)
     .sort((a, b) => {
       const statusWeight = { live: 0, upcoming: 1, ended: 2 };
       return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || b.priority - a.priority;
     });
-  const title = meta?.title || categoryLabel(lang, category);
-  const description = meta?.description || `Fresh Korea ${categoryLabel(lang, category)} listings from official sources.`;
+  const title = meta.title;
+  const description = meta.description;
   const body = `
     <main class="page">
       <section class="page-hero compact">
@@ -4765,11 +5049,7 @@ function renderCategory(lang, category) {
 }
 
 function renderCity(lang, city) {
-  const meta = cityDefinitions[city] || {
-    title: `${city} Korea event planner`,
-    description: `Officially checked Korea events and travel planning notes for ${city}.`,
-    weatherRegion: city
-  };
+  const meta = cityPageCopy(lang, city);
   const items = events
     .filter((event) => event.city === city)
     .sort((a, b) => {
@@ -5207,7 +5487,7 @@ function guideCard(guide, lang) {
   return `
     <a class="guide-card" href="/${lang}/guides/${guide.slug}.html">
       <span>${categoryLabel(lang, guide.category)}</span>
-      <strong>${esc(local(guide.title, lang))}</strong>
+      <strong>${esc(guideTitleText(guide, lang))}</strong>
       <p>${esc(guideSummaryText(guide, lang))}</p>
     </a>`;
 }
@@ -5483,7 +5763,7 @@ function renderGuide(guide, lang) {
     <main class="page guide-detail-page">
       <article class="article-page">
         <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
-        <h1>${esc(local(guide.title, lang))}</h1>
+        <h1>${esc(guideTitleText(guide, lang))}</h1>
         <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
         ${adUnit("article")}
         ${sections.map((section, index) => `
@@ -5499,7 +5779,7 @@ function renderGuide(guide, lang) {
     </main>`;
   return layout({
     lang,
-    title: `${local(guide.title, lang)} - K-Spot Now`,
+    title: `${guideTitleText(guide, lang)} - K-Spot Now`,
     description: guideSummaryText(guide, lang),
     body,
     canonicalPath: `/${lang}/guides/${guide.slug}.html`,

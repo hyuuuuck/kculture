@@ -4189,6 +4189,21 @@ function headers() {
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+/
+  Content-Type: text/html; charset=utf-8
+
+/*.html
+  Content-Type: text/html; charset=utf-8
+
+/*/
+  Content-Type: text/html; charset=utf-8
+
+/*/*/
+  Content-Type: text/html; charset=utf-8
+
+/*/*/*/
+  Content-Type: text/html; charset=utf-8
+
 /*.css
   Cache-Control: public, max-age=3600
 

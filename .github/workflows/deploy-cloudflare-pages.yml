@@ -99,29 +99,38 @@ jobs:
           REQUIRE_ADSENSE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
           STRICT_FRESHNESS: ${{ github.event_name == 'workflow_dispatch' && inputs.strict_freshness && '1' || '0' }}
         run: |
+          set -o pipefail
+          run_check() {
+            label="$1"
+            shift
+            if ! "$@" 2>&1 | tee /tmp/check-output.log; then
+              echo "::error title=${label} failed::$(tail -c 900 /tmp/check-output.log | tr '\n' ' ')"
+              exit 1
+            fi
+          }
           if [ "$REQUIRE_ADSENSE" = "1" ]; then
-            npm run preflight:adsense
+            run_check "preflight:adsense" npm run preflight:adsense
           else
-            npm run validate:production
+            run_check "validate:production" npm run validate:production
           fi
           if [ "$STRICT_FRESHNESS" = "1" ]; then
-            CONTENT_FRESHNESS_STRICT=1 npm run validate:content
+            run_check "validate:content (strict)" env CONTENT_FRESHNESS_STRICT=1 npm run validate:content
           else
-            npm run validate:content
+            run_check "validate:content" npm run validate:content
           fi
-          npm run validate:sources
-          npm run validate:links
-          npm run validate:images
-          npm run validate:thumbnail-audit
-          npm run validate:calendar
-          npm run validate:details
-          npm run validate:ux
-          npm run validate:workflows
-          npm run validate:sitemap
-          npm run validate:structured
-          npm run validate:event-audit
-          npm run report:adsense
-          npm run quality:ceo
+          run_check "validate:sources" npm run validate:sources
+          run_check "validate:links" npm run validate:links
+          run_check "validate:images" npm run validate:images
+          run_check "validate:thumbnail-audit" npm run validate:thumbnail-audit
+          run_check "validate:calendar" npm run validate:calendar
+          run_check "validate:details" npm run validate:details
+          run_check "validate:ux" npm run validate:ux
+          run_check "validate:workflows" npm run validate:workflows
+          run_check "validate:sitemap" npm run validate:sitemap
+          run_check "validate:structured" npm run validate:structured
+          run_check "validate:event-audit" npm run validate:event-audit
+          run_check "report:adsense" npm run report:adsense
+          run_check "quality:ceo" npm run quality:ceo
 
       - name: Check Cloudflare deploy secret
         env:

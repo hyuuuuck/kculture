@@ -376,7 +376,11 @@ function collectGuideLocalization() {
     "foreign visitor benefits",
     "shopping tourism",
     "daily; hourly",
-    "manual queue; hourly"
+    "manual queue; hourly",
+    "TOURISM-FESTIVALS",
+    "SHOPPING-BEAUTY-DUTYFREE",
+    "KPOP-POPUPS-TICKETING",
+    "WEATHER-ROUTES"
   ];
   const surfaceLeaks = [];
   for (const lang of localizedLangs) {

@@ -350,7 +350,11 @@ const localizedLeakPhrases = [
   "foreign visitor benefits",
   "shopping tourism",
   "daily; hourly",
-  "manual queue; hourly"
+  "manual queue; hourly",
+  "TOURISM-FESTIVALS",
+  "SHOPPING-BEAUTY-DUTYFREE",
+  "KPOP-POPUPS-TICKETING",
+  "WEATHER-ROUTES"
 ];
 
 for (const lang of ["fr", "de"]) {

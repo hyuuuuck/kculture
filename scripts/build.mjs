@@ -7237,6 +7237,33 @@ function watchlistGroupText(group, lang, key) {
   return watchlistGroupCopy[group.slug]?.[lang]?.[key] || watchlistGroupCopy[group.slug]?.en?.[key] || group[key];
 }
 
+const watchlistGroupKickers = {
+  "tourism-festivals": {
+    en: "Tourism / festivals",
+    fr: "Tourisme / festivals",
+    de: "Tourismus / Feste"
+  },
+  "shopping-beauty-dutyfree": {
+    en: "Shopping / beauty / duty-free",
+    fr: "Achats / beaute / hors taxes",
+    de: "Einkaufen / Beauty / Zollfrei"
+  },
+  "kpop-popups-ticketing": {
+    en: "K-pop / pop-ups / ticketing",
+    fr: "K-pop / pop-ups / billetterie",
+    de: "K-Pop / Pop-ups / Ticketing"
+  },
+  "weather-routes": {
+    en: "Weather / routes",
+    fr: "Meteo / itineraires",
+    de: "Wetter / Routen"
+  }
+};
+
+function watchlistGroupKicker(group, lang = "en") {
+  return watchlistGroupKickers[group.slug]?.[lang] || watchlistGroupKickers[group.slug]?.en || group.title;
+}
+
 function localizedCurationQueueLabel(item, lang = "en") {
   const brand = item.artistOrBrand || item.owner || item.sourceName || item.label || "Official source";
   const label = String(item.label || brand);
@@ -7405,7 +7432,7 @@ function renderWatchlist(lang) {
           const groupSources = sources.filter((source) => sourceMatchesGroup(source, group));
           return `
             <article class="watch-card">
-              <span>${esc(group.slug)}</span>
+              <span>${esc(watchlistGroupKicker(group, lang))}</span>
               <h2>${esc(watchlistGroupText(group, lang, "title"))}</h2>
               <p>${esc(watchlistGroupText(group, lang, "focus"))}</p>
               <dl>

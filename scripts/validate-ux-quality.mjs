@@ -35,6 +35,8 @@ function assertIncludes(text, needle, id, message) {
 
 function htmlText(value) {
   return String(value || "")
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
@@ -42,6 +44,11 @@ function htmlText(value) {
     .replace(/&#39;/g, "'")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function assertNotVisible(text, pattern, id, message) {
+  const visible = htmlText(text);
+  if (pattern.test(visible)) push(id, message);
 }
 
 function comparableHeading(value) {
@@ -130,6 +137,29 @@ assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home mu
 assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
 assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
+
+const visitorUiExpectations = {
+  es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],
+  zh: ["跳到主要内容", "官方精选", "保存", "新鲜度"],
+  pt: ["Ir para o conteudo principal", "Destaque oficial", "Salvar", "revisado"],
+  ru: ["Перейти к основному содержанию", "Официальный акцент", "Сохранить", "Актуальность"],
+  ja: ["本文へ移動", "公式ハイライト", "保存", "更新状態"],
+  fr: ["Aller au contenu principal", "Selection officielle", "Enregistrer", "Fraicheur"],
+  de: ["Zum Hauptinhalt springen", "Offizielles Highlight", "Speichern", "Aktualitat"]
+};
+
+for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
+  const localizedHome = read(`${lang}/index.html`);
+  const localizedDetail = read(`${lang}/events/bts-city-arirang-busan-2026.html`);
+  for (const phrase of expected.slice(0, 2)) {
+    assertIncludes(htmlText(localizedHome), phrase, `${lang}/index.html`, `visitor UI label should be localized: ${phrase}`);
+  }
+  for (const phrase of expected.slice(2)) {
+    assertIncludes(htmlText(localizedDetail), phrase, `${lang}/events/bts-city-arirang-busan-2026.html`, `detail UI label should be localized: ${phrase}`);
+  }
+  assertNotVisible(localizedHome, /\bOfficial highlight\b|\bSkip to main content\b/, `${lang}/index.html`, "home should not expose English spotlight or skip-link UI labels.");
+  assertNotVisible(localizedDetail, /\bSave\b|\bFreshness\b|\bchecked yesterday\b/, `${lang}/events/bts-city-arirang-busan-2026.html`, "detail should not expose English save/freshness UI labels.");
+}
 
 const activeEvents = events.filter((event) => event.endDate >= today).slice(0, 6);
 for (const event of activeEvents) {

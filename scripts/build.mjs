@@ -1636,6 +1636,117 @@ dict.de = {
   sourceWarning: "Offizielle Details konnen sich andern. Prufen Sie immer aktuelle Regeln, Ort, Berechtigung und Bestand."
 };
 
+const visitorUiOverrides = {
+  en: {
+    skipToMain: "Skip to main content",
+    highlightLabel: "Official highlight"
+  },
+  es: {
+    skipToMain: "Saltar al contenido principal",
+    navNow: "Ahora",
+    navPlanner: "Planificador",
+    saveEvent: "Guardar",
+    savedEvent: "Guardado",
+    freshness: "Actualizacion",
+    freshnessFresh: "Actualizado",
+    freshnessCurrent: "Revisado recientemente",
+    checkedToday: "revisado hoy",
+    checkedYesterday: "revisado ayer",
+    highlightLabel: "Destacado oficial"
+  },
+  zh: {
+    skipToMain: "跳到主要内容",
+    navEvents: "活动",
+    navNow: "当前",
+    navCalendar: "日历",
+    navPlanner: "保存计划",
+    navGuides: "指南",
+    navAbout: "关于",
+    routePages: "旅行路线",
+    ctaEvents: "浏览活动",
+    ctaCalendar: "打开日历",
+    saveEvent: "保存",
+    savedEvent: "已保存",
+    freshness: "新鲜度",
+    freshnessFresh: "最新",
+    freshnessCurrent: "最近检查",
+    freshnessSoon: "即将复核",
+    freshnessStale: "需要官方复核",
+    freshnessArchive: "归档检查",
+    checkedToday: "今天检查",
+    checkedYesterday: "昨天检查",
+    daysAgo: "天前",
+    officialLabel: "官方",
+    official: "官方来源",
+    downloadCalendar: "下载日历文件",
+    highlightLabel: "官方精选"
+  },
+  pt: {
+    skipToMain: "Ir para o conteudo principal",
+    navNow: "Agora",
+    navPlanner: "Planejador",
+    saveEvent: "Salvar",
+    savedEvent: "Salvo",
+    freshness: "Atualizacao",
+    freshnessFresh: "Atualizado",
+    freshnessCurrent: "Revisado recentemente",
+    checkedToday: "revisado hoje",
+    checkedYesterday: "revisado ontem",
+    highlightLabel: "Destaque oficial"
+  },
+  ru: {
+    skipToMain: "Перейти к основному содержанию",
+    navEvents: "События",
+    navNow: "Сейчас",
+    navCalendar: "Календарь",
+    navPlanner: "План",
+    navGuides: "Гиды",
+    navAbout: "О проекте",
+    routePages: "Маршруты",
+    ctaEvents: "Смотреть события",
+    ctaCalendar: "Открыть календарь",
+    saveEvent: "Сохранить",
+    savedEvent: "Сохранено",
+    freshness: "Актуальность",
+    freshnessFresh: "Свежо",
+    freshnessCurrent: "Недавно проверено",
+    freshnessSoon: "Скоро перепроверить",
+    freshnessStale: "Нужна официальная проверка",
+    freshnessArchive: "Архивная проверка",
+    checkedToday: "проверено сегодня",
+    checkedYesterday: "проверено вчера",
+    daysAgo: "дн. назад",
+    officialLabel: "Официально",
+    official: "Официальный источник",
+    downloadCalendar: "Скачать календарь",
+    highlightLabel: "Официальный акцент"
+  },
+  ja: {
+    skipToMain: "本文へ移動",
+    navNow: "今見る",
+    navPlanner: "保存リスト",
+    saveEvent: "保存",
+    savedEvent: "保存済み",
+    freshnessFresh: "新しい",
+    freshnessCurrent: "最近確認",
+    checkedToday: "本日確認",
+    checkedYesterday: "昨日確認",
+    highlightLabel: "公式ハイライト"
+  },
+  fr: {
+    skipToMain: "Aller au contenu principal",
+    highlightLabel: "Selection officielle"
+  },
+  de: {
+    skipToMain: "Zum Hauptinhalt springen",
+    highlightLabel: "Offizielles Highlight"
+  }
+};
+
+for (const [code, overrides] of Object.entries(visitorUiOverrides)) {
+  dict[code] = { ...(dict[code] || dict.en), ...overrides };
+}
+
 const categoryLabels = {
   festival: "festival",
   kpop: "kpop",
@@ -3180,7 +3291,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${structuredDataScript(structuredData)}
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">${tr(lang, "skipToMain")}</a>
   <header class="site-header">
     <a class="brand" href="/${lang}/" aria-label="${siteName} home">
       <span class="brand-mark">KS</span>
@@ -3385,7 +3496,7 @@ function spotlightCarousel(slides, lang) {
                   <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}">
                   <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
                   <span class="spotlight-content">
-                    <span>${tr(lang, "officialLabel")} highlight</span>
+                    <span>${tr(lang, "highlightLabel")}</span>
                     <strong>${esc(local(event.title, lang))}</strong>
                     <em>${esc(event.city)} / ${esc(period)}</em>
                   </span>

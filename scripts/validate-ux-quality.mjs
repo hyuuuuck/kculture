@@ -397,6 +397,7 @@ for (const event of activeEvents) {
   assertIncludes(html, "Why this page before the linked source", `en/events/${event.slug}.html`, "detail page must explain why visitors use K-Spot Now before the linked source.");
   assertIncludes(html, "detail-quick-plan", `en/events/${event.slug}.html`, "detail page must surface a visible before-booking planning rail near the hero.");
   assertIncludes(html, "Before you book", `en/events/${event.slug}.html`, "detail page must make the pre-booking planning role visible near the hero.");
+  assertIncludes(html, "affiliate-action", `en/events/${event.slug}.html`, "detail hero must include a visible hotel CTA, not bury affiliate links lower on the page.");
   assertIncludes(html, "Sponsored hotel link", `en/events/${event.slug}.html`, "detail page must show hotel affiliate links as labeled planning CTAs, not hidden utility links.");
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");

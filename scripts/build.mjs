@@ -3633,6 +3633,23 @@ function affiliateLinksFor(event) {
   return links;
 }
 
+function hotelAffiliateButton(event, lang) {
+  if (!affiliateEnabled) return "";
+  const hotelLink = affiliateLinksFor(event).find((link) => link.type === "hotels");
+  if (!hotelLink) return "";
+  const label = {
+    en: "Hotels near {city}",
+    es: "Hoteles cerca de {city}",
+    zh: "{city}附近酒店",
+    pt: "Hoteis perto de {city}",
+    ru: "Отели рядом с {city}",
+    ja: "{city}周辺ホテル",
+    fr: "Hotels pres de {city}",
+    de: "Hotels nahe {city}"
+  }[lang] || "Hotels near {city}";
+  return `<a class="button light affiliate-action" href="${esc(hotelLink.href)}" rel="sponsored nofollow noopener" target="_blank">${esc(label.replace("{city}", cityLabel(lang, hotelLink.city)))}</a>`;
+}
+
 function affiliateSection(event, lang) {
   if (!affiliateEnabled) return "";
   const links = affiliateLinksFor(event);
@@ -6480,6 +6497,7 @@ function renderEvent(event, lang) {
             <div class="detail-actions">
               <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(sourceRoleLabel(event, lang))}</a>
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
+              ${hotelAffiliateButton(event, lang)}
               ${saveEventButton(event, lang)}
             </div>
             <p class="handoff-note">${bookingHandoffNote(event, lang)}</p>

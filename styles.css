@@ -2276,6 +2276,17 @@ img {
   gap: 10px;
 }
 
+.detail-actions .affiliate-action {
+  border-color: #a9d8cf;
+  color: var(--teal-dark);
+  background: #f3fbf8;
+}
+
+.detail-actions .affiliate-action:hover {
+  border-color: rgba(13, 127, 117, 0.58);
+  background: #e8f7f2;
+}
+
 .handoff-note {
   margin: 12px 0 0;
   max-width: 720px;

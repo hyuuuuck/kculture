@@ -75,11 +75,11 @@ if (!siteUrl) {
 } else {
   const previewHost = isPreviewHost(siteUrl.hostname);
   if (siteUrl.protocol === "https:" && (!previewHost || allowPlatformSubdomain)) {
-    pass("Custom HTTPS domain", siteUrl.href);
+    pass("SITE_URL format", siteUrl.href);
   } else if (previewHost) {
-    fail("Custom HTTPS domain", siteUrl.href, "Use the real custom domain for AdSense review, not a platform preview URL.");
+    fail("SITE_URL format", siteUrl.href, "Use the real custom domain for AdSense review, not a platform preview URL.");
   } else {
-    fail("Custom HTTPS domain", siteUrl.href, "SITE_URL must use https://.");
+    fail("SITE_URL format", siteUrl.href, "SITE_URL must use https://.");
   }
 }
 

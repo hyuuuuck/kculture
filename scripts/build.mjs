@@ -3654,27 +3654,6 @@ function hotelAffiliateButton(event, lang) {
   return `<a class="button light affiliate-action" href="${esc(hotelLink.href)}" rel="sponsored nofollow noopener" target="_blank">${esc(label.replace("{city}", cityLabel(lang, hotelLink.city)))}</a>`;
 }
 
-function tripDisplayBanner(lang) {
-  if (!affiliateIds.tripDisplayAdUrl || !affiliateIds.tripDisplayAdId) return "";
-  const copy = {
-    en: "Sponsored travel banner",
-    es: "Banner de viaje patrocinado",
-    zh: "赞助旅行广告",
-    pt: "Banner de viagem patrocinado",
-    ru: "Спонсорский туристический баннер",
-    ja: "スポンサー旅行バナー",
-    fr: "Banniere voyage sponsorisee",
-    de: "Gesponsertes Reisebanner"
-  }[lang] || "Sponsored travel banner";
-  return `
-            <div class="trip-display-banner" aria-label="${esc(copy)}">
-              <span>${esc(copy)}</span>
-              <div class="trip-display-frame">
-                <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="728" height="90" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            </div>`;
-}
-
 function tripSkyscraperBanner(lang) {
   if (!affiliateIds.tripDisplayAdUrl || !affiliateIds.tripDisplayAdId) return "";
   const copy = {
@@ -3899,7 +3878,6 @@ function affiliatePlanningRail(event, lang) {
             </a>
             ${affiliateCards}
           </div>
-          ${tripDisplayBanner(lang)}
         </section>`;
 }
 

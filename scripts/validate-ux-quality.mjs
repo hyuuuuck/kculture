@@ -404,8 +404,6 @@ for (const event of activeEvents) {
   assertIncludes(html, "Before you book", `en/events/${event.slug}.html`, "detail page must make the pre-booking planning role visible near the hero.");
   assertIncludes(html, "affiliate-action", `en/events/${event.slug}.html`, "detail hero must include a visible hotel CTA, not bury affiliate links lower on the page.");
   assertIncludes(html, "Sponsored hotel link", `en/events/${event.slug}.html`, "detail page must show hotel affiliate links as labeled planning CTAs, not hidden utility links.");
-  assertIncludes(html, "kr.trip.com/partners/ad/DB17791825", `en/events/${event.slug}.html`, "detail planning rail must include the Trip.com sponsored display banner.");
-  assertIncludes(html, "id=\"DB17791825\"", `en/events/${event.slug}.html`, "Trip.com sponsored display banner must keep the provided campaign iframe id.");
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }

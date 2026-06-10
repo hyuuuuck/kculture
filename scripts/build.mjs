@@ -18,6 +18,14 @@ const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIE
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
+const affiliateIds = {
+  agodaCid: String(process.env.AGODA_PARTNER_CID || "").trim(),
+  tripAllianceId: String(process.env.TRIP_ALLIANCE_ID || "").trim(),
+  tripSid: String(process.env.TRIP_ALLIANCE_SID || "").trim(),
+  klookAid: String(process.env.KLOOK_AFFILIATE_AID || "").trim(),
+  trazyId: String(process.env.TRAZY_AFFILIATE_ID || "").trim()
+};
+const affiliateEnabled = Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -3024,6 +3032,89 @@ function mapLinkSection(event, lang) {
         </section>`;
 }
 
+function affiliateLinksFor(event) {
+  const city = !event.city || event.city === "Nationwide" ? "Seoul" : event.city;
+  const encodedCity = encodeURIComponent(city);
+  const upcomingStay = statusOf(event) !== "ended" && event.startDate >= today;
+  const links = [];
+
+  if (affiliateIds.agodaCid) {
+    const checkIn = upcomingStay ? `&checkIn=${event.startDate}` : "";
+    links.push({ partner: "Agoda", type: "hotels", city, href: `https://www.agoda.com/search?cid=${encodeURIComponent(affiliateIds.agodaCid)}&textToSearch=${encodedCity}${checkIn}` });
+  }
+  if (affiliateIds.tripAllianceId && affiliateIds.tripSid) {
+    links.push({ partner: "Trip.com", type: "hotels", city, href: `https://www.trip.com/hotels/list?cityName=${encodedCity}&allianceid=${encodeURIComponent(affiliateIds.tripAllianceId)}&sid=${encodeURIComponent(affiliateIds.tripSid)}` });
+  }
+  if (affiliateIds.klookAid) {
+    links.push({ partner: "Klook", type: "tours", city, href: `https://www.klook.com/en-US/search/result/?query=${encodedCity}&aid=${encodeURIComponent(affiliateIds.klookAid)}` });
+  }
+  if (affiliateIds.trazyId) {
+    links.push({ partner: "Trazy", type: "tours", city: "Korea", href: `https://www.trazy.com/?aff=${encodeURIComponent(affiliateIds.trazyId)}` });
+  }
+  return links;
+}
+
+function affiliateSection(event, lang) {
+  if (!affiliateEnabled) return "";
+  const links = affiliateLinksFor(event);
+  if (!links.length) return "";
+  const title = local({
+    en: "Book your stay and tours nearby",
+    es: "Reserva alojamiento y tours cerca",
+    zh: "预订附近住宿与行程",
+    pt: "Reserve hospedagem e tours por perto",
+    ru: "Забронируйте жилье и туры рядом",
+    ja: "周辺の宿泊とツアーを予約",
+    fr: "Reservez hebergement et activites a proximite",
+    de: "Unterkunft und Touren in der Nahe buchen"
+  }, lang);
+  const disclosure = local({
+    en: "If you book through these links, K-Spot Now may earn a commission at no extra cost to you.",
+    es: "Si reservas a traves de estos enlaces, K-Spot Now puede recibir una comision sin coste extra para ti.",
+    zh: "通过这些链接预订时，K-Spot Now 可能获得佣金，您无需支付额外费用。",
+    pt: "Se voce reservar por estes links, K-Spot Now pode receber uma comissao sem custo extra para voce.",
+    ru: "Если вы бронируете по этим ссылкам, K-Spot Now может получить комиссию без дополнительных затрат для вас.",
+    ja: "これらのリンク経由で予約すると、追加費用なしでK-Spot Nowに紹介料が入る場合があります。",
+    fr: "Si vous reservez via ces liens, K-Spot Now peut recevoir une commission sans cout supplementaire pour vous.",
+    de: "Wenn Sie uber diese Links buchen, kann K-Spot Now eine Provision erhalten, ohne Mehrkosten fur Sie."
+  }, lang);
+  const hotelsTemplate = local({
+    en: "Hotels in {city}",
+    es: "Hoteles en {city}",
+    zh: "{city}酒店",
+    pt: "Hoteis em {city}",
+    ru: "Отели: {city}",
+    ja: "{city}のホテル",
+    fr: "Hotels a {city}",
+    de: "Hotels in {city}"
+  }, lang);
+  const toursTemplate = local({
+    en: "Tours and tickets in {city}",
+    es: "Tours y entradas en {city}",
+    zh: "{city}玩乐与门票",
+    pt: "Tours e ingressos em {city}",
+    ru: "Туры и билеты: {city}",
+    ja: "{city}のツアー・チケット",
+    fr: "Activites et billets a {city}",
+    de: "Touren und Tickets in {city}"
+  }, lang);
+
+  return `
+        <section class="detail-section map-links-section affiliate-section">
+          <div>
+            <h2>${esc(title)}</h2>
+            <p class="meta-note">${esc(disclosure)}</p>
+          </div>
+          <div class="map-link-list">
+            ${links.map((link) => `
+              <a href="${esc(link.href)}" rel="sponsored nofollow noopener" target="_blank">
+                <strong>${esc((link.type === "hotels" ? hotelsTemplate : toursTemplate).replace("{city}", link.city))}</strong>
+                <span>${esc(link.partner)}</span>
+              </a>`).join("")}
+          </div>
+        </section>`;
+}
+
 const visitorInfoLabels = {
   theme: "eventTheme",
   hours: "hoursOfOperation",
@@ -5398,6 +5489,7 @@ function renderEvent(event, lang) {
           <ul>${eventTravelTips(event, lang).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
         </section>
         ${mapLinkSection(event, lang)}
+        ${affiliateSection(event, lang)}
 
         ${routeIdeas.length ? `
           <section class="detail-section">
@@ -6691,6 +6783,7 @@ const extendedStaticPages = {
       "Les sources sont choisies pour leur utilite visiteur: pages officielles, organisateurs, marques, lieux, tourisme, billetterie et campagnes verifiees.",
       "Les boutons de source envoient vers la page originale pour billets, reservations, stock, achat ou regles finales. K-Spot Now ne prend pas de paiement et ne remplace pas la source officielle.",
       "Toute publicite ou partenariat doit rester separe de la correction editoriale, des alertes de securite et des notes de visite.",
+      "Certains liens de planification vers hotels, activites ou billets sont des liens d'affiliation. Si vous reservez via ces liens, K-Spot Now peut recevoir une commission sans cout supplementaire pour vous. Les partenaires affilies ne peuvent pas influencer la selection des evenements, les labels de source ou les dates de fraicheur, et les blocs affilies sont toujours signales.",
       `Questions publicitaires ou corrections: ${contactEmail}.`
     ],
     terms: [
@@ -6728,6 +6821,7 @@ const extendedStaticPages = {
       "Quellen werden nach Besucherwert ausgewahlt: offizielle Seiten, Veranstalter, Marken, Orte, Tourismus, Ticketing und verifizierte Kampagnen.",
       "Quellenbuttons fuhren zur Originalseite fur Tickets, Reservierungen, Bestand, Kauf oder finale Regeln. K-Spot Now nimmt keine Zahlungen an und ersetzt keine offizielle Quelle.",
       "Werbung oder Partnerschaften mussen von redaktionellen Korrekturen, Sicherheitshinweisen und Besuchernotizen getrennt bleiben.",
+      "Einige Planungslinks zu Hotels, Touren oder Tickets sind Affiliate-Links. Wenn Sie daruber buchen, kann K-Spot Now eine Provision erhalten, ohne Mehrkosten fur Sie. Affiliate-Partner konnen weder die Eventauswahl noch Quellenlabels oder Aktualitatsdaten beeinflussen, und Affiliate-Blocke sind immer gekennzeichnet.",
       `Werbefragen oder Korrekturen: ${contactEmail}.`
     ],
     terms: [
@@ -6912,6 +7006,7 @@ function staticPageParagraphs(lang, kind) {
         "Event and source selection is based on visitor utility: official tourism, organizer, brand, venue, ticketing, shopping, duty-free, and verified campaign sources.",
         "Source buttons send visitors to the original page for tickets, reservations, stock, purchases, eligibility, or final rules. K-Spot Now does not process payments and does not replace the official source.",
         "Sponsored inquiries, ad placements, and partnerships are reviewed separately from corrections, audits, and source monitoring.",
+        "Some planning links to hotels, tours, or tickets are affiliate links. If you book through them, K-Spot Now may earn a commission at no extra cost to you. Affiliate partners cannot influence which events are listed, source labels, or freshness dates, and affiliate blocks are always labeled.",
         `Advertising, correction, or source questions: ${contactEmail}.`
       ],
       es: [
@@ -6919,6 +7014,7 @@ function staticPageParagraphs(lang, kind) {
         "La seleccion de eventos y fuentes se basa en utilidad para visitantes: turismo oficial, organizadores, marcas, recintos, ticketing, compras, duty free y campanas verificadas.",
         "Los botones de fuente llevan a la pagina original para entradas, reservas, stock, compras, elegibilidad o reglas finales. K-Spot Now no procesa pagos ni reemplaza la fuente oficial.",
         "Consultas patrocinadas, anuncios y alianzas se revisan por separado de correcciones, auditorias y monitoreo de fuentes.",
+        "Algunos enlaces de planificacion a hoteles, tours o entradas son enlaces de afiliado. Si reservas a traves de ellos, K-Spot Now puede recibir una comision sin coste extra para ti. Los socios afiliados no pueden influir en que eventos se listan, en las etiquetas de fuente ni en las fechas de frescura, y los bloques de afiliados siempre van etiquetados.",
         `Preguntas de publicidad, correccion o fuentes: ${contactEmail}.`
       ],
       pt: [
@@ -6926,6 +7022,7 @@ function staticPageParagraphs(lang, kind) {
         "A selecao de eventos e fontes se baseia na utilidade para visitantes: turismo oficial, organizadores, marcas, locais, ticketing, compras, duty free e campanhas verificadas.",
         "Botoes de fonte levam visitantes a pagina original para ingressos, reservas, estoque, compras, elegibilidade ou regras finais. K-Spot Now nao processa pagamentos nem substitui a fonte oficial.",
         "Consultas patrocinadas, insercoes publicitarias e parcerias sao revisadas separadamente de correcoes, auditorias e monitoramento de fontes.",
+        "Alguns links de planejamento para hoteis, tours ou ingressos sao links de afiliados. Se voce reservar por eles, K-Spot Now pode receber uma comissao sem custo extra para voce. Parceiros afiliados nao podem influenciar quais eventos sao listados, etiquetas de fonte ou datas de atualizacao, e blocos de afiliados sao sempre identificados.",
         `Perguntas sobre publicidade, correcao ou fontes: ${contactEmail}.`
       ]
     },

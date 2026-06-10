@@ -38,6 +38,12 @@ Set these in GitHub repository settings under `Secrets and variables` -> `Action
 - `GOOGLE_ADSENSE_CLIENT`: add after AdSense gives the client ID
 - `GOOGLE_ADSENSE_SLOT`: add after creating a manual ad unit
 - `GOOGLE_ADSENSE_CMP_READY`: set to `1` only after a Google-certified consent management platform is configured for EEA, UK, and Switzerland visitors
+- `AGODA_PARTNER_CID`: add after Agoda Partners approval to enable hotel affiliate links on event pages
+- `TRIP_ALLIANCE_ID` / `TRIP_ALLIANCE_SID`: add after Trip.com Affiliates approval
+- `KLOOK_AFFILIATE_AID`: add after Klook affiliate approval
+- `TRAZY_AFFILIATE_ID`: add after Trazy affiliate approval
+
+Affiliate blocks stay hidden until at least one affiliate variable is set. While Workers Builds is still the active deploy path, set the same affiliate variables in the Cloudflare dashboard build settings too, or they will not reach the build.
 
 ## 4. GitHub Secrets
 

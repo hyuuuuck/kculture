@@ -181,7 +181,8 @@ async function validateGeneratedText() {
     "Public event pages show last-checked dates",
     "Corrections, source suggestions, ads",
     "Image and takedown policy",
-    "disputed images are taken down during review"
+    "disputed images are taken down during review",
+    "Book your stay and tours nearby"
   ];
   const englishUiPhrases = [
     "Saved Korea plan",

@@ -3765,8 +3765,205 @@ const detailHandoffText = {
   ja: "ここで計画し、チケット、予約、購入、最終ルール確認は公式情報で行ってください。"
 };
 
-function bookingHandoffNote(lang) {
-  return esc(detailHandoffText[lang] || detailHandoffText.en);
+function bookingHandoffNote(event, lang) {
+  const base = detailHandoffText[lang] || detailHandoffText.en;
+  if (sourceRoleType(event) === "official") return esc(base);
+  return esc(`${base} ${sourceCopy(lang).finalText}`);
+}
+
+const sourceTransparencyCopy = {
+  en: {
+    title: "Source transparency",
+    text: "K-Spot Now is the planning layer. The linked source is where visitors confirm tickets, reservations, inventory, operating rules, eligibility, and final notices.",
+    kspotTitle: "K-Spot Now adds",
+    kspotText: "Multilingual summary, weather, map-ready Korean place names, route ideas, calendar files, and saved-event comparison.",
+    sourceTitle: "Linked source role",
+    finalTitle: "Final check",
+    finalText: "Use this page to decide and compare; use the linked source for the action that changes money, inventory, entry, or booking status.",
+    roleOfficial: "Official source",
+    roleTicketing: "Ticketing source",
+    roleListing: "Listing / ticket source",
+    roleOffer: "Offer source",
+    descOfficial: "Organizer, brand, venue, tourism, or public-agency source used as the primary official reference.",
+    descTicketing: "Ticketing or reservation source used for final entry, seat, sales, or booking rules.",
+    descListing: "Listing or booking source used after manual review; K-Spot Now adds planning context and points visitors back for final action.",
+    descOffer: "Brand, store, shopping, duty-free, or campaign source used for eligibility, stock, coupon, and purchase rules."
+  },
+  es: {
+    title: "Transparencia de fuente",
+    text: "K-Spot Now es la capa de planificacion. La fuente enlazada confirma entradas, reservas, inventario, reglas, elegibilidad y avisos finales.",
+    kspotTitle: "K-Spot Now agrega",
+    kspotText: "Resumen multilingue, clima, nombre coreano para mapas, rutas, calendario y comparacion de eventos guardados.",
+    sourceTitle: "Rol de la fuente",
+    finalTitle: "Chequeo final",
+    finalText: "Usa esta pagina para decidir y comparar; usa la fuente enlazada para pagos, stock, entrada o reservas.",
+    roleOfficial: "Fuente oficial",
+    roleTicketing: "Fuente de tickets",
+    roleListing: "Listado / tickets",
+    roleOffer: "Fuente de oferta",
+    descOfficial: "Fuente de organizador, marca, venue, turismo o entidad publica usada como referencia principal.",
+    descTicketing: "Fuente de tickets o reservas para reglas finales de entrada, asiento, venta o booking.",
+    descListing: "Listado o booking revisado manualmente; K-Spot Now agrega contexto de planificacion.",
+    descOffer: "Fuente de marca, tienda, duty-free o campana para elegibilidad, stock, cupones y compra."
+  },
+  zh: {
+    title: "来源透明度",
+    text: "K-Spot Now 是旅行规划层。最终门票、预约、库存、运营规则、资格和公告仍需在链接来源确认。",
+    kspotTitle: "K-Spot Now 补充",
+    kspotText: "多语言摘要、天气、韩文地图地点名、路线建议、日历文件和已保存活动比较。",
+    sourceTitle: "链接来源角色",
+    finalTitle: "最终确认",
+    finalText: "在本站比较和决定；涉及付款、库存、入场或预约状态的操作请到链接来源完成。",
+    roleOfficial: "官方来源",
+    roleTicketing: "票务来源",
+    roleListing: "列表 / 票务来源",
+    roleOffer: "优惠来源",
+    descOfficial: "主办方、品牌、场馆、旅游或公共机构页面，作为主要官方参考。",
+    descTicketing: "票务或预约来源，用于确认最终入场、座位、销售或预约规则。",
+    descListing: "经人工审核的列表或预订来源；K-Spot Now 补充旅行规划信息。",
+    descOffer: "品牌、门店、免税店或活动来源，用于确认资格、库存、优惠券和购买规则。"
+  },
+  pt: {
+    title: "Transparencia da fonte",
+    text: "K-Spot Now e a camada de planejamento. A fonte linkada confirma ingressos, reservas, estoque, regras, elegibilidade e avisos finais.",
+    kspotTitle: "K-Spot Now acrescenta",
+    kspotText: "Resumo multilingue, clima, nome coreano para mapas, rotas, calendario e comparacao de eventos salvos.",
+    sourceTitle: "Papel da fonte",
+    finalTitle: "Cheque final",
+    finalText: "Use esta pagina para decidir e comparar; use a fonte linkada para pagamento, estoque, entrada ou reserva.",
+    roleOfficial: "Fonte oficial",
+    roleTicketing: "Fonte de ingressos",
+    roleListing: "Listagem / ingressos",
+    roleOffer: "Fonte de oferta",
+    descOfficial: "Fonte de organizador, marca, venue, turismo ou orgao publico usada como referencia principal.",
+    descTicketing: "Fonte de ingressos ou reservas para regras finais de entrada, assento, venda ou booking.",
+    descListing: "Listagem ou booking revisado manualmente; K-Spot Now acrescenta contexto de planejamento.",
+    descOffer: "Fonte de marca, loja, duty-free ou campanha para elegibilidade, estoque, cupons e compra."
+  },
+  ru: {
+    title: "Прозрачность источника",
+    text: "K-Spot Now является слоем планирования. По ссылке посетители подтверждают билеты, бронирование, наличие, правила, условия и финальные уведомления.",
+    kspotTitle: "K-Spot Now добавляет",
+    kspotText: "Многоязычное резюме, погоду, корейские названия для карт, маршруты, календарь и сравнение сохраненных событий.",
+    sourceTitle: "Роль ссылки",
+    finalTitle: "Финальная проверка",
+    finalText: "Здесь удобно сравнить и решить; действия с оплатой, наличием, входом или бронированием выполняйте в источнике.",
+    roleOfficial: "Официальный источник",
+    roleTicketing: "Билетный источник",
+    roleListing: "Листинг / билеты",
+    roleOffer: "Источник оффера",
+    descOfficial: "Организатор, бренд, площадка, туризм или госисточник как основная официальная ссылка.",
+    descTicketing: "Билетная или резервная страница для правил входа, мест, продаж или бронирования.",
+    descListing: "Листинг или booking после ручной проверки; K-Spot Now добавляет контекст планирования.",
+    descOffer: "Бренд, магазин, duty-free или кампания для правил eligibility, stock, coupon и покупки."
+  },
+  ja: {
+    title: "情報源の透明性",
+    text: "K-Spot Nowは計画用レイヤーです。チケット、予約、在庫、運営ルール、対象条件、最終告知はリンク先で確認します。",
+    kspotTitle: "K-Spot Nowが追加するもの",
+    kspotText: "多言語要約、天気、韓国語の地図検索名、ルート案、カレンダー、保存イベント比較。",
+    sourceTitle: "リンク先の役割",
+    finalTitle: "最終確認",
+    finalText: "このページで比較・判断し、支払い、在庫、入場、予約に関わる操作はリンク先で行います。",
+    roleOfficial: "公式情報",
+    roleTicketing: "チケット情報",
+    roleListing: "リスティング / チケット情報",
+    roleOffer: "キャンペーン情報",
+    descOfficial: "主催者、ブランド、会場、観光、公的機関などの一次情報です。",
+    descTicketing: "入場、座席、販売、予約ルールを確認するチケット・予約情報です。",
+    descListing: "手動確認済みのリスティングまたは予約情報で、K-Spot Nowが計画情報を補います。",
+    descOffer: "ブランド、店舗、免税店、キャンペーンの対象条件、在庫、クーポン、購入ルールの情報です。"
+  },
+  fr: {
+    title: "Transparence des sources",
+    text: "K-Spot Now est la couche de planification. La source liee confirme billets, reservations, stock, regles, eligibilite et avis finaux.",
+    kspotTitle: "K-Spot Now ajoute",
+    kspotText: "Resume multilingue, meteo, noms coreens pour cartes, trajets, calendrier et comparaison d'evenements enregistres.",
+    sourceTitle: "Role de la source liee",
+    finalTitle: "Verification finale",
+    finalText: "Utilisez cette page pour comparer; utilisez la source liee pour paiement, stock, entree ou reservation.",
+    roleOfficial: "Source officielle",
+    roleTicketing: "Source billetterie",
+    roleListing: "Listing / billetterie",
+    roleOffer: "Source d'offre",
+    descOfficial: "Organisateur, marque, lieu, tourisme ou source publique utilisee comme reference officielle principale.",
+    descTicketing: "Billetterie ou reservation pour les regles finales d'entree, places, ventes ou booking.",
+    descListing: "Listing ou booking revu manuellement; K-Spot Now ajoute le contexte de planification.",
+    descOffer: "Marque, magasin, duty-free ou campagne pour eligibilite, stock, coupons et achat."
+  },
+  de: {
+    title: "Quellentransparenz",
+    text: "K-Spot Now ist die Planungsebene. Die verlinkte Quelle bestatigt Tickets, Reservierungen, Bestand, Regeln, Berechtigung und finale Hinweise.",
+    kspotTitle: "K-Spot Now erganzt",
+    kspotText: "Mehrsprachige Zusammenfassung, Wetter, koreanische Kartennamen, Routen, Kalender und Vergleich gespeicherter Events.",
+    sourceTitle: "Rolle der verlinkten Quelle",
+    finalTitle: "Finaler Check",
+    finalText: "Hier vergleichen und entscheiden; Zahlung, Bestand, Eintritt oder Buchung in der verlinkten Quelle abschliessen.",
+    roleOfficial: "Offizielle Quelle",
+    roleTicketing: "Ticketquelle",
+    roleListing: "Listing / Ticketquelle",
+    roleOffer: "Angebotsquelle",
+    descOfficial: "Veranstalter, Marke, Ort, Tourismus oder offentliche Stelle als wichtigste offizielle Referenz.",
+    descTicketing: "Ticket- oder Reservierungsquelle fur Eintritt, Sitzplatz, Verkauf oder Buchungsregeln.",
+    descListing: "Manuell gepruftes Listing oder Booking; K-Spot Now erganzt Planungskontext.",
+    descOffer: "Marke, Store, Duty-free oder Kampagne fur Berechtigung, Bestand, Coupons und Kaufregeln."
+  }
+};
+
+function sourceRoleType(event) {
+  const haystack = [event.sourceName, event.sourceUrl, event.verification, event.collectionMode].join(" ").toLowerCase();
+  if (haystack.includes("world.nol.com") || haystack.includes("nol world")) return "listing";
+  if (/\b(ticket|ticketing|ticketlink|yes24|melon)\b/.test(haystack) || event.eventKind === "concert") return "ticketing";
+  if (["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category)) return "offer";
+  return "official";
+}
+
+function sourceCopy(lang) {
+  return sourceTransparencyCopy[lang] || sourceTransparencyCopy.en;
+}
+
+function sourceRoleLabel(event, lang) {
+  const copy = sourceCopy(lang);
+  const role = sourceRoleType(event);
+  return role === "listing" ? copy.roleListing : role === "ticketing" ? copy.roleTicketing : role === "offer" ? copy.roleOffer : copy.roleOfficial;
+}
+
+function sourceRoleDescription(event, lang) {
+  const copy = sourceCopy(lang);
+  const role = sourceRoleType(event);
+  return role === "listing" ? copy.descListing : role === "ticketing" ? copy.descTicketing : role === "offer" ? copy.descOffer : copy.descOfficial;
+}
+
+function sourceTransparencySection(event, lang) {
+  const copy = sourceCopy(lang);
+  return `
+        <section class="detail-section source-transparency-section" aria-labelledby="source-transparency-title">
+          <div class="detail-section-head">
+            <div>
+              <p class="eyebrow">${esc(sourceRoleLabel(event, lang))}</p>
+              <h2 id="source-transparency-title">${esc(copy.title)}</h2>
+            </div>
+            <p>${esc(copy.text)}</p>
+          </div>
+          <div class="source-transparency-grid">
+            <div>
+              <span>01</span>
+              <strong>${esc(copy.kspotTitle)}</strong>
+              <p>${esc(copy.kspotText)}</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>${esc(copy.sourceTitle)}</strong>
+              <p>${esc(sourceRoleDescription(event, lang))}</p>
+              <em>${esc(event.sourceName)}</em>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>${esc(copy.finalTitle)}</strong>
+              <p>${esc(copy.finalText)}</p>
+            </div>
+          </div>
+        </section>`;
 }
 
 const visitorActionCopy = {
@@ -4477,11 +4674,11 @@ function renderEvent(event, lang) {
             <h1>${esc(local(event.title, lang))}</h1>
             <p>${esc(description)}</p>
             <div class="detail-actions">
-              <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
+              <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(sourceRoleLabel(event, lang))}</a>
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
               ${saveEventButton(event, lang)}
             </div>
-            <p class="handoff-note">${bookingHandoffNote(lang)}</p>
+            <p class="handoff-note">${bookingHandoffNote(event, lang)}</p>
           </div>
         </header>
 
@@ -4497,6 +4694,7 @@ function renderEvent(event, lang) {
         </section>
 
         ${visitorActionChecklist(event, lang)}
+        ${sourceTransparencySection(event, lang)}
         ${visitorInfoSection(event, lang)}
 
         <section class="detail-section">

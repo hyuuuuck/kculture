@@ -2290,6 +2290,59 @@ img {
   word-break: keep-all;
 }
 
+.source-transparency-section {
+  display: grid;
+  gap: 18px;
+}
+
+.source-transparency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.source-transparency-grid div {
+  display: grid;
+  gap: 8px;
+  min-height: 154px;
+  align-content: start;
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+.source-transparency-grid div:last-child {
+  border-right: 0;
+}
+
+.source-transparency-grid span {
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.source-transparency-grid strong {
+  color: var(--ink);
+  font-size: 1.04rem;
+  line-height: 1.22;
+}
+
+.source-transparency-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.48;
+}
+
+.source-transparency-grid em {
+  margin-top: 2px;
+  color: var(--blue-dark);
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
 .weather-detail-section {
   display: grid;
   gap: 18px;
@@ -2365,6 +2418,7 @@ img {
   color: var(--ink);
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   line-height: 1.05;
+  overflow-wrap: anywhere;
 }
 
 .weather-metric em {
@@ -2372,6 +2426,7 @@ img {
   font-size: 0.86rem;
   font-style: normal;
   font-weight: 760;
+  overflow-wrap: anywhere;
 }
 
 .forecast-strip {
@@ -3829,6 +3884,7 @@ img {
   .guide-grid.wide,
   .guide-decision-grid,
   .guide-source-list,
+  .source-transparency-grid,
   .fact-grid,
   .visitor-info-grid,
   .venue-schedule-list,
@@ -3867,14 +3923,16 @@ img {
   }
 
   .planning-flow-step,
-  .visitor-action-grid article {
+  .visitor-action-grid article,
+  .source-transparency-grid div {
     min-height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
 
   .planning-flow-step:last-child,
-  .visitor-action-grid article:last-child {
+  .visitor-action-grid article:last-child,
+  .source-transparency-grid div:last-child {
     border-bottom: 0;
   }
 
@@ -3887,12 +3945,12 @@ img {
   }
 
   .weather-metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .weather-metric {
     min-height: 88px;
-    padding: 10px 8px;
+    padding: 12px;
   }
 
   .weather-metric strong {

@@ -129,6 +129,7 @@ assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer gri
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
+assertIncludes(styles, ".source-transparency-grid", "styles.css", "detail source transparency styling is missing.");
 assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision panel styling is missing.");
 assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
 assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
@@ -178,10 +179,16 @@ for (const event of activeEvents) {
   assertIncludes(html, "Visit-ready checklist", `en/events/${event.slug}.html`, "detail page must surface an at-a-glance visitor action checklist.");
   assertIncludes(html, "Confirm on the official page", `en/events/${event.slug}.html`, "detail checklist must direct visitors to final official confirmation.");
   assertIncludes(html, "Search the Korean place name", `en/events/${event.slug}.html`, "detail checklist must explain map-ready Korean place search.");
+  assertIncludes(html, "Source transparency", `en/events/${event.slug}.html`, "detail page must explain K-Spot Now's planning role versus the linked source.");
+  assertIncludes(html, "K-Spot Now adds", `en/events/${event.slug}.html`, "detail page must identify the value added beyond source listings.");
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }
 }
+
+const nolDetail = read("en/events/blackpink-tamagotchi-seoul-forest-2026.html");
+assertIncludes(nolDetail, "Listing / ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "NOL World listing pages must be labeled as listing/ticket sources, not generic official-source pages.");
+assertIncludes(nolDetail, "Listing or booking source used after manual review", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "NOL World listing pages must explain the manual-review planning layer.");
 
 for (const lang of languages) {
   for (const guide of guides) {

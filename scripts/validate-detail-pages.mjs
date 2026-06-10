@@ -206,8 +206,9 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, esc(event.dateLabel || `${event.startDate} - ${event.endDate}`), id, "event period is missing from visible facts.");
   assertIncludes(html, esc(event.venue), id, "event venue is missing from visible facts.");
   assertIncludes(html, esc(event.city), id, "event city is missing from visible facts.");
-  assertIncludes(html, esc(event.sourceName), id, "official source name is missing from the page.");
+  assertIncludes(html, esc(event.sourceName), id, "source name is missing from the page.");
   assertIncludes(html, "visitor-action-grid", id, "visit-ready action checklist is missing.");
+  assertIncludes(html, "source-transparency-section", id, "source transparency section is missing.");
   assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing from visit-ready checklist.");
   if (event.officialWebsiteUrl) {
     assertIncludes(html, `href="${esc(event.officialWebsiteUrl)}"`, id, "official event website link is missing.");

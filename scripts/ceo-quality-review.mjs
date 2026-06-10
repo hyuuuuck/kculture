@@ -172,6 +172,19 @@ function collectHomeUx() {
   } else {
     fail("planner", "Positioning", "Planning-layer workflow", `workflow ${hasWorkflow}, service boundary ${hasServiceBoundary}.`, "Planner/Designer: show the find, verify, continue-officially workflow and keep the non-ticket-shop boundary visible.");
   }
+
+  const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
+  const answersNolQuestion = differenceSection.includes("Why use this before NOL World or a ticket page?")
+    && differenceSection.includes("Planning desk vs listing page")
+    && differenceSection.includes("Single-source listing")
+    && differenceSection.includes("K-Spot Now is the planning desk");
+  const provesAddedValue = differenceSection.includes("Korean map names, calendar files, weather, route ideas")
+    && differenceSection.includes("official, ticketing, listing, or offer");
+  if (answersNolQuestion && provesAddedValue) {
+    pass("planner", "Positioning", "Single-source differentiation", "Homepage explains why visitors use K-Spot Now before NOL World, ticketing, or other single-source listing pages.");
+  } else {
+    fail("planner", "Positioning", "Single-source differentiation", `answers NOL question ${answersNolQuestion}, proves added value ${provesAddedValue}.`, "Planner/Designer: add a clear K-Spot Now vs single-source listing comparison that highlights planning context, source-role labels, maps, weather, routes, calendar, and official handoff.");
+  }
 }
 
 function collectCalendarUx() {

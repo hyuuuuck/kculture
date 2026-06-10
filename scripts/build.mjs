@@ -3754,6 +3754,160 @@ function planningLayerSection(lang) {
       </section>`;
 }
 
+const serviceDifferenceCopy = {
+  en: {
+    eyebrow: "Planning desk vs listing page",
+    title: "Why use this before NOL World or a ticket page?",
+    text: "NOL World, ticketing, brand, tourism, and store pages are where visitors confirm or complete the final action. K-Spot Now is the planning desk before that: it compares fast-moving signals, adds trip context, and sends visitors to the right source when they are ready.",
+    listingLabel: "Single-source listing",
+    listingTitle: "Useful when you already know what to do",
+    listingPoints: [
+      "Shows one platform's inventory, listing, ticket, or campaign detail.",
+      "Best for the final purchase, reservation, coupon, or organizer notice.",
+      "Can be hard to compare with weather, nearby routes, and other source types."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Useful before deciding where to go",
+    kspotPoints: [
+      "Combines tourism, brand, venue, duty-free, department-store, ticketing, and weather sources.",
+      "Adds Korean map names, calendar files, weather, route ideas, and save-to-planner behavior.",
+      "Labels source roles so visitors know whether the link is official, ticketing, listing, or offer information."
+    ],
+    proofs: [
+      ["Compare", "Events, pop-ups, shopping offers, routes, and guides are grouped for visitor decisions."],
+      ["Check", "Dates, last-checked labels, weather, and Korean place names stay visible before the handoff."],
+      ["Continue", "The final action remains on the organizer, brand, venue, official source, or ticketing page."]
+    ]
+  },
+  es: {
+    eyebrow: "Planificador vs pagina de listado",
+    title: "Por que usar esto antes de NOL World o una pagina de tickets?",
+    text: "NOL World, ticketing, marcas, turismo y tiendas sirven para confirmar o completar la accion final. K-Spot Now es la mesa de planificacion previa: compara senales rapidas, agrega contexto de viaje y envia a la fuente correcta.",
+    listingLabel: "Listado de una fuente",
+    listingTitle: "Util cuando ya sabes que hacer",
+    listingPoints: [
+      "Muestra inventario, listado, ticket o campana de una plataforma.",
+      "Mejor para compra, reserva, cupon o aviso final del organizador.",
+      "No siempre facilita comparar clima, rutas cercanas y otros tipos de fuente."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Util antes de decidir a donde ir",
+    kspotPoints: [
+      "Combina fuentes de turismo, marcas, recintos, duty-free, tiendas, tickets y clima.",
+      "Agrega nombres coreanos para mapas, calendario, clima, rutas y plan guardado.",
+      "Etiqueta el rol de cada fuente: oficial, ticketing, listado u oferta."
+    ],
+    proofs: [
+      ["Comparar", "Eventos, pop-ups, ofertas, rutas y guias se agrupan para decidir."],
+      ["Revisar", "Fechas, revision, clima y nombres coreanos quedan visibles antes del enlace final."],
+      ["Continuar", "La accion final queda en organizador, marca, recinto, fuente oficial o ticketing."]
+    ]
+  },
+  fr: {
+    eyebrow: "Bureau de planification vs page de listing",
+    title: "Pourquoi l'utiliser avant NOL World ou une billetterie ?",
+    text: "NOL World, les billetteries, les marques, le tourisme et les magasins servent a confirmer ou finaliser l'action. K-Spot Now est le bureau de planification avant cela : comparer les signaux rapides, ajouter le contexte de voyage, puis envoyer vers la bonne source.",
+    listingLabel: "Listing d'une source",
+    listingTitle: "Utile quand vous savez deja quoi faire",
+    listingPoints: [
+      "Affiche l'inventaire, le listing, le ticket ou la campagne d'une plateforme.",
+      "Ideal pour achat final, reservation, coupon ou avis d'organisateur.",
+      "Moins pratique pour comparer meteo, itineraires proches et autres sources."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Utile avant de decider ou aller",
+    kspotPoints: [
+      "Combine tourisme, marques, lieux, duty-free, grands magasins, ticketing et meteo.",
+      "Ajoute noms coreens pour cartes, calendrier, meteo, itineraires et planning sauvegarde.",
+      "Indique le role de la source : officielle, ticketing, listing ou offre."
+    ],
+    proofs: [
+      ["Comparer", "Evenements, pop-ups, offres, itineraires et guides sont regroupes pour decider."],
+      ["Verifier", "Dates, fraicheur, meteo et noms coreens restent visibles avant le lien final."],
+      ["Continuer", "L'action finale reste chez l'organisateur, la marque, le lieu, la source officielle ou la billetterie."]
+    ]
+  },
+  de: {
+    eyebrow: "Planungsebene vs Listingseite",
+    title: "Warum vor NOL World oder einer Ticketseite nutzen?",
+    text: "NOL World, Ticketing-, Marken-, Tourismus- und Store-Seiten sind fur Bestatigung oder finale Aktion da. K-Spot Now ist die Planungsebene davor: schnelle Signale vergleichen, Reisekontext erganzen und Besucher zur richtigen Quelle weiterleiten.",
+    listingLabel: "Einzelne Listingquelle",
+    listingTitle: "Gut, wenn Sie schon wissen, was zu tun ist",
+    listingPoints: [
+      "Zeigt Inventar, Listing, Ticket oder Kampagne einer Plattform.",
+      "Am besten fur Kauf, Reservierung, Coupon oder finale Veranstalterinfo.",
+      "Vergleich mit Wetter, nahen Routen und anderen Quellentypen ist oft muhsam."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Gut, bevor Sie entscheiden wohin",
+    kspotPoints: [
+      "Kombiniert Tourismus, Marken, Orte, Duty-free, Kaufhauser, Ticketing und Wetter.",
+      "Erganzt koreanische Kartennamen, Kalender, Wetter, Routen und gespeicherte Planung.",
+      "Kennzeichnet Quellenrollen: offiziell, Ticketing, Listing oder Angebot."
+    ],
+    proofs: [
+      ["Vergleichen", "Events, Pop-ups, Angebote, Routen und Guides werden fur Entscheidungen gruppiert."],
+      ["Prufen", "Daten, Aktualitat, Wetter und koreanische Ortsnamen bleiben vor dem Handoff sichtbar."],
+      ["Fortfahren", "Die finale Aktion bleibt beim Veranstalter, der Marke, dem Ort, der offiziellen Quelle oder Ticketing."]
+    ]
+  },
+  pt: {
+    eyebrow: "Planejamento vs pagina de listagem",
+    title: "Por que usar antes do NOL World ou de uma pagina de tickets?",
+    text: "NOL World, ticketing, marcas, turismo e lojas servem para confirmar ou concluir a acao final. K-Spot Now e a mesa de planejamento anterior: compara sinais rapidos, adiciona contexto de viagem e envia para a fonte certa.",
+    listingLabel: "Listagem de uma fonte",
+    listingTitle: "Util quando voce ja sabe o que fazer",
+    listingPoints: [
+      "Mostra inventario, listagem, ticket ou campanha de uma plataforma.",
+      "Melhor para compra, reserva, cupom ou aviso final do organizador.",
+      "Pode dificultar comparar clima, rotas proximas e outros tipos de fonte."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Util antes de decidir para onde ir",
+    kspotPoints: [
+      "Combina turismo, marcas, locais, duty-free, lojas, ticketing e clima.",
+      "Adiciona nomes coreanos para mapas, calendario, clima, rotas e plano salvo.",
+      "Rotula o papel da fonte: oficial, ticketing, listagem ou oferta."
+    ],
+    proofs: [
+      ["Comparar", "Eventos, pop-ups, ofertas, rotas e guias ficam juntos para decidir."],
+      ["Checar", "Datas, atualizacao, clima e nomes coreanos aparecem antes do link final."],
+      ["Continuar", "A acao final continua no organizador, marca, local, fonte oficial ou ticketing."]
+    ]
+  }
+};
+
+function serviceDifferenceSection(lang) {
+  const copy = serviceDifferenceCopy[lang] || serviceDifferenceCopy.en;
+  const card = (label, title, points, tone) => `
+              <article class="difference-card ${tone}">
+                <span>${esc(label)}</span>
+                <h3>${esc(title)}</h3>
+                <ul>${points.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+              </article>`;
+  return `
+      <section class="service-difference" aria-labelledby="service-difference-title">
+        <div class="service-difference-inner">
+          <div class="service-difference-head">
+            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+            <h2 id="service-difference-title">${esc(copy.title)}</h2>
+            <p>${esc(copy.text)}</p>
+          </div>
+          <div class="difference-grid">
+            ${card(copy.listingLabel, copy.listingTitle, copy.listingPoints, "is-listing")}
+            ${card(copy.kspotLabel, copy.kspotTitle, copy.kspotPoints, "is-kspot")}
+          </div>
+          <div class="difference-proof-grid" aria-label="K-Spot Now visitor workflow proof">
+            ${copy.proofs.map(([title, text]) => `
+              <div>
+                <strong>${esc(title)}</strong>
+                <p>${esc(text)}</p>
+              </div>`).join("")}
+          </div>
+        </div>
+      </section>`;
+}
+
 const detailHandoffText = {
   en: "Plan here, then complete tickets, reservations, purchases, and final rule checks on the official source.",
   es: "Planifica aqui y completa entradas, reservas, compras y reglas finales en la fuente oficial.",
@@ -4128,6 +4282,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         </div>
       </section>
       ${planningLayerSection(lang)}
+      ${serviceDifferenceSection(lang)}
       ${adUnit("home")}
 
       <section class="content-shell" id="events" data-gallery-scope>

@@ -127,6 +127,16 @@ assertIncludes(planningLayer, "Verify visitor details", "en/index.html", "home w
 assertIncludes(planningLayer, "Continue officially", "en/index.html", "home workflow must hand final action to official sources.");
 assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
+const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
+assertIncludes(differenceSection, "Why use this before NOL World or a ticket page?", "en/index.html", "home must explicitly answer why visitors use K-Spot Now before NOL World or ticket pages.");
+assertIncludes(differenceSection, "Planning desk vs listing page", "en/index.html", "home must distinguish planning from single-source listing pages.");
+assertIncludes(differenceSection, "final action", "en/index.html", "home must clarify that tickets, reservations, purchases, and final rules stay on linked sources.");
+assertIncludes(differenceSection, "K-Spot Now is the planning desk", "en/index.html", "home must state K-Spot Now's added planning role.");
+assertIncludes(differenceSection, "Korean map names, calendar files, weather, route ideas", "en/index.html", "home must show value beyond raw listings.");
+assertIncludes(differenceSection, "official, ticketing, listing, or offer", "en/index.html", "home must explain source-role labels.");
+assertIncludes(styles, ".service-difference", "styles.css", "service-difference section styling is missing.");
+assertIncludes(styles, ".difference-grid", "styles.css", "service-difference comparison grid styling is missing.");
+assertIncludes(styles, ".difference-proof-grid", "styles.css", "service-difference proof grid styling is missing.");
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
 assertIncludes(styles, ".source-transparency-grid", "styles.css", "detail source transparency styling is missing.");
@@ -141,8 +151,12 @@ const frHome = read("fr/index.html");
 const deHome = read("de/index.html");
 assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");
 assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
+assertIncludes(frHome, "Pourquoi l&#39;utiliser avant NOL World", "fr/index.html", "French home must answer the NOL World differentiation question.");
+assertIncludes(frHome, "K-Spot Now est le bureau de planification", "fr/index.html", "French home must explain the planning-layer value.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
 assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
+assertIncludes(deHome, "Warum vor NOL World", "de/index.html", "German home must answer the NOL World differentiation question.");
+assertIncludes(deHome, "K-Spot Now ist die Planungsebene", "de/index.html", "German home must explain the planning-layer value.");
 
 const visitorUiExpectations = {
   es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],

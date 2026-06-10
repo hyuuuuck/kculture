@@ -428,6 +428,7 @@ img {
   font-size: 0.88rem;
   font-weight: 850;
   line-height: 1.2;
+  overflow-wrap: anywhere;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -497,12 +498,15 @@ img {
 }
 
 .spotlight-content em {
+  display: -webkit-box;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.88);
   font-style: normal;
   font-weight: 720;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .service-summary {
@@ -673,6 +677,118 @@ img {
 }
 
 .planning-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.service-difference {
+  margin: 30px 0 8px;
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.service-difference-inner {
+  display: grid;
+  gap: 18px;
+  width: min(1220px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.service-difference-head {
+  display: grid;
+  gap: 8px;
+  max-width: 860px;
+}
+
+.service-difference-head h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.7rem, 2.8vw, 2.8rem);
+  line-height: 1.08;
+}
+
+.service-difference-head p:not(.eyebrow) {
+  margin: 0;
+  color: #344054;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.difference-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.difference-card {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 260px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcff;
+}
+
+.difference-card.is-kspot {
+  border-color: rgba(13, 127, 117, 0.38);
+  background: linear-gradient(180deg, #f3fbf8, #ffffff);
+}
+
+.difference-card span {
+  color: var(--teal-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.difference-card h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.3rem;
+  line-height: 1.18;
+}
+
+.difference-card ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+  color: #344054;
+  line-height: 1.5;
+}
+
+.difference-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid #cfd8e6;
+  border-radius: 8px;
+  background: #f8fbff;
+}
+
+.difference-proof-grid div {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-right: 1px solid #d9e3f2;
+}
+
+.difference-proof-grid div:last-child {
+  border-right: 0;
+}
+
+.difference-proof-grid strong {
+  color: var(--blue-dark);
+  font-size: 1rem;
+}
+
+.difference-proof-grid p {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
@@ -1443,12 +1559,15 @@ img {
 }
 
 .thumb-overlay span:last-child {
+  display: -webkit-box;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.78rem;
   font-weight: 760;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .thumb-brand {
@@ -1461,6 +1580,7 @@ img {
   background: rgba(18, 32, 38, 0.66);
   color: var(--white);
   font-size: 0.72rem;
+  overflow-wrap: anywhere;
   font-weight: 900;
   line-height: 1;
   text-overflow: ellipsis;
@@ -3712,6 +3832,20 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .difference-grid,
+  .difference-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .difference-proof-grid div {
+    border-right: 0;
+    border-bottom: 1px solid #d9e3f2;
+  }
+
+  .difference-proof-grid div:last-child {
+    border-bottom: 0;
+  }
+
   .top-nav {
     justify-content: flex-start;
     flex-wrap: nowrap;
@@ -3889,6 +4023,8 @@ img {
   .visitor-info-grid,
   .venue-schedule-list,
   .visitor-action-grid,
+  .difference-grid,
+  .difference-proof-grid,
   .route-grid,
   .watch-stats,
   .source-refresh-stats,
@@ -3920,6 +4056,20 @@ img {
   .fact {
     min-height: 84px;
     padding: 14px;
+  }
+
+  .service-difference {
+    margin-top: 22px;
+    padding: 24px 0;
+  }
+
+  .difference-card {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .difference-card li {
+    overflow-wrap: anywhere;
   }
 
   .planning-flow-step,

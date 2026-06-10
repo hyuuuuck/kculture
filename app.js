@@ -1,6 +1,28 @@
 ﻿const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
 
 const spotlightCarousels = [...document.querySelectorAll("[data-spotlight-carousel]")];
+const mobileEventListQuery = window.matchMedia("(max-width: 680px)");
+const mobileEventBatchSize = 18;
+const mobileMoreLabels = {
+  en: "Show more events",
+  es: "Ver mas eventos",
+  zh: "查看更多活动",
+  pt: "Ver mais eventos",
+  ru: "Показать еще",
+  ja: "イベントをもっと見る",
+  fr: "Voir plus d'evenements",
+  de: "Mehr Events anzeigen",
+  ko: "이벤트 더 보기"
+};
+
+function currentLanguageKey() {
+  return (document.documentElement.lang || "en").split("-")[0] || "en";
+}
+
+function mobileMoreText(hiddenCount) {
+  const label = mobileMoreLabels[currentLanguageKey()] || mobileMoreLabels.en;
+  return `${label} (${hiddenCount})`;
+}
 
 for (const carousel of spotlightCarousels) {
   const slides = [...carousel.querySelectorAll("[data-spotlight-slide]")];
@@ -77,8 +99,29 @@ for (const scope of galleryScopes) {
   const countOneTemplate = controls?.dataset.countOneTemplate || "1 event shown";
   const topicPills = [...scope.querySelectorAll("[data-browse-category]")];
   const cityPills = [...scope.querySelectorAll("[data-browse-city]")];
+  const eventCards = cards.filter((card) => card.classList.contains("event-card"));
+  const eventGrid = scope.querySelector(".gallery-grid");
+  const mobileMoreButton = eventCards.length > mobileEventBatchSize && eventGrid
+    ? document.createElement("button")
+    : null;
 
   let selectedCategory = filterRoot?.querySelector("[data-filter][aria-pressed='true']")?.dataset.filter || "all";
+  let mobileVisibleLimit = mobileEventBatchSize;
+
+  if (mobileMoreButton) {
+    mobileMoreButton.type = "button";
+    mobileMoreButton.className = "mobile-load-more";
+    mobileMoreButton.hidden = true;
+    eventGrid.after(mobileMoreButton);
+    mobileMoreButton.addEventListener("click", () => {
+      mobileVisibleLimit += mobileEventBatchSize;
+      applyFilters();
+    });
+    mobileEventListQuery.addEventListener("change", () => {
+      mobileVisibleLimit = mobileEventBatchSize;
+      applyFilters();
+    });
+  }
 
   function syncBrowsePills(categoryHits, cityHits, filtersActive) {
     for (const pill of topicPills) {
@@ -109,6 +152,9 @@ for (const scope of galleryScopes) {
     const categoryHits = new Map();
     const cityHits = new Map();
     let visibleCount = 0;
+    let mobileDisplayedCount = 0;
+    let mobileHiddenCount = 0;
+    const canLimitMobile = Boolean(mobileMoreButton) && mobileEventListQuery.matches && !filtersActive;
 
     for (const card of cards) {
       const categoryMatch = selectedCategory === "all" || card.dataset.category === selectedCategory;
@@ -118,7 +164,15 @@ for (const scope of galleryScopes) {
       const queryMatch = !query || searchText.includes(query);
       const visible = categoryMatch && statusMatch && cityMatch && queryMatch;
       card.classList.toggle("is-hidden", !visible);
+      card.classList.remove("is-mobile-limited");
       if (visible) visibleCount += 1;
+
+      if (visible && card.classList.contains("event-card")) {
+        mobileDisplayedCount += 1;
+        const mobileLimited = canLimitMobile && mobileDisplayedCount > mobileVisibleLimit;
+        card.classList.toggle("is-mobile-limited", mobileLimited);
+        if (mobileLimited) mobileHiddenCount += 1;
+      }
 
       // Facet tallies ignore their own dimension so each pill shows what
       // selecting it would yield under the other active filters.
@@ -143,6 +197,10 @@ for (const scope of galleryScopes) {
         : countTemplate.replace("{count}", String(visibleCount));
     }
     if (noResults) noResults.hidden = visibleCount !== 0;
+    if (mobileMoreButton) {
+      mobileMoreButton.hidden = !canLimitMobile || mobileHiddenCount === 0;
+      mobileMoreButton.textContent = mobileMoreText(mobileHiddenCount);
+    }
   }
 
   filterRoot?.addEventListener("click", (event) => {
@@ -165,6 +223,7 @@ for (const scope of galleryScopes) {
     if (searchInput) searchInput.value = "";
     if (statusSelect) statusSelect.value = "all";
     if (citySelect) citySelect.value = "all";
+    mobileVisibleLimit = mobileEventBatchSize;
     for (const item of filterRoot?.querySelectorAll("[data-filter]") || []) {
       item.setAttribute("aria-pressed", String(item.dataset.filter === "all"));
     }

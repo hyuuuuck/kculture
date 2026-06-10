@@ -369,7 +369,14 @@ function collectGuideLocalization() {
     "before leaving",
     "daily before public build",
     "Busan festivals / city events",
-    "Busan pop-ups / K-pop regional events"
+    "Busan pop-ups / K-pop regional events",
+    "official event watch",
+    "official campaign watch",
+    "duty-free event",
+    "foreign visitor benefits",
+    "shopping tourism",
+    "daily; hourly",
+    "manual queue; hourly"
   ];
   const surfaceLeaks = [];
   for (const lang of localizedLangs) {
@@ -407,6 +414,21 @@ function collectGuideLocalization() {
   surfaceLeaks.push(...germanHomeLeaks);
   for (const phrase of ["Veranstaltungsarten", "Feste & Kultur", "Zollfrei", "Einkaufen", "Landesweit", "Aktiv /"]) {
     if (!deHomeText.includes(phrase)) surfaceLeaks.push(`de/index:missing-${phrase}`);
+  }
+
+  const frHomeText = htmlText(readText("dist/fr/index.html"));
+  const frenchHomeLeaks = [
+    [/\bDuty[- ]free\b/, "duty-free-label"],
+    [/\bShopping\b/, "shopping-label"],
+    [/\bSHOPPING\b/, "shopping-thumbnail-label"],
+    [/\bTRAVEL BENEFITS\b/, "travel-benefits-thumbnail-label"],
+    [/\bNationwide\b/, "nationwide-label"],
+    [/\bLive\b/, "live-status-label"],
+    [/\bCity project\b/, "event-kind-label"]
+  ].filter(([pattern]) => pattern.test(frHomeText)).map(([, label]) => `fr/index:${label}`);
+  surfaceLeaks.push(...frenchHomeLeaks);
+  for (const phrase of ["Types d'evenements", "Hors taxes", "Achats", "National", "En cours"]) {
+    if (!frHomeText.includes(phrase)) surfaceLeaks.push(`fr/index:missing-${phrase}`);
   }
 
   const frRoute = readText("dist/fr/routes/index.html");

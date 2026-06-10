@@ -1345,7 +1345,7 @@ dict.fr = {
   navWatchlist: "Veille",
   heroEyebrow: "Evenements, pop-ups et offres en Coree pour les visiteurs",
   heroTitle: siteName,
-  heroText: "Verifications de sources officielles pour festivals, pop-ups K-pop, offres beaute, duty-free, grands magasins, meteo et notes de carte utiles aux visiteurs.",
+  heroText: "Verifications de sources officielles pour festivals, pop-ups K-pop, offres beaute, offres hors taxes, grands magasins, meteo et notes de carte utiles aux visiteurs.",
   ctaEvents: "Voir les evenements",
   ctaCalendar: "Ouvrir le calendrier",
   liveNow: "En cours",
@@ -1372,7 +1372,7 @@ dict.fr = {
   cityPages: "Par ville",
   browseDirectory: "Parcourir themes et lieux",
   browseTypeTitle: "Types d'evenements",
-  browseTypeText: "Commencez par festivals, pop-ups K-pop, beaute, duty-free, shopping ou avantages visiteurs.",
+  browseTypeText: "Commencez par festivals, pop-ups K-pop, beaute, offres hors taxes, achats ou avantages visiteurs.",
   browsePlaceTitle: "Lieux",
   browsePlaceText: "Les pages ville et national sont separees des themes pour parcourir par destination.",
   verifyBefore: "Verifiez la source officielle avant de vous deplacer.",
@@ -1384,9 +1384,9 @@ dict.fr = {
   festival: "Festivals",
   kpop: "Pop-ups K-pop",
   beauty: "Offres beaute",
-  dutyfree: "Duty free",
+  dutyfree: "Hors taxes",
   department: "Grands magasins",
-  shopping: "Shopping",
+  shopping: "Achats",
   benefits: "Avantages voyage",
   calendarTitle: "Calendrier des evenements",
   calendarText: "Les dates sont affichees comme plages de planification. Les offres peuvent fermer tot; chaque page renvoie vers la source officielle.",
@@ -1431,7 +1431,7 @@ dict.fr = {
   activeQueue: "File de revue active",
   fastMovingTopics: "Sujets rapides",
   latestCheckedGallery: "Dernieres verifications",
-  latestCheckedText: "Derniers controles officiels sur evenements, shopping, duty-free et pop-ups.",
+  latestCheckedText: "Derniers controles officiels sur evenements, achats, offres hors taxes et pop-ups.",
   rssFeedLabel: "Flux RSS",
   jsonFeedLabel: "Flux JSON",
   freshnessLogLabel: "Journal de fraicheur",
@@ -1536,7 +1536,7 @@ dict.fr = {
   weatherMostHours: "la plupart des heures",
   weatherRainChanceUpTo: "risque de pluie jusqu'a",
   weatherMixedConditions: "conditions mixtes",
-  routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages shopping, notes meteo et plans visiteurs proches.",
+  routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages d'achats, notes meteo et plans visiteurs proches.",
   sourceWarning: "Les details officiels peuvent changer. Confirmez toujours les regles, le lieu, l'eligibilite et le stock."
 };
 
@@ -1985,18 +1985,18 @@ const localizedCategoryDefinitions = {
     },
     beauty: {
       title: "Offres K-beauty et promotions OLIVE YOUNG",
-      description: "Pages de soldes K-beauty, coupons, rappels tax refund et itineraires shopping pour voyageurs en Coree."
+      description: "Pages de soldes K-beauty, coupons, rappels tax refund et itineraires d'achats pour voyageurs en Coree."
     },
     "duty-free": {
-      title: "Duty-free en Coree et offres avant l'aeroport",
-      description: "Offres Shilla, Lotte, Shinsegae et duty-free verifiees avec rappels d'eligibilite et de retrait."
+      title: "Offres hors taxes en Coree et retrait avant l'aeroport",
+      description: "Offres Shilla, Lotte, Shinsegae et hors taxes verifiees avec rappels d'eligibilite et de retrait."
     },
     "department-store": {
       title: "Grands magasins en Coree, soldes et pop-ups",
-      description: "Soldes, expositions culturelles, pop-ups et evenements par branche pour visiteurs qui font du shopping."
+      description: "Soldes, expositions culturelles, pop-ups et evenements par branche pour visiteurs qui preparent leurs achats."
     },
     shopping: {
-      title: "Festivals shopping et saisons de soldes en Coree",
+      title: "Saisons d'achats et de soldes en Coree",
       description: "Campagnes saisonnieres, archives Korea Grand Sale et pages officielles utiles pour preparer ses achats."
     },
     "travel-benefits": {
@@ -2267,7 +2267,7 @@ function cityPageCopy(lang, city) {
   if (lang === "fr") {
     return {
       ...base,
-      title: `${label}: evenements, pop-ups et shopping en Coree`,
+      title: `${label}: evenements, pop-ups et achats en Coree`,
       description: `Evenements verifies pour ${label} avec dates, meteo, noms coreens de carte, sources officielles et idees de trajet.`
     };
   }
@@ -2378,7 +2378,7 @@ const requiredUiFallbacks = {
     weatherMostHours: "la plupart des heures",
     weatherRainChanceUpTo: "risque de pluie jusqu'a",
     weatherMixedConditions: "conditions mixtes",
-    routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages shopping, notes meteo et plans visiteurs proches."
+    routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages d'achats, notes meteo et plans visiteurs proches."
   },
   de: {
     itemsUnit: "Eintrage",
@@ -2447,15 +2447,15 @@ function needsGeneratedVisitorCopy(value, lang) {
 const localizedGuideTitles = {
   fr: {
     "how-to-verify-korea-popups": "Verifier un pop-up K-pop en Coree avant d'y aller",
-    "korea-duty-free-before-flight": "Verifier les offres duty-free en Coree avant le vol",
+    "korea-duty-free-before-flight": "Verifier les offres hors taxes en Coree avant le vol",
     "korea-shopping-sale-calendar": "Calendrier des soldes en Coree pour visiteurs etrangers",
     "weather-for-korea-events": "Planifier les evenements en Coree avec la meteo",
-    "olive-young-shopping-strategy": "Planifier une journee shopping OLIVE YOUNG en Coree",
+    "olive-young-shopping-strategy": "Planifier une journee d'achats OLIVE YOUNG en Coree",
     "department-store-popup-planning": "Utiliser les pop-ups de grands magasins pendant un voyage en Coree",
     "kpop-ticket-merch-safety": "Verifier tickets, merch et pop-ups K-pop sans risque",
     "festival-day-itinerary-korea": "Construire un itineraire d'une journee de festival en Coree",
     "korea-event-transport-lockers": "Transport, consignes et bagages pour les evenements en Coree",
-    "tax-refund-payments-korea-shopping": "Tax refund et paiements pour le shopping en Coree",
+    "tax-refund-payments-korea-shopping": "Tax refund et paiements pour les achats en Coree",
     "korea-shopping-sale-season-calendar": "Saisons de soldes en Coree a surveiller",
     "verify-kpop-popup-notices-korea": "Verifier les annonces de pop-ups K-pop avant de planifier un voyage"
   },
@@ -2508,7 +2508,7 @@ function eventTravelTips(event, lang) {
     return [
       "Reverifiez la source officielle le jour meme, surtout pour les pop-ups, tickets et offres a stock limite.",
       "Copiez le nom coreen du lieu dans Naver Map, Kakao Map ou Google Maps avant de partir.",
-      "Gardez une option proche pour repas, shopping ou abri interieur si la file, la meteo ou le stock change.",
+      "Gardez une option proche pour repas, achats ou abri interieur si la file, la meteo ou le stock change.",
       "Finalisez achat, reservation et regles d'entree uniquement sur le site officiel ou la billetterie liee."
     ];
   }
@@ -2755,7 +2755,7 @@ function nowDashboard(lang) {
   const checkedLabel = `${tr(lang, "newlyChecked")} / ${dateText(lang, today)}`;
   const fastMovingDetail = local({
     en: "K-pop, beauty, duty-free, department stores",
-    fr: "K-pop, beaute, duty-free, grands magasins",
+    fr: "K-pop, beaute, hors taxes, grands magasins",
     de: "K-Pop, Beauty, Zollfrei, Kaufhauser"
   }, lang);
 
@@ -2853,7 +2853,10 @@ function eventKindLabel(event, lang = "en") {
 function thumbnailBrand(event, lang = "en") {
   const text = `${event.sourceName || ""} ${local(event.title, "en") || ""}`.toLowerCase();
   if (text.includes("olive young")) return "OLIVE YOUNG";
-  if (text.includes("duty free") || text.includes("shilla") || text.includes("lotte duty")) return "DUTY FREE";
+  if (text.includes("shilla")) return "SHILLA";
+  if (text.includes("lotte duty")) return "LOTTE";
+  if (text.includes("shinsegae duty")) return "SHINSEGAE";
+  if (text.includes("duty free")) return categoryLabel(lang, "duty-free").toUpperCase();
   if (text.includes("shinsegae")) return "SHINSEGAE";
   if (text.includes("hyundai")) return "HYUNDAI";
   if (text.includes("lotte")) return "LOTTE";
@@ -3190,8 +3193,8 @@ function localizedSourceTerm(value, lang = "en") {
     [/accommodation|lodging|hotel/, "hebergement"],
     [/coupon/, "coupons visiteurs"],
     [/benefit/, "avantages visiteurs"],
-    [/shopping|retail|sale/, "shopping et soldes"],
-    [/duty/, "duty-free"],
+    [/shopping|retail|sale/, "achats et soldes"],
+    [/duty/, "hors taxes"],
     [/department/, "grands magasins"],
     [/beauty|cosmetic/, "beaute"],
     [/concert|performance/, "concerts et spectacles"],
@@ -3225,7 +3228,15 @@ function localizedSourceTerm(value, lang = "en") {
     [/venue|date listing/, "listes lieu et date"],
     [/pop-up|popups/, "pop-ups"],
     [/brand|collaboration/, "collaborations marque"],
+    [/shipping/, "livraison internationale"],
     [/global|foreign visitor/, "visiteurs internationaux"],
+    [/campaign/, "campagnes"],
+    [/period/, "periode"],
+    [/reservation/, "reservations"],
+    [/inventory|stock/, "stock"],
+    [/entry|entrance/, "entree"],
+    [/opening/, "ouvertures"],
+    [/planning/, "planification visiteurs"],
     [/promotion|offer|gift/, "promotions visiteurs"],
     [/branch/, "pages de branche"],
     [/airport|pickup/, "retrait aeroport"],
@@ -3283,7 +3294,15 @@ function localizedSourceTerm(value, lang = "en") {
     [/venue|date listing/, "Ort- und Datumslisten"],
     [/pop-up|popups/, "Pop-ups"],
     [/brand|collaboration/, "Markenkooperationen"],
+    [/shipping/, "internationaler Versand"],
     [/global|foreign visitor/, "internationale Besucher"],
+    [/campaign/, "Kampagnen"],
+    [/period/, "Zeitraum"],
+    [/reservation/, "Reservierungen"],
+    [/inventory|stock/, "Bestand"],
+    [/entry|entrance/, "Einlass"],
+    [/opening/, "Starttermine"],
+    [/planning/, "Besucherplanung"],
     [/promotion|offer|gift/, "Besucheraktionen"],
     [/branch/, "Filialseiten"],
     [/airport|pickup/, "Flughafenabholung"],
@@ -3387,9 +3406,9 @@ const localizedRouteCopy = {
     },
     "central-seoul-shopping-route": {
       title: "Shopping a Myeongdong et promenade palais",
-      bestFor: "Offres beaute, achats duty-free et premier sejour a Seoul.",
+      bestFor: "Offres beaute, achats hors taxes et premier sejour a Seoul.",
       stops: ["Myeongdong", "Zone flagship OLIVE YOUNG", "Zone Lotte ou Shinsegae", "Cheonggyecheon ou Deoksugung"],
-      tips: ["Confirmez tax refund et eligibilite duty-free avant le paiement.", "Gardez passeport et details de depart pour les achats duty-free.", "Evitez l'heure de pointe avec des sacs de shopping."]
+      tips: ["Confirmez tax refund et eligibilite hors taxes avant le paiement.", "Gardez passeport et details de depart pour les achats hors taxes.", "Evitez l'heure de pointe avec des sacs d'achats."]
     },
     "yongsan-fan-route": {
       title: "Route fan K-pop et musee a Yongsan",
@@ -3405,9 +3424,9 @@ const localizedRouteCopy = {
     },
     "olympic-park-history-route": {
       title: "Olympic Park et histoire Baekje",
-      bestFor: "Concerts de musee, culture en famille et shopping cote Jamsil.",
+      bestFor: "Concerts de musee, culture en famille et achats cote Jamsil.",
       stops: ["Seoul Baekje Museum", "Olympic Park", "Forteresse Mongchontoseong", "Jamsil ou lac Seokchon"],
-      tips: ["Utilisez le musee pendant les heures tres chaudes.", "Verifiez les fermetures avant d'ajouter du shopping a Jamsil.", "Chaussures confortables car Olympic Park est vaste."]
+      tips: ["Utilisez le musee pendant les heures tres chaudes.", "Verifiez les fermetures avant d'ajouter des achats a Jamsil.", "Chaussures confortables car Olympic Park est vaste."]
     },
     "busan-concert-weekend": {
       title: "Week-end concert a Busan",
@@ -3429,7 +3448,7 @@ const localizedRouteCopy = {
     },
     "pangyo-shopping-culture-route": {
       title: "Shopping et culture a Pangyo",
-      bestFor: "Expositions de grands magasins, restaurants et shopping hors centre de Seoul.",
+      bestFor: "Expositions de grands magasins, restaurants et achats hors centre de Seoul.",
       stops: ["Hyundai Department Store Pangyo", "Etage culture ou exposition", "Restaurants de Pangyo", "Cafe Street ou retour Gangnam"],
       tips: ["Verifiez les horaires retour car Pangyo est hors centre.", "Utilisez les restaurants du grand magasin pour limiter les transferts.", "Les pages de branche sont souvent plus fiables que les reposts sociaux."]
     }
@@ -5388,7 +5407,7 @@ const sourceTransparencyCopy = {
     descOfficial: "Organisateur, marque, lieu, tourisme ou source publique utilisee comme reference officielle principale.",
     descTicketing: "Billetterie ou reservation pour les regles finales d'entree, places, ventes ou booking.",
     descListing: "Listing ou booking revu manuellement; K-Spot Now ajoute le contexte de planification.",
-    descOffer: "Marque, magasin, duty-free ou campagne pour eligibilite, stock, coupons et achat.",
+    descOffer: "Marque, magasin, offre hors taxes ou campagne pour eligibilite, stock, coupons et achat.",
     boundaryTitle: "Pourquoi cette page avant la source liee",
     boundaryGeneral: ({ sourceName }) => `Utilisez ${sourceName} pour l'avis final. Utilisez K-Spot Now avant pour garder meteo, nom coreen de carte, trajets proches, planning sauvegarde et role de source dans une seule vue.`,
     boundaryNol: "NOL World est la source de listing ou billetterie pour les details finaux. K-Spot Now est la couche de planification avant cela : meteo, noms coreens, trajets proches, comparaison sauvegardee et role de source restent visibles avant de partir.",
@@ -5519,8 +5538,8 @@ const localizedCategoryPurpose = {
     kpop: "Les evenements K-pop, pop-ups et cafes anniversaires changent vite; cette page aide a comparer entree, files, stock, reservations et source avant de vous deplacer.",
     festival: "Les festivals dependent beaucoup de la meteo, du transport et des horaires; cette page transforme l'annonce en plan de visite plus concret.",
     beauty: "Les offres beaute peuvent changer selon stock, coupon, branche et heure; cette page aide a verifier avant d'ajouter l'arret a votre trajet.",
-    shopping: "Les pages shopping sont utiles quand elles relient offre, quartier, horaires et alternative proche avant l'achat final.",
-    "duty-free": "Les offres duty-free dependent du passeport, depart, retrait et limites; cette page sert de checklist avant paiement.",
+    shopping: "Les pages d'achats sont utiles quand elles relient offre, quartier, horaires et alternative proche avant l'achat final.",
+    "duty-free": "Les offres hors taxes dependent du passeport, depart, retrait et limites; cette page sert de checklist avant paiement.",
     "department-store": "Les evenements de grands magasins changent par branche et etage; cette page clarifie lieu, dates et suite officielle.",
     "travel-benefits": "Les avantages voyage dependent souvent d'eligibilite, quota et region; cette page aide a verifier avant de planifier autour de la reduction."
   },
@@ -5706,7 +5725,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const spotlights = spotlightEvents(sorted);
   const homePageTitle = local({
     en: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
-    fr: `${siteName} - Evenements, pop-ups K-pop et offres shopping`,
+    fr: `${siteName} - Evenements, pop-ups K-pop et offres d'achats`,
     de: `${siteName} - Veranstaltungen, K-Pop-Pop-ups und Einkaufsangebote`
   }, lang);
   const eventsHeading = local({
@@ -5717,7 +5736,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const description = local({
     en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
-    fr: "Evenements de Coree, pop-ups K-pop, offres shopping, duty-free, calendriers, sources officielles et notes de planification.",
+    fr: "Evenements de Coree, pop-ups K-pop, offres d'achats, offres hors taxes, calendriers, sources officielles et notes de planification.",
     de: "Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufsangebote, zollfreie Kampagnen, Kalender, offizielle Quellen und Reiseplanung.",
     zh: "韩国活动、K-pop 快闪、购物优惠、免税活动、日历、官方来源和旅行准备。",
     pt: "Eventos da Coreia, K-pop pop-ups, ofertas, duty free, calendários, fontes oficiais e planejamento.",
@@ -5806,7 +5825,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <p>${esc(local({
             en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
             es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
-            fr: "Associez les evenements enregistres avec shopping, transport, meteo et courts itineraires avant de partir.",
+            fr: "Associez les evenements enregistres avec achats, transport, meteo et courts itineraires avant de partir.",
             de: "Kombinieren Sie gespeicherte Veranstaltungen vor der Abfahrt mit Einkaufen, Verkehr, Wetter und kurzen Routenideen.",
             zh: "出发前把保存的活动与附近购物、交通、天气和短路线一起比较。",
             pt: "Combine eventos salvos com compras, transporte, clima e roteiros curtos antes de sair.",
@@ -6704,7 +6723,11 @@ function renderGuides(lang) {
   return layout({
     lang,
     title: `${tr(lang, "guidesTitle")} - K-Spot Now`,
-    description: "Original visitor guides for Korea events, K-pop pop-ups, shopping, duty-free, and weather planning.",
+    description: local({
+      en: "Original visitor guides for Korea events, K-pop pop-ups, shopping, duty-free, and weather planning.",
+      fr: "Guides visiteurs originaux pour evenements en Coree, pop-ups K-pop, achats, offres hors taxes et planification meteo.",
+      de: "Eigene Besucherguides fur Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufen, zollfreie Angebote und Wetterplanung."
+    }, lang),
     body,
     canonicalPath: `/${lang}/guides/`,
     currentPathBuilder: (code) => `/${code}/guides/`
@@ -7188,7 +7211,7 @@ Object.assign(watchlistGroupCopy["tourism-festivals"], {
   de: { title: "Tourismus- und Festivalkalender", focus: "Offizielle Tourismus-, Stadt-, Kultur-, Ausstellungs-, Orts- und Festivalquellen fur Besucherplanung." }
 });
 Object.assign(watchlistGroupCopy["shopping-beauty-dutyfree"], {
-  fr: { title: "Shopping, K-beauty, duty-free et grands magasins", focus: "OLIVE YOUNG, duty-free, grands magasins, soldes, coupons, pop-ups, tax refund et avantages visiteurs." },
+  fr: { title: "Achats, K-beauty, hors taxes et grands magasins", focus: "OLIVE YOUNG, offres hors taxes, grands magasins, soldes, coupons, pop-ups, tax refund et avantages visiteurs." },
   de: { title: "Einkaufen, K-Beauty, Zollfrei und Kaufhauser", focus: "OLIVE YOUNG, zollfreie Angebote, Kaufhausnews, Sales, Coupons, Pop-ups, Tax Refund und Besucherangebote." }
 });
 Object.assign(watchlistGroupCopy["kpop-popups-ticketing"], {
@@ -7212,6 +7235,38 @@ function opsList(lang, key) {
 
 function watchlistGroupText(group, lang, key) {
   return watchlistGroupCopy[group.slug]?.[lang]?.[key] || watchlistGroupCopy[group.slug]?.en?.[key] || group[key];
+}
+
+function localizedCurationQueueLabel(item, lang = "en") {
+  const brand = item.artistOrBrand || item.owner || item.sourceName || item.label || "Official source";
+  const label = String(item.label || brand);
+  if (lang === "fr") {
+    if (/ticket|reservation/i.test(label)) return `${brand} - veille billetterie`;
+    if (/commerce/i.test(label)) return `${brand} - veille commerce officiel`;
+    if (/campaign/i.test(label)) return `${brand} - veille campagne officielle`;
+    if (/social/i.test(label)) return `${brand} - veille canaux officiels`;
+    if (/notice/i.test(label)) return `${brand} - veille avis officiel`;
+    if (/event|planning/i.test(label)) return `${brand} - veille evenement officielle`;
+    return `${brand} - veille officielle`;
+  }
+  if (lang === "de") {
+    if (/ticket|reservation/i.test(label)) return `${brand} - Ticketing-Beobachtung`;
+    if (/commerce/i.test(label)) return `${brand} - offizielles Commerce-Monitoring`;
+    if (/campaign/i.test(label)) return `${brand} - offizielles Kampagnenmonitoring`;
+    if (/social/i.test(label)) return `${brand} - offizielle Kanalbeobachtung`;
+    if (/notice/i.test(label)) return `${brand} - offizielles Hinweis-Monitoring`;
+    if (/event|planning/i.test(label)) return `${brand} - offizielle Veranstaltungsbeobachtung`;
+    return `${brand} - offizielles Monitoring`;
+  }
+  return label;
+}
+
+function localizedCurationQueueTopics(item, lang = "en") {
+  return (item.topics || [])
+    .slice(0, 4)
+    .map((topic) => localizedSourceTerm(topic, lang))
+    .filter(Boolean)
+    .join(", ");
 }
 
 function sourceRefreshPublicSummary() {
@@ -7379,9 +7434,9 @@ function renderWatchlist(lang) {
           <div class="queue-list">
             ${activeQueue.map((item) => `
               <a href="${esc(item.sourceUrl)}" rel="nofollow noopener" target="_blank">
-                <strong>${esc(item.label)}</strong>
-                <span>${esc(item.artistOrBrand)} - ${esc((item.topics || []).slice(0, 4).join(", "))}</span>
-                <em>${esc(item.refreshCadence)}</em>
+                <strong>${esc(localizedCurationQueueLabel(item, lang))}</strong>
+                <span>${esc(item.artistOrBrand)} - ${esc(localizedCurationQueueTopics(item, lang))}</span>
+                <em>${esc(localizedRefreshCadence(item.refreshCadence, lang))}</em>
               </a>`).join("")}
           </div>
         </div>
@@ -7621,7 +7676,7 @@ ${numberedSections(sections)}
 const extendedStaticPages = {
   fr: {
     about: [
-      "K-Spot Now est un radar multilingue d'evenements et de shopping pour les visiteurs qui planifient un voyage en Coree.",
+      "K-Spot Now est un radar multilingue d'evenements et d'achats pour les visiteurs qui planifient un voyage en Coree.",
       "K-Spot Now n'est pas une marketplace de tickets ni un service de paiement. Le site explique ce qui se passe, compare les sources officielles et envoie les visiteurs vers l'organisateur, la marque, le lieu ou la page de billetterie pour l'action finale.",
       "Le site privilegie les sources officielles, les dates claires, les notes pratiques et les labels de fraicheur honnetes.",
       "Les pop-ups K-pop et les annonces sociales passent par une curation avant publication."

@@ -247,6 +247,22 @@ for (const [pattern, label] of [
   if (pattern.test(deHomeText)) push("de/index.html", `German home still exposes ${label}.`);
 }
 
+const frHomeText = htmlText(frHome);
+for (const phrase of ["Types d'evenements", "Hors taxes", "Achats", "National", "En cours"]) {
+  assertIncludes(frHomeText, phrase, "fr/index.html", `French home browse/event UI should expose localized label: ${phrase}`);
+}
+for (const [pattern, label] of [
+  [/\bDuty[- ]free\b/, "English duty-free category label"],
+  [/\bShopping\b/, "English shopping label"],
+  [/\bSHOPPING\b/, "English shopping thumbnail label"],
+  [/\bTRAVEL BENEFITS\b/, "English travel-benefits thumbnail label"],
+  [/\bNationwide\b/, "English nationwide city label"],
+  [/\bLive\b/, "English live status label"],
+  [/\bCity project\b/, "English event-kind label"]
+]) {
+  if (pattern.test(frHomeText)) push("fr/index.html", `French home still exposes ${label}.`);
+}
+
 const visitorUiExpectations = {
   es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],
   zh: ["跳到主要内容", "官方精选", "保存", "新鲜度"],
@@ -327,7 +343,14 @@ const localizedLeakPhrases = [
   "before leaving",
   "daily before public build",
   "Busan festivals / city events",
-  "Busan pop-ups / K-pop regional events"
+  "Busan pop-ups / K-pop regional events",
+  "official event watch",
+  "official campaign watch",
+  "duty-free event",
+  "foreign visitor benefits",
+  "shopping tourism",
+  "daily; hourly",
+  "manual queue; hourly"
 ];
 
 for (const lang of ["fr", "de"]) {

@@ -146,6 +146,11 @@ assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision pa
 assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
 assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
 assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must preserve a visible text label beside the icon.");
+assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");
+assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must preserve a minimum 44px touch target.");
+assertIncludes(styles, ".save-event {\n  min-height: 44px;", "styles.css", "save buttons must preserve a minimum 44px touch target.");
+assertIncludes(styles, ".spotlight-arrow {\n    display: none;", "styles.css", "mobile spotlight controls should avoid cramped arrow buttons.");
+assertIncludes(styles, ".spotlight-controls .spotlight-tab {\n    width: 44px;\n    min-height: 44px;", "styles.css", "mobile spotlight tabs must preserve 44px touch targets.");
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");
 assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");

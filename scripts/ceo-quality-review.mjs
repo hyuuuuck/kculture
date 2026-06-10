@@ -243,6 +243,31 @@ function collectDetailUx() {
   }
 }
 
+function collectInteractionQuality() {
+  const styles = readText("styles.css");
+  const baseButtons = styles.match(/\.button,\s*\.filter-bar button\s*\{[\s\S]*?\}/)?.[0] || "";
+  const saveButton = styles.match(/\.save-event\s*\{[\s\S]*?\}/)?.[0] || "";
+  const mobileSpotlight = styles.match(/@media \(max-width: 680px\)\s*\{[\s\S]*?\.service-summary dd[\s\S]*?\n\}/)?.[0] || "";
+  const hasPrimaryTouchTargets = baseButtons.includes("min-height: 44px") && saveButton.includes("min-height: 44px");
+  const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-tab")
+    && mobileSpotlight.includes("width: 44px")
+    && mobileSpotlight.includes("min-height: 44px")
+    && mobileSpotlight.includes(".spotlight-arrow")
+    && mobileSpotlight.includes("display: none");
+
+  if (hasPrimaryTouchTargets && hasMobileSpotlightTargets) {
+    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, and mobile spotlight tabs preserve 44px touch targets.");
+  } else {
+    fail(
+      "designer",
+      "Interaction",
+      "Mobile touch targets",
+      `primary ${hasPrimaryTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
+      "Designer/Publisher: keep visitor controls at least 44px high and prevent cramped mobile spotlight arrows."
+    );
+  }
+}
+
 function collectContentPlanning() {
   if (events.length >= 35) pass("planner", "Content depth", "Event catalog", `${events.length} public events.`);
   else fail("planner", "Content depth", "Event catalog", `${events.length} public events.`, "Planner: add reviewed official events before AdSense submission.");
@@ -500,6 +525,7 @@ ${taskRows}
 collectHomeUx();
 collectCalendarUx();
 collectDetailUx();
+collectInteractionQuality();
 collectContentPlanning();
 collectSourceAudit();
 collectBenchmarkWatch();

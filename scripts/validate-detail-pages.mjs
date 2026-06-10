@@ -122,7 +122,7 @@ function eventDateLabel(event, lang, useLocalizedDates = true) {
     .replace(/\bMain listed date range\b/gi, lang === "fr" ? "Periode principale indiquee" : "Hauptzeitraum laut Quelle")
     .replace(/\bOverall campaign\b/gi, lang === "fr" ? "Campagne globale" : "Gesamtkampagne")
     .replace(/\bCoupon issue and stay period\b/gi, lang === "fr" ? "Emission des coupons et sejour" : "Coupon-Ausgabe und Aufenthaltszeitraum")
-    .replace(/\bopen Thu-Sun during the event period\b/gi, lang === "fr" ? "ouvert jeu-dim pendant l'evenement" : "geoffnet Do-So wahrend des Events")
+    .replace(/\bopen Thu-Sun during the event period\b/gi, lang === "fr" ? "ouvert jeu-dim pendant l'evenement" : "geoffnet Do-So wahrend der Veranstaltung")
     .replace(/\breservation-only entry via Weverse\b/gi, lang === "fr" ? "entree sur reservation via Weverse" : "Eintritt nur mit Reservierung via Weverse")
     .replace(/\brelay dates can differ by branch\b/gi, lang === "fr" ? "les dates varient selon la branche" : "Termine konnen je nach Filiale variieren")
     .replace(/\bdaily\b/gi, lang === "fr" ? "tous les jours" : "taglich")

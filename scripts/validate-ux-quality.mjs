@@ -230,6 +230,22 @@ assertIncludes(deHome, "Vor NOL World oder Ticketseiten", "de/index.html", "Germ
 assertIncludes(deHome, "Koreanische Karte, Kalender, Wetter und Routen", "de/index.html", "German home must explain the planning-layer value.");
 assertIncludes(deHome, "Koreanische Karte", "de/index.html", "German home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
+const deHomeText = htmlText(deHome);
+for (const phrase of ["Veranstaltungsarten", "Feste & Kultur", "Zollfrei", "Einkaufen", "Landesweit", "Aktiv /"]) {
+  assertIncludes(deHomeText, phrase, "de/index.html", `German home browse/event UI should expose localized label: ${phrase}`);
+}
+for (const [pattern, label] of [
+  [/\b\d+\s+Events\b/, "English event count unit"],
+  [/\bDuty[- ]free\b/, "English duty-free category label"],
+  [/\bShopping\b/, "English shopping label"],
+  [/\bSHOPPING\b/, "English shopping thumbnail label"],
+  [/\bTRAVEL BENEFITS\b/, "English travel-benefits thumbnail label"],
+  [/\bNationwide\b/, "English nationwide city label"],
+  [/\bLive\b/, "English live status label"],
+  [/\bCity project\b/, "English event-kind label"]
+]) {
+  if (pattern.test(deHomeText)) push("de/index.html", `German home still exposes ${label}.`);
+}
 
 const visitorUiExpectations = {
   es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],

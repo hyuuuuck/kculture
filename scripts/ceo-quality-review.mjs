@@ -393,6 +393,22 @@ function collectGuideLocalization() {
     }
   }
 
+  const deHomeText = htmlText(readText("dist/de/index.html"));
+  const germanHomeLeaks = [
+    [/\b\d+\s+Events\b/, "event-count-unit"],
+    [/\bDuty[- ]free\b/, "duty-free-label"],
+    [/\bShopping\b/, "shopping-label"],
+    [/\bSHOPPING\b/, "shopping-thumbnail-label"],
+    [/\bTRAVEL BENEFITS\b/, "travel-benefits-thumbnail-label"],
+    [/\bNationwide\b/, "nationwide-label"],
+    [/\bLive\b/, "live-status-label"],
+    [/\bCity project\b/, "event-kind-label"]
+  ].filter(([pattern]) => pattern.test(deHomeText)).map(([, label]) => `de/index:${label}`);
+  surfaceLeaks.push(...germanHomeLeaks);
+  for (const phrase of ["Veranstaltungsarten", "Feste & Kultur", "Zollfrei", "Einkaufen", "Landesweit", "Aktiv /"]) {
+    if (!deHomeText.includes(phrase)) surfaceLeaks.push(`de/index:missing-${phrase}`);
+  }
+
   const frRoute = readText("dist/fr/routes/index.html");
   const deRoute = readText("dist/de/routes/index.html");
   const frDetail = readText("dist/fr/events/bts-city-arirang-busan-2026.html");

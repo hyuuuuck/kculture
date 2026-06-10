@@ -3788,6 +3788,10 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="twitter:description" content="${esc(description)}">
   <meta name="twitter:image" content="${esc(metaImage)}">
   <meta name="theme-color" content="#246beb">
+  <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/brand/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
   ${googleVerificationMeta()}
   <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
   ${adsenseHeadScript()}
@@ -3797,8 +3801,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <a class="skip-link" href="#main-content">${tr(lang, "skipToMain")}</a>
   <header class="site-header">
     <a class="brand" href="/${lang}/" aria-label="${siteName} home">
-      <span class="brand-mark">KS</span>
-      <span>${siteName}</span>
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34" xmlns="http://www.w3.org/2000/svg"><path d="M32 5 C19.8 5 10 14.6 10 26.4 c0 13.4 17.3 29.6 20.5 32.5 a2.2 2.2 0 0 0 3 0 C36.7 56 54 39.8 54 26.4 54 14.6 44.2 5 32 5 Z" fill="#246beb"/><path d="M25.5 16.5 V36.5 M38.5 17 L27 26.3 M30 24 L39 36" stroke="#ffffff" stroke-width="5.6" stroke-linecap="round" fill="none"/><circle cx="49.5" cy="10.5" r="7.2" fill="#e85d3f" stroke="#ffffff" stroke-width="2.6"/></svg></span>
+      <span class="brand-name">K-Spot <em>Now</em></span>
     </a>
     ${nav(lang)}
     ${languageMenu(lang, currentPathBuilder)}

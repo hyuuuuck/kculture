@@ -159,6 +159,19 @@ function collectHomeUx() {
   } else {
     warn("planner", "Homepage utility", "Visitor-facing next step", "Homepage split band may still promote operational pages.", "Planner: route visitors toward calendar, routes, planner, or guides before source/audit pages.");
   }
+
+  const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
+  const hasWorkflow = planningLayer.includes("class=\"planning-flow\"")
+    && planningLayer.includes("Find signal")
+    && planningLayer.includes("Verify visitor details")
+    && planningLayer.includes("Continue officially");
+  const hasServiceBoundary = planningLayer.includes("not a ticket shop")
+    && planningLayer.includes("official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages");
+  if (hasWorkflow && hasServiceBoundary) {
+    pass("planner", "Positioning", "Planning-layer workflow", "Homepage explains why visitors plan on K-Spot Now before completing the final action on official sources.");
+  } else {
+    fail("planner", "Positioning", "Planning-layer workflow", `workflow ${hasWorkflow}, service boundary ${hasServiceBoundary}.`, "Planner/Designer: show the find, verify, continue-officially workflow and keep the non-ticket-shop boundary visible.");
+  }
 }
 
 function collectCalendarUx() {
@@ -176,6 +189,8 @@ function collectCalendarUx() {
 
 function collectDetailUx() {
   let missing = 0;
+  let missingChecklist = 0;
+  let internalKeyLeaks = 0;
   let checked = 0;
   for (const event of events) {
     for (const lang of languages) {
@@ -184,10 +199,18 @@ function collectDetailUx() {
       for (const token of ["fact-grid", "weather-overview", "map-link-list", "data-save-event", `href=\"/events/${event.slug}.ics\"`]) {
         if (!html.includes(token)) missing += 1;
       }
+      if (!html.includes("visitor-action-grid")) missingChecklist += 1;
+      if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) internalKeyLeaks += 1;
     }
   }
   if (!missing) pass("designer", "Detail pages", "Visitor planning blocks", `${checked} detail pages include fact, weather, map, save, and calendar blocks.`);
   else fail("designer", "Detail pages", "Visitor planning blocks", `${missing} required blocks missing across ${checked} pages.`, "Designer/Publisher: rebuild detail page layout and rerun validate:details.");
+
+  if (!missingChecklist) pass("designer", "Detail pages", "Visit-ready checklist", `${checked} detail pages show official confirmation, Korean map search, and flexible-plan reminders.`);
+  else fail("designer", "Detail pages", "Visit-ready checklist", `${missingChecklist}/${checked} detail pages are missing the checklist.`, "Designer/Planner: add the visit-ready checklist to every detail page.");
+
+  if (!internalKeyLeaks) pass("audit-institution", "Public copy", "No internal label leakage", `${checked} detail pages hide internal verification and collection translation keys.`);
+  else fail("audit-institution", "Public copy", "No internal label leakage", `${internalKeyLeaks}/${checked} detail pages expose internal keys.`, "Audit Institution: block release until public labels replace internal translation keys.");
 }
 
 function collectContentPlanning() {

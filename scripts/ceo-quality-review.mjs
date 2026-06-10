@@ -241,6 +241,17 @@ function collectContentPlanning() {
   if (guides.length >= 10) pass("planner", "Content depth", "Evergreen guides", `${guides.length} visitor guides.`);
   else fail("planner", "Content depth", "Evergreen guides", `${guides.length} visitor guides.`, "Planner: publish more original evergreen guides.");
 
+  const thinEventGuidance = events.filter((event) => {
+    const whyGo = String(event.whyGo?.en || "").trim();
+    const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
+    return whyGo.length < 70 || tips.length < 3;
+  });
+  if (!thinEventGuidance.length) {
+    pass("audit-institution", "Low-value content guard", "Original event guidance", `${events.length}/${events.length} events include why-go context and 3+ practical visitor tips.`);
+  } else {
+    fail("audit-institution", "Low-value content guard", "Original event guidance", `${thinEventGuidance.length} event pages are too thin.`, `Planner: strengthen whyGo or travelTips for ${thinEventGuidance.slice(0, 4).map((event) => event.slug).join(", ")}.`);
+  }
+
   if (routes.length >= 8) pass("planner", "Travel utility", "Route ideas", `${routes.length} route plans.`);
   else warn("planner", "Travel utility", "Route ideas", `${routes.length} route plans.`, "Planner: add more city and shopping route plans.");
 

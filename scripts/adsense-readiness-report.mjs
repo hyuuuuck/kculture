@@ -345,6 +345,26 @@ function summaryStats() {
   };
 }
 
+function originalVisitorValueStats() {
+  const missing = [];
+  for (const event of events) {
+    const whyGo = String(event.whyGo?.en || "").trim();
+    const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
+    if (whyGo.length < 70 || tips.length < 3) {
+      missing.push({
+        slug: event.slug,
+        whyGoLength: whyGo.length,
+        tips: tips.length
+      });
+    }
+  }
+  return {
+    expected: events.length,
+    ok: events.length - missing.length,
+    missing
+  };
+}
+
 function runChecks() {
   const stats = summaryStats();
   if (publicUrlOk()) pass("Production", "SITE_URL", siteUrl);
@@ -372,6 +392,13 @@ function runChecks() {
 
   if (guides.length >= 10) pass("Content", "Evergreen guides", `${guides.length} guides`);
   else fail("Content", "Evergreen guides", `${guides.length} guides`, "Add at least 10 useful visitor guides.");
+
+  const originalValue = originalVisitorValueStats();
+  if (originalValue.ok === originalValue.expected) {
+    pass("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} events include why-go context and 3+ practical visitor tips`);
+  } else {
+    fail("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} events meet the original-value floor`, `Add stronger whyGo copy or 3+ practical tips: ${originalValue.missing.slice(0, 4).map((item) => item.slug).join(", ")}.`);
+  }
 
   const thumbnails = thumbnailStats();
   if (thumbnails.ok === thumbnails.expected) {

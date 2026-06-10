@@ -291,7 +291,7 @@ for (const event of events) {
   if (!event.sourceName) push(errors, id, "sourceName is required.");
   if (!event.collectionMode) push(errors, id, "collectionMode is required.");
   if (!event.verification) push(errors, id, "verification is required.");
-  if (!Array.isArray(event.travelTips) || event.travelTips.length < 2) push(errors, id, "at least two travelTips are required.");
+  if (!Array.isArray(event.travelTips) || event.travelTips.length < 3) push(errors, id, "at least three travelTips are required for original visitor guidance.");
   if (!weatherRegions.has(event.weatherRegion)) push(errors, id, `weatherRegion is not configured: ${event.weatherRegion}`);
   assertUrl(id, "sourceUrl", event.sourceUrl);
   if (event.alternateSourceUrls !== undefined) {

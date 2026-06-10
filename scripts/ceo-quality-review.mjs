@@ -153,6 +153,21 @@ function collectHomeUx() {
     fail("designer", "Browse", "Representative browse cards", `${categoryMediaCards} topic cards and ${cityMediaCards} place cards use real event thumbnails.`, "Designer/Planner: use representative event or brand imagery for browse cards so visitors can recognize topics and destinations at a glance.");
   }
 
+  const eventCards = countMatches(home, /class="event-card"/g);
+  const sourceRows = countMatches(home, /class="event-source-row"/g);
+  const sourceRoles = ["official", "ticketing", "listing", "offer"].filter((role) => home.includes(`data-source-role="${role}"`));
+  if (eventCards && sourceRows === eventCards && sourceRoles.length === 4) {
+    pass("planner", "Positioning", "Card-level source roles", `${sourceRows}/${eventCards} event cards show official, ticketing, listing, or offer handoff roles.`);
+  } else {
+    fail(
+      "planner",
+      "Positioning",
+      "Card-level source roles",
+      `${sourceRows}/${eventCards} rows; roles ${sourceRoles.join(", ") || "none"}.`,
+      "Planner/Designer: every event card must show the linked-source role so visitors understand K-Spot Now is the planning layer before official, ticketing, listing, or offer pages."
+    );
+  }
+
   const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
   if (splitBand && !splitBand.includes("/en/sources/") && splitBand.includes("/en/routes/")) {
     pass("planner", "Homepage utility", "Visitor-facing next step", "Homepage promotes routes and calendar instead of operational source pages.");

@@ -1624,6 +1624,56 @@ img {
   font-weight: 760;
 }
 
+.event-source-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 740;
+  line-height: 1.25;
+}
+
+.event-source-row > span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-role-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  max-width: min(100%, 178px);
+  overflow: hidden;
+  border: 1px solid #c7d7ed;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: var(--blue-dark);
+  background: var(--surface-blue);
+  font-size: 0.76rem;
+  font-weight: 860;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-role-chip.listing,
+.source-role-chip.ticketing {
+  border-color: #d6c7eb;
+  color: #433067;
+  background: #f6f1ff;
+}
+
+.source-role-chip.offer {
+  border-color: #c8dfd4;
+  color: var(--teal-dark);
+  background: #f2fbf7;
+}
+
 .save-event {
   min-height: 44px;
   width: 100%;

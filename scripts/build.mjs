@@ -3482,8 +3482,9 @@ function galleryControls(lang, { categories = false, cities = false } = {}) {
 function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
+  const role = sourceRoleType(event);
   return `
-    <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
+    <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
       <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
         <span class="badge ${status}">${statusLabel(lang, status)}</span>
@@ -3498,6 +3499,10 @@ function eventCard(event, lang) {
           <span>${categoryLabel(lang, event.category)}</span>
           ${eventKindLabel(event, lang) ? `<span>${esc(eventKindLabel(event, lang))}</span>` : ""}
           <span>${esc(event.city)}</span>
+        </div>
+        <div class="event-source-row">
+          <span class="source-role-chip ${esc(role)}">${esc(sourceRoleLabel(event, lang))}</span>
+          <span>${esc(event.sourceName)}</span>
         </div>
         <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
         <p>${esc(eventSummaryText(event, lang))}</p>

@@ -112,6 +112,14 @@ const cityMediaCards = countMatches(home, /class="city-pill[^"]*has-media/g);
 if (cityMediaCards < 3) {
   push("en/index.html", `home city cards should use representative event thumbnails; found ${cityMediaCards}.`);
 }
+const homeEventCards = countMatches(home, /class="event-card"/g);
+const homeSourceRows = countMatches(home, /class="event-source-row"/g);
+if (homeEventCards !== homeSourceRows) {
+  push("en/index.html", `each home event card must show a linked-source role row; found ${homeSourceRows}/${homeEventCards}.`);
+}
+for (const role of ["official", "ticketing", "listing", "offer"]) {
+  assertIncludes(home, `data-source-role="${role}"`, "en/index.html", `home cards must expose ${role} source-role labels so visitors understand the handoff.`);
+}
 const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
 if (splitBand.includes("/en/sources/")) {
   push("en/index.html", "homepage split band should promote visitor routes/guides, not operational source pages.");
@@ -146,6 +154,8 @@ assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision pa
 assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
 assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
 assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must preserve a visible text label beside the icon.");
+assertIncludes(styles, ".event-source-row", "styles.css", "event cards must style source-role rows.");
+assertIncludes(styles, ".source-role-chip", "styles.css", "event cards must style linked-source role chips.");
 assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");
 assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".save-event {\n  min-height: 44px;", "styles.css", "save buttons must preserve a minimum 44px touch target.");
@@ -171,10 +181,12 @@ assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home mu
 assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
 assertIncludes(frHome, "Pourquoi l&#39;utiliser avant NOL World", "fr/index.html", "French home must answer the NOL World differentiation question.");
 assertIncludes(frHome, "K-Spot Now est le bureau de planification", "fr/index.html", "French home must explain the planning-layer value.");
+assertIncludes(frHome, "Listing / billetterie", "fr/index.html", "French home must expose linked-source role labels on event cards.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
 assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
 assertIncludes(deHome, "Warum vor NOL World", "de/index.html", "German home must answer the NOL World differentiation question.");
 assertIncludes(deHome, "K-Spot Now ist die Planungsebene", "de/index.html", "German home must explain the planning-layer value.");
+assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
 
 const visitorUiExpectations = {
   es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],

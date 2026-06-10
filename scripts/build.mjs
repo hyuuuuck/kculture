@@ -5118,20 +5118,20 @@ const serviceDifferenceCopy = {
     ]
   },
   de: {
-    eyebrow: "Planungsebene vs Listingseite",
-    title: "Vor NOL World oder Ticketseiten",
-    text: "Mit K-Spot Now auswahlen. Die finale Aktion bleibt bei der Originalquelle.",
-    listingLabel: "Einzelne Listingquelle",
-    listingTitle: "Wenn Sie schon wissen",
+    eyebrow: "Vor dem Besuch",
+    title: "Prufen Sie den Kontext vor der Buchung.",
+    text: "Mit K-Spot Now Daten, Orte, Wetter, Routen und Quellenrollen vergleichen. Buchen Sie danach bei der gewahlten Quelle.",
+    listingLabel: "Offizielle Quelle",
+    listingTitle: "Fur finale Details",
     listingPoints: [
-      "Detail einer Plattform.",
-      "Kauf, Reservierung, Coupon oder finale Info."
+      "Tickets, Reservierungen, Coupons oder Hinweise.",
+      "Finale Regeln, Bestand, Konto und Zahlung."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Vor der Entscheidung",
+    kspotTitle: "Fur die Planung",
     kspotPoints: [
-      "Koreanische Karte, Kalender, Wetter und Routen.",
-      "Labels: offiziell, Ticketing, Listing oder Angebot."
+      "Koreanische Karte, Kalender, Wetter, Routen und Hotels.",
+      "Quellenlabels zeigen, wofur jeder Link gedacht ist."
     ],
     proofs: [
       ["Vergleichen", "Veranstaltungen · Angebote · Routen"],
@@ -5140,86 +5140,86 @@ const serviceDifferenceCopy = {
     ]
   },
   zh: {
-    eyebrow: "规划页 vs 单一列表",
-    title: "先看 K-Spot Now，再去票务页",
-    text: "先用 K-Spot Now 判断去哪里。付款、预约和最终规则仍在原始来源完成。",
-    listingLabel: "单一来源",
-    listingTitle: "已经决定时",
+    eyebrow: "出发前",
+    title: "预订前先确认到访信息。",
+    text: "用 K-Spot Now 对比日期、地点、天气、路线和来源角色，再到你选择的来源完成预订。",
+    listingLabel: "官方来源",
+    listingTitle: "确认最终信息",
     listingPoints: [
-      "一个平台的详情。",
-      "购买、预约、优惠券或最终公告。"
+      "门票、预约、优惠券或公告。",
+      "最终规则、库存、账户和付款状态。"
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "决定之前",
+    kspotTitle: "行前规划",
     kspotPoints: [
-      "韩文地图名、日历、天气和路线。",
-      "标签：官方、票务、列表或优惠。"
+      "韩文地图名、日历、天气、路线和酒店。",
+      "来源角色标签帮助你理解每个链接的用途。"
     ],
     proofs: [
       ["比较", "活动 · 优惠 · 路线"],
       ["确认", "日期 · 天气 · 地图"],
-      ["继续", "原始来源"]
+      ["继续", "官方来源"]
     ]
   },
   ru: {
-    eyebrow: "Планирование vs один листинг",
-    title: "Перед NOL World или билетной страницей",
-    text: "Выберите через K-Spot Now. Оплата, бронь и финальные правила остаются у исходного источника.",
-    listingLabel: "Один источник",
-    listingTitle: "Когда уже решили",
+    eyebrow: "Перед выходом",
+    title: "Проверьте контекст перед бронированием.",
+    text: "Сравните даты, места, погоду, маршруты и роль источников в K-Spot Now. Завершайте бронь на выбранном источнике.",
+    listingLabel: "Официальный источник",
+    listingTitle: "Для финальных деталей",
     listingPoints: [
-      "Детали одной платформы.",
-      "Покупка, бронь, купон или финальное объявление."
+      "Билеты, бронирования, купоны или объявления.",
+      "Финальные правила, наличие, аккаунт и оплата."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Перед решением",
+    kspotTitle: "Для планирования",
     kspotPoints: [
-      "Корейское название для карт, календарь, погода и маршруты.",
-      "Метки: официальный, билеты, листинг или оффер."
+      "Корейские названия для карт, календарь, погода, маршруты и отели.",
+      "Метки источников показывают назначение каждой ссылки."
     ],
     proofs: [
       ["Сравнить", "События · офферы · маршруты"],
       ["Проверить", "Дата · погода · карта"],
-      ["Перейти", "Исходный источник"]
+      ["Перейти", "Официальный источник"]
     ]
   },
   ja: {
-    eyebrow: "計画ページ vs 単一リスト",
-    title: "NOL Worldやチケットページの前に",
-    text: "K-Spot Nowで行き先を判断。購入、予約、最終ルールは元の情報源で確認します。",
-    listingLabel: "単一ソース",
-    listingTitle: "行動が決まっている時",
+    eyebrow: "出発前",
+    title: "予約前に訪問情報を確認",
+    text: "K-Spot Nowで日程、場所、天気、ルート、情報源の役割を比較し、選んだ情報源で予約を完了します。",
+    listingLabel: "公式ソース",
+    listingTitle: "最終確認向け",
     listingPoints: [
-      "1つの平台の詳細。",
-      "購入、予約、クーポン、最終告知。"
+      "チケット、予約、クーポン、告知。",
+      "最終ルール、在庫、アカウント、支払い状況。"
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "決める前に",
+    kspotTitle: "計画向け",
     kspotPoints: [
-      "韓国語の地図名、カレンダー、天気、ルート。",
-      "公式、チケット、リスト、特典のラベル。"
+      "韓国語の地図名、カレンダー、天気、ルート、ホテル。",
+      "リンクごとの目的がわかる情報源ラベル。"
     ],
     proofs: [
       ["比較", "イベント · 特典 · ルート"],
       ["確認", "日付 · 天気 · 地図"],
-      ["移動", "元の情報源"]
+      ["移動", "公式ソース"]
     ]
   },
   pt: {
-    eyebrow: "Planejamento vs pagina de listagem",
-    title: "Antes do NOL World ou tickets",
-    text: "Use o K-Spot Now para escolher. Use a fonte original para a acao final.",
-    listingLabel: "Listagem de uma fonte",
-    listingTitle: "Quando voce ja sabe",
+    eyebrow: "Antes de sair",
+    title: "Confira o contexto antes de reservar.",
+    text: "Use o K-Spot Now para comparar datas, lugares, clima, rotas e papeis das fontes. Finalize na fonte escolhida.",
+    listingLabel: "Fonte oficial",
+    listingTitle: "Melhor para detalhes finais",
     listingPoints: [
-      "Detalhe de uma plataforma.",
-      "Compra, reserva, cupom ou aviso final."
+      "Tickets, reservas, cupons ou avisos.",
+      "Regras finais, estoque, conta e pagamento."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Antes de decidir",
+    kspotTitle: "Melhor para planejar",
     kspotPoints: [
-      "Mapa coreano, calendario, clima e rotas.",
-      "Labels: oficial, ticketing, listagem ou oferta."
+      "Mapa coreano, calendario, clima, rotas e hoteis.",
+      "Labels de fonte para saber para que serve cada link."
     ],
     proofs: [
       ["Comparar", "Eventos · ofertas · rotas"],
@@ -5296,7 +5296,7 @@ const sourceTransparencyCopy = {
     descOffer: "Brand, store, shopping, duty-free, or campaign source used for eligibility, stock, coupon, and purchase rules.",
     boundaryTitle: "Why this page before the linked source",
     boundaryGeneral: ({ sourceName }) => `Use ${sourceName} for the final notice. Use K-Spot Now first to keep weather, Korean map names, nearby routes, saved planning, and source-role checks in one visitor view.`,
-    boundaryNol: "NOL World is the listing or ticket source for final details. K-Spot Now is the planning layer before that: weather, Korean map names, nearby routes, saved comparison, and source-role checks stay visible before you leave.",
+    boundaryNol: "The linked listing or ticket source is where final details can change. K-Spot Now keeps weather, Korean map names, nearby routes, saved comparison, and source-role checks visible before you leave.",
     boundaryTicketing: ({ sourceName }) => `${sourceName} is where ticket inventory, account rules, pickup, refund, or seat details can change. K-Spot Now keeps the trip context visible before payment or reservation.`
   },
   es: {
@@ -5317,7 +5317,7 @@ const sourceTransparencyCopy = {
     descOffer: "Fuente de marca, tienda, duty-free o campana para elegibilidad, stock, cupones y compra.",
     boundaryTitle: "Por que esta pagina antes de la fuente enlazada",
     boundaryGeneral: ({ sourceName }) => `Usa ${sourceName} para el aviso final. Usa K-Spot Now antes para mantener clima, nombre coreano del mapa, rutas cercanas, plan guardado y rol de fuente en una vista.`,
-    boundaryNol: "NOL World es la fuente de listado o ticket para detalles finales. K-Spot Now es la capa de planificacion anterior: clima, nombres coreanos, rutas cercanas, comparacion guardada y rol de fuente quedan visibles antes de salir.",
+    boundaryNol: "La fuente enlazada de listado o ticket es donde pueden cambiar los detalles finales. K-Spot Now mantiene clima, nombres coreanos, rutas cercanas, comparacion guardada y rol de fuente visibles antes de salir.",
     boundaryTicketing: ({ sourceName }) => `${sourceName} es donde pueden cambiar inventario, cuenta, recogida, reembolso o asiento. K-Spot Now mantiene el contexto de viaje antes de pagar o reservar.`
   },
   zh: {
@@ -5355,7 +5355,7 @@ const sourceTransparencyCopy = {
     descOffer: "Fonte de marca, loja, duty-free ou campanha para elegibilidade, estoque, cupons e compra.",
     boundaryTitle: "Por que esta pagina antes da fonte linkada",
     boundaryGeneral: ({ sourceName }) => `Use ${sourceName} para o aviso final. Use K-Spot Now antes para manter clima, nome coreano no mapa, rotas proximas, plano salvo e papel da fonte em uma vista.`,
-    boundaryNol: "NOL World e a fonte de listagem ou ingresso para detalhes finais. K-Spot Now e a camada de planejamento anterior: clima, nomes coreanos, rotas proximas, comparacao salva e papel da fonte ficam visiveis antes de sair.",
+    boundaryNol: "A fonte vinculada de listagem ou ingresso e onde os detalhes finais podem mudar. K-Spot Now mantem clima, nomes coreanos, rotas proximas, comparacao salva e papel da fonte visiveis antes de sair.",
     boundaryTicketing: ({ sourceName }) => `${sourceName} e onde inventario, conta, retirada, reembolso ou assento podem mudar. K-Spot Now mantem o contexto de viagem antes de pagar ou reservar.`
   },
   ru: {
@@ -5410,7 +5410,7 @@ const sourceTransparencyCopy = {
     descOffer: "Marque, magasin, offre hors taxes ou campagne pour eligibilite, stock, coupons et achat.",
     boundaryTitle: "Pourquoi cette page avant la source liee",
     boundaryGeneral: ({ sourceName }) => `Utilisez ${sourceName} pour l'avis final. Utilisez K-Spot Now avant pour garder meteo, nom coreen de carte, trajets proches, planning sauvegarde et role de source dans une seule vue.`,
-    boundaryNol: "NOL World est la source de listing ou billetterie pour les details finaux. K-Spot Now est la couche de planification avant cela : meteo, noms coreens, trajets proches, comparaison sauvegardee et role de source restent visibles avant de partir.",
+    boundaryNol: "La source liee de listing ou billetterie est l'endroit ou les details finaux peuvent changer. K-Spot Now garde meteo, noms coreens, trajets proches, comparaison sauvegardee et role de source visibles avant de partir.",
     boundaryTicketing: ({ sourceName }) => `${sourceName} est l'endroit ou stock, compte, retrait, remboursement ou siege peuvent changer. K-Spot Now garde le contexte de voyage avant paiement ou reservation.`
   },
   de: {
@@ -5431,7 +5431,7 @@ const sourceTransparencyCopy = {
     descOffer: "Marke, Laden, zollfreies Angebot oder Kampagne fur Berechtigung, Bestand, Coupons und Kaufregeln.",
     boundaryTitle: "Warum diese Seite vor der verlinkten Quelle",
     boundaryGeneral: ({ sourceName }) => `Nutzen Sie ${sourceName} fur den finalen Hinweis. Nutzen Sie K-Spot Now zuerst, damit Wetter, koreanische Kartennamen, nahe Routen, gespeicherte Planung und Quellenrolle in einer Besucheransicht bleiben.`,
-    boundaryNol: "NOL World ist die Listing- oder Ticketquelle fur finale Details. K-Spot Now ist die Planungsebene davor: Wetter, koreanische Kartennamen, nahe Routen, gespeicherter Vergleich und Quellenrolle bleiben vor dem Wechsel sichtbar.",
+    boundaryNol: "Die verlinkte Listing- oder Ticketquelle ist der Ort, an dem finale Details wechseln konnen. K-Spot Now halt Wetter, koreanische Kartennamen, nahe Routen, gespeicherten Vergleich und Quellenrolle vor dem Wechsel sichtbar.",
     boundaryTicketing: ({ sourceName }) => `${sourceName} ist die Stelle, an der Bestand, Konto, Abholung, Erstattung oder Sitzdetails wechseln konnen. K-Spot Now halt den Reisekontext vor Zahlung oder Reservierung sichtbar.`
   }
 };

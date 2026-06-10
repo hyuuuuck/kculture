@@ -168,11 +168,11 @@ assertIncludes(planningLayer, "Book", "en/index.html", "home workflow must hand 
 assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-assertIncludes(differenceSection, "Before NOL World or ticket pages", "en/index.html", "home must explicitly answer why visitors use K-Spot Now before NOL World or ticket pages.");
-assertIncludes(differenceSection, "Planning desk vs listing page", "en/index.html", "home must distinguish planning from single-source listing pages.");
-assertIncludes(differenceSection, "final action", "en/index.html", "home must clarify that tickets, reservations, purchases, and final rules stay on linked sources.");
-assertIncludes(differenceSection, "Korean map names, calendar files, weather, route ideas", "en/index.html", "home must show value beyond raw listings.");
-assertIncludes(differenceSection, "official, ticketing, listing, or offer", "en/index.html", "home must explain source-role labels.");
+assertIncludes(differenceSection, "Check the visit context before you book.", "en/index.html", "home must frame the comparison as visitor planning, not a defensive competitor comparison.");
+assertIncludes(differenceSection, "Before you go", "en/index.html", "home must keep the section visitor-facing.");
+assertIncludes(differenceSection, "Finish bookings on the source you choose", "en/index.html", "home must clarify that final booking actions stay on linked sources.");
+assertIncludes(differenceSection, "Korean map names, calendar, weather, route ideas, and hotels", "en/index.html", "home must show value beyond raw listings.");
+assertIncludes(differenceSection, "Source-role labels", "en/index.html", "home must explain source-role labels without over-naming one platform.");
 assertIncludes(styles, ".service-difference", "styles.css", "service-difference section styling is missing.");
 assertIncludes(styles, ".difference-grid", "styles.css", "service-difference comparison grid styling is missing.");
 assertIncludes(styles, ".difference-proof-grid", "styles.css", "service-difference proof grid styling is missing.");
@@ -220,14 +220,14 @@ const frHome = read("fr/index.html");
 const deHome = read("de/index.html");
 assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");
 assertIncludes(frHome, "Pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(frHome, "Avant NOL World ou la billetterie", "fr/index.html", "French home must answer the NOL World differentiation question.");
-assertIncludes(frHome, "Carte coreenne, calendrier, meteo et trajets", "fr/index.html", "French home must explain the planning-layer value.");
+assertIncludes(frHome, "Verifiez le contexte avant de reserver", "fr/index.html", "French home must frame comparison as visitor planning context.");
+assertIncludes(frHome, "Carte coreenne, calendrier, meteo, trajets et hotels", "fr/index.html", "French home must explain the planning-layer value.");
 assertIncludes(frHome, "Listing / billetterie", "fr/index.html", "French home must expose linked-source role labels on event cards.");
 assertIncludes(frHome, "Carte coreenne", "fr/index.html", "French home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
 assertIncludes(deHome, "Kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(deHome, "Vor NOL World oder Ticketseiten", "de/index.html", "German home must answer the NOL World differentiation question.");
-assertIncludes(deHome, "Koreanische Karte, Kalender, Wetter und Routen", "de/index.html", "German home must explain the planning-layer value.");
+assertIncludes(deHome, "Prufen Sie den Kontext vor der Buchung", "de/index.html", "German home must frame comparison as visitor planning context.");
+assertIncludes(deHome, "Koreanische Karte, Kalender, Wetter, Routen und Hotels", "de/index.html", "German home must explain the planning-layer value.");
 assertIncludes(deHome, "Koreanische Karte", "de/index.html", "German home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
 const deHomeText = htmlText(deHome);
@@ -305,9 +305,9 @@ assertIncludes(deDetail, "offiziellen", "de/events/bts-city-arirang-busan-2026.h
 const frNolDetail = read("fr/events/blackpink-tamagotchi-seoul-forest-2026.html");
 const deNolDetail = read("de/events/blackpink-tamagotchi-seoul-forest-2026.html");
 assertIncludes(frNolDetail, "Pourquoi cette page avant la source liee", "fr/events/blackpink-tamagotchi-seoul-forest-2026.html", "French NOL detail must explain why K-Spot Now comes before the linked source.");
-assertIncludes(frNolDetail, "NOL World est la source de listing ou billetterie", "fr/events/blackpink-tamagotchi-seoul-forest-2026.html", "French NOL detail must distinguish K-Spot Now from NOL World.");
+assertIncludes(frNolDetail, "La source liee de listing ou billetterie", "fr/events/blackpink-tamagotchi-seoul-forest-2026.html", "French detail must describe linked listing/ticket sources without defensive platform naming.");
 assertIncludes(deNolDetail, "Warum diese Seite vor der verlinkten Quelle", "de/events/blackpink-tamagotchi-seoul-forest-2026.html", "German NOL detail must explain why K-Spot Now comes before the linked source.");
-assertIncludes(deNolDetail, "NOL World ist die Listing- oder Ticketquelle", "de/events/blackpink-tamagotchi-seoul-forest-2026.html", "German NOL detail must distinguish K-Spot Now from NOL World.");
+assertIncludes(deNolDetail, "Die verlinkte Listing- oder Ticketquelle", "de/events/blackpink-tamagotchi-seoul-forest-2026.html", "German detail must describe linked listing/ticket sources without defensive platform naming.");
 
 const frRouteIndex = read("fr/routes/index.html");
 const deRouteIndex = read("de/routes/index.html");
@@ -412,9 +412,9 @@ if (seoulAffiliateEvent) {
 }
 
 const nolDetail = read("en/events/blackpink-tamagotchi-seoul-forest-2026.html");
-assertIncludes(nolDetail, "Listing / ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "NOL World listing pages must be labeled as listing/ticket sources, not generic official-source pages.");
-assertIncludes(nolDetail, "Listing or booking source used after manual review", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "NOL World listing pages must explain the manual-review planning layer.");
-assertIncludes(nolDetail, "NOL World is the listing or ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "NOL World details must state that final details remain on NOL World while K-Spot Now is the planning layer.");
+assertIncludes(nolDetail, "Listing / ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing pages must be labeled as listing/ticket sources, not generic official-source pages.");
+assertIncludes(nolDetail, "Listing or booking source used after manual review", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing pages must explain the manual-review planning layer.");
+assertIncludes(nolDetail, "The linked listing or ticket source is where final details can change", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing details must explain the official handoff without defensive platform naming.");
 
 for (const lang of languages) {
   for (const guide of guides) {

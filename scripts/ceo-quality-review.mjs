@@ -236,16 +236,16 @@ function collectHomeUx() {
   }
 
   const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-  const answersNolQuestion = differenceSection.includes("Before NOL World or ticket pages")
-    && differenceSection.includes("Planning desk vs listing page")
-    && differenceSection.includes("Single-source listing")
-    && differenceSection.includes("Use K-Spot Now to choose");
-  const provesAddedValue = differenceSection.includes("Korean map names, calendar files, weather, route ideas")
-    && differenceSection.includes("official, ticketing, listing, or offer");
-  if (answersNolQuestion && provesAddedValue) {
-    pass("planner", "Positioning", "Single-source differentiation", "Homepage differentiates K-Spot Now from NOL World, ticketing, and single-source listing pages with compact copy.");
+  const visitorFirstPositioning = differenceSection.includes("Check the visit context before you book.")
+    && differenceSection.includes("Before you go")
+    && differenceSection.includes("Official source page")
+    && differenceSection.includes("Finish bookings on the source you choose");
+  const provesAddedValue = differenceSection.includes("Korean map names, calendar, weather, route ideas, and hotels")
+    && differenceSection.includes("Source-role labels");
+  if (visitorFirstPositioning && provesAddedValue) {
+    pass("planner", "Positioning", "Visitor planning differentiation", "Homepage explains K-Spot Now as a neutral pre-booking context layer with compact copy.");
   } else {
-    fail("planner", "Positioning", "Single-source differentiation", `answers NOL question ${answersNolQuestion}, proves added value ${provesAddedValue}.`, "Planner/Designer: keep the K-Spot Now vs single-source comparison clear, short, and focused on planning context, source-role labels, maps, weather, routes, calendar, and official handoff.");
+    fail("planner", "Positioning", "Visitor planning differentiation", `visitor-first positioning ${visitorFirstPositioning}, proves added value ${provesAddedValue}.`, "Planner/Designer: keep the comparison clear, short, visitor-facing, and focused on planning context, source-role labels, maps, weather, routes, calendar, hotels, and official handoff.");
   }
 
   const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");

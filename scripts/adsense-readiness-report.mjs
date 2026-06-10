@@ -231,6 +231,29 @@ function detailPlanningStats() {
   };
 }
 
+function detailSourceBoundaryStats() {
+  const checkedLanguages = ["en", "es", "pt", "fr", "de"];
+  const missing = [];
+  for (const lang of checkedLanguages) {
+    for (const event of events) {
+      const relativePath = `dist/${lang}/events/${event.slug}.html`;
+      if (!exists(relativePath)) {
+        missing.push(`${lang}:${event.slug}:page`);
+        continue;
+      }
+      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
+      if (!html.includes("source-boundary-callout")) {
+        missing.push(`${lang}:${event.slug}:source-boundary`);
+      }
+    }
+  }
+  return {
+    expected: checkedLanguages.length * events.length,
+    ok: checkedLanguages.length * events.length - missing.length,
+    missing
+  };
+}
+
 function sourceHaystack(source) {
   return [
     source.name,
@@ -422,6 +445,13 @@ function runChecks() {
     pass("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`);
   } else {
     fail("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`, "Run npm.cmd run validate:details and fix missing source, weather, map, route, or guide blocks.");
+  }
+
+  const sourceBoundary = detailSourceBoundaryStats();
+  if (sourceBoundary.ok === sourceBoundary.expected) {
+    pass("UX", "Planning-layer differentiation", `${sourceBoundary.ok}/${sourceBoundary.expected} checked detail pages explain K-Spot Now before the linked source`);
+  } else {
+    fail("UX", "Planning-layer differentiation", `${sourceBoundary.ok}/${sourceBoundary.expected} checked detail pages include source-boundary copy`, `Add linked-source boundary copy to ${sourceBoundary.missing.slice(0, 4).join(", ")}.`);
   }
 
   const officialEvents = events.filter((event) => /^official/.test(event.verification || "")).length;

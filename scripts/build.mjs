@@ -3941,7 +3941,11 @@ const sourceTransparencyCopy = {
     descOfficial: "Organizer, brand, venue, tourism, or public-agency source used as the primary official reference.",
     descTicketing: "Ticketing or reservation source used for final entry, seat, sales, or booking rules.",
     descListing: "Listing or booking source used after manual review; K-Spot Now adds planning context and points visitors back for final action.",
-    descOffer: "Brand, store, shopping, duty-free, or campaign source used for eligibility, stock, coupon, and purchase rules."
+    descOffer: "Brand, store, shopping, duty-free, or campaign source used for eligibility, stock, coupon, and purchase rules.",
+    boundaryTitle: "Why this page before the linked source",
+    boundaryGeneral: ({ sourceName }) => `Use ${sourceName} for the final notice. Use K-Spot Now first to keep weather, Korean map names, nearby routes, saved planning, and source-role checks in one visitor view.`,
+    boundaryNol: "NOL World is the listing or ticket source for final details. K-Spot Now is the planning layer before that: weather, Korean map names, nearby routes, saved comparison, and source-role checks stay visible before you leave.",
+    boundaryTicketing: ({ sourceName }) => `${sourceName} is where ticket inventory, account rules, pickup, refund, or seat details can change. K-Spot Now keeps the trip context visible before payment or reservation.`
   },
   es: {
     title: "Transparencia de fuente",
@@ -3958,7 +3962,11 @@ const sourceTransparencyCopy = {
     descOfficial: "Fuente de organizador, marca, venue, turismo o entidad publica usada como referencia principal.",
     descTicketing: "Fuente de tickets o reservas para reglas finales de entrada, asiento, venta o booking.",
     descListing: "Listado o booking revisado manualmente; K-Spot Now agrega contexto de planificacion.",
-    descOffer: "Fuente de marca, tienda, duty-free o campana para elegibilidad, stock, cupones y compra."
+    descOffer: "Fuente de marca, tienda, duty-free o campana para elegibilidad, stock, cupones y compra.",
+    boundaryTitle: "Por que esta pagina antes de la fuente enlazada",
+    boundaryGeneral: ({ sourceName }) => `Usa ${sourceName} para el aviso final. Usa K-Spot Now antes para mantener clima, nombre coreano del mapa, rutas cercanas, plan guardado y rol de fuente en una vista.`,
+    boundaryNol: "NOL World es la fuente de listado o ticket para detalles finales. K-Spot Now es la capa de planificacion anterior: clima, nombres coreanos, rutas cercanas, comparacion guardada y rol de fuente quedan visibles antes de salir.",
+    boundaryTicketing: ({ sourceName }) => `${sourceName} es donde pueden cambiar inventario, cuenta, recogida, reembolso o asiento. K-Spot Now mantiene el contexto de viaje antes de pagar o reservar.`
   },
   zh: {
     title: "来源透明度",
@@ -3992,7 +4000,11 @@ const sourceTransparencyCopy = {
     descOfficial: "Fonte de organizador, marca, venue, turismo ou orgao publico usada como referencia principal.",
     descTicketing: "Fonte de ingressos ou reservas para regras finais de entrada, assento, venda ou booking.",
     descListing: "Listagem ou booking revisado manualmente; K-Spot Now acrescenta contexto de planejamento.",
-    descOffer: "Fonte de marca, loja, duty-free ou campanha para elegibilidade, estoque, cupons e compra."
+    descOffer: "Fonte de marca, loja, duty-free ou campanha para elegibilidade, estoque, cupons e compra.",
+    boundaryTitle: "Por que esta pagina antes da fonte linkada",
+    boundaryGeneral: ({ sourceName }) => `Use ${sourceName} para o aviso final. Use K-Spot Now antes para manter clima, nome coreano no mapa, rotas proximas, plano salvo e papel da fonte em uma vista.`,
+    boundaryNol: "NOL World e a fonte de listagem ou ingresso para detalhes finais. K-Spot Now e a camada de planejamento anterior: clima, nomes coreanos, rotas proximas, comparacao salva e papel da fonte ficam visiveis antes de sair.",
+    boundaryTicketing: ({ sourceName }) => `${sourceName} e onde inventario, conta, retirada, reembolso ou assento podem mudar. K-Spot Now mantem o contexto de viagem antes de pagar ou reservar.`
   },
   ru: {
     title: "Прозрачность источника",
@@ -4043,7 +4055,11 @@ const sourceTransparencyCopy = {
     descOfficial: "Organisateur, marque, lieu, tourisme ou source publique utilisee comme reference officielle principale.",
     descTicketing: "Billetterie ou reservation pour les regles finales d'entree, places, ventes ou booking.",
     descListing: "Listing ou booking revu manuellement; K-Spot Now ajoute le contexte de planification.",
-    descOffer: "Marque, magasin, duty-free ou campagne pour eligibilite, stock, coupons et achat."
+    descOffer: "Marque, magasin, duty-free ou campagne pour eligibilite, stock, coupons et achat.",
+    boundaryTitle: "Pourquoi cette page avant la source liee",
+    boundaryGeneral: ({ sourceName }) => `Utilisez ${sourceName} pour l'avis final. Utilisez K-Spot Now avant pour garder meteo, nom coreen de carte, trajets proches, planning sauvegarde et role de source dans une seule vue.`,
+    boundaryNol: "NOL World est la source de listing ou billetterie pour les details finaux. K-Spot Now est la couche de planification avant cela : meteo, noms coreens, trajets proches, comparaison sauvegardee et role de source restent visibles avant de partir.",
+    boundaryTicketing: ({ sourceName }) => `${sourceName} est l'endroit ou stock, compte, retrait, remboursement ou siege peuvent changer. K-Spot Now garde le contexte de voyage avant paiement ou reservation.`
   },
   de: {
     title: "Quellentransparenz",
@@ -4060,7 +4076,11 @@ const sourceTransparencyCopy = {
     descOfficial: "Veranstalter, Marke, Ort, Tourismus oder offentliche Stelle als wichtigste offizielle Referenz.",
     descTicketing: "Ticket- oder Reservierungsquelle fur Eintritt, Sitzplatz, Verkauf oder Buchungsregeln.",
     descListing: "Manuell gepruftes Listing oder Booking; K-Spot Now erganzt Planungskontext.",
-    descOffer: "Marke, Store, Duty-free oder Kampagne fur Berechtigung, Bestand, Coupons und Kaufregeln."
+    descOffer: "Marke, Store, Duty-free oder Kampagne fur Berechtigung, Bestand, Coupons und Kaufregeln.",
+    boundaryTitle: "Warum diese Seite vor der verlinkten Quelle",
+    boundaryGeneral: ({ sourceName }) => `Nutzen Sie ${sourceName} fur den finalen Hinweis. Nutzen Sie K-Spot Now zuerst, damit Wetter, koreanische Kartennamen, nahe Routen, gespeicherte Planung und Quellenrolle in einer Besucheransicht bleiben.`,
+    boundaryNol: "NOL World ist die Listing- oder Ticketquelle fur finale Details. K-Spot Now ist die Planungsebene davor: Wetter, koreanische Kartennamen, nahe Routen, gespeicherter Vergleich und Quellenrolle bleiben vor dem Wechsel sichtbar.",
+    boundaryTicketing: ({ sourceName }) => `${sourceName} ist die Stelle, an der Bestand, Konto, Abholung, Erstattung oder Sitzdetails wechseln konnen. K-Spot Now halt den Reisekontext vor Zahlung oder Reservierung sichtbar.`
   }
 };
 
@@ -4088,8 +4108,19 @@ function sourceRoleDescription(event, lang) {
   return role === "listing" ? copy.descListing : role === "ticketing" ? copy.descTicketing : role === "offer" ? copy.descOffer : copy.descOfficial;
 }
 
+function sourceBoundaryText(event, lang) {
+  const copy = sourceCopy(lang);
+  if (!copy.boundaryTitle) return "";
+  const role = sourceRoleType(event);
+  const sourceName = event.sourceName || sourceRoleLabel(event, lang);
+  if (role === "listing") return copy.boundaryNol;
+  if (role === "ticketing") return copy.boundaryTicketing({ sourceName });
+  return copy.boundaryGeneral({ sourceName });
+}
+
 function sourceTransparencySection(event, lang) {
   const copy = sourceCopy(lang);
+  const boundaryText = sourceBoundaryText(event, lang);
   return `
         <section class="detail-section source-transparency-section" aria-labelledby="source-transparency-title">
           <div class="detail-section-head">
@@ -4117,6 +4148,11 @@ function sourceTransparencySection(event, lang) {
               <p>${esc(copy.finalText)}</p>
             </div>
           </div>
+          ${boundaryText ? `
+          <div class="source-boundary-callout">
+            <strong>${esc(copy.boundaryTitle)}</strong>
+            <p>${esc(boundaryText)}</p>
+          </div>` : ""}
         </section>`;
 }
 

@@ -203,9 +203,11 @@ function collectCalendarUx() {
 function collectDetailUx() {
   let missing = 0;
   let missingChecklist = 0;
+  let missingSourceBoundary = 0;
   let missingLocalizedBrief = 0;
   let internalKeyLeaks = 0;
   let checked = 0;
+  const sourceBoundaryLangs = new Set(["en", "es", "pt", "fr", "de"]);
   for (const event of events) {
     for (const lang of languages) {
       checked += 1;
@@ -214,6 +216,7 @@ function collectDetailUx() {
         if (!html.includes(token)) missing += 1;
       }
       if (!html.includes("visitor-action-grid")) missingChecklist += 1;
+      if (sourceBoundaryLangs.has(lang) && !html.includes("source-boundary-callout")) missingSourceBoundary += 1;
       if ((lang === "fr" || lang === "de") && !html.includes("localized-visitor-brief")) missingLocalizedBrief += 1;
       if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) internalKeyLeaks += 1;
     }
@@ -223,6 +226,12 @@ function collectDetailUx() {
 
   if (!missingChecklist) pass("designer", "Detail pages", "Visit-ready checklist", `${checked} detail pages show official confirmation, Korean map search, and flexible-plan reminders.`);
   else fail("designer", "Detail pages", "Visit-ready checklist", `${missingChecklist}/${checked} detail pages are missing the checklist.`, "Designer/Planner: add the visit-ready checklist to every detail page.");
+
+  if (!missingSourceBoundary) {
+    pass("planner", "Positioning", "Detail source boundary", `${events.length * sourceBoundaryLangs.size} detail pages explain why visitors use K-Spot Now before the linked source.`);
+  } else {
+    fail("planner", "Positioning", "Detail source boundary", `${missingSourceBoundary}/${events.length * sourceBoundaryLangs.size} detail pages are missing linked-source boundary copy.`, "Planner/Designer: add a concise K-Spot Now before source handoff explanation to detail pages.");
+  }
 
   if (!internalKeyLeaks) pass("audit-institution", "Public copy", "No internal label leakage", `${checked} detail pages hide internal verification and collection translation keys.`);
   else fail("audit-institution", "Public copy", "No internal label leakage", `${internalKeyLeaks}/${checked} detail pages expose internal keys.`, "Audit Institution: block release until public labels replace internal translation keys.");

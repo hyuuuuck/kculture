@@ -209,6 +209,9 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, esc(event.sourceName), id, "source name is missing from the page.");
   assertIncludes(html, "visitor-action-grid", id, "visit-ready action checklist is missing.");
   assertIncludes(html, "source-transparency-section", id, "source transparency section is missing.");
+  if (["en", "fr", "de"].includes(lang)) {
+    assertIncludes(html, "source-boundary-callout", id, "linked-source boundary callout is missing.");
+  }
   assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing from visit-ready checklist.");
   if (event.officialWebsiteUrl) {
     assertIncludes(html, `href="${esc(event.officialWebsiteUrl)}"`, id, "official event website link is missing.");

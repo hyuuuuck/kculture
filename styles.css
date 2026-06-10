@@ -2463,6 +2463,28 @@ img {
   overflow-wrap: anywhere;
 }
 
+.source-boundary-callout {
+  display: grid;
+  gap: 6px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+  background: #f7faff;
+}
+
+.source-boundary-callout strong {
+  color: var(--blue-dark);
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.source-boundary-callout p {
+  margin: 0;
+  color: #344054;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .localized-visitor-brief {
   padding: 0;
   overflow: hidden;

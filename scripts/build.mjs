@@ -3027,7 +3027,7 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
           <h2>${tr(lang, "weatherPlan")}</h2>
           ${forecastOverview(forecast)}
           ${forecastStrip(forecast, lang)}
-          <p class="weather-source-line"><strong>KMA short-term forecast</strong><span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast))}</span></p>
+          <p class="weather-source-line"><strong>KMA short-term forecast</strong> <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast))}</span></p>
           ${weatherTags(items)}
           <p class="meta-note">KMA forecast updated ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> Forecast source: ${esc(forecast.source?.name || "KMA forecast RSS")}. Previous-year monthly baseline: ${esc(weather.source.name)}.</span></p>`;
   }
@@ -3046,7 +3046,7 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
             </div>
           </div>
           ${weatherTags(region.packing)}
-          <p class="meta-note">Weather baseline: ${esc(weather.source.name)}<span class="sr-only"> Previous-year monthly baseline.</span></p>`;
+          <p class="meta-note">Weather baseline: ${esc(weather.source.name)} <span class="sr-only">Previous-year monthly baseline.</span></p>`;
 }
 
 function calendarWeatherText(event, lang) {
@@ -3454,7 +3454,7 @@ function eventCard(event, lang) {
 }
 
 function saveEventButton(event, lang) {
-  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false">${tr(lang, "saveEvent")}</button>`;
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
 }
 
 function spotlightEvents(sorted) {

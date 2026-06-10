@@ -129,6 +129,8 @@ assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer gri
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
+assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must preserve a visible text label beside the icon.");
+assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");
 assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");
 const frHome = read("fr/index.html");
@@ -169,6 +171,7 @@ for (const event of activeEvents) {
   }
   assertIncludes(html, "class=\"handoff-note\"", `en/events/${event.slug}.html`, "detail page must include an official-source handoff note.");
   assertIncludes(html, "Plan here, then complete tickets, reservations, purchases", `en/events/${event.slug}.html`, "detail page must explain that final action happens on the official source.");
+  assertIncludes(html, "data-save-event-label", `en/events/${event.slug}.html`, "detail save button must include a durable visible label node.");
   assertIncludes(html, "Visit-ready checklist", `en/events/${event.slug}.html`, "detail page must surface an at-a-glance visitor action checklist.");
   assertIncludes(html, "Confirm on the official page", `en/events/${event.slug}.html`, "detail checklist must direct visitors to final official confirmation.");
   assertIncludes(html, "Search the Korean place name", `en/events/${event.slug}.html`, "detail checklist must explain map-ready Korean place search.");

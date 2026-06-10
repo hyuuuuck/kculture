@@ -202,7 +202,10 @@ function savedEventFromButton(button) {
 
 function setButtonState(button, saved) {
   button.setAttribute("aria-pressed", String(saved));
-  button.textContent = saved ? button.dataset.savedLabel || "Saved" : button.dataset.saveLabel || "Save";
+  const label = saved ? button.dataset.savedLabel || "Saved" : button.dataset.saveLabel || "Save";
+  const labelNode = button.querySelector("[data-save-event-label]");
+  if (labelNode) labelNode.textContent = label;
+  else button.textContent = label;
 }
 
 function renderSavedPlanner() {

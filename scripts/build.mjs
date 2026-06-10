@@ -6489,7 +6489,8 @@ const extendedPolicySections = {
       ["Quoi envoyer", `Envoyez a ${contactEmail} l'URL officielle, le nom de l'evenement ou de l'offre, les dates, le lieu ou la branche, la langue et le detail incorrect.`],
       ["Verification officielle", "Les corrections sont comparees aux API officielles, pages publiques, pages de marques, lieux, billetteries ou avis verifies avant modification."],
       ["Categories rapides", "Duty-free, OLIVE YOUNG, grands magasins, pop-ups K-pop et tickets ont des fenetres de reverification plus courtes."],
-      ["Labels de mise a jour", "Les pages publiques affichent la date de derniere verification et conservent le lien officiel pour confirmation finale."]
+      ["Labels de mise a jour", "Les pages publiques affichent la date de derniere verification et conservent le lien officiel pour confirmation finale."],
+      ["Politique d'images et de retrait", `Les vignettes utilisent des images promotionnelles officielles en taille reduite avec lien source, et les fiches K-pop utilisent des cartes d'identite de source en texte au lieu de photos d'artistes. Si vous etes titulaire de droits sur une image, un artiste ou une marque montree ici, ecrivez a ${contactEmail} avec l'URL de la page et votre demande: les images contestees sont retirees pendant l'examen puis supprimees ou remplacees sous deux jours ouvres.`]
     ]
   },
   de: {
@@ -6503,7 +6504,8 @@ const extendedPolicySections = {
       ["Was senden", `Senden Sie ${contactEmail} die offizielle URL, den Event- oder Angebotsnamen, Daten, Ort oder Filiale, Sprache und das genaue falsche Detail.`],
       ["Offizielle Prufung", "Korrekturen werden vor Anderungen mit offiziellen APIs, offentlichen Seiten, Marken-, Veranstaltungsort-, Ticketingseiten oder verifizierten Hinweisen verglichen."],
       ["Schnelle Kategorien", "Duty-free, OLIVE YOUNG, Kaufhaus-Pop-ups, K-pop-Reservierungen und Ticketinghinweise erhalten kurzere Pruffenster."],
-      ["Update-Labels", "Offentliche Eventseiten zeigen letzte Prufdaten und behalten den offiziellen Link fur die finale Bestatigung."]
+      ["Update-Labels", "Offentliche Eventseiten zeigen letzte Prufdaten und behalten den offiziellen Link fur die finale Bestatigung."],
+      ["Bild- und Takedown-Richtlinie", `Thumbnails verwenden offizielle Werbebilder in reduzierter Grosse mit Quellenlink, und K-pop Eintrage verwenden textbasierte Quellkarten statt Kunstlerfotos. Wenn Sie Rechteinhaber eines hier gezeigten Bildes, Kunstlers oder einer Marke sind, schreiben Sie an ${contactEmail} mit der Seiten-URL und Ihrer Anfrage: Strittige Bilder werden wahrend der Prufung offline genommen und innerhalb von zwei Werktagen entfernt oder ersetzt.`]
     ]
   }
 };
@@ -6561,42 +6563,48 @@ function policySections(lang, kind) {
         ["Official-source checks", "Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed."],
         ["Fast-moving categories", "Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly."],
         ["Update labels", "Public event pages show last-checked dates and freshness labels. When a correction changes visitor decisions, the page is updated with a new check date and the official source remains linked."],
-        ["Editorial independence", "Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation."]
+        ["Editorial independence", "Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation."],
+        ["Image and takedown policy", `Event thumbnails use official promotional images at reduced size with a source link, and K-pop listings use text-based source identity cards instead of artist photography. If you are a rights holder for an image, artist, or brand shown here, email ${contactEmail} with the page URL and your request: disputed images are taken down during review and removed or replaced within two business days.`]
       ],
       es: [
         ["Que enviar", `Escribe a ${contactEmail} con la URL oficial, nombre del evento u oferta, fechas, lugar o sucursal, idioma y el detalle exacto que parece desactualizado o incorrecto.`],
         ["Verificacion oficial", "Antes de cambiar paginas publicas, las correcciones se contrastan con APIs oficiales, paginas gubernamentales o turisticas, paginas de marca, recintos, ticketing o avisos verificados de artistas y empresas."],
         ["Categorias rapidas", "Campanas duty-free, promociones de OLIVE YOUNG, pop-ups de grandes almacenes, reservas K-pop y avisos de entradas tienen ventanas de revision mas cortas porque fechas, elegibilidad, stock y reglas de entrada cambian rapido."],
         ["Etiquetas de actualizacion", "Las paginas de eventos muestran fecha de ultima revision y etiquetas de frescura. Si una correccion cambia decisiones de viaje, la pagina se actualiza con nueva fecha de revision y mantiene la fuente oficial enlazada."],
-        ["Independencia editorial", "Correcciones, sugerencias de fuentes, anuncios, patrocinios y alianzas no compran posicion ni anulan etiquetas de fuente. Reescribimos resumenes con palabras propias y enlazamos a la fuente original para la confirmacion final."]
+        ["Independencia editorial", "Correcciones, sugerencias de fuentes, anuncios, patrocinios y alianzas no compran posicion ni anulan etiquetas de fuente. Reescribimos resumenes con palabras propias y enlazamos a la fuente original para la confirmacion final."],
+        ["Politica de imagenes y retirada", `Las miniaturas usan imagenes promocionales oficiales en tamano reducido con enlace a la fuente, y las fichas de K-pop usan tarjetas de identidad de fuente en texto en lugar de fotografias de artistas. Si eres titular de derechos de una imagen, artista o marca mostrada aqui, escribe a ${contactEmail} con la URL de la pagina y tu solicitud: las imagenes en disputa se retiran durante la revision y se eliminan o reemplazan en dos dias habiles.`]
       ],
       zh: [
         ["需要发送的内容", `请发送邮件至 ${contactEmail}，附上官方网址、活动或优惠名称、日期范围、地点或分店、语言，以及看起来过期或错误的具体细节。`],
         ["官方来源核对", "公开页面修改前，更正内容会与官方 API、政府或旅游页面、品牌页面、场馆页面、票务页面，或经确认的艺人和公司公告进行核对。"],
         ["变化较快的类别", "免税活动、OLIVE YOUNG 优惠、百货店快闪、K-pop 预约和票务公告会使用更短的复查窗口，因为日期、资格、库存和入场规则可能快速变化。"],
         ["更新标签", "公开活动页面会显示最后检查日期和新鲜度标签。当更正会影响访客决策时，页面会更新新的检查日期，并保留官方来源链接。"],
-        ["编辑独立性", "更正、来源建议、广告、赞助和合作不能购买排序位置，也不能覆盖来源标签。我们用自己的文字重写摘要，并链接到原始来源供访客最终确认。"]
+        ["编辑独立性", "更正、来源建议、广告、赞助和合作不能购买排序位置，也不能覆盖来源标签。我们用自己的文字重写摘要，并链接到原始来源供访客最终确认。"],
+        ["图片与下架政策", `活动缩略图使用缩小尺寸的官方宣传图片并附来源链接，K-pop 条目使用文字型来源识别卡，而不使用艺人照片。如果您是此处展示的图片、艺人或品牌的权利人，请将页面网址和请求发送至 ${contactEmail}：有争议的图片会在审查期间先行下架，并在两个工作日内删除或替换。`]
       ],
       pt: [
         ["O que enviar", `Envie email para ${contactEmail} com a URL oficial, nome do evento ou oferta, periodo, local ou filial, idioma e o detalhe exato que parece desatualizado ou incorreto.`],
         ["Checagem oficial", "Antes de alterar paginas publicas, correcoes sao comparadas com APIs oficiais, paginas de governo ou turismo, marcas, locais, ticketing ou avisos verificados de artistas e empresas."],
         ["Categorias de mudanca rapida", "Campanhas duty-free, promocoes OLIVE YOUNG, pop-ups de department stores, reservas K-pop e avisos de ingressos recebem janelas de rechecagem mais curtas porque datas, elegibilidade, estoque e regras de entrada mudam rapido."],
         ["Etiquetas de atualizacao", "Paginas publicas mostram data da ultima checagem e etiquetas de atualizacao. Quando uma correcao muda decisoes de visitantes, a pagina recebe nova data de checagem e mantem a fonte oficial vinculada."],
-        ["Independencia editorial", "Correcoes, sugestoes de fontes, anuncios, patrocinios e parcerias nao compram destaque nem substituem etiquetas de fonte. Reescrevemos resumos com palavras proprias e ligamos a fonte original para confirmacao final."]
+        ["Independencia editorial", "Correcoes, sugestoes de fontes, anuncios, patrocinios e parcerias nao compram destaque nem substituem etiquetas de fonte. Reescrevemos resumos com palavras proprias e ligamos a fonte original para confirmacao final."],
+        ["Politica de imagens e remocao", `As miniaturas usam imagens promocionais oficiais em tamanho reduzido com link da fonte, e as fichas de K-pop usam cartoes de identidade de fonte em texto em vez de fotografias de artistas. Se voce e titular de direitos de uma imagem, artista ou marca exibida aqui, envie email para ${contactEmail} com a URL da pagina e seu pedido: imagens em disputa saem do ar durante a revisao e sao removidas ou substituidas em dois dias uteis.`]
       ],
       ru: [
         ["Что отправить", `Напишите на ${contactEmail}: официальную ссылку, название события или предложения, даты, место или филиал, язык и точную деталь, которая кажется устаревшей или неверной.`],
         ["Проверка по официальным источникам", "Перед изменением публичных страниц исправления сверяются с официальными API, государственными или туристическими страницами, страницами брендов, площадок, билетных сервисов или подтвержденными уведомлениями артистов и компаний."],
         ["Быстро меняющиеся категории", "Duty-free кампании, акции OLIVE YOUNG, pop-up в универмагах, K-pop бронирования и билетные объявления получают более короткие окна проверки, потому что даты, условия, наличие и правила входа быстро меняются."],
         ["Метки обновления", "Публичные страницы событий показывают дату последней проверки и метки свежести. Если исправление влияет на решение посетителя, страница получает новую дату проверки, а ссылка на официальный источник остается."],
-        ["Редакционная независимость", "Исправления, предложения источников, реклама, спонсорство и партнерства не могут купить размещение или отменить метки источников. Мы переписываем краткие описания своими словами и ведем к оригинальному источнику для финального подтверждения."]
+        ["Редакционная независимость", "Исправления, предложения источников, реклама, спонсорство и партнерства не могут купить размещение или отменить метки источников. Мы переписываем краткие описания своими словами и ведем к оригинальному источнику для финального подтверждения."],
+        ["Политика изображений и удаления", `Миниатюры событий используют официальные промо-изображения в уменьшенном размере со ссылкой на источник, а карточки K-pop используют текстовые карточки источника вместо фотографий артистов. Если вы правообладатель изображения, артиста или бренда, показанного здесь, напишите на ${contactEmail} с URL страницы и вашим запросом: спорные изображения снимаются на время проверки и удаляются или заменяются в течение двух рабочих дней.`]
       ],
       ja: [
         ["送ってほしい内容", `公式URL、イベントまたは特典名、日程、会場または店舗、言語、古いまたは誤っていると思われる具体的な内容を ${contactEmail} まで送ってください。`],
         ["公式情報での確認", "公開ページを変更する前に、訂正内容は公式API、政府・観光ページ、ブランドページ、会場ページ、チケットページ、確認済みのアーティスト・企業告知と照合します。"],
         ["変化の速いカテゴリ", "免税キャンペーン、OLIVE YOUNGプロモーション、百貨店ポップアップ、K-pop予約、チケット告知は、日程、対象条件、在庫、入場ルールが変わりやすいため短い再確認期間を使います。"],
         ["更新ラベル", "公開イベントページには最終確認日と更新状態を表示します。訂正が訪問判断に影響する場合、ページは新しい確認日で更新され、公式情報源リンクは残します。"],
-        ["編集の独立性", "訂正、情報源の提案、広告、スポンサー、提携は、掲載順位を購入したり情報源ラベルを上書きしたりできません。要約は独自の言葉で書き直し、最終確認のために元の公式情報源へリンクします。"]
+        ["編集の独立性", "訂正、情報源の提案、広告、スポンサー、提携は、掲載順位を購入したり情報源ラベルを上書きしたりできません。要約は独自の言葉で書き直し、最終確認のために元の公式情報源へリンクします。"],
+        ["画像と削除対応の方針", `イベントのサムネイルは公式プロモーション画像を縮小サイズで出典リンク付きで使用し、K-pop掲載はアーティスト写真の代わりにテキスト型のソースカードを使います。掲載中の画像、アーティスト、ブランドの権利者の方は、ページURLとご要望を ${contactEmail} までお送りください。係争中の画像は確認中に非公開とし、2営業日以内に削除または差し替えます。`]
       ]
     }
   };

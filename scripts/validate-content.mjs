@@ -179,7 +179,9 @@ async function validateGeneratedText() {
     "Corrections are checked against official APIs",
     "Duty-free campaigns, OLIVE YOUNG promotions",
     "Public event pages show last-checked dates",
-    "Corrections, source suggestions, ads"
+    "Corrections, source suggestions, ads",
+    "Image and takedown policy",
+    "disputed images are taken down during review"
   ];
   const englishUiPhrases = [
     "Saved Korea plan",

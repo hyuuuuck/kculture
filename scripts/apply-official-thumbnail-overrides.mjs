@@ -42,7 +42,11 @@ const palettes = {
   weverse: { bg: "#101820", panel: "#f8fafc", accent: "#00d8c0", ink: "#ffffff", sub: "#d7e1e7" },
   seventeen: { bg: "#173f5f", panel: "#f6f0ff", accent: "#f7cac9", ink: "#ffffff", sub: "#dce8ff" },
   health: { bg: "#075c6b", panel: "#f7fffb", accent: "#70e1b5", ink: "#ffffff", sub: "#d8f3f0" },
-  hyundai: { bg: "#1f2933", panel: "#f8f3ea", accent: "#c8a15a", ink: "#ffffff", sub: "#efe8d7" }
+  hyundai: { bg: "#1f2933", panel: "#f8f3ea", accent: "#c8a15a", ink: "#ffffff", sub: "#efe8d7" },
+  blackpink: { bg: "#121212", panel: "#fff0f6", accent: "#ff9ec3", ink: "#ffffff", sub: "#f3cfdd" },
+  nol: { bg: "#2a1230", panel: "#fff5f7", accent: "#ff5d7e", ink: "#ffffff", sub: "#f0d3da" },
+  melon: { bg: "#0c2b16", panel: "#f3fff5", accent: "#42e06b", ink: "#ffffff", sub: "#cdebd2" },
+  "kpop-navy": { bg: "#101d3a", panel: "#f2f6ff", accent: "#7aa7ff", ink: "#ffffff", sub: "#d4e0f7" }
 };
 
 function brandMark(config) {

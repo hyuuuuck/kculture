@@ -111,6 +111,12 @@ for (const event of events) {
   if (Number(source.score || 0) < 8) {
     push(errors, event.slug, `official thumbnail score is too low: ${source.score}`);
   }
+  // Image policy: K-pop listings often feature artist photography, so they must
+  // use generated source identity cards instead of downloaded promotional images
+  // (copyright and publicity-rights exposure on an ad-monetized site).
+  if (event.category === "kpop" && !thumbnail.endsWith(".svg")) {
+    push(errors, event.slug, `kpop event must use an official source identity card, not a downloaded image: ${thumbnail}`);
+  }
 }
 
 const referencedOfficial = new Set(events

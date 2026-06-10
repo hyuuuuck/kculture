@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { isAllowedByRobots } from "./lib/robots.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -353,6 +354,28 @@ function keywordHits(text) {
 }
 
 async function fetchSourceUrl(source, url) {
+  if (!(await isAllowedByRobots(url, userAgent, timeoutMs))) {
+    return {
+      sourceName: source.name,
+      owner: source.owner,
+      type: source.type,
+      url: source.url,
+      requestedUrl: url,
+      status: "ROBOTS",
+      ok: false,
+      checkedAt: new Date().toISOString(),
+      error: "blocked by robots.txt",
+      reviewRequired: true,
+      publishable: false,
+      notes: source.notes,
+      queueId: source.queueId,
+      queueLabel: source.queueLabel,
+      queueCategory: source.queueCategory,
+      queuePriority: source.queuePriority,
+      artistOrBrand: source.artistOrBrand,
+      reviewNotes: source.reviewNotes
+    };
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {

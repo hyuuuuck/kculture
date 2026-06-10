@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isAllowedByRobots } from "./lib/robots.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -275,6 +276,9 @@ function extractCandidates(html, baseUrl) {
 }
 
 async function fetchWithTimeout(url, options = {}) {
+  if (!(await isAllowedByRobots(url, userAgent, timeoutMs))) {
+    throw new Error(`blocked by robots.txt: ${url}`);
+  }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {

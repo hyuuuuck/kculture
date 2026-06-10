@@ -77,6 +77,7 @@ Publishing uses four quality gates before a public launch:
 - Editorial audit: original summaries, visitor-useful travel notes, map-ready Korean place names, and correction-policy pages.
 - Translation audit: English, Spanish, Chinese, Portuguese, Russian, and Japanese pages must build without missing public pages.
 - UX audit: carousel navigation, official or audited source-card thumbnails, calendar month headings, detail fact strips, weather blocks, map cards, and responsive page structure.
+- Trust audit: privacy, cookie, advertising, terms, editorial, corrections, source, freshness, watchlist, planner, contact, and about pages must exist for every public language.
 - CEO quality review: the planner, designer, publisher, and audit institution are scored separately; hard failures block release and warnings become CEO task dispatch items.
 
 Run this before pushing a production launch build:
@@ -110,3 +111,18 @@ npm.cmd run preflight:adsense
 - Before serving ads to EEA, UK, and Switzerland visitors, configure a Google-certified CMP and set `GOOGLE_ADSENSE_CMP_READY=1`.
 
 Approval and revenue are not guaranteed. The safest operating model is still official-source monitoring, reviewed publishing, original multilingual summaries, clear correction policy, and frequent freshness checks.
+
+## 8. AdSense Submission Gate
+
+Do not submit the site for AdSense review until these checks are true:
+
+- `https://kspotnow.com/` resolves to the production Cloudflare deployment.
+- `https://kspotnow.com/sitemap.xml` and `https://kspotnow.com/robots.txt` return 200.
+- The footer trust pages return 200, including `/en/privacy/`, `/en/cookie-policy/`, `/en/advertising/`, `/en/terms/`, `/en/contact/`, `/en/editorial-policy/`, and `/en/corrections/`.
+- Google Search Console is verified by DNS or `GOOGLE_SITE_VERIFICATION`, and the sitemap has been submitted.
+- The latest `npm.cmd run preflight:launch` has 0 failures.
+- The latest `npm.cmd run report:adsense` has 0 failures and only expected external warnings.
+- A Google-certified CMP is configured before serving ads to EEA, UK, and Switzerland visitors.
+- The public contact email works and is not a personal Gmail address.
+
+After Google issues the publisher and ad unit values, set `GOOGLE_ADSENSE_PUBLISHER_ID`, `GOOGLE_ADSENSE_CLIENT`, `GOOGLE_ADSENSE_SLOT`, and `GOOGLE_ADSENSE_CMP_READY=1`, then run `npm.cmd run preflight:adsense` before enabling live ad placements.

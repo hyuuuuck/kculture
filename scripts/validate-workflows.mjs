@@ -29,11 +29,13 @@ const sourceRefreshFile = ".github/workflows/source-refresh.yml";
 const deployFile = ".github/workflows/deploy-cloudflare-pages.yml";
 const verifyFile = ".github/workflows/verify.yml";
 const draftEventsFile = "scripts/draft-events-from-feed.mjs";
+const launchChecklistFile = "launch-checklist.md";
 
 const sourceRefresh = read(sourceRefreshFile);
 const deploy = read(deployFile);
 const verify = read(verifyFile);
 const draftEvents = read(draftEventsFile);
+const launchChecklist = read(launchChecklistFile);
 
 assertIncludes(sourceRefreshFile, sourceRefresh, "cron: \"20 */4 * * *\"", "source refresh should run every 4 hours.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "source refresh must import current KMA forecast before building review artifacts.");
@@ -64,6 +66,15 @@ assertIncludes(draftEventsFile, draftEvents, "duplicateBrandTokens", "draft gene
 assertIncludes(draftEventsFile, draftEvents, "already published similar event", "duplicate candidate skips must explain the matched published event.");
 assertIncludes(draftEventsFile, draftEvents, "busan one asia festival", "duplicate detection must handle BOF / Busan One Asia Festival aliases.");
 assertIncludes(draftEventsFile, draftEvents, "\\uC6CC\\uD130\\uBC24", "duplicate detection must handle Korean WATERBOMB title aliases.");
+
+assertIncludes(launchChecklistFile, launchChecklist, "https://kspotnow.com", "launch checklist must use the intended custom domain.");
+assertIncludes(launchChecklistFile, launchChecklist, "contact@kspotnow.com", "launch checklist must document the public domain contact address.");
+assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_SITE_VERIFICATION", "launch checklist must document Search Console verification.");
+assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_READY", "launch checklist must document CMP readiness before serving ads.");
+assertIncludes(launchChecklistFile, launchChecklist, "/en/advertising/", "launch checklist must include the advertising policy trust page.");
+assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:launch", "launch checklist must require full launch preflight.");
+assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:adsense", "launch checklist must require strict AdSense preflight after IDs are issued.");
+assertIncludes(launchChecklistFile, launchChecklist, "AdSense Submission Gate", "launch checklist must separate the final AdSense submission gate.");
 
 if (errors.length) {
   console.error("Workflow validation failed:");

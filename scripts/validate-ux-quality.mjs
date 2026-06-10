@@ -9,7 +9,7 @@ const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json")
 const sources = JSON.parse(fs.readFileSync(path.join(root, "data", "sources.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const curationQueue = JSON.parse(fs.readFileSync(path.join(root, "data", "curation-queue.json"), "utf8"));
-const languages = ["en", "es", "zh", "pt", "ru", "ja"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
 const errors = [];
 
 function push(id, message) {
@@ -109,6 +109,21 @@ const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?
 if (splitBand.includes("/en/sources/")) {
   push("en/index.html", "homepage split band should promote visitor routes/guides, not operational source pages.");
 }
+const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
+assertIncludes(planningLayer, "Plan first. Book on official sources.", "en/index.html", "home must explain the planning-first positioning.");
+assertIncludes(planningLayer, "not a ticket shop", "en/index.html", "home must clearly distinguish K-Spot Now from ticket shops.");
+assertIncludes(planningLayer, "official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages", "en/index.html", "home must explain the cross-source comparison layer.");
+assertIncludes(planningLayer, "map-ready Korean place names", "en/index.html", "home must explain visitor context beyond raw event listings.");
+assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
+assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
+const about = read("en/about/index.html");
+assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");
+const frHome = read("fr/index.html");
+const deHome = read("de/index.html");
+assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");
+assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
+assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
+assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
 
 const activeEvents = events.filter((event) => event.endDate >= today).slice(0, 6);
 for (const event of activeEvents) {
@@ -116,6 +131,8 @@ for (const event of activeEvents) {
   for (const needle of ["fact-grid", "fact-calendar", "fact-pin", "fact-check", "fact-shield", "weather-overview", "map-link-list"]) {
     assertIncludes(html, needle, `en/events/${event.slug}.html`, `${needle} block is missing.`);
   }
+  assertIncludes(html, "class=\"handoff-note\"", `en/events/${event.slug}.html`, "detail page must include an official-source handoff note.");
+  assertIncludes(html, "Plan here, then complete tickets, reservations, purchases", `en/events/${event.slug}.html`, "detail page must explain that final action happens on the official source.");
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }
@@ -125,7 +142,7 @@ for (const lang of languages) {
   for (const guide of guides) {
     const html = read(path.join(lang, "guides", `${guide.slug}.html`));
     const sections = [...html.matchAll(/<section>\s*<h2>([\s\S]*?)<\/h2>\s*<p>([\s\S]*?)<\/p>\s*<\/section>/g)];
-    const expectedSections = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].length : 0;
+    const expectedSections = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].length : (lang === "fr" || lang === "de" ? 4 : 0);
     if (sections.length !== expectedSections) {
       push(`${lang}/guides/${guide.slug}.html`, `guide should render ${expectedSections} section headings; found ${sections.length}.`);
     }

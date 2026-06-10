@@ -23,6 +23,7 @@ const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const requiredLanguages = ["en", "es", "zh", "pt", "ru", "ja"];
+const publicLanguages = [...requiredLanguages, "fr", "de"];
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
@@ -149,6 +150,7 @@ async function validateGeneratedText() {
   const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections", "sources", "watchlist"];
   const englishTrustPhrases = [
     "K-Spot Now is a multilingual event and shopping radar",
+    "K-Spot Now is not a ticket marketplace or checkout service",
     "For corrections, source suggestions, or partnership inquiries",
     "This static site does not require user accounts",
     "K-Spot Now uses a small amount of browser-side storage",
@@ -191,7 +193,14 @@ async function validateGeneratedText() {
     "Open planner",
     "Clear saved",
     "1 saved event",
-    "saved events"
+    "saved events",
+    "Plan first. Book on official sources.",
+    "not a ticket shop",
+    "One visitor shortlist",
+    "Context before checkout",
+    "Freshness you can audit",
+    "Clean handoff",
+    "Plan here, then complete tickets"
   ];
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");
@@ -199,7 +208,7 @@ async function validateGeneratedText() {
       push(errors, path.relative(root, file), "generated HTML contains mojibake or replacement characters.");
     }
   }
-  for (const lang of requiredLanguages.filter((item) => item !== "en")) {
+  for (const lang of publicLanguages.filter((item) => item !== "en")) {
     const localizedFiles = files.filter((file) => path.relative(dist, file).split(path.sep)[0] === lang);
     for (const file of localizedFiles) {
       const text = await fs.readFile(file, "utf8");

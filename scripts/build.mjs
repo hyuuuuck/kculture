@@ -1111,6 +1111,8 @@ dict = {
 };
 
 languages.ja = { name: "日本語", locale: "ja-JP" };
+languages.fr = { name: "Francais", locale: "fr-FR" };
+languages.de = { name: "Deutsch", locale: "de-DE" };
 
 dict.ja = {
   ...dict.en,
@@ -1266,6 +1268,362 @@ dict.ja = {
   statusEnded: "終了",
   readDetails: "詳細",
   sourceWarning: "公式情報は変更される場合があります。訪問前に最新の規則、場所、対象条件、在庫を必ず確認してください。"
+};
+
+dict.fr = {
+  ...dict.en,
+  navEvents: "Evenements",
+  navNow: "Maintenant",
+  navCalendar: "Calendrier",
+  navGuides: "Guides",
+  navPlanner: "Planificateur",
+  navSources: "Sources",
+  navAbout: "A propos",
+  navWatchlist: "Veille",
+  heroEyebrow: "Evenements, pop-ups et offres en Coree pour les visiteurs",
+  heroTitle: siteName,
+  heroText: "Verifications de sources officielles pour festivals, pop-ups K-pop, offres beaute, duty-free, grands magasins, meteo et notes de carte utiles aux visiteurs.",
+  ctaEvents: "Voir les evenements",
+  ctaCalendar: "Ouvrir le calendrier",
+  liveNow: "En cours",
+  upcoming: "A venir",
+  archive: "Archive",
+  official: "Source officielle",
+  lastChecked: "Derniere verification",
+  collectionMode: "Collecte",
+  period: "Periode",
+  location: "Lieu",
+  venue: "Adresse",
+  mapLinksTitle: "Cartes et transports",
+  campaignChecksTitle: "Verification de campagne et reservation",
+  campaignNoFixedVenue: "Pas de lieu fixe",
+  campaignMapSub: "Confirmez la zone eligible, puis cherchez le nom coreen de votre hebergement.",
+  campaignMapNote: "Les avantages nationaux dependent des coupons, des regles OTA partenaires et de la region de l'hebergement. Verifiez d'abord la page officielle.",
+  officialCampaign: "Campagne officielle",
+  mapNote: "Utilisez le nom coreen du lieu pour obtenir le meilleur resultat de carte.",
+  weatherPlan: "Plan meteo",
+  travelIdeas: "Idees de visite",
+  routeIdeas: "Itineraires proches",
+  routePages: "Itineraires",
+  categoryPages: "Par theme",
+  cityPages: "Par ville",
+  browseDirectory: "Parcourir themes et lieux",
+  browseTypeTitle: "Types d'evenements",
+  browseTypeText: "Commencez par festivals, pop-ups K-pop, beaute, duty-free, shopping ou avantages visiteurs.",
+  browsePlaceTitle: "Lieux",
+  browsePlaceText: "Les pages ville et national sont separees des themes pour parcourir par destination.",
+  verifyBefore: "Verifiez la source officielle avant de vous deplacer.",
+  relatedEventsTitle: "Evenements proches et similaires",
+  relatedGuides: "Guides associes",
+  category: "Categorie",
+  allCities: "Toutes les villes",
+  all: "Tous",
+  festival: "Festivals",
+  kpop: "Pop-ups K-pop",
+  beauty: "Offres beaute",
+  dutyfree: "Duty free",
+  department: "Grands magasins",
+  shopping: "Shopping",
+  benefits: "Avantages voyage",
+  calendarTitle: "Calendrier des evenements",
+  calendarText: "Les dates sont affichees comme plages de planification. Les offres peuvent fermer tot; chaque page renvoie vers la source officielle.",
+  downloadCalendar: "Telecharger le fichier calendrier",
+  calendarWeather: "Plan meteo",
+  packHint: "A emporter",
+  forecastStripTitle: "Previsions KMA par jour",
+  forecastMorning: "Matin",
+  forecastAfternoon: "Apres-midi",
+  forecastLowHigh: "Min / Max",
+  forecastRainChance: "Pluie",
+  forecastNoData: "Aucune donnee",
+  todayLabel: "Aujourd'hui",
+  tomorrowLabel: "Demain",
+  sourcesTitle: "Systeme de sources",
+  sourcesText: "Le site separe API officielles, veille de pages officielles et files de curation K-pop pour proteger la fraicheur, les voyageurs et AdSense.",
+  sourceRefreshTitle: "Derniere actualisation des sources",
+  sourceRefreshText: "Instantane public du dernier controle des sources officielles.",
+  sourceRefreshNoData: "Aucun resume de sources n'a encore ete genere.",
+  sourceRefreshJson: "Ouvrir le JSON public",
+  sourceRefreshAttention: "Sources a surveiller",
+  sourceRefreshCandidates: "Pages candidates fortes",
+  sourceRefreshDraftSources: "Principales sources candidates",
+  sourceRefreshRule: "Les candidats ne sont pas publies directement. Chaque element demande encore verification officielle des dates, lieu, eligibilite, stock et resume original.",
+  watchlistTitle: "Liste de veille officielle",
+  watchlistText: "Sources officielles, pages de listes, racines de billetterie et files de curation verifiees avant publication.",
+  freshnessTitle: "Journal de fraicheur",
+  freshnessText: "Chaque fiche indique la derniere verification et la source officielle utilisee.",
+  freshness: "Fraicheur",
+  freshnessFresh: "Frais",
+  freshnessCurrent: "Verifie recemment",
+  freshnessSoon: "A reverifier bientot",
+  freshnessStale: "Verification officielle requise",
+  freshnessArchive: "Verification archive",
+  checkedToday: "verifie aujourd'hui",
+  checkedYesterday: "verifie hier",
+  daysAgo: "jours",
+  nowTitle: "A verifier maintenant",
+  nowText: "Evenements en cours, bientot termines, recemment verifies et de cette semaine en Coree.",
+  nowDashboard: "Instantane",
+  monitoredSources: "Sources suivies",
+  activeQueue: "File de revue active",
+  fastMovingTopics: "Sujets rapides",
+  latestCheckedGallery: "Dernieres verifications",
+  latestCheckedText: "Derniers controles officiels sur evenements, shopping, duty-free et pop-ups.",
+  rssFeedLabel: "Flux RSS",
+  jsonFeedLabel: "Flux JSON",
+  freshnessLogLabel: "Journal de fraicheur",
+  recheckQueueTitle: "File de reverification officielle",
+  recheckQueueText: "Pages en cours ou a venir qui doivent etre rouvertes bientot sur la source officielle.",
+  recheckDueNow: "a reverifier",
+  recheckDueToday: "aujourd'hui",
+  recheckDueTomorrow: "demain",
+  recheckDueInDays: "dans {count} jours",
+  sourceLink: "Source",
+  livePanel: "En cours",
+  endingSoon: "Bientot termine",
+  newlyChecked: "Recemment verifie",
+  thisWeek: "Cette semaine",
+  daysLeft: "jours restants",
+  startsIn: "commence dans",
+  noItemsYet: "Aucun element correspondant. Consultez le calendrier ou la veille des sources.",
+  searchEvents: "Recherche",
+  searchPlaceholder: "Titre, ville, lieu, source",
+  statusFilter: "Statut",
+  allStatuses: "Tous les statuts",
+  clearFilters: "Reinitialiser",
+  resultCountOneTemplate: "1 evenement affiche",
+  resultCountTemplate: "{count} evenements affiches",
+  saveEvent: "Enregistrer",
+  savedEvent: "Enregistre",
+  savedPlannerTitle: "Plan Coree enregistre",
+  savedPlannerEmpty: "Enregistrez des evenements pour comparer dates, villes et liens officiels.",
+  savedPlannerCountOne: "1 evenement enregistre",
+  savedPlannerCount: "{count} evenements enregistres",
+  openPlanner: "Ouvrir le plan",
+  clearSaved: "Effacer",
+  removeSaved: "Retirer",
+  openSavedEvent: "Ouvrir",
+  plannerTitle: "Planificateur d'evenements",
+  plannerText: "Comparez les evenements enregistres sur cet appareil, puis ouvrez les sources officielles avant toute reservation ou changement de plan.",
+  plannerEmptyTitle: "Aucun evenement enregistre",
+  plannerEmptyText: "Enregistrez des evenements depuis la galerie ou les pages detail pour creer une courte selection de voyage.",
+  downloadSavedCalendar: "Telecharger le calendrier enregistre",
+  officialLabel: "Officiel",
+  editorialTitle: "Politique editoriale",
+  editorialText: "Comment K-Spot Now collecte, verifie, traduit et publie les informations d'evenements.",
+  correctionsTitle: "Corrections et mises a jour",
+  correctionsText: "Comment signaler des informations anciennes ou incorrectes.",
+  guidesTitle: "Guides visiteurs",
+  aboutTitle: "A propos de K-Spot Now",
+  contactTitle: "Contact",
+  privacyTitle: "Politique de confidentialite",
+  cookieTitle: "Politique cookies",
+  termsTitle: "Conditions",
+  statusLive: "En cours",
+  statusUpcoming: "A venir",
+  statusEnded: "Termine",
+  readDetails: "Details",
+  officialVisitorInfo: "Infos visiteurs officielles",
+  venueScheduleTitle: "Horaires du lieu",
+  officialHighlightsTitle: "Points forts officiels",
+  eventWebsite: "Site de l'evenement",
+  eventTheme: "Theme",
+  hoursOfOperation: "Horaires",
+  programHours: "Horaires du programme",
+  websiteLanguages: "Langues du site",
+  address: "Adresse",
+  transportation: "Transport",
+  parking: "Parking",
+  smartGuide: "Guide pratique",
+  verification: "Verification",
+  dateBasis: "Base de date",
+  verificationOfficial: "Source officielle",
+  verificationOfficialArchive: "Archive officielle",
+  verificationOfficialListing: "Liste officielle",
+  verificationOfficialPrefix: "Officiel",
+  collectionOfficialPageReview: "Revue de page officielle",
+  collectionOfficialPageMonitor: "Veille de page officielle",
+  collectionOfficialApi: "API officielle",
+  collectionOfficialPage: "Page officielle",
+  sourceWarning: "Les details officiels peuvent changer. Confirmez toujours les regles, le lieu, l'eligibilite et le stock."
+};
+
+dict.de = {
+  ...dict.en,
+  navEvents: "Events",
+  navNow: "Jetzt",
+  navCalendar: "Kalender",
+  navGuides: "Guides",
+  navPlanner: "Planer",
+  navSources: "Quellen",
+  navAbout: "Uber uns",
+  navWatchlist: "Quellenwatchlist",
+  heroEyebrow: "Korea-Events, Pop-ups und Deals fur Besucher",
+  heroTitle: siteName,
+  heroText: "Live-Prufungen offizieller Quellen fur Festivals, K-pop Pop-ups, Beauty-Deals, Duty-free, Kaufhaus-Events, Wetterplanung und kartenfertige Besuchernotizen.",
+  ctaEvents: "Events ansehen",
+  ctaCalendar: "Kalender offnen",
+  liveNow: "Jetzt live",
+  upcoming: "Demnachst",
+  archive: "Archiv",
+  official: "Offizielle Quelle",
+  lastChecked: "Zuletzt gepruft",
+  collectionMode: "Sammlung",
+  period: "Zeitraum",
+  location: "Ort",
+  venue: "Veranstaltungsort",
+  mapLinksTitle: "Karten und Verkehr",
+  campaignChecksTitle: "Kampagnen- und Buchungscheck",
+  campaignNoFixedVenue: "Kein fester Veranstaltungsort",
+  campaignMapSub: "Prufen Sie die berechtigte Region und suchen Sie dann den koreanischen Namen Ihrer Unterkunft.",
+  campaignMapNote: "Landesweite Vorteile hangen von Couponbestand, OTA-Regeln und der Unterkunftsregion ab. Prufen Sie zuerst die offizielle Kampagnenseite.",
+  officialCampaign: "Offizielle Kampagne",
+  mapNote: "Nutzen Sie den koreanischen Ortsnamen fur genauere Kartenergebnisse.",
+  weatherPlan: "Wetterplanung",
+  travelIdeas: "Reiseideen",
+  routeIdeas: "Routen in der Nahe",
+  routePages: "Reiserouten",
+  categoryPages: "Nach Thema",
+  cityPages: "Nach Stadt",
+  browseDirectory: "Eventarten und Orte durchsuchen",
+  browseTypeTitle: "Eventarten",
+  browseTypeText: "Starten Sie mit Festivals, K-pop Pop-ups, Beauty, Duty-free, Shopping oder Besucherangeboten.",
+  browsePlaceTitle: "Orte",
+  browsePlaceText: "Stadt- und landesweite Seiten sind von Themen getrennt, damit Besucher nach Ziel scannen konnen.",
+  verifyBefore: "Vor dem Besuch auf der offiziellen Quelle prufen.",
+  relatedEventsTitle: "Nahe und ahnliche Events",
+  relatedGuides: "Verwandte Guides",
+  category: "Kategorie",
+  allCities: "Alle Stadte",
+  all: "Alle",
+  festival: "Festivals",
+  kpop: "K-pop Pop-ups",
+  beauty: "Beauty-Deals",
+  dutyfree: "Duty free",
+  department: "Kaufhauser",
+  shopping: "Shopping",
+  benefits: "Reisevorteile",
+  calendarTitle: "Eventkalender",
+  calendarText: "Daten werden als Planungszeitraume gezeigt. Angebote konnen fruh enden; jede Detailseite verlinkt zur offiziellen Quelle.",
+  downloadCalendar: "Kalenderdatei herunterladen",
+  calendarWeather: "Wetterplanung",
+  packHint: "Einpacken",
+  forecastStripTitle: "KMA Tagesprognose",
+  forecastMorning: "Vormittag",
+  forecastAfternoon: "Nachmittag",
+  forecastLowHigh: "Tief / Hoch",
+  forecastRainChance: "Regen",
+  forecastNoData: "Keine Daten",
+  todayLabel: "Heute",
+  tomorrowLabel: "Morgen",
+  sourcesTitle: "Quellensystem",
+  sourcesText: "Die Website trennt offizielle APIs, Monitoring offizieller Seiten und K-pop-Kurationsqueues, damit Inhalte sicherer fur AdSense und Reisende bleiben.",
+  sourceRefreshTitle: "Letzte Quellenaktualisierung",
+  sourceRefreshText: "Offentlicher Betriebsstand aus dem letzten Monitoringlauf offizieller Quellen.",
+  sourceRefreshNoData: "Noch keine Quellenzusammenfassung erzeugt.",
+  sourceRefreshJson: "Offentliches JSON offnen",
+  sourceRefreshAttention: "Quellen mit Prufbedarf",
+  sourceRefreshCandidates: "Starke Kandidatenseiten",
+  sourceRefreshDraftSources: "Top-Entwurfsquellen",
+  sourceRefreshRule: "Kandidaten werden nicht direkt veroffentlicht. Jedes Element braucht noch offizielle Daten, Ort, Berechtigung, Bestand und Originalzusammenfassung.",
+  watchlistTitle: "Offizielle Monitoring-Watchlist",
+  watchlistText: "Offizielle Quellen, Listing-Seiten, Ticketing-Roots und Kurationsqueues, die vor neuen offentlichen Eventseiten gepruft werden.",
+  freshnessTitle: "Aktualitatslog",
+  freshnessText: "Jeder Eintrag zeigt, wann er zuletzt gepruft wurde und welche offizielle Quelle genutzt wurde.",
+  freshness: "Aktualitat",
+  freshnessFresh: "Frisch",
+  freshnessCurrent: "Kurzlich gepruft",
+  freshnessSoon: "Bald neu prufen",
+  freshnessStale: "Offizielle Neuprufung notig",
+  freshnessArchive: "Archivprufung",
+  checkedToday: "heute gepruft",
+  checkedYesterday: "gestern gepruft",
+  daysAgo: "Tage her",
+  nowTitle: "Jetzt prufen",
+  nowText: "Live, bald endend, neu gepruft und diese Woche: Korea-Events aus offiziellen Quellen.",
+  nowDashboard: "Update-Stand",
+  monitoredSources: "Beobachtete Quellen",
+  activeQueue: "Aktive Prufqueue",
+  fastMovingTopics: "Schnelle Themen",
+  latestCheckedGallery: "Neueste Prufungen",
+  latestCheckedText: "Neueste offizielle Checks zu Events, Shopping-Angeboten, Duty-free-Kampagnen und Pop-up-Hinweisen.",
+  rssFeedLabel: "RSS-Feed",
+  jsonFeedLabel: "JSON-Feed",
+  freshnessLogLabel: "Aktualitatslog",
+  recheckQueueTitle: "Offizielle Neuprufqueue",
+  recheckQueueText: "Schnell wechselnde Live- oder kommende Seiten, die bald auf der offiziellen Quelle neu geoffnet werden sollten.",
+  recheckDueNow: "jetzt neu prufen",
+  recheckDueToday: "heute fallig",
+  recheckDueTomorrow: "morgen fallig",
+  recheckDueInDays: "in {count} Tagen fallig",
+  sourceLink: "Quelle",
+  livePanel: "Jetzt live",
+  endingSoon: "Endet bald",
+  newlyChecked: "Neu gepruft",
+  thisWeek: "Diese Woche",
+  daysLeft: "Tage ubrig",
+  startsIn: "beginnt in",
+  noItemsYet: "Keine passenden Eintrage. Kalender oder Quellenwatchlist prufen.",
+  searchEvents: "Suche",
+  searchPlaceholder: "Titel, Stadt, Ort, Quelle",
+  statusFilter: "Status",
+  allStatuses: "Alle Status",
+  clearFilters: "Zurucksetzen",
+  resultCountOneTemplate: "1 Event angezeigt",
+  resultCountTemplate: "{count} Events angezeigt",
+  saveEvent: "Speichern",
+  savedEvent: "Gespeichert",
+  savedPlannerTitle: "Gespeicherter Korea-Plan",
+  savedPlannerEmpty: "Events speichern, um Daten, Stadte und offizielle Links zu vergleichen.",
+  savedPlannerCountOne: "1 gespeichertes Event",
+  savedPlannerCount: "{count} gespeicherte Events",
+  openPlanner: "Planer offnen",
+  clearSaved: "Loschen",
+  removeSaved: "Entfernen",
+  openSavedEvent: "Offnen",
+  plannerTitle: "Gespeicherter Eventplaner",
+  plannerText: "Vergleichen Sie gespeicherte Korea-Events auf diesem Gerat und offnen Sie vor Buchungen oder Plananderungen offizielle Quellen.",
+  plannerEmptyTitle: "Noch keine gespeicherten Events",
+  plannerEmptyText: "Speichern Sie Events aus Galerie oder Detailseiten, um eine kurze Korea-Reiseliste zu bauen.",
+  downloadSavedCalendar: "Gespeicherten Kalender herunterladen",
+  officialLabel: "Offiziell",
+  editorialTitle: "Redaktionsrichtlinie",
+  editorialText: "Wie K-Spot Now Eventinformationen sammelt, pruft, ubersetzt und veroffentlicht.",
+  correctionsTitle: "Korrekturen und Updates",
+  correctionsText: "Wie Besucher, Veranstalter und Marken veraltete oder falsche Details melden konnen.",
+  guidesTitle: "Besucherguides",
+  aboutTitle: "Uber K-Spot Now",
+  contactTitle: "Kontakt",
+  privacyTitle: "Datenschutz",
+  cookieTitle: "Cookie-Richtlinie",
+  termsTitle: "Bedingungen",
+  statusLive: "Live",
+  statusUpcoming: "Demnachst",
+  statusEnded: "Beendet",
+  readDetails: "Details",
+  officialVisitorInfo: "Offizielle Besucherinfo",
+  venueScheduleTitle: "Ort und Zeitplan",
+  officialHighlightsTitle: "Offizielle Highlights",
+  eventWebsite: "Eventwebsite",
+  eventTheme: "Thema",
+  hoursOfOperation: "Offnungszeiten",
+  programHours: "Programmzeiten",
+  websiteLanguages: "Website-Sprachen",
+  address: "Adresse",
+  transportation: "Anfahrt",
+  parking: "Parken",
+  smartGuide: "Praktischer Guide",
+  verification: "Verifizierung",
+  dateBasis: "Datengrundlage",
+  verificationOfficial: "Offizielle Quelle",
+  verificationOfficialArchive: "Offizielles Archiv",
+  verificationOfficialListing: "Offizielles Listing",
+  verificationOfficialPrefix: "Offiziell",
+  collectionOfficialPageReview: "Prufung offizieller Seite",
+  collectionOfficialPageMonitor: "Monitoring offizieller Seite",
+  collectionOfficialApi: "Offizielle API",
+  collectionOfficialPage: "Offizielle Seite",
+  sourceWarning: "Offizielle Details konnen sich andern. Prufen Sie immer aktuelle Regeln, Ort, Berechtigung und Bestand."
 };
 
 const categoryLabels = {
@@ -1424,6 +1782,75 @@ function localList(value, lang) {
   const english = value.en;
   if (Array.isArray(english) && english.length && !english.some(hasMojibake)) return english;
   return Object.values(value).find((items) => Array.isArray(items) && items.length && !items.some(hasMojibake)) || [];
+}
+
+function needsGeneratedVisitorCopy(value, lang) {
+  return (lang === "fr" || lang === "de") && (!value || typeof value === "string" || !String(value[lang] || "").trim() || hasMojibake(value[lang]));
+}
+
+function eventSummaryText(event, lang) {
+  if (!needsGeneratedVisitorCopy(event.summary, lang)) return local(event.summary, lang);
+  const title = local(event.title, "en") || event.slug;
+  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  const category = categoryLabel(lang, event.category);
+  if (lang === "fr") {
+    return `${title} est une page ${category} pour ${event.city}, avec une periode de planification ${period}. K-Spot Now rassemble le lieu, la meteo, les cartes et la source officielle afin de comparer avant d'acheter, reserver ou visiter.`;
+  }
+  return `${title} ist eine ${category}-Planungsseite fur ${event.city} mit dem Zeitraum ${period}. K-Spot Now bundelt Ort, Wetter, Karten und offizielle Quelle, damit Besucher vor Kauf, Reservierung oder Besuch vergleichen konnen.`;
+}
+
+function eventWhyGoText(event, lang) {
+  if (!needsGeneratedVisitorCopy(event.whyGo, lang)) return local(event.whyGo, lang);
+  const category = categoryLabel(lang, event.category);
+  if (lang === "fr") {
+    return `Cette fiche aide les visiteurs a transformer une annonce ${category} en plan concret: confirmer les dates, choisir le quartier, verifier le transport et ouvrir la source officielle pour l'action finale.`;
+  }
+  return `Diese Seite macht aus einem ${category}-Hinweis einen nutzbaren Plan: Daten bestatigen, Stadtteil wahlen, Verkehr prufen und die offizielle Quelle fur die finale Aktion offnen.`;
+}
+
+function eventTravelTips(event, lang) {
+  if (lang !== "fr" && lang !== "de") return event.travelTips || [];
+  if (lang === "fr") {
+    return [
+      "Reverifiez la source officielle le jour meme, surtout pour les pop-ups, tickets et offres a stock limite.",
+      "Copiez le nom coreen du lieu dans Naver Map, Kakao Map ou Google Maps avant de partir.",
+      "Gardez une option proche pour repas, shopping ou abri interieur si la file, la meteo ou le stock change.",
+      "Finalisez achat, reservation et regles d'entree uniquement sur le site officiel ou la billetterie liee."
+    ];
+  }
+  return [
+    "Prufen Sie die offizielle Quelle am selben Tag erneut, besonders bei Pop-ups, Tickets und limitierten Angeboten.",
+    "Kopieren Sie den koreanischen Ortsnamen vor der Abfahrt in Naver Map, Kakao Map oder Google Maps.",
+    "Halten Sie eine nahe Alternative fur Essen, Shopping oder Innenraum bereit, falls Warteschlange, Wetter oder Bestand wechseln.",
+    "Schliessen Sie Kauf, Reservierung und Einlassregeln nur auf der offiziellen Seite oder verlinkten Ticketingseite ab."
+  ];
+}
+
+function guideSummaryText(guide, lang) {
+  if (!needsGeneratedVisitorCopy(guide.summary, lang)) return local(guide.summary, lang);
+  const category = categoryLabel(lang, guide.category);
+  if (lang === "fr") return `Guide pratique pour verifier les sources officielles, dates, lieux, cartes et options proches avant de planifier une sortie ${category} en Coree.`;
+  return `Praktischer Guide zum Prufen offizieller Quellen, Daten, Orte, Karten und naher Optionen vor einer ${category}-Planung in Korea.`;
+}
+
+function guideSectionsForLang(guide, lang) {
+  if (lang !== "fr" && lang !== "de") return localList(guide.sections, lang);
+  const localized = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].filter(Boolean) : [];
+  if (localized.length) return localized;
+  if (lang === "fr") {
+    return [
+      "Commencez par la source officielle: organisateur, marque, lieu, billetterie ou page touristique publique.",
+      "Verifiez les dates, horaires, methode d'entree, limite d'achat et conditions pour visiteurs etrangers.",
+      "Copiez le nom coreen du lieu et comparez transport, meteo, files possibles et options proches.",
+      "Utilisez K-Spot Now pour planifier et comparer; finalisez achat ou reservation seulement sur la source officielle."
+    ];
+  }
+  return [
+    "Beginnen Sie mit der offiziellen Quelle: Veranstalter, Marke, Ort, Ticketing oder offentlicher Tourismusseite.",
+    "Prufen Sie Daten, Zeiten, Eintrittsmethode, Kauflimits und Bedingungen fur internationale Besucher.",
+    "Kopieren Sie den koreanischen Ortsnamen und vergleichen Sie Verkehr, Wetter, mogliche Warteschlangen und nahe Optionen.",
+    "Nutzen Sie K-Spot Now zum Planen und Vergleichen; Kauf oder Reservierung erfolgen nur auf der offiziellen Quelle."
+  ];
 }
 
 function trimHeading(value, maxLength = 64) {
@@ -1756,7 +2183,7 @@ function eventPublicUrl(event, lang) {
 function eventFeedSummary(event, lang) {
   const status = statusLabel(lang, statusOf(event));
   const category = categoryLabel(lang, event.category);
-  return `${local(event.summary, lang)} ${status}. ${category}. ${event.dateLabel || `${event.startDate} - ${event.endDate}`}. Official source: ${event.sourceUrl}`;
+  return `${eventSummaryText(event, lang)} ${status}. ${category}. ${event.dateLabel || `${event.startDate} - ${event.endDate}`}. Official source: ${event.sourceUrl}`;
 }
 
 function rssFeed(lang, feedPath = `/${lang}/feed.xml`) {
@@ -1785,7 +2212,7 @@ function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
       url: eventPublicUrl(event, lang),
       external_url: event.sourceUrl,
       title: local(event.title, lang),
-      summary: local(event.summary, lang),
+      summary: eventSummaryText(event, lang),
       content_text: eventFeedSummary(event, lang),
       image: absoluteUrl(`/${event.thumbnail}`),
       date_published: kstDateTime(event.lastChecked),
@@ -2623,7 +3050,7 @@ function detailPageSchema(event, lang) {
     "@type": "WebPage",
     "@id": `${pageUrl}#webpage`,
     name: local(event.title, lang),
-    description: local(event.summary, lang),
+    description: eventSummaryText(event, lang),
     url: pageUrl,
     inLanguage: lang,
     dateModified: event.lastChecked,
@@ -2651,7 +3078,7 @@ function eventSchema(event, lang) {
     "@type": "Event",
     "@id": `${eventUrl}#event`,
     name: local(event.title, lang),
-    description: local(event.summary, lang),
+    description: eventSummaryText(event, lang),
     startDate: event.startDate,
     endDate: event.endDate,
     eventStatus: "https://schema.org/EventScheduled",
@@ -2816,8 +3243,8 @@ function eventSearchText(event, lang) {
   ]);
   return [
     local(event.title, lang),
-    local(event.summary, lang),
-    local(event.whyGo, lang),
+    eventSummaryText(event, lang),
+    eventWhyGoText(event, lang),
     event.city,
     event.district,
     event.venue,
@@ -2826,7 +3253,7 @@ function eventSearchText(event, lang) {
     event.dateLabel,
     event.startDate,
     event.endDate,
-    ...(event.travelTips || []),
+    ...eventTravelTips(event, lang),
     ...visitorInfo,
     ...venueSchedule,
     ...(event.officialHighlights || [])
@@ -2894,7 +3321,7 @@ function eventCard(event, lang) {
           <span>${esc(event.city)}</span>
         </div>
         <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
-        <p>${esc(local(event.summary, lang))}</p>
+        <p>${esc(eventSummaryText(event, lang))}</p>
         <dl class="compact-facts">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`)}</dd></div>
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
@@ -2970,6 +3397,134 @@ function spotlightCarousel(slides, lang) {
             </div>`;
 }
 
+const planningLayerCopy = {
+  en: {
+    eyebrow: "Why use K-Spot Now",
+    title: "Plan first. Book on official sources.",
+    text: "K-Spot Now is not a ticket shop. It is a multilingual planning layer that helps visitors compare official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages before choosing where to buy, reserve, or visit.",
+    items: [
+      ["One visitor shortlist", "Scan fast-moving Korea events across multiple official source types instead of opening one marketplace at a time."],
+      ["Context before checkout", "Weather, map-ready Korean place names, transit notes, and nearby route ideas sit next to each event."],
+      ["Freshness you can audit", "Last checked dates, verification labels, and source status tell you whether a page needs a final official recheck."],
+      ["Clean handoff", "Tickets, reservations, purchases, and rules stay on the original organizer, brand, venue, or ticketing site."]
+    ]
+  },
+  es: {
+    eyebrow: "Por que usar K-Spot Now",
+    title: "Planifica primero. Reserva en fuentes oficiales.",
+    text: "K-Spot Now no es una tienda de entradas. Es una capa multilingue de planificacion para comparar paginas oficiales de turismo, marcas, recintos, duty free, tiendas departamentales y plataformas de tickets antes de comprar, reservar o visitar.",
+    items: [
+      ["Una lista para visitantes", "Revisa eventos de Corea que cambian rapido en varios tipos de fuentes oficiales."],
+      ["Contexto antes de comprar", "Clima, nombres coreanos listos para mapas, transporte e ideas de ruta aparecen junto a cada evento."],
+      ["Frescura auditable", "La fecha de ultima revision, la verificacion y el estado de la fuente muestran si hace falta reconfirmar."],
+      ["Salida limpia", "Entradas, reservas, compras y reglas quedan en el organizador, marca, recinto o sitio de tickets original."]
+    ]
+  },
+  fr: {
+    eyebrow: "Pourquoi utiliser K-Spot Now",
+    title: "Planifiez d'abord. Reserve sur les sources officielles.",
+    text: "K-Spot Now n'est pas une billetterie. C'est une couche de planification multilingue qui aide les visiteurs a comparer tourisme officiel, marques, lieux, duty-free, grands magasins et plateformes de tickets avant d'acheter, reserver ou visiter.",
+    items: [
+      ["Une selection visiteur", "Parcourez les evenements rapides en Coree depuis plusieurs types de sources officielles."],
+      ["Contexte avant achat", "Meteo, noms coreens prets pour les cartes, transports et idees d'itineraires sont places pres de chaque evenement."],
+      ["Fraicheur verifiable", "Dates de derniere verification, labels de validation et etat des sources indiquent quand reconfirmer."],
+      ["Passage propre", "Billets, reservations, achats et regles restent sur le site de l'organisateur, de la marque, du lieu ou de la billetterie."]
+    ]
+  },
+  de: {
+    eyebrow: "Warum K-Spot Now nutzen",
+    title: "Erst planen. Bei offiziellen Quellen buchen.",
+    text: "K-Spot Now ist kein Ticketshop. Es ist eine mehrsprachige Planungsschicht, mit der Besucher offizielle Tourismus-, Marken-, Veranstaltungsort-, Duty-free-, Kaufhaus- und Ticketingseiten vergleichen, bevor sie kaufen, reservieren oder hingehen.",
+    items: [
+      ["Eine Besucherauswahl", "Scannen Sie schnelle Korea-Events uber mehrere offizielle Quellentypen hinweg."],
+      ["Kontext vor dem Checkout", "Wetter, kartenfertige koreanische Ortsnamen, Verkehrshinweise und Routenideen stehen direkt neben jedem Event."],
+      ["Prufbare Aktualitat", "Letzte Prufdaten, Verifizierungslabels und Quellenstatus zeigen, wann offiziell neu gepruft werden muss."],
+      ["Saubere Ubergabe", "Tickets, Reservierungen, Kaufe und Regeln bleiben beim Veranstalter, der Marke, dem Ort oder der Ticketingseite."]
+    ]
+  },
+  zh: {
+    eyebrow: "为什么使用 K-Spot Now",
+    title: "先规划，再到官方来源预订。",
+    text: "K-Spot Now 不是售票网站，而是面向访韩游客的多语言规划层。它帮助你在购买、预约或出发前比较旅游、品牌、场馆、免税店、百货店和票务平台的官方页面。",
+    items: [
+      ["游客清单", "不用逐个打开不同平台，也能快速浏览变化很快的韩国活动。"],
+      ["行动前的上下文", "天气、可直接用于地图的韩文地点名、交通提示和周边路线与活动放在一起。"],
+      ["可检查的新鲜度", "最近检查日期、验证标签和来源状态会提示是否需要再次确认官方页面。"],
+      ["干净跳转", "门票、预约、购买和规则仍在原主办方、品牌、场馆或票务网站完成。"]
+    ]
+  },
+  pt: {
+    eyebrow: "Por que usar o K-Spot Now",
+    title: "Planeje primeiro. Reserve nas fontes oficiais.",
+    text: "K-Spot Now nao e uma loja de ingressos. E uma camada multilingue de planejamento para comparar paginas oficiais de turismo, marcas, locais, duty free, lojas de departamento e plataformas de tickets antes de comprar, reservar ou visitar.",
+    items: [
+      ["Uma lista para visitantes", "Veja eventos da Coreia que mudam rapido em varios tipos de fontes oficiais."],
+      ["Contexto antes da compra", "Clima, nomes coreanos prontos para mapas, transporte e ideias de rota aparecem ao lado de cada evento."],
+      ["Atualizacao auditavel", "Datas de ultima checagem, etiquetas de verificacao e status da fonte mostram quando reconfirmar."],
+      ["Encaminhamento limpo", "Ingressos, reservas, compras e regras ficam no organizador, marca, local ou site de tickets original."]
+    ]
+  },
+  ru: {
+    eyebrow: "Зачем использовать K-Spot Now",
+    title: "Сначала спланируйте. Бронируйте в официальных источниках.",
+    text: "K-Spot Now не является билетным магазином. Это многоязычный слой планирования, который помогает сравнивать официальные страницы туризма, брендов, площадок, duty free, универмагов и билетных сервисов перед покупкой, бронированием или посещением.",
+    items: [
+      ["Один список для туриста", "Смотрите быстро меняющиеся события в Корее по разным типам официальных источников."],
+      ["Контекст до покупки", "Погода, корейские названия мест для карт, транспорт и идеи маршрутов рядом с каждым событием."],
+      ["Проверяемая свежесть", "Дата последней проверки, метки верификации и статус источника показывают, когда нужно перепроверить."],
+      ["Чистый переход", "Билеты, бронирования, покупки и правила остаются на сайте организатора, бренда, площадки или билетного сервиса."]
+    ]
+  },
+  ja: {
+    eyebrow: "K-Spot Nowを使う理由",
+    title: "まず計画。予約は公式情報へ。",
+    text: "K-Spot Nowはチケット販売サイトではありません。訪韓者が購入、予約、訪問前に、観光、ブランド、会場、免税店、百貨店、チケットサービスの公式ページを比較できる多言語の計画レイヤーです。",
+    items: [
+      ["訪問者向けの一覧", "変化の早い韓国イベントを複数の公式情報タイプからまとめて確認できます。"],
+      ["行動前の文脈", "天気、地図で使いやすい韓国語の場所名、交通メモ、周辺ルートをイベント横に配置します。"],
+      ["確認できる鮮度", "最終確認日、検証ラベル、情報源の状態で再確認が必要か判断できます。"],
+      ["公式への受け渡し", "チケット、予約、購入、規則は主催者、ブランド、会場、チケットサイト側で確認します。"]
+    ]
+  }
+};
+
+function planningLayerSection(lang) {
+  const copy = planningLayerCopy[lang] || planningLayerCopy.en;
+  return `
+      <section class="planning-layer" aria-labelledby="planning-layer-title">
+        <div class="planning-layer-inner">
+          <div class="planning-layer-lede">
+            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+            <h2 id="planning-layer-title">${esc(copy.title)}</h2>
+            <p>${esc(copy.text)}</p>
+          </div>
+          <div class="planning-layer-grid">
+            ${copy.items.map(([title, text], index) => `
+              <div class="planning-card">
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${esc(title)}</strong>
+                <p>${esc(text)}</p>
+              </div>`).join("")}
+          </div>
+        </div>
+      </section>`;
+}
+
+const detailHandoffText = {
+  en: "Plan here, then complete tickets, reservations, purchases, and final rule checks on the official source.",
+  es: "Planifica aqui y completa entradas, reservas, compras y reglas finales en la fuente oficial.",
+  fr: "Planifiez ici, puis finalisez billets, reservations, achats et dernieres regles sur la source officielle.",
+  de: "Planen Sie hier; Tickets, Reservierungen, Kaufe und finale Regeln erledigen Sie auf der offiziellen Quelle.",
+  zh: "在这里规划，然后到官方来源完成购票、预约、购买和最终规则确认。",
+  pt: "Planeje aqui e conclua ingressos, reservas, compras e regras finais na fonte oficial.",
+  ru: "Планируйте здесь, а билеты, бронирование, покупки и финальные правила проверяйте в официальном источнике.",
+  ja: "ここで計画し、チケット、予約、購入、最終ルール確認は公式情報で行ってください。"
+};
+
+function bookingHandoffNote(lang) {
+  return esc(detailHandoffText[lang] || detailHandoffText.en);
+}
+
 function renderHome(lang, canonicalPath = `/${lang}/`) {
   const sorted = [...events].sort((a, b) => {
     const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -2979,6 +3534,16 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const upcomingCount = events.filter((event) => statusOf(event) === "upcoming").length;
   const archiveCount = events.filter((event) => statusOf(event) === "ended").length;
   const spotlights = spotlightEvents(sorted);
+  const homePageTitle = local({
+    en: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
+    fr: `${siteName} - Evenements, pop-ups K-pop et offres shopping`,
+    de: `${siteName} - Events, K-pop Pop-ups und Shopping-Deals`
+  }, lang);
+  const eventsHeading = local({
+    en: siteTagline,
+    fr: "Evenements, pop-ups et offres en Coree pour les visiteurs.",
+    de: "Korea-Events, Pop-ups und Deals fur Besucher."
+  }, lang);
   const description = local({
     en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
@@ -3012,13 +3577,14 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           </div>
         </div>
       </section>
+      ${planningLayerSection(lang)}
       ${adUnit("home")}
 
       <section class="content-shell" id="events" data-gallery-scope>
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "navEvents")}</p>
-            <h2>${siteTagline}</h2>
+            <h2>${esc(eventsHeading)}</h2>
           </div>
         </div>
         ${galleryControls(lang, { categories: true })}
@@ -3067,6 +3633,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <p>${esc(local({
             en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
             es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
+            fr: "Associez les evenements enregistres avec shopping, transport, meteo et courts itineraires avant de partir.",
+            de: "Kombinieren Sie gespeicherte Events vor der Abfahrt mit Shopping, Verkehr, Wetter und kurzen Routenideen.",
             zh: "出发前把保存的活动与附近购物、交通、天气和短路线一起比较。",
             pt: "Combine eventos salvos com compras, transporte, clima e roteiros curtos antes de sair.",
             ru: "Перед выходом сопоставьте сохраненные события с ближайшим шопингом, транспортом, погодой и короткими маршрутами.",
@@ -3079,7 +3647,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
   return layout({
     lang,
-    title: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
+    title: homePageTitle,
     description,
     body,
     canonicalPath,
@@ -3543,7 +4111,7 @@ function renderEvent(event, lang) {
   const relatedEvents = relatedEventsForEvent(event);
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
   const forecastInfo = currentForecastForEvent(event);
-  const description = local(event.summary, lang);
+  const description = eventSummaryText(event, lang);
   const periodText = event.dateLabel || `${event.startDate} - ${event.endDate}`;
   const venueText = [event.venue, event.district].filter(Boolean).join(", ");
   const body = `
@@ -3560,6 +4128,7 @@ function renderEvent(event, lang) {
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
               ${saveEventButton(event, lang)}
             </div>
+            <p class="handoff-note">${bookingHandoffNote(lang)}</p>
           </div>
         </header>
 
@@ -3578,7 +4147,7 @@ function renderEvent(event, lang) {
 
         <section class="detail-section">
           <h2>${tr(lang, "readDetails")}</h2>
-          <p>${esc(local(event.whyGo, lang))}</p>
+          <p>${esc(eventWhyGoText(event, lang))}</p>
           <p class="notice">${tr(lang, "verifyBefore")}</p>
         </section>
         ${adUnit("detail")}
@@ -3589,7 +4158,7 @@ function renderEvent(event, lang) {
 
         <section class="detail-section travel-ideas-section">
           <h2>${tr(lang, "travelIdeas")}</h2>
-          <ul>${event.travelTips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+          <ul>${eventTravelTips(event, lang).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
         </section>
         ${mapLinkSection(event, lang)}
 
@@ -3682,7 +4251,7 @@ function guideCard(guide, lang) {
     <a class="guide-card" href="/${lang}/guides/${guide.slug}.html">
       <span>${categoryLabel(lang, guide.category)}</span>
       <strong>${esc(local(guide.title, lang))}</strong>
-      <p>${esc(local(guide.summary, lang))}</p>
+      <p>${esc(guideSummaryText(guide, lang))}</p>
     </a>`;
 }
 
@@ -3709,13 +4278,13 @@ function renderGuides(lang) {
 }
 
 function renderGuide(guide, lang) {
-  const sections = localList(guide.sections, lang);
+  const sections = guideSectionsForLang(guide, lang);
   const body = `
     <main class="page">
       <article class="article-page">
         <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
         <h1>${esc(local(guide.title, lang))}</h1>
-        <p class="lede">${esc(local(guide.summary, lang))}</p>
+        <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
         ${adUnit("article")}
         ${sections.map((section, index) => `
           <section>
@@ -3727,7 +4296,7 @@ function renderGuide(guide, lang) {
   return layout({
     lang,
     title: `${local(guide.title, lang)} - K-Spot Now`,
-    description: local(guide.summary, lang),
+    description: guideSummaryText(guide, lang),
     body,
     canonicalPath: `/${lang}/guides/${guide.slug}.html`,
     currentPathBuilder: (code) => `/${code}/guides/${guide.slug}.html`
@@ -4093,6 +4662,103 @@ const watchlistGroupCopy = {
   }
 };
 
+opsCopy.fr = {
+  generated: "Genere",
+  auditedSources: "Sources auditees",
+  monitorChecks: "Controles de veille",
+  discoveredOfficialLinks: "Liens officiels detectes",
+  dateSignals: "Signaux de date",
+  draftCandidates: "Candidats brouillon",
+  skippedLeads: "Pistes ignorees",
+  noFailedSources: "Aucune source en erreur",
+  noFailedSourcesText: "Le dernier passage n'a signale aucune erreur de source.",
+  noDraftCandidates: "Aucun candidat brouillon",
+  noDraftCandidatesText: "Lancez le workflow de sources apres ajout de moniteurs.",
+  noHighSignalPages: "Aucune page candidate forte",
+  noHighSignalPagesText: "Le dernier passage n'a pas trouve de page candidate.",
+  draftCandidatesLower: "candidats brouillon",
+  links: "liens",
+  score: "score",
+  monitoringStats: "Statistiques de veille",
+  monitoringGroups: "Groupes de veille officielle",
+  officialApis: "API officielles",
+  pageMonitors: "moniteurs de pages et listes",
+  curationRoots: "racines de curation",
+  activeManualQueues: "files manuelles actives",
+  sourcesWatched: "Sources suivies",
+  refreshModel: "Modele de mise a jour",
+  reviewQueue: "file de revue",
+  reviewPipeline: "Pipeline de revue",
+  kpopQueue: "File de curation K-pop",
+  kpopQueueText: "Concerts K-pop, ouvertures de billets, fan meetings, pop-ups, cafes d'anniversaire et merch restent en revue jusqu'a confirmation d'une source officielle.",
+  officialFallbackLink: "lien officiel alternatif",
+  officialFallbackLinks: "liens officiels alternatifs",
+  pipelineSteps: [
+    "Collecter pages officielles et liens de detail internes depuis les sources suivies.",
+    "Noter les liens candidats par dates, mots cles visiteurs, type de source et contexte officiel.",
+    "Ouvrir manuellement la source officielle pour dates, lieu, eligibilite, stock, tickets et droits.",
+    "Reecrire resumes et notes de voyage avec des mots originaux avant publication.",
+    "Afficher date de verification, liens officiels, notes meteo et itineraires proches sur chaque detail."
+  ]
+};
+
+opsCopy.de = {
+  generated: "Erzeugt",
+  auditedSources: "Geprufte Quellen",
+  monitorChecks: "Monitoring-Prufungen",
+  discoveredOfficialLinks: "Gefundene offizielle Links",
+  dateSignals: "Datumssignale",
+  draftCandidates: "Entwurfskandidaten",
+  skippedLeads: "Ubersprungene Hinweise",
+  noFailedSources: "Keine fehlerhaften Quellen",
+  noFailedSourcesText: "Der letzte Lauf meldete keine Quellenfehler.",
+  noDraftCandidates: "Keine Entwurfskandidaten",
+  noDraftCandidatesText: "Starten Sie den Quellenworkflow nach dem Hinzufugen von Monitoren.",
+  noHighSignalPages: "Keine starken Kandidatenseiten",
+  noHighSignalPagesText: "Der letzte Lauf fand keine Kandidatenseiten.",
+  draftCandidatesLower: "Entwurfskandidaten",
+  links: "Links",
+  score: "Score",
+  monitoringStats: "Monitoring-Statistik",
+  monitoringGroups: "Offizielle Monitoringgruppen",
+  officialApis: "offizielle APIs",
+  pageMonitors: "Seiten- und Listingmonitore",
+  curationRoots: "Kurationswurzeln",
+  activeManualQueues: "aktive manuelle Queues",
+  sourcesWatched: "Beobachtete Quellen",
+  refreshModel: "Aktualisierungsmodell",
+  reviewQueue: "Prufqueue",
+  reviewPipeline: "Prufpipeline",
+  kpopQueue: "K-pop-Kurationsqueue",
+  kpopQueueText: "K-pop-Konzerte, Ticketstarts, Fanmeetings, Pop-ups, Birthday Cafes und Merch-Stores bleiben in Prufung, bis eine offizielle Quelle bestatigt ist.",
+  officialFallbackLink: "offizieller Alternativlink",
+  officialFallbackLinks: "offizielle Alternativlinks",
+  pipelineSteps: [
+    "Offizielle Seiten und interne Detail-Links aus beobachteten Quellen sammeln.",
+    "Kandidatenlinks nach Daten, Besucherkeywords, Quellentyp und offiziellem Kontext bewerten.",
+    "Die offizielle Quelle manuell fur Datum, Ort, Berechtigung, Bestand, Ticketing und Rechte prufen.",
+    "Zusammenfassungen und Reisehinweise vor der Veroffentlichung in eigenen Worten schreiben.",
+    "Letzte Prufdaten, offizielle Links, Wetterhinweise und nahe Routen auf jeder Detailseite zeigen."
+  ]
+};
+
+Object.assign(watchlistGroupCopy["tourism-festivals"], {
+  fr: { title: "Calendriers tourisme et festivals", focus: "Tourisme officiel, villes, culture, expositions, lieux et calendriers de festivals utiles aux visiteurs." },
+  de: { title: "Tourismus- und Festivalkalender", focus: "Offizielle Tourismus-, Stadt-, Kultur-, Ausstellungs-, Orts- und Festivalquellen fur Besucherplanung." }
+});
+Object.assign(watchlistGroupCopy["shopping-beauty-dutyfree"], {
+  fr: { title: "Shopping, K-beauty, duty-free et grands magasins", focus: "OLIVE YOUNG, duty-free, grands magasins, soldes, coupons, pop-ups, tax refund et avantages visiteurs." },
+  de: { title: "Shopping, K-beauty, Duty-free und Kaufhauser", focus: "OLIVE YOUNG, Duty-free, Kaufhausnews, Sales, Coupons, Pop-ups, Tax Refund und Besucherangebote." }
+});
+Object.assign(watchlistGroupCopy["kpop-popups-ticketing"], {
+  fr: { title: "K-pop pop-ups, merch, fan meetings et billetterie", focus: "Commerce K-pop officiel, tickets, artistes, agences, lieux et reservations globales a verifier manuellement." },
+  de: { title: "K-pop Pop-ups, Merch, Fanmeetings und Ticketing", focus: "Offizieller K-pop-Commerce, Ticketing, Kunstler, Agenturen, Orte und globale Reservierungsquellen mit manueller Prufung." }
+});
+Object.assign(watchlistGroupCopy["weather-routes"], {
+  fr: { title: "Meteo et planification d'itineraires", focus: "Bases meteo historiques, API publiques et donnees de routes qui rendent les pages utiles au-dela des dates et titres." },
+  de: { title: "Wetter- und Routenplanung", focus: "Vorjahres-Wetterdaten, offentliche APIs und Routendaten, die Eventseiten nutzlicher machen als reine Daten und Titel." }
+});
+
 function opsText(lang, key) {
   const value = opsCopy[lang]?.[key] || opsCopy.en[key] || key;
   return Array.isArray(value) ? value.join(" ") : value;
@@ -4311,7 +4977,7 @@ function renderFreshness(lang) {
               <em>${esc(event.city)} · ${categoryLabel(lang, event.category)} · ${statusLabel(lang, statusOf(event))}</em>
               <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
             </div>
-            <p>${esc(local(event.summary, lang))}</p>
+            <p>${esc(eventSummaryText(event, lang))}</p>
             <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(event.sourceName)}</a>
           </article>`;
         }).join("")}
@@ -4327,7 +4993,39 @@ function renderFreshness(lang) {
   });
 }
 
+const extendedPolicySections = {
+  fr: {
+    editorial: [
+      ["Priorite des sources", "Les fiches publiees doivent venir d'API officielles, de pages gouvernementales ou touristiques officielles, de pages de marques, de lieux, ou d'avis officiels verifies. Les reposts non officiels servent seulement d'indices de decouverte."],
+      ["Surveillance et curation", "Les moniteurs officiels collectent des dates candidates, mais rien n'est publie sans verifier la date, le lieu, l'eligibilite, le stock, les tickets et les droits de l'image ou de la marque."],
+      ["Valeur visiteur", "Chaque page doit aider un visiteur a planifier: dates lisibles, nom coreen du lieu, meteo, transport, idees proches et lien vers la source officielle pour l'action finale."],
+      ["Independance", "Les publicites, partenariats et suggestions de sources ne peuvent pas acheter un placement ni supprimer les labels de verification."]
+    ],
+    corrections: [
+      ["Quoi envoyer", `Envoyez a ${contactEmail} l'URL officielle, le nom de l'evenement ou de l'offre, les dates, le lieu ou la branche, la langue et le detail incorrect.`],
+      ["Verification officielle", "Les corrections sont comparees aux API officielles, pages publiques, pages de marques, lieux, billetteries ou avis verifies avant modification."],
+      ["Categories rapides", "Duty-free, OLIVE YOUNG, grands magasins, pop-ups K-pop et tickets ont des fenetres de reverification plus courtes."],
+      ["Labels de mise a jour", "Les pages publiques affichent la date de derniere verification et conservent le lien officiel pour confirmation finale."]
+    ]
+  },
+  de: {
+    editorial: [
+      ["Quellenprioritat", "Veroffentlichte Eintrage mussen aus offiziellen APIs, Regierungs- oder Tourismusseiten, Marken-, Veranstaltungsortseiten oder verifizierten offiziellen Kunstler- und Unternehmenshinweisen stammen. Inoffizielle Reposts sind nur Entdeckungshinweise."],
+      ["Monitoring und Kuration", "Offizielle Monitore sammeln Kandidatendaten, aber nichts wird ohne Prufung von Datum, Ort, Berechtigung, Bestand, Ticketing und Bild- oder Markenrechten veroffentlicht."],
+      ["Besucherwert", "Jede Seite muss beim Planen helfen: klare Daten, koreanischer Ortsname, Wetter, Verkehr, nahe Ideen und Link zur offiziellen Quelle fur die finale Aktion."],
+      ["Unabhangigkeit", "Anzeigen, Partnerschaften und Quellenvorschlage konnen keine Platzierung kaufen und keine Verifizierungslabels entfernen."]
+    ],
+    corrections: [
+      ["Was senden", `Senden Sie ${contactEmail} die offizielle URL, den Event- oder Angebotsnamen, Daten, Ort oder Filiale, Sprache und das genaue falsche Detail.`],
+      ["Offizielle Prufung", "Korrekturen werden vor Anderungen mit offiziellen APIs, offentlichen Seiten, Marken-, Veranstaltungsort-, Ticketingseiten oder verifizierten Hinweisen verglichen."],
+      ["Schnelle Kategorien", "Duty-free, OLIVE YOUNG, Kaufhaus-Pop-ups, K-pop-Reservierungen und Ticketinghinweise erhalten kurzere Pruffenster."],
+      ["Update-Labels", "Offentliche Eventseiten zeigen letzte Prufdaten und behalten den offiziellen Link fur die finale Bestatigung."]
+    ]
+  }
+};
+
 function policySections(lang, kind) {
+  if (extendedPolicySections[lang]?.[kind]) return extendedPolicySections[lang][kind];
   const copy = {
     editorial: {
       en: [
@@ -4471,11 +5169,76 @@ ${numberedSections(sections)}
   });
 }
 
+const extendedStaticPages = {
+  fr: {
+    about: [
+      "K-Spot Now est un radar multilingue d'evenements et de shopping pour les visiteurs qui planifient un voyage en Coree.",
+      "K-Spot Now n'est pas une marketplace de tickets ni un service de paiement. Le site explique ce qui se passe, compare les sources officielles et envoie les visiteurs vers l'organisateur, la marque, le lieu ou la page de billetterie pour l'action finale.",
+      "Le site privilegie les sources officielles, les dates claires, les notes pratiques et les labels de fraicheur honnetes.",
+      "Les pop-ups K-pop et les annonces sociales passent par une curation avant publication."
+    ],
+    contact: [
+      `Pour corrections, suggestions de sources ou partenariats, ecrivez a ${contactEmail}.`,
+      "Incluez l'URL officielle, les dates, le lieu et la langue preferee."
+    ],
+    privacy: [
+      "Ce site statique ne demande pas de compte, paiement ou profil de connexion. L'hebergeur peut traiter des journaux techniques de base pour la securite et la livraison.",
+      "Les evenements enregistres sont stockes dans le navigateur de votre appareil. K-Spot Now ne recoit pas cette liste sauf si vous nous l'envoyez.",
+      "Si Google AdSense est active, Google et ses partenaires peuvent utiliser cookies, stockage local ou technologies similaires pour diffuser, personnaliser, limiter et mesurer les annonces.",
+      "Pour les visiteurs de l'EEE, du Royaume-Uni et de la Suisse, le consentement publicitaire doit passer par une plateforme de gestion du consentement certifiee par Google lorsque des annonces AdSense sont affichees."
+    ],
+    "cookie-policy": [
+      "K-Spot Now utilise un petit stockage cote navigateur pour rendre le site utile et preparer la conformite publicitaire.",
+      "Planificateur enregistre: quand vous enregistrez un evenement, la liste reste localement dans votre navigateur.",
+      "Donnees operationnelles: l'hebergement et la securite peuvent traiter IP, chemin demande, user agent et horodatage pour livrer les pages et prevenir les abus.",
+      "Cookies publicitaires: si AdSense est active, Google et des fournisseurs publicitaires tiers peuvent utiliser des cookies ou technologies similaires.",
+      `Questions ou demandes de correction: ${contactEmail}.`
+    ],
+    terms: [
+      "Les informations sont fournies pour la planification de voyage et peuvent changer sans preavis.",
+      "Verifiez toujours les pages officielles avant de visiter, acheter, reserver ou modifier un voyage.",
+      "K-Spot Now n'est pas affilie aux marques, artistes, lieux ou agences mentionnes sauf indication explicite."
+    ]
+  },
+  de: {
+    about: [
+      "K-Spot Now ist ein mehrsprachiger Event- und Shoppingradar fur Besucher, die Korea-Reisen planen.",
+      "K-Spot Now ist kein Ticketmarktplatz und kein Checkout-Service. Die Website erklart, was passiert, vergleicht offizielle Quellen und leitet Besucher fur die finale Aktion zum ursprunglichen Veranstalter, zur Marke, zum Ort oder zur Ticketingseite.",
+      "Die Website priorisiert offizielle Quellen, klare Daten, praktische Reisetipps und ehrliche Aktualitatslabels.",
+      "K-pop Pop-ups und reine Social-Ankundigungen gehen vor der Veroffentlichung durch eine Kuration."
+    ],
+    contact: [
+      `Fur Korrekturen, Quellenvorschlage oder Partnerschaften schreiben Sie an ${contactEmail}.`,
+      "Bitte fugen Sie offizielle Event-URL, Datumsbereich, Ort und bevorzugte Sprache hinzu."
+    ],
+    privacy: [
+      "Diese statische Website erfordert keine Konten, Zahlungen oder Loginprofile. Der Hostinganbieter kann technische Basislogs fur Sicherheit und Auslieferung verarbeiten.",
+      "Gespeicherte Eventplanung nutzt Browserspeicher auf Ihrem Gerat. K-Spot Now erhalt diese Liste nicht, ausser Sie senden sie uns.",
+      "Wenn Google AdSense aktiviert ist, konnen Google und Werbepartner Cookies, lokalen Speicher oder ahnliche Technologien zur Anzeige, Personalisierung, Begrenzung und Messung von Anzeigen nutzen.",
+      "Fur Besucher im EWR, im Vereinigten Konigreich und in der Schweiz sollte Werbeeinwilligung uber eine von Google zertifizierte Consent-Management-Plattform erfolgen."
+    ],
+    "cookie-policy": [
+      "K-Spot Now nutzt eine kleine Menge Browserspeicher, um die Website nutzlich zu machen und Werbecompliance vorzubereiten.",
+      "Gespeicherter Planer: Wenn Sie ein Event speichern, bleibt die Liste lokal in Ihrem Browser.",
+      "Betriebsdaten: Hosting und Sicherheit konnen IP-Adresse, Pfad, User Agent und Zeitstempel verarbeiten, um Seiten auszuliefern und Missbrauch zu verhindern.",
+      "Werbe-Cookies: Wenn AdSense aktiviert ist, konnen Google und Drittanbieter Cookies oder ahnliche Technologien nutzen.",
+      `Fragen oder Korrekturen: ${contactEmail}.`
+    ],
+    terms: [
+      "Informationen dienen der Reiseplanung und konnen sich ohne Vorankundigung andern.",
+      "Prufen Sie immer offizielle Seiten, bevor Sie besuchen, kaufen, reservieren oder Reiseplane andern.",
+      "K-Spot Now ist nicht mit den genannten Marken, Kunstlern, Orten oder Behorden verbunden, sofern nicht ausdrucklich angegeben."
+    ]
+  }
+};
+
 function staticPageParagraphs(lang, kind) {
+  if (extendedStaticPages[lang]?.[kind]) return extendedStaticPages[lang][kind];
   const copy = {
     about: {
       en: [
         "K-Spot Now is a multilingual event and shopping radar for visitors planning Korea trips.",
+        "K-Spot Now is not a ticket marketplace or checkout service. It explains what is happening, compares official sources, and sends visitors to the original organizer, brand, venue, or ticketing page for final action.",
         "The site prioritizes official sources, clear date ranges, practical travel notes, and honest freshness labels.",
         "K-pop pop-ups and social-only announcements are queued for curation before publication."
       ],

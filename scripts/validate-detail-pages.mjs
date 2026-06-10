@@ -13,14 +13,16 @@ const weather = JSON.parse(fs.readFileSync(path.join(root, "data", "weather-base
 const currentWeather = fs.existsSync(path.join(root, "data", "kma-forecast.json"))
   ? JSON.parse(fs.readFileSync(path.join(root, "data", "kma-forecast.json"), "utf8"))
   : null;
-const languages = ["en", "es", "zh", "pt", "ru", "ja"];
+const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
 const languageLocales = {
   en: "en-US",
   es: "es-ES",
   zh: "zh-CN",
   pt: "pt-BR",
   ru: "ru-RU",
-  ja: "ja-JP"
+  ja: "ja-JP",
+  fr: "fr-FR",
+  de: "de-DE"
 };
 const forecastLabels = {
   en: {
@@ -52,6 +54,16 @@ const forecastLabels = {
     lowHigh: "最低 / 最高",
     morning: "午前",
     afternoon: "午後"
+  },
+  fr: {
+    lowHigh: "Min / Max",
+    morning: "Matin",
+    afternoon: "Apres-midi"
+  },
+  de: {
+    lowHigh: "Tief / Hoch",
+    morning: "Vormittag",
+    afternoon: "Nachmittag"
   }
 };
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
@@ -234,8 +246,16 @@ function validateDetailPage(event, lang) {
     }
   }
 
-  for (const tip of (event.travelTips || []).slice(0, 2)) {
-    assertIncludes(html, esc(tip), id, `travel tip is missing: ${tip}`);
+  if (lang === "fr") {
+    assertIncludes(html, "Reverifiez la source officielle", id, "French generated travel tips should mention official recheck.");
+    assertIncludes(html, "Copiez le nom coreen du lieu", id, "French generated travel tips should mention Korean map names.");
+  } else if (lang === "de") {
+    assertIncludes(html, "Prufen Sie die offizielle Quelle", id, "German generated travel tips should mention official recheck.");
+    assertIncludes(html, "Kopieren Sie den koreanischen Ortsnamen", id, "German generated travel tips should mention Korean map names.");
+  } else {
+    for (const tip of (event.travelTips || []).slice(0, 2)) {
+      assertIncludes(html, esc(tip), id, `travel tip is missing: ${tip}`);
+    }
   }
 
   assertIncludes(html, "www.google.com/maps/search", id, "Google Maps shortcut is missing.");

@@ -18,10 +18,20 @@ const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIE
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
+const defaultTripAffiliate = {
+  allianceId: "8627235",
+  sid: "318693138",
+  sub1: "",
+  sub3: "D17791636",
+  seoulUrl: "https://www.trip.com/hotels/list?city=274&display=Seoul&optionId=274&optionType=City&optionName=Seoul&Allianceid=8627235&SID=318693138&trip_sub1=&trip_sub3=D17791636"
+};
 const affiliateIds = {
   agodaCid: String(process.env.AGODA_PARTNER_CID || "").trim(),
-  tripAllianceId: String(process.env.TRIP_ALLIANCE_ID || "").trim(),
-  tripSid: String(process.env.TRIP_ALLIANCE_SID || "").trim(),
+  tripAllianceId: String(process.env.TRIP_ALLIANCE_ID || defaultTripAffiliate.allianceId).trim(),
+  tripSid: String(process.env.TRIP_ALLIANCE_SID || defaultTripAffiliate.sid).trim(),
+  tripSub1: String(process.env.TRIP_SUB1 ?? defaultTripAffiliate.sub1).trim(),
+  tripSub3: String(process.env.TRIP_SUB3 || defaultTripAffiliate.sub3).trim(),
+  tripSeoulUrl: String(process.env.TRIP_SEOUL_HOTELS_URL || defaultTripAffiliate.seoulUrl).trim(),
   klookAid: String(process.env.KLOOK_AFFILIATE_AID || "").trim(),
   trazyId: String(process.env.TRAZY_AFFILIATE_ID || "").trim()
 };
@@ -3534,6 +3544,18 @@ function mapLinkSection(event, lang) {
         </section>`;
 }
 
+function tripHotelUrlFor(city) {
+  if (city === "Seoul" && affiliateIds.tripSeoulUrl) return affiliateIds.tripSeoulUrl;
+  const params = new URLSearchParams({
+    cityName: city,
+    Allianceid: affiliateIds.tripAllianceId,
+    SID: affiliateIds.tripSid,
+    trip_sub1: affiliateIds.tripSub1,
+    trip_sub3: affiliateIds.tripSub3
+  });
+  return `https://www.trip.com/hotels/list?${params.toString()}`;
+}
+
 function affiliateLinksFor(event) {
   const city = !event.city || event.city === "Nationwide" ? "Seoul" : event.city;
   const encodedCity = encodeURIComponent(city);
@@ -3545,7 +3567,7 @@ function affiliateLinksFor(event) {
     links.push({ partner: "Agoda", type: "hotels", city, href: `https://www.agoda.com/search?cid=${encodeURIComponent(affiliateIds.agodaCid)}&textToSearch=${encodedCity}${checkIn}` });
   }
   if (affiliateIds.tripAllianceId && affiliateIds.tripSid) {
-    links.push({ partner: "Trip.com", type: "hotels", city, href: `https://www.trip.com/hotels/list?cityName=${encodedCity}&allianceid=${encodeURIComponent(affiliateIds.tripAllianceId)}&sid=${encodeURIComponent(affiliateIds.tripSid)}` });
+    links.push({ partner: "Trip.com", type: "hotels", city, href: tripHotelUrlFor(city) });
   }
   if (affiliateIds.klookAid) {
     links.push({ partner: "Klook", type: "tours", city, href: `https://www.klook.com/en-US/search/result/?query=${encodedCity}&aid=${encodeURIComponent(affiliateIds.klookAid)}` });
@@ -3561,24 +3583,24 @@ function affiliateSection(event, lang) {
   const links = affiliateLinksFor(event);
   if (!links.length) return "";
   const title = local({
-    en: "Book your stay and tours nearby",
-    es: "Reserva alojamiento y tours cerca",
+    en: "Stay nearby",
+    es: "Alojamiento cerca",
     zh: "预订附近住宿与行程",
-    pt: "Reserve hospedagem e tours por perto",
+    pt: "Hospedagem perto",
     ru: "Забронируйте жилье и туры рядом",
     ja: "周辺の宿泊とツアーを予約",
-    fr: "Reservez hebergement et activites a proximite",
-    de: "Unterkunft und Touren in der Nahe buchen"
+    fr: "Hebergement proche",
+    de: "Unterkunft in der Nahe"
   }, lang);
   const disclosure = local({
-    en: "If you book through these links, K-Spot Now may earn a commission at no extra cost to you.",
-    es: "Si reservas a traves de estos enlaces, K-Spot Now puede recibir una comision sin coste extra para ti.",
+    en: "Sponsored hotel link. K-Spot Now may earn a commission.",
+    es: "Enlace patrocinado de hotel. K-Spot Now puede recibir comision.",
     zh: "通过这些链接预订时，K-Spot Now 可能获得佣金，您无需支付额外费用。",
-    pt: "Se voce reservar por estes links, K-Spot Now pode receber uma comissao sem custo extra para voce.",
+    pt: "Link de hotel patrocinado. K-Spot Now pode receber comissao.",
     ru: "Если вы бронируете по этим ссылкам, K-Spot Now может получить комиссию без дополнительных затрат для вас.",
     ja: "これらのリンク経由で予約すると、追加費用なしでK-Spot Nowに紹介料が入る場合があります。",
-    fr: "Si vous reservez via ces liens, K-Spot Now peut recevoir une commission sans cout supplementaire pour vous.",
-    de: "Wenn Sie uber diese Links buchen, kann K-Spot Now eine Provision erhalten, ohne Mehrkosten fur Sie."
+    fr: "Lien hotel sponsorise. K-Spot Now peut recevoir une commission.",
+    de: "Gesponserter Hotellink. K-Spot Now kann Provision erhalten."
   }, lang);
   const hotelsTemplate = local({
     en: "Hotels in {city}",
@@ -4786,45 +4808,45 @@ const planningLayerCopy = {
   en: {
     eyebrow: "Why use K-Spot Now",
     title: "Plan first. Book on official sources.",
-    text: "K-Spot Now is not a ticket shop. It is a multilingual planning layer that helps visitors compare official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages before choosing where to buy, reserve, or visit.",
+    text: "Not a ticket shop. Compare official sources, weather, maps, routes, and hotel options before you book.",
     items: [
-      ["One visitor shortlist", "Scan fast-moving Korea events across multiple official source types instead of opening one marketplace at a time."],
-      ["Context before checkout", "Weather, map-ready Korean place names, transit notes, and nearby route ideas sit next to each event."],
-      ["Freshness you can audit", "Last checked dates, verification labels, and source status tell you whether a page needs a final official recheck."],
-      ["Clean handoff", "Tickets, reservations, purchases, and rules stay on the original organizer, brand, venue, or ticketing site."]
+      ["Sources", "Official · ticketing · offer"],
+      ["Trip context", "Weather · maps · routes"],
+      ["Save", "Calendar · shortlist"],
+      ["Book", "Final action stays official"]
     ]
   },
   es: {
     eyebrow: "Por que usar K-Spot Now",
     title: "Planifica primero. Reserva en fuentes oficiales.",
-    text: "K-Spot Now no es una tienda de entradas. Es una capa multilingue de planificacion para comparar paginas oficiales de turismo, marcas, recintos, duty free, tiendas departamentales y plataformas de tickets antes de comprar, reservar o visitar.",
+    text: "No es una tienda de tickets. Compara fuentes oficiales, clima, mapas, rutas y hoteles antes de reservar.",
     items: [
-      ["Una lista para visitantes", "Revisa eventos de Corea que cambian rapido en varios tipos de fuentes oficiales."],
-      ["Contexto antes de comprar", "Clima, nombres coreanos listos para mapas, transporte e ideas de ruta aparecen junto a cada evento."],
-      ["Frescura auditable", "La fecha de ultima revision, la verificacion y el estado de la fuente muestran si hace falta reconfirmar."],
-      ["Salida limpia", "Entradas, reservas, compras y reglas quedan en el organizador, marca, recinto o sitio de tickets original."]
+      ["Fuentes", "Oficial · tickets · oferta"],
+      ["Contexto", "Clima · mapas · rutas"],
+      ["Guardar", "Calendario · lista"],
+      ["Reservar", "La accion final queda oficial"]
     ]
   },
   fr: {
     eyebrow: "Pourquoi utiliser K-Spot Now",
     title: "Planifiez d'abord. Reserve sur les sources officielles.",
-    text: "K-Spot Now n'est pas une billetterie. C'est une couche de planification multilingue qui aide les visiteurs a comparer tourisme officiel, marques, lieux, duty-free, grands magasins et plateformes de tickets avant d'acheter, reserver ou visiter.",
+    text: "Pas une billetterie. Comparez sources officielles, meteo, cartes, trajets et hotels avant de reserver.",
     items: [
-      ["Une selection visiteur", "Parcourez les evenements rapides en Coree depuis plusieurs types de sources officielles."],
-      ["Contexte avant achat", "Meteo, noms coreens prets pour les cartes, transports et idees d'itineraires sont places pres de chaque evenement."],
-      ["Fraicheur verifiable", "Dates de derniere verification, labels de validation et etat des sources indiquent quand reconfirmer."],
-      ["Passage propre", "Billets, reservations, achats et regles restent sur le site de l'organisateur, de la marque, du lieu ou de la billetterie."]
+      ["Sources", "Officiel · billetterie · offre"],
+      ["Contexte", "Meteo · cartes · trajets"],
+      ["Sauver", "Calendrier · liste"],
+      ["Reserver", "Action finale sur source officielle"]
     ]
   },
   de: {
     eyebrow: "Warum K-Spot Now nutzen",
     title: "Erst planen. Bei offiziellen Quellen buchen.",
-    text: "K-Spot Now ist kein Ticketshop. Es ist eine mehrsprachige Planungsschicht, mit der Besucher offizielle Tourismus-, Marken-, Veranstaltungsort-, Duty-free-, Kaufhaus- und Ticketingseiten vergleichen, bevor sie kaufen, reservieren oder hingehen.",
+    text: "Kein Ticketshop. Vergleichen Sie offizielle Quellen, Wetter, Karten, Routen und Hotels vor der Buchung.",
     items: [
-      ["Eine Besucherauswahl", "Scannen Sie schnelle Korea-Events uber mehrere offizielle Quellentypen hinweg."],
-      ["Kontext vor dem Checkout", "Wetter, kartenfertige koreanische Ortsnamen, Verkehrshinweise und Routenideen stehen direkt neben jedem Event."],
-      ["Prufbare Aktualitat", "Letzte Prufdaten, Verifizierungslabels und Quellenstatus zeigen, wann offiziell neu gepruft werden muss."],
-      ["Saubere Ubergabe", "Tickets, Reservierungen, Kaufe und Regeln bleiben beim Veranstalter, der Marke, dem Ort oder der Ticketingseite."]
+      ["Quellen", "Offiziell · Tickets · Angebot"],
+      ["Kontext", "Wetter · Karten · Routen"],
+      ["Speichern", "Kalender · Merkliste"],
+      ["Buchen", "Finale Aktion bleibt offiziell"]
     ]
   },
   zh: {
@@ -4841,12 +4863,12 @@ const planningLayerCopy = {
   pt: {
     eyebrow: "Por que usar o K-Spot Now",
     title: "Planeje primeiro. Reserve nas fontes oficiais.",
-    text: "K-Spot Now nao e uma loja de ingressos. E uma camada multilingue de planejamento para comparar paginas oficiais de turismo, marcas, locais, duty free, lojas de departamento e plataformas de tickets antes de comprar, reservar ou visitar.",
+    text: "Nao e bilheteria. Compare fontes oficiais, clima, mapas, rotas e hoteis antes de reservar.",
     items: [
-      ["Uma lista para visitantes", "Veja eventos da Coreia que mudam rapido em varios tipos de fontes oficiais."],
-      ["Contexto antes da compra", "Clima, nomes coreanos prontos para mapas, transporte e ideias de rota aparecem ao lado de cada evento."],
-      ["Atualizacao auditavel", "Datas de ultima checagem, etiquetas de verificacao e status da fonte mostram quando reconfirmar."],
-      ["Encaminhamento limpo", "Ingressos, reservas, compras e regras ficam no organizador, marca, local ou site de tickets original."]
+      ["Fontes", "Oficial · tickets · oferta"],
+      ["Contexto", "Clima · mapas · rotas"],
+      ["Salvar", "Calendario · lista"],
+      ["Reservar", "Acao final fica oficial"]
     ]
   },
   ru: {
@@ -4877,33 +4899,33 @@ const planningWorkflowCopy = {
   en: {
     aria: "How visitors use K-Spot Now",
     steps: [
-      ["Find signal", "See what is live, ending soon, or worth planning before it disappears."],
-      ["Verify visitor details", "Check dates, venue, weather, Korean map name, and nearby routes in one place."],
-      ["Continue officially", "Move to the organizer, brand, venue, or ticketing page for the final action."]
+      ["Find", "Live, ending soon, worth planning."],
+      ["Check", "Date, venue, weather, Korean map."],
+      ["Book", "Finish on the official source."]
     ]
   },
   es: {
     aria: "Como usan K-Spot Now los visitantes",
     steps: [
-      ["Encuentra la senal", "Ve que esta activo, termina pronto o vale la pena planificar antes de que desaparezca."],
-      ["Verifica detalles", "Consulta fechas, lugar, clima, nombre coreano para mapas y rutas cercanas en un solo lugar."],
-      ["Continua oficialmente", "Pasa al organizador, marca, recinto o pagina de tickets para la accion final."]
+      ["Encuentra", "Activo, termina pronto, vale planear."],
+      ["Revisa", "Fecha, lugar, clima, mapa coreano."],
+      ["Reserva", "Finaliza en la fuente oficial."]
     ]
   },
   fr: {
     aria: "Comment les visiteurs utilisent K-Spot Now",
     steps: [
-      ["Reperez le signal", "Voyez ce qui est en cours, bientot termine ou utile a planifier avant disparition."],
-      ["Verifiez les details", "Dates, lieu, meteo, nom coreen pour les cartes et itineraires proches sont regroupes."],
-      ["Continuez officiellement", "Passez a l'organisateur, la marque, le lieu ou la billetterie pour l'action finale."]
+      ["Trouver", "En cours, bientot fini, a planifier."],
+      ["Verifier", "Date, lieu, meteo, carte coreenne."],
+      ["Reserver", "Finaliser sur la source officielle."]
     ]
   },
   de: {
     aria: "Wie Besucher K-Spot Now nutzen",
     steps: [
-      ["Signal finden", "Sehen Sie, was live ist, bald endet oder rechtzeitig geplant werden sollte."],
-      ["Details prufen", "Datum, Ort, Wetter, koreanischer Kartenname und nahe Routen stehen zusammen."],
-      ["Offiziell fortfahren", "Gehen Sie fur die finale Aktion zum Veranstalter, zur Marke, zum Ort oder Ticketing."]
+      ["Finden", "Live, bald vorbei, planenswert."],
+      ["Prufen", "Datum, Ort, Wetter, koreanische Karte."],
+      ["Buchen", "Final auf offizieller Quelle."]
     ]
   },
   zh: {
@@ -4917,9 +4939,9 @@ const planningWorkflowCopy = {
   pt: {
     aria: "Como visitantes usam o K-Spot Now",
     steps: [
-      ["Encontre o sinal", "Veja o que esta ao vivo, termina em breve ou merece planejamento antes de sumir."],
-      ["Verifique detalhes", "Datas, local, clima, nome coreano para mapas e rotas proximas ficam juntos."],
-      ["Continue no oficial", "Va ao organizador, marca, local ou pagina de tickets para a acao final."]
+      ["Encontre", "Ao vivo, termina logo, vale planejar."],
+      ["Confira", "Data, local, clima, mapa coreano."],
+      ["Reserve", "Finalize na fonte oficial."]
     ]
   },
   ru: {
@@ -4976,122 +4998,178 @@ function planningLayerSection(lang) {
 const serviceDifferenceCopy = {
   en: {
     eyebrow: "Planning desk vs listing page",
-    title: "Why use this before NOL World or a ticket page?",
-    text: "NOL World, ticketing, brand, tourism, and store pages are where visitors confirm or complete the final action. K-Spot Now is the planning desk before that: it compares fast-moving signals, adds trip context, and sends visitors to the right source when they are ready.",
+    title: "Before NOL World or ticket pages",
+    text: "Use K-Spot Now to choose. Use the original source for the final action.",
     listingLabel: "Single-source listing",
-    listingTitle: "Useful when you already know what to do",
+    listingTitle: "When you already know",
     listingPoints: [
-      "Shows one platform's inventory, listing, ticket, or campaign detail.",
-      "Best for the final purchase, reservation, coupon, or organizer notice.",
-      "Can be hard to compare with weather, nearby routes, and other source types."
+      "One platform detail.",
+      "Final purchase, reservation, coupon, or notice."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Useful before deciding where to go",
+    kspotTitle: "Before deciding",
     kspotPoints: [
-      "Combines tourism, brand, venue, duty-free, department-store, ticketing, and weather sources.",
-      "Adds Korean map names, calendar files, weather, route ideas, and save-to-planner behavior.",
-      "Labels source roles so visitors know whether the link is official, ticketing, listing, or offer information."
+      "Korean map names, calendar files, weather, route ideas.",
+      "Source labels: official, ticketing, listing, or offer."
     ],
     proofs: [
-      ["Compare", "Events, pop-ups, shopping offers, routes, and guides are grouped for visitor decisions."],
-      ["Check", "Dates, last-checked labels, weather, and Korean place names stay visible before the handoff."],
-      ["Continue", "The final action remains on the organizer, brand, venue, official source, or ticketing page."]
+      ["Compare", "Events · offers · routes"],
+      ["Check", "Date · weather · map"],
+      ["Continue", "Official source"]
     ]
   },
   es: {
     eyebrow: "Planificador vs pagina de listado",
-    title: "Por que usar esto antes de NOL World o una pagina de tickets?",
-    text: "NOL World, ticketing, marcas, turismo y tiendas sirven para confirmar o completar la accion final. K-Spot Now es la mesa de planificacion previa: compara senales rapidas, agrega contexto de viaje y envia a la fuente correcta.",
+    title: "Antes de NOL World o tickets",
+    text: "Usa K-Spot Now para elegir. Usa la fuente original para la accion final.",
     listingLabel: "Listado de una fuente",
-    listingTitle: "Util cuando ya sabes que hacer",
+    listingTitle: "Cuando ya sabes",
     listingPoints: [
-      "Muestra inventario, listado, ticket o campana de una plataforma.",
-      "Mejor para compra, reserva, cupon o aviso final del organizador.",
-      "No siempre facilita comparar clima, rutas cercanas y otros tipos de fuente."
+      "Detalle de una plataforma.",
+      "Compra, reserva, cupon o aviso final."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Util antes de decidir a donde ir",
+    kspotTitle: "Antes de decidir",
     kspotPoints: [
-      "Combina fuentes de turismo, marcas, recintos, duty-free, tiendas, tickets y clima.",
-      "Agrega nombres coreanos para mapas, calendario, clima, rutas y plan guardado.",
-      "Etiqueta el rol de cada fuente: oficial, ticketing, listado u oferta."
+      "Mapa coreano, calendario, clima y rutas.",
+      "Etiquetas: oficial, tickets, listado u oferta."
     ],
     proofs: [
-      ["Comparar", "Eventos, pop-ups, ofertas, rutas y guias se agrupan para decidir."],
-      ["Revisar", "Fechas, revision, clima y nombres coreanos quedan visibles antes del enlace final."],
-      ["Continuar", "La accion final queda en organizador, marca, recinto, fuente oficial o ticketing."]
+      ["Comparar", "Eventos · ofertas · rutas"],
+      ["Revisar", "Fecha · clima · mapa"],
+      ["Continuar", "Fuente oficial"]
     ]
   },
   fr: {
     eyebrow: "Bureau de planification vs page de listing",
-    title: "Pourquoi l'utiliser avant NOL World ou une billetterie ?",
-    text: "NOL World, les billetteries, les marques, le tourisme et les magasins servent a confirmer ou finaliser l'action. K-Spot Now est le bureau de planification avant cela : comparer les signaux rapides, ajouter le contexte de voyage, puis envoyer vers la bonne source.",
+    title: "Avant NOL World ou la billetterie",
+    text: "Utilisez K-Spot Now pour choisir. Utilisez la source originale pour l'action finale.",
     listingLabel: "Listing d'une source",
-    listingTitle: "Utile quand vous savez deja quoi faire",
+    listingTitle: "Quand vous savez deja",
     listingPoints: [
-      "Affiche l'inventaire, le listing, le ticket ou la campagne d'une plateforme.",
-      "Ideal pour achat final, reservation, coupon ou avis d'organisateur.",
-      "Moins pratique pour comparer meteo, itineraires proches et autres sources."
+      "Detail d'une plateforme.",
+      "Achat, reservation, coupon ou avis final."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Utile avant de decider ou aller",
+    kspotTitle: "Avant de decider",
     kspotPoints: [
-      "Combine tourisme, marques, lieux, duty-free, grands magasins, ticketing et meteo.",
-      "Ajoute noms coreens pour cartes, calendrier, meteo, itineraires et planning sauvegarde.",
-      "Indique le role de la source : officielle, ticketing, listing ou offre."
+      "Carte coreenne, calendrier, meteo et trajets.",
+      "Labels: officiel, billetterie, listing ou offre."
     ],
     proofs: [
-      ["Comparer", "Evenements, pop-ups, offres, itineraires et guides sont regroupes pour decider."],
-      ["Verifier", "Dates, fraicheur, meteo et noms coreens restent visibles avant le lien final."],
-      ["Continuer", "L'action finale reste chez l'organisateur, la marque, le lieu, la source officielle ou la billetterie."]
+      ["Comparer", "Evenements · offres · trajets"],
+      ["Verifier", "Date · meteo · carte"],
+      ["Continuer", "Source officielle"]
     ]
   },
   de: {
     eyebrow: "Planungsebene vs Listingseite",
-    title: "Warum vor NOL World oder einer Ticketseite nutzen?",
-    text: "NOL World, Ticketing-, Marken-, Tourismus- und Store-Seiten sind fur Bestatigung oder finale Aktion da. K-Spot Now ist die Planungsebene davor: schnelle Signale vergleichen, Reisekontext erganzen und Besucher zur richtigen Quelle weiterleiten.",
+    title: "Vor NOL World oder Ticketseiten",
+    text: "Mit K-Spot Now auswahlen. Die finale Aktion bleibt bei der Originalquelle.",
     listingLabel: "Einzelne Listingquelle",
-    listingTitle: "Gut, wenn Sie schon wissen, was zu tun ist",
+    listingTitle: "Wenn Sie schon wissen",
     listingPoints: [
-      "Zeigt Inventar, Listing, Ticket oder Kampagne einer Plattform.",
-      "Am besten fur Kauf, Reservierung, Coupon oder finale Veranstalterinfo.",
-      "Vergleich mit Wetter, nahen Routen und anderen Quellentypen ist oft muhsam."
+      "Detail einer Plattform.",
+      "Kauf, Reservierung, Coupon oder finale Info."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Gut, bevor Sie entscheiden wohin",
+    kspotTitle: "Vor der Entscheidung",
     kspotPoints: [
-      "Kombiniert Tourismus, Marken, Orte, Duty-free, Kaufhauser, Ticketing und Wetter.",
-      "Erganzt koreanische Kartennamen, Kalender, Wetter, Routen und gespeicherte Planung.",
-      "Kennzeichnet Quellenrollen: offiziell, Ticketing, Listing oder Angebot."
+      "Koreanische Karte, Kalender, Wetter und Routen.",
+      "Labels: offiziell, Ticketing, Listing oder Angebot."
     ],
     proofs: [
-      ["Vergleichen", "Events, Pop-ups, Angebote, Routen und Guides werden fur Entscheidungen gruppiert."],
-      ["Prufen", "Daten, Aktualitat, Wetter und koreanische Ortsnamen bleiben vor dem Handoff sichtbar."],
-      ["Fortfahren", "Die finale Aktion bleibt beim Veranstalter, der Marke, dem Ort, der offiziellen Quelle oder Ticketing."]
+      ["Vergleichen", "Events · Angebote · Routen"],
+      ["Prufen", "Datum · Wetter · Karte"],
+      ["Fortfahren", "Offizielle Quelle"]
+    ]
+  },
+  zh: {
+    eyebrow: "规划页 vs 单一列表",
+    title: "先看 K-Spot Now，再去票务页",
+    text: "先用 K-Spot Now 判断去哪里。付款、预约和最终规则仍在原始来源完成。",
+    listingLabel: "单一来源",
+    listingTitle: "已经决定时",
+    listingPoints: [
+      "一个平台的详情。",
+      "购买、预约、优惠券或最终公告。"
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "决定之前",
+    kspotPoints: [
+      "韩文地图名、日历、天气和路线。",
+      "标签：官方、票务、列表或优惠。"
+    ],
+    proofs: [
+      ["比较", "活动 · 优惠 · 路线"],
+      ["确认", "日期 · 天气 · 地图"],
+      ["继续", "原始来源"]
+    ]
+  },
+  ru: {
+    eyebrow: "Планирование vs один листинг",
+    title: "Перед NOL World или билетной страницей",
+    text: "Выберите через K-Spot Now. Оплата, бронь и финальные правила остаются у исходного источника.",
+    listingLabel: "Один источник",
+    listingTitle: "Когда уже решили",
+    listingPoints: [
+      "Детали одной платформы.",
+      "Покупка, бронь, купон или финальное объявление."
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "Перед решением",
+    kspotPoints: [
+      "Корейское название для карт, календарь, погода и маршруты.",
+      "Метки: официальный, билеты, листинг или оффер."
+    ],
+    proofs: [
+      ["Сравнить", "События · офферы · маршруты"],
+      ["Проверить", "Дата · погода · карта"],
+      ["Перейти", "Исходный источник"]
+    ]
+  },
+  ja: {
+    eyebrow: "計画ページ vs 単一リスト",
+    title: "NOL Worldやチケットページの前に",
+    text: "K-Spot Nowで行き先を判断。購入、予約、最終ルールは元の情報源で確認します。",
+    listingLabel: "単一ソース",
+    listingTitle: "行動が決まっている時",
+    listingPoints: [
+      "1つの平台の詳細。",
+      "購入、予約、クーポン、最終告知。"
+    ],
+    kspotLabel: "K-Spot Now",
+    kspotTitle: "決める前に",
+    kspotPoints: [
+      "韓国語の地図名、カレンダー、天気、ルート。",
+      "公式、チケット、リスト、特典のラベル。"
+    ],
+    proofs: [
+      ["比較", "イベント · 特典 · ルート"],
+      ["確認", "日付 · 天気 · 地図"],
+      ["移動", "元の情報源"]
     ]
   },
   pt: {
     eyebrow: "Planejamento vs pagina de listagem",
-    title: "Por que usar antes do NOL World ou de uma pagina de tickets?",
-    text: "NOL World, ticketing, marcas, turismo e lojas servem para confirmar ou concluir a acao final. K-Spot Now e a mesa de planejamento anterior: compara sinais rapidos, adiciona contexto de viagem e envia para a fonte certa.",
+    title: "Antes do NOL World ou tickets",
+    text: "Use o K-Spot Now para escolher. Use a fonte original para a acao final.",
     listingLabel: "Listagem de uma fonte",
-    listingTitle: "Util quando voce ja sabe o que fazer",
+    listingTitle: "Quando voce ja sabe",
     listingPoints: [
-      "Mostra inventario, listagem, ticket ou campanha de uma plataforma.",
-      "Melhor para compra, reserva, cupom ou aviso final do organizador.",
-      "Pode dificultar comparar clima, rotas proximas e outros tipos de fonte."
+      "Detalhe de uma plataforma.",
+      "Compra, reserva, cupom ou aviso final."
     ],
     kspotLabel: "K-Spot Now",
-    kspotTitle: "Util antes de decidir para onde ir",
+    kspotTitle: "Antes de decidir",
     kspotPoints: [
-      "Combina turismo, marcas, locais, duty-free, lojas, ticketing e clima.",
-      "Adiciona nomes coreanos para mapas, calendario, clima, rotas e plano salvo.",
-      "Rotula o papel da fonte: oficial, ticketing, listagem ou oferta."
+      "Mapa coreano, calendario, clima e rotas.",
+      "Labels: oficial, ticketing, listagem ou oferta."
     ],
     proofs: [
-      ["Comparar", "Eventos, pop-ups, ofertas, rotas e guias ficam juntos para decidir."],
-      ["Checar", "Datas, atualizacao, clima e nomes coreanos aparecem antes do link final."],
-      ["Continuar", "A acao final continua no organizador, marca, local, fonte oficial ou ticketing."]
+      ["Comparar", "Eventos · ofertas · rotas"],
+      ["Checar", "Data · clima · mapa"],
+      ["Continuar", "Fonte oficial"]
     ]
   }
 };

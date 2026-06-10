@@ -182,7 +182,8 @@ async function validateGeneratedText() {
     "Corrections, source suggestions, ads",
     "Image and takedown policy",
     "disputed images are taken down during review",
-    "Book your stay and tours nearby"
+    "Stay nearby",
+    "Sponsored hotel link"
   ];
   const englishUiPhrases = [
     "Saved Korea plan",
@@ -198,11 +199,10 @@ async function validateGeneratedText() {
     "1 saved event",
     "saved events",
     "Plan first. Book on official sources.",
-    "not a ticket shop",
-    "One visitor shortlist",
-    "Context before checkout",
-    "Freshness you can audit",
-    "Clean handoff",
+    "Not a ticket shop",
+    "official sources, weather, maps, routes, and hotel options",
+    "Before NOL World or ticket pages",
+    "Use K-Spot Now to choose",
     "Plan here, then complete tickets",
     "How to verify a Korea K-pop pop-up before you go",
     "What tourists should check before using Korea duty-free deals",

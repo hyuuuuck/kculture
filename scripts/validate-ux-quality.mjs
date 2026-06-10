@@ -159,20 +159,18 @@ if (splitBand.includes("/en/sources/")) {
 }
 const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
 assertIncludes(planningLayer, "Plan first. Book on official sources.", "en/index.html", "home must explain the planning-first positioning.");
-assertIncludes(planningLayer, "not a ticket shop", "en/index.html", "home must clearly distinguish K-Spot Now from ticket shops.");
-assertIncludes(planningLayer, "official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages", "en/index.html", "home must explain the cross-source comparison layer.");
-assertIncludes(planningLayer, "map-ready Korean place names", "en/index.html", "home must explain visitor context beyond raw event listings.");
+assertIncludes(planningLayer, "Not a ticket shop", "en/index.html", "home must clearly distinguish K-Spot Now from ticket shops.");
+assertIncludes(planningLayer, "official sources, weather, maps, routes, and hotel options", "en/index.html", "home must explain the cross-source planning layer without heavy copy.");
 assertIncludes(planningLayer, "class=\"planning-flow\"", "en/index.html", "home must show the visitor workflow, not only explanatory copy.");
-assertIncludes(planningLayer, "Find signal", "en/index.html", "home workflow must start with event discovery.");
-assertIncludes(planningLayer, "Verify visitor details", "en/index.html", "home workflow must include date, weather, map, and route verification.");
-assertIncludes(planningLayer, "Continue officially", "en/index.html", "home workflow must hand final action to official sources.");
+assertIncludes(planningLayer, "Find", "en/index.html", "home workflow must start with event discovery.");
+assertIncludes(planningLayer, "Check", "en/index.html", "home workflow must include date, weather, map, and route verification.");
+assertIncludes(planningLayer, "Book", "en/index.html", "home workflow must hand final action to official sources.");
 assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-assertIncludes(differenceSection, "Why use this before NOL World or a ticket page?", "en/index.html", "home must explicitly answer why visitors use K-Spot Now before NOL World or ticket pages.");
+assertIncludes(differenceSection, "Before NOL World or ticket pages", "en/index.html", "home must explicitly answer why visitors use K-Spot Now before NOL World or ticket pages.");
 assertIncludes(differenceSection, "Planning desk vs listing page", "en/index.html", "home must distinguish planning from single-source listing pages.");
 assertIncludes(differenceSection, "final action", "en/index.html", "home must clarify that tickets, reservations, purchases, and final rules stay on linked sources.");
-assertIncludes(differenceSection, "K-Spot Now is the planning desk", "en/index.html", "home must state K-Spot Now's added planning role.");
 assertIncludes(differenceSection, "Korean map names, calendar files, weather, route ideas", "en/index.html", "home must show value beyond raw listings.");
 assertIncludes(differenceSection, "official, ticketing, listing, or offer", "en/index.html", "home must explain source-role labels.");
 assertIncludes(styles, ".service-difference", "styles.css", "service-difference section styling is missing.");
@@ -221,15 +219,15 @@ assertIncludes(deAdvertising, "keinen Eintrag", "de/advertising/index.html", "Ge
 const frHome = read("fr/index.html");
 const deHome = read("de/index.html");
 assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");
-assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(frHome, "Pourquoi l&#39;utiliser avant NOL World", "fr/index.html", "French home must answer the NOL World differentiation question.");
-assertIncludes(frHome, "K-Spot Now est le bureau de planification", "fr/index.html", "French home must explain the planning-layer value.");
+assertIncludes(frHome, "Pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
+assertIncludes(frHome, "Avant NOL World ou la billetterie", "fr/index.html", "French home must answer the NOL World differentiation question.");
+assertIncludes(frHome, "Carte coreenne, calendrier, meteo et trajets", "fr/index.html", "French home must explain the planning-layer value.");
 assertIncludes(frHome, "Listing / billetterie", "fr/index.html", "French home must expose linked-source role labels on event cards.");
 assertIncludes(frHome, "Carte coreenne", "fr/index.html", "French home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
-assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(deHome, "Warum vor NOL World", "de/index.html", "German home must answer the NOL World differentiation question.");
-assertIncludes(deHome, "K-Spot Now ist die Planungsebene", "de/index.html", "German home must explain the planning-layer value.");
+assertIncludes(deHome, "Kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
+assertIncludes(deHome, "Vor NOL World oder Ticketseiten", "de/index.html", "German home must answer the NOL World differentiation question.");
+assertIncludes(deHome, "Koreanische Karte, Kalender, Wetter und Routen", "de/index.html", "German home must explain the planning-layer value.");
 assertIncludes(deHome, "Koreanische Karte", "de/index.html", "German home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
 
@@ -357,6 +355,17 @@ for (const event of activeEvents) {
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }
+}
+
+const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");
+if (seoulAffiliateEvent) {
+  const html = read(path.join("en", "events", `${seoulAffiliateEvent.slug}.html`));
+  assertIncludes(html, "https://www.trip.com/hotels/list?city=274", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com Seoul affiliate hotel link must be available for visitor planning.");
+  assertIncludes(html, "Allianceid=8627235", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com affiliate Allianceid must be present.");
+  assertIncludes(html, "SID=318693138", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com affiliate SID must be present.");
+  assertIncludes(html, "trip_sub3=D17791636", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com campaign sub id must be present.");
+  assertIncludes(html, "rel=\"sponsored nofollow noopener\"", `en/events/${seoulAffiliateEvent.slug}.html`, "Affiliate links must be labeled with sponsored/nofollow rel attributes.");
+  assertIncludes(html, "Sponsored hotel link", `en/events/${seoulAffiliateEvent.slug}.html`, "Affiliate disclosure must be visible without heavy copy.");
 }
 
 const nolDetail = read("en/events/blackpink-tamagotchi-seoul-forest-2026.html");

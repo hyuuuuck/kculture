@@ -224,28 +224,41 @@ function collectHomeUx() {
 
   const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
   const hasWorkflow = planningLayer.includes("class=\"planning-flow\"")
-    && planningLayer.includes("Find signal")
-    && planningLayer.includes("Verify visitor details")
-    && planningLayer.includes("Continue officially");
-  const hasServiceBoundary = planningLayer.includes("not a ticket shop")
-    && planningLayer.includes("official tourism, brand, venue, duty-free, department-store, and ticketing marketplace pages");
+    && planningLayer.includes("Find")
+    && planningLayer.includes("Check")
+    && planningLayer.includes("Book");
+  const hasServiceBoundary = planningLayer.includes("Not a ticket shop")
+    && planningLayer.includes("official sources, weather, maps, routes, and hotel options");
   if (hasWorkflow && hasServiceBoundary) {
-    pass("planner", "Positioning", "Planning-layer workflow", "Homepage explains why visitors plan on K-Spot Now before completing the final action on official sources.");
+    pass("planner", "Positioning", "Planning-layer workflow", "Homepage explains the planning-first workflow with compact, scannable copy.");
   } else {
-    fail("planner", "Positioning", "Planning-layer workflow", `workflow ${hasWorkflow}, service boundary ${hasServiceBoundary}.`, "Planner/Designer: show the find, verify, continue-officially workflow and keep the non-ticket-shop boundary visible.");
+    fail("planner", "Positioning", "Planning-layer workflow", `workflow ${hasWorkflow}, service boundary ${hasServiceBoundary}.`, "Planner/Designer: show the find, check, book workflow and keep the non-ticket-shop boundary visible without heavy copy.");
   }
 
   const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-  const answersNolQuestion = differenceSection.includes("Why use this before NOL World or a ticket page?")
+  const answersNolQuestion = differenceSection.includes("Before NOL World or ticket pages")
     && differenceSection.includes("Planning desk vs listing page")
     && differenceSection.includes("Single-source listing")
-    && differenceSection.includes("K-Spot Now is the planning desk");
+    && differenceSection.includes("Use K-Spot Now to choose");
   const provesAddedValue = differenceSection.includes("Korean map names, calendar files, weather, route ideas")
     && differenceSection.includes("official, ticketing, listing, or offer");
   if (answersNolQuestion && provesAddedValue) {
-    pass("planner", "Positioning", "Single-source differentiation", "Homepage explains why visitors use K-Spot Now before NOL World, ticketing, or other single-source listing pages.");
+    pass("planner", "Positioning", "Single-source differentiation", "Homepage differentiates K-Spot Now from NOL World, ticketing, and single-source listing pages with compact copy.");
   } else {
-    fail("planner", "Positioning", "Single-source differentiation", `answers NOL question ${answersNolQuestion}, proves added value ${provesAddedValue}.`, "Planner/Designer: add a clear K-Spot Now vs single-source listing comparison that highlights planning context, source-role labels, maps, weather, routes, calendar, and official handoff.");
+    fail("planner", "Positioning", "Single-source differentiation", `answers NOL question ${answersNolQuestion}, proves added value ${provesAddedValue}.`, "Planner/Designer: keep the K-Spot Now vs single-source comparison clear, short, and focused on planning context, source-role labels, maps, weather, routes, calendar, and official handoff.");
+  }
+
+  const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");
+  const seoulAffiliateHtml = seoulAffiliateEvent ? readText(`dist/en/events/${seoulAffiliateEvent.slug}.html`) : "";
+  const affiliateReady = seoulAffiliateHtml.includes("Allianceid=8627235")
+    && seoulAffiliateHtml.includes("SID=318693138")
+    && seoulAffiliateHtml.includes("trip_sub3=D17791636")
+    && seoulAffiliateHtml.includes("rel=\"sponsored nofollow noopener\"");
+  const affiliateDisclosure = seoulAffiliateHtml.includes("Sponsored hotel link");
+  if (affiliateReady && affiliateDisclosure) {
+    pass("ceo", "Monetization", "Trip.com affiliate handoff", "Trip.com hotel affiliate link is present with sponsored disclosure and rel attributes.");
+  } else {
+    fail("ceo", "Monetization", "Trip.com affiliate handoff", `link ${affiliateReady}, disclosure ${affiliateDisclosure}.`, "Publisher: keep Trip.com affiliate links visible on relevant event pages with sponsored disclosure and rel attributes.");
   }
 }
 

@@ -94,6 +94,97 @@ function normalizedComparableText(value) {
     .replace(/\s+/g, " ");
 }
 
+const duplicateAliasPairs = [
+  ["\uC6CC\uD130\uBC24", "waterbomb"],
+  ["\uC11C\uC6B8", "seoul"],
+  ["\uBD80\uC0B0", "busan"],
+  ["\uC544\uB9AC\uB791", "arirang"],
+  ["\uBC29\uD0C4", "bts"],
+  ["\uBE44\uD2F0\uC5D0\uC2A4", "bts"],
+  ["busan one asia festival", "bof"],
+  ["\uBBA4\uC9C0\uCEEC", "musical"],
+  ["\uBCA0\uD1A0\uBCA4", "beethoven"],
+  ["\uC2E0\uC138\uACC4", "shinsegae"],
+  ["\uD604\uB300", "hyundai"]
+];
+
+const duplicateStopTokens = new Set([
+  "ticket", "melon", "world", "official", "source", "event", "events", "festival",
+  "pop", "popup", "popups", "pop-up", "concert", "final", "page", "listing", "korea",
+  "korean", "english", "news", "and", "with", "the", "for", "from", "to", "exhibition",
+  "exhibitions", "conference", "conferences", "museum", "gallery", "hall", "park",
+  "forest", "beach", "plaza", "square", "culture", "cultural", "art", "arts", "artist",
+  "experience", "traditional", "digital", "special", "room", "solo", "show", "journey"
+]);
+const placeOnlyTokens = new Set(["seoul", "busan", "incheon", "goyang", "daegu", "jeju", "korea"]);
+const duplicateBrandTokens = new Set([
+  "waterbomb", "bts", "arirang", "bof", "myk", "pokemon", "louis", "vuitton", "maple",
+  "shinsegae", "hyundai", "olive", "blackpink", "seventeen", "day6", "rapbeat", "weeknd"
+]);
+
+function comparableEventText(value) {
+  let text = normalizedComparableText(value).normalize("NFKC");
+  for (const [from, to] of duplicateAliasPairs) {
+    text = text.replaceAll(from, ` ${to} `);
+  }
+  return text
+    .replace(/[^a-z0-9\u3131-\uD79D]+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function significantEventTokens(value) {
+  return new Set(comparableEventText(value)
+    .split(/\s+/)
+    .filter((token) => token.length >= 2)
+    .filter((token) => !/^\d+$/.test(token))
+    .filter((token) => !duplicateStopTokens.has(token)));
+}
+
+function eventCorpus(event) {
+  return [
+    Object.values(event.title || {}).join(" "),
+    event.slug,
+    event.sourceName,
+    event.venue,
+    event.officialWebsiteUrl
+  ].filter(Boolean).join(" ");
+}
+
+function dateRangesOverlap(aStart, aEnd, bStart, bEnd) {
+  return aStart <= bEnd && bStart <= aEnd;
+}
+
+function categoryCompatible(candidateCategory, publishedCategory) {
+  if (candidateCategory === publishedCategory) return true;
+  const pair = new Set([candidateCategory, publishedCategory]);
+  return pair.has("festival") && pair.has("kpop");
+}
+
+function cityCompatible(candidateCity, publishedCity) {
+  return candidateCity === publishedCity || candidateCity === "Nationwide" || publishedCity === "Nationwide";
+}
+
+function similarPublishedEvent(title, category, region, dates) {
+  const candidateTokens = significantEventTokens(title);
+  if (candidateTokens.size < 2) return null;
+
+  for (const event of events) {
+    if (!dateRangesOverlap(dates.startDate, dates.endDate, event.startDate, event.endDate)) continue;
+    if (!categoryCompatible(category, event.category)) continue;
+    const sameCity = cityCompatible(region.city, event.city);
+
+    const publishedTokens = significantEventTokens(eventCorpus(event));
+    const overlap = [...candidateTokens].filter((token) => publishedTokens.has(token));
+    const strongOverlap = overlap.filter((token) => !placeOnlyTokens.has(token) && token.length >= 3);
+    const brandOverlap = strongOverlap.filter((token) => duplicateBrandTokens.has(token));
+    if (brandOverlap.length >= 1 && overlap.length >= 2) return event;
+    if (!sameCity) continue;
+    if (overlap.length >= 4 && strongOverlap.length >= 2) return event;
+  }
+  return null;
+}
+
 function inferCategory(candidate) {
   if (candidate.leadKind !== "discovered-link" && categories.has(candidate.queueCategory)) return candidate.queueCategory;
   const keywordText = candidate.leadKind === "discovered-link" ? "" : (candidate.keywordHits || []).join(" ");
@@ -324,6 +415,8 @@ function draftFor(candidate) {
   const title = titleFor(candidate);
   const qualityIssue = textQuality(candidate, title);
   if (qualityIssue) return skipDraft(candidate, qualityIssue);
+  const similarEvent = similarPublishedEvent(title, category, region, dates);
+  if (similarEvent) return skipDraft(candidate, `already published similar event: ${similarEvent.slug}`);
   const slug = uniqueSlug(`${slugify(title)}-${dates.startDate.slice(0, 7)}`);
   const sourceUrl = candidate.finalUrl || candidate.url;
   const normalizedSourceUrl = normalizeUrl(sourceUrl);

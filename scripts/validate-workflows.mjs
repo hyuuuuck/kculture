@@ -28,10 +28,12 @@ function assertOrder(file, text, first, second, message) {
 const sourceRefreshFile = ".github/workflows/source-refresh.yml";
 const deployFile = ".github/workflows/deploy-cloudflare-pages.yml";
 const verifyFile = ".github/workflows/verify.yml";
+const draftEventsFile = "scripts/draft-events-from-feed.mjs";
 
 const sourceRefresh = read(sourceRefreshFile);
 const deploy = read(deployFile);
 const verify = read(verifyFile);
+const draftEvents = read(draftEventsFile);
 
 assertIncludes(sourceRefreshFile, sourceRefresh, "cron: \"20 */4 * * *\"", "source refresh should run every 4 hours.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "source refresh must import current KMA forecast before building review artifacts.");
@@ -56,6 +58,12 @@ assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual depl
 assertIncludes(verifyFile, verify, "npm run preflight:launch", "push verification must run launch preflight.");
 assertIncludes(verifyFile, verify, "SITE_URL: https://kspotnow.com", "push verification should test the intended custom domain config.");
 assertIncludes(verifyFile, verify, "CONTACT_EMAIL: contact@kspotnow.com", "push verification should test the intended domain contact email.");
+
+assertIncludes(draftEventsFile, draftEvents, "similarPublishedEvent", "draft generation must compare candidates against already published events.");
+assertIncludes(draftEventsFile, draftEvents, "duplicateBrandTokens", "draft generation must use brand tokens for cross-source duplicate detection.");
+assertIncludes(draftEventsFile, draftEvents, "already published similar event", "duplicate candidate skips must explain the matched published event.");
+assertIncludes(draftEventsFile, draftEvents, "busan one asia festival", "duplicate detection must handle BOF / Busan One Asia Festival aliases.");
+assertIncludes(draftEventsFile, draftEvents, "\\uC6CC\\uD130\\uBC24", "duplicate detection must handle Korean WATERBOMB title aliases.");
 
 if (errors.length) {
   console.error("Workflow validation failed:");

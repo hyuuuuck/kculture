@@ -137,7 +137,8 @@ if (publicContentPages < minimumPublicContentPages) {
   fail(`At least ${minimumPublicContentPages} public event/archive/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
 }
 
-const dist = path.resolve("dist");
+const root = path.resolve(".");
+const dist = path.join(root, "dist");
 const distIndex = path.join(dist, "index.html");
 if (!fs.existsSync(distIndex)) {
   fail("dist/index.html is missing. Run npm run build first.");
@@ -165,6 +166,14 @@ for (const pattern of ["/", "/*.html", "/*/*.html", "/*/*/*.html", "/*/", "/*/*/
   if (!headersText.includes(`${pattern}\n  Content-Type: text/html; charset=utf-8`)) {
     fail(`dist/_headers is missing UTF-8 HTML content type for ${pattern}.`);
   }
+}
+const wranglerText = readTextIfExists(path.join(root, "wrangler.toml"));
+const workerText = readTextIfExists(path.join(root, "src", "worker.js"));
+if (!wranglerText.includes('main = "src/worker.js"') || !wranglerText.includes('binding = "ASSETS"') || !wranglerText.includes("run_worker_first = true")) {
+  fail("wrangler.toml must route asset requests through src/worker.js so HTML responses keep UTF-8 headers.");
+}
+if (!workerText.includes("env.ASSETS.fetch") || !workerText.includes("text/html; charset=utf-8")) {
+  fail("src/worker.js must fetch static assets and force text/html; charset=utf-8 for multilingual pages.");
 }
 
 for (const lang of languages) {

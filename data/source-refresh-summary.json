@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T23:02:20.580Z",
+  "generatedAt": "2026-06-10T04:58:23.613Z",
   "files": {
     "audit": "source-audit-2026-06-10.json",
     "candidates": "official-page-candidates-2026-06-10.json",
@@ -11,20 +11,20 @@
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 6,
+    "fallbackSources": 7,
     "monitorSources": 53,
     "candidateOk": 53,
     "candidateFailed": 0,
-    "discoveredLinks": 608,
-    "dateSignals": 308,
-    "draftCandidates": 58,
-    "skippedCandidates": 603
+    "discoveredLinks": 623,
+    "dateSignals": 302,
+    "draftCandidates": 50,
+    "skippedCandidates": 626
   },
   "failedSources": [],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 15
+      "count": 14
     },
     {
       "key": "Visit Seoul",
@@ -36,62 +36,62 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 8
+      "count": 3
     },
     {
       "key": "NOL World Ticket",
       "count": 3
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 2
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 42
     },
     {
       "key": "shopping",
-      "count": 5
-    },
-    {
-      "key": "kpop",
-      "count": 4
-    },
-    {
-      "key": "department-store",
-      "count": 2
+      "count": 3
     },
     {
       "key": "duty-free",
       "count": 2
+    },
+    {
+      "key": "kpop",
+      "count": 2
+    },
+    {
+      "key": "department-store",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 548
+      "count": 560
     },
     {
       "key": "already published source URL",
-      "count": 30
+      "count": 14
     },
     {
       "key": "listing page is not a specific event",
-      "count": 10
+      "count": 12
     },
     {
-      "key": "duplicate draft source URL",
-      "count": 6
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
-      "key": "mojibake text detected",
+      "key": "already published similar event: bts-city-arirang-busan-2026",
       "count": 4
     }
   ],
@@ -126,7 +126,7 @@
       "links": 18,
       "dates": 18,
       "keywords": 4,
-      "score": 118
+      "score": 119
     },
     {
       "sourceName": "Seoul Grand Park",

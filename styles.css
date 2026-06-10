@@ -1031,20 +1031,35 @@ img {
 }
 
 .filter-bar button {
-  color: var(--muted);
+  color: var(--ink);
   background: var(--white);
-  border-color: var(--line);
+  border-color: var(--line-strong);
   min-height: 38px;
-  padding: 8px 13px;
-  border-radius: 6px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
-.filter-bar button[aria-pressed="true"],
 .filter-bar button:hover {
-  color: var(--white);
-  background: var(--teal);
+  color: var(--teal-dark);
+  background: var(--surface-blue);
   border-color: var(--teal);
-  box-shadow: none;
+  transform: translateY(-1px);
+  box-shadow: var(--control-shadow);
+}
+
+.filter-bar button[aria-pressed="true"] {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--teal), #1d5ed1);
+  border-color: var(--teal);
+  box-shadow: 0 6px 16px rgba(36, 107, 235, 0.32);
+  transform: none;
+}
+
+.filter-bar button[aria-pressed="true"]::before {
+  content: "✓";
+  font-size: 0.82em;
+  line-height: 1;
 }
 
 .clear-filters {
@@ -1053,21 +1068,30 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   justify-self: start;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 10px 14px;
-  color: var(--teal-dark);
-  background: #fbfcfa;
+  border: 1px dashed var(--line-strong);
+  border-radius: 999px;
+  padding: 10px 18px;
+  color: var(--muted);
+  background: transparent;
   font: inherit;
   font-weight: 820;
   cursor: pointer;
   transition: background 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
 }
 
+.clear-filters::before {
+  content: "↺";
+  font-size: 1.05em;
+  line-height: 1;
+}
+
 .clear-filters:hover {
-  border-color: #a9c3ef;
-  background: var(--surface-blue);
+  border-color: var(--coral);
+  border-style: solid;
+  color: var(--coral);
+  background: #fff4f0;
 }
 
 .result-count {
@@ -1182,7 +1206,19 @@ img {
   border-radius: 8px;
   background: var(--white);
   box-shadow: none;
-  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, opacity 160ms ease, filter 160ms ease;
+}
+
+.category-pill.is-muted,
+.city-pill.is-muted {
+  opacity: 0.35;
+  filter: saturate(0.25);
+}
+
+.category-pill.is-selected {
+  border-color: var(--pill-accent, var(--teal));
+  box-shadow: 0 0 0 3px rgba(36, 107, 235, 0.2), var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .category-pill {

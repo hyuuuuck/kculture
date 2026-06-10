@@ -75,13 +75,39 @@ for (const scope of galleryScopes) {
   const groups = [...scope.querySelectorAll("[data-filter-group]")];
   const countTemplate = controls?.dataset.countTemplate || "{count} events shown";
   const countOneTemplate = controls?.dataset.countOneTemplate || "1 event shown";
+  const topicPills = [...scope.querySelectorAll("[data-browse-category]")];
+  const cityPills = [...scope.querySelectorAll("[data-browse-city]")];
 
   let selectedCategory = filterRoot?.querySelector("[data-filter][aria-pressed='true']")?.dataset.filter || "all";
+
+  function syncBrowsePills(categoryHits, cityHits, filtersActive) {
+    for (const pill of topicPills) {
+      const key = pill.dataset.browseCategory;
+      const hits = categoryHits.get(key) || 0;
+      const selected = selectedCategory === key;
+      pill.classList.toggle("is-selected", selected);
+      pill.classList.toggle("is-muted", filtersActive && !selected && hits === 0);
+      if (selected) pill.setAttribute("aria-current", "true");
+      else pill.removeAttribute("aria-current");
+      const count = pill.querySelector("[data-pill-count]");
+      if (count) count.textContent = String(hits);
+    }
+
+    for (const pill of cityPills) {
+      const hits = cityHits.get(pill.dataset.browseCity) || 0;
+      pill.classList.toggle("is-muted", filtersActive && hits === 0);
+      const count = pill.querySelector("[data-pill-count]");
+      if (count) count.textContent = String(hits);
+    }
+  }
 
   function applyFilters() {
     const query = (searchInput?.value || "").trim().toLowerCase();
     const selectedStatus = statusSelect?.value || "all";
     const selectedCity = citySelect?.value || "all";
+    const filtersActive = selectedCategory !== "all" || selectedStatus !== "all" || selectedCity !== "all" || Boolean(query);
+    const categoryHits = new Map();
+    const cityHits = new Map();
     let visibleCount = 0;
 
     for (const card of cards) {
@@ -93,12 +119,23 @@ for (const scope of galleryScopes) {
       const visible = categoryMatch && statusMatch && cityMatch && queryMatch;
       card.classList.toggle("is-hidden", !visible);
       if (visible) visibleCount += 1;
+
+      // Facet tallies ignore their own dimension so each pill shows what
+      // selecting it would yield under the other active filters.
+      if (statusMatch && cityMatch && queryMatch) {
+        categoryHits.set(card.dataset.category, (categoryHits.get(card.dataset.category) || 0) + 1);
+      }
+      if (categoryMatch && statusMatch && queryMatch) {
+        cityHits.set(card.dataset.city, (cityHits.get(card.dataset.city) || 0) + 1);
+      }
     }
 
     for (const group of groups) {
       const hasVisibleCard = [...group.querySelectorAll("[data-card]")].some((card) => !card.classList.contains("is-hidden"));
       group.classList.toggle("is-hidden", !hasVisibleCard);
     }
+
+    syncBrowsePills(categoryHits, cityHits, filtersActive);
 
     if (resultCount) {
       resultCount.textContent = visibleCount === 1

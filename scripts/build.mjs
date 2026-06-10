@@ -2783,11 +2783,11 @@ function categoryLinkStrip(lang) {
     const exampleTitle = representative ? trimHeading(local(representative.title, lang), 48) : "";
     const label = categoryLabel(lang, category);
     return `
-      <a class="category-pill category-${esc(category)}${representative ? " has-media" : ""}" href="${categoryHref(lang, category)}">
+      <a class="category-pill category-${esc(category)}${representative ? " has-media" : ""}" href="${categoryHref(lang, category)}" data-browse-category="${esc(category)}">
         ${representativeMedia(representative, lang, label)}
         <span class="pill-copy">
           <strong>${label}</strong>
-          <span>${count} items</span>
+          <span><b data-pill-count>${count}</b> items</span>
           ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;
@@ -2838,11 +2838,11 @@ function cityLinkStrip(lang) {
     const representative = representativeEventFor((event) => event.city === city);
     const exampleTitle = representative ? trimHeading(local(representative.title, lang), 42) : "";
     return `
-      <a class="city-pill${representative ? " has-media" : ""}" href="${cityHref(lang, city)}">
+      <a class="city-pill${representative ? " has-media" : ""}" href="${cityHref(lang, city)}" data-browse-city="${esc(city)}">
         ${representativeMedia(representative, lang, city)}
         <span class="pill-copy">
           <strong>${esc(city)}</strong>
-          <span>${count} events</span>
+          <span><b data-pill-count>${count}</b> events</span>
           ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;

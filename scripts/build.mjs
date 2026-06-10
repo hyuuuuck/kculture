@@ -680,6 +680,8 @@ dict = {
     freshnessText: "Cada ficha muestra cuándo se revisó y qué fuente oficial se usó.",
     editorialTitle: "Política editorial",
     editorialText: "Cómo K-Spot Now recopila, revisa, traduce y publica información de eventos.",
+    correctionsTitle: "Correcciones y actualizaciones",
+    correctionsText: "Cómo revisamos y corregimos detalles oficiales que cambian rápido.",
     guidesTitle: "Guías para visitantes",
     aboutTitle: "Acerca de K-Spot Now",
     contactTitle: "Contacto",
@@ -738,6 +740,8 @@ dict = {
     freshnessText: "每个条目都会显示最后检查时间和使用的官方来源。",
     editorialTitle: "编辑政策",
     editorialText: "K-Spot Now如何收集、审核、翻译并发布活动信息。",
+    correctionsTitle: "更正与更新",
+    correctionsText: "我们如何复核并修正变化较快的官方信息。",
     guidesTitle: "游客指南",
     aboutTitle: "关于K-Spot Now",
     contactTitle: "联系",
@@ -796,6 +800,8 @@ dict = {
     freshnessText: "Cada item mostra quando foi checado e qual fonte oficial foi usada.",
     editorialTitle: "Política editorial",
     editorialText: "Como o K-Spot Now coleta, revisa, traduz e publica informações de eventos.",
+    correctionsTitle: "Correções e atualizações",
+    correctionsText: "Como revisamos e corrigimos detalhes oficiais que mudam rapidamente.",
     guidesTitle: "Guias para visitantes",
     aboutTitle: "Sobre K-Spot Now",
     contactTitle: "Contato",
@@ -854,6 +860,8 @@ dict = {
     freshnessText: "Каждая карточка показывает дату проверки и официальный источник.",
     editorialTitle: "Редакционная политика",
     editorialText: "Как K-Spot Now собирает, проверяет, переводит и публикует информацию о событиях.",
+    correctionsTitle: "Исправления и обновления",
+    correctionsText: "Как мы проверяем и исправляем официальные детали, которые быстро меняются.",
     guidesTitle: "Гиды для посетителей",
     aboutTitle: "О K-Spot Now",
     contactTitle: "Контакты",
@@ -3793,33 +3801,117 @@ function renderFreshness(lang) {
   });
 }
 
+function policySections(lang, kind) {
+  const copy = {
+    editorial: {
+      en: [
+        ["Source priority", "Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints."],
+        ["Automation and review", "Official monitors collect candidate dates and keywords, but candidates are not auto-published. A human review step must confirm the date range, venue, eligibility, inventory or reservation rules, and source link before an event appears publicly."],
+        ["K-pop and pop-up policy", "K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed."],
+        ["Original summaries", "Summaries, travel tips, weather notes, and route ideas are written for visitor planning. We do not copy full event pages, and every listing links back to the official source for the latest rules."],
+        ["Ads and affiliate integrity", "Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans."]
+      ],
+      es: [
+        ["Prioridad de fuentes", "Las fichas publicadas deben venir de APIs oficiales, paginas gubernamentales o turisticas oficiales, paginas de marca, paginas de recintos o avisos oficiales verificados de artistas y empresas. Los reposts no oficiales solo sirven como pistas de descubrimiento."],
+        ["Automatizacion y revision", "Los monitores oficiales recogen fechas y palabras clave candidatas, pero no se publican automaticamente. Una revision humana confirma fechas, lugar, elegibilidad, inventario o reglas de reserva y enlace de fuente antes de que el evento sea publico."],
+        ["Politica K-pop y pop-ups", "Los pop-ups de K-pop, eventos de fans, avisos de entradas y tiendas de merch pueden cambiar rapido. Publicamos solo avisos oficiales y mantenemos reposts sociales o de comunidades en una cola hasta confirmar una fuente oficial."],
+        ["Resumenes originales", "Los resumenes, consejos de viaje, notas meteorologicas y rutas se escriben para planificar la visita. No copiamos paginas completas y cada ficha enlaza a la fuente oficial para las reglas mas recientes."],
+        ["Integridad publicitaria", "La publicidad no debe influir en la inclusion de eventos, etiquetas de fuente, fechas de actualizacion ni notas de seguridad. Los visitantes siempre deben verificar los detalles oficiales antes de comprar, reservar o cambiar planes."]
+      ],
+      zh: [
+        ["来源优先级", "公开条目必须来自官方 API、政府或旅游官方页面、品牌官方页面、场馆官方页面，或经确认的艺人和公司官方公告。非官方转载只作为发现线索。"],
+        ["自动化与人工审核", "官方监控会收集候选日期和关键词，但候选内容不会自动发布。公开前必须由人工确认日期范围、地点、资格、库存或预约规则以及来源链接。"],
+        ["K-pop 与快闪政策", "K-pop 快闪、粉丝活动、票务公告和周边商店变化很快。我们只发布官方公告，粉丝社区或社交平台转载会先留在审核队列中，直到确认官方来源。"],
+        ["原创摘要", "摘要、旅行提示、天气说明和路线建议都面向访客规划重新撰写。我们不复制完整活动页面，每个条目都会链接到官方来源以便确认最新规则。"],
+        ["广告与独立性", "广告不得影响活动收录、来源标签、更新日期或安全提示。访客在购买、预约或更改行程前，应始终确认官方详情。"]
+      ],
+      pt: [
+        ["Prioridade de fontes", "Listagens publicadas devem vir de APIs oficiais, paginas oficiais de governo ou turismo, paginas de marcas, locais oficiais ou avisos oficiais verificados de artistas e empresas. Reposts nao oficiais servem apenas como pistas de descoberta."],
+        ["Automacao e revisao", "Monitores oficiais coletam datas e palavras-chave candidatas, mas elas nao sao publicadas automaticamente. Uma revisao humana confirma periodo, local, elegibilidade, estoque ou regras de reserva e link da fonte antes da publicacao."],
+        ["Politica de K-pop e pop-ups", "Pop-ups de K-pop, eventos de fas, avisos de ingressos e lojas de merch mudam rapidamente. Publicamos apenas avisos oficiais e mantemos reposts sociais ou de comunidades em uma fila ate confirmar uma fonte oficial."],
+        ["Resumos originais", "Resumos, dicas de viagem, notas de clima e ideias de rotas sao escritos para planejamento do visitante. Nao copiamos paginas completas, e cada item aponta para a fonte oficial com as regras mais recentes."],
+        ["Integridade de anuncios", "Publicidade nao deve influenciar inclusao de eventos, etiquetas de fonte, datas de atualizacao ou notas de seguranca. Visitantes devem verificar detalhes oficiais antes de comprar, reservar ou mudar planos."]
+      ],
+      ru: [
+        ["Приоритет источников", "Публичные карточки должны опираться на официальные API, страницы государственных или туристических организаций, страницы брендов, площадок либо подтвержденные официальные уведомления артистов и компаний. Неофициальные репосты используются только как подсказки для поиска."],
+        ["Автоматизация и проверка", "Официальные мониторы собирают даты и ключевые слова, но кандидаты не публикуются автоматически. Перед публикацией человек проверяет даты, место, условия, наличие или правила бронирования и ссылку на источник."],
+        ["Политика K-pop и pop-up", "K-pop pop-up, фан-события, продажи билетов и merch-магазины могут быстро меняться. Мы публикуем только официальные уведомления, а репосты из сообществ и соцсетей держим в очереди до подтверждения официального источника."],
+        ["Оригинальные описания", "Краткие описания, советы по поездке, заметки о погоде и маршруты пишутся для планирования визита. Мы не копируем полные страницы событий, а каждая карточка ведет к официальному источнику с актуальными правилами."],
+        ["Реклама и независимость", "Реклама не должна влиять на включение событий, метки источников, даты свежести или заметки о безопасности. Посетители должны проверять официальные детали перед покупкой, бронированием или изменением планов."]
+      ],
+      ja: [
+        ["情報源の優先順位", "公開する掲載情報は、公式API、政府・観光の公式ページ、ブランド公式ページ、会場公式ページ、または確認済みのアーティスト・企業公式告知に基づきます。非公式の再投稿は発見の手がかりとしてのみ使います。"],
+        ["自動収集と確認", "公式モニターは候補の日程やキーワードを集めますが、自動公開はしません。公開前に人が日程、会場、対象条件、在庫や予約ルール、情報源リンクを確認します。"],
+        ["K-popとポップアップ方針", "K-popポップアップ、ファンイベント、チケット告知、グッズ販売は変わりやすい情報です。公式告知のみを公開し、ファンコミュニティやSNSの再投稿は公式情報が確認できるまでキュレーション待ちに残します。"],
+        ["独自の要約", "要約、旅行メモ、天気の注意点、ルート案は訪問者の計画のために独自に作成します。イベントページ全文はコピーせず、各掲載情報から最新ルールを確認できる公式情報源へリンクします。"],
+        ["広告と独立性", "広告はイベント掲載、情報源ラベル、更新日、安全メモに影響してはなりません。購入、予約、予定変更の前に、訪問者は必ず公式情報を確認してください。"]
+      ]
+    },
+    corrections: {
+      en: [
+        ["What to send", `Email ${contactEmail} with the official URL, event or offer name, date range, venue or branch, language, and the exact detail that looks outdated or incorrect.`],
+        ["Official-source checks", "Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed."],
+        ["Fast-moving categories", "Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly."],
+        ["Update labels", "Public event pages show last-checked dates and freshness labels. When a correction changes visitor decisions, the page is updated with a new check date and the official source remains linked."],
+        ["Editorial independence", "Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation."]
+      ],
+      es: [
+        ["Que enviar", `Escribe a ${contactEmail} con la URL oficial, nombre del evento u oferta, fechas, lugar o sucursal, idioma y el detalle exacto que parece desactualizado o incorrecto.`],
+        ["Verificacion oficial", "Antes de cambiar paginas publicas, las correcciones se contrastan con APIs oficiales, paginas gubernamentales o turisticas, paginas de marca, recintos, ticketing o avisos verificados de artistas y empresas."],
+        ["Categorias rapidas", "Campanas duty-free, promociones de OLIVE YOUNG, pop-ups de grandes almacenes, reservas K-pop y avisos de entradas tienen ventanas de revision mas cortas porque fechas, elegibilidad, stock y reglas de entrada cambian rapido."],
+        ["Etiquetas de actualizacion", "Las paginas de eventos muestran fecha de ultima revision y etiquetas de frescura. Si una correccion cambia decisiones de viaje, la pagina se actualiza con nueva fecha de revision y mantiene la fuente oficial enlazada."],
+        ["Independencia editorial", "Correcciones, sugerencias de fuentes, anuncios, patrocinios y alianzas no compran posicion ni anulan etiquetas de fuente. Reescribimos resumenes con palabras propias y enlazamos a la fuente original para la confirmacion final."]
+      ],
+      zh: [
+        ["需要发送的内容", `请发送邮件至 ${contactEmail}，附上官方网址、活动或优惠名称、日期范围、地点或分店、语言，以及看起来过期或错误的具体细节。`],
+        ["官方来源核对", "公开页面修改前，更正内容会与官方 API、政府或旅游页面、品牌页面、场馆页面、票务页面，或经确认的艺人和公司公告进行核对。"],
+        ["变化较快的类别", "免税活动、OLIVE YOUNG 优惠、百货店快闪、K-pop 预约和票务公告会使用更短的复查窗口，因为日期、资格、库存和入场规则可能快速变化。"],
+        ["更新标签", "公开活动页面会显示最后检查日期和新鲜度标签。当更正会影响访客决策时，页面会更新新的检查日期，并保留官方来源链接。"],
+        ["编辑独立性", "更正、来源建议、广告、赞助和合作不能购买排序位置，也不能覆盖来源标签。我们用自己的文字重写摘要，并链接到原始来源供访客最终确认。"]
+      ],
+      pt: [
+        ["O que enviar", `Envie email para ${contactEmail} com a URL oficial, nome do evento ou oferta, periodo, local ou filial, idioma e o detalhe exato que parece desatualizado ou incorreto.`],
+        ["Checagem oficial", "Antes de alterar paginas publicas, correcoes sao comparadas com APIs oficiais, paginas de governo ou turismo, marcas, locais, ticketing ou avisos verificados de artistas e empresas."],
+        ["Categorias de mudanca rapida", "Campanhas duty-free, promocoes OLIVE YOUNG, pop-ups de department stores, reservas K-pop e avisos de ingressos recebem janelas de rechecagem mais curtas porque datas, elegibilidade, estoque e regras de entrada mudam rapido."],
+        ["Etiquetas de atualizacao", "Paginas publicas mostram data da ultima checagem e etiquetas de atualizacao. Quando uma correcao muda decisoes de visitantes, a pagina recebe nova data de checagem e mantem a fonte oficial vinculada."],
+        ["Independencia editorial", "Correcoes, sugestoes de fontes, anuncios, patrocinios e parcerias nao compram destaque nem substituem etiquetas de fonte. Reescrevemos resumos com palavras proprias e ligamos a fonte original para confirmacao final."]
+      ],
+      ru: [
+        ["Что отправить", `Напишите на ${contactEmail}: официальную ссылку, название события или предложения, даты, место или филиал, язык и точную деталь, которая кажется устаревшей или неверной.`],
+        ["Проверка по официальным источникам", "Перед изменением публичных страниц исправления сверяются с официальными API, государственными или туристическими страницами, страницами брендов, площадок, билетных сервисов или подтвержденными уведомлениями артистов и компаний."],
+        ["Быстро меняющиеся категории", "Duty-free кампании, акции OLIVE YOUNG, pop-up в универмагах, K-pop бронирования и билетные объявления получают более короткие окна проверки, потому что даты, условия, наличие и правила входа быстро меняются."],
+        ["Метки обновления", "Публичные страницы событий показывают дату последней проверки и метки свежести. Если исправление влияет на решение посетителя, страница получает новую дату проверки, а ссылка на официальный источник остается."],
+        ["Редакционная независимость", "Исправления, предложения источников, реклама, спонсорство и партнерства не могут купить размещение или отменить метки источников. Мы переписываем краткие описания своими словами и ведем к оригинальному источнику для финального подтверждения."]
+      ],
+      ja: [
+        ["送ってほしい内容", `公式URL、イベントまたは特典名、日程、会場または店舗、言語、古いまたは誤っていると思われる具体的な内容を ${contactEmail} まで送ってください。`],
+        ["公式情報での確認", "公開ページを変更する前に、訂正内容は公式API、政府・観光ページ、ブランドページ、会場ページ、チケットページ、確認済みのアーティスト・企業告知と照合します。"],
+        ["変化の速いカテゴリ", "免税キャンペーン、OLIVE YOUNGプロモーション、百貨店ポップアップ、K-pop予約、チケット告知は、日程、対象条件、在庫、入場ルールが変わりやすいため短い再確認期間を使います。"],
+        ["更新ラベル", "公開イベントページには最終確認日と更新状態を表示します。訂正が訪問判断に影響する場合、ページは新しい確認日で更新され、公式情報源リンクは残します。"],
+        ["編集の独立性", "訂正、情報源の提案、広告、スポンサー、提携は、掲載順位を購入したり情報源ラベルを上書きしたりできません。要約は独自の言葉で書き直し、最終確認のために元の公式情報源へリンクします。"]
+      ]
+    }
+  };
+  return copy[kind]?.[lang] || copy[kind]?.en || [];
+}
+
+function numberedSections(sections) {
+  return sections.map(([heading, paragraph], index) => `
+        <section>
+          <h2>${index + 1}. ${esc(heading)}</h2>
+          <p>${esc(paragraph)}</p>
+        </section>`).join("");
+}
+
 function renderEditorialPolicy(lang) {
+  const sections = policySections(lang, "editorial");
   const body = `
     <main class="page">
       <article class="article-page">
         <p class="eyebrow">${tr(lang, "editorialTitle")}</p>
         <h1>${tr(lang, "editorialTitle")}</h1>
         <p class="lede">${tr(lang, "editorialText")}</p>
-        <section>
-          <h2>1. Source priority</h2>
-          <p>Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints.</p>
-        </section>
-        <section>
-          <h2>2. Automation and review</h2>
-          <p>Official monitors collect candidate dates and keywords, but candidates are not auto-published. A human review step must confirm the date range, venue, eligibility, inventory or reservation rules, and source link before an event appears publicly.</p>
-        </section>
-        <section>
-          <h2>3. K-pop and pop-up policy</h2>
-          <p>K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed.</p>
-        </section>
-        <section>
-          <h2>4. Original summaries</h2>
-          <p>Summaries, travel tips, weather notes, and route ideas are written for visitor planning. We do not copy full event pages, and every listing links back to the official source for the latest rules.</p>
-        </section>
-        <section>
-          <h2>5. Ads and affiliate integrity</h2>
-          <p>Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans.</p>
-        </section>
+${numberedSections(sections)}
       </article>
     </main>`;
   return layout({
@@ -3833,32 +3925,14 @@ function renderEditorialPolicy(lang) {
 }
 
 function renderCorrections(lang) {
+  const sections = policySections(lang, "corrections");
   const body = `
     <main class="page">
       <article class="article-page">
         <p class="eyebrow">${tr(lang, "correctionsTitle")}</p>
         <h1>${tr(lang, "correctionsTitle")}</h1>
         <p class="lede">${tr(lang, "correctionsText")}</p>
-        <section>
-          <h2>1. What to send</h2>
-          <p>Email ${esc(contactEmail)} with the official URL, event or offer name, date range, venue or branch, language, and the exact detail that looks outdated or incorrect.</p>
-        </section>
-        <section>
-          <h2>2. Official-source checks</h2>
-          <p>Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed.</p>
-        </section>
-        <section>
-          <h2>3. Fast-moving categories</h2>
-          <p>Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly.</p>
-        </section>
-        <section>
-          <h2>4. Update labels</h2>
-          <p>Public event pages show last-checked dates and freshness labels. When a correction changes visitor decisions, the page is updated with a new check date and the official source remains linked.</p>
-        </section>
-        <section>
-          <h2>5. Editorial independence</h2>
-          <p>Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation.</p>
-        </section>
+${numberedSections(sections)}
       </article>
     </main>`;
   return layout({

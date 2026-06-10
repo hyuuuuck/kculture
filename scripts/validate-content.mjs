@@ -146,13 +146,24 @@ async function validateGeneratedText() {
   const dist = path.join(root, "dist");
   const files = await collectFiles(dist, (file) => file.endsWith(".html"));
   const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
-  const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms"];
+  const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections"];
   const englishTrustPhrases = [
     "K-Spot Now is a multilingual event and shopping radar",
     "For corrections, source suggestions, or partnership inquiries",
     "This static site does not require user accounts",
     "K-Spot Now uses a small amount of browser-side storage",
-    "Information is provided for travel planning and may change without notice"
+    "Information is provided for travel planning and may change without notice",
+    "Editorial Policy",
+    "Corrections and Updates",
+    "Published listings must come from official APIs",
+    "Official monitors collect candidate dates",
+    "K-pop pop-ups, fan events, ticketing notices",
+    "Advertising must not influence event inclusion",
+    "with the official URL, event or offer name",
+    "Corrections are checked against official APIs",
+    "Duty-free campaigns, OLIVE YOUNG promotions",
+    "Public event pages show last-checked dates",
+    "Corrections, source suggestions, ads"
   ];
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");

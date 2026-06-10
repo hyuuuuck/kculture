@@ -4795,6 +4795,12 @@ function headers() {
 /*.html
   Content-Type: text/html; charset=utf-8
 
+/*/*.html
+  Content-Type: text/html; charset=utf-8
+
+/*/*/*.html
+  Content-Type: text/html; charset=utf-8
+
 /*/
   Content-Type: text/html; charset=utf-8
 

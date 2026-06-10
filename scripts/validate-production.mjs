@@ -161,7 +161,7 @@ const headersText = readTextIfExists(path.join(dist, "_headers"));
 if (!headersText.includes("Content-Type: text/html; charset=utf-8")) {
   fail("dist/_headers must set text/html; charset=utf-8 so multilingual pages are not misdecoded.");
 }
-for (const pattern of ["/", "/*.html", "/*/", "/*/*/", "/*/*/*/"]) {
+for (const pattern of ["/", "/*.html", "/*/*.html", "/*/*/*.html", "/*/", "/*/*/", "/*/*/*/"]) {
   if (!headersText.includes(`${pattern}\n  Content-Type: text/html; charset=utf-8`)) {
     fail(`dist/_headers is missing UTF-8 HTML content type for ${pattern}.`);
   }

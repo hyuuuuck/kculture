@@ -179,6 +179,20 @@ async function validateGeneratedText() {
     "Public event pages show last-checked dates",
     "Corrections, source suggestions, ads"
   ];
+  const englishUiPhrases = [
+    "Saved Korea plan",
+    "Map and transit checks",
+    "Weather planning",
+    "Travel ideas",
+    "Nearby route ideas",
+    "Download calendar file",
+    "Official source",
+    "Visitor Guides",
+    "Open planner",
+    "Clear saved",
+    "1 saved event",
+    "saved events"
+  ];
   for (const file of files) {
     const text = await fs.readFile(file, "utf8");
     if (mojibake.test(text)) {
@@ -186,6 +200,15 @@ async function validateGeneratedText() {
     }
   }
   for (const lang of requiredLanguages.filter((item) => item !== "en")) {
+    const localizedFiles = files.filter((file) => path.relative(dist, file).split(path.sep)[0] === lang);
+    for (const file of localizedFiles) {
+      const text = await fs.readFile(file, "utf8");
+      for (const phrase of englishUiPhrases) {
+        if (text.includes(phrase)) {
+          push(errors, path.relative(root, file), `localized page still contains English UI fallback: ${phrase}`);
+        }
+      }
+    }
     for (const page of localizedTrustPages) {
       const file = path.join(dist, lang, page, "index.html");
       let text = "";

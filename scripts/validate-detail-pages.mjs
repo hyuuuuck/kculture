@@ -28,6 +28,26 @@ const forecastLabels = {
     morning: "AM",
     afternoon: "PM"
   },
+  es: {
+    lowHigh: "Mín / Máx",
+    morning: "AM",
+    afternoon: "PM"
+  },
+  zh: {
+    lowHigh: "最低 / 最高",
+    morning: "上午",
+    afternoon: "下午"
+  },
+  pt: {
+    lowHigh: "Mín / Máx",
+    morning: "AM",
+    afternoon: "PM"
+  },
+  ru: {
+    lowHigh: "Мин / Макс",
+    morning: "Утро",
+    afternoon: "День"
+  },
   ja: {
     lowHigh: "最低 / 最高",
     morning: "午前",

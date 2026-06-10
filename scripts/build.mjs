@@ -230,6 +230,16 @@ let dict = {
     plannerEmptyText: "Save events from the gallery or detail pages to build a simple Korea trip shortlist.",
     downloadSavedCalendar: "Download saved calendar",
     officialLabel: "Official",
+    verification: "Verification",
+    dateBasis: "Date basis",
+    verificationOfficial: "Official source",
+    verificationOfficialArchive: "Official archive",
+    verificationOfficialListing: "Official listing",
+    verificationOfficialPrefix: "Official",
+    collectionOfficialPageReview: "Official page review",
+    collectionOfficialPageMonitor: "Official page monitor",
+    collectionOfficialApi: "Official API",
+    collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
     editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
     correctionsTitle: "Corrections and Updates",
@@ -703,7 +713,52 @@ dict = {
     statusUpcoming: "Próximo",
     statusEnded: "Finalizado",
     readDetails: "Detalles",
-    sourceWarning: "Los detalles oficiales pueden cambiar. Confirma siempre reglas, ubicación, elegibilidad e inventario."
+    sourceWarning: "Los detalles oficiales pueden cambiar. Confirma siempre reglas, ubicación, elegibilidad e inventario.",
+    mapLinksTitle: "Mapa y transporte",
+    campaignChecksTitle: "Campaña y reserva",
+    campaignNoFixedVenue: "Sin lugar fijo",
+    campaignMapSub: "Confirma la región elegible y busca el nombre coreano del alojamiento.",
+    campaignMapNote: "Los beneficios nacionales pueden depender de cupones, reglas de socios y región real del alojamiento. Usa primero la página oficial.",
+    officialCampaign: "Campaña oficial",
+    googleMap: "Google Maps",
+    naverMap: "Naver Map",
+    kakaoMap: "Kakao Map",
+    mapNote: "Usa el nombre coreano del lugar para obtener mejores resultados.",
+    calendarWeather: "Clima",
+    packHint: "Llevar",
+    forecastStripTitle: "Pronóstico diario KMA",
+    forecastMorning: "AM",
+    forecastAfternoon: "PM",
+    forecastLowHigh: "Mín / Máx",
+    forecastRainChance: "Lluvia",
+    forecastNoData: "Sin datos del periodo",
+    todayLabel: "Hoy",
+    tomorrowLabel: "Mañana",
+    relatedEventsTitle: "Eventos cercanos y similares",
+    savedPlannerTitle: "Plan guardado de Corea",
+    savedPlannerEmpty: "Guarda eventos para comparar fechas, ciudades y enlaces oficiales.",
+    savedPlannerCountOne: "1 evento guardado",
+    savedPlannerCount: "{count} eventos guardados",
+    openPlanner: "Abrir planificador",
+    clearSaved: "Borrar guardados",
+    removeSaved: "Quitar",
+    openSavedEvent: "Abrir",
+    plannerTitle: "Planificador de eventos guardados",
+    plannerText: "Compara eventos guardados en este dispositivo y abre fuentes oficiales antes de reservar o cambiar planes.",
+    plannerEmptyTitle: "Aún no hay eventos guardados",
+    plannerEmptyText: "Guarda eventos desde la galería o las páginas de detalle para crear una lista corta.",
+    downloadSavedCalendar: "Descargar calendario guardado",
+    officialLabel: "Oficial",
+    verification: "Verificación",
+    dateBasis: "Base de fecha",
+    verificationOfficial: "Fuente oficial",
+    verificationOfficialArchive: "Archivo oficial",
+    verificationOfficialListing: "Listado oficial",
+    verificationOfficialPrefix: "Oficial",
+    collectionOfficialPageReview: "Revisión de página oficial",
+    collectionOfficialPageMonitor: "Monitor de página oficial",
+    collectionOfficialApi: "API oficial",
+    collectionOfficialPage: "Página oficial"
   },
   zh: {
     navEvents: "活动",
@@ -774,7 +829,52 @@ dict = {
     statusUpcoming: "即将开始",
     statusEnded: "已结束",
     readDetails: "详情",
-    sourceWarning: "官方信息可能变化。请务必确认最新规则、地点、资格和库存。"
+    sourceWarning: "官方信息可能变化。请务必确认最新规则、地点、资格和库存。",
+    mapLinksTitle: "地图与交通确认",
+    campaignChecksTitle: "活动与预订确认",
+    campaignNoFixedVenue: "无固定活动地点",
+    campaignMapSub: "确认适用地区后，搜索住宿的韩文名称。",
+    campaignMapNote: "全国优惠可能受优惠券库存、合作平台规则和实际住宿地区影响。请先查看官方活动页面。",
+    officialCampaign: "官方活动",
+    googleMap: "Google Maps",
+    naverMap: "Naver 地图",
+    kakaoMap: "Kakao 地图",
+    mapNote: "使用韩文地点名称通常能得到最准确的地图结果。",
+    calendarWeather: "天气规划",
+    packHint: "携带",
+    forecastStripTitle: "KMA 每日天气预报",
+    forecastMorning: "上午",
+    forecastAfternoon: "下午",
+    forecastLowHigh: "最低 / 最高",
+    forecastRainChance: "降雨",
+    forecastNoData: "无期间数据",
+    todayLabel: "今天",
+    tomorrowLabel: "明天",
+    relatedEventsTitle: "附近和相似活动",
+    savedPlannerTitle: "已保存的韩国计划",
+    savedPlannerEmpty: "保存活动以比较日期、城市和官方链接。",
+    savedPlannerCountOne: "已保存 1 个活动",
+    savedPlannerCount: "已保存 {count} 个活动",
+    openPlanner: "打开计划器",
+    clearSaved: "清除保存",
+    removeSaved: "移除",
+    openSavedEvent: "打开",
+    plannerTitle: "已保存活动计划器",
+    plannerText: "比较此设备上保存的韩国活动，并在预订或更改行程前打开官方来源。",
+    plannerEmptyTitle: "尚未保存活动",
+    plannerEmptyText: "从活动列表或详情页保存活动，建立韩国行程候选清单。",
+    downloadSavedCalendar: "下载已保存日历",
+    officialLabel: "官方",
+    verification: "验证",
+    dateBasis: "日期依据",
+    verificationOfficial: "官方来源",
+    verificationOfficialArchive: "官方归档",
+    verificationOfficialListing: "官方列表",
+    verificationOfficialPrefix: "官方",
+    collectionOfficialPageReview: "官方页面复核",
+    collectionOfficialPageMonitor: "官方页面监控",
+    collectionOfficialApi: "官方 API",
+    collectionOfficialPage: "官方页面"
   },
   pt: {
     navEvents: "Eventos",
@@ -845,7 +945,52 @@ dict = {
     statusUpcoming: "Próximo",
     statusEnded: "Encerrado",
     readDetails: "Detalhes",
-    sourceWarning: "Detalhes oficiais podem mudar. Confirme sempre regras, local, elegibilidade e estoque."
+    sourceWarning: "Detalhes oficiais podem mudar. Confirme sempre regras, local, elegibilidade e estoque.",
+    mapLinksTitle: "Mapa e transporte",
+    campaignChecksTitle: "Campanha e reserva",
+    campaignNoFixedVenue: "Sem local fixo",
+    campaignMapSub: "Confirme a região elegível e busque o nome coreano da hospedagem.",
+    campaignMapNote: "Benefícios nacionais podem depender de cupons, regras de parceiros e região real da hospedagem. Use primeiro a página oficial.",
+    officialCampaign: "Campanha oficial",
+    googleMap: "Google Maps",
+    naverMap: "Naver Map",
+    kakaoMap: "Kakao Map",
+    mapNote: "Use o nome coreano do local para obter o resultado mais preciso.",
+    calendarWeather: "Clima",
+    packHint: "Levar",
+    forecastStripTitle: "Previsão diária KMA",
+    forecastMorning: "AM",
+    forecastAfternoon: "PM",
+    forecastLowHigh: "Mín / Máx",
+    forecastRainChance: "Chuva",
+    forecastNoData: "Sem dados do período",
+    todayLabel: "Hoje",
+    tomorrowLabel: "Amanhã",
+    relatedEventsTitle: "Eventos próximos e similares",
+    savedPlannerTitle: "Plano salvo da Coreia",
+    savedPlannerEmpty: "Salve eventos para comparar datas, cidades e links oficiais.",
+    savedPlannerCountOne: "1 evento salvo",
+    savedPlannerCount: "{count} eventos salvos",
+    openPlanner: "Abrir planejador",
+    clearSaved: "Limpar salvos",
+    removeSaved: "Remover",
+    openSavedEvent: "Abrir",
+    plannerTitle: "Planejador de eventos salvos",
+    plannerText: "Compare eventos salvos neste dispositivo e abra fontes oficiais antes de reservar ou mudar planos.",
+    plannerEmptyTitle: "Nenhum evento salvo ainda",
+    plannerEmptyText: "Salve eventos da galeria ou das páginas de detalhe para montar uma lista curta.",
+    downloadSavedCalendar: "Baixar calendário salvo",
+    officialLabel: "Oficial",
+    verification: "Verificação",
+    dateBasis: "Base da data",
+    verificationOfficial: "Fonte oficial",
+    verificationOfficialArchive: "Arquivo oficial",
+    verificationOfficialListing: "Listagem oficial",
+    verificationOfficialPrefix: "Oficial",
+    collectionOfficialPageReview: "Revisão de página oficial",
+    collectionOfficialPageMonitor: "Monitor de página oficial",
+    collectionOfficialApi: "API oficial",
+    collectionOfficialPage: "Página oficial"
   },
   ru: {
     navEvents: "События",
@@ -916,7 +1061,52 @@ dict = {
     statusUpcoming: "Скоро",
     statusEnded: "Завершено",
     readDetails: "Детали",
-    sourceWarning: "Официальные детали могут измениться. Всегда проверяйте правила, место, доступность и наличие."
+    sourceWarning: "Официальные детали могут измениться. Всегда проверяйте правила, место, доступность и наличие.",
+    mapLinksTitle: "Карта и транспорт",
+    campaignChecksTitle: "Кампания и бронирование",
+    campaignNoFixedVenue: "Без фиксированного места",
+    campaignMapSub: "Проверьте подходящий регион и ищите корейское название жилья.",
+    campaignMapNote: "Национальные выгоды зависят от купонов, правил партнеров и реального региона жилья. Сначала используйте официальную страницу.",
+    officialCampaign: "Официальная кампания",
+    googleMap: "Google Maps",
+    naverMap: "Naver Map",
+    kakaoMap: "Kakao Map",
+    mapNote: "Используйте корейское название места для самого точного результата.",
+    calendarWeather: "Погода",
+    packHint: "Взять",
+    forecastStripTitle: "Прогноз KMA по дням",
+    forecastMorning: "Утро",
+    forecastAfternoon: "День",
+    forecastLowHigh: "Мин / Макс",
+    forecastRainChance: "Дождь",
+    forecastNoData: "Нет данных за период",
+    todayLabel: "Сегодня",
+    tomorrowLabel: "Завтра",
+    relatedEventsTitle: "Похожие события рядом",
+    savedPlannerTitle: "Сохраненный план по Корее",
+    savedPlannerEmpty: "Сохраняйте события, чтобы сравнить даты, города и официальные ссылки.",
+    savedPlannerCountOne: "1 сохраненное событие",
+    savedPlannerCount: "{count} сохраненных событий",
+    openPlanner: "Открыть план",
+    clearSaved: "Очистить",
+    removeSaved: "Удалить",
+    openSavedEvent: "Открыть",
+    plannerTitle: "План сохраненных событий",
+    plannerText: "Сравните сохраненные события на этом устройстве и откройте официальные источники перед бронированием или изменением планов.",
+    plannerEmptyTitle: "Пока нет сохраненных событий",
+    plannerEmptyText: "Сохраняйте события из галереи или страниц деталей, чтобы собрать короткий список.",
+    downloadSavedCalendar: "Скачать сохраненный календарь",
+    officialLabel: "Официально",
+    verification: "Проверка",
+    dateBasis: "Основа даты",
+    verificationOfficial: "Официальный источник",
+    verificationOfficialArchive: "Официальный архив",
+    verificationOfficialListing: "Официальный список",
+    verificationOfficialPrefix: "Официально",
+    collectionOfficialPageReview: "Проверка официальной страницы",
+    collectionOfficialPageMonitor: "Монитор официальной страницы",
+    collectionOfficialApi: "Официальный API",
+    collectionOfficialPage: "Официальная страница"
   }
 };
 
@@ -1051,6 +1241,16 @@ dict.ja = {
   plannerEmptyText: "ギャラリーや詳細ページからイベントを保存して、旅行候補リストを作れます。",
   downloadSavedCalendar: "保存カレンダーをダウンロード",
   officialLabel: "公式",
+  verification: "確認",
+  dateBasis: "日付の根拠",
+  verificationOfficial: "公式情報源",
+  verificationOfficialArchive: "公式アーカイブ",
+  verificationOfficialListing: "公式リスト",
+  verificationOfficialPrefix: "公式",
+  collectionOfficialPageReview: "公式ページ確認",
+  collectionOfficialPageMonitor: "公式ページ監視",
+  collectionOfficialApi: "公式API",
+  collectionOfficialPage: "公式ページ",
   editorialTitle: "編集方針",
   editorialText: "K-Spot Nowがイベント情報を収集、確認、翻訳、公開する方法です。",
   correctionsTitle: "訂正と更新",
@@ -2867,7 +3067,9 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <p>${esc(local({
             en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
             es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
+            zh: "出发前把保存的活动与附近购物、交通、天气和短路线一起比较。",
             pt: "Combine eventos salvos com compras, transporte, clima e roteiros curtos antes de sair.",
+            ru: "Перед выходом сопоставьте сохраненные события с ближайшим шопингом, транспортом, погодой и короткими маршрутами.",
             ja: "保存したイベントを周辺の買い物、移動、天気、短いモデルルートと一緒に確認できます。"
           }, lang))}</p>
           <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
@@ -3367,9 +3569,9 @@ function renderEvent(event, lang) {
           ${fact(tr(lang, "location"), event.city, "place")}
           ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked), "check")}
           ${fact(tr(lang, "freshness"), `<span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span>`, "pulse", true)}
-          ${fact("Verification", prettyVerification(event.verification), "shield")}
-          ${fact(tr(lang, "collectionMode"), prettyCollectionMode(event.collectionMode), "review")}
-          ${eventKindLabel(event, lang) ? fact("Date basis", eventKindLabel(event, lang), "basis") : ""}
+          ${fact(tr(lang, "verification"), prettyVerification(event.verification, lang), "shield")}
+          ${fact(tr(lang, "collectionMode"), prettyCollectionMode(event.collectionMode, lang), "review")}
+          ${eventKindLabel(event, lang) ? fact(tr(lang, "dateBasis"), eventKindLabel(event, lang), "basis") : ""}
         </section>
 
         ${visitorInfoSection(event, lang)}
@@ -3442,26 +3644,26 @@ function titleCaseWords(value) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-function prettyCollectionMode(value) {
+function prettyCollectionMode(value, lang = "en") {
   const raw = String(value || "").trim();
   const labels = {
-    "manual-reviewed-official-page": "Official page review",
-    "official-page-monitor": "Official page monitor",
-    "official-api": "Official API",
-    "official-page": "Official page"
+    "manual-reviewed-official-page": tr(lang, "collectionOfficialPageReview"),
+    "official-page-monitor": tr(lang, "collectionOfficialPageMonitor"),
+    "official-api": tr(lang, "collectionOfficialApi"),
+    "official-page": tr(lang, "collectionOfficialPage")
   };
   return labels[raw] || titleCaseWords(raw);
 }
 
-function prettyVerification(value) {
+function prettyVerification(value, lang = "en") {
   const raw = String(value || "").trim();
   const labels = {
-    official: "Official source",
-    "official-ended": "Official archive",
-    "official-listing": "Official listing"
+    official: tr(lang, "verificationOfficial"),
+    "official-ended": tr(lang, "verificationOfficialArchive"),
+    "official-listing": tr(lang, "verificationOfficialListing")
   };
   if (labels[raw]) return labels[raw];
-  if (raw.startsWith("official-")) return `Official ${titleCaseWords(raw.replace(/^official-/, "")).toLowerCase()}`;
+  if (raw.startsWith("official-")) return `${tr(lang, "verificationOfficialPrefix")} ${titleCaseWords(raw.replace(/^official-/, "")).toLowerCase()}`;
   return titleCaseWords(raw);
 }
 

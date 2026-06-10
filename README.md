@@ -165,6 +165,14 @@ $env:CONTACT_EMAIL="contact@kspotnow.com"
 npm.cmd run preflight:launch
 ```
 
+After `kspotnow.com` is connected to the Worker, verify the live domain before Search Console or AdSense submission:
+
+```powershell
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
+npm.cmd run check:domain
+```
+
 `validate:production` fails on common platform preview subdomains such as `pages.dev`, `netlify.app`, `vercel.app`, and `github.io` so the AdSense launch path stays focused on a real custom domain. For a non-AdSense preview deploy only, set `ALLOW_PLATFORM_SUBDOMAIN=1`.
 
 Manual Wrangler deploy after the production preflight:

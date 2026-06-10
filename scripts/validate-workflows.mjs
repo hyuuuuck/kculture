@@ -30,12 +30,16 @@ const deployFile = ".github/workflows/deploy-cloudflare-pages.yml";
 const verifyFile = ".github/workflows/verify.yml";
 const draftEventsFile = "scripts/draft-events-from-feed.mjs";
 const launchChecklistFile = "launch-checklist.md";
+const packageJsonFile = "package.json";
+const domainCheckFile = "scripts/check-domain-live.mjs";
 
 const sourceRefresh = read(sourceRefreshFile);
 const deploy = read(deployFile);
 const verify = read(verifyFile);
 const draftEvents = read(draftEventsFile);
 const launchChecklist = read(launchChecklistFile);
+const packageJson = read(packageJsonFile);
+const domainCheck = read(domainCheckFile);
 
 assertIncludes(sourceRefreshFile, sourceRefresh, "cron: \"20 */4 * * *\"", "source refresh should run every 4 hours.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "source refresh must import current KMA forecast before building review artifacts.");
@@ -80,7 +84,14 @@ assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_READY",
 assertIncludes(launchChecklistFile, launchChecklist, "/en/advertising/", "launch checklist must include the advertising policy trust page.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:launch", "launch checklist must require full launch preflight.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:adsense", "launch checklist must require strict AdSense preflight after IDs are issued.");
+assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run check:domain", "launch checklist must require live custom-domain verification.");
 assertIncludes(launchChecklistFile, launchChecklist, "AdSense Submission Gate", "launch checklist must separate the final AdSense submission gate.");
+
+assertIncludes(packageJsonFile, packageJson, "\"check:domain\"", "package scripts must expose the live domain verification command.");
+assertIncludes(domainCheckFile, domainCheck, "https://kspotnow.com", "domain check must default to the intended custom domain.");
+assertIncludes(domainCheckFile, domainCheck, "/sitemap.xml", "domain check must verify the live sitemap.");
+assertIncludes(domainCheckFile, domainCheck, "/robots.txt", "domain check must verify robots.txt.");
+assertIncludes(domainCheckFile, domainCheck, "Advertising Policy", "domain check must verify a public advertising policy page.");
 
 if (errors.length) {
   console.error("Workflow validation failed:");

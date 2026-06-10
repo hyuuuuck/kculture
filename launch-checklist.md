@@ -69,6 +69,20 @@ Path B, Cloudflare dashboard Git integration:
 
 For AdSense review, connect the custom domain and use that domain as `SITE_URL`. The `pages.dev` URL is only for preview.
 
+Custom domain connection steps for `kspotnow.com`:
+
+- Buy `kspotnow.com` and add it to Cloudflare DNS.
+- In Cloudflare, open Workers & Pages -> `kculture` -> Settings -> Domains & Routes.
+- Add `kspotnow.com` as a custom domain for the Worker.
+- Add `www.kspotnow.com` only if you want the `www` version; redirect one version to the other so Search Console and AdSense see one canonical site.
+- Wait until Cloudflare shows active SSL, then confirm the root domain, sitemap, robots file, trust pages, contact page, and one event detail page:
+
+```powershell
+$env:SITE_URL="https://kspotnow.com"
+$env:CONTACT_EMAIL="contact@kspotnow.com"
+npm.cmd run check:domain
+```
+
 ## 6. Local Launch Preflight
 
 Publishing uses four quality gates before a public launch:
@@ -118,6 +132,7 @@ Do not submit the site for AdSense review until these checks are true:
 
 - `https://kspotnow.com/` resolves to the production Cloudflare deployment.
 - `https://kspotnow.com/sitemap.xml` and `https://kspotnow.com/robots.txt` return 200.
+- `npm.cmd run check:domain` passes with `SITE_URL=https://kspotnow.com` and `CONTACT_EMAIL=contact@kspotnow.com`.
 - The footer trust pages return 200, including `/en/privacy/`, `/en/cookie-policy/`, `/en/advertising/`, `/en/terms/`, `/en/contact/`, `/en/editorial-policy/`, and `/en/corrections/`.
 - Google Search Console is verified by DNS or `GOOGLE_SITE_VERIFICATION`, and the sitemap has been submitted.
 - The latest `npm.cmd run preflight:launch` has 0 failures.

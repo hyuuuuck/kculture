@@ -39,6 +39,7 @@ jobs:
       GOOGLE_ADSENSE_PUBLISHER_ID: ${{ vars.GOOGLE_ADSENSE_PUBLISHER_ID }}
       GOOGLE_ADSENSE_CLIENT: ${{ vars.GOOGLE_ADSENSE_CLIENT }}
       GOOGLE_ADSENSE_SLOT: ${{ vars.GOOGLE_ADSENSE_SLOT }}
+      GOOGLE_ADSENSE_CMP_READY: ${{ vars.GOOGLE_ADSENSE_CMP_READY || '0' }}
       GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       ALLOW_PLATFORM_SUBDOMAIN: ${{ vars.ALLOW_PLATFORM_SUBDOMAIN || '0' }}
       CLOUDFLARE_WORKER_NAME: ${{ vars.CLOUDFLARE_WORKER_NAME || 'kculture' }}
@@ -104,6 +105,7 @@ jobs:
           npm run validate:calendar
           npm run validate:details
           npm run validate:ux
+          npm run validate:workflows
           npm run validate:sitemap
           npm run validate:structured
           npm run validate:event-audit

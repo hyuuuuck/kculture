@@ -48,7 +48,9 @@ assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "gh issue"
 
 assertIncludes(deployFile, deploy, "npm run source:refresh", "manual Cloudflare deploy should be able to refresh official sources before build.");
 assertIncludes(deployFile, deploy, "npm run validate:event-audit", "manual Cloudflare deploy must run high-risk event audit.");
+assertIncludes(deployFile, deploy, "npm run validate:workflows", "manual Cloudflare deploy must validate workflow guardrails before release.");
 assertIncludes(deployFile, deploy, "npm run quality:ceo", "manual Cloudflare deploy must run CEO quality review.");
+assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_READY", "manual Cloudflare deploy must pass Google-certified CMP readiness into AdSense checks.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
 
 assertIncludes(verifyFile, verify, "npm run preflight:launch", "push verification must run launch preflight.");

@@ -3598,7 +3598,7 @@ function eventPlanTools(lang) {
 }
 
 function saveEventButton(event, lang) {
-  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-event-map-query="${esc(eventPlaceQuery(event))}" data-event-venue="${esc([event.venue, event.district].filter(Boolean).join(", "))}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
 }
 
 function spotlightEvents(sorted) {
@@ -5010,7 +5010,7 @@ function calendarItem(event, lang) {
 
 function renderPlanner(lang) {
   const body = `
-    <main class="page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}">
+    <main class="page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
       <section class="page-hero compact">
         <p class="eyebrow">${tr(lang, "navPlanner")}</p>
         <h1>${tr(lang, "plannerTitle")}</h1>
@@ -5020,6 +5020,23 @@ function renderPlanner(lang) {
           <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
           <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
         </div>
+      </section>
+      <section class="planner-utility" aria-label="${esc(tr(lang, "cardPlanTools"))}">
+        <article>
+          <span>${esc(tr(lang, "cardPlanCalendar"))}</span>
+          <strong>${esc(tr(lang, "downloadSavedCalendar"))}</strong>
+          <p>${esc(tr(lang, "calendarText"))}</p>
+        </article>
+        <article>
+          <span>${esc(tr(lang, "cardPlanMap"))}</span>
+          <strong>${esc(tr(lang, "mapLinksTitle"))}</strong>
+          <p>${esc(tr(lang, "mapNote"))}</p>
+        </article>
+        <article>
+          <span>${esc(tr(lang, "official"))}</span>
+          <strong>${esc(tr(lang, "verifyBefore"))}</strong>
+          <p>${esc(tr(lang, "sourceWarning"))}</p>
+        </article>
       </section>
       <section class="planner-board">
         <div class="planner-empty" data-planner-empty>

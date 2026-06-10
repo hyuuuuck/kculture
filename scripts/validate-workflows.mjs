@@ -60,6 +60,8 @@ assertIncludes(deployFile, deploy, "npm run validate:workflows", "manual Cloudfl
 assertIncludes(deployFile, deploy, "npm run quality:ceo", "manual Cloudflare deploy must run CEO quality review.");
 assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_READY", "manual Cloudflare deploy must pass Google-certified CMP readiness into AdSense checks.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
+assertIncludes(deployFile, deploy, "Check Cloudflare deploy secret", "manual deploy should check the API token only after validation can report quality gates.");
+assertOrder(deployFile, deploy, "npm run quality:ceo", "Check Cloudflare deploy secret", "Cloudflare token checks should run after CEO quality review so missing secrets do not hide build quality.");
 
 assertIncludes(verifyFile, verify, "npm run preflight:launch", "push verification must run launch preflight.");
 assertIncludes(verifyFile, verify, "SITE_URL: https://kspotnow.com", "push verification should test the intended custom domain config.");

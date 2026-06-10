@@ -73,6 +73,8 @@ for (const lang of languages) {
 
 const home = read("en/index.html");
 const styles = read("styles.css");
+const appJs = read("app.js");
+const plannerPage = read("en/planner/index.html");
 const spotlightSlides = countMatches(home, /data-spotlight-slide/g);
 const spotlightTabs = countMatches(home, /class="spotlight-tab"/g);
 if (spotlightSlides < 3 || spotlightSlides > 5) {
@@ -116,6 +118,10 @@ const homeEventCards = countMatches(home, /class="event-card"/g);
 const homeSourceRows = countMatches(home, /class="event-source-row"/g);
 if (homeEventCards !== homeSourceRows) {
   push("en/index.html", `each home event card must show a linked-source role row; found ${homeSourceRows}/${homeEventCards}.`);
+}
+const savedMapQueries = countMatches(home, /data-event-map-query="/g);
+if (homeEventCards !== savedMapQueries) {
+  push("en/index.html", `each home event card save button must carry a Korean map query for the planner; found ${savedMapQueries}/${homeEventCards}.`);
 }
 const homePlanTools = countMatches(home, /class="event-plan-tools"/g);
 if (homeEventCards !== homePlanTools) {
@@ -164,6 +170,13 @@ assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must pre
 assertIncludes(styles, ".event-source-row", "styles.css", "event cards must style source-role rows.");
 assertIncludes(styles, ".source-role-chip", "styles.css", "event cards must style linked-source role chips.");
 assertIncludes(styles, ".event-plan-tools", "styles.css", "event cards must style visible planning-tool chips.");
+assertIncludes(plannerPage, "class=\"planner-utility\"", "en/planner/index.html", "planner page must explain calendar, Korean map, and official-source planning utility before saved items render.");
+assertIncludes(plannerPage, "data-map-label=\"Korean map\"", "en/planner/index.html", "planner page must expose a localized map label for saved event cards.");
+assertIncludes(appJs, "planner-card-map-links", "app.js", "saved planner cards must render Google, Naver, and Kakao map links from the saved Korean map query.");
+assertIncludes(appJs, "map.naver.com/p/search", "app.js", "saved planner map links must include Naver Map search.");
+assertIncludes(appJs, "map.kakao.com/?q=", "app.js", "saved planner map links must include Kakao Map search.");
+assertIncludes(styles, ".planner-utility", "styles.css", "planner utility cards must be styled.");
+assertIncludes(styles, ".planner-card-map-links a {\n  min-height: 44px;", "styles.css", "saved planner map links must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");
 assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".save-event {\n  min-height: 44px;", "styles.css", "save buttons must preserve a minimum 44px touch target.");

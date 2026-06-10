@@ -3911,6 +3911,44 @@ img {
   gap: 18px;
 }
 
+.planner-utility {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.planner-utility article {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--white);
+}
+
+.planner-utility span {
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 880;
+  text-transform: uppercase;
+}
+
+.planner-utility strong {
+  color: var(--ink);
+  font-size: 1.02rem;
+  line-height: 1.18;
+}
+
+.planner-utility p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 680;
+  line-height: 1.45;
+}
+
 .planner-empty {
   display: grid;
   gap: 4px;
@@ -3961,6 +3999,47 @@ img {
 .planner-card > span {
   color: var(--muted);
   font-weight: 720;
+}
+
+.planner-card-map {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #e3ebe8;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fbfcfa;
+}
+
+.planner-card-map > span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 780;
+  overflow-wrap: anywhere;
+}
+
+.planner-card-map-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.planner-card-map-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9e6e2;
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: var(--blue-dark);
+  background: var(--white);
+  font-size: 0.82rem;
+  font-weight: 820;
+}
+
+.planner-card-map-links a:hover {
+  border-color: #b9cce4;
+  background: var(--surface-blue);
 }
 
 .planner-card-actions {
@@ -4129,6 +4208,10 @@ img {
   }
 
   .weather-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-utility {
     grid-template-columns: 1fr;
   }
 

@@ -182,6 +182,26 @@ function collectHomeUx() {
     );
   }
 
+  const savedMapQueries = countMatches(home, /data-event-map-query="/g);
+  const plannerPage = readText("dist/en/planner/index.html");
+  const appJs = readText("dist/app.js");
+  const hasPlannerUtility = plannerPage.includes("class=\"planner-utility\"")
+    && plannerPage.includes("data-map-label=\"Korean map\"");
+  const hasSavedMapLinks = appJs.includes("planner-card-map-links")
+    && appJs.includes("map.naver.com/p/search")
+    && appJs.includes("map.kakao.com/?q=");
+  if (eventCards && savedMapQueries === eventCards && hasPlannerUtility && hasSavedMapLinks) {
+    pass("planner", "Visitor retention", "Saved planner map utility", `${savedMapQueries}/${eventCards} save buttons carry Korean map queries; planner renders local map handoff links.`);
+  } else {
+    fail(
+      "planner",
+      "Visitor retention",
+      "Saved planner map utility",
+      `${savedMapQueries}/${eventCards} map queries; utility ${hasPlannerUtility}; map links ${hasSavedMapLinks}.`,
+      "Planner/Publisher: saved events must preserve Korean map search terms and render Google, Naver, and Kakao map handoff links inside the planner."
+    );
+  }
+
   const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
   if (splitBand && !splitBand.includes("/en/sources/") && splitBand.includes("/en/routes/")) {
     pass("planner", "Homepage utility", "Visitor-facing next step", "Homepage promotes routes and calendar instead of operational source pages.");
@@ -278,9 +298,10 @@ function collectInteractionQuality() {
   const saveButton = styles.match(/\.save-event\s*\{[\s\S]*?\}/)?.[0] || "";
   const savedClear = styles.match(/\.saved-clear\s*\{[\s\S]*?\}/)?.[0] || "";
   const savedPlannerControls = styles.match(/\.saved-open,\s*\.planner-card-actions a,\s*\.planner-card-actions button\s*\{[\s\S]*?\}/)?.[0] || "";
+  const savedPlannerMapLinks = styles.match(/\.planner-card-map-links a\s*\{[\s\S]*?\}/)?.[0] || "";
   const mobileSpotlight = styles.match(/@media \(max-width: 680px\)\s*\{[\s\S]*?\.service-summary dd[\s\S]*?\n\}/)?.[0] || "";
   const hasPrimaryTouchTargets = baseButtons.includes("min-height: 44px") && saveButton.includes("min-height: 44px");
-  const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px");
+  const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px") && savedPlannerMapLinks.includes("min-height: 44px");
   const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-tab")
     && mobileSpotlight.includes("width: 44px")
     && mobileSpotlight.includes("min-height: 44px")
@@ -288,7 +309,7 @@ function collectInteractionQuality() {
     && mobileSpotlight.includes("display: none");
 
   if (hasPrimaryTouchTargets && hasSavedPlannerTouchTargets && hasMobileSpotlightTargets) {
-    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions, and mobile spotlight tabs preserve 44px touch targets.");
+    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, and mobile spotlight tabs preserve 44px touch targets.");
   } else {
     fail(
       "designer",

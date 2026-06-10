@@ -161,7 +161,9 @@ function normalizeSavedEvent(item) {
     category: String(item?.category || ""),
     url: String(item?.url || ""),
     sourceUrl: String(item?.sourceUrl || ""),
-    sourceName: String(item?.sourceName || "")
+    sourceName: String(item?.sourceName || ""),
+    mapQuery: String(item?.mapQuery || ""),
+    venue: String(item?.venue || "")
   };
 }
 
@@ -196,7 +198,9 @@ function savedEventFromButton(button) {
     category: button.dataset.eventCategory,
     url: button.dataset.eventUrl,
     sourceUrl: button.dataset.eventSourceUrl,
-    sourceName: button.dataset.eventSourceName
+    sourceName: button.dataset.eventSourceName,
+    mapQuery: button.dataset.eventMapQuery,
+    venue: button.dataset.eventVenue
   };
 }
 
@@ -248,6 +252,10 @@ function renderPlannerPage(saved = readSavedEvents()) {
   const openLabel = plannerPage.dataset.openLabel || "Open";
   const officialLabel = plannerPage.dataset.officialLabel || "Official";
   const removeLabel = plannerPage.dataset.removeLabel || "Remove";
+  const mapLabel = plannerPage.dataset.mapLabel || "Map search";
+  const googleLabel = plannerPage.dataset.googleLabel || "Google Maps";
+  const naverLabel = plannerPage.dataset.naverLabel || "Naver Map";
+  const kakaoLabel = plannerPage.dataset.kakaoLabel || "Kakao Map";
   const sorted = [...saved].sort((a, b) => (a.start || a.date || a.title).localeCompare(b.start || b.date || b.title));
 
   plannerEmpty.hidden = sorted.length > 0;
@@ -264,6 +272,35 @@ function renderPlannerPage(saved = readSavedEvents()) {
 
     const date = document.createElement("span");
     date.textContent = item.date || [item.start, item.end].filter(Boolean).join(" - ");
+
+    const mapQuery = item.mapQuery || item.venue || item.city;
+    const mapBlock = document.createElement("div");
+    mapBlock.className = "planner-card-map";
+
+    const mapText = document.createElement("span");
+    mapText.textContent = `${mapLabel}: ${mapQuery}`;
+    mapBlock.append(mapText);
+
+    if (mapQuery) {
+      const encoded = encodeURIComponent(mapQuery);
+      const mapLinks = document.createElement("div");
+      mapLinks.className = "planner-card-map-links";
+
+      for (const [label, href] of [
+        [googleLabel, `https://www.google.com/maps/search/?api=1&query=${encoded}`],
+        [naverLabel, `https://map.naver.com/p/search/${encoded}`],
+        [kakaoLabel, `https://map.kakao.com/?q=${encoded}`]
+      ]) {
+        const link = document.createElement("a");
+        link.href = href;
+        link.rel = "nofollow noopener";
+        link.target = "_blank";
+        link.textContent = label;
+        mapLinks.append(link);
+      }
+
+      mapBlock.append(mapLinks);
+    }
 
     const actions = document.createElement("div");
     actions.className = "planner-card-actions";
@@ -288,7 +325,7 @@ function renderPlannerPage(saved = readSavedEvents()) {
     remove.textContent = removeLabel;
     actions.append(remove);
 
-    card.append(meta, title, date, actions);
+    card.append(meta, title, date, mapBlock, actions);
     return card;
   }));
 }

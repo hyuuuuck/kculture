@@ -72,14 +72,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check deployment configuration
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Check public deployment configuration
         run: |
           test -n "$SITE_URL" || { echo "SITE_URL repository variable is required."; exit 1; }
           test -n "$CONTACT_EMAIL" || { echo "CONTACT_EMAIL repository variable is required."; exit 1; }
           test -n "$CLOUDFLARE_WORKER_NAME" || { echo "CLOUDFLARE_WORKER_NAME repository variable is required."; exit 1; }
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required."; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID secret is required."; exit 1; }
 
       - name: Refresh official source status
@@ -125,6 +122,12 @@ jobs:
           npm run validate:event-audit
           npm run report:adsense
           npm run quality:ceo
+
+      - name: Check Cloudflare deploy secret
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required after validation passes."; exit 1; }
 
       - name: Upload source refresh artifacts
         if: always()

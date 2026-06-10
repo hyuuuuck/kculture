@@ -73,7 +73,17 @@ function eventAuditText(event) {
     ...localizedValues("title"),
     ...localizedValues("summary"),
     ...localizedValues("whyGo"),
-    ...(event.travelTips || [])
+    ...(event.travelTips || []),
+    ...(event.officialHighlights || []),
+    ...Object.values(event.visitorInfo || {}).flatMap((value) => Array.isArray(value) ? value : [value]),
+    ...(event.venueSchedule || []).flatMap((item) => [
+      item.venue,
+      item.startDate,
+      item.endDate,
+      item.status,
+      item.theme,
+      item.note
+    ])
   ].filter(Boolean).join(" ");
 }
 

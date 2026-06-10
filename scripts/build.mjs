@@ -2519,6 +2519,51 @@ function relatedEventsForEvent(event) {
     .slice(0, 6);
 }
 
+function relatedEventsForGuide(guide) {
+  const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+  return events
+    .filter((event) => event.category === guide.category)
+    .sort((a, b) => {
+      const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
+      if (statusDiff) return statusDiff;
+      const priorityDiff = (b.priority || 0) - (a.priority || 0);
+      if (priorityDiff) return priorityDiff;
+      return String(a.startDate || "").localeCompare(String(b.startDate || ""));
+    })
+    .slice(0, 3);
+}
+
+function relatedRoutesForGuide(guide) {
+  const matches = routes.filter((route) => route.categories?.includes(guide.category));
+  return (matches.length ? matches : routes).slice(0, 3);
+}
+
+const guideSourceTokens = {
+  kpop: ["k-pop", "concert", "ticket", "artist", "weverse", "yes24", "ticketlink", "melon"],
+  festival: ["festival", "tourism", "visit", "seoul", "culture", "performance"],
+  beauty: ["olive young", "beauty", "cosmetic"],
+  "duty-free": ["duty-free", "shilla", "lotte", "shinsegae", "airport"],
+  "department-store": ["department", "hyundai", "shinsegae", "lotte", "popup", "pop-up"],
+  shopping: ["shopping", "sale", "grand sale", "market", "retail"],
+  "travel-benefits": ["weather", "travel", "route", "transport", "airport", "visit"]
+};
+
+function guideSourceExamples(guide) {
+  const tokens = guideSourceTokens[guide.category] || [guide.category];
+  return sources
+    .filter((source) => {
+      const haystack = [
+        source.name,
+        source.type,
+        source.owner,
+        source.notes,
+        ...(source.coverage || [])
+      ].join(" ").toLowerCase();
+      return tokens.some((token) => haystack.includes(token));
+    })
+    .slice(0, 4);
+}
+
 function eventsForRoute(route) {
   const regionSet = new Set(route.regions || []);
   const categorySet = new Set(route.categories || []);
@@ -4564,6 +4609,246 @@ function guideCard(guide, lang) {
     </a>`;
 }
 
+const guidePlanningCopy = {
+  en: {
+    eyebrow: "Visitor workflow",
+    title: "Use this guide with live event data",
+    text: "Each guide is connected to current listings, official-source examples, and route ideas so visitors can plan here and complete final action on the official page.",
+    patternTitle: "Compare the pattern",
+    patternText: ({ category, eventCount }) => `Use the guide while scanning ${eventCount} checked ${category} listings, not as a standalone blog post.`,
+    sourceTitle: "Open official proof",
+    sourceText: ({ sourceCount }) => `${sourceCount} matching official-source examples are surfaced below as starting points for final rules, tickets, reservations, or purchases.`,
+    routeTitle: "Plan the local move",
+    routeText: ({ routeCount }) => `${routeCount} related route ideas help turn the guide into a realistic Seoul or Korea visitor plan.`,
+    relatedTitle: "Related events to compare",
+    relatedText: "Use these listings to test the guide against real dates, cities, weather, map names, and official links.",
+    routesTitle: "Route ideas for this guide",
+    routesText: "These are not fixed tours; they are low-friction visitor patterns to compare with the event location and weather.",
+    sourcesTitle: "Official-source starting points",
+    sourcesText: "K-Spot Now helps you compare and prepare. Tickets, reservations, purchases, operating rules, and eligibility still belong on the official source.",
+    viewAll: "View all in this category"
+  },
+  es: {
+    eyebrow: "Flujo del visitante",
+    title: "Usa esta guia con eventos vivos",
+    text: "Cada guia se conecta con listados actuales, ejemplos de fuentes oficiales e ideas de ruta para planificar aqui y finalizar en la pagina oficial.",
+    patternTitle: "Compara el patron",
+    patternText: ({ category, eventCount }) => `Usa la guia mientras revisas ${eventCount} listados ${category} verificados, no como un articulo aislado.`,
+    sourceTitle: "Abre la prueba oficial",
+    sourceText: ({ sourceCount }) => `${sourceCount} ejemplos de fuente oficial sirven como punto de partida para reglas, entradas, reservas o compras.`,
+    routeTitle: "Planea el movimiento local",
+    routeText: ({ routeCount }) => `${routeCount} ideas de ruta relacionadas convierten la guia en un plan realista para visitantes.`,
+    relatedTitle: "Eventos relacionados para comparar",
+    relatedText: "Compara fechas, ciudades, clima, nombres de mapa y enlaces oficiales con eventos reales.",
+    routesTitle: "Ideas de ruta para esta guia",
+    routesText: "No son tours fijos; son patrones faciles de adaptar al lugar y al clima.",
+    sourcesTitle: "Puntos de partida oficiales",
+    sourcesText: "K-Spot Now ayuda a comparar y preparar. Entradas, reservas, compras, reglas y elegibilidad se confirman en la fuente oficial.",
+    viewAll: "Ver toda la categoria"
+  },
+  zh: {
+    eyebrow: "访客流程",
+    title: "结合实时活动使用本指南",
+    text: "每篇指南都会连接当前活动、官方来源示例和路线建议，方便先规划，再到官方页面完成最终操作。",
+    patternTitle: "比较活动模式",
+    patternText: ({ category, eventCount }) => `请配合 ${eventCount} 个已核查的${category}条目使用，而不是只当作单篇文章。`,
+    sourceTitle: "打开官方凭证",
+    sourceText: ({ sourceCount }) => `下方列出 ${sourceCount} 个相关官方来源，可用于确认规则、门票、预约或购买信息。`,
+    routeTitle: "规划当地移动",
+    routeText: ({ routeCount }) => `${routeCount} 个相关路线想法可帮助把指南变成可执行的韩国旅行计划。`,
+    relatedTitle: "可比较的相关活动",
+    relatedText: "用真实日期、城市、天气、韩文地点名和官方链接来验证这篇指南。",
+    routesTitle: "本指南相关路线",
+    routesText: "这些不是固定行程，而是可根据地点和天气调整的低负担路线模式。",
+    sourcesTitle: "官方来源起点",
+    sourcesText: "K-Spot Now 用于比较和准备。门票、预约、购买、运营规则和资格仍需以官方来源为准。",
+    viewAll: "查看该类别全部"
+  },
+  pt: {
+    eyebrow: "Fluxo do visitante",
+    title: "Use este guia com eventos atuais",
+    text: "Cada guia se conecta a listagens atuais, exemplos de fontes oficiais e ideias de rota para planejar aqui e finalizar na pagina oficial.",
+    patternTitle: "Compare o padrao",
+    patternText: ({ category, eventCount }) => `Use o guia junto com ${eventCount} listagens ${category} verificadas, nao como um artigo isolado.`,
+    sourceTitle: "Abra a prova oficial",
+    sourceText: ({ sourceCount }) => `${sourceCount} exemplos de fonte oficial ajudam a confirmar regras, ingressos, reservas ou compras.`,
+    routeTitle: "Planeje o deslocamento",
+    routeText: ({ routeCount }) => `${routeCount} ideias de rota relacionadas transformam o guia em um plano realista para visitantes.`,
+    relatedTitle: "Eventos relacionados para comparar",
+    relatedText: "Compare datas, cidades, clima, nomes coreanos de mapa e links oficiais com eventos reais.",
+    routesTitle: "Ideias de rota para este guia",
+    routesText: "Nao sao tours fixos; sao padroes faceis de adaptar ao local e ao clima.",
+    sourcesTitle: "Pontos de partida oficiais",
+    sourcesText: "K-Spot Now ajuda a comparar e preparar. Ingressos, reservas, compras, regras e elegibilidade ficam na fonte oficial.",
+    viewAll: "Ver toda a categoria"
+  },
+  ru: {
+    eyebrow: "Путь посетителя",
+    title: "Используйте гид вместе с живыми событиями",
+    text: "Каждый гид связан с актуальными страницами, примерами официальных источников и маршрутами, чтобы планировать здесь, а финальное действие делать на официальной странице.",
+    patternTitle: "Сравните сценарий",
+    patternText: ({ category, eventCount }) => `Используйте гид вместе с ${eventCount} проверенными страницами ${category}, а не как отдельную статью.`,
+    sourceTitle: "Откройте официальное подтверждение",
+    sourceText: ({ sourceCount }) => `${sourceCount} подходящих официальных источника помогают проверить правила, билеты, бронирование или покупки.`,
+    routeTitle: "Спланируйте перемещение",
+    routeText: ({ routeCount }) => `${routeCount} идеи маршрута помогают превратить гид в реальный план поездки по Корее.`,
+    relatedTitle: "Похожие события для сравнения",
+    relatedText: "Сравните реальные даты, города, погоду, корейские названия мест и официальные ссылки.",
+    routesTitle: "Маршруты для этого гида",
+    routesText: "Это не фиксированные туры, а удобные шаблоны, которые можно адаптировать под место и погоду.",
+    sourcesTitle: "Официальные источники для начала",
+    sourcesText: "K-Spot Now помогает сравнить и подготовиться. Билеты, бронирования, покупки, правила и условия подтверждаются в официальном источнике.",
+    viewAll: "Смотреть всю категорию"
+  },
+  ja: {
+    eyebrow: "訪問者フロー",
+    title: "最新イベントと一緒に使うガイド",
+    text: "各ガイドは現在の掲載、公式情報の例、ルート案とつながっています。ここで計画し、最終確認や購入は公式ページで行います。",
+    patternTitle: "傾向を比較する",
+    patternText: ({ category, eventCount }) => `このガイドは単独の記事ではなく、確認済みの${category} ${eventCount}件と比べながら使います。`,
+    sourceTitle: "公式根拠を開く",
+    sourceText: ({ sourceCount }) => `下にある ${sourceCount} 件の公式情報例から、ルール、チケット、予約、購入条件を確認できます。`,
+    routeTitle: "現地の動きを組む",
+    routeText: ({ routeCount }) => `${routeCount} 件の関連ルート案で、ガイドを実際の韓国旅行計画に落とし込めます。`,
+    relatedTitle: "比較できる関連イベント",
+    relatedText: "実際の日程、都市、天気、韓国語の場所名、公式リンクと照らし合わせて確認できます。",
+    routesTitle: "このガイド向けルート案",
+    routesText: "固定ツアーではなく、場所や天気に合わせて調整しやすい訪問パターンです。",
+    sourcesTitle: "公式情報の起点",
+    sourcesText: "K-Spot Nowは比較と準備のためのサイトです。チケット、予約、購入、運営ルール、対象条件は公式情報で確認してください。",
+    viewAll: "このカテゴリをすべて見る"
+  },
+  fr: {
+    eyebrow: "Parcours visiteur",
+    title: "Utilisez ce guide avec les evenements en cours",
+    text: "Chaque guide relie fiches actuelles, exemples de sources officielles et idees de trajet pour planifier ici puis finaliser sur la page officielle.",
+    patternTitle: "Comparez le modele",
+    patternText: ({ category, eventCount }) => `Utilisez le guide avec ${eventCount} fiches ${category} verifiees, pas comme un article isole.`,
+    sourceTitle: "Ouvrez la preuve officielle",
+    sourceText: ({ sourceCount }) => `${sourceCount} exemples de sources officielles servent de depart pour regles, billets, reservations ou achats.`,
+    routeTitle: "Preparez le deplacement",
+    routeText: ({ routeCount }) => `${routeCount} idees de trajet aident a transformer le guide en plan realiste pour la Coree.`,
+    relatedTitle: "Evenements lies a comparer",
+    relatedText: "Comparez dates, villes, meteo, noms coreens de carte et liens officiels avec des fiches reelles.",
+    routesTitle: "Idees de trajet pour ce guide",
+    routesText: "Ce ne sont pas des tours fixes, mais des schemas simples a adapter au lieu et a la meteo.",
+    sourcesTitle: "Points de depart officiels",
+    sourcesText: "K-Spot Now aide a comparer et preparer. Billets, reservations, achats, regles et eligibilite restent sur la source officielle.",
+    viewAll: "Voir toute la categorie"
+  },
+  de: {
+    eyebrow: "Besucherablauf",
+    title: "Guide mit aktuellen Events nutzen",
+    text: "Jeder Guide ist mit aktuellen Eintragen, offiziellen Quellenbeispielen und Routenideen verbunden: hier planen, final auf der offiziellen Seite handeln.",
+    patternTitle: "Muster vergleichen",
+    patternText: ({ category, eventCount }) => `Nutzen Sie den Guide mit ${eventCount} gepruften ${category}-Eintragen, nicht als isolierten Artikel.`,
+    sourceTitle: "Offiziellen Nachweis offnen",
+    sourceText: ({ sourceCount }) => `${sourceCount} passende offizielle Quellenbeispiele helfen bei Regeln, Tickets, Reservierungen oder Kaufen.`,
+    routeTitle: "Lokale Bewegung planen",
+    routeText: ({ routeCount }) => `${routeCount} passende Routenideen machen aus dem Guide einen realistischen Korea-Besuchsplan.`,
+    relatedTitle: "Verwandte Events zum Vergleichen",
+    relatedText: "Vergleichen Sie reale Daten, Stadte, Wetter, koreanische Ortsnamen und offizielle Links.",
+    routesTitle: "Routenideen fur diesen Guide",
+    routesText: "Das sind keine festen Touren, sondern einfache Muster, die sich an Ort und Wetter anpassen lassen.",
+    sourcesTitle: "Offizielle Startpunkte",
+    sourcesText: "K-Spot Now hilft beim Vergleichen und Vorbereiten. Tickets, Reservierungen, Kaufe, Regeln und Berechtigung bleiben bei der offiziellen Quelle.",
+    viewAll: "Alle in dieser Kategorie ansehen"
+  }
+};
+
+function guideCopy(lang) {
+  return guidePlanningCopy[lang] || guidePlanningCopy.en;
+}
+
+function guideDecisionPanel(guide, lang, relatedEvents, relatedRoutes, sourceExamples) {
+  const copy = guideCopy(lang);
+  const category = categoryLabel(lang, guide.category);
+  const data = {
+    category,
+    eventCount: relatedEvents.length,
+    routeCount: relatedRoutes.length,
+    sourceCount: sourceExamples.length
+  };
+  const cards = [
+    ["01", copy.patternTitle, copy.patternText(data)],
+    ["02", copy.sourceTitle, copy.sourceText(data)],
+    ["03", copy.routeTitle, copy.routeText(data)]
+  ];
+  return `
+      <section class="guide-decision-panel" aria-labelledby="guide-decision-title">
+        <div class="guide-decision-head">
+          <p class="eyebrow">${esc(copy.eyebrow)}</p>
+          <h2 id="guide-decision-title">${esc(copy.title)}</h2>
+          <p>${esc(copy.text)}</p>
+        </div>
+        <div class="guide-decision-grid">
+          ${cards.map(([number, title, text]) => `
+            <article>
+              <span>${esc(number)}</span>
+              <strong>${esc(title)}</strong>
+              <p>${esc(text)}</p>
+            </article>`).join("")}
+        </div>
+      </section>`;
+}
+
+function guideRelatedEventsSection(guide, lang, relatedEvents) {
+  if (!relatedEvents.length) return "";
+  const copy = guideCopy(lang);
+  return `
+      <section class="guide-related-section" aria-labelledby="guide-related-events-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">${esc(categoryLabel(lang, guide.category))}</p>
+            <h2 id="guide-related-events-title">${esc(copy.relatedTitle)}</h2>
+            <p>${esc(copy.relatedText)}</p>
+          </div>
+          <a class="text-link" href="${categoryHref(lang, guide.category)}">${esc(copy.viewAll)}</a>
+        </div>
+        <div class="gallery-grid guide-event-grid">
+          ${relatedEvents.map((event) => eventCard(event, lang)).join("")}
+        </div>
+      </section>`;
+}
+
+function guideRoutesSection(guide, lang, relatedRoutes) {
+  if (!relatedRoutes.length) return "";
+  const copy = guideCopy(lang);
+  return `
+      <section class="guide-related-section" aria-labelledby="guide-routes-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">${esc(tr(lang, "routePages"))}</p>
+            <h2 id="guide-routes-title">${esc(copy.routesTitle)}</h2>
+            <p>${esc(copy.routesText)}</p>
+          </div>
+        </div>
+        <div class="route-grid">
+          ${relatedRoutes.map((route) => routeLinkCard(route, lang)).join("")}
+        </div>
+      </section>`;
+}
+
+function guideSourceSection(guide, lang, sourceExamples) {
+  if (!sourceExamples.length) return "";
+  const copy = guideCopy(lang);
+  return `
+      <section class="guide-source-strip" aria-labelledby="guide-sources-title">
+        <div>
+          <p class="eyebrow">${esc(tr(lang, "official"))}</p>
+          <h2 id="guide-sources-title">${esc(copy.sourcesTitle)}</h2>
+          <p>${esc(copy.sourcesText)}</p>
+        </div>
+        <div class="guide-source-list">
+          ${sourceExamples.map((source) => `
+            <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">
+              <strong>${esc(source.name)}</strong>
+              <span>${esc(source.coverage?.slice(0, 2).join(" / ") || source.type)}</span>
+            </a>`).join("")}
+        </div>
+      </section>`;
+}
+
 function renderGuides(lang) {
   const body = `
     <main class="page">
@@ -4588,8 +4873,11 @@ function renderGuides(lang) {
 
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
+  const relatedEvents = relatedEventsForGuide(guide);
+  const relatedRoutes = relatedRoutesForGuide(guide);
+  const sourceExamples = guideSourceExamples(guide);
   const body = `
-    <main class="page">
+    <main class="page guide-detail-page">
       <article class="article-page">
         <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
         <h1>${esc(local(guide.title, lang))}</h1>
@@ -4601,6 +4889,10 @@ function renderGuide(guide, lang) {
             <p>${esc(section)}</p>
           </section>`).join("")}
       </article>
+      ${guideDecisionPanel(guide, lang, relatedEvents, relatedRoutes, sourceExamples)}
+      ${guideRelatedEventsSection(guide, lang, relatedEvents)}
+      ${guideRoutesSection(guide, lang, relatedRoutes)}
+      ${guideSourceSection(guide, lang, sourceExamples)}
     </main>`;
   return layout({
     lang,

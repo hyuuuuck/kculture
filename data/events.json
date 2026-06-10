@@ -46,6 +46,48 @@
       "Book KTX, hotel, and airport transfer early.",
       "Use official reservation links for pop-ups; unofficial resale can be risky."
     ],
+    "visitorInfo": {
+      "theme": "Citywide K-pop fan project",
+      "hours": "Varies by venue and program; pop-up, exhibition, and fan activity hours must be checked on the linked official page.",
+      "programHours": "Varies by venue and program; confirm each linked official page before visiting.",
+      "address": "Across Busan",
+      "transportation": "Use the Korean venue name for each stop; start with Busan Station, Haeundae, Gwangalli, or the concert-area venue depending on the program.",
+      "websiteLanguages": [
+        "Korean",
+        "English"
+      ]
+    },
+    "venueSchedule": [
+      {
+        "venue": "Across Busan",
+        "startDate": "2026-06-05",
+        "endDate": "2026-06-21",
+        "status": "City project range",
+        "theme": "BTS THE CITY ARIRANG BUSAN",
+        "note": "Official citywide project period for media art, exhibitions, photo zones, pop-ups, and fan activities."
+      },
+      {
+        "venue": "Busan Asiad Main Stadium",
+        "startDate": "2026-06-12",
+        "endDate": "2026-06-13",
+        "status": "Separate concert date",
+        "theme": "BTS WORLD TOUR 'ARIRANG' IN BUSAN",
+        "note": "Use the separate BTS World Tour event page and official ticket source for concert planning."
+      },
+      {
+        "venue": "Shinsegae Centum City",
+        "startDate": "2026-06-05",
+        "endDate": "2026-06-14",
+        "status": "Reservation-only pop-up",
+        "theme": "BTS POP-UP: ARIRANG",
+        "note": "Confirm reservation slots through Weverse or the official linked source before going."
+      }
+    ],
+    "officialHighlights": [
+      "VISITKOREA lists BTS THE CITY ARIRANG BUSAN as a citywide Busan project running June 5-21, 2026.",
+      "The June 12-13 range is the separate stadium concert period, not the full citywide project window.",
+      "Visitors should choose the right page before planning: city project for Busan-wide stops, concert listing for tickets and stadium timing."
+    ],
     "audit": {
       "risk": "high",
       "expectedEventKind": "city-project",
@@ -55,7 +97,9 @@
       "expectedSourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589997",
       "localMustContain": [
         "city project",
-        "June 12-13 stadium concerts"
+        "June 12-13 stadium concerts",
+        "City project range",
+        "Separate concert date"
       ],
       "forbiddenDateRanges": [
         {

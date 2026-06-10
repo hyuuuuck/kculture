@@ -129,6 +129,9 @@ assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer gri
 assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
+assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision panel styling is missing.");
+assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
+assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
 assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must preserve a visible text label beside the icon.");
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");
@@ -183,6 +186,10 @@ for (const event of activeEvents) {
 for (const lang of languages) {
   for (const guide of guides) {
     const html = read(path.join(lang, "guides", `${guide.slug}.html`));
+    assertIncludes(html, "class=\"guide-decision-panel\"", `${lang}/guides/${guide.slug}.html`, "guide must connect article advice to live visitor workflow data.");
+    assertIncludes(html, "class=\"gallery-grid guide-event-grid\"", `${lang}/guides/${guide.slug}.html`, "guide must show related real event cards for comparison.");
+    assertIncludes(html, "class=\"guide-source-strip\"", `${lang}/guides/${guide.slug}.html`, "guide must show official-source starting points.");
+    assertIncludes(html, "class=\"route-grid\"", `${lang}/guides/${guide.slug}.html`, "guide must show route ideas so it is not a thin standalone article.");
     const sections = [...html.matchAll(/<section>\s*<h2>([\s\S]*?)<\/h2>\s*<p>([\s\S]*?)<\/p>\s*<\/section>/g)];
     const expectedSections = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].length : (lang === "fr" || lang === "de" ? 4 : 0);
     if (sections.length !== expectedSections) {

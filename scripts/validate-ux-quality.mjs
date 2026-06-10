@@ -46,6 +46,8 @@ function htmlText(value) {
     .trim();
 }
 
+const englishGuideTitles = guides.map((guide) => guide.title?.en).filter(Boolean);
+
 function assertNotVisible(text, pattern, id, message) {
   const visible = htmlText(text);
   if (pattern.test(visible)) push(id, message);
@@ -68,6 +70,24 @@ for (const lang of languages) {
   if (!monthBlocks) push(`${lang}/calendar/index.html`, "calendar has no visible month groups.");
   if (monthBlocks !== monthHeadings) {
     push(`${lang}/calendar/index.html`, `month headings must be split into month and year spans; found ${monthHeadings}/${monthBlocks}.`);
+  }
+}
+
+for (const lang of ["fr", "de"]) {
+  const localizedGuideIndex = read(path.join(lang, "guides", "index.html"));
+  const localizedGuideText = htmlText(localizedGuideIndex);
+  for (const title of englishGuideTitles) {
+    if (localizedGuideText.includes(title)) {
+      push(`${lang}/guides/index.html`, `localized guide index still exposes English guide title: ${title}`);
+    }
+  }
+  const shoppingCategory = htmlText(read(path.join(lang, "categories", "shopping", "index.html")));
+  const departmentCategory = htmlText(read(path.join(lang, "categories", "department-store", "index.html")));
+  if (/Korea shopping festivals and seasonal sale archives/i.test(shoppingCategory)) {
+    push(`${lang}/categories/shopping/index.html`, "localized shopping category still exposes the English page heading.");
+  }
+  if (/Korea department store sales and pop-ups/i.test(departmentCategory)) {
+    push(`${lang}/categories/department-store/index.html`, "localized department-store category still exposes the English page heading.");
   }
 }
 
@@ -303,6 +323,14 @@ for (const lang of languages) {
       if (!heading) push(`${lang}/guides/${guide.slug}.html`, `guide section ${index + 1} heading is empty.`);
       if (heading.length > 8 && paragraph.startsWith(heading)) {
         push(`${lang}/guides/${guide.slug}.html`, `guide section ${index + 1} heading duplicates the paragraph opening.`);
+      }
+    }
+    if (lang === "fr" || lang === "de") {
+      const visible = htmlText(html);
+      for (const title of englishGuideTitles) {
+        if (visible.includes(title)) {
+          push(`${lang}/guides/${guide.slug}.html`, `localized guide detail still exposes English guide title: ${title}`);
+        }
       }
     }
   }

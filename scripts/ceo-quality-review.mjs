@@ -38,6 +38,19 @@ function readText(relativePath) {
   }
 }
 
+function htmlText(value) {
+  return String(value || "")
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function exists(relativePath) {
   return fs.existsSync(path.join(root, relativePath));
 }
@@ -289,6 +302,47 @@ function collectDetailUx() {
     pass("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${events.length * 2} French/German detail pages include event-specific visitor brief blocks.`);
   } else {
     fail("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${missingLocalizedBrief}/${events.length * 2} French/German detail pages are missing localized visitor briefs.`, "Audit Institution: require French/German detail pages to show localized decision, map, and official-handoff context.");
+  }
+}
+
+function collectGuideLocalization() {
+  const englishGuideTitles = guides.map((guide) => guide.title?.en).filter(Boolean);
+  const localizedLangs = ["fr", "de"];
+  const leaks = [];
+  for (const lang of localizedLangs) {
+    const indexText = htmlText(readText(`dist/${lang}/guides/index.html`));
+    for (const title of englishGuideTitles) {
+      if (indexText.includes(title)) leaks.push(`${lang}/guides:${title}`);
+    }
+    for (const guide of guides) {
+      const visible = htmlText(readText(`dist/${lang}/guides/${guide.slug}.html`));
+      for (const title of englishGuideTitles) {
+        if (visible.includes(title)) leaks.push(`${lang}/${guide.slug}:${title}`);
+      }
+    }
+  }
+
+  const frShopping = htmlText(readText("dist/fr/categories/shopping/index.html"));
+  const deShopping = htmlText(readText("dist/de/categories/shopping/index.html"));
+  const frDepartment = htmlText(readText("dist/fr/categories/department-store/index.html"));
+  const deDepartment = htmlText(readText("dist/de/categories/department-store/index.html"));
+  const categoryLeaks = [
+    [frShopping, /Korea shopping festivals and seasonal sale archives/i, "fr shopping"],
+    [deShopping, /Korea shopping festivals and seasonal sale archives/i, "de shopping"],
+    [frDepartment, /Korea department store sales and pop-ups/i, "fr department-store"],
+    [deDepartment, /Korea department store sales and pop-ups/i, "de department-store"]
+  ].filter(([text, pattern]) => pattern.test(text)).map(([, , label]) => label);
+
+  if (!leaks.length && !categoryLeaks.length) {
+    pass("audit-institution", "Translation quality", "FR/DE guide and category localization", `${localizedLangs.length * guides.length} guide details plus guide indexes and category pages avoid English article headings.`);
+  } else {
+    fail(
+      "audit-institution",
+      "Translation quality",
+      "FR/DE guide and category localization",
+      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks.`,
+      "Audit Institution: block release until French/German guide titles and topic pages are localized instead of exposing English article headings."
+    );
   }
 }
 
@@ -578,6 +632,7 @@ ${taskRows}
 collectHomeUx();
 collectCalendarUx();
 collectDetailUx();
+collectGuideLocalization();
 collectInteractionQuality();
 collectContentPlanning();
 collectSourceAudit();

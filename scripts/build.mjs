@@ -276,6 +276,33 @@ let dict = {
     transportation: "Transportation",
     parking: "Parking",
     smartGuide: "Smart guide",
+    itemsUnit: "items",
+    eventsUnit: "events",
+    feedOfficialSource: "Official source",
+    weatherAtGlance: "At a glance",
+    weatherSummary: "Weather summary",
+    weatherTemperature: "Temperature",
+    weatherRain: "Rain",
+    weatherHumidity: "Humidity",
+    weatherRainPeak: "Rain peak",
+    weatherKmaShortForecast: "KMA short-term forecast",
+    weatherKmaUpdated: "KMA forecast updated",
+    weatherForecastSource: "Forecast source",
+    weatherPreviousBaseline: "Previous-year monthly baseline",
+    weatherSeasonalBaseline: "Seasonal baseline",
+    weatherBaseline: "Weather baseline",
+    weatherTypicalRange: "Typical range",
+    weatherPreviousPattern: "previous-year pattern",
+    weatherPlanWith: "Plan with",
+    weatherVisitorPacking: "visitor packing",
+    weatherCheck: "Check",
+    weatherLiveForecast: "Live forecast",
+    weatherBeforeLeaving: "before leaving",
+    weatherWalkingBasics: "walking basics",
+    weatherMostHours: "most hours",
+    weatherRainChanceUpTo: "rain chance up to",
+    weatherMixedConditions: "mixed conditions",
+    routeIndexDescription: "Practical Korea travel routes connected to official events, shopping pages, weather notes, and nearby visitor plans.",
     sourceWarning: "Official details can change. Always confirm the latest rules, location, eligibility, and inventory."
   },
   es: {
@@ -1473,6 +1500,33 @@ dict.fr = {
   collectionOfficialPageMonitor: "Veille de page officielle",
   collectionOfficialApi: "API officielle",
   collectionOfficialPage: "Page officielle",
+  itemsUnit: "elements",
+  eventsUnit: "evenements",
+  feedOfficialSource: "Source officielle",
+  weatherAtGlance: "Vue rapide",
+  weatherSummary: "Resume meteo",
+  weatherTemperature: "Temperature",
+  weatherRain: "Pluie",
+  weatherHumidity: "Humidite",
+  weatherRainPeak: "Pluie max",
+  weatherKmaShortForecast: "Prevision courte KMA",
+  weatherKmaUpdated: "Prevision KMA mise a jour",
+  weatherForecastSource: "Source de prevision",
+  weatherPreviousBaseline: "Base mensuelle de l'annee precedente",
+  weatherSeasonalBaseline: "Base saisonniere",
+  weatherBaseline: "Base meteo",
+  weatherTypicalRange: "Plage typique",
+  weatherPreviousPattern: "tendance de l'annee precedente",
+  weatherPlanWith: "Planifier avec",
+  weatherVisitorPacking: "a emporter pour visiteurs",
+  weatherCheck: "Verifier",
+  weatherLiveForecast: "Prevision en direct",
+  weatherBeforeLeaving: "avant de partir",
+  weatherWalkingBasics: "essentiels de marche",
+  weatherMostHours: "la plupart des heures",
+  weatherRainChanceUpTo: "risque de pluie jusqu'a",
+  weatherMixedConditions: "conditions mixtes",
+  routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages shopping, notes meteo et plans visiteurs proches.",
   sourceWarning: "Les details officiels peuvent changer. Confirmez toujours les regles, le lieu, l'eligibilite et le stock."
 };
 
@@ -1653,6 +1707,33 @@ dict.de = {
   collectionOfficialPageMonitor: "Monitoring offizieller Seite",
   collectionOfficialApi: "Offizielle API",
   collectionOfficialPage: "Offizielle Seite",
+  itemsUnit: "Eintrage",
+  eventsUnit: "Events",
+  feedOfficialSource: "Offizielle Quelle",
+  weatherAtGlance: "Kurzuberblick",
+  weatherSummary: "Wetterubersicht",
+  weatherTemperature: "Temperatur",
+  weatherRain: "Regen",
+  weatherHumidity: "Luftfeuchte",
+  weatherRainPeak: "Regenmaximum",
+  weatherKmaShortForecast: "KMA-Kurzfristprognose",
+  weatherKmaUpdated: "KMA-Prognose aktualisiert",
+  weatherForecastSource: "Prognosequelle",
+  weatherPreviousBaseline: "Monatsbasis des Vorjahres",
+  weatherSeasonalBaseline: "Saisonale Basis",
+  weatherBaseline: "Wetterbasis",
+  weatherTypicalRange: "Typischer Bereich",
+  weatherPreviousPattern: "Vorjahresmuster",
+  weatherPlanWith: "Planen mit",
+  weatherVisitorPacking: "Besucher-Packliste",
+  weatherCheck: "Prufen",
+  weatherLiveForecast: "Live-Prognose",
+  weatherBeforeLeaving: "vor der Abfahrt",
+  weatherWalkingBasics: "Basis fur Laufwege",
+  weatherMostHours: "meiste Stunden",
+  weatherRainChanceUpTo: "Regenchance bis",
+  weatherMixedConditions: "wechselhafte Bedingungen",
+  routeIndexDescription: "Praktische Korea-Reiserouten, verbunden mit offiziellen Events, Shoppingseiten, Wetternotizen und nahen Besucherplanen.",
   sourceWarning: "Offizielle Details konnen sich andern. Prufen Sie immer aktuelle Regeln, Ort, Berechtigung und Bestand."
 };
 
@@ -2214,8 +2295,98 @@ function xmlEsc(value) {
   return esc(String(value ?? "").replace(/[^\u0009\u000a\u000d\u0020-\ud7ff\ue000-\ufffd]/g, ""));
 }
 
+const requiredUiFallbacks = {
+  en: {
+    itemsUnit: "items",
+    eventsUnit: "events",
+    feedOfficialSource: "Official source",
+    weatherAtGlance: "At a glance",
+    weatherSummary: "Weather summary",
+    weatherTemperature: "Temperature",
+    weatherRain: "Rain",
+    weatherHumidity: "Humidity",
+    weatherRainPeak: "Rain peak",
+    weatherKmaShortForecast: "KMA short-term forecast",
+    weatherKmaUpdated: "KMA forecast updated",
+    weatherForecastSource: "Forecast source",
+    weatherPreviousBaseline: "Previous-year monthly baseline",
+    weatherSeasonalBaseline: "Seasonal baseline",
+    weatherBaseline: "Weather baseline",
+    weatherTypicalRange: "Typical range",
+    weatherPreviousPattern: "previous-year pattern",
+    weatherPlanWith: "Plan with",
+    weatherVisitorPacking: "visitor packing",
+    weatherCheck: "Check",
+    weatherLiveForecast: "Live forecast",
+    weatherBeforeLeaving: "before leaving",
+    weatherWalkingBasics: "walking basics",
+    weatherMostHours: "most hours",
+    weatherRainChanceUpTo: "rain chance up to",
+    weatherMixedConditions: "mixed conditions",
+    routeIndexDescription: "Practical Korea travel routes connected to official events, shopping pages, weather notes, and nearby visitor plans."
+  },
+  fr: {
+    itemsUnit: "elements",
+    eventsUnit: "evenements",
+    feedOfficialSource: "Source officielle",
+    weatherAtGlance: "Vue rapide",
+    weatherSummary: "Resume meteo",
+    weatherTemperature: "Temperature",
+    weatherRain: "Pluie",
+    weatherHumidity: "Humidite",
+    weatherRainPeak: "Pluie max",
+    weatherKmaShortForecast: "Prevision courte KMA",
+    weatherKmaUpdated: "Prevision KMA mise a jour",
+    weatherForecastSource: "Source de prevision",
+    weatherPreviousBaseline: "Base mensuelle de l'annee precedente",
+    weatherSeasonalBaseline: "Base saisonniere",
+    weatherBaseline: "Base meteo",
+    weatherTypicalRange: "Plage typique",
+    weatherPreviousPattern: "tendance de l'annee precedente",
+    weatherPlanWith: "Planifier avec",
+    weatherVisitorPacking: "a emporter pour visiteurs",
+    weatherCheck: "Verifier",
+    weatherLiveForecast: "Prevision en direct",
+    weatherBeforeLeaving: "avant de partir",
+    weatherWalkingBasics: "essentiels de marche",
+    weatherMostHours: "la plupart des heures",
+    weatherRainChanceUpTo: "risque de pluie jusqu'a",
+    weatherMixedConditions: "conditions mixtes",
+    routeIndexDescription: "Itineraires pratiques en Coree relies aux evenements officiels, pages shopping, notes meteo et plans visiteurs proches."
+  },
+  de: {
+    itemsUnit: "Eintrage",
+    eventsUnit: "Events",
+    feedOfficialSource: "Offizielle Quelle",
+    weatherAtGlance: "Kurzuberblick",
+    weatherSummary: "Wetterubersicht",
+    weatherTemperature: "Temperatur",
+    weatherRain: "Regen",
+    weatherHumidity: "Luftfeuchte",
+    weatherRainPeak: "Regenmaximum",
+    weatherKmaShortForecast: "KMA-Kurzfristprognose",
+    weatherKmaUpdated: "KMA-Prognose aktualisiert",
+    weatherForecastSource: "Prognosequelle",
+    weatherPreviousBaseline: "Monatsbasis des Vorjahres",
+    weatherSeasonalBaseline: "Saisonale Basis",
+    weatherBaseline: "Wetterbasis",
+    weatherTypicalRange: "Typischer Bereich",
+    weatherPreviousPattern: "Vorjahresmuster",
+    weatherPlanWith: "Planen mit",
+    weatherVisitorPacking: "Besucher-Packliste",
+    weatherCheck: "Prufen",
+    weatherLiveForecast: "Live-Prognose",
+    weatherBeforeLeaving: "vor der Abfahrt",
+    weatherWalkingBasics: "Basis fur Laufwege",
+    weatherMostHours: "meiste Stunden",
+    weatherRainChanceUpTo: "Regenchance bis",
+    weatherMixedConditions: "wechselhafte Bedingungen",
+    routeIndexDescription: "Praktische Korea-Reiserouten, verbunden mit offiziellen Events, Shoppingseiten, Wetternotizen und nahen Besucherplanen."
+  }
+};
+
 function tr(lang, key) {
-  const value = dict[lang]?.[key] || dict.en[key] || key;
+  const value = dict[lang]?.[key] || requiredUiFallbacks[lang]?.[key] || requiredUiFallbacks.en[key] || dict.en[key] || key;
   return hasMojibake(value) ? (dict.en[key] || key) : value;
 }
 
@@ -2287,7 +2458,7 @@ function guideTitleText(guide, lang) {
 function eventSummaryText(event, lang) {
   if (!needsGeneratedVisitorCopy(event.summary, lang)) return local(event.summary, lang);
   const title = local(event.title, "en") || event.slug;
-  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  const period = eventDateLabel(event, lang);
   const category = categoryLabel(lang, event.category);
   if (lang === "fr") {
     return `${title} est une page ${category} pour ${event.city}, avec une periode de planification ${period}. K-Spot Now rassemble le lieu, la meteo, les cartes et la source officielle afin de comparer avant d'acheter, reserver ou visiter.`;
@@ -2555,12 +2726,17 @@ function nowDashboard(lang) {
   const fastMovingCount = events.filter((event) => fastMovingCategories.has(event.category) && statusOf(event) !== "ended").length;
   const activeQueueCount = curationQueue.filter((item) => item.status === "active").length;
   const checkedLabel = `${tr(lang, "newlyChecked")} / ${dateText(lang, today)}`;
+  const fastMovingDetail = local({
+    en: "K-pop, beauty, duty-free, department stores",
+    fr: "K-pop, beaute, duty-free, grands magasins",
+    de: "K-pop, Beauty, Duty-free, Kaufhauser"
+  }, lang);
 
   const stats = [
     { value: liveCount, label: tr(lang, "liveNow"), detail: `${endingSoonCount} ${tr(lang, "endingSoon").toLowerCase()}` },
     { value: thisWeekCount, label: tr(lang, "thisWeek"), detail: tr(lang, "statusUpcoming") },
     { value: checkedTodayCount, label: checkedLabel, detail: tr(lang, "freshnessTitle") },
-    { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: "K-pop, beauty, duty-free, department stores" },
+    { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: fastMovingDetail },
     { value: sources.length, label: tr(lang, "monitoredSources"), detail: tr(lang, "sourcesTitle") },
     { value: activeQueueCount, label: tr(lang, "activeQueue"), detail: tr(lang, "watchlistTitle") }
   ];
@@ -2645,7 +2821,7 @@ function thumbnailBrand(event) {
 }
 
 function thumbnailContext(event, lang) {
-  const date = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  const date = eventDateLabel(event, lang);
   return `${event.city} · ${date}`;
 }
 
@@ -2679,7 +2855,7 @@ function eventPublicUrl(event, lang) {
 function eventFeedSummary(event, lang) {
   const status = statusLabel(lang, statusOf(event));
   const category = categoryLabel(lang, event.category);
-  return `${eventSummaryText(event, lang)} ${status}. ${category}. ${event.dateLabel || `${event.startDate} - ${event.endDate}`}. Official source: ${event.sourceUrl}`;
+  return `${eventSummaryText(event, lang)} ${status}. ${category}. ${eventDateLabel(event, lang, false)}. ${tr(lang, "feedOfficialSource")}: ${event.sourceUrl}`;
 }
 
 function rssFeed(lang, feedPath = `/${lang}/feed.xml`) {
@@ -2721,7 +2897,7 @@ function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
         venue: event.venue,
         startDate: event.startDate,
         endDate: event.endDate,
-        dateLabel: event.dateLabel || "",
+        dateLabel: eventDateLabel(event, lang, false),
         lastChecked: event.lastChecked,
         sourceName: event.sourceName,
         sourceUrl: event.sourceUrl,
@@ -2795,7 +2971,7 @@ function categoryLinkStrip(lang) {
         ${representativeMedia(representative, lang, label)}
         <span class="pill-copy">
           <strong>${label}</strong>
-          <span><b data-pill-count>${count}</b> items</span>
+          <span><b data-pill-count>${count}</b> ${tr(lang, "itemsUnit")}</span>
           ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;
@@ -2850,7 +3026,7 @@ function cityLinkStrip(lang) {
         ${representativeMedia(representative, lang, city)}
         <span class="pill-copy">
           <strong>${esc(city)}</strong>
-          <span><b data-pill-count>${count}</b> events</span>
+          <span><b data-pill-count>${count}</b> ${tr(lang, "eventsUnit")}</span>
           ${exampleTitle ? `<em>${esc(exampleTitle)}</em>` : ""}
         </span>
       </a>`;
@@ -2939,6 +3115,204 @@ function guideSourceExamples(guide) {
     .slice(0, 4);
 }
 
+function localizedSourceType(type, lang = "en") {
+  if (lang === "fr") {
+    if (/api/.test(type)) return "API officielle";
+    if (/campaign/.test(type)) return "veille de campagne officielle";
+    if (/ticket/.test(type)) return "source de billetterie";
+    return "veille de page officielle";
+  }
+  if (lang === "de") {
+    if (/api/.test(type)) return "offizielle API";
+    if (/campaign/.test(type)) return "offizielles Kampagnenmonitoring";
+    if (/ticket/.test(type)) return "Ticketquelle";
+    return "Monitoring offizieller Seiten";
+  }
+  return type;
+}
+
+function localizedSourceTerm(value, lang = "en") {
+  const text = String(value || "").trim();
+  if (lang !== "fr" && lang !== "de") return text;
+  if (!text) return "";
+  if (text.includes("/")) return text.split("/").map((part) => localizedSourceTerm(part.trim(), lang)).join(" / ");
+  const lower = text.toLowerCase();
+  const fr = [
+    [/k-pop/, "tourisme K-pop"],
+    [/festival/, "festivals"],
+    [/attraction/, "sites touristiques"],
+    [/accommodation|lodging|hotel/, "hebergement"],
+    [/coupon/, "coupons visiteurs"],
+    [/benefit/, "avantages visiteurs"],
+    [/shopping|retail|sale/, "shopping et soldes"],
+    [/duty/, "duty-free"],
+    [/department/, "grands magasins"],
+    [/beauty|cosmetic/, "beaute"],
+    [/concert|performance/, "concerts et spectacles"],
+    [/exhibition/, "expositions"],
+    [/culture/, "culture"],
+    [/tourism campaign/, "campagnes touristiques"],
+    [/previous-year|weather/, "donnees meteo"],
+    [/temperature/, "temperature"],
+    [/humidity/, "humidite"],
+    [/precipitation/, "precipitations"],
+    [/short-term forecast|forecast/, "prevision courte"],
+    [/rain chance|rain/, "risque de pluie"],
+    [/river/, "evenements au bord du fleuve"],
+    [/garden/, "evenements jardin"],
+    [/family/, "activites famille"],
+    [/neighborhood/, "itineraires de quartier"],
+    [/english visitor/, "actualites visiteurs"],
+    [/island/, "evenements insulaires"],
+    [/program/, "programmes visiteurs"],
+    [/lineup/, "annonces lineup"],
+    [/beach/, "zone plage"],
+    [/mud/, "zones experience mud"],
+    [/unesco|mask dance/, "patrimoine et danse masquee"],
+    [/lantern/, "installations lanternes"],
+    [/night/, "routes de nuit"],
+    [/trade fair/, "salons"],
+    [/fan event|fan meeting|fan sign|fanclub/, "evenements fans"],
+    [/fashion week/, "Fashion Week de Seoul"],
+    [/market/, "marches"],
+    [/public show/, "expositions publiques"],
+    [/venue|date listing/, "listes lieu et date"],
+    [/pop-up|popups/, "pop-ups"],
+    [/brand|collaboration/, "collaborations marque"],
+    [/global|foreign visitor/, "visiteurs internationaux"],
+    [/promotion|offer|gift/, "promotions visiteurs"],
+    [/branch/, "pages de branche"],
+    [/airport|pickup/, "retrait aeroport"],
+    [/store/, "boutiques"],
+    [/merch|goods|album/, "merch officiel"],
+    [/commerce/, "commerce fan"],
+    [/notice|schedule|restock/, "avis officiels"],
+    [/artist|company social/, "canaux artistes"],
+    [/travel news|announcement|release|policy/, "annonces officielles"],
+    [/image/, "images officielles"],
+    [/sync/, "liste synchronisee"],
+    [/ticket/, "billetterie"],
+    [/city events/, "evenements urbains"],
+    [/regional/, "regions"]
+  ];
+  const de = [
+    [/k-pop/, "K-pop-Tourismus"],
+    [/festival/, "Festivals"],
+    [/attraction/, "Sehenswurdigkeiten"],
+    [/accommodation|lodging|hotel/, "Unterkunfte"],
+    [/coupon/, "Besucher-Coupons"],
+    [/benefit/, "Besuchervorteile"],
+    [/shopping|retail|sale/, "Shopping und Sales"],
+    [/duty/, "Duty-free"],
+    [/department/, "Kaufhauser"],
+    [/beauty|cosmetic/, "Beauty"],
+    [/concert|performance/, "Konzerte und Auffuhrungen"],
+    [/exhibition/, "Ausstellungen"],
+    [/culture/, "Kultur"],
+    [/tourism campaign/, "Tourismus-Kampagnen"],
+    [/previous-year|weather/, "Wetterdaten"],
+    [/temperature/, "Temperatur"],
+    [/humidity/, "Luftfeuchte"],
+    [/precipitation/, "Niederschlag"],
+    [/short-term forecast|forecast/, "Kurzfristprognose"],
+    [/rain chance|rain/, "Regenchance"],
+    [/river/, "Flussevents"],
+    [/garden/, "Gartenevents"],
+    [/family/, "Familienangebote"],
+    [/neighborhood/, "Stadtteilrouten"],
+    [/english visitor/, "Besuchermeldungen"],
+    [/island/, "Insel-Events"],
+    [/program/, "Besucherprogramme"],
+    [/lineup/, "Lineup-Hinweise"],
+    [/beach/, "Strandbereich"],
+    [/mud/, "Mud-Erlebniszonen"],
+    [/unesco|mask dance/, "Kulturerbe und Maskentanz"],
+    [/lantern/, "Laterneninstallationen"],
+    [/night/, "Nachtwege"],
+    [/trade fair/, "Messen"],
+    [/fan event|fan meeting|fan sign|fanclub/, "Fan-Events"],
+    [/fashion week/, "Seoul Fashion Week"],
+    [/market/, "Markte"],
+    [/public show/, "Publikumsausstellungen"],
+    [/venue|date listing/, "Ort- und Datumslisten"],
+    [/pop-up|popups/, "Pop-ups"],
+    [/brand|collaboration/, "Markenkooperationen"],
+    [/global|foreign visitor/, "internationale Besucher"],
+    [/promotion|offer|gift/, "Besucheraktionen"],
+    [/branch/, "Filialseiten"],
+    [/airport|pickup/, "Flughafenabholung"],
+    [/store/, "Stores"],
+    [/merch|goods|album/, "offizieller Merch"],
+    [/commerce/, "Fan-Commerce"],
+    [/notice|schedule|restock/, "offizielle Hinweise"],
+    [/artist|company social/, "Kunstlerkanale"],
+    [/travel news|announcement|release|policy/, "offizielle Meldungen"],
+    [/image/, "offizielle Bilder"],
+    [/sync/, "Synchronliste"],
+    [/ticket/, "Ticketing"],
+    [/city events/, "Stadtevents"],
+    [/regional/, "Regionen"]
+  ];
+  for (const [pattern, replacement] of (lang === "fr" ? fr : de)) {
+    if (pattern.test(lower)) return replacement;
+  }
+  return text;
+}
+
+function localizedCoverageText(source, lang = "en", limit = 5) {
+  return (source.coverage || [])
+    .slice(0, limit)
+    .map((item) => localizedSourceTerm(item, lang))
+    .filter(Boolean)
+    .join(limit <= 2 ? " / " : ", ");
+}
+
+function localizedRefreshCadence(cadence, lang = "en") {
+  const text = String(cadence || "");
+  if (lang === "fr") {
+    if (/hourly/.test(text)) return "horaire pendant les periodes sensibles";
+    if (/daily/.test(text)) return "quotidien pendant la veille active";
+    if (/weekly/.test(text)) return "hebdomadaire, puis quotidien en campagne";
+    if (/api key/.test(text)) return "quotidien apres validation de cle API";
+    return "reverification manuelle planifiee";
+  }
+  if (lang === "de") {
+    if (/hourly/.test(text)) return "stundlich in sensiblen Phasen";
+    if (/daily/.test(text)) return "taglich wahrend aktivem Monitoring";
+    if (/weekly/.test(text)) return "wochentlich, in Kampagnen taglich";
+    if (/api key/.test(text)) return "taglich nach API-Key-Freigabe";
+    return "geplante manuelle Neuprufung";
+  }
+  return text;
+}
+
+function localizedAutomationStatus(status, lang = "en") {
+  const text = String(status || "");
+  if (lang === "fr") {
+    if (/ready/.test(text)) return "pret avec cle API";
+    if (/planned/.test(text)) return "API planifiee";
+    if (/monitor/.test(text)) return "veille et curation";
+    return "revue manuelle";
+  }
+  if (lang === "de") {
+    if (/ready/.test(text)) return "bereit mit API-Key";
+    if (/planned/.test(text)) return "API geplant";
+    if (/monitor/.test(text)) return "Monitoring und Kuratierung";
+    return "manuelle Prufung";
+  }
+  return text;
+}
+
+function localizedSourceNote(source, lang = "en") {
+  if (lang === "fr") {
+    return `${source.name} sert comme ${localizedSourceType(source.type, lang)} pour verifier ${localizedCoverageText(source, lang, 3) || "les informations visiteurs"} avant publication.`;
+  }
+  if (lang === "de") {
+    return `${source.name} dient als ${localizedSourceType(source.type, lang)} zur Prufung von ${localizedCoverageText(source, lang, 3) || "Besucherinformationen"} vor der Veroffentlichung.`;
+  }
+  return source.notes;
+}
+
 function eventsForRoute(route) {
   const regionSet = new Set(route.regions || []);
   const categorySet = new Set(route.categories || []);
@@ -2957,23 +3331,151 @@ function routesForCity(city) {
     .slice(0, 3);
 }
 
-function routeCard(route) {
+const localizedRouteCopy = {
+  fr: {
+    "hangang-evening-route": {
+      title: "Soiree au Hangang",
+      bestFor: "Festivals en plein air, concerts gratuits et visiteurs qui veulent une soiree simple a Seoul.",
+      stops: ["Lieu de l'evenement", "Pique-nique au bord du fleuve", "Snack en convenience store", "Marche coucher de soleil ou vue de nuit"],
+      tips: ["Verifiez pluie et chaleur avant de partir.", "Prenez d'abord le metro et gardez le taxi en secours.", "Arrivez tot pour les evenements gratuits car les places au bord du fleuve se remplissent vite."]
+    },
+    "central-seoul-shopping-route": {
+      title: "Shopping a Myeongdong et promenade palais",
+      bestFor: "Offres beaute, achats duty-free et premier sejour a Seoul.",
+      stops: ["Myeongdong", "Zone flagship OLIVE YOUNG", "Zone Lotte ou Shinsegae", "Cheonggyecheon ou Deoksugung"],
+      tips: ["Confirmez tax refund et eligibilite duty-free avant le paiement.", "Gardez passeport et details de depart pour les achats duty-free.", "Evitez l'heure de pointe avec des sacs de shopping."]
+    },
+    "yongsan-fan-route": {
+      title: "Route fan K-pop et musee a Yongsan",
+      bestFor: "Merch K-pop autour de Yongsan et plans interieurs pour jour chaud ou pluvieux.",
+      stops: ["Yongsan I'Park Mall", "CGV ou lieu pop-up", "Musee national de Coree", "Ichon ou marche Hangang"],
+      tips: ["Verifiez QR de reservation et regles d'entree avant de partir.", "Ne comptez pas sur le stock merch du jour meme.", "Gardez les etapes interieures comme secours meteo."]
+    },
+    "palace-jongno-culture-route": {
+      title: "Culture palais a Jongno",
+      bestFor: "Spectacles traditionnels, musees et journees culturelles pres des palais.",
+      stops: ["Changdeokgung ou Jongmyo", "Insadong", "Cafes d'Ikseon-dong", "Lieu de spectacle"],
+      tips: ["Reservez les spectacles payants avant de construire toute la journee autour.", "Ajoutez du temps de marche dans les vieux quartiers.", "Bon secours si les evenements au bord du fleuve sont pluvieux."]
+    },
+    "olympic-park-history-route": {
+      title: "Olympic Park et histoire Baekje",
+      bestFor: "Concerts de musee, culture en famille et shopping cote Jamsil.",
+      stops: ["Seoul Baekje Museum", "Olympic Park", "Forteresse Mongchontoseong", "Jamsil ou lac Seokchon"],
+      tips: ["Utilisez le musee pendant les heures tres chaudes.", "Verifiez les fermetures avant d'ajouter du shopping a Jamsil.", "Chaussures confortables car Olympic Park est vaste."]
+    },
+    "busan-concert-weekend": {
+      title: "Week-end concert a Busan",
+      bestFor: "Concerts K-pop, projets fans dans la ville et week-ends tres demandes a Busan.",
+      stops: ["Salle de concert ou pop-up", "Plage de Gwangalli", "Haeundae", "Transfert gare de Busan ou aeroport"],
+      tips: ["Reservez KTX et logement tot.", "Gardez un plan transport apres le show.", "Evitez de traverser toute la ville juste apres la fin du concert."]
+    },
+    "regional-summer-festival-rail-route": {
+      title: "Route train pour festivals d'ete regionaux",
+      bestFor: "Grands festivals hors Seoul ou transport, chaleur et retour comptent.",
+      stops: ["Lieu du festival", "Gare ou terminal interurbain proche", "Rue food locale ou plage/parc", "Hotel ou transfert retour"],
+      tips: ["Reservez trains et logement avant que les annonces ne fassent monter la demande.", "Prenez pluie et articles rafraichissants car juillet-aout peut changer vite.", "Verifiez derniere entree, bracelet et transport de nuit avant un retour le jour meme."]
+    },
+    "autumn-heritage-night-route": {
+      title: "Patrimoine d'automne et lumieres de nuit",
+      bestFor: "Festivals traditionnels, lanternes, forteresses et visiteurs dormant en region.",
+      stops: ["Entree principale du festival", "Quartier historique ou route fortifiee", "Diner local", "Zone photo de nuit", "Site patrimoine le lendemain"],
+      tips: ["Dormez sur place si le programme finit tard.", "Ajoutez une veste legere pour les soirees au bord de l'eau.", "Verifiez les flux officiels avant de choisir ponts, portes ou defiles."]
+    },
+    "pangyo-shopping-culture-route": {
+      title: "Shopping et culture a Pangyo",
+      bestFor: "Expositions de grands magasins, restaurants et shopping hors centre de Seoul.",
+      stops: ["Hyundai Department Store Pangyo", "Etage culture ou exposition", "Restaurants de Pangyo", "Cafe Street ou retour Gangnam"],
+      tips: ["Verifiez les horaires retour car Pangyo est hors centre.", "Utilisez les restaurants du grand magasin pour limiter les transferts.", "Les pages de branche sont souvent plus fiables que les reposts sociaux."]
+    }
+  },
+  de: {
+    "hangang-evening-route": {
+      title: "Hangang-Abendroute",
+      bestFor: "Outdoor-Festivals, kostenlose Konzerte und Besucher mit einfachem Seoul-Abendplan.",
+      stops: ["Eventort", "Picknickplatz am Fluss", "Convenience-Store-Snack", "Sonnenuntergang oder Nachtblick-Spaziergang"],
+      tips: ["Regen und Hitze vor der Abfahrt prufen.", "Zuerst U-Bahn nutzen, Taxi nur als Backup.", "Bei Gratis-Events fruh kommen, weil Flussplaetze schnell voll werden."]
+    },
+    "central-seoul-shopping-route": {
+      title: "Myeongdong-Shopping plus Palastweg",
+      bestFor: "Beauty-Deals, Duty-free-Erledigungen und erste Seoul-Reise.",
+      stops: ["Myeongdong", "OLIVE YOUNG Flagship-Zone", "Lotte- oder Shinsegae-Shoppingzone", "Cheonggyecheon oder Deoksugung"],
+      tips: ["Tax Refund und Duty-free-Berechtigung vor dem Bezahlen prufen.", "Pass und Abflugdaten fur Duty-free-Kaufe bereithalten.", "Rushhour vermeiden, wenn Einkaufstaschen dabei sind."]
+    },
+    "yongsan-fan-route": {
+      title: "Yongsan Fan- und Museumsroute",
+      bestFor: "K-pop-Merch rund um Yongsan und Indoor-Plane fur heisse oder regnerische Tage.",
+      stops: ["Yongsan I'Park Mall", "CGV oder Pop-up-Ort", "Nationalmuseum Korea", "Ichon oder Hangang-Weg"],
+      tips: ["Reservierungs-QR und Einlassregeln vorab prufen.", "Nicht auf Tagesbestand bei Merch verlassen.", "Indoor-Stopps als wetterfestes Backup nutzen."]
+    },
+    "palace-jongno-culture-route": {
+      title: "Jongno-Palast- und Kulturrunde",
+      bestFor: "Traditionelle Auffuhrungen, Museumsevents und Kulturtage im Palastviertel.",
+      stops: ["Changdeokgung oder Jongmyo", "Insadong", "Ikseon-dong-Cafes", "Auffuhrungsort"],
+      tips: ["Bezahlte Auffuhrungen buchen, bevor der Tag darum geplant wird.", "In alten Vierteln mehr Gehzeit einplanen.", "Gutes Backup, wenn Flussevents verregnet sind."]
+    },
+    "olympic-park-history-route": {
+      title: "Olympic Park und Baekje-Geschichte",
+      bestFor: "Museumskonzerte, Familienkultur und Shopping im Jamsil-Gebiet.",
+      stops: ["Seoul Baekje Museum", "Olympic Park", "Mongchontoseong-Festung", "Jamsil oder Seokchon Lake"],
+      tips: ["Museumszeit fur heisse Nachmittage nutzen.", "Schliesszeiten prufen, bevor Jamsil-Shopping dazukommt.", "Bequeme Schuhe sind wichtig, weil Olympic Park gross ist."]
+    },
+    "busan-concert-weekend": {
+      title: "Busan-Konzertwochenende",
+      bestFor: "K-pop-Konzerte, Fanprojekte in der Stadt und nachfragestarke Busan-Wochenenden.",
+      stops: ["Konzert- oder Pop-up-Ort", "Gwangalli Beach", "Haeundae", "Transfer Busan Station oder Flughafen"],
+      tips: ["KTX und Unterkunft fruh buchen.", "Backup fur den Heimweg nach der Show planen.", "Direkt nach Konzertende nicht quer durch die ganze Stadt wechseln."]
+    },
+    "regional-summer-festival-rail-route": {
+      title: "Sommerfestival per Bahn in Regionen",
+      bestFor: "Grosse Sommerfestivals ausserhalb Seouls, bei denen Transport, Hitze und Ruckfahrt wichtig sind.",
+      stops: ["Festivalgelande", "Nahe Bahnstation oder Expressbus-Terminal", "Lokale Food Street oder Strand/Park", "Hotel oder Rucktransfer"],
+      tips: ["Intercity-Zuge und Unterkunft vor Nachfrageanstieg buchen.", "Regen- und Kuhlsachen einpacken, weil Juli und August schnell kippen konnen.", "Letzten Einlass, Armband und Nachtverkehr vor Tagesruckfahrt prufen."]
+    },
+    "autumn-heritage-night-route": {
+      title: "Herbst-Erbe und Nachtlichter",
+      bestFor: "Traditionelle Festivals, Laternenrouten, Festungswege und regionale Ubernachtungen.",
+      stops: ["Haupteingang Festival", "Historisches Viertel oder Festungsroute", "Lokales Abendessen", "Nacht-Fotospot", "Erbestatte am nachsten Morgen"],
+      tips: ["Ubernachten, wenn das Hauptprogramm spat endet.", "Leichte Jacke fur Fluss- oder Altstadtabende mitnehmen.", "Offizielle Besucherlenkung prufen, bevor Fotospots an Brucken oder Toren geplant werden."]
+    },
+    "pangyo-shopping-culture-route": {
+      title: "Pangyo-Shopping und Kulturroute",
+      bestFor: "Kaufhaus-Ausstellungen, Restaurants und Shopping ausserhalb des Seoul-Zentrums.",
+      stops: ["Hyundai Department Store Pangyo", "Kultur- oder Ausstellungsfloor", "Pangyo Dining", "Cafe Street oder Ruckweg nach Gangnam"],
+      tips: ["Ruckfahrzeiten prufen, weil Pangyo ausserhalb des Zentrums liegt.", "Kaufhausrestaurants nutzen, um Wege zu sparen.", "Filialseiten sind meist genauer als Social-Media-Reposts."]
+    }
+  }
+};
+
+function routeCopy(route, lang = "en") {
+  return localizedRouteCopy[lang]?.[route.slug] || route;
+}
+
+function routeDescription(route, lang = "en") {
+  const copy = routeCopy(route, lang);
+  if (lang === "fr") return `${copy.bestFor} Etapes: ${copy.stops.join(", ")}.`;
+  if (lang === "de") return `${copy.bestFor} Stopps: ${copy.stops.join(", ")}.`;
+  return `${copy.bestFor} Stops include ${copy.stops.join(", ")}.`;
+}
+
+function routeCard(route, lang = "en") {
+  const copy = routeCopy(route, lang);
   return `
     <article class="route-card">
-      <span>${esc(route.bestFor)}</span>
-      <h3>${esc(route.title)}</h3>
-      <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
-      <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+      <span>${esc(copy.bestFor)}</span>
+      <h3>${esc(copy.title)}</h3>
+      <ol>${copy.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
+      <ul>${copy.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </article>`;
 }
 
 function routeLinkCard(route, lang) {
+  const copy = routeCopy(route, lang);
   return `
     <a class="route-card" href="${routeHref(lang, route)}">
-      <span>${esc(route.bestFor)}</span>
-      <h3>${esc(route.title)}</h3>
-      <ol>${route.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
-      <ul>${route.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+      <span>${esc(copy.bestFor)}</span>
+      <h3>${esc(copy.title)}</h3>
+      <ol>${copy.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
+      <ul>${copy.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </a>`;
 }
 
@@ -3191,6 +3693,32 @@ function dateText(lang, iso) {
   return new Intl.DateTimeFormat(languages[lang].locale, { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
+function eventDateLabel(event, lang, useLocalizedDates = true) {
+  const fallback = useLocalizedDates ? `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}` : `${event.startDate} - ${event.endDate}`;
+  const raw = String(event.dateLabel || "").trim();
+  if (!raw) return fallback;
+  if (lang !== "fr" && lang !== "de") return raw;
+
+  let text = raw
+    .replace(/\bFrom\s+(\d{4}-\d{2}-\d{2}),\s*until sold out\b/gi, lang === "fr" ? "Depuis $1, jusqu'a epuisement" : "Seit $1, bis ausverkauft")
+    .replace(/\bEvery Saturday in 2026\b/gi, lang === "fr" ? "Chaque samedi en 2026" : "Jeden Samstag 2026")
+    .replace(/\bSelected exhibitions through\b/gi, lang === "fr" ? "Expositions selectionnees jusqu'au" : "Ausgewahlte Ausstellungen bis")
+    .replace(/\bMain listed date range\b/gi, lang === "fr" ? "Periode principale indiquee" : "Hauptzeitraum laut Quelle")
+    .replace(/\bOverall campaign\b/gi, lang === "fr" ? "Campagne globale" : "Gesamtkampagne")
+    .replace(/\bCoupon issue and stay period\b/gi, lang === "fr" ? "Emission des coupons et sejour" : "Coupon-Ausgabe und Aufenthaltszeitraum")
+    .replace(/\bopen Thu-Sun during the event period\b/gi, lang === "fr" ? "ouvert jeu-dim pendant l'evenement" : "geoffnet Do-So wahrend des Events")
+    .replace(/\breservation-only entry via Weverse\b/gi, lang === "fr" ? "entree sur reservation via Weverse" : "Eintritt nur mit Reservierung via Weverse")
+    .replace(/\brelay dates can differ by branch\b/gi, lang === "fr" ? "les dates varient selon la branche" : "Termine konnen je nach Filiale variieren")
+    .replace(/\bdaily\b/gi, lang === "fr" ? "tous les jours" : "taglich")
+    .replace(/\bthrough\b/gi, lang === "fr" ? "jusqu'au" : "bis")
+    .replace(/\buntil sold out\b/gi, lang === "fr" ? "jusqu'a epuisement" : "bis ausverkauft");
+
+  if (text === raw && /\b(date range|campaign|selected|daily|through|until|every)\b/i.test(raw)) {
+    return fallback;
+  }
+  return text;
+}
+
 function monthKey(iso) {
   return iso.slice(0, 7);
 }
@@ -3342,8 +3870,39 @@ function weatherSymbol(kind, label) {
   return `<span class="weather-symbol ${esc(kind)}" title="${esc(label || kind)}" aria-label="${esc(label || kind)}"></span>`;
 }
 
-function visitorWeatherLabel(weatherText, rainLikely = false, rainPeak = null) {
+function weatherConditionLabel(weatherText, lang) {
+  const text = String(weatherText || "").toLowerCase();
+  const labels = {
+    clear: { fr: "Degage", de: "Klar" },
+    mostlyCloudy: { fr: "Tres nuageux", de: "Meist bewolkt" },
+    cloudy: { fr: "Nuageux", de: "Bewolkt" },
+    rain: { fr: "Pluie", de: "Regen" },
+    snow: { fr: "Neige", de: "Schnee" },
+    mixed: { fr: "Conditions mixtes", de: "Wechselhaft" },
+    forecast: { fr: "Prevision", de: "Prognose" }
+  };
+  if (lang !== "fr" && lang !== "de") return weatherText || "Forecast";
+  if (/rain|shower/.test(text)) return labels.rain[lang];
+  if (/snow/.test(text)) return labels.snow[lang];
+  if (/mostly\s+cloudy/.test(text)) return labels.mostlyCloudy[lang];
+  if (/cloud|overcast/.test(text)) return labels.cloudy[lang];
+  if (/clear|sun/.test(text)) return labels.clear[lang];
+  if (/mixed/.test(text)) return labels.mixed[lang];
+  return labels.forecast[lang];
+}
+
+function visitorWeatherLabel(weatherText, lang, rainLikely = false, rainPeak = null) {
   const peak = Number.isFinite(rainPeak) ? rainPeak : 0;
+  if (lang === "fr") {
+    if (peak >= 50) return "Risque de pluie PM";
+    if (rainLikely) return "Pluie possible";
+    return weatherConditionLabel(weatherText, lang);
+  }
+  if (lang === "de") {
+    if (peak >= 50) return "Regenrisiko PM";
+    if (rainLikely) return "Regen moglich";
+    return weatherConditionLabel(weatherText, lang);
+  }
   if (peak >= 50) return "PM rain risk";
   if (rainLikely) return "Rain possible";
   return weatherText || "Forecast";
@@ -3371,8 +3930,8 @@ function forecastDayCard(day, lang) {
   const weatherText = day.weatherEn || day.weatherKo || "Forecast";
   const rainRisk = day.rainLikely || (day.maxPopPct || 0) >= 50;
   const kind = weatherKind(weatherText, rainRisk);
-  const rain = Number.isFinite(day.maxPopPct) ? `${Math.round(day.maxPopPct)}%` : rainMood(day);
-  const visitorLabel = visitorWeatherLabel(weatherText, rainRisk, day.maxPopPct);
+  const rain = Number.isFinite(day.maxPopPct) ? `${Math.round(day.maxPopPct)}%` : rainMood(day, lang);
+  const visitorLabel = visitorWeatherLabel(weatherText, lang, rainRisk, day.maxPopPct);
   return `
             <article class="forecast-card ${kind}">
               <div class="forecast-card-head">
@@ -3386,7 +3945,7 @@ function forecastDayCard(day, lang) {
                 ${weatherSymbol(kind, visitorLabel)}
                 <div>
                   <strong>${esc(visitorLabel)}</strong>
-                  <span>Rain peak ${esc(rain)}</span>
+                  <span>${tr(lang, "weatherRainPeak")} ${esc(rain)}</span>
                 </div>
               </div>
               <div class="forecast-periods">
@@ -3405,38 +3964,84 @@ function forecastStrip(forecast, lang) {
           </div>`;
 }
 
-function temperatureMood(maxTempC) {
-  if (!Number.isFinite(maxTempC)) return "variable temperatures";
-  if (maxTempC >= 32) return "hot";
-  if (maxTempC >= 28) return "very warm";
-  if (maxTempC >= 24) return "warm";
-  if (maxTempC >= 18) return "mild";
-  if (maxTempC >= 10) return "cool";
-  return "cold";
+function temperatureMood(maxTempC, lang = "en") {
+  if (!Number.isFinite(maxTempC)) {
+    if (lang === "fr") return "temperatures variables";
+    if (lang === "de") return "wechselnde Temperaturen";
+    return "variable temperatures";
+  }
+  const scale = [
+    [32, { en: "hot", fr: "chaud", de: "heiss" }],
+    [28, { en: "very warm", fr: "tres chaud", de: "sehr warm" }],
+    [24, { en: "warm", fr: "chaud et doux", de: "warm" }],
+    [18, { en: "mild", fr: "doux", de: "mild" }],
+    [10, { en: "cool", fr: "frais", de: "kuhl" }],
+    [-Infinity, { en: "cold", fr: "froid", de: "kalt" }]
+  ];
+  return scale.find(([limit]) => maxTempC >= limit)?.[1]?.[lang] || scale.find(([limit]) => maxTempC >= limit)?.[1]?.en || "";
 }
 
-function rainMood(forecast) {
-  if ((forecast.maxPopPct || 0) >= 70) return "high rain chance";
-  if (forecast.rainLikely) return "rain possible";
-  if ((forecast.maxPopPct || 0) >= 30) return "some shower risk";
+function rainMood(forecast, lang = "en") {
+  const peak = forecast?.maxPopPct || 0;
+  const rainLikely = Boolean(forecast?.rainLikely);
+  if (lang === "fr") {
+    if (peak >= 70) return "fort risque de pluie";
+    if (rainLikely) return "pluie possible";
+    if (peak >= 30) return "risque d'averse";
+    return "faible risque de pluie";
+  }
+  if (lang === "de") {
+    if (peak >= 70) return "hohe Regenchance";
+    if (rainLikely) return "Regen moglich";
+    if (peak >= 30) return "Schauerrisiko";
+    return "geringe Regenchance";
+  }
+  if (peak >= 70) return "high rain chance";
+  if (rainLikely) return "rain possible";
+  if (peak >= 30) return "some shower risk";
   return "low rain chance";
 }
 
-function humidityMood(forecast) {
-  if ((forecast.humidityTrend || 0) >= 8 && (forecast.maxHumidityPct || 0) >= 70) return "humidity increasing";
-  if ((forecast.maxHumidityPct || 0) >= 85 && (forecast.minHumidityPct || 100) <= 55) return "increasingly humid at times";
-  if ((forecast.maxHumidityPct || 0) >= 85) return "very humid at times";
-  if ((forecast.maxHumidityPct || 0) >= 70) return "humid at times";
-  if ((forecast.maxHumidityPct || 0) <= 45) return "fairly dry";
+function humidityMood(forecast, lang = "en") {
+  const trend = forecast?.humidityTrend || 0;
+  const maxHumidity = forecast?.maxHumidityPct || 0;
+  const minHumidity = forecast?.minHumidityPct || 100;
+  if (lang === "fr") {
+    if (trend >= 8 && maxHumidity >= 70) return "humidite en hausse";
+    if (maxHumidity >= 85 && minHumidity <= 55) return "par moments de plus en plus humide";
+    if (maxHumidity >= 85) return "tres humide par moments";
+    if (maxHumidity >= 70) return "humide par moments";
+    if (maxHumidity <= 45) return "plutot sec";
+    return "humidite moderee";
+  }
+  if (lang === "de") {
+    if (trend >= 8 && maxHumidity >= 70) return "Luftfeuchte steigt";
+    if (maxHumidity >= 85 && minHumidity <= 55) return "zeitweise zunehmend feucht";
+    if (maxHumidity >= 85) return "zeitweise sehr feucht";
+    if (maxHumidity >= 70) return "zeitweise feucht";
+    if (maxHumidity <= 45) return "eher trocken";
+    return "massige Luftfeuchte";
+  }
+  if (trend >= 8 && maxHumidity >= 70) return "humidity increasing";
+  if (maxHumidity >= 85 && minHumidity <= 55) return "increasingly humid at times";
+  if (maxHumidity >= 85) return "very humid at times";
+  if (maxHumidity >= 70) return "humid at times";
+  if (maxHumidity <= 45) return "fairly dry";
   return "moderate humidity";
 }
 
-function forecastSummaryText(forecast) {
+function forecastWeatherPhrase(forecast, lang) {
+  return weatherConditionLabel(forecast.weather || tr(lang, "weatherMixedConditions"), lang).toLowerCase();
+}
+
+function forecastSummaryText(forecast, lang = "en") {
   const temp = celsiusRange(forecast.minTempC, forecast.maxTempC);
-  const pop = Number.isFinite(forecast.maxPopPct) ? `rain chance up to ${Math.round(forecast.maxPopPct)}%` : rainMood(forecast);
+  const pop = Number.isFinite(forecast.maxPopPct)
+    ? `${tr(lang, "weatherRainChanceUpTo")} ${Math.round(forecast.maxPopPct)}%`
+    : rainMood(forecast, lang);
   const humidity = percentRange(forecast.minHumidityPct, forecast.maxHumidityPct);
-  const humidityText = humidity ? `${humidityMood(forecast)} (${humidity})` : humidityMood(forecast);
-  return `${temperatureMood(forecast.maxTempC)}${temp ? `, ${temp}` : ""}; ${pop}; ${humidityText}; most hours: ${forecast.weather}.`;
+  const humidityText = humidity ? `${humidityMood(forecast, lang)} (${humidity})` : humidityMood(forecast, lang);
+  return `${temperatureMood(forecast.maxTempC, lang)}${temp ? `, ${temp}` : ""}; ${pop}; ${humidityText}; ${tr(lang, "weatherMostHours")}: ${forecastWeatherPhrase(forecast, lang)}.`;
 }
 
 function degreeRangeHtml(minTempC, maxTempC) {
@@ -3449,16 +4054,42 @@ function rainPeakText(forecast) {
   return rainMood(forecast);
 }
 
-function humidityRangeText(forecast) {
-  const humidity = percentRange(forecast.minHumidityPct, forecast.maxHumidityPct);
-  return humidity || humidityMood(forecast);
+function rainPeakDisplay(forecast, lang = "en") {
+  if (Number.isFinite(forecast.maxPopPct)) {
+    const value = `${Math.round(forecast.maxPopPct)}%`;
+    if (lang === "fr") return `${value} max`;
+    if (lang === "de") return `${value} Spitze`;
+    return `${value} peak`;
+  }
+  return rainMood(forecast, lang);
 }
 
-function weatherTakeaway(forecast) {
+function humidityRangeText(forecast, lang = "en") {
+  const humidity = percentRange(forecast.minHumidityPct, forecast.maxHumidityPct);
+  return humidity || humidityMood(forecast, lang);
+}
+
+function weatherTakeaway(forecast, lang = "en") {
   const rainPeak = Number.isFinite(forecast.maxPopPct) ? forecast.maxPopPct : 0;
   const warm = (forecast.maxTempC || 0) >= 24;
   const hot = (forecast.maxTempC || 0) >= 28;
   const humid = (forecast.maxHumidityPct || 0) >= 75;
+  if (lang === "fr") {
+    if (rainPeak >= 50 && humid) return "Pluie possible, marche humide";
+    if (rainPeak >= 50) return "Plan interieur conseille";
+    if (hot && humid) return "Apres-midi chaud et humide";
+    if (warm && humid) return "Chaud et humide";
+    if (warm) return "Bon temps de marche chaud";
+    return "Bonne fenetre de marche";
+  }
+  if (lang === "de") {
+    if (rainPeak >= 50 && humid) return "Regenschirmfenster, feuchte Wege";
+    if (rainPeak >= 50) return "Innenplan als Backup";
+    if (hot && humid) return "Heisser, feuchter Nachmittag";
+    if (warm && humid) return "Warm und feucht";
+    if (warm) return "Warmes Laufwetter";
+    return "Gutes Zeitfenster zu Fuss";
+  }
   if (rainPeak >= 50 && humid) return "Umbrella window, humid walk";
   if (rainPeak >= 50) return "Rain backup recommended";
   if (hot && humid) return "Hot, humid afternoon";
@@ -3480,36 +4111,69 @@ function weatherTags(items) {
   return `<div class="weather-tags">${items.map((item) => `<span>${esc(item)}</span>`).join("")}</div>`;
 }
 
-function forecastOverview(forecast) {
+function forecastOverview(forecast, lang = "en") {
   return `
           <div class="weather-overview">
             <div class="weather-takeaway">
-              <span>At a glance</span>
-              <strong>${esc(weatherTakeaway(forecast))}</strong>
-              <p>${esc(forecastAdvice(forecast))}</p>
+              <span>${esc(tr(lang, "weatherAtGlance"))}</span>
+              <strong>${esc(weatherTakeaway(forecast, lang))}</strong>
+              <p>${esc(forecastAdvice(forecast, lang))}</p>
             </div>
-            <div class="weather-metrics" aria-label="Weather summary">
-              ${weatherMetric("Temperature", degreeRangeHtml(forecast.minTempC, forecast.maxTempC), temperatureMood(forecast.maxTempC))}
-              ${weatherMetric("Rain", esc(rainPeakText(forecast)), rainMood(forecast))}
-              ${weatherMetric("Humidity", esc(humidityRangeText(forecast)), humidityMood(forecast))}
+            <div class="weather-metrics" aria-label="${esc(tr(lang, "weatherSummary"))}">
+              ${weatherMetric(tr(lang, "weatherTemperature"), degreeRangeHtml(forecast.minTempC, forecast.maxTempC), temperatureMood(forecast.maxTempC, lang))}
+              ${weatherMetric(tr(lang, "weatherRain"), esc(rainPeakDisplay(forecast, lang)), rainMood(forecast, lang))}
+              ${weatherMetric(tr(lang, "weatherHumidity"), esc(humidityRangeText(forecast, lang)), humidityMood(forecast, lang))}
             </div>
           </div>`;
 }
 
-function forecastPacking(forecast) {
+function forecastPacking(forecast, lang = "en") {
+  const pack = {
+    water: { en: "water bottle", fr: "bouteille d'eau", de: "Wasserflasche" },
+    uv: { en: "UV protection", fr: "protection UV", de: "UV-Schutz" },
+    umbrella: { en: "portable umbrella", fr: "parapluie compact", de: "kompakter Regenschirm" },
+    breathable: { en: "breathable clothes", fr: "vetements respirants", de: "atmungsaktive Kleidung" },
+    layer: { en: "light layer", fr: "veste legere", de: "leichte Jacke" },
+    shoes: { en: "comfortable walking shoes", fr: "chaussures confortables", de: "bequeme Schuhe" }
+  };
+  const label = (key) => pack[key]?.[lang] || pack[key]?.en || key;
   const items = [];
-  if ((forecast.maxTempC || 0) >= 24) items.push("water bottle");
-  if ((forecast.maxTempC || 0) >= 24) items.push("UV protection");
-  if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 30) items.push("portable umbrella");
-  if ((forecast.maxHumidityPct || 0) >= 70) items.push("breathable clothes");
-  if ((forecast.minTempC || 99) <= 18) items.push("light layer");
-  items.push("comfortable walking shoes");
+  if ((forecast.maxTempC || 0) >= 24) items.push(label("water"));
+  if ((forecast.maxTempC || 0) >= 24) items.push(label("uv"));
+  if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 30) items.push(label("umbrella"));
+  if ((forecast.maxHumidityPct || 0) >= 70) items.push(label("breathable"));
+  if ((forecast.minTempC || 99) <= 18) items.push(label("layer"));
+  items.push(label("shoes"));
   return [...new Set(items)].slice(0, 5);
 }
 
-function forecastAdvice(forecast) {
+function forecastAdvice(forecast, lang = "en") {
   const warm = (forecast.maxTempC || 0) >= 24;
   const humid = (forecast.maxHumidityPct || 0) >= 70;
+  if (lang === "fr") {
+    if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 50) {
+      return "Gardez une option interieure et verifiez les avis officiels avant de partir, surtout pour parcs, bords de riviere et files.";
+    }
+    if (warm && humid) {
+      return "Prevoyez des vetements legers, de l'eau et des pauses au frais entre photos, files et transferts.";
+    }
+    if (warm) {
+      return "Ajoutez protection solaire et eau pour les marches de l'apres-midi autour des places, parcs et grands magasins.";
+    }
+    return "Bon pour les parcours a pied, mais reverifiez la derniere mise a jour KMA le jour meme.";
+  }
+  if (lang === "de") {
+    if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 50) {
+      return "Halten Sie einen Innenraum-Backup bereit und prufen Sie offizielle Outdoor-Hinweise vor der Abfahrt, besonders bei Parks, Flusswegen und Warteschlangen.";
+    }
+    if (warm && humid) {
+      return "Leichte Kleidung, Wasser und Abkuhlpausen zwischen Fotos, Warteschlangen und Transfers einplanen.";
+    }
+    if (warm) {
+      return "Sonnenschutz und Wasser fur Nachmittagswege einplanen, besonders bei Platzen, Parks und Kaufhauszugangen.";
+    }
+    return "Gut fur Laufwege, aber die neueste KMA-Meldung am Reisetag erneut prufen.";
+  }
   if (forecast.rainLikely || (forecast.maxPopPct || 0) >= 50) {
     return "Keep an indoor backup and check official outdoor notices before leaving, especially for parks, riverside routes, and queues.";
   }
@@ -3522,45 +4186,122 @@ function forecastAdvice(forecast) {
   return "Good for walking plans, but check the latest KMA update again on the day of travel.";
 }
 
+function baselineRangeText(region, lang = "en") {
+  const source = String(region?.range || "").toLowerCase();
+  if (lang === "fr") {
+    if (/hot|humid|monsoon|storm/.test(source)) return "chaud et humide, avec risque de pluie";
+    if (/cold|freezing|winter/.test(source)) return "froid, avec matins bas et vent possible";
+    if (/cool|autumn|crisp/.test(source)) return "frais et agreable pour marcher";
+    if (/mild|spring|warm/.test(source)) return "doux a chaud, utile pour les festivals en plein air";
+    return "conditions saisonnieres variables";
+  }
+  if (lang === "de") {
+    if (/hot|humid|monsoon|storm/.test(source)) return "heiss und feucht, mit Regenrisiko";
+    if (/cold|freezing|winter/.test(source)) return "kalt, mit niedrigen Morgenwerten und moglichem Wind";
+    if (/cool|autumn|crisp/.test(source)) return "kuhl und gut fur Laufwege";
+    if (/mild|spring|warm/.test(source)) return "mild bis warm, gut fur Outdoor-Festivals";
+    return "wechselhafte saisonale Bedingungen";
+  }
+  return region?.range || "";
+}
+
+function baselinePackingItems(items = [], lang = "en") {
+  if (lang !== "fr" && lang !== "de") return items;
+  const fr = {
+    umbrella: "parapluie compact",
+    uv: "protection UV",
+    sunscreen: "creme solaire",
+    water: "bouteille d'eau",
+    breathable: "vetements respirants",
+    jacket: "veste legere",
+    coat: "manteau chaud",
+    gloves: "gants",
+    scarf: "echarpe",
+    shoes: "chaussures confortables",
+    layers: "couches legeres",
+    fan: "ventilateur portable",
+    mask: "masque anti-poussiere"
+  };
+  const de = {
+    umbrella: "kompakter Regenschirm",
+    uv: "UV-Schutz",
+    sunscreen: "Sonnenschutz",
+    water: "Wasserflasche",
+    breathable: "atmungsaktive Kleidung",
+    jacket: "leichte Jacke",
+    coat: "warmer Mantel",
+    gloves: "Handschuhe",
+    scarf: "Schal",
+    shoes: "bequeme Schuhe",
+    layers: "leichte Schichten",
+    fan: "tragbarer Ventilator",
+    mask: "Feinstaubmaske"
+  };
+  const copy = lang === "fr" ? fr : de;
+  return items.map((item) => {
+    const text = String(item || "").toLowerCase();
+    if (/umbrella|rain/.test(text)) return copy.umbrella;
+    if (/uv|sun protection/.test(text)) return copy.uv;
+    if (/sunscreen/.test(text)) return copy.sunscreen;
+    if (/water/.test(text)) return copy.water;
+    if (/breathable|quick-dry/.test(text)) return copy.breathable;
+    if (/coat|winter/.test(text)) return copy.coat;
+    if (/glove/.test(text)) return copy.gloves;
+    if (/scarf/.test(text)) return copy.scarf;
+    if (/shoe|grip|sandals/.test(text)) return copy.shoes;
+    if (/layer|tops/.test(text)) return copy.layers;
+    if (/fan|cooling/.test(text)) return copy.fan;
+    if (/mask|dust/.test(text)) return copy.mask;
+    if (/jacket|down|wool/.test(text)) return copy.jacket;
+    return item;
+  });
+}
+
+function baselineOutdoorAdvice(region, lang = "en") {
+  if (lang === "fr") return "Utilisez cette base comme repere saisonnier, puis confirmez la prevision du jour avant de choisir files, photos et trajets a pied.";
+  if (lang === "de") return "Diese Basis dient als saisonaler Rahmen; prufen Sie danach die Tagesprognose, bevor Sie Warteschlangen, Fotos und Laufwege planen.";
+  return region?.outdoorAdvice || "";
+}
+
 function weatherPlanInner(lang, forecast, weatherInfo) {
   const region = weatherInfo.baseline;
   if (forecast) {
-    const items = forecastPacking(forecast);
+    const items = forecastPacking(forecast, lang);
     return `
           <h2>${tr(lang, "weatherPlan")}</h2>
-          ${forecastOverview(forecast)}
+          ${forecastOverview(forecast, lang)}
           ${forecastStrip(forecast, lang)}
-          <p class="weather-source-line"><strong>KMA short-term forecast</strong> <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast))}</span></p>
+          <p class="weather-source-line"><strong>${esc(tr(lang, "weatherKmaShortForecast"))}</strong> <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast, lang))}</span></p>
           ${weatherTags(items)}
-          <p class="meta-note">KMA forecast updated ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> Forecast source: ${esc(forecast.source?.name || "KMA forecast RSS")}. Previous-year monthly baseline: ${esc(weather.source.name)}.</span></p>`;
+          <p class="meta-note">${esc(tr(lang, "weatherKmaUpdated"))} ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> ${esc(tr(lang, "weatherForecastSource"))}: ${esc(forecast.source?.name || "KMA forecast RSS")}. ${esc(tr(lang, "weatherPreviousBaseline"))}: ${esc(weather.source.name)}.</span></p>`;
   }
   return `
           <h2>${tr(lang, "weatherPlan")}</h2>
           <div class="weather-overview">
             <div class="weather-takeaway">
-              <span>Seasonal baseline</span>
+              <span>${esc(tr(lang, "weatherSeasonalBaseline"))}</span>
               <strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>
-              <p>${esc(region.outdoorAdvice)}</p>
+              <p>${esc(baselineOutdoorAdvice(region, lang))}</p>
             </div>
-            <div class="weather-metrics" aria-label="Weather baseline">
-              ${weatherMetric("Typical range", esc(region.range), "previous-year pattern")}
-              ${weatherMetric("Plan with", esc((region.packing || []).slice(0, 2).join(", ") || "walking basics"), "visitor packing")}
-              ${weatherMetric("Check", "Live forecast", "before leaving")}
+            <div class="weather-metrics" aria-label="${esc(tr(lang, "weatherBaseline"))}">
+              ${weatherMetric(tr(lang, "weatherTypicalRange"), esc(baselineRangeText(region, lang)), tr(lang, "weatherPreviousPattern"))}
+              ${weatherMetric(tr(lang, "weatherPlanWith"), esc((baselinePackingItems(region.packing || [], lang)).slice(0, 2).join(", ") || tr(lang, "weatherWalkingBasics")), tr(lang, "weatherVisitorPacking"))}
+              ${weatherMetric(tr(lang, "weatherCheck"), esc(tr(lang, "weatherLiveForecast")), tr(lang, "weatherBeforeLeaving"))}
             </div>
           </div>
-          ${weatherTags(region.packing)}
-          <p class="meta-note">Weather baseline: ${esc(weather.source.name)} <span class="sr-only">Previous-year monthly baseline.</span></p>`;
+          ${weatherTags(baselinePackingItems(region.packing || [], lang))}
+          <p class="meta-note">${esc(tr(lang, "weatherBaseline"))}: ${esc(weather.source.name)} <span class="sr-only">${esc(tr(lang, "weatherPreviousBaseline"))}.</span></p>`;
 }
 
 function calendarWeatherText(event, lang) {
   const forecast = currentForecastForEvent(event);
   if (forecast) {
-    return `${tr(lang, "calendarWeather")}: KMA ${forecast.locationLabel} / ${forecastRangeText(lang, forecast)} - ${forecastSummaryText(forecast)}`;
+    return `${tr(lang, "calendarWeather")}: KMA ${forecast.locationLabel} / ${forecastRangeText(lang, forecast)} - ${forecastSummaryText(forecast, lang)}`;
   }
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
   const baseline = weatherInfo.baseline;
-  const pack = (baseline.packing || []).slice(0, 2).join(", ");
-  return `${tr(lang, "calendarWeather")}: ${weatherInfo.regionKey} / ${weatherInfo.monthName} - ${baseline.range}${pack ? ` · ${tr(lang, "packHint")}: ${pack}` : ""}`;
+  const pack = baselinePackingItems(baseline.packing || [], lang).slice(0, 2).join(", ");
+  return `${tr(lang, "calendarWeather")}: ${weatherInfo.regionKey} / ${weatherInfo.monthName} - ${baselineRangeText(baseline, lang)}${pack ? ` · ${tr(lang, "packHint")}: ${pack}` : ""}`;
 }
 
 function weatherIsoForEvent(event) {
@@ -3957,7 +4698,7 @@ function eventCard(event, lang) {
         <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
         <p>${esc(eventSummaryText(event, lang))}</p>
         <dl class="compact-facts">
-          <div><dt>${tr(lang, "period")}</dt><dd>${esc(event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`)}</dd></div>
+          <div><dt>${tr(lang, "period")}</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div>
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
           <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
         </dl>
@@ -3977,7 +4718,7 @@ function eventPlanTools(lang) {
 }
 
 function saveEventButton(event, lang) {
-  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-event-map-query="${esc(eventPlaceQuery(event))}" data-event-venue="${esc([event.venue, event.district].filter(Boolean).join(", "))}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(eventDateLabel(event, lang, false))}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-event-map-query="${esc(eventPlaceQuery(event))}" data-event-venue="${esc([event.venue, event.district].filter(Boolean).join(", "))}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
 }
 
 function spotlightEvents(sorted) {
@@ -4012,7 +4753,7 @@ function spotlightCarousel(slides, lang) {
             <div class="spotlight-carousel" data-spotlight-carousel>
               <div class="spotlight-track">
                 ${usableSlides.map((event, index) => {
-                  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+                  const period = eventDateLabel(event, lang);
                   const active = index === 0;
                   return `
                 <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}">
@@ -4696,7 +5437,7 @@ function localizedVisitorBriefSection(event, lang) {
   const copy = localizedBriefCopy[lang];
   if (!copy) return "";
   const categoryPurpose = localizedCategoryPurpose[lang]?.[event.category] || localizedCategoryPurpose[lang]?.festival || "";
-  const period = event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`;
+  const period = eventDateLabel(event, lang);
   const venue = [event.venue, event.district, event.city].filter(Boolean).join(", ");
   const data = {
     period,
@@ -4834,7 +5575,7 @@ function visitorActionChecklist(event, lang) {
               <span>03</span>
               <strong>${esc(copy.planTitle)}</strong>
               <p>${esc(copy.planText)}</p>
-              <em>${esc(event.dateLabel || `${event.startDate} - ${event.endDate}`)}</em>
+              <em>${esc(eventDateLabel(event, lang, false))}</em>
             </article>
           </div>
         </section>`;
@@ -4862,6 +5603,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const description = local({
     en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
+    fr: "Evenements de Coree, pop-ups K-pop, offres shopping, duty-free, calendriers, sources officielles et notes de planification.",
+    de: "Korea-Events, K-pop Pop-ups, Shopping-Deals, Duty-free-Kampagnen, Kalender, offizielle Quellen und Reiseplanung.",
     zh: "韩国活动、K-pop 快闪、购物优惠、免税活动、日历、官方来源和旅行准备。",
     pt: "Eventos da Coreia, K-pop pop-ups, ofertas, duty free, calendários, fontes oficiais e planejamento.",
     ru: "События Кореи, K-pop pop-up, shopping deals, duty free, календари, источники и планирование."
@@ -4969,7 +5712,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
     canonicalPath,
     currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
     schemaData: [
-      schema(lang, `${siteName} - Events, K-pop Pop-ups, Shopping Deals`, description, canonicalPath),
+      schema(lang, homePageTitle, description, canonicalPath),
       itemListSchema(lang, `${siteName} latest events`, sorted.slice(0, 12), canonicalPath)
     ]
   });
@@ -5027,7 +5770,7 @@ function nowItem(event, lang, mode = "ends") {
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
         <em>${esc(event.city)} · ${categoryLabel(lang, event.category)} · ${esc(nowMetric(event, lang, mode))}</em>
-        <small>${esc(event.dateLabel || `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}`)}</small>
+        <small>${esc(eventDateLabel(event, lang))}</small>
         <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
       </span>
     </a>`;
@@ -5184,11 +5927,14 @@ function renderCity(lang, city) {
         <div>
           <h2>${tr(lang, "routeIdeas")}</h2>
           <div class="route-mini-list">
-            ${routeIdeas.map((route) => `
+            ${routeIdeas.map((route) => {
+              const copy = routeCopy(route, lang);
+              return `
               <a href="${routeHref(lang, route)}">
-                <strong>${esc(route.title)}</strong>
-                <span>${esc(route.bestFor)}</span>
-              </a>`).join("")}
+                <strong>${esc(copy.title)}</strong>
+                <span>${esc(copy.bestFor)}</span>
+              </a>`;
+            }).join("")}
           </div>
         </div>
       </section>
@@ -5221,7 +5967,7 @@ function renderCity(lang, city) {
 }
 
 function renderRoutes(lang) {
-  const description = "Practical Korea travel routes connected to official events, shopping pages, weather notes, and nearby visitor plans.";
+  const description = tr(lang, "routeIndexDescription");
   const body = `
     <main class="page">
       <section class="page-hero compact">
@@ -5254,7 +6000,7 @@ function renderRoutes(lang) {
           "@type": "ListItem",
           position: index + 1,
           url: absoluteUrl(routeHref(lang, route)),
-          name: route.title
+          name: routeCopy(route, lang).title
         }))
       }
     ]
@@ -5262,25 +6008,26 @@ function renderRoutes(lang) {
 }
 
 function renderRoute(route, lang) {
+  const copy = routeCopy(route, lang);
   const relatedEvents = eventsForRoute(route).slice(0, 9);
-  const description = `${route.bestFor} Stops include ${route.stops.join(", ")}.`;
+  const description = routeDescription(route, lang);
   const body = `
     <main class="page">
       <article class="detail-layout">
         <section class="page-hero compact">
           <p class="eyebrow">${tr(lang, "routePages")}</p>
-          <h1>${esc(route.title)}</h1>
-          <p>${esc(route.bestFor)}</p>
+          <h1>${esc(copy.title)}</h1>
+          <p>${esc(copy.bestFor)}</p>
         </section>
 
         <section class="detail-section two-col">
           <div>
             <h2>${tr(lang, "travelIdeas")}</h2>
-            <ol class="stop-list">${route.stops.map((stop) => `<li><strong>${esc(stop)}</strong></li>`).join("")}</ol>
+            <ol class="stop-list">${copy.stops.map((stop) => `<li><strong>${esc(stop)}</strong></li>`).join("")}</ol>
           </div>
           <div>
             <h2>${tr(lang, "weatherPlan")}</h2>
-            <ul>${route.tips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
+            <ul>${copy.tips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
           </div>
         </section>
 
@@ -5290,7 +6037,7 @@ function renderRoute(route, lang) {
             ${route.regions.map((region) => cityDefinitions[region] ? `
               <a class="city-pill" href="${cityHref(lang, region)}">
                 <strong>${esc(region)}</strong>
-                <span>${events.filter((event) => event.city === region).length} events</span>
+                <span>${events.filter((event) => event.city === region).length} ${tr(lang, "eventsUnit")}</span>
               </a>` : "").join("")}
           </div>
         </section>
@@ -5306,18 +6053,18 @@ function renderRoute(route, lang) {
 
   return layout({
     lang,
-    title: `${route.title} - K-Spot Now`,
+    title: `${copy.title} - K-Spot Now`,
     description,
     body,
     canonicalPath: routeHref(lang, route),
     currentPathBuilder: (code) => routeHref(code, route),
     schemaData: [
-      schema(lang, `${route.title} - K-Spot Now`, description, routeHref(lang, route)),
-      itemListSchema(lang, route.title, relatedEvents, routeHref(lang, route)),
+      schema(lang, `${copy.title} - K-Spot Now`, description, routeHref(lang, route)),
+      itemListSchema(lang, copy.title, relatedEvents, routeHref(lang, route)),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
         { name: tr(lang, "routePages"), url: `/${lang}/routes/` },
-        { name: route.title, url: routeHref(lang, route) }
+        { name: copy.title, url: routeHref(lang, route) }
       ])
     ]
   });
@@ -5441,7 +6188,7 @@ function renderEvent(event, lang) {
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
   const forecastInfo = currentForecastForEvent(event);
   const description = eventSummaryText(event, lang);
-  const periodText = event.dateLabel || `${event.startDate} - ${event.endDate}`;
+  const periodText = eventDateLabel(event, lang, false);
   const venueText = [event.venue, event.district].filter(Boolean).join(", ");
   const body = `
     <main class="page">
@@ -5822,7 +6569,7 @@ function guideSourceSection(guide, lang, sourceExamples) {
           ${sourceExamples.map((source) => `
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">
               <strong>${esc(source.name)}</strong>
-              <span>${esc(source.coverage?.slice(0, 2).join(" / ") || source.type)}</span>
+              <span>${esc(localizedCoverageText(source, lang, 2) || localizedSourceType(source.type, lang))}</span>
             </a>`).join("")}
         </div>
       </section>`;
@@ -5896,10 +6643,10 @@ function renderSources(lang) {
           <article>
             <div>
               <strong>${esc(source.name)}</strong>
-              <span>${esc(source.type)} · ${esc(source.refreshCadence)}</span>
+              <span>${esc(localizedSourceType(source.type, lang))} · ${esc(localizedRefreshCadence(source.refreshCadence, lang))}</span>
             </div>
             <div class="source-copy">
-              <p>${esc(source.notes)}</p>
+              <p>${esc(localizedSourceNote(source, lang))}</p>
               ${sourceAlternateLinks(source, lang)}
             </div>
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${tr(lang, "official")}</a>
@@ -5946,8 +6693,8 @@ function sourceMatchesGroup(source, group) {
   return group.matches.some((term) => blob.includes(term));
 }
 
-function sourceCoverage(source) {
-  return (source.coverage || []).slice(0, 5).join(", ");
+function sourceCoverage(source, lang = "en") {
+  return localizedCoverageText(source, lang, 5);
 }
 
 function watchlistStat(label, value) {
@@ -6494,13 +7241,13 @@ function renderWatchlist(lang) {
               <p>${esc(watchlistGroupText(group, lang, "focus"))}</p>
               <dl>
                 <div><dt>${esc(opsText(lang, "sourcesWatched"))}</dt><dd>${groupSources.length}</dd></div>
-                <div><dt>${esc(opsText(lang, "refreshModel"))}</dt><dd>${esc(groupSources.map((source) => source.refreshCadence).filter(Boolean).slice(0, 2).join(" / ") || opsText(lang, "reviewQueue"))}</dd></div>
+                <div><dt>${esc(opsText(lang, "refreshModel"))}</dt><dd>${esc(groupSources.map((source) => localizedRefreshCadence(source.refreshCadence, lang)).filter(Boolean).slice(0, 2).join(" / ") || opsText(lang, "reviewQueue"))}</dd></div>
               </dl>
               <ul>
                 ${groupSources.slice(0, 7).map((source) => `
                   <li>
                     <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">${esc(source.name)}</a>
-                    <small>${esc(source.automationStatus)} - ${esc(sourceCoverage(source))}</small>
+                    <small>${esc(localizedAutomationStatus(source.automationStatus, lang))} - ${esc(sourceCoverage(source, lang))}</small>
                   </li>`).join("")}
               </ul>
             </article>`;

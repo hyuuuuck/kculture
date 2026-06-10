@@ -200,6 +200,10 @@ function calendarStats() {
 
 function detailPlanningStats() {
   const missing = [];
+  const weatherBaselineSignals = {
+    fr: "Base mensuelle de l&#39;annee precedente",
+    de: "Monatsbasis des Vorjahres"
+  };
   for (const lang of languages) {
     for (const event of events) {
       const relativePath = `dist/${lang}/events/${event.slug}.html`;
@@ -212,7 +216,7 @@ function detailPlanningStats() {
         htmlEsc(event.sourceUrl),
         `/events/${event.slug}.ics`,
         "data-save-event",
-        "Previous-year monthly baseline",
+        weatherBaselineSignals[lang] || "Previous-year monthly baseline",
         "www.google.com/maps/search",
         "map.naver.com",
         "map.kakao.com",

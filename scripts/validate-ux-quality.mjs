@@ -279,6 +279,65 @@ assertIncludes(frNolDetail, "NOL World est la source de listing ou billetterie",
 assertIncludes(deNolDetail, "Warum diese Seite vor der verlinkten Quelle", "de/events/blackpink-tamagotchi-seoul-forest-2026.html", "German NOL detail must explain why K-Spot Now comes before the linked source.");
 assertIncludes(deNolDetail, "NOL World ist die Listing- oder Ticketquelle", "de/events/blackpink-tamagotchi-seoul-forest-2026.html", "German NOL detail must distinguish K-Spot Now from NOL World.");
 
+const frRouteIndex = read("fr/routes/index.html");
+const deRouteIndex = read("de/routes/index.html");
+assertIncludes(frRouteIndex, "Soiree au Hangang", "fr/routes/index.html", "French route index must localize route titles and route copy.");
+assertIncludes(deRouteIndex, "Hangang-Abendroute", "de/routes/index.html", "German route index must localize route titles and route copy.");
+assertIncludes(frDetail, "Vue rapide", "fr/events/bts-city-arirang-busan-2026.html", "French weather overview heading must be localized.");
+assertIncludes(frDetail, "Prevision courte KMA", "fr/events/bts-city-arirang-busan-2026.html", "French KMA forecast source line must be localized.");
+assertIncludes(frDetail, "bouteille d&#39;eau", "fr/events/bts-city-arirang-busan-2026.html", "French weather packing tags must be localized.");
+assertIncludes(deDetail, "Kurzuberblick", "de/events/bts-city-arirang-busan-2026.html", "German weather overview heading must be localized.");
+assertIncludes(deDetail, "KMA-Kurzfristprognose", "de/events/bts-city-arirang-busan-2026.html", "German KMA forecast source line must be localized.");
+assertIncludes(deDetail, "Wasserflasche", "de/events/bts-city-arirang-busan-2026.html", "German weather packing tags must be localized.");
+
+const localizedLeakPhrases = [
+  "At a glance",
+  "Weather summary",
+  "Rain peak",
+  "KMA forecast updated",
+  "Forecast source",
+  "Previous-year monthly baseline",
+  "water bottle",
+  "UV protection",
+  "comfortable walking shoes",
+  "Official source:",
+  "Practical Korea travel routes",
+  "Hangang evening route",
+  "Outdoor festivals",
+  "Fresh multilingual Korea events",
+  "Seasonal baseline",
+  "Typical range",
+  "previous-year pattern",
+  "visitor packing",
+  "Live forecast",
+  "before leaving",
+  "daily before public build",
+  "Busan festivals / city events",
+  "Busan pop-ups / K-pop regional events"
+];
+
+for (const lang of ["fr", "de"]) {
+  const leakTargets = [
+    [`${lang}/index.html`, read(`${lang}/index.html`)],
+    [`${lang}/routes/index.html`, read(`${lang}/routes/index.html`)],
+    [`${lang}/events/bts-city-arirang-busan-2026.html`, read(`${lang}/events/bts-city-arirang-busan-2026.html`)],
+    [`${lang}/sources/index.html`, read(`${lang}/sources/index.html`)],
+    [`${lang}/watchlist/index.html`, read(`${lang}/watchlist/index.html`)],
+    [`${lang}/feed.xml`, read(`${lang}/feed.xml`)],
+    [`${lang}/latest.json`, read(`${lang}/latest.json`)]
+  ];
+  for (const [id, raw] of leakTargets) {
+    const text = id.endsWith(".html") ? htmlText(raw) : raw;
+    for (const phrase of localizedLeakPhrases) {
+      if (text.includes(phrase)) push(id, `French/German public surface still exposes English UI phrase: ${phrase}`);
+    }
+  }
+  const localizedHome = read(`${lang}/index.html`);
+  if (/\bitems<\/span>|\bevents<\/span>/.test(localizedHome)) {
+    push(`${lang}/index.html`, "French/German browse pills must localize item/event count labels.");
+  }
+}
+
 const activeEvents = events.filter((event) => event.endDate >= today).slice(0, 6);
 for (const event of activeEvents) {
   const html = read(path.join("en", "events", `${event.slug}.html`));

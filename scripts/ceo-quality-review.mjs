@@ -333,15 +333,75 @@ function collectGuideLocalization() {
     [deDepartment, /Korea department store sales and pop-ups/i, "de department-store"]
   ].filter(([text, pattern]) => pattern.test(text)).map(([, , label]) => label);
 
-  if (!leaks.length && !categoryLeaks.length) {
-    pass("audit-institution", "Translation quality", "FR/DE guide and category localization", `${localizedLangs.length * guides.length} guide details plus guide indexes and category pages avoid English article headings.`);
+  const localizedLeakPhrases = [
+    "At a glance",
+    "Weather summary",
+    "Rain peak",
+    "KMA forecast updated",
+    "Forecast source",
+    "Previous-year monthly baseline",
+    "water bottle",
+    "UV protection",
+    "comfortable walking shoes",
+    "Official source:",
+    "Practical Korea travel routes",
+    "Hangang evening route",
+    "Outdoor festivals",
+    "Fresh multilingual Korea events",
+    "Seasonal baseline",
+    "Typical range",
+    "previous-year pattern",
+    "visitor packing",
+    "Live forecast",
+    "before leaving",
+    "daily before public build",
+    "Busan festivals / city events",
+    "Busan pop-ups / K-pop regional events"
+  ];
+  const surfaceLeaks = [];
+  for (const lang of localizedLangs) {
+    const targets = [
+      [`${lang}/index`, readText(`dist/${lang}/index.html`), true],
+      [`${lang}/routes`, readText(`dist/${lang}/routes/index.html`), true],
+      [`${lang}/detail`, readText(`dist/${lang}/events/bts-city-arirang-busan-2026.html`), true],
+      [`${lang}/sources`, readText(`dist/${lang}/sources/index.html`), true],
+      [`${lang}/watchlist`, readText(`dist/${lang}/watchlist/index.html`), true],
+      [`${lang}/feed`, readText(`dist/${lang}/feed.xml`), false],
+      [`${lang}/latest`, readText(`dist/${lang}/latest.json`), false]
+    ];
+    for (const [id, raw, visibleOnly] of targets) {
+      const text = visibleOnly ? htmlText(raw) : raw;
+      for (const phrase of localizedLeakPhrases) {
+        if (text.includes(phrase)) surfaceLeaks.push(`${id}:${phrase}`);
+      }
+    }
+    if (/\bitems<\/span>|\bevents<\/span>/.test(readText(`dist/${lang}/index.html`))) {
+      surfaceLeaks.push(`${lang}/index:items-events-count-label`);
+    }
+  }
+
+  const frRoute = readText("dist/fr/routes/index.html");
+  const deRoute = readText("dist/de/routes/index.html");
+  const frDetail = readText("dist/fr/events/bts-city-arirang-busan-2026.html");
+  const deDetail = readText("dist/de/events/bts-city-arirang-busan-2026.html");
+  const requiredLocalizedPhrases = [
+    [frRoute, "Soiree au Hangang", "fr route"],
+    [deRoute, "Hangang-Abendroute", "de route"],
+    [frDetail, "Vue rapide", "fr weather"],
+    [frDetail, "Prevision courte KMA", "fr weather source"],
+    [deDetail, "Kurzuberblick", "de weather"],
+    [deDetail, "KMA-Kurzfristprognose", "de weather source"]
+  ].filter(([text, phrase]) => !text.includes(phrase)).map(([, , label]) => label);
+
+  if (!leaks.length && !categoryLeaks.length && !surfaceLeaks.length && !requiredLocalizedPhrases.length) {
+    pass("audit-institution", "Translation quality", "FR/DE public-surface localization", `${localizedLangs.length * guides.length} guide details plus routes, weather, feeds, source pages, and browse labels avoid audited English leaks.`);
   } else {
     fail(
       "audit-institution",
       "Translation quality",
-      "FR/DE guide and category localization",
-      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks.`,
-      "Audit Institution: block release until French/German guide titles and topic pages are localized instead of exposing English article headings."
+      "FR/DE public-surface localization",
+      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks, ${surfaceLeaks.length} surface leaks, ${requiredLocalizedPhrases.length} missing localized proofs.`,
+      "Audit Institution: block release until French/German guide titles, topic pages, weather blocks, routes, feed summaries, source pages, and browse labels are localized instead of exposing English UI copy."
     );
   }
 }

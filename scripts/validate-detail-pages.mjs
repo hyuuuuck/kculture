@@ -110,6 +110,53 @@ function dateText(lang, iso) {
   return new Intl.DateTimeFormat(languageLocales[lang] || "en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
+function eventDateLabel(event, lang, useLocalizedDates = true) {
+  const fallback = useLocalizedDates ? `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}` : `${event.startDate} - ${event.endDate}`;
+  const raw = String(event.dateLabel || "").trim();
+  if (!raw) return fallback;
+  if (lang !== "fr" && lang !== "de") return raw;
+  let text = raw
+    .replace(/\bFrom\s+(\d{4}-\d{2}-\d{2}),\s*until sold out\b/gi, lang === "fr" ? "Depuis $1, jusqu'a epuisement" : "Seit $1, bis ausverkauft")
+    .replace(/\bEvery Saturday in 2026\b/gi, lang === "fr" ? "Chaque samedi en 2026" : "Jeden Samstag 2026")
+    .replace(/\bSelected exhibitions through\b/gi, lang === "fr" ? "Expositions selectionnees jusqu'au" : "Ausgewahlte Ausstellungen bis")
+    .replace(/\bMain listed date range\b/gi, lang === "fr" ? "Periode principale indiquee" : "Hauptzeitraum laut Quelle")
+    .replace(/\bOverall campaign\b/gi, lang === "fr" ? "Campagne globale" : "Gesamtkampagne")
+    .replace(/\bCoupon issue and stay period\b/gi, lang === "fr" ? "Emission des coupons et sejour" : "Coupon-Ausgabe und Aufenthaltszeitraum")
+    .replace(/\bopen Thu-Sun during the event period\b/gi, lang === "fr" ? "ouvert jeu-dim pendant l'evenement" : "geoffnet Do-So wahrend des Events")
+    .replace(/\breservation-only entry via Weverse\b/gi, lang === "fr" ? "entree sur reservation via Weverse" : "Eintritt nur mit Reservierung via Weverse")
+    .replace(/\brelay dates can differ by branch\b/gi, lang === "fr" ? "les dates varient selon la branche" : "Termine konnen je nach Filiale variieren")
+    .replace(/\bdaily\b/gi, lang === "fr" ? "tous les jours" : "taglich")
+    .replace(/\bthrough\b/gi, lang === "fr" ? "jusqu'au" : "bis")
+    .replace(/\buntil sold out\b/gi, lang === "fr" ? "jusqu'a epuisement" : "bis ausverkauft");
+  if (text === raw && /\b(date range|campaign|selected|daily|through|until|every)\b/i.test(raw)) return fallback;
+  return text;
+}
+
+const weatherCopy = {
+  en: {
+    previousBaseline: "Previous-year monthly baseline",
+    kmaShortForecast: "KMA short-term forecast",
+    baseline: "Weather baseline",
+    typicalRange: "Typical range"
+  },
+  fr: {
+    previousBaseline: "Base mensuelle de l&#39;annee precedente",
+    kmaShortForecast: "Prevision courte KMA",
+    baseline: "Base meteo",
+    typicalRange: "Plage typique"
+  },
+  de: {
+    previousBaseline: "Monatsbasis des Vorjahres",
+    kmaShortForecast: "KMA-Kurzfristprognose",
+    baseline: "Wetterbasis",
+    typicalRange: "Typischer Bereich"
+  }
+};
+
+function weatherLabel(lang, key) {
+  return weatherCopy[lang]?.[key] || weatherCopy.en[key];
+}
+
 function forecastShortDate(iso) {
   const match = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!match) return iso;
@@ -203,7 +250,7 @@ function validateDetailPage(event, lang) {
   assertIncludes(html, `href="/events/${event.slug}.ics"`, id, "single-event calendar download link is missing.");
   assertIncludes(html, `data-save-event`, id, "save-event planner button is missing.");
   assertIncludes(html, `data-event-slug="${esc(event.slug)}"`, id, "save-event planner metadata is missing the event slug.");
-  assertIncludes(html, esc(event.dateLabel || `${event.startDate} - ${event.endDate}`), id, "event period is missing from visible facts.");
+  assertIncludes(html, esc(eventDateLabel(event, lang, false)), id, "event period is missing from visible facts.");
   assertIncludes(html, esc(event.venue), id, "event venue is missing from visible facts.");
   assertIncludes(html, esc(event.city), id, "event city is missing from visible facts.");
   assertIncludes(html, esc(event.sourceName), id, "source name is missing from the page.");
@@ -233,10 +280,10 @@ function validateDetailPage(event, lang) {
     assertIncludes(html, esc(item), id, `official highlight is missing: ${item}`);
   }
 
-  assertIncludes(html, "Previous-year monthly baseline", id, "previous-year weather baseline label is missing.");
+  assertIncludes(html, weatherLabel(lang, "previousBaseline"), id, "previous-year weather baseline label is missing.");
   assertIncludes(html, esc(weather.source.name), id, "weather source name is missing.");
   if (forecastInfo) {
-    assertIncludes(html, "KMA short-term forecast", id, "current KMA forecast label is missing.");
+    assertIncludes(html, weatherLabel(lang, "kmaShortForecast"), id, "current KMA forecast label is missing.");
     assertIncludes(html, esc(currentWeather.source.name), id, "current KMA forecast source is missing.");
     assertIncludes(html, esc(forecastInfo.region.label), id, "current KMA forecast location is missing.");
     assertIncludes(html, "forecast-strip", id, "day-by-day forecast strip is missing.");
@@ -249,9 +296,14 @@ function validateDetailPage(event, lang) {
   } else {
     assertIncludes(html, esc(weatherInfo.regionKey), id, "weather region is missing.");
     assertIncludes(html, esc(weatherInfo.monthName), id, "weather month is missing.");
-    assertIncludes(html, esc(weatherInfo.baseline.range), id, "weather range is missing.");
-    for (const item of (weatherInfo.baseline.packing || []).slice(0, 3)) {
-      assertIncludes(html, esc(item), id, `weather packing item is missing: ${item}`);
+    if (["fr", "de"].includes(lang)) {
+      assertIncludes(html, weatherLabel(lang, "baseline"), id, "localized weather baseline section is missing.");
+      assertIncludes(html, weatherLabel(lang, "typicalRange"), id, "localized weather range label is missing.");
+    } else {
+      assertIncludes(html, esc(weatherInfo.baseline.range), id, "weather range is missing.");
+      for (const item of (weatherInfo.baseline.packing || []).slice(0, 3)) {
+        assertIncludes(html, esc(item), id, `weather packing item is missing: ${item}`);
+      }
     }
   }
 

@@ -117,6 +117,13 @@ const homeSourceRows = countMatches(home, /class="event-source-row"/g);
 if (homeEventCards !== homeSourceRows) {
   push("en/index.html", `each home event card must show a linked-source role row; found ${homeSourceRows}/${homeEventCards}.`);
 }
+const homePlanTools = countMatches(home, /class="event-plan-tools"/g);
+if (homeEventCards !== homePlanTools) {
+  push("en/index.html", `each home event card must expose weather, Korean map, and calendar planning tools; found ${homePlanTools}/${homeEventCards}.`);
+}
+for (const label of ["Weather", "Korean map", "Calendar"]) {
+  assertIncludes(home, label, "en/index.html", `home event cards must surface ${label} as a visible planning tool.`);
+}
 for (const role of ["official", "ticketing", "listing", "offer"]) {
   assertIncludes(home, `data-source-role="${role}"`, "en/index.html", `home cards must expose ${role} source-role labels so visitors understand the handoff.`);
 }
@@ -156,9 +163,12 @@ assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-sour
 assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must preserve a visible text label beside the icon.");
 assertIncludes(styles, ".event-source-row", "styles.css", "event cards must style source-role rows.");
 assertIncludes(styles, ".source-role-chip", "styles.css", "event cards must style linked-source role chips.");
+assertIncludes(styles, ".event-plan-tools", "styles.css", "event cards must style visible planning-tool chips.");
 assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");
 assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".save-event {\n  min-height: 44px;", "styles.css", "save buttons must preserve a minimum 44px touch target.");
+assertIncludes(styles, ".saved-clear {\n  min-height: 44px;", "styles.css", "saved planner clear button must preserve a minimum 44px touch target.");
+assertIncludes(styles, ".saved-open,\n.planner-card-actions a,\n.planner-card-actions button {\n  min-height: 44px;", "styles.css", "saved planner controls must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".spotlight-arrow {\n    display: none;", "styles.css", "mobile spotlight controls should avoid cramped arrow buttons.");
 assertIncludes(styles, ".spotlight-controls .spotlight-tab {\n    width: 44px;\n    min-height: 44px;", "styles.css", "mobile spotlight tabs must preserve 44px touch targets.");
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
@@ -182,10 +192,12 @@ assertIncludes(frHome, "n&#39;est pas une billetterie", "fr/index.html", "French
 assertIncludes(frHome, "Pourquoi l&#39;utiliser avant NOL World", "fr/index.html", "French home must answer the NOL World differentiation question.");
 assertIncludes(frHome, "K-Spot Now est le bureau de planification", "fr/index.html", "French home must explain the planning-layer value.");
 assertIncludes(frHome, "Listing / billetterie", "fr/index.html", "French home must expose linked-source role labels on event cards.");
+assertIncludes(frHome, "Carte coreenne", "fr/index.html", "French home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
 assertIncludes(deHome, "kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
 assertIncludes(deHome, "Warum vor NOL World", "de/index.html", "German home must answer the NOL World differentiation question.");
 assertIncludes(deHome, "K-Spot Now ist die Planungsebene", "de/index.html", "German home must explain the planning-layer value.");
+assertIncludes(deHome, "Koreanische Karte", "de/index.html", "German home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
 
 const visitorUiExpectations = {
@@ -197,6 +209,14 @@ const visitorUiExpectations = {
   fr: ["Aller au contenu principal", "Selection officielle", "Enregistrer", "Fraicheur"],
   de: ["Zum Hauptinhalt springen", "Offizielles Highlight", "Speichern", "Aktualitat"]
 };
+
+visitorUiExpectations.es[2] = "Guardar en plan";
+visitorUiExpectations.zh[2] = "\u52a0\u5165\u884c\u7a0b";
+visitorUiExpectations.pt[2] = "Salvar no plano";
+visitorUiExpectations.ru[2] = "\u0412 \u043f\u043b\u0430\u043d";
+visitorUiExpectations.ja[2] = "\u8a08\u753b\u306b\u4fdd\u5b58";
+visitorUiExpectations.fr[2] = "Ajouter au plan";
+visitorUiExpectations.de[2] = "Zum Plan speichern";
 
 for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
   const localizedHome = read(`${lang}/index.html`);

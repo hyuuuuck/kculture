@@ -168,6 +168,20 @@ function collectHomeUx() {
     );
   }
 
+  const planToolRows = countMatches(home, /class="event-plan-tools"/g);
+  const hasPlanToolLabels = ["Weather", "Korean map", "Calendar"].every((label) => home.includes(label));
+  if (eventCards && planToolRows === eventCards && hasPlanToolLabels) {
+    pass("planner", "Visitor retention", "Card-level planning tools", `${planToolRows}/${eventCards} event cards show weather, Korean map, and calendar planning context before the click.`);
+  } else {
+    fail(
+      "planner",
+      "Visitor retention",
+      "Card-level planning tools",
+      `${planToolRows}/${eventCards} rows; labels ${hasPlanToolLabels}.`,
+      "Planner/Designer: every event card must show why K-Spot Now is useful before the handoff: weather, Korean map names, and calendar planning tools."
+    );
+  }
+
   const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
   if (splitBand && !splitBand.includes("/en/sources/") && splitBand.includes("/en/routes/")) {
     pass("planner", "Homepage utility", "Visitor-facing next step", "Homepage promotes routes and calendar instead of operational source pages.");
@@ -262,23 +276,26 @@ function collectInteractionQuality() {
   const styles = readText("styles.css");
   const baseButtons = styles.match(/\.button,\s*\.filter-bar button\s*\{[\s\S]*?\}/)?.[0] || "";
   const saveButton = styles.match(/\.save-event\s*\{[\s\S]*?\}/)?.[0] || "";
+  const savedClear = styles.match(/\.saved-clear\s*\{[\s\S]*?\}/)?.[0] || "";
+  const savedPlannerControls = styles.match(/\.saved-open,\s*\.planner-card-actions a,\s*\.planner-card-actions button\s*\{[\s\S]*?\}/)?.[0] || "";
   const mobileSpotlight = styles.match(/@media \(max-width: 680px\)\s*\{[\s\S]*?\.service-summary dd[\s\S]*?\n\}/)?.[0] || "";
   const hasPrimaryTouchTargets = baseButtons.includes("min-height: 44px") && saveButton.includes("min-height: 44px");
+  const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px");
   const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-tab")
     && mobileSpotlight.includes("width: 44px")
     && mobileSpotlight.includes("min-height: 44px")
     && mobileSpotlight.includes(".spotlight-arrow")
     && mobileSpotlight.includes("display: none");
 
-  if (hasPrimaryTouchTargets && hasMobileSpotlightTargets) {
-    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, and mobile spotlight tabs preserve 44px touch targets.");
+  if (hasPrimaryTouchTargets && hasSavedPlannerTouchTargets && hasMobileSpotlightTargets) {
+    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions, and mobile spotlight tabs preserve 44px touch targets.");
   } else {
     fail(
       "designer",
       "Interaction",
       "Mobile touch targets",
-      `primary ${hasPrimaryTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
-      "Designer/Publisher: keep visitor controls at least 44px high and prevent cramped mobile spotlight arrows."
+      `primary ${hasPrimaryTouchTargets}, saved planner ${hasSavedPlannerTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
+      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, and prevent cramped mobile spotlight arrows."
     );
   }
 }

@@ -1759,6 +1759,77 @@ for (const [code, overrides] of Object.entries(visitorUiOverrides)) {
   dict[code] = { ...(dict[code] || dict.en), ...overrides };
 }
 
+const plannerCardLabels = {
+  en: {
+    saveEvent: "Save to plan",
+    savedEvent: "Saved to plan",
+    cardPlanTools: "Planning tools",
+    cardPlanWeather: "Weather",
+    cardPlanMap: "Korean map",
+    cardPlanCalendar: "Calendar"
+  },
+  es: {
+    saveEvent: "Guardar en plan",
+    savedEvent: "Guardado",
+    cardPlanTools: "Herramientas de plan",
+    cardPlanWeather: "Clima",
+    cardPlanMap: "Mapa coreano",
+    cardPlanCalendar: "Calendario"
+  },
+  zh: {
+    saveEvent: "\u52a0\u5165\u884c\u7a0b",
+    savedEvent: "\u5df2\u4fdd\u5b58",
+    cardPlanTools: "\u884c\u7a0b\u5de5\u5177",
+    cardPlanWeather: "\u5929\u6c14",
+    cardPlanMap: "\u97e9\u6587\u5730\u56fe",
+    cardPlanCalendar: "\u65e5\u5386"
+  },
+  pt: {
+    saveEvent: "Salvar no plano",
+    savedEvent: "Salvo",
+    cardPlanTools: "Ferramentas de planejamento",
+    cardPlanWeather: "Clima",
+    cardPlanMap: "Mapa coreano",
+    cardPlanCalendar: "Calendario"
+  },
+  ru: {
+    saveEvent: "\u0412 \u043f\u043b\u0430\u043d",
+    savedEvent: "\u0421\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u043e",
+    cardPlanTools: "\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b \u043f\u043b\u0430\u043d\u0430",
+    cardPlanWeather: "\u041f\u043e\u0433\u043e\u0434\u0430",
+    cardPlanMap: "\u041a\u0430\u0440\u0442\u0430 \u043d\u0430 \u043a\u043e\u0440\u0435\u0439\u0441\u043a\u043e\u043c",
+    cardPlanCalendar: "\u041a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044c"
+  },
+  ja: {
+    saveEvent: "\u8a08\u753b\u306b\u4fdd\u5b58",
+    savedEvent: "\u4fdd\u5b58\u6e08\u307f",
+    cardPlanTools: "\u8a08\u753b\u30c4\u30fc\u30eb",
+    cardPlanWeather: "\u5929\u6c17",
+    cardPlanMap: "\u97d3\u56fd\u8a9e\u5730\u56f3",
+    cardPlanCalendar: "\u30ab\u30ec\u30f3\u30c0\u30fc"
+  },
+  fr: {
+    saveEvent: "Ajouter au plan",
+    savedEvent: "Enregistre",
+    cardPlanTools: "Outils de planification",
+    cardPlanWeather: "Meteo",
+    cardPlanMap: "Carte coreenne",
+    cardPlanCalendar: "Calendrier"
+  },
+  de: {
+    saveEvent: "Zum Plan speichern",
+    savedEvent: "Gespeichert",
+    cardPlanTools: "Planungswerkzeuge",
+    cardPlanWeather: "Wetter",
+    cardPlanMap: "Koreanische Karte",
+    cardPlanCalendar: "Kalender"
+  }
+};
+
+for (const [code, labels] of Object.entries(plannerCardLabels)) {
+  dict[code] = { ...(dict[code] || dict.en), ...labels };
+}
+
 const categoryLabels = {
   festival: "festival",
   kpop: "kpop",
@@ -3511,9 +3582,19 @@ function eventCard(event, lang) {
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
           <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
         </dl>
+        ${eventPlanTools(lang)}
         ${saveEventButton(event, lang)}
       </div>
     </article>`;
+}
+
+function eventPlanTools(lang) {
+  return `
+        <div class="event-plan-tools" aria-label="${esc(tr(lang, "cardPlanTools"))}">
+          <span>${esc(tr(lang, "cardPlanWeather"))}</span>
+          <span>${esc(tr(lang, "cardPlanMap"))}</span>
+          <span>${esc(tr(lang, "cardPlanCalendar"))}</span>
+        </div>`;
 }
 
 function saveEventButton(event, lang) {

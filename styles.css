@@ -1795,6 +1795,29 @@ img {
   font-weight: 760;
 }
 
+.event-plan-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.event-plan-tools span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  max-width: 100%;
+  border: 1px solid #dce7e4;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #315271;
+  background: #f8fbfc;
+  font-size: 0.75rem;
+  font-weight: 820;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
 .freshness-chip {
   display: inline-flex;
   width: fit-content;
@@ -3825,7 +3848,7 @@ img {
 }
 
 .saved-clear {
-  min-height: 40px;
+  min-height: 44px;
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 8px 10px;
@@ -3851,7 +3874,7 @@ img {
 .saved-open,
 .planner-card-actions a,
 .planner-card-actions button {
-  min-height: 40px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;

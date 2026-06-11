@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "name": "K-Spot Now Page Design System",
+  "mission": "Keep the public site visitor-facing, visually intentional, and consistent without forcing every page into the same hero layout.",
+  "tokens": [
+    {
+      "name": "Brand coral",
+      "value": "rgb(232, 93, 63)",
+      "note": "Top page eyebrows and key brand accent."
+    },
+    {
+      "name": "Action blue",
+      "value": "rgb(36, 107, 235)",
+      "note": "Primary CTAs and map/source actions."
+    },
+    {
+      "name": "Ink",
+      "value": "rgb(29, 29, 31)",
+      "note": "Main headings and primary text."
+    },
+    {
+      "name": "Muted",
+      "value": "rgb(95, 107, 122)",
+      "note": "Secondary text, never page identity labels."
+    },
+    {
+      "name": "Radius",
+      "value": "8px or less",
+      "note": "Cards, panels, and tool surfaces."
+    },
+    {
+      "name": "Touch target",
+      "value": "44px minimum",
+      "note": "Buttons, tabs, save controls, and map links."
+    }
+  ],
+  "reviewRules": [
+    "Page eyebrows use coral",
+    "Status is shown as flags",
+    "Cards do not nest",
+    "Buttons keep 44px touch target",
+    "Ads stay peripheral",
+    "Mobile has no page-wide overflow",
+    "Visitor pages hide RSS and JSON jargon",
+    "Each page type has a distinct purpose",
+    "Home spotlight uses swipeable dots, not numbered sequence labels",
+    "Home event gallery starts short and expands on request",
+    "Calendar starts with current or upcoming planning months",
+    "Typography uses a modern service font with multilingual fallbacks",
+    "Role council reviews changes before execution",
+    "Detail mobile hero media keeps card gutters visible"
+  ],
+  "governanceLoop": {
+    "purpose": "Turn design criticism into repeatable work: find defects, debate intent and feasibility, review before execution, implement, then evaluate again.",
+    "roles": [
+      {
+        "id": "executive-lead",
+        "label": "책임총괄",
+        "scope": "Collects findings, ranks priority, decides block/schedule/approve, and keeps the loop moving."
+      },
+      {
+        "id": "designer",
+        "label": "디자이너",
+        "scope": "Owns visual intent, hierarchy, typography, interaction feel, and whether the page looks desirable to use."
+      },
+      {
+        "id": "developer",
+        "label": "개발자",
+        "scope": "Owns implementation, responsive behavior, accessibility targets, build health, and regression checks."
+      },
+      {
+        "id": "advisory-board",
+        "label": "자문단",
+        "scope": "Challenges visitor usefulness, monetization fit, copy clarity, and whether a feature belongs on the page."
+      },
+      {
+        "id": "audit-board",
+        "label": "감사",
+        "scope": "Finds visual defects, clipped text, overflow, awkward spacing, broken controls, and missing verification evidence."
+      },
+      {
+        "id": "user-panel",
+        "label": "유저평가단",
+        "scope": "Reads the result like a first-time visitor and reports whether the UI feels obvious, polished, and worth using."
+      }
+    ],
+    "stages": [
+      "책임총괄이 발견된 문제와 해야 할 일을 한 줄 작업으로 정리한다.",
+      "디자이너와 개발자가 의도, 구현 난이도, 위험, 대안을 서로 답한다.",
+      "자문단과 감사가 실행 전에 고객 가치와 품질 리스크를 검토한다.",
+      "개발자는 승인된 항목만 구현하고 빌드, 검증, 스크린샷을 남긴다.",
+      "유저평가단은 결과 화면을 다시 보고 직관성, 매력, 완성도를 평가한다.",
+      "책임총괄은 다음 반복에서 고칠 항목과 보류할 항목을 결정한다."
+    ]
+  },
+  "heroTypes": [
+    {
+      "id": "product-entry",
+      "name": "Product Entry",
+      "className": "service-hero",
+      "purpose": "The first screen should prove the service is useful through event discovery, imagery, city/category entry points, and clear actions.",
+      "titleScale": "largest",
+      "requiredSelectors": [
+        ".service-hero",
+        ".spotlight-nav-panel",
+        ".service-summary"
+      ],
+      "avoid": [
+        "Internal source explainers before visitor listings",
+        "Operational feed or monitor language",
+        "Generic text-only intro blocks"
+      ],
+      "examples": [
+        "Home"
+      ]
+    },
+    {
+      "id": "utility-page",
+      "name": "Utility Page",
+      "className": "page-hero compact",
+      "purpose": "Tool-like pages should open quickly, keep the title restrained, then let filters, lists, or route cards carry the value.",
+      "titleScale": "compact",
+      "requiredSelectors": [
+        ".page-hero.compact"
+      ],
+      "avoid": [
+        "Homepage-sized display type",
+        "Repeated brochure-style intros",
+        "Developer-facing labels in primary UI"
+      ],
+      "examples": [
+        "Now",
+        "Calendar",
+        "Routes"
+      ]
+    },
+    {
+      "id": "workspace-tool",
+      "name": "Workspace Tool",
+      "className": "planner-hero",
+      "purpose": "Planner must feel like a usable saved-event board with a visual preview, utility shortcuts, and starter actions.",
+      "titleScale": "feature",
+      "requiredSelectors": [
+        ".planner-hero",
+        ".planner-preview",
+        ".planner-utility",
+        ".planner-starter"
+      ],
+      "avoid": [
+        "Passive documentation cards",
+        "Oversized generic landing hero",
+        "Empty states without next action"
+      ],
+      "examples": [
+        "Planner"
+      ]
+    },
+    {
+      "id": "city-landing",
+      "name": "City Landing",
+      "className": "city-hero",
+      "purpose": "City pages should show place identity first, then lead into representative events and scannable city filters.",
+      "titleScale": "city",
+      "requiredSelectors": [
+        ".city-hero",
+        ".city-hero-feature",
+        ".city-hero-tags"
+      ],
+      "avoid": [
+        "Huge generic SEO headline",
+        "Awkward line breaks in city titles",
+        "Event lists with no city signal"
+      ],
+      "examples": [
+        "Seoul City"
+      ]
+    },
+    {
+      "id": "detail-decision",
+      "name": "Detail Decision",
+      "className": "detail-hero",
+      "purpose": "Event detail pages should help visitors decide quickly: date, place, source handoff, weather, map, and nearby route context.",
+      "titleScale": "decision",
+      "requiredSelectors": [
+        ".detail-hero",
+        ".fact-grid",
+        ".detail-quick-plan",
+        ".handoff-note",
+        ".weather-detail-section"
+      ],
+      "avoid": [
+        "Long defensive source paragraphs",
+        "Checklist headings with clipped descenders",
+        "Affiliate blocks that compete with event facts"
+      ],
+      "examples": [
+        "Event Detail"
+      ]
+    },
+    {
+      "id": "identity-page",
+      "name": "Identity Page",
+      "className": "about-identity-hero",
+      "purpose": "Trust pages should show the service identity, mark, and principles with enough visual presence to feel intentional.",
+      "titleScale": "brand",
+      "requiredSelectors": [
+        ".about-identity-hero",
+        ".about-brand-lockup",
+        ".about-brand-mark",
+        ".about-principles"
+      ],
+      "avoid": [
+        "Text-only essays",
+        "Broken wordmark wrapping",
+        "Vague official-source slogans"
+      ],
+      "examples": [
+        "About"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "group": "Core",
+      "title": "Home",
+      "path": "/en/",
+      "distPath": "en/index.html",
+      "owner": "designer",
+      "heroType": "product-entry",
+      "contract": "Visitor understands the product immediately.",
+      "watch": "Hero scale, gallery scan, city/category entry points.",
+      "requiredSelectors": [
+        ".service-hero",
+        ".spotlight-nav-panel",
+        ".service-summary"
+      ]
+    },
+    {
+      "id": "now",
+      "group": "Core",
+      "title": "Now",
+      "path": "/en/now/",
+      "distPath": "en/now/index.html",
+      "owner": "designer",
+      "heroType": "utility-page",
+      "contract": "Urgency reads as status flags, not text headings.",
+      "watch": "Live/ending flags, card rhythm, no internal feed jargon.",
+      "requiredSelectors": [
+        ".page-hero.compact",
+        ".now-status-flag",
+        ".recheck-card"
+      ],
+      "forbiddenVisibleText": [
+        "RSS feed",
+        "JSON feed"
+      ]
+    },
+    {
+      "id": "calendar",
+      "group": "Core",
+      "title": "Calendar",
+      "path": "/en/calendar/",
+      "distPath": "en/calendar/index.html",
+      "owner": "designer",
+      "heroType": "utility-page",
+      "contract": "Date navigation is calm, consistent, and utility-first.",
+      "watch": "Eyebrow color, filters, month heading scale.",
+      "requiredSelectors": [
+        ".page-hero.compact",
+        ".filter-bar",
+        ".month-block"
+      ]
+    },
+    {
+      "id": "planner",
+      "group": "Core",
+      "title": "Planner",
+      "path": "/en/planner/",
+      "distPath": "en/planner/index.html",
+      "owner": "designer",
+      "heroType": "workspace-tool",
+      "contract": "Saved-board tool feels distinct without becoming a homepage clone.",
+      "watch": "Hero size, preview panel, button quality, empty state.",
+      "requiredSelectors": [
+        ".planner-hero",
+        ".planner-preview",
+        ".planner-utility",
+        ".planner-starter"
+      ]
+    },
+    {
+      "id": "routes",
+      "group": "Discovery",
+      "title": "Routes",
+      "path": "/en/routes/",
+      "distPath": "en/routes/index.html",
+      "owner": "publisher",
+      "heroType": "utility-page",
+      "contract": "Route cards lead; ads stay peripheral.",
+      "watch": "Left ad rail, route card density, no square ad block.",
+      "requiredSelectors": [
+        ".page-hero.compact",
+        ".routes-with-ad",
+        ".routes-ad-rail"
+      ]
+    },
+    {
+      "id": "city",
+      "group": "Discovery",
+      "title": "Seoul City",
+      "path": "/en/cities/seoul/",
+      "distPath": "en/cities/seoul/index.html",
+      "owner": "designer",
+      "heroType": "city-landing",
+      "contract": "City identity appears before generic event lists.",
+      "watch": "City title scale, image crop, horizontal city chips.",
+      "requiredSelectors": [
+        ".city-hero",
+        ".city-hero-feature",
+        ".city-hero-tags"
+      ]
+    },
+    {
+      "id": "detail",
+      "group": "Detail",
+      "title": "Event Detail",
+      "path": "/en/events/bts-city-arirang-busan-2026.html",
+      "distPath": "en/events/bts-city-arirang-busan-2026.html",
+      "owner": "planner",
+      "heroType": "detail-decision",
+      "contract": "Facts, weather, and source handoff beat explanatory prose.",
+      "watch": "Fact cards, source handoff, weather module, ad placement.",
+      "requiredSelectors": [
+        ".detail-hero",
+        ".fact-grid",
+        ".detail-quick-plan",
+        ".handoff-note",
+        ".weather-detail-section"
+      ]
+    },
+    {
+      "id": "about",
+      "group": "Trust",
+      "title": "About",
+      "path": "/en/about/",
+      "distPath": "en/about/index.html",
+      "owner": "designer",
+      "heroType": "identity-page",
+      "contract": "Service identity feels intentional and branded.",
+      "watch": "Logo lockup, K-Spot Now nowrap, principle cards.",
+      "requiredSelectors": [
+        ".about-identity-hero",
+        ".about-brand-lockup",
+        ".about-brand-mark",
+        ".about-principles"
+      ]
+    }
+  ]
+}

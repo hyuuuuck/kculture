@@ -25,6 +25,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `data/official-thumbnail-overrides.json`: audited official-image downloads and official source identity-card overrides for pages that do not expose reusable event images
 - `data/guides.json`: original evergreen guide content
 - `data/weather-baselines.json`: schedule-month previous-year weather planning baselines by region
+- `data/design-system.json`: shared page-system contract for hero types, review rules, representative pages, design tokens, and harness checks
 - `scripts/build.mjs`: builds multilingual static HTML, sitemap, and ICS calendar
 - Generated feed files: `/feed.xml`, `/latest.json`, `/{lang}/feed.xml`, and `/{lang}/latest.json`
 - `scripts/validate-content.mjs`: validates required event/source/route fields before deploy
@@ -76,6 +77,38 @@ Run build, content checks, official-source coverage checks, generated HTML link 
 ```powershell
 npm.cmd run verify
 ```
+
+Build the local design QA harness:
+
+```powershell
+npm.cmd run harness:design
+```
+
+Then open `http://127.0.0.1:4173/__design-harness/` while the local preview server is running. This harness reads `data/design-system.json`, compares page systems, hero scale, status flags, ads, buttons, and mobile framing before pushing design changes, and links to the latest local design council report. Use it as the working room: inspect the page frames, open the council report, check DOM audit issues, then rerun after each design change.
+
+Run the role-based design council loop:
+
+```powershell
+npm.cmd run design:council
+```
+
+This runs the design harness, DOM visual audit, and council report. It publishes `data/feeds/design-quality-cycle-YYYY-MM-DD.md` and a local `http://127.0.0.1:4173/__design-harness/council.html` report. The report is the operating loop: 책임총괄 collects issues and priorities, 디자이너 answers visual intent, 개발자 answers implementation risk, 자문단 checks visitor usefulness, 감사 verifies evidence and defects, and 유저평가단 judges whether the result feels obvious and polished. The council also verifies each representative page against its named hero type, so homepage, planner, city, detail, and trust pages do not drift into the same generic layout.
+
+Run the DOM visual audit by itself:
+
+```powershell
+npm.cmd run design:dom-audit
+```
+
+This checks the representative desktop/mobile pages for page-wide overflow, elements crossing the viewport edge, clipped text, and undersized non-navigation controls. It writes ignored local artifacts under `data/feeds/design-dom-audit-YYYY-MM-DD.*` and a local `http://127.0.0.1:4173/__design-harness/dom-audit.html` report.
+
+Capture desktop and mobile screenshot baselines for the representative pages:
+
+```powershell
+npm.cmd run design:baselines
+```
+
+This writes ignored local artifacts under `data/feeds/design-baselines/` and a local `http://127.0.0.1:4173/__design-harness/baselines.html` gallery. It uses the local Edge or Chrome executable; set `DESIGN_BASELINE_BROWSER` if the browser is installed somewhere unusual.
 
 Run the CEO quality review after building and generating the AdSense scorecard:
 

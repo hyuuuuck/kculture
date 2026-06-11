@@ -26,14 +26,49 @@ function mobileMoreText(hiddenCount) {
 
 for (const carousel of spotlightCarousels) {
   const slides = [...carousel.querySelectorAll("[data-spotlight-slide]")];
-  const previousButton = carousel.querySelector("[data-spotlight-prev]");
-  const nextButton = carousel.querySelector("[data-spotlight-next]");
+  const track = carousel.querySelector(".spotlight-track");
   const dots = [...carousel.querySelectorAll("[data-spotlight-dot]")];
-  const count = carousel.querySelector("[data-spotlight-count]");
-  const titleLabel = carousel.querySelector("[data-spotlight-title-label]");
   if (slides.length <= 1) continue;
 
   let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+  let dragPointerId = null;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragDeltaX = 0;
+  let dragDeltaY = 0;
+  let suppressClick = false;
+
+  function beginDrag(clientX, clientY, pointerId) {
+    dragPointerId = pointerId;
+    dragStartX = clientX;
+    dragStartY = clientY;
+    dragDeltaX = 0;
+    dragDeltaY = 0;
+    carousel.classList.add("is-dragging");
+  }
+
+  function updateDrag(clientX, clientY, event) {
+    dragDeltaX = clientX - dragStartX;
+    dragDeltaY = clientY - dragStartY;
+    if (Math.abs(dragDeltaX) > 8 && Math.abs(dragDeltaX) > Math.abs(dragDeltaY) * 1.2) {
+      event?.preventDefault?.();
+    }
+  }
+
+  function finishDrag(clientX, clientY) {
+    const deltaX = dragDeltaX || clientX - dragStartX;
+    const deltaY = dragDeltaY || clientY - dragStartY;
+    dragPointerId = null;
+    carousel.classList.remove("is-dragging");
+
+    if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      suppressClick = true;
+      showSlide(deltaX < 0 ? currentIndex + 1 : currentIndex - 1);
+      window.setTimeout(() => {
+        suppressClick = false;
+      }, 350);
+    }
+  }
 
   function showSlide(index) {
     const previousIndex = currentIndex;
@@ -57,16 +92,88 @@ for (const carousel of spotlightCarousels) {
       else dot.removeAttribute("aria-current");
     });
 
-    if (count) count.textContent = `${currentIndex + 1} / ${slides.length}`;
-    if (titleLabel) titleLabel.textContent = dots[currentIndex]?.dataset.spotlightTitle || "";
   }
-
-  previousButton?.addEventListener("click", () => showSlide(currentIndex - 1));
-  nextButton?.addEventListener("click", () => showSlide(currentIndex + 1));
 
   dots.forEach((dot, dotIndex) => {
     dot.addEventListener("click", () => showSlide(dotIndex));
   });
+
+  function startDrag(event) {
+    if (!event.isPrimary || (event.button !== undefined && event.button !== 0)) return;
+    beginDrag(event.clientX, event.clientY, event.pointerId);
+    try {
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    } catch {
+      // Pointer capture is an enhancement; dragging still works without it.
+    }
+  }
+
+  function moveDrag(event) {
+    if (dragPointerId !== event.pointerId) return;
+    updateDrag(event.clientX, event.clientY, event);
+  }
+
+  function endDrag(event) {
+    if (dragPointerId !== event.pointerId) return;
+    try {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+    } catch {
+      // The pointer may have been released outside the track.
+    }
+    finishDrag(event.clientX, event.clientY);
+  }
+
+  function startMouseDrag(event) {
+    if (event.button !== 0 || dragPointerId !== null) return;
+    beginDrag(event.clientX, event.clientY, "mouse");
+  }
+
+  function moveMouseDrag(event) {
+    if (dragPointerId !== "mouse") return;
+    updateDrag(event.clientX, event.clientY, event);
+  }
+
+  function endMouseDrag(event) {
+    if (dragPointerId !== "mouse") return;
+    finishDrag(event.clientX, event.clientY);
+  }
+
+  function startTouchDrag(event) {
+    const touch = event.changedTouches?.[0];
+    if (!touch || dragPointerId !== null) return;
+    beginDrag(touch.clientX, touch.clientY, "touch");
+  }
+
+  function moveTouchDrag(event) {
+    const touch = event.changedTouches?.[0];
+    if (!touch || dragPointerId !== "touch") return;
+    updateDrag(touch.clientX, touch.clientY, event);
+  }
+
+  function endTouchDrag(event) {
+    const touch = event.changedTouches?.[0];
+    if (!touch || dragPointerId !== "touch") return;
+    finishDrag(touch.clientX, touch.clientY);
+  }
+
+  track?.addEventListener("pointerdown", startDrag);
+  track?.addEventListener("pointermove", moveDrag);
+  track?.addEventListener("pointerup", endDrag);
+  track?.addEventListener("pointercancel", endDrag);
+  track?.addEventListener("mousedown", startMouseDrag);
+  window.addEventListener("mousemove", moveMouseDrag);
+  window.addEventListener("mouseup", endMouseDrag);
+  track?.addEventListener("touchstart", startTouchDrag, { passive: true });
+  track?.addEventListener("touchmove", moveTouchDrag, { passive: false });
+  track?.addEventListener("touchend", endTouchDrag);
+  track?.addEventListener("touchcancel", endTouchDrag);
+
+  carousel.addEventListener("click", (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    suppressClick = false;
+  }, true);
 
   carousel.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
@@ -101,24 +208,35 @@ for (const scope of galleryScopes) {
   const cityPills = [...scope.querySelectorAll("[data-browse-city]")];
   const eventCards = cards.filter((card) => card.classList.contains("event-card"));
   const eventGrid = scope.querySelector(".gallery-grid");
-  const mobileMoreButton = eventCards.length > mobileEventBatchSize && eventGrid
+  const desktopInitialLimit = Number(scope.dataset.galleryLimit || 0);
+  const mobileInitialLimit = Number(scope.dataset.galleryMobileLimit || 0);
+  const galleryStep = Number(scope.dataset.galleryStep || 0);
+  const hasGalleryLimit = desktopInitialLimit > 0 || mobileInitialLimit > 0;
+  const initialLimit = () => {
+    if (hasGalleryLimit) {
+      return mobileEventListQuery.matches && mobileInitialLimit > 0 ? mobileInitialLimit : desktopInitialLimit;
+    }
+    return mobileEventBatchSize;
+  };
+  const stepLimit = () => galleryStep > 0 ? galleryStep : initialLimit();
+  const moreButton = eventCards.length > initialLimit() && eventGrid
     ? document.createElement("button")
     : null;
 
   let selectedCategory = filterRoot?.querySelector("[data-filter][aria-pressed='true']")?.dataset.filter || "all";
-  let mobileVisibleLimit = mobileEventBatchSize;
+  let visibleLimit = initialLimit();
 
-  if (mobileMoreButton) {
-    mobileMoreButton.type = "button";
-    mobileMoreButton.className = "mobile-load-more";
-    mobileMoreButton.hidden = true;
-    eventGrid.after(mobileMoreButton);
-    mobileMoreButton.addEventListener("click", () => {
-      mobileVisibleLimit += mobileEventBatchSize;
+  if (moreButton) {
+    moreButton.type = "button";
+    moreButton.className = "gallery-load-more";
+    moreButton.hidden = true;
+    eventGrid.after(moreButton);
+    moreButton.addEventListener("click", () => {
+      visibleLimit += stepLimit();
       applyFilters();
     });
     mobileEventListQuery.addEventListener("change", () => {
-      mobileVisibleLimit = mobileEventBatchSize;
+      visibleLimit = initialLimit();
       applyFilters();
     });
   }
@@ -152,9 +270,9 @@ for (const scope of galleryScopes) {
     const categoryHits = new Map();
     const cityHits = new Map();
     let visibleCount = 0;
-    let mobileDisplayedCount = 0;
-    let mobileHiddenCount = 0;
-    const canLimitMobile = Boolean(mobileMoreButton) && mobileEventListQuery.matches && !filtersActive;
+    let displayedCount = 0;
+    let hiddenCount = 0;
+    const canLimit = Boolean(moreButton) && !filtersActive && (hasGalleryLimit || mobileEventListQuery.matches);
 
     for (const card of cards) {
       const categoryMatch = selectedCategory === "all" || card.dataset.category === selectedCategory;
@@ -164,14 +282,14 @@ for (const scope of galleryScopes) {
       const queryMatch = !query || searchText.includes(query);
       const visible = categoryMatch && statusMatch && cityMatch && queryMatch;
       card.classList.toggle("is-hidden", !visible);
-      card.classList.remove("is-mobile-limited");
+      card.classList.remove("is-gallery-limited");
       if (visible) visibleCount += 1;
 
       if (visible && card.classList.contains("event-card")) {
-        mobileDisplayedCount += 1;
-        const mobileLimited = canLimitMobile && mobileDisplayedCount > mobileVisibleLimit;
-        card.classList.toggle("is-mobile-limited", mobileLimited);
-        if (mobileLimited) mobileHiddenCount += 1;
+        displayedCount += 1;
+        const limited = canLimit && displayedCount > visibleLimit;
+        card.classList.toggle("is-gallery-limited", limited);
+        if (limited) hiddenCount += 1;
       }
 
       // Facet tallies ignore their own dimension so each pill shows what
@@ -192,14 +310,17 @@ for (const scope of galleryScopes) {
     syncBrowsePills(categoryHits, cityHits, filtersActive);
 
     if (resultCount) {
-      resultCount.textContent = visibleCount === 1
-        ? countOneTemplate
-        : countTemplate.replace("{count}", String(visibleCount));
+      const shownCount = Math.max(0, displayedCount - hiddenCount);
+      resultCount.textContent = canLimit && hiddenCount > 0
+        ? `${shownCount} / ${visibleCount}`
+        : visibleCount === 1
+          ? countOneTemplate
+          : countTemplate.replace("{count}", String(visibleCount));
     }
     if (noResults) noResults.hidden = visibleCount !== 0;
-    if (mobileMoreButton) {
-      mobileMoreButton.hidden = !canLimitMobile || mobileHiddenCount === 0;
-      mobileMoreButton.textContent = mobileMoreText(mobileHiddenCount);
+    if (moreButton) {
+      moreButton.hidden = !canLimit || hiddenCount === 0;
+      moreButton.textContent = mobileMoreText(hiddenCount);
     }
   }
 
@@ -223,7 +344,7 @@ for (const scope of galleryScopes) {
     if (searchInput) searchInput.value = "";
     if (statusSelect) statusSelect.value = "all";
     if (citySelect) citySelect.value = "all";
-    mobileVisibleLimit = mobileEventBatchSize;
+    visibleLimit = initialLimit();
     for (const item of filterRoot?.querySelectorAll("[data-filter]") || []) {
       item.setAttribute("aria-pressed", String(item.dataset.filter === "all"));
     }

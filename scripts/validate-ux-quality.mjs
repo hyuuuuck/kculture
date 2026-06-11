@@ -9,6 +9,7 @@ const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json")
 const sources = JSON.parse(fs.readFileSync(path.join(root, "data", "sources.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const curationQueue = JSON.parse(fs.readFileSync(path.join(root, "data", "curation-queue.json"), "utf8"));
+const designSystem = JSON.parse(fs.readFileSync(path.join(root, "data", "design-system.json"), "utf8").replace(/^\uFEFF/, ""));
 const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
 const errors = [];
 
@@ -31,6 +32,12 @@ function countMatches(text, pattern) {
 
 function assertIncludes(text, needle, id, message) {
   if (!text.includes(needle)) push(id, message);
+}
+
+function assertMinHeightAtLeast(selector, minimum, id, message) {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = styles.match(new RegExp(`${escapedSelector}\\s*\\{[\\s\\S]*?min-height:\\s*(\\d+)px;[\\s\\S]*?\\}`));
+  if (!match || Number(match[1]) < minimum) push(id, message);
 }
 
 function htmlText(value) {
@@ -63,6 +70,7 @@ for (const lang of languages) {
   assertIncludes(home, `/${lang}/planner/`, `${lang}/index.html`, "planner link is missing from the primary experience.");
   assertIncludes(home, `/${lang}/about/`, `${lang}/index.html`, "about link is missing from the primary experience.");
   assertIncludes(home, "class=\"language-menu\"", `${lang}/index.html`, "language selector should be compact instead of a full header row.");
+  assertIncludes(home, "class=\"language-flag flag-", `${lang}/index.html`, "language selector should include visual flag cues.");
 
   const calendar = read(path.join(lang, "calendar", "index.html"));
   const monthBlocks = countMatches(calendar, /class="month-block"/g);
@@ -70,6 +78,12 @@ for (const lang of languages) {
   if (!monthBlocks) push(`${lang}/calendar/index.html`, "calendar has no visible month groups.");
   if (monthBlocks !== monthHeadings) {
     push(`${lang}/calendar/index.html`, `month headings must be split into month and year spans; found ${monthHeadings}/${monthBlocks}.`);
+  }
+  const firstCalendarMonth = calendar.match(/data-calendar-month="(\d{4}-\d{2})"/)?.[1] || "";
+  if (!firstCalendarMonth) {
+    push(`${lang}/calendar/index.html`, "calendar month blocks must expose data-calendar-month for audit.");
+  } else if (firstCalendarMonth < today.slice(0, 7)) {
+    push(`${lang}/calendar/index.html`, `calendar must not open on an archive month; found ${firstCalendarMonth}.`);
   }
 }
 
@@ -95,18 +109,61 @@ const home = read("en/index.html");
 const styles = read("styles.css");
 const appJs = read("app.js");
 const plannerPage = read("en/planner/index.html");
+const designHeroTypes = Array.isArray(designSystem.heroTypes) ? designSystem.heroTypes : [];
+const designPages = Array.isArray(designSystem.pages) ? designSystem.pages : [];
+const designHeroIds = new Set(designHeroTypes.map((type) => type.id));
+if (designHeroTypes.length < 6) {
+  push("data/design-system.json", "design system must define the core hero taxonomy.");
+}
+for (const id of ["product-entry", "utility-page", "workspace-tool", "city-landing", "detail-decision", "identity-page"]) {
+  if (!designHeroIds.has(id)) push("data/design-system.json", `design system is missing hero type: ${id}.`);
+}
+for (const page of designPages) {
+  if (!page.heroType || !designHeroIds.has(page.heroType)) {
+    push("data/design-system.json", `representative page has no valid heroType: ${page.id || page.title}.`);
+  }
+}
+for (const rule of [
+  "Page eyebrows use coral",
+  "Status is shown as flags",
+  "Ads stay peripheral",
+  "Each page type has a distinct purpose",
+  "Home spotlight uses swipeable dots, not numbered sequence labels",
+  "Home event gallery starts short and expands on request",
+  "Calendar starts with current or upcoming planning months",
+  "Typography uses a modern service font with multilingual fallbacks",
+  "Role council reviews changes before execution"
+]) {
+  if (!designSystem.reviewRules?.includes(rule)) {
+    push("data/design-system.json", `design review rule is missing: ${rule}.`);
+  }
+}
+const governanceRoles = Array.isArray(designSystem.governanceLoop?.roles) ? designSystem.governanceLoop.roles : [];
+const governanceRoleIds = new Set(governanceRoles.map((role) => role.id));
+for (const roleId of ["executive-lead", "designer", "developer", "advisory-board", "audit-board", "user-panel"]) {
+  if (!governanceRoleIds.has(roleId)) {
+    push("data/design-system.json", `role council is missing role: ${roleId}.`);
+  }
+}
+if (!Array.isArray(designSystem.governanceLoop?.stages) || designSystem.governanceLoop.stages.length < 6) {
+  push("data/design-system.json", "role council must define the full review loop stages.");
+}
 const spotlightSlides = countMatches(home, /data-spotlight-slide/g);
-const spotlightTabs = countMatches(home, /class="spotlight-tab"/g);
+const spotlightDots = countMatches(home, /class="spotlight-dot"/g);
 if (spotlightSlides < 3 || spotlightSlides > 5) {
   push("en/index.html", `home spotlight carousel should show 3-5 curated slides; found ${spotlightSlides}.`);
 }
-if (spotlightSlides !== spotlightTabs) {
-  push("en/index.html", `spotlight tab count should match slide count; found ${spotlightTabs}/${spotlightSlides}.`);
+if (spotlightSlides !== spotlightDots) {
+  push("en/index.html", `spotlight dot count should match slide count; found ${spotlightDots}/${spotlightSlides}.`);
 }
-assertIncludes(home, "data-spotlight-count", "en/index.html", "spotlight count is missing.");
-assertIncludes(home, "class=\"spotlight-tabs\"", "en/index.html", "spotlight titled navigation is missing.");
-assertIncludes(home, "class=\"spotlight-nav-panel\"", "en/index.html", "spotlight compact navigation panel is missing.");
-assertIncludes(home, "data-spotlight-title-label", "en/index.html", "spotlight current title label is missing.");
+assertIncludes(home, "class=\"spotlight-tabs\"", "en/index.html", "spotlight dot navigation is missing.");
+assertIncludes(home, "class=\"spotlight-nav-panel\"", "en/index.html", "spotlight dot navigation panel is missing.");
+if (home.includes("data-spotlight-count") || home.includes("data-spotlight-title-label")) {
+  push("en/index.html", "spotlight controls should stay simple: no repeated title label or sequence count below the hero.");
+}
+if (/class="spotlight-dot"[\s\S]*?>\s*<span>(0?\d+)<\/span>/.test(home)) {
+  push("en/index.html", "spotlight dots should not expose visible 1-5 sequence numbers.");
+}
 const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
 assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
 if (summaryBlock.includes("<dt>Sources</dt>")) {
@@ -116,16 +173,19 @@ const primaryNav = home.match(/<nav class="top-nav"[\s\S]*?<\/nav>/)?.[0] || "";
 if (primaryNav.includes("/en/sources/") || primaryNav.includes("/en/watchlist/")) {
   push("en/index.html", "primary navigation should stay visitor-facing; source and watchlist pages belong in footer trust links.");
 }
-if (home.includes("spotlight-dots")) {
-  push("en/index.html", "spotlight should use titled navigation tabs, not dot-only navigation.");
-}
 if (home.includes("class=\"lang-switcher\"")) {
   push("en/index.html", "header should use a compact language menu, not a multi-row language link strip.");
 }
 assertIncludes(home, "class=\"language-menu-panel\"", "en/index.html", "language menu panel is missing.");
+assertIncludes(home, "fonts.googleapis.com/css2?family=Geist", "en/index.html", "Geist webfont should be loaded for the modern service typography direction.");
+assertIncludes(styles, "font-family: Geist, Inter, \"Pretendard Variable\", Pretendard", "styles.css", "font stack should use Geist with Pretendard/Inter fallbacks.");
 assertIncludes(styles, "@media (max-width: 680px)", "styles.css", "mobile breakpoint is missing.");
 assertIncludes(styles, "grid-template-areas:", "styles.css", "mobile header should explicitly place brand, nav, and language controls.");
 assertIncludes(styles, ".language-menu summary", "styles.css", "compact language menu styling is missing.");
+assertIncludes(home, "class=\"nav-full\"", "en/index.html", "primary navigation should include full labels for desktop.");
+assertIncludes(home, "class=\"nav-short\"", "en/index.html", "primary navigation should include short mobile labels.");
+assertIncludes(styles, ".nav-short", "styles.css", "short mobile navigation label styling is missing.");
+assertIncludes(styles, ".service-hero h1 {\n    max-width: none;\n    font-size: clamp(2rem, 10.2vw, 2.8rem);\n    line-height: 1.02;\n    white-space: nowrap;", "styles.css", "mobile home brand title must stay on one line.");
 const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
 if (categoryMediaCards < 7) {
   push("en/index.html", `home category cards should use representative event thumbnails; found ${categoryMediaCards}.`);
@@ -135,6 +195,10 @@ if (cityMediaCards < 3) {
   push("en/index.html", `home city cards should use representative event thumbnails; found ${cityMediaCards}.`);
 }
 const homeEventCards = countMatches(home, /class="event-card"/g);
+assertIncludes(home, "data-gallery-limit=\"8\"", "en/index.html", "home event gallery should start with a short list instead of dumping every card.");
+assertIncludes(home, "data-gallery-mobile-limit=\"6\"", "en/index.html", "home event gallery should stay shorter on mobile.");
+assertIncludes(appJs, "gallery-load-more", "app.js", "event galleries should expose a clear more button when the initial list is limited.");
+assertIncludes(appJs, "is-gallery-limited", "app.js", "event galleries should hide extra cards before the visitor asks for more.");
 const homeSourceRows = countMatches(home, /class="event-source-row"/g);
 if (homeEventCards !== homeSourceRows) {
   push("en/index.html", `each home event card must show a linked-source role row; found ${homeSourceRows}/${homeEventCards}.`);
@@ -166,10 +230,12 @@ if (differenceSection) {
   push("en/index.html", "homepage should not show the source-comparison explainer before visitor listings.");
 }
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
+assertIncludes(styles, ".handoff-chip", "styles.css", "detail handoff chips must replace long handoff prose.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
+assertIncludes(styles, ".detail-section-head h2 {\n  margin: 0;\n  line-height: 1.26;", "styles.css", "detail section headings need enough line-height so descenders are not clipped.");
+assertIncludes(styles, ".visitor-action-section .detail-section-head {\n  padding: 22px 22px 18px;", "styles.css", "visit-ready checklist heading needs bottom padding before the divider.");
 assertIncludes(styles, ".source-transparency-grid", "styles.css", "detail source transparency styling is missing.");
 assertIncludes(styles, ".source-boundary-callout", "styles.css", "detail source boundary callout styling is missing.");
-assertIncludes(styles, ".localized-brief-grid", "styles.css", "FR/DE localized visitor brief styling is missing.");
 assertIncludes(styles, ".guide-decision-panel", "styles.css", "guide decision panel styling is missing.");
 assertIncludes(styles, ".guide-event-grid", "styles.css", "guide related-event grid styling hook is missing.");
 assertIncludes(styles, ".guide-source-strip", "styles.css", "guide official-source strip styling is missing.");
@@ -177,23 +243,48 @@ assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must pre
 assertIncludes(styles, ".event-source-row", "styles.css", "event cards must style source-role rows.");
 assertIncludes(styles, ".source-role-chip", "styles.css", "event cards must style linked-source role chips.");
 assertIncludes(styles, ".event-plan-tools", "styles.css", "event cards must style visible planning-tool chips.");
+assertIncludes(styles, ".recheck-card {\n  display: grid;\n  grid-template-rows:", "styles.css", "recheck cards need fixed internal rows so repeated cards align.");
+assertIncludes(styles, ".recheck-source", "styles.css", "recheck source links need subdued structured styling instead of oversized blue text.");
+assertIncludes(read(path.join("en", "now", "index.html")), "class=\"recheck-title\"", "en/now/index.html", "recheck cards need structured title/meta/source slots.");
+assertIncludes(styles, "clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%", "styles.css", "now page status groups should render as compact flag labels, not large headings.");
+assertIncludes(read(path.join("en", "now", "index.html")), "class=\"now-status-flag", "en/now/index.html", "now page cards must show event timing as status flags, not inline meta text.");
+assertIncludes(styles, ".now-status-flag", "styles.css", "now page card timing flags need dedicated styling.");
+assertIncludes(styles, ".routes-ad-rail .ad-disclosure", "styles.css", "sponsored route ad label should be a compact horizontal disclosure.");
+assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-rl/, "styles.css", "route ad disclosure must not render as vertical text.");
+assertIncludes(read(path.join("en", "routes", "index.html")), "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com skyscraper ad in the side rail.");
+assertIncludes(styles, ".trip-skyscraper-frame", "styles.css", "skyscraper Trip.com ad needs a constrained vertical frame.");
 assertIncludes(plannerPage, "class=\"planner-utility\"", "en/planner/index.html", "planner page must explain calendar, Korean map, and official-source planning utility before saved items render.");
+assertIncludes(plannerPage, "class=\"planner-hero\"", "en/planner/index.html", "planner page must have a feature-oriented hero instead of a plain text header.");
+assertIncludes(plannerPage, "class=\"planner-preview\"", "en/planner/index.html", "planner page must show a visual preview of saved planning.");
+assertIncludes(plannerPage, "class=\"planner-starter\"", "en/planner/index.html", "planner page must offer starter events when no saved list exists.");
 assertIncludes(plannerPage, "data-map-label=\"Korean map\"", "en/planner/index.html", "planner page must expose a localized map label for saved event cards.");
 assertIncludes(appJs, "planner-card-map-links", "app.js", "saved planner cards must render Google, Naver, and Kakao map links from the saved Korean map query.");
 assertIncludes(appJs, "map.naver.com/p/search", "app.js", "saved planner map links must include Naver Map search.");
 assertIncludes(appJs, "map.kakao.com/?q=", "app.js", "saved planner map links must include Kakao Map search.");
 assertIncludes(styles, ".planner-utility", "styles.css", "planner utility cards must be styled.");
+assertIncludes(styles, ".planner-starter-card", "styles.css", "planner starter cards must be styled.");
 assertIncludes(styles, ".planner-card-map-links a {\n  min-height: 44px;", "styles.css", "saved planner map links must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");
 assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must preserve a minimum 44px touch target.");
-assertIncludes(styles, ".save-event {\n  min-height: 44px;", "styles.css", "save buttons must preserve a minimum 44px touch target.");
+assertMinHeightAtLeast(".save-event", 44, "styles.css", "save buttons must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".saved-clear {\n  min-height: 44px;", "styles.css", "saved planner clear button must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".saved-open,\n.planner-card-actions a,\n.planner-card-actions button {\n  min-height: 44px;", "styles.css", "saved planner controls must preserve a minimum 44px touch target.");
-assertIncludes(styles, ".spotlight-arrow {\n    display: none;", "styles.css", "mobile spotlight controls should avoid cramped arrow buttons.");
-assertIncludes(styles, ".spotlight-controls .spotlight-tab {\n    width: 44px;\n    min-height: 44px;", "styles.css", "mobile spotlight tabs must preserve 44px touch targets.");
+if (styles.includes(".spotlight-arrow")) {
+  push("styles.css", "spotlight controls should not use arrow buttons on the first-screen carousel.");
+}
+assertIncludes(styles, ".spotlight-controls .spotlight-dot {\n    width: 24px;\n    min-height: 24px;", "styles.css", "mobile spotlight dots must stay compact and uncluttered.");
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");
 assertIncludes(about, "not a ticket marketplace or checkout service", "en/about/index.html", "about page must define the non-ticketing service boundary.");
+assertIncludes(about, "class=\"about-identity-hero\"", "en/about/index.html", "about page must show a branded service identity hero.");
+assertIncludes(about, "class=\"about-brand-mark\"", "en/about/index.html", "about page must surface the K-Spot Now logo mark.");
+assertIncludes(about, "class=\"about-principles\"", "en/about/index.html", "about page must summarize service principles visually.");
+assertIncludes(styles, ".about-page h1", "styles.css", "about page needs dedicated brand-layout styling.");
+assertIncludes(styles, "text-wrap: nowrap;", "styles.css", "K-Spot Now brand title must stay on one line.");
+assertIncludes(styles, "word-break: keep-all;", "styles.css", "K-Spot Now brand title must not split awkwardly.");
+assertIncludes(styles, ".page-hero > .eyebrow", "styles.css", "top page eyebrow labels must use one consistent brand color.");
+assertIncludes(styles, ".city-strip.page-strip {\n  display: flex;\n  flex-wrap: wrap;", "styles.css", "desktop city page strip should wrap instead of clipping the final city chip.");
+assertIncludes(styles, ".city-strip.page-strip {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));", "styles.css", "mobile city page strip should use a compact two-column grid instead of clipped horizontal chips.");
 assertIncludes(home, "/en/advertising/", "en/index.html", "footer trust links must include the advertising policy.");
 const advertising = read("en/advertising/index.html");
 assertIncludes(advertising, "Advertising Policy", "en/advertising/index.html", "advertising policy page title is missing.");
@@ -277,11 +368,11 @@ for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
 
 const frDetail = read("fr/events/bts-city-arirang-busan-2026.html");
 const deDetail = read("de/events/bts-city-arirang-busan-2026.html");
-assertIncludes(frDetail, "Brief visiteur localise", "fr/events/bts-city-arirang-busan-2026.html", "French detail must include the localized visitor brief.");
-assertIncludes(frDetail, "Nom officiel a copier", "fr/events/bts-city-arirang-busan-2026.html", "French detail must preserve a searchable official title.");
+assertIncludes(frDetail, "Checklist avant visite", "fr/events/bts-city-arirang-busan-2026.html", "French detail must expose the compact visit checklist.");
+assertIncludes(frDetail, "Cherchez le nom coreen", "fr/events/bts-city-arirang-busan-2026.html", "French detail must preserve the map-ready local place action.");
 assertIncludes(frDetail, "source officielle", "fr/events/bts-city-arirang-busan-2026.html", "French detail must explain the official-source handoff.");
-assertIncludes(deDetail, "Lokales Besucherbriefing", "de/events/bts-city-arirang-busan-2026.html", "German detail must include the localized visitor brief.");
-assertIncludes(deDetail, "Offiziellen Namen kopieren", "de/events/bts-city-arirang-busan-2026.html", "German detail must preserve a searchable official title.");
+assertIncludes(deDetail, "Besuchs-Checkliste", "de/events/bts-city-arirang-busan-2026.html", "German detail must expose the compact visit checklist.");
+assertIncludes(deDetail, "Koreanischen Ortsnamen suchen", "de/events/bts-city-arirang-busan-2026.html", "German detail must preserve the map-ready local place action.");
 assertIncludes(deDetail, "offiziellen", "de/events/bts-city-arirang-busan-2026.html", "German detail must explain the official-source handoff.");
 const frNolDetail = read("fr/events/blackpink-tamagotchi-seoul-forest-2026.html");
 const deNolDetail = read("de/events/blackpink-tamagotchi-seoul-forest-2026.html");
@@ -293,10 +384,11 @@ assertIncludes(deNolDetail, "Die verlinkte Listing- oder Ticketquelle", "de/even
 const frRouteIndex = read("fr/routes/index.html");
 const deRouteIndex = read("de/routes/index.html");
 const enRouteIndex = read("en/routes/index.html");
-assertIncludes(enRouteIndex, "class=\"routes-with-ad\"", "en/routes/index.html", "Travel routes index must reserve a layout column for the sponsored travel banner.");
-assertIncludes(enRouteIndex, "class=\"routes-ad-rail\"", "en/routes/index.html", "Travel routes index must place the Trip.com skyscraper banner in a left rail.");
-assertIncludes(enRouteIndex, "width=\"120\" height=\"600\"", "en/routes/index.html", "Travel routes Trip.com banner must use the provided 120x600 creative size.");
-assertIncludes(enRouteIndex, "kr.trip.com/partners/ad/DB17791825", "en/routes/index.html", "Travel routes index must include the provided Trip.com skyscraper iframe URL.");
+assertIncludes(enRouteIndex, "class=\"routes-with-ad\"", "en/routes/index.html", "Travel routes index must use the route grid with a left ad rail.");
+assertIncludes(enRouteIndex, "class=\"routes-ad-rail\"", "en/routes/index.html", "Travel routes index must place the Trip.com skyscraper ad beside route cards.");
+assertIncludes(enRouteIndex, "width=\"120\" height=\"600\"", "en/routes/index.html", "Travel routes skyscraper ad must preserve the provided 120x600 creative size.");
+assertIncludes(enRouteIndex, "kr.trip.com/partners/ad/DB17791825", "en/routes/index.html", "Travel routes index must include the Trip.com skyscraper iframe URL.");
+assertNotVisible(enRouteIndex, /class="trip-square-ad"|TD17833727|width="1200" height="1200"/, "en/routes/index.html", "Travel routes index must not render the square Trip.com ad.");
 assertIncludes(frRouteIndex, "Soiree au Hangang", "fr/routes/index.html", "French route index must localize route titles and route copy.");
 assertIncludes(deRouteIndex, "Hangang-Abendroute", "de/routes/index.html", "German route index must localize route titles and route copy.");
 assertIncludes(frDetail, "Vue rapide", "fr/events/bts-city-arirang-busan-2026.html", "French weather overview heading must be localized.");
@@ -372,7 +464,7 @@ for (const event of activeEvents) {
     assertIncludes(html, needle, `en/events/${event.slug}.html`, `${needle} block is missing.`);
   }
   assertIncludes(html, "class=\"handoff-note\"", `en/events/${event.slug}.html`, "detail page must include an official-source handoff note.");
-  assertIncludes(html, "Plan here, then complete tickets, reservations, purchases", `en/events/${event.slug}.html`, "detail page must explain that final action happens on the official source.");
+  assertIncludes(html, "class=\"handoff-chip\"", `en/events/${event.slug}.html`, "detail page must show compact handoff chips instead of long handoff prose.");
   assertIncludes(html, "data-save-event-label", `en/events/${event.slug}.html`, "detail save button must include a durable visible label node.");
   assertIncludes(html, "Visit-ready checklist", `en/events/${event.slug}.html`, "detail page must surface an at-a-glance visitor action checklist.");
   assertIncludes(html, "Confirm on the official page", `en/events/${event.slug}.html`, "detail checklist must direct visitors to final official confirmation.");
@@ -403,7 +495,7 @@ if (seoulAffiliateEvent) {
 
 const nolDetail = read("en/events/blackpink-tamagotchi-seoul-forest-2026.html");
 assertIncludes(nolDetail, "Listing / ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing pages must be labeled as listing/ticket sources, not generic official-source pages.");
-assertIncludes(nolDetail, "Listing or booking source used after manual review", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing pages must explain the manual-review planning layer.");
+assertIncludes(nolDetail, "The linked listing or ticket source", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing pages must keep a concise linked-source boundary.");
 assertIncludes(nolDetail, "The linked listing or ticket source is where final details can change", "en/events/blackpink-tamagotchi-seoul-forest-2026.html", "Listing details must explain the official handoff without defensive platform naming.");
 
 for (const lang of languages) {
@@ -450,4 +542,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("UX quality validation passed: compact mobile header, multilingual pages, carousel tabs, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.");
+console.log("UX quality validation passed: compact mobile header, multilingual pages, carousel dots, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.");

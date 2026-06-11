@@ -198,7 +198,6 @@ async function validateGeneratedText() {
     "Clear saved",
     "1 saved event",
     "saved events",
-    "Plan here, then complete tickets",
     "How to verify a Korea K-pop pop-up before you go",
     "What tourists should check before using Korea duty-free deals",
     "Korea shopping sale calendar for foreign visitors",

@@ -1,26 +1,47 @@
 {
-  "generatedAt": "2026-06-10T04:58:23.613Z",
+  "generatedAt": "2026-06-11T20:22:48.663Z",
   "files": {
-    "audit": "source-audit-2026-06-10.json",
-    "candidates": "official-page-candidates-2026-06-10.json",
-    "drafts": "draft-events-2026-06-10.json",
-    "reviewReport": "review-report-2026-06-10.md",
-    "reviewBoard": "review-board-2026-06-10.html"
+    "audit": "source-audit-2026-06-12.json",
+    "candidates": "official-page-candidates-2026-06-12.json",
+    "drafts": "draft-events-2026-06-12.json",
+    "reviewReport": "review-report-2026-06-12.md",
+    "reviewBoard": "review-board-2026-06-12.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 7,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 53,
-    "candidateFailed": 0,
-    "discoveredLinks": 623,
-    "dateSignals": 302,
-    "draftCandidates": 50,
-    "skippedCandidates": 626
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 526,
+    "dateSignals": 298,
+    "draftCandidates": 51,
+    "skippedCandidates": 528
   },
-  "failedSources": [],
+  "failedSources": [
+    {
+      "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Duty Free",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Duty Free Online Sale",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Department Store Global",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    }
+  ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
@@ -28,7 +49,7 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 12
+      "count": 13
     },
     {
       "key": "Busan Metropolitan City Events and English News",
@@ -36,7 +57,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 3
+      "count": 5
     },
     {
       "key": "NOL World Ticket",
@@ -54,33 +75,33 @@
     },
     {
       "key": "shopping",
-      "count": 3
-    },
-    {
-      "key": "duty-free",
-      "count": 2
-    },
-    {
-      "key": "kpop",
-      "count": 2
+      "count": 6
     },
     {
       "key": "department-store",
+      "count": 1
+    },
+    {
+      "key": "duty-free",
+      "count": 1
+    },
+    {
+      "key": "kpop",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 560
+      "count": 463
     },
     {
       "key": "already published source URL",
-      "count": 14
+      "count": 13
     },
     {
       "key": "listing page is not a specific event",
-      "count": 12
+      "count": 8
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -88,11 +109,11 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "already published similar event: bts-city-arirang-busan-2026",
-      "count": 4
+      "count": 5
     }
   ],
   "highSignalCandidates": [
@@ -126,6 +147,14 @@
       "links": 18,
       "dates": 18,
       "keywords": 4,
+      "score": 122
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 18,
+      "dates": 18,
+      "keywords": 2,
       "score": 119
     },
     {
@@ -151,14 +180,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 114
-    },
-    {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 18,
-      "dates": 18,
-      "keywords": 1,
-      "score": 110
     }
   ]
 }

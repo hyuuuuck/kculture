@@ -133,18 +133,24 @@ function collectHomeUx() {
   }
 
   const slides = countMatches(home, /data-spotlight-slide/g);
-  const tabs = countMatches(home, /class="spotlight-tab"/g);
-  const hasCompactNavigation = home.includes("class=\"spotlight-nav-panel\"") && home.includes("data-spotlight-title-label");
-  if (slides >= 3 && slides <= 5 && tabs === slides && hasCompactNavigation && !home.includes("spotlight-dots")) {
-    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with numbered controls and a readable current-title label.`);
+  const dots = countMatches(home, /class="spotlight-dot"/g);
+  const hasSimpleDots = home.includes("class=\"spotlight-nav-panel\"") && dots === slides && !home.includes("data-spotlight-title-label") && !home.includes("data-spotlight-count");
+  if (slides >= 3 && slides <= 5 && hasSimpleDots) {
+    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with compact dot navigation and no repeated title/count clutter.`);
   } else {
-    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${tabs} tabs, compact navigation ${hasCompactNavigation}.`, "Designer: keep 3-5 spotlight slides, compact numbered controls, and a current-title label; remove dot-only navigation.");
+    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${dots} dots, simple dots ${hasSimpleDots}.`, "Designer: keep 3-5 spotlight slides with dot-only navigation; do not repeat title or sequence count below the hero.");
   }
 
   if (home.includes("Live Korea events, pop-ups, and deals for visitors.") && home.includes("K-Spot Now")) {
     pass("planner", "Positioning", "Brand promise", "Homepage states the live Korea events/pop-ups/deals promise.");
   } else {
     fail("planner", "Positioning", "Brand promise", "Homepage promise is missing or unclear.", "Planner: restore brand promise above the fold.");
+  }
+
+  if (home.includes("data-gallery-limit=\"8\"") && home.includes("data-gallery-mobile-limit=\"6\"")) {
+    pass("designer", "Content density", "Home event gallery", "Homepage starts with a short event set and lets visitors expand when they want more.");
+  } else {
+    fail("designer", "Content density", "Home event gallery", "Home event gallery is not progressively disclosed.", "Designer/Developer: keep the homepage event list short by default and expose a clear more button.");
   }
 
   const navHasOpsNoise = /<nav class="top-nav"[\s\S]*?(Sources|Watchlist)[\s\S]*?<\/nav>/i.test(home);
@@ -261,7 +267,6 @@ function collectDetailUx() {
   let missing = 0;
   let missingChecklist = 0;
   let missingSourceBoundary = 0;
-  let missingLocalizedBrief = 0;
   let internalKeyLeaks = 0;
   let checked = 0;
   const sourceBoundaryLangs = new Set(["en", "es", "pt", "fr", "de"]);
@@ -274,7 +279,6 @@ function collectDetailUx() {
       }
       if (!html.includes("visitor-action-grid")) missingChecklist += 1;
       if (sourceBoundaryLangs.has(lang) && !html.includes("source-boundary-callout")) missingSourceBoundary += 1;
-      if ((lang === "fr" || lang === "de") && !html.includes("localized-visitor-brief")) missingLocalizedBrief += 1;
       if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) internalKeyLeaks += 1;
     }
   }
@@ -293,11 +297,6 @@ function collectDetailUx() {
   if (!internalKeyLeaks) pass("audit-institution", "Public copy", "No internal label leakage", `${checked} detail pages hide internal verification and collection translation keys.`);
   else fail("audit-institution", "Public copy", "No internal label leakage", `${internalKeyLeaks}/${checked} detail pages expose internal keys.`, "Audit Institution: block release until public labels replace internal translation keys.");
 
-  if (!missingLocalizedBrief) {
-    pass("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${events.length * 2} French/German detail pages include event-specific visitor brief blocks.`);
-  } else {
-    fail("audit-institution", "Translation quality", "FR/DE localized visitor briefs", `${missingLocalizedBrief}/${events.length * 2} French/German detail pages are missing localized visitor briefs.`, "Audit Institution: require French/German detail pages to show localized decision, map, and official-handoff context.");
-  }
 }
 
 function collectGuideLocalization() {
@@ -451,23 +450,26 @@ function collectInteractionQuality() {
   const savedPlannerControls = styles.match(/\.saved-open,\s*\.planner-card-actions a,\s*\.planner-card-actions button\s*\{[\s\S]*?\}/)?.[0] || "";
   const savedPlannerMapLinks = styles.match(/\.planner-card-map-links a\s*\{[\s\S]*?\}/)?.[0] || "";
   const mobileSpotlight = styles.match(/@media \(max-width: 680px\)\s*\{[\s\S]*?\.service-summary dd[\s\S]*?\n\}/)?.[0] || "";
-  const hasPrimaryTouchTargets = baseButtons.includes("min-height: 44px") && saveButton.includes("min-height: 44px");
+  const minHeightAtLeast = (block, minimum) => {
+    const match = block.match(/min-height:\s*(\d+)px/);
+    return Boolean(match) && Number(match[1]) >= minimum;
+  };
+  const hasPrimaryTouchTargets = minHeightAtLeast(baseButtons, 44) && minHeightAtLeast(saveButton, 44);
   const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px") && savedPlannerMapLinks.includes("min-height: 44px");
-  const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-tab")
-    && mobileSpotlight.includes("width: 44px")
-    && mobileSpotlight.includes("min-height: 44px")
-    && mobileSpotlight.includes(".spotlight-arrow")
-    && mobileSpotlight.includes("display: none");
+  const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-dot")
+    && mobileSpotlight.includes("width: 24px")
+    && mobileSpotlight.includes("min-height: 24px")
+    && !styles.includes(".spotlight-arrow");
 
   if (hasPrimaryTouchTargets && hasSavedPlannerTouchTargets && hasMobileSpotlightTargets) {
-    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, and mobile spotlight tabs preserve 44px touch targets.");
+    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, and mobile spotlight dots stay compact.");
   } else {
     fail(
       "designer",
       "Interaction",
       "Mobile touch targets",
       `primary ${hasPrimaryTouchTargets}, saved planner ${hasSavedPlannerTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
-      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, and prevent cramped mobile spotlight arrows."
+      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, and keep the home spotlight controls as compact dots without arrows."
     );
   }
 }

@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const today = todayString();
 const siteName = "K-Spot Now";
-const siteTagline = "Live Korea events, pop-ups, and deals for visitors.";
+const siteTagline = "Korea events for visitors.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
 const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
@@ -112,7 +112,7 @@ let languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR" },
+  pt: { name: "Português", locale: "pt-BR", flagRegion: "pt" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -127,7 +127,7 @@ let dict = {
     navAbout: "About",
     heroEyebrow: siteTagline,
     heroTitle: siteName,
-    heroText: "Live official-source checks for Korea festivals, K-pop pop-ups, beauty deals, duty-free offers, department-store events, weather planning, and map-ready visitor notes.",
+    heroText: "Live Korea events, pop-ups, and deals for visitors.",
     ctaEvents: "Browse events",
     ctaCalendar: "Open calendar",
     liveNow: "Live now",
@@ -327,7 +327,7 @@ let dict = {
     navAbout: "Acerca",
     heroEyebrow: "Eventos, pop-ups, K-beauty, duty free en Corea",
     heroTitle: "Encuentra eventos en Corea antes de que desaparezcan.",
-    heroText: "Radar multilingüe para visitantes: fuentes oficiales, fechas claras, miniaturas, calendario, clima y rutas cercanas.",
+    heroText: "Fechas, mapa, clima y enlaces oficiales.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendario",
     liveNow: "Activos",
@@ -376,7 +376,7 @@ let dict = {
     navAbout: "关于",
     heroEyebrow: "韩国活动、快闪、K-beauty、免税优惠",
     heroTitle: "在活动结束前发现韩国最新去处。",
-    heroText: "面向外国游客的多语言雷达：官方来源、清晰日期、缩略图、日历、天气提示和附近旅行建议。",
+    heroText: "日期、地图、天气、官方链接。",
     ctaEvents: "查看活动",
     ctaCalendar: "打开日历",
     liveNow: "进行中",
@@ -425,7 +425,7 @@ let dict = {
     navAbout: "Sobre",
     heroEyebrow: "Eventos, pop-ups, K-beauty e duty free na Coreia",
     heroTitle: "Encontre eventos na Coreia antes que acabem.",
-    heroText: "Radar multilíngue para visitantes: fontes oficiais, datas claras, thumbnails, calendário, clima e ideias de roteiro.",
+    heroText: "Datas, mapa, clima e links oficiais.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendário",
     liveNow: "Ao vivo",
@@ -474,7 +474,7 @@ let dict = {
     navAbout: "О проекте",
     heroEyebrow: "События, pop-up, K-beauty и duty free в Корее",
     heroTitle: "Находите события в Корее до того, как они закончатся.",
-    heroText: "Многоязычный радар для туристов: официальные источники, даты, миниатюры, календарь, погода и идеи маршрутов.",
+    heroText: "Даты, карты, погода и официальные ссылки.",
     ctaEvents: "Смотреть события",
     ctaCalendar: "Календарь",
     liveNow: "Сейчас",
@@ -521,7 +521,7 @@ languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR" },
+  pt: { name: "Português", locale: "pt-BR", flagRegion: "pt" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -536,7 +536,7 @@ dict = {
     navAbout: "About",
     heroEyebrow: siteTagline,
     heroTitle: siteName,
-    heroText: "Live official-source checks for Korea festivals, K-pop pop-ups, beauty deals, duty-free offers, department-store events, weather planning, and map-ready visitor notes.",
+    heroText: "Live Korea events, pop-ups, and deals for visitors.",
     ctaEvents: "Browse events",
     ctaCalendar: "Open calendar",
     liveNow: "Live now",
@@ -715,7 +715,7 @@ dict = {
     navAbout: "Acerca de",
     heroEyebrow: "Eventos, pop-ups, K-beauty y duty free en Corea",
     heroTitle: "Encuentra eventos en Corea antes de que desaparezcan.",
-    heroText: "Un radar multilingüe para visitantes: fuentes oficiales, fechas claras, miniaturas, calendario, notas de clima e ideas de ruta cercanas.",
+    heroText: "Fechas, mapa, clima y enlaces oficiales.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendario",
     liveNow: "Activos",
@@ -833,7 +833,7 @@ dict = {
     navAbout: "关于",
     heroEyebrow: "韩国活动、快闪、K-beauty优惠、免税活动",
     heroTitle: "在韩国活动结束前找到它们。",
-    heroText: "面向外国游客的多语言雷达：官方来源、清晰日期、缩略图、日历、天气规划和附近旅行建议。",
+    heroText: "日期、地图、天气、官方链接。",
     ctaEvents: "浏览活动",
     ctaCalendar: "打开日历",
     liveNow: "进行中",
@@ -949,7 +949,7 @@ dict = {
     navAbout: "Sobre",
     heroEyebrow: "Eventos, pop-ups, K-beauty e duty free na Coreia",
     heroTitle: "Encontre eventos na Coreia antes que acabem.",
-    heroText: "Radar multilíngue para visitantes: fontes oficiais, datas claras, miniaturas, calendário, clima e ideias de roteiro.",
+    heroText: "Datas, mapa, clima e links oficiais.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendário",
     liveNow: "Ativos",
@@ -1067,7 +1067,7 @@ dict = {
     navAbout: "О проекте",
     heroEyebrow: "События в Корее, pop-up, K-beauty и duty free",
     heroTitle: "Найдите события в Корее до их завершения.",
-    heroText: "Многоязычный радар для туристов: официальные источники, понятные даты, миниатюры, календарь, погода и идеи маршрутов.",
+    heroText: "Даты, карты, погода и официальные ссылки.",
     ctaEvents: "Смотреть события",
     ctaCalendar: "Открыть календарь",
     liveNow: "Сейчас",
@@ -1181,6 +1181,21 @@ languages.ja = { name: "日本語", locale: "ja-JP" };
 languages.fr = { name: "Francais", locale: "fr-FR" };
 languages.de = { name: "Deutsch", locale: "de-DE" };
 
+const languageFlagRegions = {
+  en: "us",
+  es: "es",
+  zh: "cn",
+  pt: "pt",
+  ru: "ru",
+  ja: "jp",
+  fr: "fr",
+  de: "de"
+};
+
+for (const [code, region] of Object.entries(languageFlagRegions)) {
+  if (languages[code]) languages[code].flagRegion = region;
+}
+
 dict.ja = {
   ...dict.en,
   navEvents: "イベント",
@@ -1193,7 +1208,7 @@ dict.ja = {
   navWatchlist: "監視リスト",
   heroEyebrow: "韓国イベント、K-popポップアップ、ビューティー、免税店セール",
   heroTitle: "韓国のイベントを見逃す前にチェック。",
-  heroText: "公式情報、日程、サムネイル、カレンダー、過去の天気目安、周辺旅行情報をまとめた訪韓者向け多言語ガイド。",
+  heroText: "日程、地図、天気、公式リンク。",
   ctaEvents: "イベントを見る",
   ctaCalendar: "カレンダーを開く",
   liveNow: "開催中",
@@ -1349,7 +1364,7 @@ dict.fr = {
   navWatchlist: "Veille",
   heroEyebrow: "Evenements, pop-ups et offres en Coree pour les visiteurs",
   heroTitle: siteName,
-  heroText: "Verifications de sources officielles pour festivals, pop-ups K-pop, offres beaute, offres hors taxes, grands magasins, meteo et notes de carte utiles aux visiteurs.",
+  heroText: "Dates, cartes, meteo et liens officiels.",
   ctaEvents: "Voir les evenements",
   ctaCalendar: "Ouvrir le calendrier",
   liveNow: "En cours",
@@ -1556,7 +1571,7 @@ dict.de = {
   navWatchlist: "Quellenwatchlist",
   heroEyebrow: "Korea-Veranstaltungen, Pop-ups und Angebote fur Besucher",
   heroTitle: siteName,
-  heroText: "Aktuelle Prufungen offizieller Quellen fur Feste, K-Pop-Pop-ups, Beauty-Angebote, zollfreie Aktionen, Kaufhausveranstaltungen, Wetterplanung und kartenfertige Besuchernotizen.",
+  heroText: "Daten, Karten, Wetter und offizielle Links.",
   ctaEvents: "Veranstaltungen ansehen",
   ctaCalendar: "Kalender offnen",
   liveNow: "Jetzt live",
@@ -1765,8 +1780,12 @@ const visitorUiOverrides = {
     freshness: "Actualizacion",
     freshnessFresh: "Actualizado",
     freshnessCurrent: "Revisado recientemente",
+    freshnessSoon: "revisado pronto",
+    freshnessStale: "necesita revision",
+    freshnessArchive: "archivado",
     checkedToday: "revisado hoy",
     checkedYesterday: "revisado ayer",
+    daysAgo: "dias atras",
     highlightLabel: "Destacado oficial"
   },
   zh: {
@@ -1805,8 +1824,12 @@ const visitorUiOverrides = {
     freshness: "Atualizacao",
     freshnessFresh: "Atualizado",
     freshnessCurrent: "Revisado recentemente",
+    freshnessSoon: "revisado em breve",
+    freshnessStale: "precisa de revisao",
+    freshnessArchive: "arquivado",
     checkedToday: "revisado hoje",
     checkedYesterday: "revisado ontem",
+    daysAgo: "dias atras",
     highlightLabel: "Destaque oficial"
   },
   ru: {
@@ -1941,6 +1964,89 @@ const categoryLabels = {
   "department-store": "department",
   shopping: "shopping",
   "travel-benefits": "benefits"
+};
+
+const filterShortLabels = {
+  en: {
+    all: "All",
+    festival: "Festivals",
+    kpop: "K-pop",
+    beauty: "Beauty",
+    dutyfree: "Duty-free",
+    department: "Dept.",
+    shopping: "Shop",
+    benefits: "Travel"
+  },
+  es: {
+    all: "Todo",
+    festival: "Festivales",
+    kpop: "K-pop",
+    beauty: "Belleza",
+    dutyfree: "Sin imp.",
+    department: "Tiendas",
+    shopping: "Compras",
+    benefits: "Viaje"
+  },
+  zh: {
+    all: "全部",
+    festival: "节庆",
+    kpop: "K-pop",
+    beauty: "美妆",
+    dutyfree: "免税",
+    department: "百货",
+    shopping: "购物",
+    benefits: "旅行"
+  },
+  pt: {
+    all: "Tudo",
+    festival: "Festivais",
+    kpop: "K-pop",
+    beauty: "Beleza",
+    dutyfree: "Sem imp.",
+    department: "Lojas",
+    shopping: "Compras",
+    benefits: "Viagem"
+  },
+  ru: {
+    all: "Все",
+    festival: "Фестивали",
+    kpop: "K-pop",
+    beauty: "Бьюти",
+    dutyfree: "Duty-free",
+    department: "ТЦ",
+    shopping: "Шопинг",
+    benefits: "Поездки"
+  },
+  ja: {
+    all: "全て",
+    festival: "祭り",
+    kpop: "K-pop",
+    beauty: "美容",
+    dutyfree: "免税",
+    department: "百貨店",
+    shopping: "買い物",
+    benefits: "旅行"
+  },
+  fr: {
+    all: "Tout",
+    festival: "Festivals",
+    kpop: "K-pop",
+    beauty: "Beauté",
+    dutyfree: "Détaxe",
+    department: "Magasins",
+    shopping: "Achats",
+    benefits: "Voyage"
+  },
+  de: {
+    all: "Alle",
+    festival: "Festivals",
+    kpop: "K-pop",
+    beauty: "Kosmetik",
+    dutyfree: "Zollfrei",
+    department: "Kaufhaus",
+    shopping: "Einkauf",
+    benefits: "Reise"
+  }
 };
 
 const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
@@ -2966,6 +3072,24 @@ function statusSort(a, b) {
   return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || a.startDate.localeCompare(b.startDate) || b.priority - a.priority;
 }
 
+function calendarFocusDate(event) {
+  const status = statusOf(event);
+  if (status === "live") return today;
+  if (status === "upcoming") return event.startDate || event.endDate || today;
+  return event.endDate || event.startDate || today;
+}
+
+function calendarSort(a, b) {
+  const statusWeight = { live: 0, upcoming: 1, ended: 2 };
+  const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
+  if (statusDiff) return statusDiff;
+  const aFocus = calendarFocusDate(a);
+  const bFocus = calendarFocusDate(b);
+  if (aFocus !== bFocus) return aFocus.localeCompare(bFocus);
+  if (statusOf(a) === "live" && a.endDate !== b.endDate) return a.endDate.localeCompare(b.endDate);
+  return b.priority - a.priority || a.startDate.localeCompare(b.startDate);
+}
+
 function nowGroups() {
   const live = events
     .filter((event) => statusOf(event) === "live")
@@ -2993,7 +3117,6 @@ function nowDashboard(lang) {
   const checkedTodayCount = events.filter((event) => event.lastChecked === today).length;
   const thisWeekCount = events.filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
   const fastMovingCount = events.filter((event) => fastMovingCategories.has(event.category) && statusOf(event) !== "ended").length;
-  const activeQueueCount = curationQueue.filter((item) => item.status === "active").length;
   const checkedLabel = `${tr(lang, "newlyChecked")} / ${dateText(lang, today)}`;
   const fastMovingDetail = local({
     en: "K-pop, beauty, duty-free, department stores",
@@ -3005,9 +3128,7 @@ function nowDashboard(lang) {
     { value: liveCount, label: tr(lang, "liveNow"), detail: `${endingSoonCount} ${tr(lang, "endingSoon").toLowerCase()}` },
     { value: thisWeekCount, label: tr(lang, "thisWeek"), detail: tr(lang, "statusUpcoming") },
     { value: checkedTodayCount, label: checkedLabel, detail: tr(lang, "freshnessTitle") },
-    { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: fastMovingDetail },
-    { value: sources.length, label: tr(lang, "monitoredSources"), detail: tr(lang, "sourcesTitle") },
-    { value: activeQueueCount, label: tr(lang, "activeQueue"), detail: tr(lang, "watchlistTitle") }
+    { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: fastMovingDetail }
   ];
 
   return `
@@ -3025,9 +3146,7 @@ function nowFeedLinks(lang) {
   return `
       <section class="now-feed-links" aria-label="${esc(tr(lang, "sourcesTitle"))}">
         <a href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
-        <a href="/recheck.json">${tr(lang, "recheckQueueTitle")}</a>
-        <a href="/${lang}/feed.xml">${tr(lang, "rssFeedLabel")}</a>
-        <a href="/${lang}/latest.json">${tr(lang, "jsonFeedLabel")}</a>
+        <a href="#recheck-queue">${tr(lang, "recheckQueueTitle")}</a>
         <a href="/${lang}/watchlist/">${tr(lang, "watchlistTitle")}</a>
       </section>`;
 }
@@ -4052,12 +4171,20 @@ function routeDescription(route, lang = "en") {
   return `${copy.bestFor} Stops include ${copy.stops.join(", ")}.`;
 }
 
+function routeMetaLine(route, copy) {
+  const regions = (route.regions || []).slice(0, 2).join(" / ");
+  const stops = Array.isArray(copy.stops) ? copy.stops.length : 0;
+  return [stops ? `${stops} stops` : "", regions].filter(Boolean).join(" / ");
+}
+
 function routeCard(route, lang = "en") {
   const copy = routeCopy(route, lang);
   return `
     <article class="route-card">
-      <span>${esc(copy.bestFor)}</span>
+      <span class="route-card-icon about-icon icon-map" aria-hidden="true"></span>
+      <span class="route-card-kicker">${esc(copy.bestFor)}</span>
       <h3>${esc(copy.title)}</h3>
+      <small class="route-card-meta">${esc(routeMetaLine(route, copy))}</small>
       <ol>${copy.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
       <ul>${copy.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </article>`;
@@ -4067,8 +4194,10 @@ function routeLinkCard(route, lang) {
   const copy = routeCopy(route, lang);
   return `
     <a class="route-card" href="${routeHref(lang, route)}">
-      <span>${esc(copy.bestFor)}</span>
+      <span class="route-card-icon about-icon icon-map" aria-hidden="true"></span>
+      <span class="route-card-kicker">${esc(copy.bestFor)}</span>
       <h3>${esc(copy.title)}</h3>
+      <small class="route-card-meta">${esc(routeMetaLine(route, copy))}</small>
       <ol>${copy.stops.map((stop) => `<li>${esc(stop)}</li>`).join("")}</ol>
       <ul>${copy.tips.slice(0, 2).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
     </a>`;
@@ -4194,11 +4323,32 @@ function tripSkyscraperBanner(lang) {
   }[lang] || "Sponsored travel banner";
   return `
           <aside class="routes-ad-rail" aria-label="${esc(copy)}">
-            <span>${esc(copy)}</span>
+            <span class="ad-disclosure">Ad</span>
             <div class="trip-skyscraper-frame">
               <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="120" height="600" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </aside>`;
+}
+
+function legacyDisplayAdPlaceholder(lang) {
+  return "";
+  const copy = {
+    en: "Sponsored hotel advertisement",
+    es: "Anuncio de hotel patrocinado",
+    zh: "赞助酒店广告",
+    pt: "Anuncio patrocinado de hotel",
+    ru: "Спонсорская реклама отеля",
+    ja: "ホテルのスポンサー広告",
+    fr: "Annonce hotel sponsorisee",
+    de: "Gesponserte Hotelanzeige"
+  }[lang] || "Sponsored hotel advertisement";
+  return `
+      <aside class="legacy-display-ad" aria-label="${esc(copy)}">
+        <span class="ad-disclosure">Ad</span>
+        <div class="legacy-display-frame">
+          <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="1200" height="1200" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </aside>`;
 }
 
 function affiliateSection(event, lang) {
@@ -4378,10 +4528,10 @@ function affiliatePlanningRail(event, lang) {
     tours: "Tours and tickets in {city}"
   };
   const affiliateCards = links.map((link) => `
-            <a class="quick-plan-card is-sponsored" href="${esc(link.href)}" rel="sponsored nofollow noopener" target="_blank">
-              <span>${esc(copy.sponsored)}</span>
+            <a class="quick-plan-card is-sponsored" href="${esc(link.href)}" rel="sponsored nofollow noopener" target="_blank" aria-label="${esc(copy.sponsored)}">
+              <span class="quick-plan-icon icon-stay" aria-hidden="true"></span>
               <strong>${esc((link.type === "hotels" ? copy.hotels : copy.tours).replace("{city}", cityLabel(lang, link.city || city)))}</strong>
-              <small>${esc(link.partner)} · ${esc(copy.commission)}</small>
+              <small>${esc(copy.sponsored)}</small>
             </a>`).join("");
 
   return `
@@ -4389,16 +4539,15 @@ function affiliatePlanningRail(event, lang) {
           <div class="quick-plan-copy">
             <p class="eyebrow">${esc(copy.eyebrow)}</p>
             <h2>${esc(copy.title)}</h2>
-            <p>${esc(copy.text)}</p>
           </div>
           <div class="quick-plan-actions">
-            <a class="quick-plan-card" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">
-              <span>${esc(copy.official)}</span>
+            <a class="quick-plan-card is-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="${esc(copy.official)}">
+              <span class="quick-plan-icon icon-source" aria-hidden="true"></span>
               <strong>${esc(sourceRoleLabel(event, lang))}</strong>
-              <small>${esc(copy.officialText)}</small>
+              <small>${esc(copy.official)}</small>
             </a>
-            <a class="quick-plan-card" href="${esc(mapLink.href)}" rel="nofollow noopener" target="_blank">
-              <span>${esc(copy.map)}</span>
+            <a class="quick-plan-card is-map" href="${esc(mapLink.href)}" rel="nofollow noopener" target="_blank" aria-label="${esc(copy.map)}">
+              <span class="quick-plan-icon icon-map" aria-hidden="true"></span>
               <strong>${esc(place)}</strong>
               <small>${esc(mapLink.label)}</small>
             </a>
@@ -5130,21 +5279,40 @@ function weatherMetric(label, value, note) {
 }
 
 function weatherTags(items) {
-  return `<div class="weather-tags">${items.map((item) => `<span>${esc(item)}</span>`).join("")}</div>`;
+  return `<div class="weather-tags">${items.map((item) => `<span>${packingIcon(item)}${esc(item)}</span>`).join("")}</div>`;
+}
+
+function packingIcon(item) {
+  const text = String(item || "").toLowerCase();
+  if (/umbrella|rain|parapluie|regenschirm/.test(text)) return `<span class="weather-tag-icon icon-rain" aria-hidden="true"></span>`;
+  if (/uv|sun|solar|sonn|soleil/.test(text)) return `<span class="weather-tag-icon icon-sun" aria-hidden="true"></span>`;
+  if (/water|bottle|eau|wasser/.test(text)) return `<span class="weather-tag-icon icon-water" aria-hidden="true"></span>`;
+  if (/shoe|walk|chauss|schuh/.test(text)) return `<span class="weather-tag-icon icon-walk" aria-hidden="true"></span>`;
+  if (/cloth|breath|layer|jacket|vetement|kleidung|jacke/.test(text)) return `<span class="weather-tag-icon icon-layer" aria-hidden="true"></span>`;
+  return `<span class="weather-tag-icon icon-check" aria-hidden="true"></span>`;
 }
 
 function forecastOverview(forecast, lang = "en") {
+  const kind = weatherKind(forecast.weather, forecast.rainLikely);
+  const rain = Number.isFinite(forecast.maxPopPct) ? `${Math.round(forecast.maxPopPct)}%` : rainMood(forecast, lang);
+  const rainNote = `${tr(lang, "weatherRainPeak")} · ${rainMood(forecast, lang)}`;
+  const humidity = humidityRangeText(forecast, lang);
   return `
           <div class="weather-overview">
             <div class="weather-takeaway">
-              <span>${esc(tr(lang, "weatherAtGlance"))}</span>
-              <strong>${esc(weatherTakeaway(forecast, lang))}</strong>
+              <div class="weather-takeaway-main">
+                ${weatherSymbol(kind, weatherTakeaway(forecast, lang))}
+                <div>
+                  <span>${esc(tr(lang, "weatherAtGlance"))}</span>
+                  <strong>${esc(weatherTakeaway(forecast, lang))}</strong>
+                </div>
+              </div>
               <p>${esc(forecastAdvice(forecast, lang))}</p>
             </div>
             <div class="weather-metrics" aria-label="${esc(tr(lang, "weatherSummary"))}">
               ${weatherMetric(tr(lang, "weatherTemperature"), degreeRangeHtml(forecast.minTempC, forecast.maxTempC), temperatureMood(forecast.maxTempC, lang))}
-              ${weatherMetric(tr(lang, "weatherRain"), esc(rainPeakDisplay(forecast, lang)), rainMood(forecast, lang))}
-              ${weatherMetric(tr(lang, "weatherHumidity"), esc(humidityRangeText(forecast, lang)), humidityMood(forecast, lang))}
+              ${weatherMetric(tr(lang, "weatherRain"), esc(rain), rainNote)}
+              ${weatherMetric(tr(lang, "weatherHumidity"), esc(humidity), humidityMood(forecast, lang))}
             </div>
           </div>`;
 }
@@ -5290,19 +5458,37 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
   if (forecast) {
     const items = forecastPacking(forecast, lang);
     return `
-          <h2>${tr(lang, "weatherPlan")}</h2>
+          <div class="weather-section-head">
+            <div>
+              <p class="eyebrow">${esc(tr(lang, "weatherLiveForecast"))}</p>
+              <h2>${tr(lang, "weatherPlan")}</h2>
+            </div>
+            <span>${esc(forecast.locationLabel)} · ${esc(forecastRangeText(lang, forecast))}</span>
+          </div>
           ${forecastOverview(forecast, lang)}
           ${forecastStrip(forecast, lang)}
-          <p class="weather-source-line"><strong>${esc(tr(lang, "weatherKmaShortForecast"))}</strong> <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}: ${esc(forecastSummaryText(forecast, lang))}</span></p>
-          ${weatherTags(items)}
-          <p class="meta-note">${esc(tr(lang, "weatherKmaUpdated"))} ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> ${esc(tr(lang, "weatherForecastSource"))}: ${esc(forecast.source?.name || "KMA forecast RSS")}. ${esc(tr(lang, "weatherPreviousBaseline"))}: ${esc(weather.source.name)}.</span></p>`;
+          <div class="weather-bottom-row">
+            ${weatherTags(items)}
+            <p class="meta-note">${esc(tr(lang, "weatherKmaShortForecast"))} · ${esc(tr(lang, "weatherKmaUpdated"))} ${esc(kmaBaseTimeText(forecast.baseTime))}<span class="sr-only"> ${esc(tr(lang, "weatherForecastSource"))}: ${esc(forecast.source?.name || "KMA forecast RSS")}. ${esc(tr(lang, "weatherPreviousBaseline"))}: ${esc(weather.source.name)}. ${esc(forecastSummaryText(forecast, lang))}</span></p>
+          </div>`;
   }
   return `
-          <h2>${tr(lang, "weatherPlan")}</h2>
+          <div class="weather-section-head">
+            <div>
+              <p class="eyebrow">${esc(tr(lang, "weatherSeasonalBaseline"))}</p>
+              <h2>${tr(lang, "weatherPlan")}</h2>
+            </div>
+            <span>${esc(weatherInfo.regionKey)} · ${esc(weatherInfo.monthName)}</span>
+          </div>
           <div class="weather-overview">
             <div class="weather-takeaway">
-              <span>${esc(tr(lang, "weatherSeasonalBaseline"))}</span>
-              <strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>
+              <div class="weather-takeaway-main">
+                ${weatherSymbol("sun", tr(lang, "weatherSeasonalBaseline"))}
+                <div>
+                  <span>${esc(tr(lang, "weatherSeasonalBaseline"))}</span>
+                  <strong>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</strong>
+                </div>
+              </div>
               <p>${esc(baselineOutdoorAdvice(region, lang))}</p>
             </div>
             <div class="weather-metrics" aria-label="${esc(tr(lang, "weatherBaseline"))}">
@@ -5311,8 +5497,10 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
               ${weatherMetric(tr(lang, "weatherCheck"), esc(tr(lang, "weatherLiveForecast")), tr(lang, "weatherBeforeLeaving"))}
             </div>
           </div>
-          ${weatherTags(baselinePackingItems(region.packing || [], lang))}
-          <p class="meta-note">${esc(tr(lang, "weatherBaseline"))}: ${esc(weather.source.name)} <span class="sr-only">${esc(tr(lang, "weatherPreviousBaseline"))}.</span></p>`;
+          <div class="weather-bottom-row">
+            ${weatherTags(baselinePackingItems(region.packing || [], lang))}
+            <p class="meta-note">${esc(tr(lang, "weatherBaseline"))}: ${esc(weather.source.name)} <span class="sr-only">${esc(tr(lang, "weatherPreviousBaseline"))}.</span></p>
+          </div>`;
 }
 
 function calendarWeatherText(event, lang) {
@@ -5345,19 +5533,31 @@ function langSwitcher(lang, currentPathBuilder) {
   return Object.keys(languages).map((code) => {
     const href = currentPathBuilder ? currentPathBuilder(code) : `/${code}/`;
     const active = code === lang ? " aria-current=\"true\"" : "";
-    return `<a${active} href="${href}">${languages[code].name}</a>`;
+    const language = languages[code];
+    return `<a${active} href="${href}" lang="${esc(code)}"><span class="language-flag flag-${esc(language.flagRegion || code)}" aria-hidden="true"></span><span class="language-name">${esc(language.name)}</span></a>`;
   }).join("");
 }
 
 function languageMenu(lang, currentPathBuilder) {
+  const language = languages[lang] || languages.en;
   return `
     <details class="language-menu">
-      <summary aria-label="Language">${languages[lang].name}</summary>
+      <summary aria-label="Language"><span class="language-flag flag-${esc(language.flagRegion || lang)}" aria-hidden="true"></span><span class="language-name">${esc(language.name)}</span></summary>
       <div class="language-menu-panel">${langSwitcher(lang, currentPathBuilder)}</div>
     </details>`;
 }
 
 function nav(lang) {
+  const routeShort = local({
+    en: "Routes",
+    es: "Rutas",
+    zh: "路线",
+    pt: "Rotas",
+    ru: "Маршруты",
+    ja: "ルート",
+    fr: "Itineraires",
+    de: "Routen"
+  }, lang);
   return `
     <nav class="top-nav" aria-label="Primary">
       <a href="/${lang}/#events">${tr(lang, "navEvents")}</a>
@@ -5365,7 +5565,7 @@ function nav(lang) {
       <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
       <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
-      <a href="/${lang}/routes/">${tr(lang, "routePages")}</a>
+      <a href="/${lang}/routes/"><span class="nav-full">${tr(lang, "routePages")}</span><span class="nav-short">${esc(routeShort)}</span></a>
       <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
     </nav>`;
 }
@@ -5541,6 +5741,9 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${alternateLinks(currentPathBuilder, canonicalPath)}
   <link rel="alternate" type="application/rss+xml" title="${siteName} RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
   <link rel="alternate" type="application/feed+json" title="${siteName} JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <meta property="og:type" content="${esc(pageType)}">
   <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:title" content="${esc(title)}">
@@ -5791,15 +5994,11 @@ function spotlightCarousel(slides, lang) {
               </div>
               ${usableSlides.length > 1 ? `
               <div class="spotlight-controls" aria-label="Featured event controls">
-                <button class="spotlight-arrow" type="button" data-spotlight-prev aria-label="Previous highlight">&lt;</button>
                 <div class="spotlight-nav-panel">
                   <div class="spotlight-tabs" aria-label="Choose featured highlight">
-                    ${usableSlides.map((event, index) => `<button class="spotlight-tab" type="button" data-spotlight-dot="${index}" data-spotlight-title="${esc(trimHeading(local(event.title, lang), 44))}" aria-label="Show ${esc(local(event.title, lang))}" title="${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span>${String(index + 1).padStart(2, "0")}</span></button>`).join("")}
+                    ${usableSlides.map((event, index) => `<button class="spotlight-dot" type="button" data-spotlight-dot="${index}" aria-label="Show ${esc(local(event.title, lang))}" title="${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span class="sr-only">${esc(local(event.title, lang))}</span></button>`).join("")}
                   </div>
-                  <span class="spotlight-current-label" data-spotlight-title-label>${esc(trimHeading(local(usableSlides[0].title, lang), 44))}</span>
                 </div>
-                <span class="spotlight-count" data-spotlight-count>1 / ${usableSlides.length}</span>
-                <button class="spotlight-arrow" type="button" data-spotlight-next aria-label="Next highlight">&gt;</button>
               </div>` : ""}
             </div>`;
 }
@@ -6399,6 +6598,19 @@ function sourceRoleLabel(event, lang) {
   return role === "listing" ? copy.roleListing : role === "ticketing" ? copy.roleTicketing : role === "offer" ? copy.roleOffer : copy.roleOfficial;
 }
 
+function handoffChips(event, lang) {
+  const copy = sourceCopy(lang);
+  const chips = [
+    sourceRoleLabel(event, lang),
+    copy.finalTitle || "Final check",
+    tr(lang, "downloadCalendar")
+  ];
+  return `
+            <div class="handoff-note" aria-label="${bookingHandoffNote(event, lang)}">
+              ${chips.map((chip) => `<span class="handoff-chip">${esc(chip)}</span>`).join("")}
+            </div>`;
+}
+
 function sourceRoleDescription(event, lang) {
   const copy = sourceCopy(lang);
   const role = sourceRoleType(event);
@@ -6425,128 +6637,84 @@ function sourceTransparencySection(event, lang) {
               <p class="eyebrow">${esc(sourceRoleLabel(event, lang))}</p>
               <h2 id="source-transparency-title">${esc(copy.title)}</h2>
             </div>
-            <p>${esc(copy.text)}</p>
           </div>
           <div class="source-transparency-grid">
             <div>
-              <span>01</span>
+              <span class="source-step-icon icon-kspot" aria-hidden="true"></span>
               <strong>${esc(copy.kspotTitle)}</strong>
-              <p>${esc(copy.kspotText)}</p>
+              <em>Weather / map / calendar</em>
             </div>
             <div>
-              <span>02</span>
+              <span class="source-step-icon icon-source" aria-hidden="true"></span>
               <strong>${esc(copy.sourceTitle)}</strong>
-              <p>${esc(sourceRoleDescription(event, lang))}</p>
               <em>${esc(event.sourceName)}</em>
             </div>
             <div>
-              <span>03</span>
+              <span class="source-step-icon icon-check" aria-hidden="true"></span>
               <strong>${esc(copy.finalTitle)}</strong>
-              <p>${esc(copy.finalText)}</p>
+              <em>${esc(sourceRoleLabel(event, lang))}</em>
             </div>
           </div>
           ${boundaryText ? `
-          <div class="source-boundary-callout">
+          <div class="source-boundary-callout" aria-label="${esc(boundaryText)}">
             <strong>${esc(copy.boundaryTitle)}</strong>
-            <p>${esc(boundaryText)}</p>
+            <span>${esc(event.sourceName || sourceRoleLabel(event, lang))}</span>
           </div>` : ""}
         </section>`;
 }
 
-const localizedBriefCopy = {
-  fr: {
-    eyebrow: "Francais",
-    title: "Brief visiteur localise",
-    intro: "Le titre officiel est conserve pour faciliter la recherche, mais le contexte de decision est explique en francais avec dates, lieu, source et action finale.",
-    decisionTitle: "Pourquoi regarder cette fiche",
-    planTitle: "Ce qu'il faut verifier",
-    handoffTitle: "Ou finaliser",
-    planText: ({ period, venue, mapQuery }) => `Periode: ${period}. Lieu: ${venue}. Recherchez le nom coreen ${mapQuery} dans les cartes locales avant de partir.`,
-    handoffText: ({ sourceRole, sourceName }) => `Cette fiche prepare la decision; ${sourceRole} (${sourceName}) reste la page a ouvrir pour billets, reservation, achat, stock ou regles finales.`,
-    originalName: "Nom officiel a copier"
-  },
-  de: {
-    eyebrow: "Deutsch",
-    title: "Lokales Besucherbriefing",
-    intro: "Der offizielle Titel bleibt fur Suche und Karten erhalten, aber der Entscheidungskontext wird auf Deutsch mit Datum, Ort, Quelle und finaler Aktion erklaert.",
-    decisionTitle: "Warum diese Seite wichtig ist",
-    planTitle: "Was vor dem Start zu prufen ist",
-    handoffTitle: "Wo final handeln",
-    planText: ({ period, venue, mapQuery }) => `Zeitraum: ${period}. Ort: ${venue}. Suchen Sie den koreanischen Ortsnamen ${mapQuery} vor der Abfahrt in lokalen Karten.`,
-    handoffText: ({ sourceRole, sourceName }) => `Diese Seite bereitet die Entscheidung vor; ${sourceRole} (${sourceName}) bleibt die Seite fur Tickets, Reservierung, Kauf, Bestand oder finale Regeln.`,
-    originalName: "Offiziellen Namen kopieren"
-  }
-};
-
-const localizedCategoryPurpose = {
-  fr: {
-    kpop: "Les evenements K-pop, pop-ups et cafes anniversaires changent vite; cette page aide a comparer entree, files, stock, reservations et source avant de vous deplacer.",
-    festival: "Les festivals dependent beaucoup de la meteo, du transport et des horaires; cette page transforme l'annonce en plan de visite plus concret.",
-    beauty: "Les offres beaute peuvent changer selon stock, coupon, branche et heure; cette page aide a verifier avant d'ajouter l'arret a votre trajet.",
-    shopping: "Les pages d'achats sont utiles quand elles relient offre, quartier, horaires et alternative proche avant l'achat final.",
-    "duty-free": "Les offres hors taxes dependent du passeport, depart, retrait et limites; cette page sert de checklist avant paiement.",
-    "department-store": "Les evenements de grands magasins changent par branche et etage; cette page clarifie lieu, dates et suite officielle.",
-    "travel-benefits": "Les avantages voyage dependent souvent d'eligibilite, quota et region; cette page aide a verifier avant de planifier autour de la reduction."
-  },
-  de: {
-    kpop: "K-Pop-Veranstaltungen, Pop-ups und Birthday-Cafes andern sich schnell; diese Seite hilft bei Eintritt, Warteschlange, Bestand, Reservierung und Quellencheck.",
-    festival: "Feste hangen stark von Wetter, Verkehr und Programmzeiten ab; diese Seite macht aus der Meldung einen konkreteren Besuchsplan.",
-    beauty: "Beauty-Angebote konnen je nach Bestand, Coupon, Filiale und Uhrzeit wechseln; diese Seite hilft beim Prufen vor dem Umweg.",
-    shopping: "Einkaufsseiten sind nutzlich, wenn Angebot, Stadtteil, Zeiten und nahe Alternativen vor dem finalen Kauf zusammenkommen.",
-    "duty-free": "Zollfreie Angebote hangen von Pass, Abflug, Abholung und Limits ab; diese Seite dient als Checkliste vor der Zahlung.",
-    "department-store": "Kaufhausveranstaltungen wechseln nach Filiale und Etage; diese Seite ordnet Ort, Daten und offizielle Folgeseite.",
-    "travel-benefits": "Reisevorteile hangen oft von Berechtigung, Kontingent und Region ab; diese Seite hilft vor der Planung um einen Rabatt."
-  }
-};
-
-function localizedStatusAdvice(event, lang) {
-  const status = statusOf(event);
-  if (lang === "fr") {
-    if (status === "live") return "La fiche est active: recontrolez la source le jour meme avant de changer votre itineraire.";
-    if (status === "upcoming") return "La fiche est a venir: enregistrez-la, comparez la meteo et verifiez les regles proches de la date.";
-    return "La fiche est archivee: utilisez-la comme repere saisonnier et cherchez la prochaine edition avant de planifier.";
-  }
-  if (status === "live") return "Die Seite ist live: Prufen Sie die Quelle am selben Tag erneut, bevor Sie Ihre Route andern.";
-  if (status === "upcoming") return "Die Seite ist bevorstehend: Speichern, Wetter vergleichen und Regeln kurz vor dem Datum erneut prufen.";
-  return "Die Seite ist archiviert: Nutzen Sie sie als saisonalen Vergleich und suchen Sie vor der Planung die nachste Ausgabe.";
-}
-
 function localizedVisitorBriefSection(event, lang) {
-  const copy = localizedBriefCopy[lang];
+  const copy = {
+    fr: {
+      eyebrow: "A garder",
+      title: "Brief visiteur localise",
+      officialTitle: "Verifier la source",
+      officialText: "Confirmez billets, reservations, horaires, regles et avis finaux sur la source officielle.",
+      mapTitle: "Utiliser le nom coreen",
+      mapText: "Copiez ce nom dans Naver, Kakao ou Google Maps pour trouver le bon lieu local.",
+      planTitle: "Reverifier avant depart",
+      planText: "Gardez le calendrier flexible et revoyez meteo, horaires et source avant de partir.",
+      nameLabel: "Nom officiel a copier"
+    },
+    de: {
+      eyebrow: "Merken",
+      title: "Lokales Besucherbriefing",
+      officialTitle: "Quelle prufen",
+      officialText: "Tickets, Reservierungen, Zeiten, Regeln und finale Hinweise in der offiziellen Quelle bestatigen.",
+      mapTitle: "Koreanischen Namen nutzen",
+      mapText: "Diesen Namen in Naver, Kakao oder Google Maps kopieren, um den lokalen Ort sauber zu finden.",
+      planTitle: "Vor dem Start neu prufen",
+      planText: "Kalender flexibel halten und Wetter, Zeiten und Quelle vor dem Losgehen erneut prufen.",
+      nameLabel: "Offiziellen Namen kopieren"
+    }
+  }[lang];
+
   if (!copy) return "";
-  const categoryPurpose = localizedCategoryPurpose[lang]?.[event.category] || localizedCategoryPurpose[lang]?.festival || "";
-  const period = eventDateLabel(event, lang);
-  const venue = [event.venue, event.district, cityLabel(lang, event.city)].filter(Boolean).join(", ");
-  const data = {
-    period,
-    venue,
-    mapQuery: event.mapQueryKo,
-    sourceRole: sourceRoleLabel(event, lang),
-    sourceName: event.sourceName
-  };
-  const cards = [
-    [copy.decisionTitle, `${categoryPurpose} ${localizedStatusAdvice(event, lang)}`],
-    [copy.planTitle, copy.planText(data)],
-    [copy.handoffTitle, copy.handoffText(data)]
+
+  const items = [
+    ["01", copy.officialTitle, copy.officialText],
+    ["02", copy.mapTitle, copy.mapText],
+    ["03", copy.planTitle, copy.planText]
   ];
+  const officialName = event.mapQueryKo || event.venue || event.sourceName || "";
+
   return `
-        <section class="detail-section localized-visitor-brief" aria-labelledby="localized-brief-title">
+        <section class="detail-section localized-visitor-brief" aria-labelledby="localized-visitor-brief-title">
           <div class="detail-section-head">
             <div>
               <p class="eyebrow">${esc(copy.eyebrow)}</p>
-              <h2 id="localized-brief-title">${esc(copy.title)}</h2>
+              <h2 id="localized-visitor-brief-title">${esc(copy.title)}</h2>
             </div>
-            <p>${esc(copy.intro)}</p>
           </div>
           <div class="localized-brief-grid">
-            ${cards.map(([title, text], index) => `
-              <article>
-                <span>${String(index + 1).padStart(2, "0")}</span>
-                <strong>${esc(title)}</strong>
-                <p>${esc(text)}</p>
-              </article>`).join("")}
+            ${items.map(([number, title, text]) => `
+            <article>
+              <span>${esc(number)}</span>
+              <strong>${esc(title)}</strong>
+              <p>${esc(text)}</p>
+            </article>`).join("")}
           </div>
-          <p class="localized-original-name"><strong>${esc(copy.originalName)}:</strong> ${esc(local(event.title, "en") || event.slug)}</p>
+          <p class="localized-original-name"><strong>${esc(copy.nameLabel)}</strong> ${esc(officialName)}</p>
         </section>`;
 }
 
@@ -6637,22 +6805,19 @@ function visitorActionChecklist(event, lang) {
             </div>
           </div>
           <div class="visitor-action-grid">
-            <article>
-              <span>01</span>
+            <article class="is-source">
+              <span class="visitor-action-icon icon-source" aria-hidden="true"></span>
               <strong>${esc(copy.officialTitle)}</strong>
-              <p>${esc(copy.officialText)}</p>
               <em>${esc(sourceName)}</em>
             </article>
-            <article>
-              <span>02</span>
+            <article class="is-map">
+              <span class="visitor-action-icon icon-map" aria-hidden="true"></span>
               <strong>${esc(copy.mapTitle)}</strong>
-              <p>${esc(copy.mapText)}</p>
               <em>${esc(event.mapQueryKo)}</em>
             </article>
-            <article>
-              <span>03</span>
+            <article class="is-calendar">
+              <span class="visitor-action-icon icon-calendar" aria-hidden="true"></span>
               <strong>${esc(copy.planTitle)}</strong>
-              <p>${esc(copy.planText)}</p>
               <em>${esc(eventDateLabel(event, lang, false))}</em>
             </article>
           </div>
@@ -6715,7 +6880,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
       ${adUnit("home")}
 
-      <section class="content-shell" id="events" data-gallery-scope>
+      <section class="content-shell" id="events" data-gallery-scope data-gallery-limit="8" data-gallery-mobile-limit="6" data-gallery-step="8">
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "navEvents")}</p>
@@ -6795,43 +6960,62 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 }
 
 function filterButton(lang, category, labelKey, active = false) {
-  return `<button type="button" data-filter="${category}"${active ? " aria-pressed=\"true\"" : ""}>${tr(lang, labelKey)}</button>`;
+  const label = tr(lang, labelKey);
+  const shortLabel = filterShortLabels[lang]?.[labelKey] || filterShortLabels.en[labelKey] || label;
+  return `<button type="button" data-filter="${category}"${active ? " aria-pressed=\"true\"" : ""}><span class="filter-label-full">${esc(label)}</span><span class="filter-label-short" aria-hidden="true">${esc(shortLabel)}</span></button>`;
 }
 
 function nowMetric(event, lang, mode) {
   if (mode === "starts") {
     const days = daysFromToday(event.startDate);
-    const dayWord = tr(lang, "daysLeft").replace("left", "").trim() || "days";
+    const dayWord = days === 1 && lang === "en" ? "day" : tr(lang, "daysLeft").replace("left", "").trim() || "days";
     return days <= 0 ? statusLabel(lang, statusOf(event)) : `${tr(lang, "startsIn")} ${days} ${dayWord}`;
   }
   const days = daysFromToday(event.endDate);
+  if (days === 1 && lang === "en") return "1 day left";
   return days <= 0 ? tr(lang, "endingSoon") : `${days} ${tr(lang, "daysLeft")}`;
+}
+
+function nowMetricTone(event, mode = "ends") {
+  if (mode === "starts") return "upcoming";
+  const days = daysFromToday(event.endDate);
+  if (days <= 1) return "ending";
+  return statusOf(event) === "live" ? "live" : "upcoming";
 }
 
 function recheckQueuePanel(lang) {
   const items = recheckQueueItems(8);
   if (!items.length) return "";
+  const title = local({
+    en: "Recheck before you go",
+    fr: "A reverifier avant de partir",
+    de: "Vor dem Besuch neu prufen"
+  }, lang) || tr(lang, "recheckQueueTitle");
+  const text = local({
+    en: "These live or upcoming pages can change fast. Open the official source before you move.",
+    fr: "Ces pages en cours ou a venir peuvent changer vite. Ouvrez la source officielle avant de vous deplacer.",
+    de: "Diese laufenden oder kommenden Seiten konnen sich schnell andern. Offnen Sie vor dem Besuch die offizielle Quelle."
+  }, lang) || tr(lang, "recheckQueueText");
 
   return `
-    <section class="recheck-panel" aria-label="${esc(tr(lang, "recheckQueueTitle"))}">
+    <section class="recheck-panel" id="recheck-queue" aria-label="${esc(title)}">
       <div class="section-head">
         <div>
           <p class="eyebrow">${tr(lang, "freshness")}</p>
-          <h2>${tr(lang, "recheckQueueTitle")}</h2>
-          <p>${tr(lang, "recheckQueueText")}</p>
+          <h2>${esc(title)}</h2>
+          <p>${esc(text)}</p>
         </div>
-        <a class="text-link" href="/recheck.json">JSON</a>
       </div>
       <div class="recheck-grid">
         ${items.map(({ event, ageDays, limitDays, daysUntilDue }) => {
           const freshness = freshnessInfo(event, lang);
           return `
           <article class="recheck-card ${freshness.tone}">
-            <span>${esc(recheckDueText(lang, daysUntilDue))}</span>
-            <strong><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
-            <em>${esc(cityLabel(lang, event.city))} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
-            <small>${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
-            <a href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(tr(lang, "sourceLink"))}: ${esc(event.sourceName)}</a>
+            <span class="recheck-badge">${esc(recheckDueText(lang, daysUntilDue))}</span>
+            <strong class="recheck-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+            <em class="recheck-meta">${esc(cityLabel(lang, event.city))} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
+            <small class="recheck-checked">${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
+            <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
           </article>`;
         }).join("")}
       </div>
@@ -6840,12 +7024,15 @@ function recheckQueuePanel(lang) {
 
 function nowItem(event, lang, mode = "ends") {
   const freshness = freshnessInfo(event, lang);
+  const metric = nowMetric(event, lang, mode);
+  const tone = nowMetricTone(event, mode);
   return `
     <a class="now-item" href="/${lang}/events/${event.slug}.html">
       <img src="/${event.thumbnail}" alt="" aria-hidden="true">
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
-        <em>${esc(cityLabel(lang, event.city))} · ${categoryLabel(lang, event.category)} · ${esc(nowMetric(event, lang, mode))}</em>
+        <em>${esc(cityLabel(lang, event.city))} · ${categoryLabel(lang, event.category)}</em>
+        <span class="now-status-flag is-${tone}">${esc(metric)}</span>
         <small>${esc(eventDateLabel(event, lang))}</small>
         <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
       </span>
@@ -6878,7 +7065,6 @@ function renderNow(lang) {
         <p>${tr(lang, "nowText")}</p>
       </section>
       ${nowDashboard(lang)}
-      ${nowFeedLinks(lang)}
       ${recheckQueuePanel(lang)}
       <section class="now-grid">
         ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
@@ -6977,12 +7163,32 @@ function renderCity(lang, city) {
   const liveCount = items.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = items.filter((event) => statusOf(event) === "upcoming").length;
   const endedCount = items.filter((event) => statusOf(event) === "ended").length;
+  const heroEvent = items.find((event) => statusOf(event) !== "ended" && event.thumbnail) || items.find((event) => event.thumbnail) || items[0];
+  const cityName = cityLabel(lang, city);
+  const topCategories = [...items.reduce((counts, event) => {
+    if (statusOf(event) !== "ended") counts.set(event.category, (counts.get(event.category) || 0) + 1);
+    return counts;
+  }, new Map()).entries()]
+    .sort((a, b) => b[1] - a[1] || categoryLabel(lang, a[0]).localeCompare(categoryLabel(lang, b[0])))
+    .slice(0, 3)
+    .map(([category]) => categoryLabel(lang, category));
   const body = `
-    <main class="page">
-      <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "cityPages")}</p>
-        <h1>${esc(meta.title)}</h1>
-        <p>${esc(meta.description)}</p>
+    <main class="page city-page">
+      <section class="city-hero">
+        <div class="city-hero-copy">
+          <p class="eyebrow">${tr(lang, "cityPages")}</p>
+          <h1>${esc(cityName)}</h1>
+          <p>${esc(meta.description)}</p>
+          <div class="city-hero-tags" aria-label="${esc(categoryLabel(lang, "shopping"))}">
+            ${topCategories.map((label) => `<span>${esc(label)}</span>`).join("")}
+          </div>
+        </div>
+        ${heroEvent ? `
+        <a class="city-hero-feature" href="/${lang}/events/${heroEvent.slug}.html">
+          <img src="/${esc(heroEvent.thumbnail)}" alt="" aria-hidden="true">
+          <span>${esc(statusLabel(lang, statusOf(heroEvent)))} · ${esc(eventDateLabel(heroEvent, lang))}</span>
+          <strong>${esc(local(heroEvent.title, lang))}</strong>
+        </a>` : ""}
       </section>
 
       <section class="city-strip page-strip" aria-label="${tr(lang, "cityPages")}">
@@ -7150,10 +7356,10 @@ function renderRoute(route, lang) {
 }
 
 function renderCalendar(lang) {
-  const futureFirst = [...events].sort((a, b) => a.startDate.localeCompare(b.startDate));
+  const futureFirst = [...events].sort(calendarSort);
   const groups = new Map();
   for (const event of futureFirst) {
-    const key = monthKey(event.startDate);
+    const key = monthKey(calendarFocusDate(event));
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(event);
   }
@@ -7169,7 +7375,7 @@ function renderCalendar(lang) {
       <section class="calendar-list calendar-filterable" data-gallery-scope>
         ${galleryControls(lang, { categories: true, cities: true })}
         ${[...groups.entries()].map(([key, items]) => `
-          <div class="month-block" data-filter-group>
+          <div class="month-block" data-filter-group data-calendar-month="${esc(key)}">
             ${calendarMonthHeading(lang, key)}
             <div class="month-events">
               ${items.map((event) => calendarItem(event, lang)).join("")}
@@ -7210,36 +7416,145 @@ function calendarItem(event, lang) {
 }
 
 function renderPlanner(lang) {
+  const copy = {
+    en: {
+      title: "Your Korea trip board",
+      text: "Save dates, maps, and official links together.",
+      cta: "Browse live events",
+      preview: "Planner preview",
+      savedOne: "BTS CITY",
+      savedTwo: "Busan / Jun 5-21",
+      savedThree: "Official source ready",
+      starter: "Start with these",
+      starterText: "Pick one to start.",
+      boardTitle: "Your saved board",
+      utilityTitle: "Built for quick checks",
+      calendarShort: "Save dates",
+      mapShort: "Open maps",
+      sourceShort: "Check source"
+    },
+    fr: {
+      title: "Votre tableau de voyage Coree",
+      text: "Gardez dates, cartes et liens officiels ensemble.",
+      cta: "Voir les evenements",
+      preview: "Apercu du planner",
+      savedOne: "BTS CITY",
+      savedTwo: "Busan / 5-21 juin",
+      savedThree: "Source officielle prete",
+      starter: "Commencer ici",
+      starterText: "Choisissez un evenement.",
+      boardTitle: "Votre tableau",
+      utilityTitle: "Pour verifier vite",
+      calendarShort: "Dates",
+      mapShort: "Cartes",
+      sourceShort: "Source"
+    },
+    de: {
+      title: "Dein Korea-Tripboard",
+      text: "Speichere Events. Daten, Karten und offizielle Links bleiben hier.",
+      cta: "Events ansehen",
+      preview: "Planner-Vorschau",
+      savedOne: "BTS CITY",
+      savedTwo: "Busan / 5.-21. Juni",
+      savedThree: "Offizielle Quelle bereit",
+      starter: "Hier starten",
+      starterText: "Wahle ein Event.",
+      boardTitle: "Dein Board",
+      utilityTitle: "Fur schnelle Checks",
+      calendarShort: "Daten",
+      mapShort: "Karten",
+      sourceShort: "Quelle"
+    }
+  }[lang] || {
+    title: tr(lang, "plannerTitle"),
+    text: tr(lang, "plannerText"),
+    cta: tr(lang, "ctaEvents"),
+    preview: tr(lang, "plannerTitle"),
+    savedOne: siteName,
+    savedTwo: tr(lang, "calendarTitle"),
+    savedThree: tr(lang, "official"),
+    starter: tr(lang, "ctaEvents"),
+    starterText: tr(lang, "plannerEmptyText"),
+    boardTitle: tr(lang, "plannerTitle"),
+    utilityTitle: tr(lang, "cardPlanTools"),
+    calendarShort: tr(lang, "calendarTitle"),
+    mapShort: tr(lang, "cardPlanMap"),
+    sourceShort: tr(lang, "official")
+  };
+  const starterEvents = events
+    .filter((event) => statusOf(event) !== "ended")
+    .sort((a, b) => b.priority - a.priority || a.startDate.localeCompare(b.startDate))
+    .slice(0, 3);
   const body = `
-    <main class="page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
-      <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navPlanner")}</p>
-        <h1>${tr(lang, "plannerTitle")}</h1>
-        <p>${tr(lang, "plannerText")}</p>
-        <div class="hero-actions">
-          <a class="button primary" href="/${lang}/#events">${tr(lang, "ctaEvents")}</a>
-          <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
-          <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
+    <main class="page planner-page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
+      <section class="planner-hero">
+        <div class="planner-hero-copy">
+          <p class="eyebrow">${tr(lang, "navPlanner")}</p>
+          <h1>${esc(copy.title)}</h1>
+          <p>${esc(copy.text)}</p>
+          <div class="hero-actions">
+            <a class="button primary" href="/${lang}/#events">${esc(copy.cta)}</a>
+            <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
+            <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
+          </div>
+        </div>
+        <div class="planner-preview" aria-label="${esc(copy.preview)}">
+          <div class="planner-preview-top">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="planner-preview-card is-main">
+            <span>${esc(copy.savedOne)}</span>
+            <strong>${esc(copy.savedTwo)}</strong>
+            <em>${esc(copy.savedThree)}</em>
+          </div>
+          <div class="planner-preview-row">
+            <span class="about-icon icon-calendar" aria-hidden="true"></span>
+            <span class="about-icon icon-map" aria-hidden="true"></span>
+            <span class="about-icon icon-source" aria-hidden="true"></span>
+          </div>
         </div>
       </section>
       <section class="planner-utility" aria-label="${esc(tr(lang, "cardPlanTools"))}">
+        <div class="planner-utility-head">
+          <p class="eyebrow">${esc(copy.utilityTitle)}</p>
+        </div>
         <article>
-          <span>${esc(tr(lang, "cardPlanCalendar"))}</span>
-          <strong>${esc(tr(lang, "downloadSavedCalendar"))}</strong>
-          <p>${esc(tr(lang, "calendarText"))}</p>
+          <span class="about-icon icon-calendar" aria-hidden="true"></span>
+          <strong>${esc(copy.calendarShort)}</strong>
+          <p>${esc(tr(lang, "downloadSavedCalendar"))}</p>
         </article>
         <article>
-          <span>${esc(tr(lang, "cardPlanMap"))}</span>
-          <strong>${esc(tr(lang, "mapLinksTitle"))}</strong>
-          <p>${esc(tr(lang, "mapNote"))}</p>
+          <span class="about-icon icon-map" aria-hidden="true"></span>
+          <strong>${esc(copy.mapShort)}</strong>
+          <p>${esc(tr(lang, "mapLinksTitle"))}</p>
         </article>
         <article>
-          <span>${esc(tr(lang, "official"))}</span>
-          <strong>${esc(tr(lang, "verifyBefore"))}</strong>
-          <p>${esc(tr(lang, "sourceWarning"))}</p>
+          <span class="about-icon icon-source" aria-hidden="true"></span>
+          <strong>${esc(copy.sourceShort)}</strong>
+          <p>${esc(tr(lang, "verifyBefore"))}</p>
         </article>
       </section>
+      <section class="planner-starter" aria-label="${esc(copy.starter)}">
+        <div>
+          <p class="eyebrow">${esc(copy.starter)}</p>
+          <h2>${esc(copy.starterText)}</h2>
+        </div>
+        <div class="planner-starter-grid">
+          ${starterEvents.map((event) => `
+          <article class="planner-starter-card">
+            <img src="/${esc(event.thumbnail)}" alt="" aria-hidden="true">
+            <div>
+              <span>${esc(cityLabel(lang, event.city))} / ${esc(statusLabel(lang, statusOf(event)))}</span>
+              <strong>${esc(local(event.title, lang))}</strong>
+              ${saveEventButton(event, lang)}
+            </div>
+          </article>`).join("")}
+        </div>
+      </section>
       <section class="planner-board">
+        <div class="planner-board-head">
+          <p class="eyebrow">${esc(copy.boardTitle)}</p>
+        </div>
         <div class="planner-empty" data-planner-empty>
           <strong>${tr(lang, "plannerEmptyTitle")}</strong>
           <span>${tr(lang, "plannerEmptyText")}</span>
@@ -7284,7 +7599,7 @@ function renderEvent(event, lang) {
               ${hotelAffiliateButton(event, lang)}
               ${saveEventButton(event, lang)}
             </div>
-            <p class="handoff-note">${bookingHandoffNote(event, lang)}</p>
+            ${handoffChips(event, lang)}
           </div>
         </header>
         ${affiliatePlanningRail(event, lang)}
@@ -8956,11 +9271,73 @@ function staticPageParagraphs(lang, kind) {
   return copy[kind]?.[lang] || copy[kind]?.en || [];
 }
 
+const aboutIdentityCopy = {
+  en: {
+    eyebrow: "About",
+    lockup: "Events / Pop-ups / Routes",
+    hero: "Find / Check / Save",
+    lede: "Events, routes, official links.",
+    chips: ["Events", "Pop-ups", "Routes"],
+    flow: [
+      ["Find", "Live and upcoming spots"],
+      ["Check", "Dates, maps, weather"],
+      ["Save", "Keep a short plan"]
+    ],
+    principles: [
+      ["Korea now", "Live events and pop-ups."],
+      ["Map-ready", "Korean place names."],
+      ["Calendar-ready", "Dates worth saving."],
+      ["Final source", "Booking stays official."]
+    ],
+    boundaryTitle: "How it works"
+  }
+};
+
+function aboutPage(lang, title, paragraphs) {
+  const copy = aboutIdentityCopy[lang] || aboutIdentityCopy.en;
+  const [lede = "", ...rest] = paragraphs;
+  const principleIcons = ["icon-kspot", "icon-source", "icon-map", "icon-calendar"];
+  const titleHtml = esc(siteName);
+  const body = `
+    <main class="page about-page">
+      <section class="about-identity-hero" aria-labelledby="about-title">
+        <div class="about-brand-block">
+          <div class="about-brand-lockup" aria-label="K-Spot Now">
+            <span class="about-brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="82" height="82" xmlns="http://www.w3.org/2000/svg"><path d="M32 5 C19.8 5 10 14.6 10 26.4 c0 13.4 17.3 29.6 20.5 32.5 a2.2 2.2 0 0 0 3 0 C36.7 56 54 39.8 54 26.4 54 14.6 44.2 5 32 5 Z" fill="#246beb"/><path d="M25.5 16.5 V36.5 M38.5 17 L27 26.3 M30 24 L39 36" stroke="#ffffff" stroke-width="5.6" stroke-linecap="round" fill="none"/><circle cx="49.5" cy="10.5" r="7.2" fill="#e85d3f" stroke="#ffffff" stroke-width="2.6"/></svg></span>
+            <span><small>${esc(copy.lockup)}</small><strong>K-Spot <em>Now</em></strong></span>
+          </div>
+          <p class="eyebrow">${esc(copy.eyebrow)}</p>
+          <h1 id="about-title">${titleHtml}</h1>
+          <p class="about-lede">${esc(copy.lede || lede)}</p>
+          <div class="about-chip-row">${copy.chips.map((chip) => `<span>${esc(chip)}</span>`).join("")}</div>
+        </div>
+      </section>
+      <section class="about-principles" aria-label="${esc(copy.lockup)}">
+        ${copy.principles.map(([label, text], index) => `
+        <article>
+          <span class="about-icon ${principleIcons[index] || "icon-check"}" aria-hidden="true"></span>
+          <strong>${esc(label)}</strong>
+          <span>${esc(text)}</span>
+        </article>`).join("")}
+      </section>
+      <section class="about-copy-section">
+        <div>
+          <p class="eyebrow">${esc(copy.lockup)}</p>
+          <h2>${esc(copy.boundaryTitle)}</h2>
+        </div>
+        <div class="about-copy-text">
+          ${rest.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
+        </div>
+      </section>
+    </main>`;
+  return body;
+}
+
 function staticPage(lang, kind) {
   const titleKey = kind === "cookie-policy" ? "cookieTitle" : `${kind}Title`;
   const title = tr(lang, titleKey);
   const paragraphs = staticPageParagraphs(lang, kind);
-  const body = `
+  const body = kind === "about" ? aboutPage(lang, title, paragraphs) : `
     <main class="page">
       <article class="article-page">
         <h1>${esc(title)}</h1>

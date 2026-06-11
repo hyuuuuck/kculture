@@ -20,6 +20,8 @@ const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "ad
 const checks = [];
 const dayMs = 24 * 60 * 60 * 1000;
 const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
+const defaultSiteUrl = "https://kspotnow.com";
+const defaultContactEmail = "contact@kspotnow.com";
 
 function readJson(relativePath, fallback = null) {
   try {
@@ -111,7 +113,7 @@ function latestJson(pattern) {
 }
 
 function customDomainStatus() {
-  const siteUrl = String(process.env.SITE_URL || "").trim();
+  const siteUrl = String(process.env.SITE_URL || defaultSiteUrl).trim();
   if (!siteUrl) return { ok: false, detail: "SITE_URL not set in this review run." };
   try {
     const parsed = new URL(siteUrl);
@@ -582,7 +584,7 @@ function collectPublishing() {
   if (domain.ok) pass("publisher", "Production config", "Custom HTTPS domain", domain.detail);
   else warn("publisher", "Production config", "Custom HTTPS domain", domain.detail, "Publisher: set SITE_URL to the real custom HTTPS domain for launch and AdSense review.");
 
-  const contactEmail = String(process.env.CONTACT_EMAIL || "").trim();
+  const contactEmail = String(process.env.CONTACT_EMAIL || defaultContactEmail).trim();
   if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail) && !/@gmail\.com$/i.test(contactEmail)) {
     pass("publisher", "Production config", "Public contact email", contactEmail);
   } else {

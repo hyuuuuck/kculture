@@ -223,29 +223,11 @@ function collectHomeUx() {
   }
 
   const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
-  const hasWorkflow = planningLayer.includes("class=\"planning-flow\"")
-    && planningLayer.includes("Find")
-    && planningLayer.includes("Check")
-    && planningLayer.includes("Book");
-  const hasServiceBoundary = planningLayer.includes("Not a ticket shop")
-    && planningLayer.includes("official sources, weather, maps, routes, and hotel options");
-  if (hasWorkflow && hasServiceBoundary) {
-    pass("planner", "Positioning", "Planning-layer workflow", "Homepage explains the planning-first workflow with compact, scannable copy.");
-  } else {
-    fail("planner", "Positioning", "Planning-layer workflow", `workflow ${hasWorkflow}, service boundary ${hasServiceBoundary}.`, "Planner/Designer: show the find, check, book workflow and keep the non-ticket-shop boundary visible without heavy copy.");
-  }
-
   const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-  const visitorFirstPositioning = differenceSection.includes("Check the visit context before you book.")
-    && differenceSection.includes("Before you go")
-    && differenceSection.includes("Official source page")
-    && differenceSection.includes("Finish bookings on the source you choose");
-  const provesAddedValue = differenceSection.includes("Korean map names, calendar, weather, route ideas, and hotels")
-    && differenceSection.includes("Source-role labels");
-  if (visitorFirstPositioning && provesAddedValue) {
-    pass("planner", "Positioning", "Visitor planning differentiation", "Homepage explains K-Spot Now as a neutral pre-booking context layer with compact copy.");
+  if (!planningLayer && !differenceSection && planToolRows === eventCards && sourceRows === eventCards) {
+    pass("planner", "Positioning", "Homepage visitor focus", "Homepage moves straight from discovery into visitor-facing event cards with planning tools and source-role labels.");
   } else {
-    fail("planner", "Positioning", "Visitor planning differentiation", `visitor-first positioning ${visitorFirstPositioning}, proves added value ${provesAddedValue}.`, "Planner/Designer: keep the comparison clear, short, visitor-facing, and focused on planning context, source-role labels, maps, weather, routes, calendar, hotels, and official handoff.");
+    fail("planner", "Positioning", "Homepage visitor focus", `planning layer ${Boolean(planningLayer)}, difference section ${Boolean(differenceSection)}, plan tools ${planToolRows}/${eventCards}, source rows ${sourceRows}/${eventCards}.`, "Planner/Designer: keep the homepage focused on visitor discovery; put official handoff context inside cards and detail pages.");
   }
 
   const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");

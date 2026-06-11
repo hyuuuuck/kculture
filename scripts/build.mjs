@@ -6713,8 +6713,6 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           </div>
         </div>
       </section>
-      ${planningLayerSection(lang)}
-      ${serviceDifferenceSection(lang)}
       ${adUnit("home")}
 
       <section class="content-shell" id="events" data-gallery-scope>

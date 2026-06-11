@@ -22,7 +22,7 @@ function read(relativePath) {
     push(relativePath, "generated file is missing.");
     return "";
   }
-  return fs.readFileSync(file, "utf8");
+  return fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");
 }
 
 function countMatches(text, pattern) {
@@ -158,24 +158,13 @@ if (splitBand.includes("/en/sources/")) {
   push("en/index.html", "homepage split band should promote visitor routes/guides, not operational source pages.");
 }
 const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
-assertIncludes(planningLayer, "Plan first. Book on official sources.", "en/index.html", "home must explain the planning-first positioning.");
-assertIncludes(planningLayer, "Not a ticket shop", "en/index.html", "home must clearly distinguish K-Spot Now from ticket shops.");
-assertIncludes(planningLayer, "official sources, weather, maps, routes, and hotel options", "en/index.html", "home must explain the cross-source planning layer without heavy copy.");
-assertIncludes(planningLayer, "class=\"planning-flow\"", "en/index.html", "home must show the visitor workflow, not only explanatory copy.");
-assertIncludes(planningLayer, "Find", "en/index.html", "home workflow must start with event discovery.");
-assertIncludes(planningLayer, "Check", "en/index.html", "home workflow must include date, weather, map, and route verification.");
-assertIncludes(planningLayer, "Book", "en/index.html", "home workflow must hand final action to official sources.");
-assertIncludes(styles, ".planning-layer-grid", "styles.css", "planning-layer grid styling is missing.");
-assertIncludes(styles, ".planning-flow", "styles.css", "planning workflow styling is missing.");
+if (planningLayer) {
+  push("en/index.html", "homepage should not show the internal planning-layer explainer before visitor listings.");
+}
 const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-assertIncludes(differenceSection, "Check the visit context before you book.", "en/index.html", "home must frame the comparison as visitor planning, not a defensive competitor comparison.");
-assertIncludes(differenceSection, "Before you go", "en/index.html", "home must keep the section visitor-facing.");
-assertIncludes(differenceSection, "Finish bookings on the source you choose", "en/index.html", "home must clarify that final booking actions stay on linked sources.");
-assertIncludes(differenceSection, "Korean map names, calendar, weather, route ideas, and hotels", "en/index.html", "home must show value beyond raw listings.");
-assertIncludes(differenceSection, "Source-role labels", "en/index.html", "home must explain source-role labels without over-naming one platform.");
-assertIncludes(styles, ".service-difference", "styles.css", "service-difference section styling is missing.");
-assertIncludes(styles, ".difference-grid", "styles.css", "service-difference comparison grid styling is missing.");
-assertIncludes(styles, ".difference-proof-grid", "styles.css", "service-difference proof grid styling is missing.");
+if (differenceSection) {
+  push("en/index.html", "homepage should not show the source-comparison explainer before visitor listings.");
+}
 assertIncludes(styles, ".handoff-note", "styles.css", "detail handoff-note styling is missing.");
 assertIncludes(styles, ".visitor-action-grid", "styles.css", "detail visitor action checklist styling is missing.");
 assertIncludes(styles, ".source-transparency-grid", "styles.css", "detail source transparency styling is missing.");
@@ -218,16 +207,8 @@ assertIncludes(deAdvertising, "Werberichtlinie", "de/advertising/index.html", "G
 assertIncludes(deAdvertising, "keinen Eintrag", "de/advertising/index.html", "German advertising policy must separate ads from editorial placement.");
 const frHome = read("fr/index.html");
 const deHome = read("de/index.html");
-assertIncludes(frHome, "Planifiez d&#39;abord", "fr/index.html", "French home must explain planning-first positioning.");
-assertIncludes(frHome, "Pas une billetterie", "fr/index.html", "French home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(frHome, "Verifiez le contexte avant de reserver", "fr/index.html", "French home must frame comparison as visitor planning context.");
-assertIncludes(frHome, "Carte coreenne, calendrier, meteo, trajets et hotels", "fr/index.html", "French home must explain the planning-layer value.");
 assertIncludes(frHome, "Listing / billetterie", "fr/index.html", "French home must expose linked-source role labels on event cards.");
 assertIncludes(frHome, "Carte coreenne", "fr/index.html", "French home cards must expose planning-tool chips.");
-assertIncludes(deHome, "Erst planen", "de/index.html", "German home must explain planning-first positioning.");
-assertIncludes(deHome, "Kein Ticketshop", "de/index.html", "German home must distinguish K-Spot Now from ticket shops.");
-assertIncludes(deHome, "Prufen Sie den Kontext vor der Buchung", "de/index.html", "German home must frame comparison as visitor planning context.");
-assertIncludes(deHome, "Koreanische Karte, Kalender, Wetter, Routen und Hotels", "de/index.html", "German home must explain the planning-layer value.");
 assertIncludes(deHome, "Koreanische Karte", "de/index.html", "German home cards must expose planning-tool chips.");
 assertIncludes(deHome, "Listing / Ticketquelle", "de/index.html", "German home must expose linked-source role labels on event cards.");
 const deHomeText = htmlText(deHome);

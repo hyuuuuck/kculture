@@ -7105,37 +7105,87 @@ img {
   }
 
   .recheck-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 76px minmax(0, 1fr);
     min-height: 0;
-    overflow: clip;
-    padding: 12px;
+    overflow: hidden;
+    align-items: stretch;
+    padding: 10px;
   }
 
   .recheck-thumb {
-    aspect-ratio: 16 / 7;
-    max-height: 118px;
+    min-height: 76px;
+    height: 100%;
+    aspect-ratio: auto;
+    max-height: none;
+  }
+
+  .recheck-thumb img {
+    object-fit: cover;
+  }
+
+  .recheck-card-body {
+    gap: 4px;
+    min-width: 0;
+    width: 100%;
+    max-width: calc(100vw - 142px);
   }
 
   .recheck-title {
-    font-size: 0.86rem;
-    line-height: 1.24;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    -webkit-line-clamp: 3;
+    display: block;
+    min-height: 0;
+    max-width: 100%;
+    font-size: 0.82rem;
+    line-height: 1.16;
+    overflow: visible;
+    overflow-wrap: normal;
+    word-break: normal;
   }
 
   .recheck-title a {
     display: block;
+    width: 100%;
     max-width: 100%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
+    overflow: hidden;
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: normal;
   }
 
   .recheck-meta,
   .recheck-checked,
   .recheck-source strong {
     overflow-wrap: anywhere;
-    word-break: break-word;
+    word-break: normal;
+    font-size: 0.7rem;
+    line-height: 1.15;
+  }
+
+  .recheck-meta {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .recheck-checked {
+    display: none;
+  }
+
+  .recheck-source {
+    margin-top: auto;
+    gap: 4px;
+  }
+
+  .recheck-source span {
+    display: none;
+  }
+
+  .recheck-source strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .page-hero.compact h1 {
@@ -7180,7 +7230,7 @@ img {
 
 @media (max-width: 420px) {
   .now-dashboard {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .now-dashboard div {
@@ -7188,8 +7238,8 @@ img {
   }
 
   .recheck-card {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 9px;
   }
 
   .recheck-card-body,
@@ -7202,6 +7252,10 @@ img {
     min-width: 0;
   }
 
+  .recheck-card-body {
+    max-width: calc(100vw - 136px);
+  }
+
   .recheck-badge {
     top: 6px;
     left: 6px;
@@ -7211,10 +7265,11 @@ img {
   }
 
   .recheck-title {
-    font-size: 0.84rem;
+    font-size: 0.8rem;
   }
 
   .recheck-source strong {
-    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

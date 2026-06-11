@@ -2833,6 +2833,10 @@ img {
   gap: 24px;
 }
 
+.detail-section.two-col > * {
+  min-width: 0;
+}
+
 .detail-section-head {
   display: flex;
   justify-content: space-between;

@@ -388,7 +388,7 @@ function findingsFor(result) {
   const findings = [];
   const metrics = result.metrics || {};
   const pageLabel = `${result.title} / ${result.label}`;
-  const maxScrollWidth = metrics.bodyScrollWidth || metrics.documentScrollWidth || 0;
+  const maxScrollWidth = Math.max(metrics.bodyScrollWidth || 0, metrics.documentScrollWidth || 0);
 
   if (maxScrollWidth > result.metrics.viewportWidth + 1) {
     const widest = (metrics.wideElements || [])[0];

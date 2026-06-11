@@ -6457,7 +6457,7 @@ img {
   }
 
   .fact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 
@@ -6481,9 +6481,18 @@ img {
 
   .fact {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "value";
     min-height: 62px;
     padding: 10px;
     row-gap: 2px;
+  }
+
+  .fact-label,
+  .fact strong {
+    grid-column: 1;
+    min-width: 0;
   }
 
   .fact-icon {
@@ -6557,8 +6566,27 @@ img {
     border-radius: 8px;
   }
 
+  .source-transparency-grid strong,
+  .source-transparency-grid em {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .source-transparency-grid p {
     display: none;
+  }
+
+  .source-boundary-callout {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 4px;
+    padding: 12px;
+  }
+
+  .source-boundary-callout span {
+    max-width: 100%;
+    min-width: 0;
   }
 
   .visitor-info-grid {
@@ -7145,10 +7173,10 @@ img {
     display: block;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
-    overflow-wrap: normal;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
     word-break: normal;
   }
 
@@ -7183,9 +7211,11 @@ img {
 
   .recheck-source strong {
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
+    -webkit-line-clamp: unset;
   }
 
   .page-hero.compact h1 {
@@ -7269,7 +7299,9 @@ img {
   }
 
   .recheck-source strong {
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
   }
 }

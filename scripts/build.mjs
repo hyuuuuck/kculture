@@ -13,7 +13,7 @@ const siteTagline = "Korea events for visitors.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
 const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
-const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "pub-4973303868067114");
+const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
 const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
@@ -5978,17 +5978,11 @@ function spotlightCarousel(slides, lang) {
             <div class="spotlight-carousel" data-spotlight-carousel>
               <div class="spotlight-track">
                 ${usableSlides.map((event, index) => {
-                  const period = eventDateLabel(event, lang);
                   const active = index === 0;
                   return `
                 <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}">
                   <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}">
                   <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
-                  <span class="spotlight-content">
-                    <span>${tr(lang, "highlightLabel")}</span>
-                    <strong>${esc(local(event.title, lang))}</strong>
-                    <em>${esc(cityLabel(lang, event.city))} / ${esc(period)}</em>
-                  </span>
                 </a>`;
                 }).join("")}
               </div>
@@ -7011,11 +7005,16 @@ function recheckQueuePanel(lang) {
           const freshness = freshnessInfo(event, lang);
           return `
           <article class="recheck-card ${freshness.tone}">
-            <span class="recheck-badge">${esc(recheckDueText(lang, daysUntilDue))}</span>
-            <strong class="recheck-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
-            <em class="recheck-meta">${esc(cityLabel(lang, event.city))} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
-            <small class="recheck-checked">${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
-            <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
+            <a class="recheck-thumb" href="/${lang}/events/${event.slug}.html" aria-label="${esc(local(event.title, lang))}">
+              <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
+              <span class="recheck-badge">${esc(recheckDueText(lang, daysUntilDue))}</span>
+            </a>
+            <div class="recheck-card-body">
+              <strong class="recheck-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+              <em class="recheck-meta">${esc(cityLabel(lang, event.city))} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
+              <small class="recheck-checked">${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
+              <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
+            </div>
           </article>`;
         }).join("")}
       </div>

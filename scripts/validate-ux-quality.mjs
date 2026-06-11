@@ -161,6 +161,9 @@ assertIncludes(home, "class=\"spotlight-nav-panel\"", "en/index.html", "spotligh
 if (home.includes("data-spotlight-count") || home.includes("data-spotlight-title-label")) {
   push("en/index.html", "spotlight controls should stay simple: no repeated title label or sequence count below the hero.");
 }
+if (home.includes("spotlight-content")) {
+  push("en/index.html", "spotlight should not repeat the event title in a bottom overlay; keep the hero image, status flag, dots, and swipe only.");
+}
 if (/class="spotlight-dot"[\s\S]*?>\s*<span>(0?\d+)<\/span>/.test(home)) {
   push("en/index.html", "spotlight dots should not expose visible 1-5 sequence numbers.");
 }
@@ -243,8 +246,11 @@ assertIncludes(styles, ".save-event-label", "styles.css", "save buttons must pre
 assertIncludes(styles, ".event-source-row", "styles.css", "event cards must style source-role rows.");
 assertIncludes(styles, ".source-role-chip", "styles.css", "event cards must style linked-source role chips.");
 assertIncludes(styles, ".event-plan-tools", "styles.css", "event cards must style visible planning-tool chips.");
-assertIncludes(styles, ".recheck-card {\n  display: grid;\n  grid-template-rows:", "styles.css", "recheck cards need fixed internal rows so repeated cards align.");
+assertIncludes(styles, ".recheck-card {\n  display: grid;\n  grid-template-columns:", "styles.css", "recheck cards need a stable thumbnail-plus-content grid.");
+assertIncludes(styles, ".recheck-thumb", "styles.css", "recheck cards need a visual thumbnail area instead of text-only blocks.");
+assertIncludes(styles, ".recheck-card-body", "styles.css", "recheck cards need a structured content body below/alongside the thumbnail.");
 assertIncludes(styles, ".recheck-source", "styles.css", "recheck source links need subdued structured styling instead of oversized blue text.");
+assertIncludes(read(path.join("en", "now", "index.html")), "class=\"recheck-thumb\"", "en/now/index.html", "recheck cards need visible event imagery.");
 assertIncludes(read(path.join("en", "now", "index.html")), "class=\"recheck-title\"", "en/now/index.html", "recheck cards need structured title/meta/source slots.");
 assertIncludes(styles, "clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%", "styles.css", "now page status groups should render as compact flag labels, not large headings.");
 assertIncludes(read(path.join("en", "now", "index.html")), "class=\"now-status-flag", "en/now/index.html", "now page cards must show event timing as status flags, not inline meta text.");
@@ -336,22 +342,29 @@ for (const [pattern, label] of [
 }
 
 const visitorUiExpectations = {
-  es: ["Saltar al contenido principal", "Destacado oficial", "Guardar", "revisado"],
-  zh: ["跳到主要内容", "官方精选", "保存", "新鲜度"],
-  pt: ["Ir para o conteudo principal", "Destaque oficial", "Salvar", "revisado"],
-  ru: ["Перейти к основному содержанию", "Официальный акцент", "Сохранить", "Актуальность"],
-  ja: ["本文へ移動", "公式ハイライト", "保存", "更新状態"],
-  fr: ["Aller au contenu principal", "Selection officielle", "Enregistrer", "Fraicheur"],
-  de: ["Zum Hauptinhalt springen", "Offizielles Highlight", "Speichern", "Aktualitat"]
+  es: ["Saltar al contenido principal", "Guardar", "revisado"],
+  zh: ["跳到主要内容", "保存", "新鲜度"],
+  pt: ["Ir para o conteudo principal", "Salvar", "revisado"],
+  ru: ["Перейти к основному содержанию", "Сохранить", "Актуальность"],
+  ja: ["本文へ移動", "保存", "更新状態"],
+  fr: ["Aller au contenu principal", "Enregistrer", "Fraicheur"],
+  de: ["Zum Hauptinhalt springen", "Speichern", "Aktualitat"]
 };
 
-visitorUiExpectations.es[2] = "Guardar en plan";
-visitorUiExpectations.zh[2] = "\u52a0\u5165\u884c\u7a0b";
-visitorUiExpectations.pt[2] = "Salvar no plano";
-visitorUiExpectations.ru[2] = "\u0412 \u043f\u043b\u0430\u043d";
-visitorUiExpectations.ja[2] = "\u8a08\u753b\u306b\u4fdd\u5b58";
-visitorUiExpectations.fr[2] = "Ajouter au plan";
-visitorUiExpectations.de[2] = "Zum Plan speichern";
+visitorUiExpectations.es[1] = "Guardar en plan";
+visitorUiExpectations.zh[1] = "\u52a0\u5165\u884c\u7a0b";
+visitorUiExpectations.pt[1] = "Salvar no plano";
+visitorUiExpectations.ru[1] = "\u0412 \u043f\u043b\u0430\u043d";
+visitorUiExpectations.ja[1] = "\u8a08\u753b\u306b\u4fdd\u5b58";
+visitorUiExpectations.fr[1] = "Ajouter au plan";
+visitorUiExpectations.de[1] = "Zum Plan speichern";
+visitorUiExpectations.es[2] = visitorUiExpectations.es[1];
+visitorUiExpectations.zh[2] = visitorUiExpectations.zh[1];
+visitorUiExpectations.pt[2] = visitorUiExpectations.pt[1];
+visitorUiExpectations.ru[2] = visitorUiExpectations.ru[1];
+visitorUiExpectations.ja[2] = visitorUiExpectations.ja[1];
+visitorUiExpectations.fr[2] = visitorUiExpectations.fr[1];
+visitorUiExpectations.de[2] = visitorUiExpectations.de[1];
 
 for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
   const localizedHome = read(`${lang}/index.html`);

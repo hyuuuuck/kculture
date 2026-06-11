@@ -438,6 +438,7 @@ async function collectChecks() {
     pages.home.includes("class=\"spotlight-dot\"")
       && !pages.home.includes("data-spotlight-count")
       && !pages.home.includes("data-spotlight-title-label")
+      && !pages.home.includes("spotlight-content")
       && styles.includes(".spotlight-dot::before")
       && appJs.includes("showSlide(deltaX < 0 ? currentIndex + 1 : currentIndex - 1)")
       && appJs.includes("pointerdown")
@@ -447,7 +448,7 @@ async function collectChecks() {
       owner: "user-panel",
       page: "Home",
       symptom: "First-screen carousel can read like a numbered internal sequence instead of a swipeable visitor UI.",
-      evidence: "Expected compact dot controls, no repeated title/count text, and touch/mouse swipe handlers.",
+      evidence: "Expected compact dot controls, no repeated title/count/overlay text, and touch/mouse swipe handlers.",
       proposal: "Keep the home spotlight as image-led cards with dot-only navigation and swipe movement.",
       designerResponse: "디자이너는 첫 화면에서 숫자 설명보다 카드 자체와 점 위치가 자연스럽게 읽히는지 본다.",
       developerResponse: "개발자는 dot click, touch swipe, mouse drag가 모두 같은 상태 업데이트를 쓰게 유지한다.",

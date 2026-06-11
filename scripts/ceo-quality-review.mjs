@@ -134,11 +134,15 @@ function collectHomeUx() {
 
   const slides = countMatches(home, /data-spotlight-slide/g);
   const dots = countMatches(home, /class="spotlight-dot"/g);
-  const hasSimpleDots = home.includes("class=\"spotlight-nav-panel\"") && dots === slides && !home.includes("data-spotlight-title-label") && !home.includes("data-spotlight-count");
+  const hasSimpleDots = home.includes("class=\"spotlight-nav-panel\"")
+    && dots === slides
+    && !home.includes("data-spotlight-title-label")
+    && !home.includes("data-spotlight-count")
+    && !home.includes("spotlight-content");
   if (slides >= 3 && slides <= 5 && hasSimpleDots) {
-    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with compact dot navigation and no repeated title/count clutter.`);
+    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with compact dot navigation and no repeated title/count/overlay clutter.`);
   } else {
-    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${dots} dots, simple dots ${hasSimpleDots}.`, "Designer: keep 3-5 spotlight slides with dot-only navigation; do not repeat title or sequence count below the hero.");
+    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${dots} dots, simple dots ${hasSimpleDots}.`, "Designer: keep 3-5 spotlight slides with dot-only navigation; do not repeat title, overlay, or sequence count below the hero.");
   }
 
   if (home.includes("Live Korea events, pop-ups, and deals for visitors.") && home.includes("K-Spot Now")) {

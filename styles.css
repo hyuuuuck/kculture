@@ -572,53 +572,6 @@ img {
   white-space: nowrap;
 }
 
-.spotlight-content {
-  position: absolute;
-  z-index: 2;
-  left: 18px;
-  bottom: 18px;
-  display: grid;
-  gap: 6px;
-  width: max-content;
-  max-width: calc(100% - 36px);
-  padding: 8px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 8px;
-  color: var(--white);
-  background: rgba(8, 19, 34, 0.68);
-  backdrop-filter: blur(10px);
-}
-
-.spotlight-content > span {
-  display: none;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 0.78rem;
-  font-weight: 820;
-  text-transform: uppercase;
-}
-
-.spotlight-content strong {
-  display: block;
-  overflow: hidden;
-  max-width: min(34ch, 100%);
-  font-size: 0.98rem;
-  line-height: 1.12;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.spotlight-content em {
-  display: block;
-  overflow: hidden;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 0.78rem;
-  font-style: normal;
-  font-weight: 720;
-  line-height: 1.22;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .service-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2053,39 +2006,80 @@ img {
   background: #fffdf8;
 }
 
+.recheck-panel .section-head {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 0;
+}
+
+.recheck-panel .section-head p:not(.eyebrow) {
+  max-width: 680px;
+  margin: 6px 0 0;
+}
+
 .recheck-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   align-items: stretch;
 }
 
 .recheck-card {
   display: grid;
-  grid-template-rows: 42px minmax(92px, auto) 40px 34px minmax(48px, auto);
-  gap: 8px;
+  grid-template-columns: 94px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
   min-width: 0;
-  min-height: 258px;
-  padding: 16px;
+  min-height: 148px;
+  padding: 12px;
   border: 1px solid #e9dcc6;
   border-radius: 8px;
   background: var(--white);
 }
 
+.recheck-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #edf2f7;
+}
+
+.recheck-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
 .recheck-badge {
-  align-self: start;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  max-width: calc(100% - 16px);
   width: fit-content;
-  min-height: 32px;
+  min-height: 24px;
   display: inline-flex;
   align-items: center;
-  padding: 5px 12px;
+  padding: 4px 8px;
   border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(30, 22, 8, 0.16);
   background: #fff5df;
   color: #705021;
-  font-size: 0.76rem;
+  font-size: 0.62rem;
   font-weight: 850;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.recheck-card-body {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  align-content: start;
 }
 
 .recheck-title {
@@ -2093,9 +2087,9 @@ img {
   overflow: hidden;
   align-self: start;
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-weight: 850;
-  line-height: 1.32;
+  line-height: 1.24;
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -2120,14 +2114,14 @@ img {
 }
 
 .recheck-checked {
-  font-size: 0.84rem;
+  font-size: 0.75rem;
 }
 
 .recheck-source {
-  min-height: 42px;
+  min-height: 0;
   display: grid;
-  grid-template-columns: 8px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: 6px minmax(0, 1fr);
+  gap: 6px;
   align-items: start;
   color: var(--ink);
   font-weight: 830;
@@ -2137,9 +2131,9 @@ img {
 
 .recheck-source::before {
   content: "";
-  width: 8px;
-  height: 8px;
-  margin-top: 7px;
+  width: 6px;
+  height: 6px;
+  margin-top: 6px;
   border-radius: 999px;
   background: var(--teal);
 }
@@ -2158,10 +2152,10 @@ img {
   display: -webkit-box;
   overflow: hidden;
   grid-column: 2;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 850;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 
 .recheck-source:hover strong {
@@ -5316,8 +5310,7 @@ img {
   }
 
   .recheck-card {
-    grid-template-rows: 38px minmax(76px, auto) 38px 32px minmax(46px, auto);
-    min-height: 236px;
+    min-height: 0;
   }
 
   .category-strip {
@@ -5759,10 +5752,6 @@ img {
     min-height: 250px;
   }
 
-  .spotlight-content strong {
-    max-width: 16ch;
-  }
-
   .spotlight-controls {
     min-height: 30px;
   }
@@ -5986,23 +5975,6 @@ img {
     left: 12px;
     max-width: calc(100% - 24px);
     font-size: 0.72rem;
-  }
-
-  .spotlight-content {
-    left: 14px;
-    bottom: 14px;
-    gap: 5px;
-    max-width: calc(100% - 28px);
-  }
-
-  .spotlight-content strong {
-    max-width: 28ch;
-    font-size: 0.92rem;
-    line-height: 1.12;
-  }
-
-  .spotlight-content em {
-    font-size: 0.74rem;
   }
 
   .service-summary {
@@ -6958,9 +6930,12 @@ img {
     grid-template-columns: 1fr !important;
   }
 
-  .calendar-filterable .filter-bar,
-  .now-dashboard {
+  .calendar-filterable .filter-bar {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .now-dashboard {
+    grid-template-columns: 1fr !important;
   }
 
   .calendar-filterable .filter-bar button {
@@ -7012,21 +6987,23 @@ img {
   }
 
   .recheck-card {
-    grid-template-rows: none;
+    grid-template-columns: 1fr;
     min-height: 0;
     overflow: clip;
     padding: 12px;
   }
 
+  .recheck-thumb {
+    aspect-ratio: 16 / 7;
+    max-height: 118px;
+  }
+
   .recheck-title {
-    display: block;
-    overflow: visible;
     font-size: 0.86rem;
     line-height: 1.24;
-    white-space: normal;
     overflow-wrap: anywhere;
     word-break: break-word;
-    -webkit-line-clamp: initial;
+    -webkit-line-clamp: 3;
   }
 
   .recheck-title a {
@@ -7039,12 +7016,8 @@ img {
   .recheck-meta,
   .recheck-checked,
   .recheck-source strong {
-    display: block;
-    overflow: visible;
-    white-space: normal;
     overflow-wrap: anywhere;
     word-break: break-word;
-    -webkit-line-clamp: initial;
   }
 
   .page-hero.compact h1 {
@@ -7084,5 +7057,46 @@ img {
   .detail-actions > .button,
   .detail-actions > .save-event {
     min-height: 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .now-dashboard {
+    grid-template-columns: 1fr !important;
+  }
+
+  .now-dashboard div {
+    min-height: 62px;
+  }
+
+  .recheck-card {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .recheck-card-body,
+  .recheck-title,
+  .recheck-meta,
+  .recheck-checked,
+  .recheck-source,
+  .recheck-source strong {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .recheck-badge {
+    top: 6px;
+    left: 6px;
+    max-width: calc(100% - 12px);
+    padding: 3px 6px;
+    font-size: 0.56rem;
+  }
+
+  .recheck-title {
+    font-size: 0.84rem;
+  }
+
+  .recheck-source strong {
+    -webkit-line-clamp: 2;
   }
 }

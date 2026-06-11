@@ -7014,9 +7014,12 @@ img {
 }
 
 @media (max-width: 420px) {
-  .gallery-tools .filter-bar,
-  .now-dashboard {
+  .gallery-tools .filter-bar {
     grid-template-columns: 1fr;
+  }
+
+  .now-dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .filter-bar button,
@@ -7052,7 +7055,8 @@ img {
   }
 
   .now-dashboard {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .calendar-filterable .filter-bar button {
@@ -7072,9 +7076,9 @@ img {
   }
 
   .now-dashboard div {
-    min-height: 84px;
+    min-height: 66px;
     overflow: visible;
-    padding: 10px;
+    padding: 8px;
   }
 
   .now-dashboard span {
@@ -7085,14 +7089,11 @@ img {
   }
 
   .now-dashboard em {
-    overflow: visible;
-    overflow-wrap: anywhere;
-    font-size: 0.67rem;
-    line-height: 1.12;
+    display: none;
   }
 
   .now-dashboard strong {
-    font-size: 1.55rem;
+    font-size: 1.42rem;
   }
 
   .recheck-grid {

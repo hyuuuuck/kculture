@@ -339,16 +339,16 @@ async function collectChecks() {
   );
 
   assertIssue(
-    pages.routes.includes("routes-ad-rail") && pages.routes.includes("width=\"120\" height=\"600\"") && !pages.routes.includes("trip-square-ad") && !pages.routes.includes("TD17833727"),
+    pages.routes.includes("routes-ad-rail") && pages.routes.includes("trip-rail-card") && pages.routes.includes("rel=\"sponsored nofollow noopener\"") && !pages.routes.includes("trip-square-ad") && !pages.routes.includes("TD17833727") && !pages.routes.includes("<iframe"),
     {
       severity: "P1",
       owner: "publisher",
       page: "Routes",
-      symptom: "Ad placement can dominate route content.",
-      evidence: "Expected 120x600 left rail and no square Trip.com block.",
-      proposal: "Keep ads in peripheral rail; route cards remain the primary content."
+      symptom: "Ad placement can look broken when external creative fails to render.",
+      evidence: "Expected a visible sponsored hotel rail card and no square or iframe ad shell.",
+      proposal: "Keep monetization in a peripheral rail with a stable visual card; route cards remain the primary content."
     },
-    { owner: "publisher", area: "Ad placement", detail: "Routes page uses peripheral 120x600 rail and no square ad." }
+    { owner: "publisher", area: "Ad placement", detail: "Routes page uses a visible sponsored hotel rail card and no blank-prone iframe ad." }
   );
 
   assertIssue(

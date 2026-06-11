@@ -485,7 +485,8 @@ img {
   width: 100%;
   height: 100%;
   min-height: 360px;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0b1b34;
   transition: transform 420ms ease;
 }
 
@@ -3812,7 +3813,7 @@ img {
 
 .routes-with-ad {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: 168px minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
@@ -3826,7 +3827,31 @@ img {
   align-self: start;
 }
 
+.trip-rail-card {
+  position: relative;
+  display: flex;
+  width: 168px;
+  min-height: 540px;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  overflow: hidden;
+  border: 1px solid #d7e2f1;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(239, 247, 255, 0.96) 56%, rgba(255, 248, 239, 0.95) 100%);
+  color: #0a2540;
+  box-shadow: 0 14px 36px rgba(15, 44, 75, 0.08);
+  text-decoration: none;
+}
+
+.trip-rail-card:hover {
+  border-color: rgba(45, 111, 226, 0.42);
+  transform: translateY(-1px);
+}
+
 .routes-ad-rail .ad-disclosure {
+  align-self: flex-start;
   min-height: 22px;
   display: inline-flex;
   align-items: center;
@@ -3842,20 +3867,85 @@ img {
   text-transform: uppercase;
 }
 
-.trip-skyscraper-frame {
-  width: 120px;
-  height: 600px;
-  overflow: hidden;
-  border: 1px solid #dbe5f2;
-  border-radius: 8px;
-  background: #f8fbff;
+.trip-rail-brand {
+  display: block;
+  color: #1f65d6;
+  font-size: 1.08rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
-.trip-skyscraper-frame iframe {
+.trip-rail-visual {
+  position: relative;
   display: block;
-  width: 120px;
-  height: 600px;
-  border: 0;
+  min-height: 230px;
+  margin: 4px 0 2px;
+  border: 1px solid rgba(142, 180, 228, 0.46);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 95, 64, 0.22) 0 8px, transparent 9px),
+    radial-gradient(circle at 74% 72%, rgba(22, 143, 128, 0.2) 0 10px, transparent 11px),
+    linear-gradient(135deg, rgba(45, 111, 226, 0.14), rgba(255, 255, 255, 0.84) 48%, rgba(255, 190, 92, 0.18));
+}
+
+.trip-rail-route {
+  position: absolute;
+  inset: 28px 54px 34px;
+  border-left: 3px solid rgba(45, 111, 226, 0.82);
+  border-bottom: 3px solid rgba(45, 111, 226, 0.82);
+  border-radius: 0 0 0 18px;
+}
+
+.trip-rail-dot {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(16, 35, 61, 0.2);
+}
+
+.trip-rail-dot.dot-one {
+  top: 24px;
+  left: 38px;
+  background: #2d6fe2;
+}
+
+.trip-rail-dot.dot-two {
+  top: 96px;
+  left: 38px;
+  background: #168f80;
+}
+
+.trip-rail-dot.dot-three {
+  right: 42px;
+  bottom: 30px;
+  background: #ff684a;
+}
+
+.trip-rail-card strong {
+  margin-top: auto;
+  font-size: 1.06rem;
+  line-height: 1.14;
+}
+
+.trip-rail-card small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 760;
+  line-height: 1.28;
+}
+
+.trip-rail-cta {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #0a3f7a;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 900;
 }
 
 .stop-list {
@@ -5655,8 +5745,35 @@ img {
     margin-top: 8px;
   }
 
-  .routes-ad-rail .ad-disclosure {
-    justify-self: start;
+  .trip-rail-card {
+    width: min(100%, 520px);
+    min-height: 148px;
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 8px 14px;
+    align-items: start;
+  }
+
+  .trip-rail-card .ad-disclosure {
+    grid-column: 1;
+  }
+
+  .trip-rail-brand,
+  .trip-rail-card strong,
+  .trip-rail-card small,
+  .trip-rail-cta {
+    grid-column: 2;
+  }
+
+  .trip-rail-card strong {
+    margin-top: 0;
+  }
+
+  .trip-rail-visual {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    min-height: 92px;
+    margin: 0;
   }
 
   .fact,

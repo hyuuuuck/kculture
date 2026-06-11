@@ -4310,23 +4310,87 @@ function hotelAffiliateButton(event, lang) {
 }
 
 function tripSkyscraperBanner(lang) {
-  if (!affiliateIds.tripDisplayAdUrl || !affiliateIds.tripDisplayAdId) return "";
+  if (!affiliateIds.tripAllianceId || !affiliateIds.tripSid) return "";
   const copy = {
-    en: "Sponsored travel banner",
-    es: "Banner de viaje patrocinado",
-    zh: "赞助旅行广告",
-    pt: "Banner de viagem patrocinado",
-    ru: "Спонсорский туристический баннер",
-    ja: "スポンサー旅行バナー",
-    fr: "Banniere voyage sponsorisee",
-    de: "Gesponsertes Reisebanner"
-  }[lang] || "Sponsored travel banner";
+    en: {
+      aria: "Sponsored Trip.com hotel link",
+      label: "Ad",
+      title: "Stay near the route",
+      meta: "Hotels around Seoul, Busan, and event stops",
+      cta: "Check stays"
+    },
+    es: {
+      aria: "Enlace patrocinado de hoteles Trip.com",
+      label: "Ad",
+      title: "Duerme cerca",
+      meta: "Hoteles junto a rutas y eventos",
+      cta: "Ver hoteles"
+    },
+    zh: {
+      aria: "Trip.com 酒店赞助链接",
+      label: "Ad",
+      title: "住在路线附近",
+      meta: "首尔、釜山与活动周边酒店",
+      cta: "查看住宿"
+    },
+    pt: {
+      aria: "Link patrocinado de hoteis Trip.com",
+      label: "Ad",
+      title: "Fique perto",
+      meta: "Hoteis perto de rotas e eventos",
+      cta: "Ver hoteis"
+    },
+    ru: {
+      aria: "Спонсорская ссылка Trip.com на отели",
+      label: "Ad",
+      title: "Жилье рядом",
+      meta: "Отели у маршрутов и событий",
+      cta: "Смотреть"
+    },
+    ja: {
+      aria: "Trip.comホテルのスポンサーリンク",
+      label: "Ad",
+      title: "近くに泊まる",
+      meta: "イベント周辺のホテル",
+      cta: "宿を見る"
+    },
+    fr: {
+      aria: "Lien hotel Trip.com sponsorise",
+      label: "Ad",
+      title: "Dormir pres du trajet",
+      meta: "Hotels proches des evenements",
+      cta: "Voir"
+    },
+    de: {
+      aria: "Gesponserter Trip.com Hotellink",
+      label: "Ad",
+      title: "Nah an der Route",
+      meta: "Hotels bei Events und Stops",
+      cta: "Hotels"
+    }
+  }[lang] || {
+    aria: "Sponsored Trip.com hotel link",
+    label: "Ad",
+    title: "Stay near the route",
+    meta: "Hotels around Seoul, Busan, and event stops",
+    cta: "Check stays"
+  };
+  const href = tripHotelUrlFor("Seoul");
   return `
-          <aside class="routes-ad-rail" aria-label="${esc(copy)}">
-            <span class="ad-disclosure">Ad</span>
-            <div class="trip-skyscraper-frame">
-              <iframe src="${esc(affiliateIds.tripDisplayAdUrl)}" id="${esc(affiliateIds.tripDisplayAdId)}" title="${esc(copy)}" width="120" height="600" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+          <aside class="routes-ad-rail" aria-label="${esc(copy.aria)}">
+            <a class="trip-rail-card" href="${esc(href)}" rel="sponsored nofollow noopener" target="_blank">
+              <span class="ad-disclosure">${esc(copy.label)}</span>
+              <span class="trip-rail-brand">Trip.com</span>
+              <span class="trip-rail-visual" aria-hidden="true">
+                <span class="trip-rail-route"></span>
+                <span class="trip-rail-dot dot-one"></span>
+                <span class="trip-rail-dot dot-two"></span>
+                <span class="trip-rail-dot dot-three"></span>
+              </span>
+              <strong>${esc(copy.title)}</strong>
+              <small>${esc(copy.meta)}</small>
+              <span class="trip-rail-cta">${esc(copy.cta)}</span>
+            </a>
           </aside>`;
 }
 

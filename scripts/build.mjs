@@ -1178,7 +1178,7 @@ dict = {
 };
 
 languages.ja = { name: "日本語", locale: "ja-JP" };
-languages.fr = { name: "Francais", locale: "fr-FR" };
+languages.fr = { name: "Français", locale: "fr-FR" };
 languages.de = { name: "Deutsch", locale: "de-DE" };
 
 const languageFlagRegions = {

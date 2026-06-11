@@ -7075,7 +7075,7 @@ function recheckQueuePanel(lang) {
             </a>
             <div class="recheck-card-body">
               <strong class="recheck-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
-              <em class="recheck-meta">${esc(cityLabel(lang, event.city))} - ${categoryLabel(lang, event.category)} - ${esc(statusLabel(lang, statusOf(event)))}</em>
+              <em class="recheck-meta"><span>${esc(cityLabel(lang, event.city))}</span><span>${categoryLabel(lang, event.category)}</span><span>${esc(statusLabel(lang, statusOf(event)))}</span></em>
               <small class="recheck-checked">${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
               <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
             </div>

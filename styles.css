@@ -2100,7 +2100,38 @@ img {
   color: inherit;
 }
 
-.recheck-meta,
+.recheck-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-self: start;
+  min-width: 0;
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 780;
+  line-height: 1;
+}
+
+.recheck-meta span {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 22px;
+  padding: 4px 7px;
+  border: 1px solid #d9e5f3;
+  border-radius: 999px;
+  background: #f7fbff;
+  color: var(--blue-dark);
+  font-size: 0.66rem;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.recheck-meta span:last-child {
+  border-color: #c8dfff;
+  background: #eef5ff;
+}
+
 .recheck-checked {
   display: -webkit-box;
   overflow: hidden;
@@ -5667,6 +5698,7 @@ img {
     min-height: 560px;
     padding-inline: 28px;
     padding-top: 6px;
+    background-position: 68% center;
   }
 
   .about-brand-lockup {
@@ -7265,15 +7297,15 @@ img {
   }
 
   .recheck-card {
-    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-columns: 68px minmax(0, 1fr);
     min-height: 0;
-    overflow: hidden;
+    overflow: visible;
     align-items: stretch;
     padding: 10px;
   }
 
   .recheck-thumb {
-    min-height: 76px;
+    min-height: 68px;
     height: 100%;
     aspect-ratio: auto;
     max-height: none;
@@ -7287,17 +7319,20 @@ img {
     gap: 4px;
     min-width: 0;
     width: 100%;
-    max-width: calc(100vw - 142px);
+    max-width: 100%;
   }
 
   .recheck-title {
     display: block;
     min-height: 0;
     max-width: 100%;
-    font-size: 0.82rem;
-    line-height: 1.16;
+    font-size: 0.78rem;
+    line-height: 1.18;
     overflow: visible;
     overflow-wrap: normal;
+    hyphens: none;
+    -webkit-box-orient: initial;
+    -webkit-line-clamp: unset;
     word-break: normal;
   }
 
@@ -7306,10 +7341,12 @@ img {
     width: 100%;
     max-width: 100%;
     overflow: visible;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    hyphens: none;
     text-overflow: clip;
     white-space: normal;
     word-break: normal;
+    -webkit-line-clamp: unset;
   }
 
   .recheck-meta,
@@ -7322,10 +7359,15 @@ img {
   }
 
   .recheck-meta {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    display: flex;
+    gap: 3px;
+    overflow: visible;
+  }
+
+  .recheck-meta span {
+    min-height: 18px;
+    padding: 3px 5px;
+    font-size: 0.58rem;
   }
 
   .recheck-checked {
@@ -7400,7 +7442,7 @@ img {
   }
 
   .recheck-card {
-    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-columns: 64px minmax(0, 1fr);
     gap: 9px;
   }
 
@@ -7415,7 +7457,7 @@ img {
   }
 
   .recheck-card-body {
-    max-width: calc(100vw - 136px);
+    max-width: 100%;
   }
 
   .recheck-badge {
@@ -7427,7 +7469,7 @@ img {
   }
 
   .recheck-title {
-    font-size: 0.8rem;
+    font-size: 0.76rem;
   }
 
   .recheck-source strong {

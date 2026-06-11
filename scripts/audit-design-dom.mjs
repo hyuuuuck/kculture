@@ -297,14 +297,22 @@ function auditExpression() {
       if (
         viewportWidth <= 420 &&
         element.matches(".recheck-title, .recheck-title a, .recheck-meta, .recheck-checked, .recheck-source strong") &&
-        (rect.right > viewportWidth + 2 || element.scrollWidth > element.clientWidth + 2)
+        (
+          rect.right > viewportWidth + 2 ||
+          element.scrollWidth > element.clientWidth + 2 ||
+          (element.scrollHeight > element.clientHeight + 2 && styles.overflowY !== "visible")
+        )
       ) {
         clippedRecheckTexts.push({
           ...item,
           scrollWidth: element.scrollWidth,
           clientWidth: element.clientWidth,
+          scrollHeight: element.scrollHeight,
+          clientHeight: element.clientHeight,
           whiteSpace: styles.whiteSpace,
-          overflowX: styles.overflowX
+          overflowX: styles.overflowX,
+          overflowY: styles.overflowY,
+          webkitLineClamp: styles.webkitLineClamp
         });
       }
     }

@@ -4150,14 +4150,18 @@ img {
   grid-area: title;
   font-size: 1.1rem;
   line-height: 1.2;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  hyphens: none;
+  word-break: normal;
 }
 
 .guide-card p {
   grid-area: summary;
   margin: 0;
   line-height: 1.45;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  hyphens: none;
+  word-break: normal;
 }
 
 .guide-card em {
@@ -7084,6 +7088,31 @@ img {
     width: min(100%, 260px);
     margin-top: 0;
     justify-self: start;
+  }
+
+  .guide-card {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 7px 10px;
+    min-height: 0;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .guide-card-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .guide-card strong,
+  .guide-card p {
+    max-width: 100%;
+  }
+
+  .guide-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 
   .gallery-tools,

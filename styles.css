@@ -3987,6 +3987,7 @@ img {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+  min-width: 0;
 }
 
 .guide-grid.wide {
@@ -3994,16 +3995,120 @@ img {
 }
 
 .guide-card {
+  position: relative;
   display: grid;
-  gap: 8px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-areas:
+    "icon kicker"
+    "icon title"
+    ". summary"
+    ". action";
+  gap: 8px 12px;
   min-height: 190px;
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--white);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.92)),
+    var(--white);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  max-width: 100%;
+  min-width: 0;
 }
 
-.guide-card span {
+.guide-card > * {
+  min-width: 0;
+}
+
+.guide-card:hover {
+  border-color: rgba(36, 107, 235, 0.35);
+  box-shadow: 0 14px 30px rgba(6, 58, 116, 0.09);
+  transform: translateY(-2px);
+}
+
+.guide-card-icon {
+  grid-area: icon;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #bdd2ef;
+  border-radius: 8px;
+  color: var(--blue-dark);
+  background: #edf5ff;
+}
+
+.guide-card-icon::before,
+.guide-card-icon::after {
+  content: "";
+  position: absolute;
+}
+
+.guide-card-icon::before {
+  width: 18px;
+  height: 18px;
+  border: 3px solid currentColor;
+  border-radius: 5px;
+}
+
+.guide-card-kpop .guide-card-icon::before {
+  width: 0;
+  height: 0;
+  border-width: 10px 0 10px 16px;
+  border-style: solid;
+  border-color: transparent transparent transparent currentColor;
+  border-radius: 2px;
+  transform: translateX(2px);
+}
+
+.guide-card-duty-free .guide-card-icon::before,
+.guide-card-shopping .guide-card-icon::before {
+  width: 19px;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.guide-card-duty-free .guide-card-icon::after,
+.guide-card-shopping .guide-card-icon::after {
+  top: 12px;
+  width: 11px;
+  height: 8px;
+  border: 3px solid currentColor;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.guide-card-beauty .guide-card-icon::before {
+  width: 17px;
+  height: 21px;
+  border-radius: 50% 50% 50% 3px;
+  transform: rotate(-45deg);
+}
+
+.guide-card-festival .guide-card-icon::before {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 5px rgba(36, 107, 235, 0.12);
+}
+
+.guide-card-department-store .guide-card-icon::before {
+  width: 18px;
+  height: 22px;
+  border-radius: 3px;
+}
+
+.guide-card-department-store .guide-card-icon::after {
+  width: 10px;
+  height: 12px;
+  border-left: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+}
+
+.guide-card-kicker {
+  grid-area: kicker;
   color: var(--coral);
   font-size: 0.78rem;
   font-weight: 850;
@@ -4011,8 +4116,31 @@ img {
 }
 
 .guide-card strong {
+  grid-area: title;
   font-size: 1.1rem;
   line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.guide-card p {
+  grid-area: summary;
+  margin: 0;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.guide-card em {
+  grid-area: action;
+  align-self: end;
+  color: var(--blue-dark);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 860;
+}
+
+.guide-card em::after {
+  content: ">";
+  margin-left: 6px;
 }
 
 .article-page {

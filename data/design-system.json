@@ -290,6 +290,22 @@
       ]
     },
     {
+      "id": "guides",
+      "group": "Discovery",
+      "title": "Guides",
+      "path": "/en/guides/",
+      "distPath": "en/guides/index.html",
+      "owner": "designer",
+      "heroType": "utility-page",
+      "contract": "Guides feel like practical visitor help, not passive documentation.",
+      "watch": "Guide card density, title scale, and quick usefulness.",
+      "requiredSelectors": [
+        ".page-hero.compact",
+        ".guide-grid",
+        ".guide-card"
+      ]
+    },
+    {
       "id": "routes",
       "group": "Discovery",
       "title": "Routes",

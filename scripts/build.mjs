@@ -7785,11 +7785,14 @@ function fact(label, value, icon = "dot", html = false) {
 }
 
 function guideCard(guide, lang) {
+  const categoryClass = String(guide.category || "guide").replace(/[^a-z0-9-]/gi, "-").toLowerCase();
   return `
-    <a class="guide-card" href="/${lang}/guides/${guide.slug}.html">
-      <span>${categoryLabel(lang, guide.category)}</span>
+    <a class="guide-card guide-card-${esc(categoryClass)}" href="/${lang}/guides/${guide.slug}.html">
+      <span class="guide-card-icon" aria-hidden="true"></span>
+      <span class="guide-card-kicker">${categoryLabel(lang, guide.category)}</span>
       <strong>${esc(guideTitleText(guide, lang))}</strong>
       <p>${esc(guideSummaryText(guide, lang))}</p>
+      <em>${tr(lang, "openSavedEvent")}</em>
     </a>`;
 }
 

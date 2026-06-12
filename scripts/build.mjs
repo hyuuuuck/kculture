@@ -6055,7 +6055,7 @@ function spotlightCarousel(slides, lang) {
               <div class="spotlight-controls" aria-label="Featured event controls">
                 <div class="spotlight-nav-panel">
                   <div class="spotlight-tabs" aria-label="Choose featured highlight">
-                    ${usableSlides.map((event, index) => `<button class="spotlight-dot" type="button" data-spotlight-dot="${index}" aria-label="Show ${esc(local(event.title, lang))}" title="${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span class="sr-only">${esc(local(event.title, lang))}</span></button>`).join("")}
+                    ${usableSlides.map((event, index) => `<button class="spotlight-dot" type="button" data-spotlight-dot="${index}" aria-label="Show ${esc(local(event.title, lang))}"${index === 0 ? " aria-current=\"true\"" : ""}><span class="sr-only">${esc(local(event.title, lang))}</span></button>`).join("")}
                   </div>
                 </div>
               </div>` : ""}

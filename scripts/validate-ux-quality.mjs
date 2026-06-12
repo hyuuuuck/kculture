@@ -167,6 +167,16 @@ if (home.includes("spotlight-content")) {
 if (/class="spotlight-dot"[\s\S]*?>\s*<span>(0?\d+)<\/span>/.test(home)) {
   push("en/index.html", "spotlight dots should not expose visible 1-5 sequence numbers.");
 }
+if (/class="spotlight-dot"[^>]*\btitle=/.test(home)) {
+  push("en/index.html", "spotlight dots should avoid browser title tooltips; keep only compact dots with accessible labels.");
+}
+for (const snippet of [
+  "track?.addEventListener(\"pointerdown\", startDrag)",
+  "track?.addEventListener(\"touchmove\", moveTouchDrag",
+  "Math.abs(deltaX) >= 45"
+]) {
+  assertIncludes(appJs, snippet, "app.js", "spotlight carousel swipe handling is missing.");
+}
 const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
 assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
 if (summaryBlock.includes("<dt>Sources</dt>")) {

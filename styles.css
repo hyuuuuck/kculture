@@ -3800,7 +3800,7 @@ img {
 
 .route-card {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: 58px minmax(0, 1fr);
   gap: 8px 12px;
   align-content: start;
   padding: 18px;
@@ -3814,9 +3814,57 @@ img {
   background: #f3faf7;
 }
 
-.route-card-icon {
-  grid-row: 1 / span 2;
+.route-card-visual {
+  grid-row: 1 / span 4;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
   align-self: start;
+}
+
+.route-card-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.route-card-path {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  width: 24px;
+  min-height: 74px;
+}
+
+.route-card-path::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  bottom: 9px;
+  left: 50%;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--blue), var(--teal));
+  transform: translateX(-50%);
+}
+
+.route-card-path i {
+  position: relative;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--white);
+  border-radius: 999px;
+  background: var(--teal);
+  box-shadow: 0 0 0 2px rgba(36, 107, 235, 0.13);
+}
+
+.route-card-path i:first-child {
+  background: var(--blue);
+}
+
+.route-card-path i:last-child {
+  background: var(--coral);
 }
 
 .route-card-kicker {
@@ -6989,15 +7037,31 @@ img {
   }
 
   .route-card {
-    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-columns: 52px minmax(0, 1fr);
     gap: 5px 10px;
-    min-height: 76px;
+    min-height: 88px;
     align-items: center;
     padding: 12px;
   }
 
-  .route-card-icon {
+  .route-card-visual {
     grid-row: 1 / span 2;
+    gap: 6px;
+    align-self: stretch;
+  }
+
+  .route-card-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .route-card-path {
+    min-height: 34px;
+  }
+
+  .route-card-path i {
+    width: 8px;
+    height: 8px;
   }
 
   .route-card-kicker {

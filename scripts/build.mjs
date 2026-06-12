@@ -4181,7 +4181,10 @@ function routeCard(route, lang = "en") {
   const copy = routeCopy(route, lang);
   return `
     <article class="route-card">
-      <span class="route-card-icon about-icon icon-map" aria-hidden="true"></span>
+      <span class="route-card-visual" aria-hidden="true">
+        <span class="route-card-icon about-icon icon-map"></span>
+        <span class="route-card-path"><i></i><i></i><i></i></span>
+      </span>
       <span class="route-card-kicker">${esc(copy.bestFor)}</span>
       <h3>${esc(copy.title)}</h3>
       <small class="route-card-meta">${esc(routeMetaLine(route, copy))}</small>
@@ -4194,7 +4197,10 @@ function routeLinkCard(route, lang) {
   const copy = routeCopy(route, lang);
   return `
     <a class="route-card" href="${routeHref(lang, route)}">
-      <span class="route-card-icon about-icon icon-map" aria-hidden="true"></span>
+      <span class="route-card-visual" aria-hidden="true">
+        <span class="route-card-icon about-icon icon-map"></span>
+        <span class="route-card-path"><i></i><i></i><i></i></span>
+      </span>
       <span class="route-card-kicker">${esc(copy.bestFor)}</span>
       <h3>${esc(copy.title)}</h3>
       <small class="route-card-meta">${esc(routeMetaLine(route, copy))}</small>

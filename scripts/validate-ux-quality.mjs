@@ -186,7 +186,9 @@ if (home.includes(">Dept.<") || calendarEn.includes(">Dept.<")) {
 for (const snippet of [
   "track?.addEventListener(\"pointerdown\", startDrag)",
   "track?.addEventListener(\"touchmove\", moveTouchDrag",
-  "Math.abs(deltaX) >= 45"
+  "Math.abs(deltaX) >= 45",
+  "function shouldSuppressCarouselClick",
+  "event.target.closest?.(\"[data-spotlight-slide]\")"
 ]) {
   assertIncludes(appJs, snippet, "app.js", "spotlight carousel swipe handling is missing.");
 }

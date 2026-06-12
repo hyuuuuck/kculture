@@ -36,7 +36,9 @@ for (const carousel of spotlightCarousels) {
   let dragStartY = 0;
   let dragDeltaX = 0;
   let dragDeltaY = 0;
-  let suppressClick = false;
+  let suppressClickUntil = 0;
+  let suppressClickX = 0;
+  let suppressClickY = 0;
 
   function beginDrag(clientX, clientY, pointerId) {
     dragPointerId = pointerId;
@@ -62,12 +64,19 @@ for (const carousel of spotlightCarousels) {
     carousel.classList.remove("is-dragging");
 
     if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-      suppressClick = true;
+      suppressClickUntil = Date.now() + 260;
+      suppressClickX = clientX;
+      suppressClickY = clientY;
       showSlide(deltaX < 0 ? currentIndex + 1 : currentIndex - 1);
-      window.setTimeout(() => {
-        suppressClick = false;
-      }, 350);
     }
+  }
+
+  function shouldSuppressCarouselClick(event) {
+    if (Date.now() > suppressClickUntil) return false;
+    const distance = Math.hypot(event.clientX - suppressClickX, event.clientY - suppressClickY);
+    if (distance > 28) return false;
+    suppressClickUntil = 0;
+    return true;
   }
 
   function showSlide(index) {
@@ -169,10 +178,10 @@ for (const carousel of spotlightCarousels) {
   track?.addEventListener("touchcancel", endTouchDrag);
 
   carousel.addEventListener("click", (event) => {
-    if (!suppressClick) return;
+    const slideLink = event.target.closest?.("[data-spotlight-slide]");
+    if (!slideLink || !shouldSuppressCarouselClick(event)) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    suppressClick = false;
   }, true);
 
   carousel.addEventListener("keydown", (event) => {

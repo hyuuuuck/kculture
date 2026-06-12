@@ -3117,7 +3117,7 @@ function nowDashboard(lang) {
   const checkedTodayCount = events.filter((event) => event.lastChecked === today).length;
   const thisWeekCount = events.filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
   const fastMovingCount = events.filter((event) => fastMovingCategories.has(event.category) && statusOf(event) !== "ended").length;
-  const checkedLabel = `${tr(lang, "newlyChecked")} / ${dateText(lang, today)}`;
+  const checkedDate = dateText(lang, today);
   const fastMovingDetail = local({
     en: "K-pop, beauty, duty-free, department stores",
     fr: "K-pop, beaute, hors taxes, grands magasins",
@@ -3127,7 +3127,7 @@ function nowDashboard(lang) {
   const stats = [
     { value: liveCount, label: tr(lang, "liveNow"), detail: `${endingSoonCount} ${tr(lang, "endingSoon").toLowerCase()}` },
     { value: thisWeekCount, label: tr(lang, "thisWeek"), detail: tr(lang, "statusUpcoming") },
-    { value: checkedTodayCount, label: checkedLabel, detail: tr(lang, "freshnessTitle") },
+    { value: checkedTodayCount, label: tr(lang, "newlyChecked"), detail: checkedDate },
     { value: fastMovingCount, label: tr(lang, "fastMovingTopics"), detail: fastMovingDetail }
   ];
 

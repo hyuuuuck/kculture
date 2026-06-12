@@ -239,6 +239,7 @@ function auditExpression() {
     const smallControls = [];
     const crampedDetailMedia = [];
     const clippedRecheckTexts = [];
+    const hiddenLanguageNames = [];
     const wideElements = [];
 
     for (const element of all) {
@@ -338,6 +339,27 @@ function auditExpression() {
       }
     }
 
+    const languageMenu = document.querySelector(".language-menu");
+    if (viewportWidth <= 680 && languageMenu) {
+      const wasOpen = languageMenu.hasAttribute("open");
+      languageMenu.setAttribute("open", "");
+      for (const element of document.querySelectorAll(".language-menu-panel .language-name")) {
+        const rect = element.getBoundingClientRect();
+        const styles = getComputedStyle(element);
+        if (rect.width < 1 || rect.height < 1 || styles.display === "none" || styles.visibility === "hidden") {
+          hiddenLanguageNames.push({
+            selector: selectorOf(element),
+            text: textOf(element),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            display: styles.display,
+            visibility: styles.visibility
+          });
+        }
+      }
+      if (!wasOpen) languageMenu.removeAttribute("open");
+    }
+
     return {
       title: document.title,
       viewportWidth,
@@ -351,7 +373,8 @@ function auditExpression() {
         .slice(0, 8),
       smallControls: smallControls.slice(0, 12),
       crampedDetailMedia: crampedDetailMedia.slice(0, 4),
-      clippedRecheckTexts: clippedRecheckTexts.slice(0, 8)
+      clippedRecheckTexts: clippedRecheckTexts.slice(0, 8),
+      hiddenLanguageNames: hiddenLanguageNames.slice(0, 8)
     };
   })()`;
 }
@@ -464,6 +487,17 @@ function findingsFor(result) {
       symptom: `${pageLabel} has a mobile recheck card line that can be read as accidental clipping.`,
       evidence: `${item.selector} scrollWidth=${item.scrollWidth}, clientWidth=${item.clientWidth}, right=${item.right}, text="${item.text}".`,
       proposal: "Let recheck titles and source labels wrap naturally on mobile; do not rely on hidden overflow for operational cards."
+    });
+  }
+
+  for (const item of metrics.hiddenLanguageNames || []) {
+    findings.push({
+      severity: "P1",
+      page: result.title,
+      viewport: result.viewport,
+      symptom: `${pageLabel} hides language names inside the mobile language switcher.`,
+      evidence: `${item.selector} is ${item.width}x${item.height}, display=${item.display}, text="${item.text}".`,
+      proposal: "Hide the current summary label if needed, but keep the dropdown language names visible for visitors."
     });
   }
 

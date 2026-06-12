@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import fsSync from "node:fs";
 import http from "node:http";
 import os from "node:os";
 import path from "node:path";
@@ -13,8 +12,8 @@ const harnessDir = path.join(dist, "__design-harness");
 const today = todayString();
 
 const viewports = [
-  { id: "desktop", label: "Desktop 1280", width: 1280, height: 900 },
-  { id: "mobile", label: "Mobile 390", width: 390, height: 844 }
+  { id: "desktop", label: "Desktop 1280", width: 1280, height: 900, mobile: false },
+  { id: "mobile", label: "Mobile 390", width: 390, height: 844, mobile: true }
 ];
 
 function esc(value) {
@@ -121,9 +120,55 @@ function slug(value) {
     .slice(0, 80) || "page";
 }
 
+function connectWebSocket(url) {
+  return new Promise((resolve, reject) => {
+    const ws = new WebSocket(url);
+    ws.onopen = () => {
+      let id = 0;
+      const pending = new Map();
+
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        if (!message.id || !pending.has(message.id)) return;
+        const { resolve: resolvePending, reject: rejectPending } = pending.get(message.id);
+        pending.delete(message.id);
+        if (message.error) rejectPending(new Error(JSON.stringify(message.error)));
+        else resolvePending(message.result);
+      };
+
+      function send(method, params = {}, sessionId = null) {
+        return new Promise((resolvePending, rejectPending) => {
+          const callId = ++id;
+          pending.set(callId, { resolve: resolvePending, reject: rejectPending });
+          const message = sessionId ? { id: callId, sessionId, method, params } : { id: callId, method, params };
+          ws.send(JSON.stringify(message));
+        });
+      }
+
+      resolve({ ws, send });
+    };
+    ws.onerror = reject;
+  });
+}
+
+async function waitForDebugUrl(port) {
+  for (let index = 0; index < 80; index += 1) {
+    try {
+      const response = await fetch(`http://127.0.0.1:${port}/json/version`);
+      const version = await response.json();
+      if (version.webSocketDebuggerUrl) return version.webSocketDebuggerUrl;
+    } catch {
+      // Browser is still starting.
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  throw new Error("Browser debug endpoint did not become available.");
+}
+
 async function capture({ browser, baseUrl, page, viewport, outputPath, profileDir }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   const shotProfileDir = await fs.mkdtemp(path.join(profileDir, "shot-"));
+  const debugPort = 9200 + Math.floor(Math.random() * 700);
 
   const args = [
     "--headless=new",
@@ -132,68 +177,66 @@ async function capture({ browser, baseUrl, page, viewport, outputPath, profileDi
     "--hide-scrollbars",
     "--no-first-run",
     "--no-default-browser-check",
+    `--remote-debugging-port=${debugPort}`,
     `--user-data-dir=${shotProfileDir}`,
     `--window-size=${viewport.width},${viewport.height}`,
-    "--virtual-time-budget=1500",
-    `--screenshot=${outputPath}`,
-    `${baseUrl}${page.path}`
+    "about:blank"
   ];
 
-  return new Promise((resolve, reject) => {
-    const child = spawn(browser, args, { stdio: ["ignore", "pipe", "pipe"] });
-    let stderr = "";
-    let settled = false;
-    const timeout = setTimeout(() => {
-      if (settled) return;
-      settled = true;
-      child.kill();
-      reject(new Error(`Browser timed out while capturing ${page.title} ${viewport.id}.`));
-    }, 25000);
+  const child = spawn(browser, args, { stdio: ["ignore", "ignore", "ignore"] });
+  let cdp = null;
+  let targetId = null;
 
-    async function cleanupProfile() {
-      await fs.rm(shotProfileDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 }).catch(() => {});
-    }
+  try {
+    const debugUrl = await waitForDebugUrl(debugPort);
+    cdp = await connectWebSocket(debugUrl);
+    const target = await cdp.send("Target.createTarget", { url: "about:blank" });
+    targetId = target.targetId;
+    const attached = await cdp.send("Target.attachToTarget", { targetId, flatten: true });
+    const sessionId = attached.sessionId;
+    const send = (method, params = {}) => cdp.send(method, params, sessionId);
 
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk.toString();
+    await send("Page.enable");
+    await send("Runtime.enable");
+    await send("Emulation.setDeviceMetricsOverride", {
+      width: viewport.width,
+      height: viewport.height,
+      deviceScaleFactor: 1,
+      mobile: viewport.mobile
     });
+    await send("Page.navigate", { url: `${baseUrl}${page.path}` });
+    await new Promise((resolve) => setTimeout(resolve, 1700));
+    await send("Runtime.evaluate", {
+      expression: "document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()",
+      awaitPromise: true
+    }).catch(() => {});
 
-    child.on("error", async (error) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-      await cleanupProfile();
-      reject(error);
+    const screenshot = await send("Page.captureScreenshot", {
+      format: "png",
+      captureBeyondViewport: false,
+      fromSurface: true
     });
-    child.on("exit", async (code) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-      if (code !== 0) {
-        await cleanupProfile();
-        reject(new Error(`Browser exited ${code} while capturing ${page.title} ${viewport.id}: ${stderr.trim()}`));
-        return;
-      }
-      if (!fsSync.existsSync(outputPath)) {
-        await cleanupProfile();
-        reject(new Error(`Browser did not create screenshot: ${outputPath}`));
-        return;
-      }
-      const stats = await fs.stat(outputPath);
-      await cleanupProfile();
-      resolve({
-        page: page.id,
-        title: page.title,
-        path: page.path,
-        viewport: viewport.id,
-        label: viewport.label,
-        width: viewport.width,
-        height: viewport.height,
-        bytes: stats.size,
-        file: outputPath
-      });
-    });
-  });
+    await fs.writeFile(outputPath, Buffer.from(screenshot.data, "base64"));
+    const stats = await fs.stat(outputPath);
+    return {
+      page: page.id,
+      title: page.title,
+      path: page.path,
+      viewport: viewport.id,
+      label: viewport.label,
+      width: viewport.width,
+      height: viewport.height,
+      bytes: stats.size,
+      file: outputPath
+    };
+  } catch (error) {
+    throw new Error(`Browser failed while capturing ${page.title} ${viewport.id}: ${error.message}`);
+  } finally {
+    if (cdp && targetId) await cdp.send("Target.closeTarget", { targetId }).catch(() => {});
+    if (cdp) cdp.ws.close();
+    child.kill();
+    await fs.rm(shotProfileDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 }).catch(() => {});
+  }
 }
 
 async function copyForHarness(items, sourceDir) {

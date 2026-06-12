@@ -5604,9 +5604,10 @@ function langSwitcher(lang, currentPathBuilder) {
 
 function languageMenu(lang, currentPathBuilder) {
   const language = languages[lang] || languages.en;
+  const languageCode = lang.toUpperCase();
   return `
     <details class="language-menu">
-      <summary aria-label="Language"><span class="language-flag flag-${esc(language.flagRegion || lang)}" aria-hidden="true"></span><span class="language-name">${esc(language.name)}</span></summary>
+      <summary aria-label="Language"><span class="language-flag flag-${esc(language.flagRegion || lang)}" aria-hidden="true"></span><span class="language-name">${esc(language.name)}</span><span class="language-code" aria-hidden="true">${esc(languageCode)}</span></summary>
       <div class="language-menu-panel">${langSwitcher(lang, currentPathBuilder)}</div>
     </details>`;
 }

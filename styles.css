@@ -187,6 +187,10 @@ img {
   display: none;
 }
 
+.language-code {
+  display: none;
+}
+
 .language-menu summary::after {
   content: "v";
   color: var(--muted);
@@ -5645,7 +5649,7 @@ img {
 
 @media (max-width: 680px) {
   .site-header {
-    grid-template-columns: auto minmax(0, auto);
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "brand language"
       "nav nav";
@@ -5655,6 +5659,7 @@ img {
 
   .brand {
     grid-area: brand;
+    justify-self: start;
   }
 
   .top-nav {
@@ -5667,6 +5672,7 @@ img {
   .language-menu {
     grid-area: language;
     justify-self: end;
+    min-width: 58px;
   }
 
   .top-nav a {
@@ -5676,15 +5682,32 @@ img {
   }
 
   .language-menu summary {
+    min-width: 58px;
     min-height: 32px;
-    padding: 5px;
+    gap: 6px;
+    border-color: #9bbcf0;
+    padding: 5px 7px;
+    background: #eaf3ff;
+    box-shadow: 0 6px 14px rgba(36, 107, 235, 0.12);
     font-size: 0.82rem;
   }
 
-  .language-menu summary::after,
-  .language-name,
+  .language-menu summary .language-name,
   .nav-full {
     display: none;
+  }
+
+  .language-menu summary::after {
+    display: inline;
+    font-size: 0.72rem;
+  }
+
+  .language-code {
+    display: inline;
+    color: var(--blue-dark);
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0;
   }
 
   .nav-short {
@@ -6144,15 +6167,16 @@ img {
     width: 100%;
     grid-template-columns: minmax(0, 1fr) auto;
     padding: 10px 12px 8px;
-    overflow: clip;
+    overflow: visible;
   }
 
   .language-menu {
-    max-width: 44px;
+    min-width: 58px;
+    max-width: none;
   }
 
   .language-menu summary {
-    width: 44px;
+    width: 58px;
     min-height: 44px;
     justify-content: center;
   }

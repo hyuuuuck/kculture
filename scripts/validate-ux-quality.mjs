@@ -91,6 +91,8 @@ const portugueseHome = read(path.join("pt", "index.html"));
 if (!portugueseHome.includes("language-flag flag-br") || portugueseHome.includes("language-flag flag-pt")) {
   push("pt/index.html", "Portuguese is formatted as pt-BR, so the language selector should use the Brazil flag consistently.");
 }
+assertIncludes(portugueseHome, "Português (BR)", "pt/index.html", "Portuguese language label should make the Brazil flag explicit.");
+assertIncludes(portugueseHome, '<h1 id="home-title">K-Spot Now</h1>', "pt/index.html", "Portuguese home hero should lead with the brand name, matching English.");
 
 for (const lang of ["fr", "de"]) {
   const localizedGuideIndex = read(path.join(lang, "guides", "index.html"));

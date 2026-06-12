@@ -112,7 +112,7 @@ let languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR", flagRegion: "br" },
+  pt: { name: "Português (BR)", locale: "pt-BR", flagRegion: "br" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -424,7 +424,7 @@ let dict = {
     navSources: "Fontes",
     navAbout: "Sobre",
     heroEyebrow: "Eventos, pop-ups, K-beauty e duty free na Coreia",
-    heroTitle: "Encontre eventos na Coreia antes que acabem.",
+    heroTitle: siteName,
     heroText: "Datas, mapa, clima e links oficiais.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendário",
@@ -521,7 +521,7 @@ languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR", flagRegion: "br" },
+  pt: { name: "Português (BR)", locale: "pt-BR", flagRegion: "br" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -948,7 +948,7 @@ dict = {
     navSources: "Fontes",
     navAbout: "Sobre",
     heroEyebrow: "Eventos, pop-ups, K-beauty e duty free na Coreia",
-    heroTitle: "Encontre eventos na Coreia antes que acabem.",
+    heroTitle: siteName,
     heroText: "Datas, mapa, clima e links oficiais.",
     ctaEvents: "Ver eventos",
     ctaCalendar: "Abrir calendário",

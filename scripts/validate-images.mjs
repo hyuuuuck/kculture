@@ -103,9 +103,10 @@ function requireImage(relativeUrl, context, { eventThumbnail = false } = {}) {
     push(errors, context, `unsupported image extension: ${relativeUrl}`);
   }
 
-  const file = path.resolve(root, clean);
-  if (!file.startsWith(root)) {
-    push(errors, context, `image escapes project root: ${relativeUrl}`);
+  const baseDir = clean.startsWith("__design-harness/") ? dist : root;
+  const file = path.resolve(baseDir, clean);
+  if (!file.startsWith(baseDir)) {
+    push(errors, context, `image escapes expected asset root: ${relativeUrl}`);
     return null;
   }
 

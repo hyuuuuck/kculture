@@ -1973,7 +1973,7 @@ const filterShortLabels = {
     kpop: "K-pop",
     beauty: "Beauty",
     dutyfree: "Duty-free",
-    department: "Dept.",
+    department: "Stores",
     shopping: "Shop",
     benefits: "Travel"
   },

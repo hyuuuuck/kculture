@@ -106,6 +106,7 @@ for (const lang of ["fr", "de"]) {
 }
 
 const home = read("en/index.html");
+const calendarEn = read(path.join("en", "calendar", "index.html"));
 const styles = read("styles.css");
 const appJs = read("app.js");
 const plannerPage = read("en/planner/index.html");
@@ -169,6 +170,9 @@ if (/class="spotlight-dot"[\s\S]*?>\s*<span>(0?\d+)<\/span>/.test(home)) {
 }
 if (/class="spotlight-dot"[^>]*\btitle=/.test(home)) {
   push("en/index.html", "spotlight dots should avoid browser title tooltips; keep only compact dots with accessible labels.");
+}
+if (home.includes(">Dept.<") || calendarEn.includes(">Dept.<")) {
+  push("en/calendar/index.html", "mobile category filters should use visitor-facing labels, not the abbreviation Dept.");
 }
 for (const snippet of [
   "track?.addEventListener(\"pointerdown\", startDrag)",

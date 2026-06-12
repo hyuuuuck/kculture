@@ -200,6 +200,10 @@ assertIncludes(home, "class=\"spotlight-title\"", "en/index.html", "spotlight ca
 assertIncludes(styles, ".spotlight-card.is-active {\n  opacity: 1;\n  pointer-events: auto;\n  transform: translateX(0);\n  cursor: pointer;", "styles.css", "active spotlight cards must visibly behave like clickable links.");
 assertIncludes(styles, "-webkit-user-drag: none;", "styles.css", "spotlight media must disable browser-native image dragging.");
 assertIncludes(styles, ".spotlight-title", "styles.css", "spotlight event titles need dedicated overlay styling.");
+const spotlightTitleBlock = styles.match(/\.spotlight-title\s*\{[^}]*\}/)?.[0] || "";
+if (spotlightTitleBlock.includes("-webkit-line-clamp")) {
+  push("styles.css", "spotlight titles must not use line-clamp because long event names lose meaning when truncated.");
+}
 const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
 assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
 if (summaryBlock.includes("<dt>Sources</dt>")) {

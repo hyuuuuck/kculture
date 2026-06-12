@@ -7557,31 +7557,14 @@ function renderPlanner(lang) {
     .slice(0, 3);
   const body = `
     <main class="page planner-page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
-      <section class="planner-hero">
-        <div class="planner-hero-copy">
-          <p class="eyebrow">${tr(lang, "navPlanner")}</p>
-          <h1>${esc(copy.title)}</h1>
-          <p>${esc(copy.text)}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="/${lang}/#events">${esc(copy.cta)}</a>
-            <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
-            <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
-          </div>
-        </div>
-        <div class="planner-preview" aria-label="${esc(copy.preview)}">
-          <div class="planner-preview-top">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="planner-preview-card is-main">
-            <span>${esc(copy.savedOne)}</span>
-            <strong>${esc(copy.savedTwo)}</strong>
-            <em>${esc(copy.savedThree)}</em>
-          </div>
-          <div class="planner-preview-row">
-            <span class="about-icon icon-calendar" aria-hidden="true"></span>
-            <span class="about-icon icon-map" aria-hidden="true"></span>
-            <span class="about-icon icon-source" aria-hidden="true"></span>
-          </div>
+      <section class="page-hero compact planner-page-hero">
+        <p class="eyebrow">${tr(lang, "navPlanner")}</p>
+        <h1>${esc(copy.title)}</h1>
+        <p>${esc(copy.text)}</p>
+        <div class="hero-actions planner-page-actions">
+          <a class="button primary" href="/${lang}/#events">${esc(copy.cta)}</a>
+          <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
+          <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
         </div>
       </section>
       <section class="planner-utility" aria-label="${esc(tr(lang, "cardPlanTools"))}">

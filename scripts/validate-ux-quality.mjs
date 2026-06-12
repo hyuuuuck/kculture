@@ -285,8 +285,13 @@ assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-
 assertIncludes(read(path.join("en", "routes", "index.html")), "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
 assertIncludes(styles, ".trip-rail-card", "styles.css", "Trip.com route ad needs a visible, constrained rail card.");
 assertIncludes(plannerPage, "class=\"planner-utility\"", "en/planner/index.html", "planner page must explain calendar, Korean map, and official-source planning utility before saved items render.");
-assertIncludes(plannerPage, "class=\"planner-hero\"", "en/planner/index.html", "planner page must have a feature-oriented hero instead of a plain text header.");
-assertIncludes(plannerPage, "class=\"planner-preview\"", "en/planner/index.html", "planner page must show a visual preview of saved planning.");
+assertIncludes(plannerPage, "class=\"page-hero compact planner-page-hero\"", "en/planner/index.html", "planner page must use the shared compact page hero pattern.");
+if (plannerPage.includes("class=\"planner-hero\"") || plannerPage.includes("class=\"planner-preview\"")) {
+  push("en/planner/index.html", "planner page should not use a separate oversized hero or preview panel that breaks page consistency.");
+}
+if (styles.includes(".planner-hero") || styles.includes(".planner-preview")) {
+  push("styles.css", "planner-specific hero/preview CSS should be removed so the planner header follows the shared page system.");
+}
 assertIncludes(plannerPage, "class=\"planner-starter\"", "en/planner/index.html", "planner page must offer starter events when no saved list exists.");
 assertIncludes(plannerPage, "data-map-label=\"Korean map\"", "en/planner/index.html", "planner page must expose a localized map label for saved event cards.");
 assertIncludes(appJs, "planner-card-map-links", "app.js", "saved planner cards must render Google, Naver, and Kakao map links from the saved Korean map query.");

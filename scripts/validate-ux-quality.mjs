@@ -172,7 +172,7 @@ if (home.includes("data-spotlight-count") || home.includes("data-spotlight-title
   push("en/index.html", "spotlight controls should stay simple: no repeated title label or sequence count below the hero.");
 }
 if (home.includes("spotlight-content")) {
-  push("en/index.html", "spotlight should not repeat the event title in a bottom overlay; keep the hero image, status flag, dots, and swipe only.");
+  push("en/index.html", "spotlight should use a compact title overlay, not a verbose bottom content block.");
 }
 if (/class="spotlight-dot"[\s\S]*?>\s*<span>(0?\d+)<\/span>/.test(home)) {
   push("en/index.html", "spotlight dots should not expose visible 1-5 sequence numbers.");
@@ -196,13 +196,16 @@ for (const snippet of [
 }
 assertIncludes(home, "data-spotlight-slide href=", "en/index.html", "spotlight slides must remain direct links to event detail pages.");
 assertIncludes(home, "draggable=\"false\"", "en/index.html", "spotlight cards and images must disable browser-native drag so swipe remains reliable.");
+assertIncludes(home, "class=\"spotlight-title\"", "en/index.html", "spotlight cards need a compact visible event title.");
 assertIncludes(styles, ".spotlight-card.is-active {\n  opacity: 1;\n  pointer-events: auto;\n  transform: translateX(0);\n  cursor: pointer;", "styles.css", "active spotlight cards must visibly behave like clickable links.");
 assertIncludes(styles, "-webkit-user-drag: none;", "styles.css", "spotlight media must disable browser-native image dragging.");
+assertIncludes(styles, ".spotlight-title", "styles.css", "spotlight event titles need dedicated overlay styling.");
 const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
 assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
 if (summaryBlock.includes("<dt>Sources</dt>")) {
   push("en/index.html", "hero summary should not expose operational source counts.");
 }
+assertIncludes(styles, ".service-summary div + div", "styles.css", "home status summary should read as one simple rail with separators, not separate floating cards.");
 const primaryNav = home.match(/<nav class="top-nav"[\s\S]*?<\/nav>/)?.[0] || "";
 if (primaryNav.includes("/en/sources/") || primaryNav.includes("/en/watchlist/")) {
   push("en/index.html", "primary navigation should stay visitor-facing; source and watchlist pages belong in footer trust links.");

@@ -71,6 +71,7 @@ for (const lang of languages) {
   assertIncludes(home, `/${lang}/about/`, `${lang}/index.html`, "about link is missing from the primary experience.");
   assertIncludes(home, "class=\"language-menu\"", `${lang}/index.html`, "language selector should be compact instead of a full header row.");
   assertIncludes(home, "class=\"language-flag flag-", `${lang}/index.html`, "language selector should include visual flag cues.");
+  assertIncludes(home, '<h1 id="home-title">K-Spot Now</h1>', `${lang}/index.html`, "home hero should lead with the K-Spot Now brand name in every language.");
 
   const calendar = read(path.join(lang, "calendar", "index.html"));
   const monthBlocks = countMatches(calendar, /class="month-block"/g);
@@ -92,7 +93,6 @@ if (!portugueseHome.includes("language-flag flag-br") || portugueseHome.includes
   push("pt/index.html", "Portuguese is formatted as pt-BR, so the language selector should use the Brazil flag consistently.");
 }
 assertIncludes(portugueseHome, "Português (BR)", "pt/index.html", "Portuguese language label should make the Brazil flag explicit.");
-assertIncludes(portugueseHome, '<h1 id="home-title">K-Spot Now</h1>', "pt/index.html", "Portuguese home hero should lead with the brand name, matching English.");
 
 for (const lang of ["fr", "de"]) {
   const localizedGuideIndex = read(path.join(lang, "guides", "index.html"));

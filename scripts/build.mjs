@@ -7491,65 +7491,33 @@ function renderPlanner(lang) {
       title: "Your Korea trip board",
       text: "Save dates, maps, and official links together.",
       cta: "Browse live events",
-      preview: "Planner preview",
-      savedOne: "BTS CITY",
-      savedTwo: "Busan / Jun 5-21",
-      savedThree: "Official source ready",
       starter: "Start with these",
       starterText: "Pick one to start.",
-      boardTitle: "Your saved board",
-      utilityTitle: "Built for quick checks",
-      calendarShort: "Save dates",
-      mapShort: "Open maps",
-      sourceShort: "Check source"
+      boardTitle: "Your saved board"
     },
     fr: {
       title: "Votre tableau de voyage Coree",
       text: "Gardez dates, cartes et liens officiels ensemble.",
       cta: "Voir les evenements",
-      preview: "Apercu du planner",
-      savedOne: "BTS CITY",
-      savedTwo: "Busan / 5-21 juin",
-      savedThree: "Source officielle prete",
       starter: "Commencer ici",
       starterText: "Choisissez un evenement.",
-      boardTitle: "Votre tableau",
-      utilityTitle: "Pour verifier vite",
-      calendarShort: "Dates",
-      mapShort: "Cartes",
-      sourceShort: "Source"
+      boardTitle: "Votre tableau"
     },
     de: {
       title: "Dein Korea-Tripboard",
       text: "Speichere Events. Daten, Karten und offizielle Links bleiben hier.",
       cta: "Events ansehen",
-      preview: "Planner-Vorschau",
-      savedOne: "BTS CITY",
-      savedTwo: "Busan / 5.-21. Juni",
-      savedThree: "Offizielle Quelle bereit",
       starter: "Hier starten",
       starterText: "Wahle ein Event.",
-      boardTitle: "Dein Board",
-      utilityTitle: "Fur schnelle Checks",
-      calendarShort: "Daten",
-      mapShort: "Karten",
-      sourceShort: "Quelle"
+      boardTitle: "Dein Board"
     }
   }[lang] || {
     title: tr(lang, "plannerTitle"),
     text: tr(lang, "plannerText"),
     cta: tr(lang, "ctaEvents"),
-    preview: tr(lang, "plannerTitle"),
-    savedOne: siteName,
-    savedTwo: tr(lang, "calendarTitle"),
-    savedThree: tr(lang, "official"),
     starter: tr(lang, "ctaEvents"),
     starterText: tr(lang, "plannerEmptyText"),
-    boardTitle: tr(lang, "plannerTitle"),
-    utilityTitle: tr(lang, "cardPlanTools"),
-    calendarShort: tr(lang, "calendarTitle"),
-    mapShort: tr(lang, "cardPlanMap"),
-    sourceShort: tr(lang, "official")
+    boardTitle: tr(lang, "plannerTitle")
   };
   const starterEvents = events
     .filter((event) => statusOf(event) !== "ended")
@@ -7566,26 +7534,6 @@ function renderPlanner(lang) {
           <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
           <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
         </div>
-      </section>
-      <section class="planner-utility" aria-label="${esc(tr(lang, "cardPlanTools"))}">
-        <div class="planner-utility-head">
-          <p class="eyebrow">${esc(copy.utilityTitle)}</p>
-        </div>
-        <article>
-          <span class="about-icon icon-calendar" aria-hidden="true"></span>
-          <strong>${esc(copy.calendarShort)}</strong>
-          <p>${esc(tr(lang, "downloadSavedCalendar"))}</p>
-        </article>
-        <article>
-          <span class="about-icon icon-map" aria-hidden="true"></span>
-          <strong>${esc(copy.mapShort)}</strong>
-          <p>${esc(tr(lang, "mapLinksTitle"))}</p>
-        </article>
-        <article>
-          <span class="about-icon icon-source" aria-hidden="true"></span>
-          <strong>${esc(copy.sourceShort)}</strong>
-          <p>${esc(tr(lang, "verifyBefore"))}</p>
-        </article>
       </section>
       <section class="planner-starter" aria-label="${esc(copy.starter)}">
         <div>

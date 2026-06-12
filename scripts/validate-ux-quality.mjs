@@ -289,7 +289,6 @@ assertIncludes(styles, ".routes-ad-rail .ad-disclosure", "styles.css", "sponsore
 assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-rl/, "styles.css", "route ad disclosure must not render as vertical text.");
 assertIncludes(read(path.join("en", "routes", "index.html")), "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
 assertIncludes(styles, ".trip-rail-card", "styles.css", "Trip.com route ad needs a visible, constrained rail card.");
-assertIncludes(plannerPage, "class=\"planner-utility\"", "en/planner/index.html", "planner page must explain calendar, Korean map, and official-source planning utility before saved items render.");
 assertIncludes(plannerPage, "class=\"page-hero compact planner-page-hero\"", "en/planner/index.html", "planner page must use the shared compact page hero pattern.");
 if (plannerPage.includes("class=\"planner-hero\"") || plannerPage.includes("class=\"planner-preview\"")) {
   push("en/planner/index.html", "planner page should not use a separate oversized hero or preview panel that breaks page consistency.");
@@ -297,12 +296,14 @@ if (plannerPage.includes("class=\"planner-hero\"") || plannerPage.includes("clas
 if (styles.includes(".planner-hero") || styles.includes(".planner-preview")) {
   push("styles.css", "planner-specific hero/preview CSS should be removed so the planner header follows the shared page system.");
 }
+if (plannerPage.includes("class=\"planner-utility\"") || styles.includes(".planner-utility")) {
+  push("en/planner/index.html", "planner page should not show non-clickable quick-check explainer cards.");
+}
 assertIncludes(plannerPage, "class=\"planner-starter\"", "en/planner/index.html", "planner page must offer starter events when no saved list exists.");
 assertIncludes(plannerPage, "data-map-label=\"Korean map\"", "en/planner/index.html", "planner page must expose a localized map label for saved event cards.");
 assertIncludes(appJs, "planner-card-map-links", "app.js", "saved planner cards must render Google, Naver, and Kakao map links from the saved Korean map query.");
 assertIncludes(appJs, "map.naver.com/p/search", "app.js", "saved planner map links must include Naver Map search.");
 assertIncludes(appJs, "map.kakao.com/?q=", "app.js", "saved planner map links must include Kakao Map search.");
-assertIncludes(styles, ".planner-utility", "styles.css", "planner utility cards must be styled.");
 assertIncludes(styles, ".planner-starter-card", "styles.css", "planner starter cards must be styled.");
 assertIncludes(styles, ".planner-card-map-links a {\n  min-height: 44px;", "styles.css", "saved planner map links must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".button,\n.filter-bar button {\n  display: inline-flex;", "styles.css", "primary buttons must share a stable touch-target rule.");

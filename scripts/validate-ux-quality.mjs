@@ -115,6 +115,10 @@ const calendarEn = read(path.join("en", "calendar", "index.html"));
 const styles = read("styles.css");
 const appJs = read("app.js");
 const plannerPage = read("en/planner/index.html");
+
+if (/font-size\s*:[^;]*\bvw\b/i.test(styles)) {
+  push("styles.css", "font sizes should use stable type tokens and media overrides, not viewport-width scaling.");
+}
 const designHeroTypes = Array.isArray(designSystem.heroTypes) ? designSystem.heroTypes : [];
 const designPages = Array.isArray(designSystem.pages) ? designSystem.pages : [];
 const designHeroIds = new Set(designHeroTypes.map((type) => type.id));
@@ -207,7 +211,7 @@ assertIncludes(styles, ".language-menu summary", "styles.css", "compact language
 assertIncludes(home, "class=\"nav-full\"", "en/index.html", "primary navigation should include full labels for desktop.");
 assertIncludes(home, "class=\"nav-short\"", "en/index.html", "primary navigation should include short mobile labels.");
 assertIncludes(styles, ".nav-short", "styles.css", "short mobile navigation label styling is missing.");
-assertIncludes(styles, ".service-hero h1 {\n    max-width: none;\n    font-size: clamp(2rem, 10.2vw, 2.8rem);\n    line-height: 1.02;\n    white-space: nowrap;", "styles.css", "mobile home brand title must stay on one line.");
+assertIncludes(styles, ".service-hero h1 {\n    max-width: none;\n    font-size: var(--type-display-xl);\n    line-height: 1.02;\n    white-space: nowrap;", "styles.css", "mobile home brand title must stay on one line.");
 const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
 if (categoryMediaCards < 7) {
   push("en/index.html", `home category cards should use representative event thumbnails; found ${categoryMediaCards}.`);

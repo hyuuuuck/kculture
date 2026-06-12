@@ -450,13 +450,8 @@ img {
   border-radius: 8px;
   background: #0b1b34;
   box-shadow: 0 18px 42px rgba(29, 29, 31, 0.16);
-  cursor: grab;
   touch-action: pan-y;
   user-select: none;
-}
-
-.spotlight-carousel.is-dragging .spotlight-track {
-  cursor: grabbing;
 }
 
 .spotlight-card {
@@ -470,6 +465,8 @@ img {
   pointer-events: none;
   transform: translateX(26px) scale(0.985);
   transition: opacity 360ms ease, transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .spotlight-carousel.is-moving-back .spotlight-card {
@@ -480,6 +477,11 @@ img {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
+  cursor: pointer;
+}
+
+.spotlight-carousel.is-dragging .spotlight-card.is-active {
+  cursor: grabbing;
 }
 
 .spotlight-card::after {
@@ -499,6 +501,8 @@ img {
   object-fit: contain;
   background: #0b1b34;
   transition: transform 420ms ease;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .spotlight-card:hover img {

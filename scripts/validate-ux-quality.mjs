@@ -187,11 +187,16 @@ for (const snippet of [
   "track?.addEventListener(\"pointerdown\", startDrag)",
   "track?.addEventListener(\"touchmove\", moveTouchDrag",
   "Math.abs(deltaX) >= 45",
+  "track?.addEventListener(\"wheel\", handleWheel, { passive: false })",
   "function shouldSuppressCarouselClick",
   "event.target.closest?.(\"[data-spotlight-slide]\")"
 ]) {
   assertIncludes(appJs, snippet, "app.js", "spotlight carousel swipe handling is missing.");
 }
+assertIncludes(home, "data-spotlight-slide href=", "en/index.html", "spotlight slides must remain direct links to event detail pages.");
+assertIncludes(home, "draggable=\"false\"", "en/index.html", "spotlight cards and images must disable browser-native drag so swipe remains reliable.");
+assertIncludes(styles, ".spotlight-card.is-active {\n  opacity: 1;\n  pointer-events: auto;\n  transform: translateX(0);\n  cursor: pointer;", "styles.css", "active spotlight cards must visibly behave like clickable links.");
+assertIncludes(styles, "-webkit-user-drag: none;", "styles.css", "spotlight media must disable browser-native image dragging.");
 const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
 assertIncludes(summaryBlock, "<dt>Guides</dt>", "en/index.html", "visitor-facing guide count is missing from the hero summary.");
 if (summaryBlock.includes("<dt>Sources</dt>")) {

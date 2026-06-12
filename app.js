@@ -39,6 +39,7 @@ for (const carousel of spotlightCarousels) {
   let suppressClickUntil = 0;
   let suppressClickX = 0;
   let suppressClickY = 0;
+  let wheelLockUntil = 0;
 
   function beginDrag(clientX, clientY, pointerId) {
     dragPointerId = pointerId;
@@ -165,6 +166,18 @@ for (const carousel of spotlightCarousels) {
     finishDrag(touch.clientX, touch.clientY);
   }
 
+  function handleWheel(event) {
+    const absX = Math.abs(event.deltaX);
+    const absY = Math.abs(event.deltaY);
+    if (absX < 18 || absX < absY * 1.15) return;
+
+    event.preventDefault();
+    const now = Date.now();
+    if (now < wheelLockUntil) return;
+    wheelLockUntil = now + 420;
+    showSlide(event.deltaX > 0 ? currentIndex + 1 : currentIndex - 1);
+  }
+
   track?.addEventListener("pointerdown", startDrag);
   track?.addEventListener("pointermove", moveDrag);
   track?.addEventListener("pointerup", endDrag);
@@ -176,6 +189,10 @@ for (const carousel of spotlightCarousels) {
   track?.addEventListener("touchmove", moveTouchDrag, { passive: false });
   track?.addEventListener("touchend", endTouchDrag);
   track?.addEventListener("touchcancel", endTouchDrag);
+  track?.addEventListener("wheel", handleWheel, { passive: false });
+  slides.forEach((slide) => {
+    slide.addEventListener("dragstart", (event) => event.preventDefault());
+  });
 
   carousel.addEventListener("click", (event) => {
     const slideLink = event.target.closest?.("[data-spotlight-slide]");

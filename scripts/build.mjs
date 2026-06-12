@@ -6051,8 +6051,8 @@ function spotlightCarousel(slides, lang) {
                 ${usableSlides.map((event, index) => {
                   const active = index === 0;
                   return `
-                <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}">
-                  <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}">
+                <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
+                  <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" draggable="false">
                   <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
                 </a>`;
                 }).join("")}

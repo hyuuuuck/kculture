@@ -112,7 +112,7 @@ let languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR", flagRegion: "pt" },
+  pt: { name: "Português", locale: "pt-BR", flagRegion: "br" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -521,7 +521,7 @@ languages = {
   en: { name: "English", locale: "en-US" },
   es: { name: "Español", locale: "es-ES" },
   zh: { name: "中文", locale: "zh-CN" },
-  pt: { name: "Português", locale: "pt-BR", flagRegion: "pt" },
+  pt: { name: "Português", locale: "pt-BR", flagRegion: "br" },
   ru: { name: "Русский", locale: "ru-RU" }
 };
 
@@ -1185,7 +1185,7 @@ const languageFlagRegions = {
   en: "us",
   es: "es",
   zh: "cn",
-  pt: "pt",
+  pt: "br",
   ru: "ru",
   ja: "jp",
   fr: "fr",

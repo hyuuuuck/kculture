@@ -87,6 +87,11 @@ for (const lang of languages) {
   }
 }
 
+const portugueseHome = read(path.join("pt", "index.html"));
+if (!portugueseHome.includes("language-flag flag-br") || portugueseHome.includes("language-flag flag-pt")) {
+  push("pt/index.html", "Portuguese is formatted as pt-BR, so the language selector should use the Brazil flag consistently.");
+}
+
 for (const lang of ["fr", "de"]) {
   const localizedGuideIndex = read(path.join(lang, "guides", "index.html"));
   const localizedGuideText = htmlText(localizedGuideIndex);

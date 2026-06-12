@@ -5664,9 +5664,9 @@ img {
 
   .top-nav {
     grid-area: nav;
-    flex-wrap: wrap;
-    overflow-x: visible;
-    gap: 4px 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 4px;
   }
 
   .language-menu {
@@ -6185,9 +6185,9 @@ img {
     width: 100%;
     max-width: 100%;
     justify-content: flex-start;
-    flex-wrap: wrap;
-    overflow: visible;
-    gap: 2px 5px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 4px;
   }
 
   .top-nav a {

@@ -189,7 +189,8 @@ for (const snippet of [
   "Math.abs(deltaX) >= 45",
   "track?.addEventListener(\"wheel\", handleWheel, { passive: false })",
   "function shouldSuppressCarouselClick",
-  "event.target.closest?.(\"[data-spotlight-slide]\")"
+  "event.target.closest?.(\"[data-spotlight-slide]\")",
+  "window.location.assign(slideLink.href)"
 ]) {
   assertIncludes(appJs, snippet, "app.js", "spotlight carousel swipe handling is missing.");
 }

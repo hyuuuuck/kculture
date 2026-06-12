@@ -65,7 +65,7 @@ for (const carousel of spotlightCarousels) {
     carousel.classList.remove("is-dragging");
 
     if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-      suppressClickUntil = Date.now() + 260;
+      suppressClickUntil = Date.now() + 120;
       suppressClickX = clientX;
       suppressClickY = clientY;
       showSlide(deltaX < 0 ? currentIndex + 1 : currentIndex - 1);
@@ -196,9 +196,23 @@ for (const carousel of spotlightCarousels) {
 
   carousel.addEventListener("click", (event) => {
     const slideLink = event.target.closest?.("[data-spotlight-slide]");
-    if (!slideLink || !shouldSuppressCarouselClick(event)) return;
+    if (!slideLink) return;
+    if (shouldSuppressCarouselClick(event)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+    if (
+      event.defaultPrevented ||
+      event.button > 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) return;
+
     event.preventDefault();
-    event.stopImmediatePropagation();
+    window.location.assign(slideLink.href);
   }, true);
 
   carousel.addEventListener("keydown", (event) => {

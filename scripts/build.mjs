@@ -7787,13 +7787,27 @@ function fact(label, value, icon = "dot", html = false) {
 
 function guideCard(guide, lang) {
   const categoryClass = String(guide.category || "guide").replace(/[^a-z0-9-]/gi, "-").toLowerCase();
+  const guideMedia = {
+    beauty: "assets/thumb-beauty.jpg",
+    "department-store": "assets/thumb-shopping.jpg",
+    "duty-free": "assets/thumb-dutyfree.jpg",
+    festival: "assets/thumb-festival.jpg",
+    kpop: "assets/thumb-kpop.jpg",
+    shopping: "assets/thumb-shopping.jpg",
+    "travel-benefits": "assets/thumb-travel.jpg"
+  }[guide.category] || "assets/hero.jpg";
   return `
     <a class="guide-card guide-card-${esc(categoryClass)}" href="/${lang}/guides/${guide.slug}.html">
-      <span class="guide-card-icon" aria-hidden="true"></span>
-      <span class="guide-card-kicker">${categoryLabel(lang, guide.category)}</span>
-      <strong>${esc(guideTitleText(guide, lang))}</strong>
-      <p>${esc(guideSummaryText(guide, lang))}</p>
-      <em>${tr(lang, "openSavedEvent")}</em>
+      <span class="guide-card-media" aria-hidden="true">
+        <img src="/${esc(guideMedia)}" alt="" loading="lazy" aria-hidden="true" role="presentation">
+        <span class="guide-card-icon" aria-hidden="true"></span>
+      </span>
+      <span class="guide-card-copy">
+        <span class="guide-card-kicker">${categoryLabel(lang, guide.category)}</span>
+        <strong>${esc(guideTitleText(guide, lang))}</strong>
+        <p>${esc(guideSummaryText(guide, lang))}</p>
+        <em>${tr(lang, "openSavedEvent")}</em>
+      </span>
     </a>`;
 }
 

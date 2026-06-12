@@ -4033,20 +4033,14 @@ img {
 .guide-card {
   position: relative;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  grid-template-areas:
-    "icon kicker"
-    "icon title"
-    ". summary"
-    ". action";
-  gap: 8px 12px;
-  min-height: 190px;
-  padding: 18px;
+  grid-template-rows: 128px minmax(0, 1fr);
+  gap: 0;
+  min-height: 310px;
+  overflow: hidden;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.92)),
-    var(--white);
+  background: var(--white);
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
   max-width: 100%;
   min-width: 0;
@@ -4062,17 +4056,50 @@ img {
   transform: translateY(-2px);
 }
 
-.guide-card-icon {
-  grid-area: icon;
+.guide-card-media {
   position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  background: #dfe7f2;
+}
+
+.guide-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+}
+
+.guide-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 13, 30, 0.06), rgba(2, 13, 30, 0.56));
+}
+
+.guide-card-copy {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 8px;
+  min-width: 0;
+  padding: 15px 18px 18px;
+}
+
+.guide-card-icon {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 1;
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid #bdd2ef;
+  border: 1px solid rgba(255, 255, 255, 0.74);
   border-radius: 8px;
-  color: var(--blue-dark);
-  background: #edf5ff;
+  color: var(--white);
+  background: rgba(6, 58, 116, 0.58);
+  box-shadow: 0 10px 22px rgba(2, 13, 30, 0.22);
 }
 
 .guide-card-icon::before,
@@ -4144,7 +4171,6 @@ img {
 }
 
 .guide-card-kicker {
-  grid-area: kicker;
   color: var(--coral);
   font-size: 0.78rem;
   font-weight: 850;
@@ -4152,7 +4178,6 @@ img {
 }
 
 .guide-card strong {
-  grid-area: title;
   font-size: 1.1rem;
   line-height: 1.2;
   overflow-wrap: normal;
@@ -4161,7 +4186,6 @@ img {
 }
 
 .guide-card p {
-  grid-area: summary;
   margin: 0;
   line-height: 1.45;
   overflow-wrap: normal;
@@ -4170,7 +4194,6 @@ img {
 }
 
 .guide-card em {
-  grid-area: action;
   align-self: end;
   color: var(--blue-dark);
   font-size: 0.82rem;
@@ -7124,16 +7147,27 @@ img {
   }
 
   .guide-card {
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 7px 10px;
+    grid-template-columns: 102px minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 0;
     min-height: 0;
-    padding: 16px;
     overflow: hidden;
   }
 
+  .guide-card-media {
+    min-height: 148px;
+  }
+
+  .guide-card-copy {
+    gap: 6px;
+    padding: 14px;
+  }
+
   .guide-card-icon {
-    width: 42px;
-    height: 42px;
+    left: 10px;
+    bottom: 10px;
+    width: 38px;
+    height: 38px;
   }
 
   .guide-card strong,

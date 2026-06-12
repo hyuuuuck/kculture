@@ -237,6 +237,22 @@
       ]
     },
     {
+      "id": "home-events",
+      "group": "Core",
+      "title": "Home Events",
+      "path": "/en/#events",
+      "distPath": "en/index.html",
+      "owner": "designer",
+      "heroType": "utility-page",
+      "contract": "Event cards start as a concise browsing surface and expand only when visitors ask for more.",
+      "watch": "Search/filter density, initial card count, load-more affordance, card rhythm.",
+      "requiredSelectors": [
+        "[data-gallery-scope]",
+        ".gallery-tools",
+        ".gallery-grid"
+      ]
+    },
+    {
       "id": "now",
       "group": "Core",
       "title": "Now",

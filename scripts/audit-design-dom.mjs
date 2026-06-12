@@ -185,7 +185,8 @@ function auditExpression() {
       ".spotlight-tabs",
       ".spotlight-track",
       ".spotlight-card",
-      "[data-spotlight-slide]"
+      "[data-spotlight-slide]",
+      ".gallery-tools .filter-bar"
     ].join(",");
     const controlSelector = [
       "button",

@@ -25,6 +25,7 @@
     "preflight:adsense": "node scripts/validate-production.mjs --require-adsense",
     "preflight:launch": "npm run build && npm run validate:production && npm run validate:content && npm run validate:sources && npm run validate:links && npm run validate:images && npm run validate:thumbnail-audit && npm run validate:calendar && npm run validate:details && npm run validate:ux && npm run validate:localization-depth && npm run validate:workflows && npm run validate:sitemap && npm run validate:structured && npm run validate:event-audit && npm run report:adsense && npm run quality:ceo",
     "report:adsense": "node scripts/adsense-readiness-report.mjs",
+    "audit:adsense-live": "node scripts/adsense-live-audit.mjs",
     "quality:ceo": "node scripts/ceo-quality-review.mjs",
     "check:domain": "node scripts/check-domain-live.mjs",
     "review:feed": "node scripts/review-feed-report.mjs",

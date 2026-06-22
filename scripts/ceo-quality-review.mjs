@@ -254,6 +254,17 @@ function collectHomeUx() {
   } else {
     fail("ceo", "Monetization", "Trip.com affiliate handoff", `link ${affiliateReady}, disclosure ${affiliateDisclosure}.`, "Publisher: keep Trip.com affiliate links visible on relevant event pages with sponsored disclosure and rel attributes.");
   }
+
+  const coupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
+  const coupangHtml = coupangEvent ? readText(`dist/en/events/${coupangEvent.slug}.html`) : "";
+  const coupangReady = coupangHtml.includes("https://coupa.ng/cny5Rl")
+    && coupangHtml.includes("coupang-affiliate-widget")
+    && coupangHtml.includes("쿠팡 파트너스 활동의 일환");
+  if (coupangReady) {
+    pass("ceo", "Monetization", "Coupang Partners disclosure", `Sponsored shopping iframe is present on ${coupangEvent.slug} with commission disclosure.`);
+  } else {
+    fail("ceo", "Monetization", "Coupang Partners disclosure", `widget ${Boolean(coupangHtml.includes("https://coupa.ng/cny5Rl"))}, disclosure ${Boolean(coupangHtml.includes("쿠팡 파트너스 활동의 일환"))}.`, "Publisher: keep Coupang Partners iframe limited to shopping-relevant event pages and show the commission disclosure beside it.");
+  }
 }
 
 function collectCalendarUx() {

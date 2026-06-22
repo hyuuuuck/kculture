@@ -176,6 +176,9 @@ if (!headersText.includes("Content-Security-Policy:")) {
 if (!headersText.includes("https://kr.trip.com") || !headersText.includes("https://*.trip.com")) {
   fail("dist/_headers CSP frame-src must allow the Trip.com sponsored iframe.");
 }
+if (!headersText.includes("https://coupa.ng") || !headersText.includes("https://ads-partners.coupang.com")) {
+  fail("dist/_headers CSP frame-src must allow the Coupang Partners sponsored iframe.");
+}
 if (!fs.existsSync(path.join(dist, ".well-known", "security.txt"))) {
   fail("dist/.well-known/security.txt is missing. Run npm run build.");
 }

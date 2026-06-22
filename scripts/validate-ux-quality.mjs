@@ -304,6 +304,15 @@ assertIncludes(styles, ".routes-ad-rail .ad-disclosure", "styles.css", "sponsore
 assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-rl/, "styles.css", "route ad disclosure must not render as vertical text.");
 assertIncludes(read(path.join("en", "routes", "index.html")), "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
 assertIncludes(styles, ".trip-rail-card", "styles.css", "Trip.com route ad needs a visible, constrained rail card.");
+const coupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
+if (coupangEvent) {
+  const coupangHtml = read(path.join("en", "events", `${coupangEvent.slug}.html`));
+  assertIncludes(coupangHtml, "https://coupa.ng/cny5Rl", `en/events/${coupangEvent.slug}.html`, "shopping-related event details should include the Coupang Partners sponsored iframe.");
+  assertIncludes(coupangHtml, "coupang-affiliate-widget", `en/events/${coupangEvent.slug}.html`, "Coupang iframe needs a constrained sponsored-shopping container.");
+  assertIncludes(coupangHtml, "쿠팡 파트너스 활동의 일환", `en/events/${coupangEvent.slug}.html`, "Coupang Partners disclosure must remain visible near the iframe.");
+}
+assertIncludes(styles, ".coupang-affiliate-widget", "styles.css", "Coupang iframe needs dedicated compact detail-card styling.");
+assertIncludes(styles, ".coupang-affiliate-frame", "styles.css", "Coupang iframe dimensions need stable CSS instead of relying only on iframe attributes.");
 assertIncludes(plannerPage, "class=\"page-hero compact planner-page-hero\"", "en/planner/index.html", "planner page must use the shared compact page hero pattern.");
 if (plannerPage.includes("class=\"planner-hero\"") || plannerPage.includes("class=\"planner-preview\"")) {
   push("en/planner/index.html", "planner page should not use a separate oversized hero or preview panel that breaks page consistency.");

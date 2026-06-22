@@ -27,6 +27,11 @@ const defaultTripAffiliate = {
   displayAdUrl: "https://kr.trip.com/partners/ad/DB17791825?Allianceid=8627235&SID=318693138&trip_sub1=",
   seoulUrl: "https://www.trip.com/hotels/list?city=274&display=Seoul&optionId=274&optionType=City&optionName=Seoul&Allianceid=8627235&SID=318693138&trip_sub1=&trip_sub3=D17791636"
 };
+const defaultCoupangAffiliate = {
+  displayAdUrl: "https://coupa.ng/cny5Rl",
+  width: "120",
+  height: "240"
+};
 const affiliateIds = {
   agodaCid: String(process.env.AGODA_PARTNER_CID || "").trim(),
   tripAllianceId: String(process.env.TRIP_ALLIANCE_ID || defaultTripAffiliate.allianceId).trim(),
@@ -36,10 +41,13 @@ const affiliateIds = {
   tripSeoulUrl: String(process.env.TRIP_SEOUL_HOTELS_URL || defaultTripAffiliate.seoulUrl).trim(),
   tripDisplayAdId: String(process.env.TRIP_DISPLAY_AD_ID || defaultTripAffiliate.displayAdId).trim(),
   tripDisplayAdUrl: String(process.env.TRIP_DISPLAY_AD_URL || defaultTripAffiliate.displayAdUrl).trim(),
+  coupangDisplayAdUrl: String(process.env.COUPANG_DISPLAY_AD_URL || defaultCoupangAffiliate.displayAdUrl).trim(),
+  coupangDisplayAdWidth: String(process.env.COUPANG_DISPLAY_AD_WIDTH || defaultCoupangAffiliate.width).trim(),
+  coupangDisplayAdHeight: String(process.env.COUPANG_DISPLAY_AD_HEIGHT || defaultCoupangAffiliate.height).trim(),
   klookAid: String(process.env.KLOOK_AFFILIATE_AID || "").trim(),
   trazyId: String(process.env.TRAZY_AFFILIATE_ID || "").trim()
 };
-const affiliateEnabled = Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId);
+const affiliateEnabled = Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId || affiliateIds.coupangDisplayAdUrl);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -4421,6 +4429,91 @@ function legacyDisplayAdPlaceholder(lang) {
       </aside>`;
 }
 
+const coupangShoppingCategories = new Set(["beauty", "shopping", "duty-free", "department-store", "travel-benefits"]);
+
+function adDimension(value, fallback) {
+  const parsed = Number.parseInt(String(value || ""), 10);
+  if (!Number.isFinite(parsed) || parsed < 1 || parsed > 1200) return fallback;
+  return String(parsed);
+}
+
+function coupangShoppingWidget(event, lang) {
+  if (!affiliateIds.coupangDisplayAdUrl || !coupangShoppingCategories.has(event.category) || statusOf(event) === "ended") return "";
+  const width = adDimension(affiliateIds.coupangDisplayAdWidth, defaultCoupangAffiliate.width);
+  const height = adDimension(affiliateIds.coupangDisplayAdHeight, defaultCoupangAffiliate.height);
+  const copy = local({
+    en: {
+      aria: "Sponsored Coupang shopping widget",
+      label: "Ad",
+      title: "Shopping pick",
+      text: "A compact Korea shopping offer for visitors planning purchases.",
+      disclosure: "K-Spot Now may receive a commission through Coupang Partners. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    es: {
+      aria: "Modulo patrocinado de compras Coupang",
+      label: "Anuncio",
+      title: "Opcion de compras",
+      text: "Una oferta compacta de compras en Corea para planificar compras.",
+      disclosure: "K-Spot Now puede recibir una comision a traves de Coupang Partners. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    zh: {
+      aria: "Coupang 赞助购物模块",
+      label: "广告",
+      title: "购物推荐",
+      text: "面向访韩游客的韩国购物优惠。",
+      disclosure: "K-Spot Now 可能通过 Coupang Partners 获得佣金。쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    pt: {
+      aria: "Modulo de compras patrocinado Coupang",
+      label: "Anuncio",
+      title: "Sugestao de compras",
+      text: "Uma oferta compacta de compras na Coreia para visitantes.",
+      disclosure: "K-Spot Now pode receber comissao via Coupang Partners. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    ru: {
+      aria: "Спонсорский виджет покупок Coupang",
+      label: "Реклама",
+      title: "Подборка покупок",
+      text: "Короткое предложение для покупок в Корее.",
+      disclosure: "K-Spot Now может получать комиссию через Coupang Partners. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    ja: {
+      aria: "Coupangのスポンサー付きショッピング枠",
+      label: "広告",
+      title: "ショッピング枠",
+      text: "韓国で買い物を予定する訪問者向けの小さな広告枠です。",
+      disclosure: "K-Spot NowはCoupang Partnersを通じて手数料を受け取る場合があります。쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    fr: {
+      aria: "Module shopping sponsorise Coupang",
+      label: "Pub",
+      title: "Selection shopping",
+      text: "Une offre shopping courte pour les visiteurs en Coree.",
+      disclosure: "K-Spot Now peut recevoir une commission via Coupang Partners. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    },
+    de: {
+      aria: "Gesponsertes Coupang Shopping-Modul",
+      label: "Anzeige",
+      title: "Shopping-Tipp",
+      text: "Ein kompakter Korea-Shoppinghinweis fur Besucher.",
+      disclosure: "K-Spot Now kann uber Coupang Partners eine Provision erhalten. 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+    }
+  }, lang);
+
+  return `
+        <section class="detail-section coupang-affiliate-widget" aria-label="${esc(copy.aria)}">
+          <div class="coupang-affiliate-copy">
+            <p class="eyebrow">${esc(copy.label)}</p>
+            <h2>${esc(copy.title)}</h2>
+            <p>${esc(copy.text)}</p>
+            <small>${esc(copy.disclosure)}</small>
+          </div>
+          <div class="coupang-frame-wrap">
+            <iframe class="coupang-affiliate-frame" src="${esc(affiliateIds.coupangDisplayAdUrl)}" title="${esc(copy.aria)}" width="${esc(width)}" height="${esc(height)}" loading="lazy" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+          </div>
+        </section>`;
+}
+
 function affiliateSection(event, lang) {
   if (!affiliateEnabled) return "";
   const links = affiliateLinksFor(event);
@@ -7656,6 +7749,7 @@ function renderEvent(event, lang) {
           <p class="notice">${tr(lang, "verifyBefore")}</p>
         </section>
         ${adUnit("detail")}
+        ${coupangShoppingWidget(event, lang)}
 
         <section class="detail-section weather-detail-section">
           ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
@@ -9495,7 +9589,7 @@ function headers() {
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=86400
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagservices.com; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com https://kr.trip.com https://*.trip.com; connect-src 'self' https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagservices.com; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com https://kr.trip.com https://*.trip.com https://coupa.ng https://ads-partners.coupang.com; connect-src 'self' https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

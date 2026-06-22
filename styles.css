@@ -2539,6 +2539,63 @@ img {
   background: linear-gradient(180deg, #f9fffc 0%, #e3f5ef 100%);
 }
 
+.coupang-affiliate-widget {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.coupang-affiliate-copy {
+  display: grid;
+  gap: 8px;
+  max-width: 44rem;
+}
+
+.coupang-affiliate-copy h2,
+.coupang-affiliate-copy p {
+  margin: 0;
+}
+
+.coupang-affiliate-copy h2 {
+  font-size: var(--type-title-sm);
+  line-height: 1.16;
+}
+
+.coupang-affiliate-copy p {
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.coupang-affiliate-copy small {
+  max-width: 42rem;
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.coupang-frame-wrap {
+  display: grid;
+  place-items: center;
+  min-width: 144px;
+  padding: 10px;
+  border: 1px solid #dbe5f2;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.coupang-affiliate-frame {
+  display: block;
+  width: 120px;
+  height: 240px;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f5f9;
+}
+
 .handoff-note {
   display: flex;
   flex-wrap: wrap;
@@ -5528,6 +5585,7 @@ img {
   .about-copy-section,
   .detail-hero,
   .detail-quick-plan,
+  .coupang-affiliate-widget,
   .routes-with-ad,
   .guide-decision-panel,
   .guide-source-strip,
@@ -6674,6 +6732,23 @@ img {
 
   .detail-section {
     padding: 16px;
+  }
+
+  .coupang-affiliate-widget {
+    gap: 12px;
+  }
+
+  .coupang-affiliate-copy {
+    gap: 5px;
+  }
+
+  .coupang-affiliate-copy p {
+    font-size: 0.9rem;
+  }
+
+  .coupang-frame-wrap {
+    justify-self: center;
+    width: min(100%, 184px);
   }
 
   .detail-section-head {

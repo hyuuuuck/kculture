@@ -309,9 +309,13 @@ assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-
 const routesIndexForAdsense = read(path.join("en", "routes", "index.html"));
 if (affiliateEnabled) {
   assertIncludes(routesIndexForAdsense, "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
+  assertIncludes(routesIndexForAdsense, "routes-with-ad has-ad", "en/routes/index.html", "routes page should mark the ad rail layout when affiliate ads are enabled.");
 } else if (routesIndexForAdsense.includes("class=\"routes-ad-rail\"") || routesIndexForAdsense.includes("rel=\"sponsored")) {
   push("en/routes/index.html", "AdSense review mode should not expose affiliate route ads unless AFFILIATE_ENABLED=1.");
+} else {
+  assertIncludes(routesIndexForAdsense, "routes-with-ad no-ad", "en/routes/index.html", "routes page should use the full-width no-ad route layout in AdSense review mode.");
 }
+assertIncludes(styles, ".routes-with-ad.no-ad", "styles.css", "routes no-ad layout must force the route cards to use the full content width.");
 assertIncludes(styles, ".trip-rail-card", "styles.css", "Trip.com route ad needs a visible, constrained rail card.");
 const coupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
 if (coupangEvent) {

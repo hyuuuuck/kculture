@@ -7408,6 +7408,7 @@ function renderCity(lang, city) {
 
 function renderRoutes(lang) {
   const description = tr(lang, "routeIndexDescription");
+  const routeAdRail = tripSkyscraperBanner(lang);
   const body = `
     <main class="page">
       <section class="page-hero compact">
@@ -7415,8 +7416,8 @@ function renderRoutes(lang) {
         <h1>${tr(lang, "routePages")}</h1>
         <p>${esc(description)}</p>
       </section>
-      <div class="routes-with-ad">
-        ${tripSkyscraperBanner(lang)}
+      <div class="routes-with-ad ${routeAdRail ? "has-ad" : "no-ad"}">
+        ${routeAdRail}
         <section class="route-grid wide-route-grid routes-content">
           ${routes.map((route) => routeLinkCard(route, lang)).join("")}
         </section>

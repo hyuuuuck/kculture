@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -23,7 +24,7 @@ const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const requiredLanguages = ["en", "es", "zh", "pt", "ru", "ja"];
-const publicLanguages = [...requiredLanguages, "fr", "de"];
+const publicLanguages = publicLanguageCodes();
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));

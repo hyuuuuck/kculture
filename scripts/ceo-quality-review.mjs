@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { todayString } from "./lib/date.mjs";
+import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
@@ -15,7 +16,8 @@ const curationQueue = readJson("data/curation-queue.json");
 const routes = readJson("data/travel-routes.json");
 const thumbnailSources = readJson("data/thumbnail-sources.json", {});
 
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
+const affiliateEnabled = affiliatePublishingEnabled();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 const checks = [];
 const dayMs = 24 * 60 * 60 * 1000;
@@ -244,6 +246,7 @@ function collectHomeUx() {
 
   const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");
   const seoulAffiliateHtml = seoulAffiliateEvent ? readText(`dist/en/events/${seoulAffiliateEvent.slug}.html`) : "";
+  if (affiliateEnabled) {
   const affiliateReady = seoulAffiliateHtml.includes("Allianceid=8627235")
     && seoulAffiliateHtml.includes("SID=318693138")
     && seoulAffiliateHtml.includes("trip_sub3=D17791636")
@@ -264,6 +267,15 @@ function collectHomeUx() {
     pass("ceo", "Monetization", "Coupang Partners disclosure", `Sponsored shopping iframe is present on ${coupangEvent.slug} with commission disclosure.`);
   } else {
     fail("ceo", "Monetization", "Coupang Partners disclosure", `widget ${Boolean(coupangHtml.includes("https://coupa.ng/cny5Rl"))}, disclosure ${Boolean(coupangHtml.includes("쿠팡 파트너스 활동의 일환"))}.`, "Publisher: keep Coupang Partners iframe limited to shopping-relevant event pages and show the commission disclosure beside it.");
+  }
+  } else {
+    const reviewCoupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
+    const reviewCoupangHtml = reviewCoupangEvent ? readText(`dist/en/events/${reviewCoupangEvent.slug}.html`) : "";
+    if (seoulAffiliateHtml.includes("rel=\"sponsored") || reviewCoupangHtml.includes("coupang-affiliate-widget")) {
+      fail("ceo", "Monetization", "AdSense review affiliate pause", "Affiliate markup is still visible.", "Publisher: leave affiliate blocks off until AdSense review is cleared, or set AFFILIATE_ENABLED=1 only for post-approval monetization.");
+    } else {
+      pass("ceo", "Monetization", "AdSense review affiliate pause", "Affiliate blocks are hidden by default for the re-review build.");
+    }
   }
 }
 
@@ -317,8 +329,12 @@ function collectDetailUx() {
 }
 
 function collectGuideLocalization() {
+  const localizedLangs = languages.filter((lang) => ["fr", "de"].includes(lang));
+  if (!localizedLangs.length) {
+    pass("audit-institution", "Localization", "Review-mode language scope", `Public languages: ${languages.join(", ")}.`);
+    return;
+  }
   const englishGuideTitles = guides.map((guide) => guide.title?.en).filter(Boolean);
-  const localizedLangs = ["fr", "de"];
   const leaks = [];
   for (const lang of localizedLangs) {
     const indexText = htmlText(readText(`dist/${lang}/guides/index.html`));

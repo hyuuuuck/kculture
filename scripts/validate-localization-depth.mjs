@@ -1,9 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = process.cwd();
 const distDir = path.join(root, "dist");
-const localizedLangs = ["es", "zh", "pt", "ru", "ja", "fr", "de"];
+const localizedLangs = publicLanguageCodes().filter((lang) => lang !== "en");
 const minCandidateLength = 24;
 
 function readJson(filePath) {

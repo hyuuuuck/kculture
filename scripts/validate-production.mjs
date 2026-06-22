@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
 const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
@@ -16,7 +17,7 @@ const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"),
 const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 
 function normalizePublisherId(value) {

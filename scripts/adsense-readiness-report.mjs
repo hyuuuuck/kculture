@@ -3,6 +3,7 @@ import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { publicLanguageCodes, affiliatePublishingEnabled } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -24,7 +25,8 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
   .then(JSON.parse)
   .catch(() => []);
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
+const affiliateEnabled = affiliatePublishingEnabled();
 const eventRichResultCategories = new Set(["festival", "kpop"]);
 const sourceCoverageBuckets = [
   { id: "tourism-festivals", minSources: 12, pattern: /\b(tourism|tourist|visitkorea|tourapi|festival|visit seoul|visit jeju|busan|incheon|daegu|boryeong|andong|jinju|coex|ddp)\b/i },
@@ -236,7 +238,7 @@ function detailPlanningStats() {
 }
 
 function detailSourceBoundaryStats() {
-  const checkedLanguages = ["en", "es", "pt", "fr", "de"];
+  const checkedLanguages = languages;
   const missing = [];
   for (const lang of checkedLanguages) {
     for (const event of events) {
@@ -489,9 +491,15 @@ function runChecks() {
 
   const structuredEvents = structuredEventStats();
   if (structuredEvents.ok === structuredEvents.expected) {
-    pass("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} multilingual detail pages`);
+    pass("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} public detail pages`);
   } else {
     fail("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} pages valid`, `Run npm.cmd run validate:structured and inspect ${structuredEvents.missing.slice(0, 3).join(", ")}.`);
+  }
+
+  if (languages.length === 1 && languages[0] === "en") {
+    pass("Content", "AdSense review language scope", "English-only review build hides unfinished localized pages");
+  } else {
+    warn("Content", "AdSense review language scope", `${languages.join(", ")} public`, "Before reapplying, keep only languages whose event data, guide copy, and UI labels pass human-readable translation review.");
   }
 
   const policyPages = ["privacy", "cookie-policy", "advertising", "contact", "about", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
@@ -549,6 +557,12 @@ function runChecks() {
     pass("AdSense", "Google-certified CMP readiness", "confirmed");
   } else {
     warn("AdSense", "Google-certified CMP readiness", "not set", "Choose and configure a Google-certified consent management platform before serving ads to EEA, UK, and Switzerland visitors, then set GOOGLE_ADSENSE_CMP_READY=1.");
+  }
+
+  if (!affiliateEnabled) {
+    pass("AdSense", "Affiliate review mode", "third-party affiliate blocks disabled");
+  } else {
+    warn("AdSense", "Affiliate review mode", "affiliate blocks enabled", "For a low-value-content re-review, disable affiliate widgets unless they are clearly secondary to substantial publisher content.");
   }
 
   if (googleSiteVerification && exists("dist/index.html")) {

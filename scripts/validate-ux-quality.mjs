@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { todayString } from "./lib/date.mjs";
+import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
@@ -10,7 +11,8 @@ const sources = JSON.parse(fs.readFileSync(path.join(root, "data", "sources.json
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const curationQueue = JSON.parse(fs.readFileSync(path.join(root, "data", "curation-queue.json"), "utf8"));
 const designSystem = JSON.parse(fs.readFileSync(path.join(root, "data", "design-system.json"), "utf8").replace(/^\uFEFF/, ""));
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
+const affiliateEnabled = affiliatePublishingEnabled();
 const errors = [];
 
 function push(id, message) {
@@ -88,13 +90,15 @@ for (const lang of languages) {
   }
 }
 
-const portugueseHome = read(path.join("pt", "index.html"));
-if (!portugueseHome.includes("language-flag flag-br") || portugueseHome.includes("language-flag flag-pt")) {
-  push("pt/index.html", "Portuguese is formatted as pt-BR, so the language selector should use the Brazil flag consistently.");
+if (languages.includes("pt")) {
+  const portugueseHome = read(path.join("pt", "index.html"));
+  if (!portugueseHome.includes("language-flag flag-br") || portugueseHome.includes("language-flag flag-pt")) {
+    push("pt/index.html", "Portuguese is formatted as pt-BR, so the language selector should use the Brazil flag consistently.");
+  }
+  assertIncludes(portugueseHome, "Português (BR)", "pt/index.html", "Portuguese language label should make the Brazil flag explicit.");
 }
-assertIncludes(portugueseHome, "Português (BR)", "pt/index.html", "Portuguese language label should make the Brazil flag explicit.");
 
-for (const lang of ["fr", "de"]) {
+for (const lang of ["fr", "de"].filter((lang) => languages.includes(lang))) {
   const localizedGuideIndex = read(path.join(lang, "guides", "index.html"));
   const localizedGuideText = htmlText(localizedGuideIndex);
   for (const title of englishGuideTitles) {
@@ -302,14 +306,23 @@ assertIncludes(read(path.join("en", "now", "index.html")), "class=\"now-status-f
 assertIncludes(styles, ".now-status-flag", "styles.css", "now page card timing flags need dedicated styling.");
 assertIncludes(styles, ".routes-ad-rail .ad-disclosure", "styles.css", "sponsored route ad label should be a compact horizontal disclosure.");
 assertNotVisible(styles, /routes-ad-rail > span[\s\S]*?writing-mode:\s*vertical-rl/, "styles.css", "route ad disclosure must not render as vertical text.");
-assertIncludes(read(path.join("en", "routes", "index.html")), "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
+const routesIndexForAdsense = read(path.join("en", "routes", "index.html"));
+if (affiliateEnabled) {
+  assertIncludes(routesIndexForAdsense, "class=\"routes-ad-rail\"", "en/routes/index.html", "routes page should keep the Trip.com sponsored hotel card in the side rail.");
+} else if (routesIndexForAdsense.includes("class=\"routes-ad-rail\"") || routesIndexForAdsense.includes("rel=\"sponsored")) {
+  push("en/routes/index.html", "AdSense review mode should not expose affiliate route ads unless AFFILIATE_ENABLED=1.");
+}
 assertIncludes(styles, ".trip-rail-card", "styles.css", "Trip.com route ad needs a visible, constrained rail card.");
 const coupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
 if (coupangEvent) {
   const coupangHtml = read(path.join("en", "events", `${coupangEvent.slug}.html`));
-  assertIncludes(coupangHtml, "https://coupa.ng/cny5Rl", `en/events/${coupangEvent.slug}.html`, "shopping-related event details should include the Coupang Partners sponsored iframe.");
-  assertIncludes(coupangHtml, "coupang-affiliate-widget", `en/events/${coupangEvent.slug}.html`, "Coupang iframe needs a constrained sponsored-shopping container.");
-  assertIncludes(coupangHtml, "쿠팡 파트너스 활동의 일환", `en/events/${coupangEvent.slug}.html`, "Coupang Partners disclosure must remain visible near the iframe.");
+  if (affiliateEnabled) {
+    assertIncludes(coupangHtml, "https://coupa.ng/cny5Rl", `en/events/${coupangEvent.slug}.html`, "shopping-related event details should include the Coupang Partners sponsored iframe.");
+    assertIncludes(coupangHtml, "coupang-affiliate-widget", `en/events/${coupangEvent.slug}.html`, "Coupang iframe needs a constrained sponsored-shopping container.");
+    assertIncludes(coupangHtml, "쿠팡 파트너스 활동의 일환", `en/events/${coupangEvent.slug}.html`, "Coupang Partners disclosure must remain visible near the iframe.");
+  } else if (coupangHtml.includes("https://coupa.ng") || coupangHtml.includes("coupang-affiliate-widget")) {
+    push(`en/events/${coupangEvent.slug}.html`, "AdSense review mode should not expose Coupang affiliate iframes unless AFFILIATE_ENABLED=1.");
+  }
 }
 assertIncludes(styles, ".coupang-affiliate-widget", "styles.css", "Coupang iframe needs dedicated compact detail-card styling.");
 assertIncludes(styles, ".coupang-affiliate-frame", "styles.css", "Coupang iframe dimensions need stable CSS instead of relying only on iframe attributes.");
@@ -356,6 +369,7 @@ const advertising = read("en/advertising/index.html");
 assertIncludes(advertising, "Advertising Policy", "en/advertising/index.html", "advertising policy page title is missing.");
 assertIncludes(advertising, "ads cannot buy event inclusion", "en/advertising/index.html", "advertising policy must state ads cannot buy editorial inclusion.");
 assertIncludes(advertising, "K-Spot Now does not process payments", "en/advertising/index.html", "advertising policy must keep payments and official-source actions separated.");
+if (languages.includes("fr") && languages.includes("de")) {
 const frAdvertising = read("fr/advertising/index.html");
 const deAdvertising = read("de/advertising/index.html");
 assertIncludes(frAdvertising, "Politique publicitaire", "fr/advertising/index.html", "French advertising policy title is missing.");
@@ -400,6 +414,7 @@ for (const [pattern, label] of [
 ]) {
   if (pattern.test(frHomeText)) push("fr/index.html", `French home still exposes ${label}.`);
 }
+}
 
 const visitorUiExpectations = {
   es: ["Saltar al contenido principal", "Guardar", "revisado"],
@@ -426,7 +441,7 @@ visitorUiExpectations.ja[2] = visitorUiExpectations.ja[1];
 visitorUiExpectations.fr[2] = visitorUiExpectations.fr[1];
 visitorUiExpectations.de[2] = visitorUiExpectations.de[1];
 
-for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
+for (const [lang, expected] of Object.entries(visitorUiExpectations).filter(([lang]) => languages.includes(lang))) {
   const localizedHome = read(`${lang}/index.html`);
   const localizedDetail = read(`${lang}/events/bts-city-arirang-busan-2026.html`);
   for (const phrase of expected.slice(0, 2)) {
@@ -439,6 +454,7 @@ for (const [lang, expected] of Object.entries(visitorUiExpectations)) {
   assertNotVisible(localizedDetail, /\bSave\b|\bFreshness\b|\bchecked yesterday\b/, `${lang}/events/bts-city-arirang-busan-2026.html`, "detail should not expose English save/freshness UI labels.");
 }
 
+if (languages.includes("fr") && languages.includes("de")) {
 const frDetail = read("fr/events/bts-city-arirang-busan-2026.html");
 const deDetail = read("de/events/bts-city-arirang-busan-2026.html");
 assertIncludes(frDetail, "Checklist avant visite", "fr/events/bts-city-arirang-busan-2026.html", "French detail must expose the compact visit checklist.");
@@ -457,10 +473,14 @@ assertIncludes(deNolDetail, "Die verlinkte Listing- oder Ticketquelle", "de/even
 const frRouteIndex = read("fr/routes/index.html");
 const deRouteIndex = read("de/routes/index.html");
 const enRouteIndex = read("en/routes/index.html");
-assertIncludes(enRouteIndex, "class=\"routes-with-ad\"", "en/routes/index.html", "Travel routes index must use the route grid with a left ad rail.");
-assertIncludes(enRouteIndex, "class=\"routes-ad-rail\"", "en/routes/index.html", "Travel routes index must place the Trip.com sponsored card beside route cards.");
-assertIncludes(enRouteIndex, "class=\"trip-rail-card\"", "en/routes/index.html", "Travel routes ad must render a visible rail card, not an empty iframe shell.");
-assertIncludes(enRouteIndex, "rel=\"sponsored nofollow noopener\"", "en/routes/index.html", "Travel routes ad card must keep affiliate disclosure attributes.");
+if (affiliateEnabled) {
+  assertIncludes(enRouteIndex, "class=\"routes-with-ad\"", "en/routes/index.html", "Travel routes index must use the route grid with a left ad rail.");
+  assertIncludes(enRouteIndex, "class=\"routes-ad-rail\"", "en/routes/index.html", "Travel routes index must place the Trip.com sponsored card beside route cards.");
+  assertIncludes(enRouteIndex, "class=\"trip-rail-card\"", "en/routes/index.html", "Travel routes ad must render a visible rail card, not an empty iframe shell.");
+  assertIncludes(enRouteIndex, "rel=\"sponsored nofollow noopener\"", "en/routes/index.html", "Travel routes ad card must keep affiliate disclosure attributes.");
+} else {
+  assertNotVisible(enRouteIndex, /class="routes-ad-rail"|rel="sponsored nofollow noopener"/, "en/routes/index.html", "AdSense review mode should keep route affiliate ads hidden.");
+}
 assertNotVisible(enRouteIndex, /class="trip-square-ad"|TD17833727|width="1200" height="1200"|class="trip-skyscraper-frame"|<iframe/i, "en/routes/index.html", "Travel routes index must not render square or blank-prone Trip.com iframe ads.");
 assertIncludes(frRouteIndex, "Soiree au Hangang", "fr/routes/index.html", "French route index must localize route titles and route copy.");
 assertIncludes(deRouteIndex, "Hangang-Abendroute", "de/routes/index.html", "German route index must localize route titles and route copy.");
@@ -480,6 +500,7 @@ if (deDetail.includes("KMA-Kurzfristprognose")) {
   assertIncludes(deDetail, "Wetterbasis", "de/events/bts-city-arirang-busan-2026.html", "German seasonal weather source line must be localized when live KMA forecast is unavailable.");
 }
 assertIncludes(deDetail, "Wasserflasche", "de/events/bts-city-arirang-busan-2026.html", "German weather packing tags must be localized.");
+}
 
 const localizedLeakPhrases = [
   "At a glance",
@@ -518,7 +539,7 @@ const localizedLeakPhrases = [
   "WEATHER-ROUTES"
 ];
 
-for (const lang of ["fr", "de"]) {
+for (const lang of ["fr", "de"].filter((lang) => languages.includes(lang))) {
   const leakTargets = [
     [`${lang}/index.html`, read(`${lang}/index.html`)],
     [`${lang}/routes/index.html`, read(`${lang}/routes/index.html`)],
@@ -558,15 +579,19 @@ for (const event of activeEvents) {
   assertIncludes(html, "Why this page before the linked source", `en/events/${event.slug}.html`, "detail page must explain why visitors use K-Spot Now before the linked source.");
   assertIncludes(html, "detail-quick-plan", `en/events/${event.slug}.html`, "detail page must surface a visible before-booking planning rail near the hero.");
   assertIncludes(html, "Before you book", `en/events/${event.slug}.html`, "detail page must make the pre-booking planning role visible near the hero.");
-  assertIncludes(html, "affiliate-action", `en/events/${event.slug}.html`, "detail hero must include a visible hotel CTA, not bury affiliate links lower on the page.");
-  assertIncludes(html, "Sponsored hotel link", `en/events/${event.slug}.html`, "detail page must show hotel affiliate links as labeled planning CTAs, not hidden utility links.");
+  if (affiliateEnabled) {
+    assertIncludes(html, "affiliate-action", `en/events/${event.slug}.html`, "detail hero must include a visible hotel CTA, not bury affiliate links lower on the page.");
+    assertIncludes(html, "Sponsored hotel link", `en/events/${event.slug}.html`, "detail page must show hotel affiliate links as labeled planning CTAs, not hidden utility links.");
+  } else if (html.includes("affiliate-action") || html.includes("Sponsored hotel link")) {
+    push(`en/events/${event.slug}.html`, "AdSense review mode should keep event affiliate CTAs hidden unless AFFILIATE_ENABLED=1.");
+  }
   if (event.eventKind === "concert") {
     assertIncludes(html, "Concert", `en/events/${event.slug}.html`, "concert date basis is missing from the detail audit facts.");
   }
 }
 
 const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");
-if (seoulAffiliateEvent) {
+if (seoulAffiliateEvent && affiliateEnabled) {
   const html = read(path.join("en", "events", `${seoulAffiliateEvent.slug}.html`));
   assertIncludes(html, "https://www.trip.com/hotels/list?city=274", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com Seoul affiliate hotel link must be available for visitor planning.");
   assertIncludes(html, "Allianceid=8627235", `en/events/${seoulAffiliateEvent.slug}.html`, "Trip.com affiliate Allianceid must be present.");
@@ -625,4 +650,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("UX quality validation passed: compact mobile header, multilingual pages, carousel dots, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.");
+console.log(`UX quality validation passed: compact mobile header, ${languages.length} public language(s), carousel dots, calendar headings, detail facts, weather blocks, and K-pop concert monitoring are present.`);

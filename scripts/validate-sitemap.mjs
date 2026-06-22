@@ -1,10 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = process.cwd();
 const sitemapPath = path.join(root, "dist", "sitemap.xml");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
 const errors = [];
 
 if (!fs.existsSync(sitemapPath)) {

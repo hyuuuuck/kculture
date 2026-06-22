@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
+import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -47,7 +48,7 @@ const affiliateIds = {
   klookAid: String(process.env.KLOOK_AFFILIATE_AID || "").trim(),
   trazyId: String(process.env.TRAZY_AFFILIATE_ID || "").trim()
 };
-const affiliateEnabled = Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId || affiliateIds.coupangDisplayAdUrl);
+const affiliateEnabled = affiliatePublishingEnabled() && Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId || affiliateIds.coupangDisplayAdUrl);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
@@ -1188,6 +1189,9 @@ dict = {
 languages.ja = { name: "日本語", locale: "ja-JP" };
 languages.fr = { name: "Français", locale: "fr-FR" };
 languages.de = { name: "Deutsch", locale: "de-DE" };
+const publicLanguageSet = new Set(publicLanguageCodes());
+languages = Object.fromEntries(Object.entries(languages).filter(([code]) => publicLanguageSet.has(code)));
+if (!languages.en) languages.en = { name: "English", locale: "en-US" };
 
 const languageFlagRegions = {
   en: "us",
@@ -4324,7 +4328,7 @@ function hotelAffiliateButton(event, lang) {
 }
 
 function tripSkyscraperBanner(lang) {
-  if (!affiliateIds.tripAllianceId || !affiliateIds.tripSid) return "";
+  if (!affiliateEnabled || !affiliateIds.tripAllianceId || !affiliateIds.tripSid) return "";
   const copy = {
     en: {
       aria: "Sponsored Trip.com hotel link",
@@ -4438,7 +4442,7 @@ function adDimension(value, fallback) {
 }
 
 function coupangShoppingWidget(event, lang) {
-  if (!affiliateIds.coupangDisplayAdUrl || !coupangShoppingCategories.has(event.category) || statusOf(event) === "ended") return "";
+  if (!affiliateEnabled || !affiliateIds.coupangDisplayAdUrl || !coupangShoppingCategories.has(event.category) || statusOf(event) === "ended") return "";
   const width = adDimension(affiliateIds.coupangDisplayAdWidth, defaultCoupangAffiliate.width);
   const height = adDimension(affiliateIds.coupangDisplayAdHeight, defaultCoupangAffiliate.height);
   const copy = local({

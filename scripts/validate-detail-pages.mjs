@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { todayString } from "./lib/date.mjs";
+import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
@@ -13,7 +14,7 @@ const weather = JSON.parse(fs.readFileSync(path.join(root, "data", "weather-base
 const currentWeather = fs.existsSync(path.join(root, "data", "kma-forecast.json"))
   ? JSON.parse(fs.readFileSync(path.join(root, "data", "kma-forecast.json"), "utf8"))
   : null;
-const languages = ["en", "es", "zh", "pt", "ru", "ja", "fr", "de"];
+const languages = publicLanguageCodes();
 const languageLocales = {
   en: "en-US",
   es: "es-ES",
@@ -394,4 +395,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Detail page validation passed: ${events.length * languages.length} multilingual event detail pages include official source, calendar, weather, map, route, and guide blocks.`);
+console.log(`Detail page validation passed: ${events.length * languages.length} public event detail pages include official source, calendar, weather, map, route, and guide blocks.`);

@@ -14,7 +14,7 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - RSS and JSON Feed output at `/feed.xml`, `/latest.json`, and each language folder for recrawl signals, subscriptions, newsletters, and future automation
 - A `/recheck.json` operations feed and `/now/` panel for live or upcoming listings that need official-source rechecks soon
 - Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
-- Language versions for English, Spanish, Chinese, Portuguese, Russian, and Japanese
+- Language versions for English, Spanish, Chinese, Portuguese, Russian, Japanese, French, and German; AdSense review mode publishes English only until localized pages pass translation QA
 - Static output in `dist/` for Cloudflare Pages
 
 ## Project Files
@@ -224,6 +224,20 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 - `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved placements on the home page, event detail pages, and guide articles after approval
 - `GOOGLE_ADSENSE_CMP_READY`: set to `1` only after a Google-certified CMP is configured for EEA, UK, and Switzerland visitors
 - `GOOGLE_SITE_VERIFICATION`: optional Search Console HTML tag content. You may paste either the content token or the full meta tag.
+- `ADSENSE_REVIEW_MODE`: defaults to `1`. Keep this on for re-review so only quality-audited English pages are public.
+- `PUBLIC_LANGUAGES`: optional comma-separated language list. Leave unset during AdSense re-review; after translation QA, set `en,es,zh,pt,ru,ja,fr,de`.
+- `AFFILIATE_ENABLED`: defaults to `0`. Keep affiliate widgets off during AdSense re-review, then set `1` after approval if the sponsored blocks should return.
+
+For the current AdSense re-review, keep the public build focused:
+
+```text
+SITE_URL=https://kspotnow.com
+CONTACT_EMAIL=contact@kspotnow.com
+ADSENSE_REVIEW_MODE=1
+AFFILIATE_ENABLED=0
+```
+
+When AdSense shows your publisher ID, set `GOOGLE_ADSENSE_PUBLISHER_ID=pub-xxxxxxxxxxxxxxxx` in Cloudflare/GitHub. The build writes `/ads.txt` only when a real publisher ID is present; otherwise it writes `ads.txt.example` and the live domain will still report `ads.txt` as missing.
 
 Set these repository secrets:
 

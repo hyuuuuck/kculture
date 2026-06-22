@@ -53,6 +53,8 @@ assertIncludes(sourceRefreshFile, sourceRefresh, "Commit operational refresh sna
 assertIncludes(sourceRefreshFile, sourceRefresh, "data/kma-forecast.json data/source-refresh-summary.json", "source refresh must limit direct auto-commits to operational snapshots.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "STASHED_REVIEW_CANDIDATES", "source refresh must keep review candidate files out of the operational snapshot commit.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "peter-evans/create-pull-request@v6", "source refresh must open or update a review PR instead of publishing draft events directly.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "continue-on-error: true", "source refresh PR creation should not break the operating refresh if repository PR permissions are disabled.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "Allow GitHub Actions to create and approve pull requests", "source refresh must document the repository setting required for automated review PRs.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "automation/source-review-candidates", "source refresh review PR should use a stable automation branch.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "data/review-candidates/latest.md", "source refresh review PR must include a readable candidate brief.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "actions/upload-artifact@v4", "source refresh must upload review artifacts.");

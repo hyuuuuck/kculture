@@ -107,6 +107,8 @@ jobs:
           fi
 
       - name: Create or update source review PR
+        id: source_review_pr
+        continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ github.token }}
@@ -119,6 +121,16 @@ jobs:
           add-paths: |
             data/review-candidates/latest.json
             data/review-candidates/latest.md
+
+      - name: Note source review PR fallback
+        if: steps.source_review_pr.outcome == 'failure'
+        run: |
+          {
+            echo "### Source review PR fallback"
+            echo ""
+            echo "The source refresh completed and updated the source-review issue/artifacts, but GitHub did not allow the workflow to create or update the candidate PR."
+            echo "Enable repository setting: Settings > Actions > General > Workflow permissions > Allow GitHub Actions to create and approve pull requests."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload review artifacts
         if: always()

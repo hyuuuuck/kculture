@@ -450,11 +450,21 @@ assertIncludes(enRouteIndex, "rel=\"sponsored nofollow noopener\"", "en/routes/i
 assertNotVisible(enRouteIndex, /class="trip-square-ad"|TD17833727|width="1200" height="1200"|class="trip-skyscraper-frame"|<iframe/i, "en/routes/index.html", "Travel routes index must not render square or blank-prone Trip.com iframe ads.");
 assertIncludes(frRouteIndex, "Soiree au Hangang", "fr/routes/index.html", "French route index must localize route titles and route copy.");
 assertIncludes(deRouteIndex, "Hangang-Abendroute", "de/routes/index.html", "German route index must localize route titles and route copy.");
-assertIncludes(frDetail, "Vue rapide", "fr/events/bts-city-arirang-busan-2026.html", "French weather overview heading must be localized.");
-assertIncludes(frDetail, "Prevision courte KMA", "fr/events/bts-city-arirang-busan-2026.html", "French KMA forecast source line must be localized.");
+if (frDetail.includes("Prevision courte KMA")) {
+  assertIncludes(frDetail, "Vue rapide", "fr/events/bts-city-arirang-busan-2026.html", "French weather overview heading must be localized.");
+  assertIncludes(frDetail, "Prevision courte KMA", "fr/events/bts-city-arirang-busan-2026.html", "French KMA forecast source line must be localized.");
+} else {
+  assertIncludes(frDetail, "Base saisonniere", "fr/events/bts-city-arirang-busan-2026.html", "French seasonal weather heading must be localized when live KMA forecast is unavailable.");
+  assertIncludes(frDetail, "Base meteo", "fr/events/bts-city-arirang-busan-2026.html", "French seasonal weather source line must be localized when live KMA forecast is unavailable.");
+}
 assertIncludes(frDetail, "bouteille d&#39;eau", "fr/events/bts-city-arirang-busan-2026.html", "French weather packing tags must be localized.");
-assertIncludes(deDetail, "Kurzuberblick", "de/events/bts-city-arirang-busan-2026.html", "German weather overview heading must be localized.");
-assertIncludes(deDetail, "KMA-Kurzfristprognose", "de/events/bts-city-arirang-busan-2026.html", "German KMA forecast source line must be localized.");
+if (deDetail.includes("KMA-Kurzfristprognose")) {
+  assertIncludes(deDetail, "Kurzuberblick", "de/events/bts-city-arirang-busan-2026.html", "German weather overview heading must be localized.");
+  assertIncludes(deDetail, "KMA-Kurzfristprognose", "de/events/bts-city-arirang-busan-2026.html", "German KMA forecast source line must be localized.");
+} else {
+  assertIncludes(deDetail, "Saisonale Basis", "de/events/bts-city-arirang-busan-2026.html", "German seasonal weather heading must be localized when live KMA forecast is unavailable.");
+  assertIncludes(deDetail, "Wetterbasis", "de/events/bts-city-arirang-busan-2026.html", "German seasonal weather source line must be localized when live KMA forecast is unavailable.");
+}
 assertIncludes(deDetail, "Wasserflasche", "de/events/bts-city-arirang-busan-2026.html", "German weather packing tags must be localized.");
 
 const localizedLeakPhrases = [

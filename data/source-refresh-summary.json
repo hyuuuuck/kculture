@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-11T20:22:48.663Z",
+  "generatedAt": "2026-06-22T04:11:45.182Z",
   "files": {
-    "audit": "source-audit-2026-06-12.json",
-    "candidates": "official-page-candidates-2026-06-12.json",
-    "drafts": "draft-events-2026-06-12.json",
-    "reviewReport": "review-report-2026-06-12.md",
-    "reviewBoard": "review-board-2026-06-12.html"
+    "audit": "source-audit-2026-06-22.json",
+    "candidates": "official-page-candidates-2026-06-22.json",
+    "drafts": "draft-events-2026-06-22.json",
+    "reviewReport": "review-report-2026-06-22.md",
+    "reviewBoard": "review-board-2026-06-22.html"
   },
   "counts": {
     "auditedSources": 55,
@@ -15,10 +15,10 @@
     "monitorSources": 53,
     "candidateOk": 49,
     "candidateFailed": 4,
-    "discoveredLinks": 526,
-    "dateSignals": 298,
-    "draftCandidates": 51,
-    "skippedCandidates": 528
+    "discoveredLinks": 619,
+    "dateSignals": 296,
+    "draftCandidates": 66,
+    "skippedCandidates": 606
   },
   "failedSources": [
     {
@@ -45,23 +45,23 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 14
+      "count": 20
     },
     {
       "key": "Visit Seoul",
-      "count": 13
+      "count": 18
     },
     {
       "key": "Busan Metropolitan City Events and English News",
-      "count": 10
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 5
+      "count": 8
     },
     {
       "key": "NOL World Ticket",
-      "count": 3
+      "count": 7
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 6
     },
     {
       "key": "Andong Maskdance Festival",
@@ -71,11 +71,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 42
+      "count": 52
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 8
+    },
+    {
+      "key": "kpop",
+      "count": 4
     },
     {
       "key": "department-store",
@@ -84,102 +88,98 @@
     {
       "key": "duty-free",
       "count": 1
-    },
-    {
-      "key": "kpop",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 463
-    },
-    {
-      "key": "already published source URL",
-      "count": 13
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 8
+      "count": 562
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
       "count": 6
     },
     {
-      "key": "already published similar event: bts-city-arirang-busan-2026",
+      "key": "already published source URL",
+      "count": 6
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 5
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
     {
       "sourceName": "Busan Metropolitan City Events and English News",
       "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 2,
-      "score": 130
-    },
-    {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
-      "links": 18,
-      "dates": 18,
-      "keywords": 7,
-      "score": 126
-    },
-    {
-      "sourceName": "Visit Seoul",
-      "url": "https://english.visitseoul.net/",
-      "links": 18,
-      "dates": 18,
-      "keywords": 4,
-      "score": 123
+      "score": 148
     },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
-      "links": 18,
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 142
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 122
+      "score": 141
+    },
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 2,
-      "score": 119
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 18,
-      "dates": 18,
-      "keywords": 5,
-      "score": 117
+      "score": 137
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 2,
-      "score": 117
+      "score": 135
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 134
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 5,
-      "score": 114
+      "score": 132
     }
   ]
 }

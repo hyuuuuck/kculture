@@ -237,7 +237,9 @@ It also runs the CEO quality review before deploying. If the audit institution f
 
 `.github/workflows/verify.yml` runs `npm run verify` on pushes and pull requests. After the project is pushed to GitHub, use that check as the deploy gate before connecting Cloudflare Pages.
 
-`.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, updates one open GitHub issue labeled `source-review`, and uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact. It can also be started manually with extra official URLs.
+`.github/workflows/source-refresh.yml` runs official source collection every four hours, writes an Actions summary, updates one open GitHub issue labeled `source-review`, uploads the candidate feed, draft feed, review report, summary, and private review board as a GitHub Actions artifact, commits validated operational snapshots (`data/kma-forecast.json` and `data/source-refresh-summary.json`) back to `main`, and opens or updates a `Review official source candidates` pull request from the `automation/source-review-candidates` branch. It can also be started manually with extra official URLs.
+
+The scheduled workflow intentionally does not publish draft events directly to `data/events.json`. Weather and source-status snapshots can update automatically because they are operational context. The review PR is an operating queue, not the publishing step: read it, comment on it, or close it after review, but publish only after an editor verifies the official source, rewrites the copy, and passes the guarded publisher.
 
 `.github/workflows/deploy-cloudflare-pages.yml` is kept as a manual Wrangler deployment path for later API-token automation. For the first launch, use Cloudflare Pages dashboard Git integration so Cloudflare builds and deploys the GitHub repository directly.
 Manual runs can require the AdSense publisher ID by enabling the `require_adsense` input.
@@ -318,6 +320,8 @@ Or run the local source workflow in one command:
 npm.cmd run source:refresh
 ```
 
+This also writes `data/review-candidates/latest.md` and `data/review-candidates/latest.json`, the same compact package used by the scheduled source-review PR.
+
 8. Import Korea Tourism Organization TourAPI candidates:
 
 ```powershell
@@ -332,9 +336,9 @@ $env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
 npm.cmd run import:weather
 ```
 
-10. Open `data/feeds/source-refresh-summary-YYYY-MM-DD.md` first, then `data/feeds/review-board-YYYY-MM-DD.html`; verify official source pages, rewrite summaries in original words, and manually merge publishable items into `data/events.json`.
+10. Open the automated `Review official source candidates` PR or, locally, `data/review-candidates/latest.md`. Use it as the review inbox, then open the linked official source pages and the full artifact review board when needed.
 
-11. Or save reviewed items into a JSON file and run the guarded publisher as a dry run:
+11. Save approved items into `data/feeds/reviewed-events.json` and run the guarded publisher as a dry run:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
@@ -346,7 +350,7 @@ npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write
 ```
 
-12. Validate, build, and deploy:
+13. Validate, build, and deploy:
 
 ```powershell
 npm.cmd run verify

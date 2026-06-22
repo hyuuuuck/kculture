@@ -18,8 +18,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       issues: write
+      pull-requests: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -66,6 +67,9 @@ jobs:
       - name: Build GitHub issue digest
         run: npm run source:issue
 
+      - name: Stage source review PR package
+        run: npm run stage:review-candidates
+
       - name: Update source review issue
         env:
           GH_TOKEN: ${{ github.token }}
@@ -80,6 +84,41 @@ jobs:
 
       - name: Verify current site data
         run: npm run verify
+
+      - name: Commit operational refresh snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/kma-forecast.json data/source-refresh-summary.json
+          if git diff --cached --quiet; then
+            echo "No operational snapshot changes to commit."
+          else
+            STASHED_REVIEW_CANDIDATES=0
+            if ! git diff --quiet -- data/review-candidates/latest.json data/review-candidates/latest.md || [ -n "$(git ls-files --others --exclude-standard data/review-candidates/latest.json data/review-candidates/latest.md)" ]; then
+              git stash push --include-untracked --message "source review candidates" -- data/review-candidates/latest.json data/review-candidates/latest.md
+              STASHED_REVIEW_CANDIDATES=1
+            fi
+            git commit -m "Refresh weather and source summary"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            if [ "$STASHED_REVIEW_CANDIDATES" = "1" ]; then
+              git stash pop
+            fi
+          fi
+
+      - name: Create or update source review PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ github.token }}
+          branch: automation/source-review-candidates
+          base: main
+          title: "Review official source candidates"
+          commit-message: "Stage source review candidates"
+          body-path: data/review-candidates/latest.md
+          labels: source-review
+          add-paths: |
+            data/review-candidates/latest.json
+            data/review-candidates/latest.md
 
       - name: Upload review artifacts
         if: always()

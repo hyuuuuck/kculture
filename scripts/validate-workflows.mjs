@@ -47,12 +47,24 @@ assertIncludes(sourceRefreshFile, sourceRefresh, "npm run check:sources", "sourc
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run collect:official", "source refresh must collect official page candidates.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run source:summary", "source refresh must publish source summary artifacts.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run source:issue", "source refresh must generate the GitHub issue digest.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "npm run stage:review-candidates", "source refresh must stage a PR-ready review candidate package.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run verify", "source refresh must validate current site data after generating artifacts.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "Commit operational refresh snapshots", "source refresh must auto-commit weather and source summary snapshots after verification.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "data/kma-forecast.json data/source-refresh-summary.json", "source refresh must limit direct auto-commits to operational snapshots.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "STASHED_REVIEW_CANDIDATES", "source refresh must keep review candidate files out of the operational snapshot commit.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "peter-evans/create-pull-request@v6", "source refresh must open or update a review PR instead of publishing draft events directly.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "automation/source-review-candidates", "source refresh review PR should use a stable automation branch.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "data/review-candidates/latest.md", "source refresh review PR must include a readable candidate brief.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "actions/upload-artifact@v4", "source refresh must upload review artifacts.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "issues: write", "source refresh needs issue write permission for the operating inbox.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "contents: write", "source refresh needs contents write permission to commit operational snapshots.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "pull-requests: write", "source refresh needs pull request write permission for candidate review PRs.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "npm run check:sources", "KMA forecast import should happen before source checks.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:summary", "npm run source:issue", "source summary should be generated before the issue digest.");
+assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "npm run stage:review-candidates", "issue digest should be ready before staging the PR review package.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "gh issue", "issue body should be generated before updating GitHub issues.");
+assertOrder(sourceRefreshFile, sourceRefresh, "npm run verify", "Commit operational refresh snapshots", "source refresh should verify site data before committing operational snapshots.");
+assertOrder(sourceRefreshFile, sourceRefresh, "Commit operational refresh snapshots", "Create or update source review PR", "operational snapshots should be committed before the candidate PR is created.");
 
 assertIncludes(deployFile, deploy, "npm run source:refresh", "manual Cloudflare deploy should be able to refresh official sources before build.");
 assertIncludes(deployFile, deploy, "npm run validate:event-audit", "manual Cloudflare deploy must run high-risk event audit.");
@@ -90,6 +102,7 @@ assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run check:domain",
 assertIncludes(launchChecklistFile, launchChecklist, "AdSense Submission Gate", "launch checklist must separate the final AdSense submission gate.");
 
 assertIncludes(packageJsonFile, packageJson, "\"check:domain\"", "package scripts must expose the live domain verification command.");
+assertIncludes(packageJsonFile, packageJson, "\"stage:review-candidates\"", "package scripts must expose review candidate staging for scheduled PRs.");
 assertIncludes(domainCheckFile, domainCheck, "https://kspotnow.com", "domain check must default to the intended custom domain.");
 assertIncludes(domainCheckFile, domainCheck, "/sitemap.xml", "domain check must verify the live sitemap.");
 assertIncludes(domainCheckFile, domainCheck, "/robots.txt", "domain check must verify robots.txt.");

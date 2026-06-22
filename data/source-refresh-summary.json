@@ -1,50 +1,30 @@
 {
-  "generatedAt": "2026-06-22T13:47:36.609Z",
+  "generatedAt": "2026-06-22T19:52:07.755Z",
   "files": {
-    "audit": "source-audit-2026-06-22.json",
-    "candidates": "official-page-candidates-2026-06-22.json",
-    "drafts": "draft-events-2026-06-22.json",
-    "reviewReport": "review-report-2026-06-22.md",
-    "reviewBoard": "review-board-2026-06-22.html"
+    "audit": "source-audit-2026-06-23.json",
+    "candidates": "official-page-candidates-2026-06-23.json",
+    "drafts": "draft-events-2026-06-23.json",
+    "reviewReport": "review-report-2026-06-23.md",
+    "reviewBoard": "review-board-2026-06-23.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 51,
-    "auditFailed": 4,
-    "fallbackSources": 6,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 44,
-    "candidateFailed": 9,
-    "discoveredLinks": 577,
-    "dateSignals": 233,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 567,
+    "dateSignals": 275,
     "draftCandidates": 58,
-    "skippedCandidates": 572
+    "skippedCandidates": 562
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,7 +42,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -96,49 +81,41 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 46
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 8
     },
     {
       "key": "kpop",
       "count": 4
-    },
-    {
-      "key": "department-store",
-      "count": 1
-    },
-    {
-      "key": "duty-free",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 526
+      "count": 517
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 9
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
+      "count": 7
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
     },
     {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 6
-    },
-    {
       "key": "already published source URL",
       "count": 6
     },
     {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
       "key": "listing page is not a specific event",
-      "count": 4
+      "count": 5
     }
   ],
   "highSignalCandidates": [

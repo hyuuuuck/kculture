@@ -428,21 +428,40 @@ function collectGuideLocalization() {
   const deDetail = readText("dist/de/events/bts-city-arirang-busan-2026.html");
   const requiredLocalizedPhrases = [
     [frRoute, "Soiree au Hangang", "fr route"],
-    [deRoute, "Hangang-Abendroute", "de route"],
-    [frDetail, "Vue rapide", "fr weather"],
-    [frDetail, "Prevision courte KMA", "fr weather source"],
-    [deDetail, "Kurzuberblick", "de weather"],
-    [deDetail, "KMA-Kurzfristprognose", "de weather source"]
-  ].filter(([text, phrase]) => !text.includes(phrase)).map(([, , label]) => label);
+    [deRoute, "Hangang-Abendroute", "de route"]
+  ];
+  if (frDetail.includes("Prevision courte KMA")) {
+    requiredLocalizedPhrases.push(
+      [frDetail, "Vue rapide", "fr weather"],
+      [frDetail, "Prevision courte KMA", "fr weather source"]
+    );
+  } else {
+    requiredLocalizedPhrases.push(
+      [frDetail, "Base saisonniere", "fr seasonal weather"],
+      [frDetail, "Base meteo", "fr seasonal weather source"]
+    );
+  }
+  if (deDetail.includes("KMA-Kurzfristprognose")) {
+    requiredLocalizedPhrases.push(
+      [deDetail, "Kurzuberblick", "de weather"],
+      [deDetail, "KMA-Kurzfristprognose", "de weather source"]
+    );
+  } else {
+    requiredLocalizedPhrases.push(
+      [deDetail, "Saisonale Basis", "de seasonal weather"],
+      [deDetail, "Wetterbasis", "de seasonal weather source"]
+    );
+  }
+  const missingLocalizedProofs = requiredLocalizedPhrases.filter(([text, phrase]) => !text.includes(phrase)).map(([, , label]) => label);
 
-  if (!leaks.length && !categoryLeaks.length && !surfaceLeaks.length && !requiredLocalizedPhrases.length) {
+  if (!leaks.length && !categoryLeaks.length && !surfaceLeaks.length && !missingLocalizedProofs.length) {
     pass("audit-institution", "Translation quality", "FR/DE public-surface localization", `${localizedLangs.length * guides.length} guide details plus routes, weather, feeds, source pages, and browse labels avoid audited English leaks.`);
   } else {
     fail(
       "audit-institution",
       "Translation quality",
       "FR/DE public-surface localization",
-      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks, ${surfaceLeaks.length} surface leaks, ${requiredLocalizedPhrases.length} missing localized proofs.`,
+      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks, ${surfaceLeaks.length} surface leaks, ${missingLocalizedProofs.length} missing localized proofs.`,
       "Audit Institution: block release until French/German guide titles, topic pages, weather blocks, routes, feed summaries, source pages, and browse labels are localized instead of exposing English UI copy."
     );
   }

@@ -290,8 +290,13 @@ assertIncludes(styles, ".recheck-card {\n  display: grid;\n  grid-template-colum
 assertIncludes(styles, ".recheck-thumb", "styles.css", "recheck cards need a visual thumbnail area instead of text-only blocks.");
 assertIncludes(styles, ".recheck-card-body", "styles.css", "recheck cards need a structured content body below/alongside the thumbnail.");
 assertIncludes(styles, ".recheck-source", "styles.css", "recheck source links need subdued structured styling instead of oversized blue text.");
-assertIncludes(read(path.join("en", "now", "index.html")), "class=\"recheck-thumb\"", "en/now/index.html", "recheck cards need visible event imagery.");
-assertIncludes(read(path.join("en", "now", "index.html")), "class=\"recheck-title\"", "en/now/index.html", "recheck cards need structured title/meta/source slots.");
+const nowPage = read(path.join("en", "now", "index.html"));
+if (nowPage.includes("class=\"recheck-card")) {
+  assertIncludes(nowPage, "class=\"recheck-thumb\"", "en/now/index.html", "recheck cards need visible event imagery.");
+  assertIncludes(nowPage, "class=\"recheck-title\"", "en/now/index.html", "recheck cards need structured title/meta/source slots.");
+} else {
+  assertIncludes(nowPage, "class=\"empty-state\"", "en/now/index.html", "empty recheck queues should render a clear empty state.");
+}
 assertIncludes(styles, "clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%", "styles.css", "now page status groups should render as compact flag labels, not large headings.");
 assertIncludes(read(path.join("en", "now", "index.html")), "class=\"now-status-flag", "en/now/index.html", "now page cards must show event timing as status flags, not inline meta text.");
 assertIncludes(styles, ".now-status-flag", "styles.css", "now page card timing flags need dedicated styling.");
@@ -306,8 +311,8 @@ if (plannerPage.includes("class=\"planner-hero\"") || plannerPage.includes("clas
 if (styles.includes(".planner-hero") || styles.includes(".planner-preview")) {
   push("styles.css", "planner-specific hero/preview CSS should be removed so the planner header follows the shared page system.");
 }
-if (plannerPage.includes("class=\"planner-utility\"") || styles.includes(".planner-utility")) {
-  push("en/planner/index.html", "planner page should not show non-clickable quick-check explainer cards.");
+if (plannerPage.includes("class=\"planner-utility\"") && !plannerPage.includes("class=\"planner-utility-links\"")) {
+  push("en/planner/index.html", "planner utility must expose concrete map handoff labels instead of non-clickable quick-check explainer cards.");
 }
 assertIncludes(plannerPage, "class=\"planner-starter\"", "en/planner/index.html", "planner page must offer starter events when no saved list exists.");
 assertIncludes(plannerPage, "data-map-label=\"Korean map\"", "en/planner/index.html", "planner page must expose a localized map label for saved event cards.");

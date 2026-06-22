@@ -7051,7 +7051,6 @@ function nowMetricTone(event, mode = "ends") {
 
 function recheckQueuePanel(lang) {
   const items = recheckQueueItems(8);
-  if (!items.length) return "";
   const title = local({
     en: "Recheck before you go",
     fr: "A reverifier avant de partir",
@@ -7062,6 +7061,11 @@ function recheckQueuePanel(lang) {
     fr: "Ces pages en cours ou a venir peuvent changer vite. Ouvrez la source officielle avant de vous deplacer.",
     de: "Diese laufenden oder kommenden Seiten konnen sich schnell andern. Offnen Sie vor dem Besuch die offizielle Quelle."
   }, lang) || tr(lang, "recheckQueueText");
+  const emptyText = local({
+    en: "No urgent recheck queue right now. Continue to the live and upcoming lists below.",
+    fr: "Aucune reverification urgente pour le moment. Continuez avec les listes en cours et a venir ci-dessous.",
+    de: "Derzeit keine dringende Neuprufung. Nutzen Sie die Live- und kommenden Listen unten."
+  }, lang) || tr(lang, "noItemsYet");
 
   return `
     <section class="recheck-panel" id="recheck-queue" aria-label="${esc(title)}">
@@ -7073,7 +7077,7 @@ function recheckQueuePanel(lang) {
         </div>
       </div>
       <div class="recheck-grid">
-        ${items.map(({ event, ageDays, limitDays, daysUntilDue }) => {
+        ${items.length ? items.map(({ event, ageDays, limitDays, daysUntilDue }) => {
           const freshness = freshnessInfo(event, lang);
           return `
           <article class="recheck-card ${freshness.tone}">
@@ -7088,7 +7092,7 @@ function recheckQueuePanel(lang) {
               <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
             </div>
           </article>`;
-        }).join("")}
+        }).join("") : `<p class="empty-state">${esc(emptyText)}</p>`}
       </div>
     </section>`;
 }
@@ -7494,7 +7498,10 @@ function renderPlanner(lang) {
       cta: "Browse live events",
       starter: "Start with these",
       starterText: "Pick one to start.",
-      boardTitle: "Your saved board"
+      boardTitle: "Your saved board",
+      utilityTitle: "Korean map handoff",
+      utilityText: "Saved cards keep the Korean place name and open Google, Naver, and Kakao from the planner.",
+      utilityMeta: "Useful before leaving"
     },
     fr: {
       title: "Votre tableau de voyage Coree",
@@ -7502,7 +7509,10 @@ function renderPlanner(lang) {
       cta: "Voir les evenements",
       starter: "Commencer ici",
       starterText: "Choisissez un evenement.",
-      boardTitle: "Votre tableau"
+      boardTitle: "Votre tableau",
+      utilityTitle: "Carte coreenne",
+      utilityText: "Les cartes sauvegardees gardent le nom coreen et ouvrent Google, Naver et Kakao depuis le planner.",
+      utilityMeta: "Avant de partir"
     },
     de: {
       title: "Dein Korea-Tripboard",
@@ -7510,7 +7520,10 @@ function renderPlanner(lang) {
       cta: "Events ansehen",
       starter: "Hier starten",
       starterText: "Wahle ein Event.",
-      boardTitle: "Dein Board"
+      boardTitle: "Dein Board",
+      utilityTitle: "Koreanische Karte",
+      utilityText: "Gespeicherte Karten behalten den koreanischen Ortsnamen und offnen Google, Naver und Kakao im Planner.",
+      utilityMeta: "Vor dem Start"
     }
   }[lang] || {
     title: tr(lang, "plannerTitle"),
@@ -7518,7 +7531,10 @@ function renderPlanner(lang) {
     cta: tr(lang, "ctaEvents"),
     starter: tr(lang, "ctaEvents"),
     starterText: tr(lang, "plannerEmptyText"),
-    boardTitle: tr(lang, "plannerTitle")
+    boardTitle: tr(lang, "plannerTitle"),
+    utilityTitle: tr(lang, "cardPlanMap"),
+    utilityText: `${tr(lang, "googleMap")} / ${tr(lang, "naverMap")} / ${tr(lang, "kakaoMap")}`,
+    utilityMeta: tr(lang, "plannerText")
   };
   const starterEvents = events
     .filter((event) => statusOf(event) !== "ended")
@@ -7551,6 +7567,18 @@ function renderPlanner(lang) {
               ${saveEventButton(event, lang)}
             </div>
           </article>`).join("")}
+        </div>
+      </section>
+      <section class="planner-utility" data-map-label="${esc(tr(lang, "cardPlanMap"))}">
+        <div>
+          <p class="eyebrow">${esc(copy.utilityMeta)}</p>
+          <h2>${esc(copy.utilityTitle)}</h2>
+          <p>${esc(copy.utilityText)}</p>
+        </div>
+        <div class="planner-utility-links" aria-hidden="true">
+          <span>${esc(tr(lang, "googleMap"))}</span>
+          <span>${esc(tr(lang, "naverMap"))}</span>
+          <span>${esc(tr(lang, "kakaoMap"))}</span>
         </div>
       </section>
       <section class="planner-board">

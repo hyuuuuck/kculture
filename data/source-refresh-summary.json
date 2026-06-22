@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T04:11:45.182Z",
+  "generatedAt": "2026-06-22T05:37:55.155Z",
   "files": {
     "audit": "source-audit-2026-06-22.json",
     "candidates": "official-page-candidates-2026-06-22.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 619,
-    "dateSignals": 296,
-    "draftCandidates": 66,
-    "skippedCandidates": 606
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 553,
+    "dateSignals": 216,
+    "draftCandidates": 38,
+    "skippedCandidates": 568
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -40,24 +60,26 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "Visit Seoul",
       "count": 18
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "NOL World Ticket",
-      "count": 7
+      "count": 9
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -66,20 +88,28 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Jinju Namgang Yudeung Festival",
+      "count": 1
+    },
+    {
+      "key": "NOL World Busan Pop-ups",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 52
+      "count": 26
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 3
     },
     {
       "key": "department-store",
@@ -93,7 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 562
+      "count": 524
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -109,30 +143,10 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 142
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -180,6 +194,22 @@
       "dates": 18,
       "keywords": 5,
       "score": 132
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 10,
+      "keywords": 5,
+      "score": 118
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 22,
+      "dates": 2,
+      "keywords": 7,
+      "score": 109
     }
   ]
 }

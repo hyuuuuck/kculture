@@ -3,6 +3,7 @@ import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { publicLanguageCodes, affiliatePublishingEnabled } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,8 +14,8 @@ const strict = process.argv.includes("--strict") || process.env.ADSENSE_READINES
 
 const siteUrl = process.env.SITE_URL || "";
 const contactEmail = process.env.CONTACT_EMAIL || "";
-const publisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
-const clientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || publisherId);
+const publisherId = configuredAdSensePublisherId();
+const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
@@ -42,21 +43,6 @@ const sourceCoverageBuckets = [
 const sourceAutomationStatuses = new Set(["ready-with-api-key", "planned-api", "monitor-and-curate"]);
 
 const checks = [];
-
-function normalizePublisherId(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  if (/^ca-pub-\d{16}$/.test(trimmed)) return trimmed.replace("ca-", "");
-  if (/^pub-\d{16}$/.test(trimmed)) return trimmed;
-  return trimmed;
-}
-
-function normalizeAdSenseClientId(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
-  return trimmed;
-}
 
 function normalizeGoogleSiteVerification(value) {
   const trimmed = String(value || "").trim();

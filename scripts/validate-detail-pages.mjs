@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { todayString } from "./lib/date.mjs";
+import { configuredAdSenseClientId } from "./lib/adsense.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
@@ -67,7 +68,7 @@ const forecastLabels = {
     afternoon: "Nachmittag"
   }
 };
-const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
+const adsenseClientId = configuredAdSenseClientId();
 const adsenseSlotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const errors = [];
 
@@ -82,13 +83,6 @@ function esc(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
-}
-
-function normalizeAdSenseClientId(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
-  return trimmed;
 }
 
 function manualAdsExpected() {

@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
+import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -14,8 +15,8 @@ const siteTagline = "Korea events for visitors.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
 const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
-const adsensePublisherId = normalizePublisherId(process.env.GOOGLE_ADSENSE_PUBLISHER_ID || process.env.ADSENSE_PUBLISHER_ID || "");
-const adsenseClientId = normalizeAdSenseClientId(process.env.GOOGLE_ADSENSE_CLIENT || process.env.ADSENSE_CLIENT || adsensePublisherId);
+const adsensePublisherId = configuredAdSensePublisherId();
+const adsenseClientId = configuredAdSenseClientId();
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
@@ -59,14 +60,6 @@ const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.j
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const sourceRefreshSummary = await latestSourceRefreshSummary();
 
-function normalizePublisherId(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  if (/^ca-pub-\d{16}$/.test(trimmed)) return trimmed.replace("ca-", "");
-  if (/^pub-\d{16}$/.test(trimmed)) return trimmed;
-  return trimmed;
-}
-
 async function sourceAssetVersion() {
   const hash = createHash("sha256");
   const [css, js] = await Promise.all([
@@ -76,13 +69,6 @@ async function sourceAssetVersion() {
   hash.update(css);
   hash.update(js);
   return hash.digest("hex").slice(0, 12);
-}
-
-function normalizeAdSenseClientId(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  if (/^pub-\d{16}$/.test(trimmed)) return `ca-${trimmed}`;
-  return trimmed;
 }
 
 function normalizeAdSenseSlotId(value) {

@@ -219,7 +219,7 @@ For GitHub Actions deployment through Wrangler, set these repository variables:
 - `SITE_URL`: `https://kspotnow.com`
 - `CONTACT_EMAIL`: public contact email shown in policy pages
 - `CLOUDFLARE_WORKER_NAME`: Cloudflare Worker project name, default `kculture`
-- `GOOGLE_ADSENSE_PUBLISHER_ID`: optional until AdSense approval
+- `GOOGLE_ADSENSE_PUBLISHER_ID`: optional override; the site default is `pub-4973303868067114`
 - `GOOGLE_ADSENSE_CLIENT`: optional until AdSense approval
 - `GOOGLE_ADSENSE_SLOT`: optional numeric manual ad unit slot ID; enables reserved placements on the home page, event detail pages, and guide articles after approval
 - `GOOGLE_ADSENSE_CMP_READY`: set to `1` only after a Google-certified CMP is configured for EEA, UK, and Switzerland visitors
@@ -237,7 +237,7 @@ ADSENSE_REVIEW_MODE=1
 AFFILIATE_ENABLED=0
 ```
 
-When AdSense shows your publisher ID, set `GOOGLE_ADSENSE_PUBLISHER_ID=pub-xxxxxxxxxxxxxxxx` in Cloudflare/GitHub. The build writes `/ads.txt` only when a real publisher ID is present; otherwise it writes `ads.txt.example` and the live domain will still report `ads.txt` as missing.
+K-Spot Now's AdSense publisher ID is configured as `pub-4973303868067114`, so the build writes `/ads.txt` by default. Override `GOOGLE_ADSENSE_PUBLISHER_ID` only if the AdSense account changes.
 
 Set these repository secrets:
 

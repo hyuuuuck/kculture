@@ -141,10 +141,16 @@ jobs:
           run_check "quality:ceo" npm run quality:ceo
 
       - name: Check Cloudflare deploy secret
+        id: cloudflare-token
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required after validation passes."; exit 1; }
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Wrangler deploy skipped::CLOUDFLARE_API_TOKEN is not set. Cloudflare Git-connected builds can still deploy this validated push."
+          fi
 
       - name: Upload source refresh artifacts
         if: always()
@@ -156,6 +162,7 @@ jobs:
           retention-days: 14
 
       - name: Deploy to Cloudflare Workers
+        if: ${{ steps.cloudflare-token.outputs.available == 'true' }}
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
@@ -165,6 +172,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print deployment URL
+        if: ${{ steps.cloudflare-token.outputs.available == 'true' }}
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
           DEPLOYMENT_ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}

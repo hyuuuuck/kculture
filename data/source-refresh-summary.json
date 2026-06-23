@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T18:19:54.483Z",
+  "generatedAt": "2026-06-23T21:53:52.422Z",
   "files": {
     "audit": "source-audit-2026-06-24.json",
     "candidates": "official-page-candidates-2026-06-24.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 6,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 575,
-    "dateSignals": 232,
-    "draftCandidates": 60,
-    "skippedCandidates": 568
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 643,
+    "dateSignals": 281,
+    "draftCandidates": 69,
+    "skippedCandidates": 627
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,12 +42,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -86,26 +61,26 @@
       "count": 11
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
+    },
+    {
       "key": "NOL World Seoul Pop-ups",
       "count": 6
     },
     {
       "key": "Andong Maskdance Festival",
       "count": 1
-    },
-    {
-      "key": "Jinju Namgang Yudeung Festival",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 56
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 8
     },
     {
       "key": "kpop",
@@ -119,11 +94,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 522
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 584
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -139,10 +110,22 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 4
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 5
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -198,14 +181,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 132
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 5,
-      "score": 116
     }
   ]
 }

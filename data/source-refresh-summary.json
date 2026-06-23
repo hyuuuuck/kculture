@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T22:20:23.656Z",
+  "generatedAt": "2026-06-23T04:35:16.208Z",
   "files": {
     "audit": "source-audit-2026-06-23.json",
     "candidates": "official-page-candidates-2026-06-23.json",
@@ -9,47 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 553,
-    "dateSignals": 215,
-    "draftCandidates": 57,
-    "skippedCandidates": 549
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 543,
+    "dateSignals": 257,
+    "draftCandidates": 41,
+    "skippedCandidates": 555
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -67,23 +42,29 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "Visit Seoul",
       "count": 18
     },
     {
       "key": "NOL World Ticket",
-      "count": 9
+      "count": 11
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -96,34 +77,34 @@
     {
       "key": "Jinju Namgang Yudeung Festival",
       "count": 1
+    },
+    {
+      "key": "Korea Policy Briefing",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 29
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 8
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 3
     },
     {
-      "key": "duty-free",
+      "key": "department-store",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 502
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 512
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -134,22 +115,26 @@
       "count": 7
     },
     {
+      "key": "source fetch did not succeed",
+      "count": 7
+    },
+    {
       "key": "already published source URL",
       "count": 6
     },
     {
       "key": "listing page is not a specific event",
-      "count": 4
+      "count": 5
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 141
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "Visit Seoul",
@@ -158,14 +143,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -184,6 +161,14 @@
       "score": 135
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 134
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -200,12 +185,12 @@
       "score": 116
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 22,
-      "dates": 2,
-      "keywords": 7,
-      "score": 109
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
     }
   ]
 }

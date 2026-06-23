@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-06-23T11:35:46.462Z",
+  "generatedAt": "2026-06-23T15:30:46.022Z",
   "files": {
-    "audit": "source-audit-2026-06-23.json",
-    "candidates": "official-page-candidates-2026-06-23.json",
-    "drafts": "draft-events-2026-06-23.json",
-    "reviewReport": "review-report-2026-06-23.md",
-    "reviewBoard": "review-board-2026-06-23.html"
+    "audit": "source-audit-2026-06-24.json",
+    "candidates": "official-page-candidates-2026-06-24.json",
+    "drafts": "draft-events-2026-06-24.json",
+    "reviewReport": "review-report-2026-06-24.md",
+    "reviewBoard": "review-board-2026-06-24.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
+    "auditOk": 49,
+    "auditFailed": 6,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 575,
-    "dateSignals": 232,
-    "draftCandidates": 60,
-    "skippedCandidates": 568
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 551,
+    "dateSignals": 214,
+    "draftCandidates": 39,
+    "skippedCandidates": 565
   },
   "failedSources": [
     {
@@ -67,16 +67,17 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -96,12 +97,16 @@
     {
       "key": "Jinju Namgang Yudeung Festival",
       "count": 1
+    },
+    {
+      "key": "NOL World Busan Pop-ups",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 47
+      "count": 28
     },
     {
       "key": "shopping",
@@ -109,11 +114,7 @@
     },
     {
       "key": "kpop",
-      "count": 4
-    },
-    {
-      "key": "department-store",
-      "count": 1
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -127,15 +128,15 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 10
-    },
-    {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 7
+      "count": 11
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
+    },
+    {
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
+      "count": 6
     },
     {
       "key": "already published source URL",
@@ -154,14 +155,6 @@
       "dates": 18,
       "keywords": 6,
       "score": 143
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 141
     },
     {
       "sourceName": "Visit Seoul",
@@ -210,6 +203,14 @@
       "dates": 9,
       "keywords": 5,
       "score": 116
+    },
+    {
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
     }
   ]
 }

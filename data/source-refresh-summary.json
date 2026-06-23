@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T04:35:16.208Z",
+  "generatedAt": "2026-06-23T11:35:46.462Z",
   "files": {
     "audit": "source-audit-2026-06-23.json",
     "candidates": "official-page-candidates-2026-06-23.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 543,
-    "dateSignals": 257,
-    "draftCandidates": 41,
-    "skippedCandidates": 555
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 575,
+    "dateSignals": 232,
+    "draftCandidates": 60,
+    "skippedCandidates": 568
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,22 +62,21 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 20
+    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -77,34 +96,38 @@
     {
       "key": "Jinju Namgang Yudeung Festival",
       "count": 1
-    },
-    {
-      "key": "Korea Policy Briefing",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 29
+      "count": 47
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
     },
     {
       "key": "kpop",
-      "count": 3
+      "count": 4
     },
     {
       "key": "department-store",
+      "count": 1
+    },
+    {
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 512
+      "count": 521
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -115,16 +138,12 @@
       "count": 7
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
-    },
-    {
       "key": "already published source URL",
       "count": 6
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 4
     }
   ],
   "highSignalCandidates": [
@@ -135,6 +154,14 @@
       "dates": 18,
       "keywords": 6,
       "score": 143
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 141
     },
     {
       "sourceName": "Visit Seoul",
@@ -183,14 +210,6 @@
       "dates": 9,
       "keywords": 5,
       "score": 116
-    },
-    {
-      "sourceName": "Hyundai Department Store",
-      "url": "https://www.ehyundai.com/newPortal/index.do",
-      "links": 24,
-      "dates": 4,
-      "keywords": 6,
-      "score": 104
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T21:53:52.422Z",
+  "generatedAt": "2026-06-24T04:43:10.072Z",
   "files": {
     "audit": "source-audit-2026-06-24.json",
     "candidates": "official-page-candidates-2026-06-24.json",
@@ -15,10 +15,10 @@
     "monitorSources": 53,
     "candidateOk": 48,
     "candidateFailed": 5,
-    "discoveredLinks": 643,
-    "dateSignals": 281,
-    "draftCandidates": 69,
-    "skippedCandidates": 627
+    "discoveredLinks": 593,
+    "dateSignals": 292,
+    "draftCandidates": 74,
+    "skippedCandidates": 572
   },
   "failedSources": [
     {
@@ -66,17 +66,17 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 6
+      "count": 8
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 56
+      "count": 58
     },
     {
       "key": "shopping",
@@ -84,7 +84,11 @@
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 5
+    },
+    {
+      "key": "department-store",
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -94,15 +98,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 584
+      "count": 527
+    },
+    {
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
+      "count": 7
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
-    },
-    {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 6
     },
     {
       "key": "already published source URL",
@@ -139,8 +143,8 @@
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
-      "keywords": 4,
-      "score": 141
+      "keywords": 5,
+      "score": 142
     },
     {
       "sourceName": "Melon Ticket",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T15:13:21.630Z",
+  "generatedAt": "2026-06-24T18:16:36.552Z",
   "files": {
     "audit": "source-audit-2026-06-25.json",
     "candidates": "official-page-candidates-2026-06-25.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 593,
-    "dateSignals": 277,
-    "draftCandidates": 53,
-    "skippedCandidates": 593
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 574,
+    "dateSignals": 233,
+    "draftCandidates": 62,
+    "skippedCandidates": 565
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,12 +62,21 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 19
+    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -55,10 +84,6 @@
     {
       "key": "NOL World Ticket",
       "count": 11
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -76,15 +101,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 37
+      "count": 45
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 8
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 6
     },
     {
       "key": "department-store",
@@ -98,7 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 518
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -114,22 +143,10 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 5
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -145,6 +162,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",

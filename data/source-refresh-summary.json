@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T18:16:36.552Z",
+  "generatedAt": "2026-06-24T21:51:37.639Z",
   "files": {
     "audit": "source-audit-2026-06-25.json",
     "candidates": "official-page-candidates-2026-06-25.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 6,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 574,
-    "dateSignals": 233,
-    "draftCandidates": 62,
-    "skippedCandidates": 565
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 593,
+    "dateSignals": 276,
+    "draftCandidates": 64,
+    "skippedCandidates": 582
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -60,16 +40,6 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -101,11 +71,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 46
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
@@ -123,11 +93,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 518
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 539
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -143,6 +109,10 @@
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T18:29:12.481Z",
+  "generatedAt": "2026-06-25T21:58:03.663Z",
   "files": {
     "audit": "source-audit-2026-06-26.json",
     "candidates": "official-page-candidates-2026-06-26.json",
@@ -9,22 +9,47 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 49,
+    "auditFailed": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 592,
-    "dateSignals": 286,
-    "draftCandidates": 76,
-    "skippedCandidates": 569
+    "candidateOk": 41,
+    "candidateFailed": 12,
+    "discoveredLinks": 528,
+    "dateSignals": 216,
+    "draftCandidates": 68,
+    "skippedCandidates": 513
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,12 +67,17 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
       "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -66,22 +96,22 @@
       "count": 15
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "NOL World Seoul Pop-ups",
       "count": 8
     },
     {
       "key": "Shinsegae Group Newsroom",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
+      "count": 48
     },
     {
       "key": "kpop",
@@ -94,12 +124,20 @@
     {
       "key": "department-store",
       "count": 3
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 522
+      "count": 463
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 12
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -114,23 +152,11 @@
       "count": 6
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -172,20 +198,28 @@
       "score": 136
     },
     {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
-      "score": 134
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
       "dates": 18,
       "keywords": 5,
       "score": 132
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 22,
+      "dates": 6,
+      "keywords": 10,
+      "score": 130
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

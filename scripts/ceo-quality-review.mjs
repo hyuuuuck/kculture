@@ -508,20 +508,25 @@ function collectInteractionQuality() {
   };
   const hasPrimaryTouchTargets = minHeightAtLeast(baseButtons, 44) && minHeightAtLeast(saveButton, 44);
   const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px") && savedPlannerMapLinks.includes("min-height: 44px");
-  const hasMobileSpotlightTargets = mobileSpotlight.includes(".spotlight-controls .spotlight-dot")
+  const hasCompactDots = mobileSpotlight.includes(".spotlight-controls .spotlight-dot")
     && mobileSpotlight.includes("width: 24px")
-    && mobileSpotlight.includes("min-height: 24px")
-    && !styles.includes(".spotlight-arrow");
+    && mobileSpotlight.includes("min-height: 24px");
+  const hasSpotlightArrows = styles.includes(".spotlight-arrow");
+  const hasArrowTouchTargets = !hasSpotlightArrows || (
+    mobileSpotlight.includes(".spotlight-arrow")
+    && mobileSpotlight.includes("min-height: 44px")
+  );
+  const hasMobileSpotlightTargets = hasCompactDots && hasArrowTouchTargets;
 
   if (hasPrimaryTouchTargets && hasSavedPlannerTouchTargets && hasMobileSpotlightTargets) {
-    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, and mobile spotlight dots stay compact.");
+    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, compact spotlight dots, and overlay arrows meet touch-target rules.");
   } else {
     fail(
       "designer",
       "Interaction",
       "Mobile touch targets",
       `primary ${hasPrimaryTouchTargets}, saved planner ${hasSavedPlannerTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
-      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, and keep the home spotlight controls as compact dots without arrows."
+      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, keep spotlight dots compact, and keep any overlay arrows at least 44px."
     );
   }
 }

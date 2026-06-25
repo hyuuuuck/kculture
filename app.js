@@ -28,6 +28,8 @@ for (const carousel of spotlightCarousels) {
   const slides = [...carousel.querySelectorAll("[data-spotlight-slide]")];
   const track = carousel.querySelector(".spotlight-track");
   const dots = [...carousel.querySelectorAll("[data-spotlight-dot]")];
+  const prevButton = carousel.querySelector("[data-spotlight-prev]");
+  const nextButton = carousel.querySelector("[data-spotlight-next]");
   if (slides.length <= 1) continue;
 
   let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
@@ -80,9 +82,15 @@ for (const carousel of spotlightCarousels) {
     return true;
   }
 
+  function isCarouselControl(event) {
+    return Boolean(event.target.closest?.("[data-spotlight-prev], [data-spotlight-next], [data-spotlight-dot]"));
+  }
+
   function showSlide(index) {
     const previousIndex = currentIndex;
     currentIndex = (index + slides.length) % slides.length;
+    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+    const nextIndex = (currentIndex + 1) % slides.length;
     const direction = currentIndex === previousIndex
       ? "still"
       : (currentIndex > previousIndex || (previousIndex === slides.length - 1 && currentIndex === 0)) ? "forward" : "back";
@@ -93,6 +101,8 @@ for (const carousel of spotlightCarousels) {
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === currentIndex;
       slide.classList.toggle("is-active", active);
+      slide.classList.toggle("is-prev", slideIndex === prevIndex && !active);
+      slide.classList.toggle("is-next", slideIndex === nextIndex && !active);
       slide.setAttribute("aria-hidden", String(!active));
       slide.tabIndex = active ? 0 : -1;
     });
@@ -108,7 +118,20 @@ for (const carousel of spotlightCarousels) {
     dot.addEventListener("click", () => showSlide(dotIndex));
   });
 
+  prevButton?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showSlide(currentIndex - 1);
+  });
+
+  nextButton?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showSlide(currentIndex + 1);
+  });
+
   function startDrag(event) {
+    if (isCarouselControl(event)) return;
     if (!event.isPrimary || (event.button !== undefined && event.button !== 0)) return;
     beginDrag(event.clientX, event.clientY, event.pointerId);
     try {
@@ -134,6 +157,7 @@ for (const carousel of spotlightCarousels) {
   }
 
   function startMouseDrag(event) {
+    if (isCarouselControl(event)) return;
     if (event.button !== 0 || dragPointerId !== null) return;
     beginDrag(event.clientX, event.clientY, "mouse");
   }
@@ -149,6 +173,7 @@ for (const carousel of spotlightCarousels) {
   }
 
   function startTouchDrag(event) {
+    if (isCarouselControl(event)) return;
     const touch = event.changedTouches?.[0];
     if (!touch || dragPointerId !== null) return;
     beginDrag(touch.clientX, touch.clientY, "touch");

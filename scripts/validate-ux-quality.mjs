@@ -356,9 +356,12 @@ assertIncludes(styles, "min-height: 44px;", "styles.css", "visitor controls must
 assertMinHeightAtLeast(".save-event", 44, "styles.css", "save buttons must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".saved-clear {\n  min-height: 44px;", "styles.css", "saved planner clear button must preserve a minimum 44px touch target.");
 assertIncludes(styles, ".saved-open,\n.planner-card-actions a,\n.planner-card-actions button {\n  min-height: 44px;", "styles.css", "saved planner controls must preserve a minimum 44px touch target.");
-if (styles.includes(".spotlight-arrow")) {
-  push("styles.css", "spotlight controls should not use arrow buttons on the first-screen carousel.");
-}
+assertIncludes(home, "class=\"spotlight-meta\"", "en/index.html", "spotlight headline cards must show city/date context under the image headline.");
+assertIncludes(home, "data-spotlight-prev", "en/index.html", "spotlight carousel should expose compact previous controls for the image-banner pattern.");
+assertIncludes(home, "data-spotlight-next", "en/index.html", "spotlight carousel should expose compact next controls for the image-banner pattern.");
+assertIncludes(styles, ".spotlight-card.is-prev", "styles.css", "spotlight carousel should show neighboring image cards as desktop peeks.");
+assertIncludes(styles, ".spotlight-card img {\n  width: 100%;\n  height: 100%;\n  min-height: clamp(360px, 35vw, 500px);\n  object-fit: cover;", "styles.css", "spotlight hero imagery should use cover framing, not poster-like contain framing.");
+assertIncludes(styles, ".spotlight-arrow {\n  position: absolute;", "styles.css", "spotlight arrow controls should be compact overlays, not extra layout rows.");
 assertIncludes(styles, ".spotlight-controls .spotlight-dot {\n    width: 24px;\n    min-height: 24px;", "styles.css", "mobile spotlight dots must stay compact and uncluttered.");
 assertIncludes(styles, ".calendar-month-heading {\n  display: grid;", "styles.css", "calendar month headings should stack month and year consistently.");
 const about = read("en/about/index.html");

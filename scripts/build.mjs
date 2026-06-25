@@ -6133,13 +6133,24 @@ function spotlightCarousel(slides, lang) {
               <div class="spotlight-track">
                 ${usableSlides.map((event, index) => {
                   const active = index === 0;
+                  const positionClass = active
+                    ? " is-active"
+                    : index === 1
+                      ? " is-next"
+                      : index === usableSlides.length - 1
+                        ? " is-prev"
+                        : "";
                   return `
-                <a class="spotlight-card${active ? " is-active" : ""}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
+                <a class="spotlight-card${positionClass}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
                   <img src="/${event.thumbnail}" alt="" aria-hidden="true" draggable="false">
                   <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
                   <span class="spotlight-title">${esc(local(event.title, lang))}</span>
+                  <span class="spotlight-meta">${esc(event.city)} / ${esc(eventDateLabel(event, lang, false))}</span>
                 </a>`;
                 }).join("")}
+                ${usableSlides.length > 1 ? `
+                <button class="spotlight-arrow spotlight-arrow-prev" type="button" data-spotlight-prev aria-label="Previous featured event"></button>
+                <button class="spotlight-arrow spotlight-arrow-next" type="button" data-spotlight-next aria-label="Next featured event"></button>` : ""}
               </div>
               ${usableSlides.length > 1 ? `
               <div class="spotlight-controls" aria-label="Featured event controls">

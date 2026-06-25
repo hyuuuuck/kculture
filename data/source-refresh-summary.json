@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T04:39:49.637Z",
+  "generatedAt": "2026-06-25T11:12:15.651Z",
   "files": {
     "audit": "source-audit-2026-06-25.json",
     "candidates": "official-page-candidates-2026-06-25.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 49,
+    "auditFailed": 6,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 553,
-    "dateSignals": 217,
-    "draftCandidates": 44,
-    "skippedCandidates": 562
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 552,
+    "dateSignals": 216,
+    "draftCandidates": 49,
+    "skippedCandidates": 556
   },
   "failedSources": [
     {
@@ -62,6 +62,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
@@ -79,7 +84,7 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 11
+      "count": 16
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -104,12 +109,12 @@
       "count": 28
     },
     {
-      "key": "shopping",
-      "count": 8
+      "key": "kpop",
+      "count": 9
     },
     {
-      "key": "kpop",
-      "count": 4
+      "key": "shopping",
+      "count": 8
     },
     {
       "key": "department-store",
@@ -123,11 +128,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 517
+      "count": 510
     },
     {
       "key": "source fetch did not succeed",
-      "count": 10
+      "count": 11
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -176,8 +181,8 @@
       "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
       "dates": 18,
-      "keywords": 2,
-      "score": 135
+      "keywords": 3,
+      "score": 136
     },
     {
       "sourceName": "Seoul Grand Park",
@@ -207,9 +212,9 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 9,
+      "dates": 8,
       "keywords": 5,
-      "score": 116
+      "score": 114
     }
   ]
 }

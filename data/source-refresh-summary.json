@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T21:51:37.639Z",
+  "generatedAt": "2026-06-25T04:39:49.637Z",
   "files": {
     "audit": "source-audit-2026-06-25.json",
     "candidates": "official-page-candidates-2026-06-25.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 593,
-    "dateSignals": 276,
-    "draftCandidates": 64,
-    "skippedCandidates": 582
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 553,
+    "dateSignals": 217,
+    "draftCandidates": 44,
+    "skippedCandidates": 562
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -40,13 +60,19 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 19
-    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -61,29 +87,33 @@
     },
     {
       "key": "Shinsegae Group Newsroom",
-      "count": 2
+      "count": 3
     },
     {
       "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Jinju Namgang Yudeung Festival",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 28
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 8
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 4
     },
     {
       "key": "department-store",
-      "count": 2
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -93,7 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 539
+      "count": 517
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -109,10 +143,6 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 4
     }
   ],
@@ -132,14 +162,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -176,10 +198,18 @@
     {
       "sourceName": "Shinsegae Group Newsroom",
       "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 20,
-      "dates": 4,
-      "keywords": 8,
-      "score": 118
+      "links": 22,
+      "dates": 6,
+      "keywords": 10,
+      "score": 130
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

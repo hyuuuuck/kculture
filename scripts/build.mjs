@@ -7070,15 +7070,45 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
 
       <section class="split-band">
-        <div>
-          <p class="eyebrow">${tr(lang, "navCalendar")}</p>
-          <h2>${tr(lang, "calendarTitle")}</h2>
-          <p>${tr(lang, "calendarText")}</p>
-          <a class="text-link" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
-        </div>
-        <div>
-          <p class="eyebrow">${tr(lang, "routePages")}</p>
-          <h2>${tr(lang, "routePages")}</h2>
+        <article class="split-feature-card split-feature-calendar">
+          <div class="split-feature-visual calendar-preview" aria-hidden="true">
+            <div class="calendar-preview-panel">
+              <div class="calendar-preview-head">
+                <span>Jun</span>
+                <strong>2026</strong>
+              </div>
+              <div class="calendar-preview-grid">
+                <span></span><span></span><span></span><span class="is-live">12</span><span class="is-live">13</span><span></span><span></span>
+                <span></span><span class="is-upcoming">24</span><span class="is-upcoming">25</span><span class="is-upcoming">26</span><span></span><span></span><span></span>
+              </div>
+              <div class="calendar-preview-note">
+                <span>Live</span>
+                <span>Upcoming</span>
+              </div>
+            </div>
+          </div>
+          <div class="split-feature-copy">
+            <p class="eyebrow">${tr(lang, "navCalendar")}</p>
+            <h2>${tr(lang, "calendarTitle")}</h2>
+            <p>${tr(lang, "calendarText")}</p>
+            <a class="text-link" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
+          </div>
+        </article>
+        <article class="split-feature-card split-feature-routes">
+          <div class="split-feature-visual route-preview" aria-hidden="true">
+            <div class="route-preview-map">
+              <span class="route-line"></span>
+              <span class="route-pin pin-start"></span>
+              <span class="route-pin pin-mid"></span>
+              <span class="route-pin pin-end"></span>
+              <span class="route-label label-one">Event</span>
+              <span class="route-label label-two">Shop</span>
+              <span class="route-label label-three">Hotel</span>
+            </div>
+          </div>
+          <div class="split-feature-copy">
+            <p class="eyebrow">${tr(lang, "routePages")}</p>
+            <h2>${tr(lang, "routePages")}</h2>
           <p>${esc(local({
             en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
             es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
@@ -7089,8 +7119,9 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
             ru: "Перед выходом сопоставьте сохраненные события с ближайшим шопингом, транспортом, погодой и короткими маршрутами.",
             ja: "保存したイベントを周辺の買い物、移動、天気、短いモデルルートと一緒に確認できます。"
           }, lang))}</p>
-          <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
-        </div>
+            <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
+          </div>
+        </article>
       </section>
     </main>`;
 

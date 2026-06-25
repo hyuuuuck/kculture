@@ -241,6 +241,10 @@ const cityMediaCards = countMatches(home, /class="city-pill[^"]*has-media/g);
 if (cityMediaCards < 3) {
   push("en/index.html", `home city cards should use representative event thumbnails; found ${cityMediaCards}.`);
 }
+assertIncludes(home, "class=\"split-feature-visual calendar-preview\"", "en/index.html", "home calendar card must include a calendar preview image, not just text.");
+assertIncludes(home, "class=\"split-feature-visual route-preview\"", "en/index.html", "home travel routes card must include a map/route preview image, not just text.");
+assertIncludes(styles, ".calendar-preview-grid", "styles.css", "calendar preview image styling is missing.");
+assertIncludes(styles, ".route-preview-map", "styles.css", "route/map preview image styling is missing.");
 const homeEventCards = countMatches(home, /class="event-card"/g);
 assertIncludes(home, "data-gallery-limit=\"8\"", "en/index.html", "home event gallery should start with a short list instead of dumping every card.");
 assertIncludes(home, "data-gallery-mobile-limit=\"6\"", "en/index.html", "home event gallery should stay shorter on mobile.");

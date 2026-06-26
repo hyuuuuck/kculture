@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T21:58:03.663Z",
+  "generatedAt": "2026-06-26T04:46:25.532Z",
   "files": {
     "audit": "source-audit-2026-06-26.json",
     "candidates": "official-page-candidates-2026-06-26.json",
@@ -9,47 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 41,
-    "candidateFailed": 12,
-    "discoveredLinks": 528,
-    "dateSignals": 216,
-    "draftCandidates": 68,
-    "skippedCandidates": 513
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 572,
+    "dateSignals": 255,
+    "draftCandidates": 52,
+    "skippedCandidates": 573
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -67,29 +42,15 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 20
-    },
-    {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 19
     },
     {
       "key": "NOL World Ticket",
@@ -106,20 +67,24 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Dongdaemun Design Plaza",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 32
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 9
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 7
     },
     {
       "key": "department-store",
@@ -133,11 +98,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 463
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 12
+      "count": 531
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -153,7 +114,11 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 4
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 5
     }
   ],
   "highSignalCandidates": [
@@ -174,14 +139,6 @@
       "score": 142
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -198,6 +155,14 @@
       "score": 136
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 134
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -208,18 +173,18 @@
     {
       "sourceName": "Shinsegae Group Newsroom",
       "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 22,
+      "links": 21,
       "dates": 6,
-      "keywords": 10,
-      "score": 130
+      "keywords": 7,
+      "score": 124
     },
     {
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 9,
+      "dates": 8,
       "keywords": 5,
-      "score": 116
+      "score": 114
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T04:46:25.532Z",
+  "generatedAt": "2026-06-26T11:19:28.415Z",
   "files": {
     "audit": "source-audit-2026-06-26.json",
     "candidates": "official-page-candidates-2026-06-26.json",
@@ -13,12 +13,12 @@
     "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 572,
-    "dateSignals": 255,
-    "draftCandidates": 52,
-    "skippedCandidates": 573
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 556,
+    "dateSignals": 257,
+    "draftCandidates": 49,
+    "skippedCandidates": 560
   },
   "failedSources": [
     {
@@ -42,6 +42,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
@@ -54,7 +59,7 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 15
+      "count": 13
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -76,7 +81,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 32
+      "count": 29
     },
     {
       "key": "kpop",
@@ -98,7 +103,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 531
+      "count": 515
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
@@ -113,11 +118,11 @@
       "count": 6
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "listing page is not a specific event",
       "count": 5
     }
   ],
@@ -179,12 +184,12 @@
       "score": 124
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "url": "https://www.daegu.go.kr/cts/index.do",
       "links": 24,
-      "dates": 8,
-      "keywords": 5,
-      "score": 114
+      "dates": 9,
+      "keywords": 6,
+      "score": 118
     }
   ]
 }

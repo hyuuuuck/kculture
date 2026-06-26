@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-26T11:19:28.415Z",
+  "generatedAt": "2026-06-26T15:07:06.199Z",
   "files": {
-    "audit": "source-audit-2026-06-26.json",
-    "candidates": "official-page-candidates-2026-06-26.json",
-    "drafts": "draft-events-2026-06-26.json",
-    "reviewReport": "review-report-2026-06-26.md",
-    "reviewBoard": "review-board-2026-06-26.html"
+    "audit": "source-audit-2026-06-27.json",
+    "candidates": "official-page-candidates-2026-06-27.json",
+    "drafts": "draft-events-2026-06-27.json",
+    "reviewReport": "review-report-2026-06-27.md",
+    "reviewBoard": "review-board-2026-06-27.html"
   },
   "counts": {
     "auditedSources": 55,
@@ -15,9 +15,9 @@
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 556,
-    "dateSignals": 257,
-    "draftCandidates": 49,
+    "discoveredLinks": 575,
+    "dateSignals": 266,
+    "draftCandidates": 68,
     "skippedCandidates": 560
   },
   "failedSources": [
@@ -47,23 +47,27 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 20
+    },
     {
       "key": "Visit Seoul",
       "count": 19
     },
     {
       "key": "NOL World Ticket",
-      "count": 13
+      "count": 11
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 8
+      "count": 9
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -72,20 +76,16 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
-    },
-    {
-      "key": "Dongdaemun Design Plaza",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 29
+      "count": 46
     },
     {
       "key": "kpop",
-      "count": 9
+      "count": 11
     },
     {
       "key": "shopping",
@@ -103,15 +103,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 515
-    },
-    {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 7
+      "count": 514
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
+    },
+    {
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
+      "count": 6
     },
     {
       "key": "already published source URL",
@@ -142,6 +142,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -182,14 +190,6 @@
       "dates": 6,
       "keywords": 7,
       "score": 124
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "url": "https://www.daegu.go.kr/cts/index.do",
-      "links": 24,
-      "dates": 9,
-      "keywords": 6,
-      "score": 118
     }
   ]
 }

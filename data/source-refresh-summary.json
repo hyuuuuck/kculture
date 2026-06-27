@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T10:29:38.557Z",
+  "generatedAt": "2026-06-27T14:12:08.345Z",
   "files": {
     "audit": "source-audit-2026-06-27.json",
     "candidates": "official-page-candidates-2026-06-27.json",
@@ -11,14 +11,14 @@
     "auditedSources": 55,
     "auditOk": 53,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 592,
-    "dateSignals": 263,
-    "draftCandidates": 55,
-    "skippedCandidates": 590
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 544,
+    "dateSignals": 244,
+    "draftCandidates": 47,
+    "skippedCandidates": 550
   },
   "failedSources": [
     {
@@ -47,6 +47,11 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -71,22 +76,22 @@
       "count": 9
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 3
     },
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Dongdaemun Design Plaza",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 36
+      "count": 28
     },
     {
       "key": "kpop",
@@ -104,14 +109,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 544
-    },
-    {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 7
+      "count": 504
     },
     {
       "key": "source fetch did not succeed",
+      "count": 8
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
     },
     {
@@ -128,14 +133,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -191,6 +188,14 @@
       "dates": 6,
       "keywords": 7,
       "score": 124
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

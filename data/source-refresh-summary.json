@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T17:36:11.995Z",
+  "generatedAt": "2026-06-27T21:35:17.706Z",
   "files": {
     "audit": "source-audit-2026-06-28.json",
     "candidates": "official-page-candidates-2026-06-28.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
-    "fallbackSources": 7,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 531,
-    "dateSignals": 209,
-    "draftCandidates": 66,
-    "skippedCandidates": 518
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 576,
+    "dateSignals": 233,
+    "draftCandidates": 67,
+    "skippedCandidates": 562
   },
   "failedSources": [
     {
@@ -40,11 +40,6 @@
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Daegu Tourist Information Festival Schedule",
@@ -106,7 +101,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 44
+      "count": 45
     },
     {
       "key": "kpop",
@@ -128,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 468
+      "count": 514
     },
     {
       "key": "source fetch did not succeed",
-      "count": 11
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -193,6 +188,14 @@
       "score": 136
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 134
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -207,14 +210,6 @@
       "dates": 6,
       "keywords": 7,
       "score": 124
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 8,
-      "keywords": 5,
-      "score": 114
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T04:31:42.509Z",
+  "generatedAt": "2026-06-27T10:29:38.557Z",
   "files": {
     "audit": "source-audit-2026-06-27.json",
     "candidates": "official-page-candidates-2026-06-27.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 53,
+    "auditFailed": 2,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 576,
-    "dateSignals": 235,
-    "draftCandidates": 67,
-    "skippedCandidates": 562
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 592,
+    "dateSignals": 263,
+    "draftCandidates": 55,
+    "skippedCandidates": 590
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,21 +42,22 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "Visit Seoul",
       "count": 19
@@ -90,6 +71,10 @@
       "count": 9
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
+    },
+    {
       "key": "Shinsegae Group Newsroom",
       "count": 3
     },
@@ -101,11 +86,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 36
     },
     {
       "key": "kpop",
-      "count": 11
+      "count": 9
     },
     {
       "key": "shopping",
@@ -114,23 +99,19 @@
     {
       "key": "department-store",
       "count": 3
-    },
-    {
-      "key": "duty-free",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 513
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 544
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 7
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 7
     },
     {
@@ -143,10 +124,18 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 4
+      "count": 5
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -162,14 +151,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",

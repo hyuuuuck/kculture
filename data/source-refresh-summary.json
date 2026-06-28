@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T17:40:49.291Z",
+  "generatedAt": "2026-06-28T21:34:48.220Z",
   "files": {
     "audit": "source-audit-2026-06-29.json",
     "candidates": "official-page-candidates-2026-06-29.json",
@@ -13,12 +13,12 @@
     "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 573,
-    "dateSignals": 232,
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 549,
+    "dateSignals": 231,
     "draftCandidates": 67,
-    "skippedCandidates": 559
+    "skippedCandidates": 535
   },
   "failedSources": [
     {
@@ -63,6 +63,11 @@
     },
     {
       "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -123,11 +128,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 518
+      "count": 493
     },
     {
       "key": "source fetch did not succeed",
-      "count": 10
+      "count": 11
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",

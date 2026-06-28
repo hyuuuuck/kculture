@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-06-28T14:21:04.163Z",
+  "generatedAt": "2026-06-28T17:40:49.291Z",
   "files": {
-    "audit": "source-audit-2026-06-28.json",
-    "candidates": "official-page-candidates-2026-06-28.json",
-    "drafts": "draft-events-2026-06-28.json",
-    "reviewReport": "review-report-2026-06-28.md",
-    "reviewBoard": "review-board-2026-06-28.html"
+    "audit": "source-audit-2026-06-29.json",
+    "candidates": "official-page-candidates-2026-06-29.json",
+    "drafts": "draft-events-2026-06-29.json",
+    "reviewReport": "review-report-2026-06-29.md",
+    "reviewBoard": "review-board-2026-06-29.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 50,
     "auditFailed": 5,
-    "fallbackSources": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 43,
     "candidateFailed": 10,
-    "discoveredLinks": 576,
-    "dateSignals": 233,
+    "discoveredLinks": 573,
+    "dateSignals": 232,
     "draftCandidates": 67,
-    "skippedCandidates": 562
+    "skippedCandidates": 559
   },
   "failedSources": [
     {
@@ -75,7 +75,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 20
+      "count": 22
     },
     {
       "key": "Visit Seoul",
@@ -87,7 +87,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 9
+      "count": 8
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -105,11 +105,11 @@
     },
     {
       "key": "kpop",
-      "count": 11
+      "count": 10
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 8
     },
     {
       "key": "department-store",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 514
+      "count": 518
     },
     {
       "key": "source fetch did not succeed",
@@ -135,11 +135,11 @@
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 6
+      "count": 5
     },
     {
       "key": "already published source URL",
-      "count": 6
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",

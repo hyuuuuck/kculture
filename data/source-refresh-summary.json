@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T21:34:48.220Z",
+  "generatedAt": "2026-06-29T05:04:24.396Z",
   "files": {
     "audit": "source-audit-2026-06-29.json",
     "candidates": "official-page-candidates-2026-06-29.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 549,
-    "dateSignals": 231,
-    "draftCandidates": 67,
-    "skippedCandidates": 535
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 598,
+    "dateSignals": 266,
+    "draftCandidates": 52,
+    "skippedCandidates": 599
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,26 +42,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "Visit Seoul",
       "count": 19
@@ -95,8 +61,12 @@
       "count": 8
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
+    },
+    {
       "key": "Shinsegae Group Newsroom",
-      "count": 3
+      "count": 2
     },
     {
       "key": "Andong Maskdance Festival",
@@ -106,11 +76,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 33
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 8
     },
     {
       "key": "shopping",
@@ -118,7 +88,7 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -128,30 +98,38 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 493
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 11
+      "count": 556
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 7
     },
     {
+      "key": "already published source URL",
+      "count": 6
+    },
+    {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
       "count": 5
     },
     {
-      "key": "already published source URL",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 4
+      "key": "source fetch did not succeed",
+      "count": 5
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -167,14 +145,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -209,12 +179,12 @@
       "score": 132
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 21,
-      "dates": 6,
-      "keywords": 7,
-      "score": 124
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

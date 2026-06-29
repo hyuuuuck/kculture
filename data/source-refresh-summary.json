@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-06-29T12:44:20.897Z",
+  "generatedAt": "2026-06-29T18:27:33.499Z",
   "files": {
-    "audit": "source-audit-2026-06-29.json",
-    "candidates": "official-page-candidates-2026-06-29.json",
-    "drafts": "draft-events-2026-06-29.json",
-    "reviewReport": "review-report-2026-06-29.md",
-    "reviewBoard": "review-board-2026-06-29.html"
+    "audit": "source-audit-2026-06-30.json",
+    "candidates": "official-page-candidates-2026-06-30.json",
+    "drafts": "draft-events-2026-06-30.json",
+    "reviewReport": "review-report-2026-06-30.md",
+    "reviewBoard": "review-board-2026-06-30.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 570,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 565,
     "dateSignals": 269,
-    "draftCandidates": 68,
-    "skippedCandidates": 555
+    "draftCandidates": 66,
+    "skippedCandidates": 552
   },
   "failedSources": [
     {
@@ -42,6 +42,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -50,7 +55,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 22
+      "count": 21
     },
     {
       "key": "Visit Seoul",
@@ -62,7 +67,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 8
+      "count": 7
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -76,15 +81,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 44
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 9
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "department-store",
@@ -102,7 +107,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 513
+      "count": 509
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -113,15 +118,15 @@
       "count": 6
     },
     {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
       "count": 5
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "source fetch did not succeed",
       "count": 5
     }
   ],
@@ -177,10 +182,10 @@
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
+      "links": 23,
       "dates": 18,
       "keywords": 5,
-      "score": 132
+      "score": 129
     },
     {
       "sourceName": "YG SELECT Notices",

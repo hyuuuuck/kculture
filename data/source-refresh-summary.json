@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T05:04:24.396Z",
+  "generatedAt": "2026-06-29T12:44:20.897Z",
   "files": {
     "audit": "source-audit-2026-06-29.json",
     "candidates": "official-page-candidates-2026-06-29.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
+    "auditOk": 55,
+    "auditFailed": 0,
     "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 48,
     "candidateFailed": 5,
-    "discoveredLinks": 598,
-    "dateSignals": 266,
-    "draftCandidates": 52,
-    "skippedCandidates": 599
+    "discoveredLinks": 570,
+    "dateSignals": 269,
+    "draftCandidates": 68,
+    "skippedCandidates": 555
   },
   "failedSources": [
     {
@@ -42,12 +42,16 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 19
@@ -61,10 +65,6 @@
       "count": 8
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
     },
@@ -76,11 +76,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 33
+      "count": 46
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 10
     },
     {
       "key": "shopping",
@@ -93,12 +93,16 @@
     {
       "key": "duty-free",
       "count": 1
+    },
+    {
+      "key": "travel-benefits",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 556
+      "count": 513
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -123,14 +127,6 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
-    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
@@ -145,6 +141,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",

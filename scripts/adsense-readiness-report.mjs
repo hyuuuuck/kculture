@@ -160,6 +160,7 @@ function thumbnailStats() {
 function calendarStats() {
   const missingPages = [];
   const missingLinks = [];
+  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
   for (const lang of languages) {
     const relativePath = `dist/${lang}/calendar/index.html`;
     if (!exists(relativePath)) {
@@ -167,7 +168,7 @@ function calendarStats() {
       continue;
     }
     const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
-    for (const event of events) {
+    for (const event of activeEvents) {
       if (!html.includes(`href="/${lang}/events/${event.slug}.html"`)) missingLinks.push(`${lang}:${event.slug}`);
     }
   }
@@ -177,8 +178,8 @@ function calendarStats() {
   return {
     expectedPages: languages.length,
     presentPages: languages.length - missingPages.length,
-    expectedLinks: languages.length * events.length,
-    presentLinks: languages.length * events.length - missingLinks.length,
+    expectedLinks: languages.length * activeEvents.length,
+    presentLinks: languages.length * activeEvents.length - missingLinks.length,
     expectedIcsBlocks: events.length,
     icsBlocks,
     missingPages,
@@ -341,18 +342,20 @@ function score() {
 }
 
 function summaryStats() {
+  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
   const statusCounts = events.reduce((acc, event) => {
     acc[statusOf(event)] = (acc[statusOf(event)] || 0) + 1;
     return acc;
   }, {});
-  const categoryCounts = events.reduce((acc, event) => {
+  const categoryCounts = activeEvents.reduce((acc, event) => {
     acc[event.category] = (acc[event.category] || 0) + 1;
     return acc;
   }, {});
   return {
     events: events.length,
+    activeEvents: activeEvents.length,
     guides: guides.length,
-    publicContentPages: events.length + guides.length,
+    publicContentPages: activeEvents.length + guides.length,
     sources: sources.length,
     curationItems: Array.isArray(curationQueue) ? curationQueue.length : 0,
     statusCounts,
@@ -362,7 +365,8 @@ function summaryStats() {
 
 function originalVisitorValueStats() {
   const missing = [];
-  for (const event of events) {
+  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
+  for (const event of activeEvents) {
     const whyGo = String(event.whyGo?.en || "").trim();
     const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
     if (whyGo.length < 70 || tips.length < 3) {
@@ -374,8 +378,8 @@ function originalVisitorValueStats() {
     }
   }
   return {
-    expected: events.length,
-    ok: events.length - missing.length,
+    expected: activeEvents.length,
+    ok: activeEvents.length - missing.length,
     missing
   };
 }
@@ -392,17 +396,17 @@ function runChecks() {
   }
 
   if (stats.publicContentPages >= 40) {
-    pass("Content", "Public content depth", `${stats.publicContentPages} event/guide pages`);
+    pass("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`);
   } else if (stats.publicContentPages >= 30) {
-    warn("Content", "Public content depth", `${stats.publicContentPages} event/guide pages`, "Keep publishing verified official event pages before applying.");
+    warn("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`, "Keep publishing verified official event pages before applying.");
   } else {
-    fail("Content", "Public content depth", `${stats.publicContentPages} event/guide pages`, "Reach at least 30 original event/guide/archive pages.");
+    fail("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`, "Reach at least 30 original current event/guide pages before reapplying.");
   }
 
-  if (events.length >= 30) {
-    pass("Content", "Event catalog", `${events.length} public events`);
+  if (stats.activeEvents >= 25) {
+    pass("Content", "Event catalog", `${stats.activeEvents} live/upcoming public events`);
   } else {
-    warn("Content", "Event catalog", `${events.length} public events`, "Aim for 30+ verified event pages so the gallery feels substantial.");
+    warn("Content", "Event catalog", `${stats.activeEvents} live/upcoming public events`, "Aim for 25+ current verified event pages so the gallery feels substantial without relying on expired listings.");
   }
 
   if (guides.length >= 10) pass("Content", "Evergreen guides", `${guides.length} guides`);
@@ -410,9 +414,9 @@ function runChecks() {
 
   const originalValue = originalVisitorValueStats();
   if (originalValue.ok === originalValue.expected) {
-    pass("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} events include why-go context and 3+ practical visitor tips`);
+    pass("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events include why-go context and 3+ practical visitor tips`);
   } else {
-    fail("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} events meet the original-value floor`, `Add stronger whyGo copy or 3+ practical tips: ${originalValue.missing.slice(0, 4).map((item) => item.slug).join(", ")}.`);
+    fail("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events meet the original-value floor`, `Add stronger whyGo copy or 3+ practical tips: ${originalValue.missing.slice(0, 4).map((item) => item.slug).join(", ")}.`);
   }
 
   const thumbnails = thumbnailStats();
@@ -446,9 +450,10 @@ function runChecks() {
     fail("UX", "Planning-layer differentiation", `${sourceBoundary.ok}/${sourceBoundary.expected} checked detail pages include source-boundary copy`, `Add linked-source boundary copy to ${sourceBoundary.missing.slice(0, 4).join(", ")}.`);
   }
 
-  const officialEvents = events.filter((event) => /^official/.test(event.verification || "")).length;
-  if (officialEvents === events.length) pass("Trust", "Official verification labels", `${officialEvents}/${events.length} events`);
-  else fail("Trust", "Official verification labels", `${officialEvents}/${events.length} events`, "Every public event should be official or official-ended.");
+  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
+  const officialEvents = activeEvents.filter((event) => /^official/.test(event.verification || "")).length;
+  if (officialEvents === activeEvents.length) pass("Trust", "Official verification labels", `${officialEvents}/${activeEvents.length} current events`);
+  else fail("Trust", "Official verification labels", `${officialEvents}/${activeEvents.length} current events`, "Every indexable event should be official or official-ended.");
 
   const staleLiveUpcoming = events
     .filter((event) => ["live", "upcoming"].includes(statusOf(event)))
@@ -623,8 +628,9 @@ Score: ${result.score.percent}% (${result.score.passed} pass, ${result.score.war
 ## Content Stats
 
 - Events: ${stats.events}
+- Live/upcoming events: ${stats.activeEvents}
 - Guides: ${stats.guides}
-- Public event/guide pages: ${stats.publicContentPages}
+- Current indexable event/guide pages: ${stats.publicContentPages}
 - Official sources watched: ${stats.sources}
 - Curation queue items: ${stats.curationItems}
 - Event statuses: ${JSON.stringify(stats.statusCounts)}

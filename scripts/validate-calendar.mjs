@@ -1,12 +1,15 @@
 ﻿import fs from "node:fs";
 import path from "node:path";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const languages = publicLanguageCodes();
 const errors = [];
+const today = todayString();
+const currentEvents = events.filter((event) => event.endDate >= today);
 
 function push(id, message) {
   errors.push({ id, message });
@@ -125,7 +128,7 @@ function validateCalendarHtml() {
     if (!html.includes("data-gallery-scope")) push(`${lang}/calendar`, "calendar page should keep filterable gallery controls.");
     if (!html.includes("calendar-weather")) push(`${lang}/calendar`, "calendar page should show weather planning notes.");
 
-    for (const event of events) {
+    for (const event of currentEvents) {
       const href = `/${lang}/events/${event.slug}.html`;
       const count = html.split(`href="${href}"`).length - 1;
       if (count !== 1) {
@@ -144,4 +147,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Calendar validation passed: ${events.length} events in events.ics and ${languages.length} calendar pages.`);
+console.log(`Calendar validation passed: ${events.length} events in events.ics and ${currentEvents.length} current events in ${languages.length} calendar pages.`);

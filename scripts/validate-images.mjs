@@ -1,11 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const languages = publicLanguageCodes();
+const today = todayString();
+const currentEvents = events.filter((event) => event.endDate >= today);
 const errors = [];
 const warnings = [];
 const checkedImages = new Map();
@@ -174,8 +177,8 @@ if (!fs.existsSync(dist)) {
     const homeHtml = fs.readFileSync(home, "utf8");
     const overlayCount = (homeHtml.match(/class="thumb-overlay"/g) || []).length;
     const brandCount = (homeHtml.match(/class="thumb-brand"/g) || []).length;
-    if (overlayCount < events.length || brandCount < events.length) {
-      push(errors, `gallery:${lang}`, `event gallery should show brand/source overlays on every thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${events.length} events.`);
+    if (overlayCount < currentEvents.length || brandCount < currentEvents.length) {
+      push(errors, `gallery:${lang}`, `event gallery should show brand/source overlays on every current thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${currentEvents.length} current events.`);
     }
   }
   for (const file of htmlFiles) {

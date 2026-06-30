@@ -2982,6 +2982,14 @@ function statusOf(event) {
   return "live";
 }
 
+function isCurrentEvent(event) {
+  return statusOf(event) !== "ended";
+}
+
+function currentEvents() {
+  return events.filter(isCurrentEvent);
+}
+
 function statusLabel(lang, status) {
   return status === "live" ? tr(lang, "statusLive") : status === "upcoming" ? tr(lang, "statusUpcoming") : tr(lang, "statusEnded");
 }
@@ -3097,7 +3105,7 @@ function nowGroups() {
     .filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7)
     .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
     .slice(0, 6);
-  const newlyChecked = events
+  const newlyChecked = currentEvents()
     .filter((event) => event.lastChecked === today)
     .sort(statusSort)
     .slice(0, 6);
@@ -3110,11 +3118,11 @@ function nowGroups() {
 }
 
 function nowDashboard(lang) {
-  const liveCount = events.filter((event) => statusOf(event) === "live").length;
-  const endingSoonCount = events.filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7).length;
-  const checkedTodayCount = events.filter((event) => event.lastChecked === today).length;
-  const thisWeekCount = events.filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
-  const fastMovingCount = events.filter((event) => fastMovingCategories.has(event.category) && statusOf(event) !== "ended").length;
+  const liveCount = currentEvents().filter((event) => statusOf(event) === "live").length;
+  const endingSoonCount = currentEvents().filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7).length;
+  const checkedTodayCount = currentEvents().filter((event) => event.lastChecked === today).length;
+  const thisWeekCount = currentEvents().filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
+  const fastMovingCount = currentEvents().filter((event) => fastMovingCategories.has(event.category)).length;
   const checkedDate = dateText(lang, today);
   const fastMovingDetail = local({
     en: "K-pop, beauty, duty-free, department stores",
@@ -3238,7 +3246,7 @@ function maxIso(values, fallback = today) {
 }
 
 function feedEvents(limit = 30) {
-  return [...events]
+  return currentEvents()
     .sort((a, b) => {
       const checked = b.lastChecked.localeCompare(a.lastChecked);
       if (checked) return checked;
@@ -3345,7 +3353,9 @@ function categoryHref(lang, category) {
 
 function representativeEventFor(predicate) {
   const statusWeight = { live: 0, upcoming: 1, ended: 2 };
-  return [...events]
+  const preferred = currentEvents().filter(predicate);
+  const fallback = events.filter(predicate);
+  return [...(preferred.length ? preferred : fallback)]
     .filter(predicate)
     .sort((a, b) => {
       const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
@@ -3369,7 +3379,7 @@ function representativeMedia(event, lang, fallbackLabel, className = "pill-media
 
 function categoryLinkStrip(lang) {
   return Object.keys(categoryDefinitions).map((category) => {
-    const count = events.filter((event) => event.category === category).length;
+    const count = currentEvents().filter((event) => event.category === category).length;
     const representative = representativeEventFor((event) => event.category === category);
     const exampleTitle = representative ? trimHeading(local(representative.title, lang), 48) : "";
     const label = categoryLabel(lang, category);
@@ -3387,7 +3397,7 @@ function categoryLinkStrip(lang) {
 
 function cityCounts() {
   const counts = new Map();
-  for (const event of events) {
+  for (const event of currentEvents()) {
     if (!event.city) continue;
     counts.set(event.city, (counts.get(event.city) || 0) + 1);
   }
@@ -5879,7 +5889,7 @@ function googleVerificationMeta() {
   return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
 }
 
-function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website" }) {
+function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website", noindex = false }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   const metaImage = /^https?:\/\//.test(imagePath) ? imagePath : absoluteUrl(imagePath);
   const pageUrl = absoluteUrl(canonicalPath);
@@ -5891,6 +5901,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
+  ${noindex ? '<meta name="robots" content="noindex,follow">' : ""}
   <link rel="canonical" href="${siteUrl}${canonicalPath}">
   ${alternateLinks(currentPathBuilder, canonicalPath)}
   <link rel="alternate" type="application/rss+xml" title="${siteName} RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
@@ -6985,13 +6996,12 @@ function visitorActionChecklist(event, lang) {
 }
 
 function renderHome(lang, canonicalPath = `/${lang}/`) {
-  const sorted = [...events].sort((a, b) => {
+  const sorted = currentEvents().sort((a, b) => {
     const statusWeight = { live: 0, upcoming: 1, ended: 2 };
     return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || b.priority - a.priority;
   });
-  const liveCount = events.filter((event) => statusOf(event) === "live").length;
-  const upcomingCount = events.filter((event) => statusOf(event) === "upcoming").length;
-  const archiveCount = events.filter((event) => statusOf(event) === "ended").length;
+  const liveCount = currentEvents().filter((event) => statusOf(event) === "live").length;
+  const upcomingCount = currentEvents().filter((event) => statusOf(event) === "upcoming").length;
   const spotlights = spotlightEvents(sorted);
   const homePageTitle = local({
     en: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
@@ -7032,8 +7042,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
             <dl class="service-summary" aria-label="Event status summary">
               <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
               <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
-              <div><dt>${tr(lang, "archive")}</dt><dd>${archiveCount}</dd></div>
               <div><dt>${tr(lang, "navGuides")}</dt><dd>${guides.length}</dd></div>
+              <div><dt>${tr(lang, "routePages")}</dt><dd>${routes.length}</dd></div>
             </dl>
           </div>
         </div>
@@ -7303,7 +7313,7 @@ function renderNow(lang) {
 
 function renderCategory(lang, category) {
   const meta = categoryPageCopy(lang, category);
-  const items = events
+  const items = currentEvents()
     .filter((event) => event.category === category)
     .sort((a, b) => {
       const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -7350,7 +7360,7 @@ function renderCategory(lang, category) {
 
 function renderCity(lang, city) {
   const meta = cityPageCopy(lang, city);
-  const items = events
+  const items = currentEvents()
     .filter((event) => event.city === city)
     .sort((a, b) => {
       const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -7362,8 +7372,7 @@ function renderCity(lang, city) {
   const routeIdeas = routesForCity(city);
   const liveCount = items.filter((event) => statusOf(event) === "live").length;
   const upcomingCount = items.filter((event) => statusOf(event) === "upcoming").length;
-  const endedCount = items.filter((event) => statusOf(event) === "ended").length;
-  const heroEvent = items.find((event) => statusOf(event) !== "ended" && event.thumbnail) || items.find((event) => event.thumbnail) || items[0];
+  const heroEvent = items.find((event) => event.thumbnail) || items[0];
   const cityName = cityLabel(lang, city);
   const topCategories = [...items.reduce((counts, event) => {
     if (statusOf(event) !== "ended") counts.set(event.category, (counts.get(event.category) || 0) + 1);
@@ -7399,7 +7408,7 @@ function renderCity(lang, city) {
         <div class="city-stat"><strong>${items.length}</strong><span>${tr(lang, "navEvents")}</span></div>
         <div class="city-stat"><strong>${liveCount}</strong><span>${tr(lang, "liveNow")}</span></div>
         <div class="city-stat"><strong>${upcomingCount}</strong><span>${tr(lang, "upcoming")}</span></div>
-        <div class="city-stat"><strong>${endedCount}</strong><span>${tr(lang, "archive")}</span></div>
+        <div class="city-stat"><strong>${routeIdeas.length}</strong><span>${tr(lang, "routePages")}</span></div>
       </section>
 
       <section class="detail-section two-col">
@@ -7557,7 +7566,7 @@ function renderRoute(route, lang) {
 }
 
 function renderCalendar(lang) {
-  const futureFirst = [...events].sort(calendarSort);
+  const futureFirst = currentEvents().sort(calendarSort);
   const groups = new Map();
   for (const event of futureFirst) {
     const key = monthKey(calendarFocusDate(event));
@@ -7828,6 +7837,7 @@ function renderEvent(event, lang) {
     currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`,
     imagePath: `/${event.thumbnail}`,
     pageType: "article",
+    noindex: status === "ended",
     schemaData: [
       shouldUseEventSchema(event) ? eventSchema(event, lang) : detailPageSchema(event, lang),
       breadcrumbSchema(lang, [
@@ -8917,7 +8927,7 @@ function renderWatchlist(lang) {
 }
 
 function renderFreshness(lang) {
-  const items = [...events].sort((a, b) => b.lastChecked.localeCompare(a.lastChecked) || b.priority - a.priority);
+  const items = currentEvents().sort((a, b) => b.lastChecked.localeCompare(a.lastChecked) || b.priority - a.priority);
   const body = `
     <main class="page">
       <section class="page-hero compact">
@@ -9693,9 +9703,10 @@ function headers() {
 }
 
 function sitemap() {
-  const entries = [{ url: "/", lastmod: maxIso(events.map((event) => event.lastChecked)) }];
+  const seoEvents = currentEvents();
+  const entries = [{ url: "/", lastmod: maxIso(seoEvents.map((event) => event.lastChecked)) }];
   for (const lang of Object.keys(languages)) {
-    const latestEventCheck = maxIso(events.map((event) => event.lastChecked));
+    const latestEventCheck = maxIso(seoEvents.map((event) => event.lastChecked));
     entries.push(
       { url: `/${lang}/`, lastmod: latestEventCheck },
       { url: `/${lang}/now/`, lastmod: today },
@@ -9716,18 +9727,18 @@ function sitemap() {
       { url: `/${lang}/terms/`, lastmod: today }
     );
     for (const category of Object.keys(categoryDefinitions)) {
-      const categoryEvents = events.filter((event) => event.category === category);
+      const categoryEvents = seoEvents.filter((event) => event.category === category);
       entries.push({ url: categoryHref(lang, category), lastmod: maxIso(categoryEvents.map((event) => event.lastChecked), latestEventCheck) });
     }
     for (const city of citiesWithEvents()) {
-      const cityEvents = events.filter((event) => event.city === city);
+      const cityEvents = seoEvents.filter((event) => event.city === city);
       entries.push({ url: cityHref(lang, city), lastmod: maxIso(cityEvents.map((event) => event.lastChecked), latestEventCheck) });
     }
     for (const route of routes) {
-      const routeEvents = eventsForRoute(route);
+      const routeEvents = eventsForRoute(route).filter(isCurrentEvent);
       entries.push({ url: routeHref(lang, route), lastmod: maxIso(routeEvents.map((event) => event.lastChecked), latestEventCheck) });
     }
-    for (const event of events) {
+    for (const event of seoEvents) {
       entries.push({
         url: `/${lang}/events/${event.slug}.html`,
         lastmod: event.lastChecked || latestEventCheck,

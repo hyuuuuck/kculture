@@ -1,12 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const root = process.cwd();
 const sitemapPath = path.join(root, "dist", "sitemap.xml");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const languages = publicLanguageCodes();
 const errors = [];
+const today = todayString();
+const indexableEvents = events.filter((event) => event.endDate >= today);
 
 if (!fs.existsSync(sitemapPath)) {
   errors.push("dist/sitemap.xml is missing. Run npm run build first.");
@@ -42,9 +45,9 @@ if (!fs.existsSync(sitemapPath)) {
   if (stack.length) errors.push(`sitemap.xml has unclosed tags: ${stack.slice(-5).join(", ")}.`);
 
   const imageCount = (xml.match(/<image:image>/g) || []).length;
-  const expectedImages = events.length * languages.length;
+  const expectedImages = indexableEvents.length * languages.length;
   if (imageCount !== expectedImages) {
-    errors.push(`sitemap.xml should contain ${expectedImages} image entries for multilingual event pages; found ${imageCount}.`);
+    errors.push(`sitemap.xml should contain ${expectedImages} image entries for current multilingual event pages; found ${imageCount}.`);
   }
 }
 
@@ -54,4 +57,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap validation passed: ${events.length * languages.length} image entries.`);
+console.log(`Sitemap validation passed: ${indexableEvents.length * languages.length} current event image entries.`);

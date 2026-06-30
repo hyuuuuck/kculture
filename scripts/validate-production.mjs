@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
 const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
@@ -18,8 +19,10 @@ const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"),
 const errors = [];
 const warnings = [];
 const minimumPublicContentPages = 30;
+const today = todayString();
 const languages = publicLanguageCodes();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const eventStatusBySlug = new Map(events.map((event) => [event.slug, event.endDate < today ? "ended" : event.startDate > today ? "upcoming" : "live"]));
 
 function normalizeGoogleSiteVerification(value) {
   const trimmed = String(value || "").trim();
@@ -119,9 +122,10 @@ if (requireAdsense && !adsenseCmpReady) {
   warn("AdSense IDs are configured, but GOOGLE_ADSENSE_CMP_READY is not set. Confirm a Google-certified CMP before serving ads to EEA, UK, and Switzerland visitors.");
 }
 
-const publicContentPages = events.length + guides.length;
+const currentEventPages = events.filter((event) => event.endDate >= today).length;
+const publicContentPages = currentEventPages + guides.length;
 if (publicContentPages < minimumPublicContentPages) {
-  fail(`At least ${minimumPublicContentPages} public event/archive/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
+  fail(`At least ${minimumPublicContentPages} current event/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
 }
 
 const root = path.resolve(".");
@@ -220,7 +224,12 @@ const generatedHtmlFiles = collectFiles(dist, (file) => file.endsWith(".html"));
 for (const file of generatedHtmlFiles) {
   const text = readTextIfExists(file);
   if (/<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(text)) {
-    fail(`${path.relative(dist, file)} contains a noindex robots meta tag.`);
+    const relative = path.relative(dist, file).replaceAll(path.sep, "/");
+    const eventMatch = relative.match(/^[a-z]{2}\/events\/([^/]+)\.html$/);
+    const isEndedEventPage = eventMatch && eventStatusBySlug.get(eventMatch[1]) === "ended";
+    if (!isEndedEventPage) {
+      fail(`${relative} contains a noindex robots meta tag.`);
+    }
   }
 }
 

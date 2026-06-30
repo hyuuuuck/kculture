@@ -1,30 +1,50 @@
 {
-  "generatedAt": "2026-06-30T14:47:28.812Z",
+  "generatedAt": "2026-06-30T18:19:12.951Z",
   "files": {
-    "audit": "source-audit-2026-06-30.json",
-    "candidates": "official-page-candidates-2026-06-30.json",
-    "drafts": "draft-events-2026-06-30.json",
-    "reviewReport": "review-report-2026-06-30.md",
-    "reviewBoard": "review-board-2026-06-30.html"
+    "audit": "source-audit-2026-07-01.json",
+    "candidates": "official-page-candidates-2026-07-01.json",
+    "drafts": "draft-events-2026-07-01.json",
+    "reviewReport": "review-report-2026-07-01.md",
+    "reviewBoard": "review-board-2026-07-01.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 51,
+    "auditFailed": 4,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 650,
-    "dateSignals": 258,
-    "draftCandidates": 45,
-    "skippedCandidates": 658
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 580,
+    "dateSignals": 226,
+    "draftCandidates": 55,
+    "skippedCandidates": 578
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,12 +62,16 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 17
+    },
     {
       "key": "Visit Seoul",
       "count": 14
@@ -61,10 +85,6 @@
       "count": 7
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 6
-    },
-    {
       "key": "Dongdaemun Design Plaza",
       "count": 2
     },
@@ -76,15 +96,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 27
+      "count": 37
     },
     {
       "key": "shopping",
-      "count": 10
+      "count": 9
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "duty-free",
@@ -94,7 +114,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 610
+      "count": 526
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 9
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -111,21 +135,9 @@
     {
       "key": "duplicate draft source URL",
       "count": 5
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 5
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -133,6 +145,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 142
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 140
     },
     {
       "sourceName": "NOL World Ticket",
@@ -169,18 +189,18 @@
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 23,
+      "links": 24,
       "dates": 18,
       "keywords": 5,
-      "score": 129
+      "score": 132
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

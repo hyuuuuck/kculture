@@ -1,30 +1,55 @@
 {
-  "generatedAt": "2026-07-01T11:35:39.306Z",
+  "generatedAt": "2026-07-01T18:21:24.157Z",
   "files": {
-    "audit": "source-audit-2026-07-01.json",
-    "candidates": "official-page-candidates-2026-07-01.json",
-    "drafts": "draft-events-2026-07-01.json",
-    "reviewReport": "review-report-2026-07-01.md",
-    "reviewBoard": "review-board-2026-07-01.html"
+    "audit": "source-audit-2026-07-02.json",
+    "candidates": "official-page-candidates-2026-07-02.json",
+    "drafts": "draft-events-2026-07-02.json",
+    "reviewReport": "review-report-2026-07-02.md",
+    "reviewBoard": "review-board-2026-07-02.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 627,
-    "dateSignals": 252,
-    "draftCandidates": 55,
-    "skippedCandidates": 625
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 561,
+    "dateSignals": 209,
+    "draftCandidates": 56,
+    "skippedCandidates": 558
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,12 +67,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -55,7 +75,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 18
+      "count": 19
     },
     {
       "key": "Visit Seoul",
@@ -81,21 +101,29 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 38
-    },
-    {
-      "key": "shopping",
-      "count": 9
+      "count": 39
     },
     {
       "key": "kpop",
       "count": 8
+    },
+    {
+      "key": "shopping",
+      "count": 8
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 571
+      "count": 504
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -106,15 +134,11 @@
       "count": 7
     },
     {
+      "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
       "key": "listing page is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
       "count": 5
     }
   ],
@@ -152,14 +176,6 @@
       "score": 136
     },
     {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 135
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -176,12 +192,20 @@
       "score": 128
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 3,
+      "keywords": 7,
+      "score": 118
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

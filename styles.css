@@ -8049,3 +8049,226 @@ img {
     white-space: normal;
   }
 }
+
+/* === K-SPOT NOW: Neon Seoul theme (appended) === */
+/* ============================================================
+   K-SPOT NOW — "Neon Seoul" dark theme
+   Drop-in override for the EXISTING styles.css (token-based).
+   Maps to the real class names emitted by scripts/build.mjs.
+
+   ── How to apply (pick ONE) ─────────────────────────────────
+   A) Simplest: paste this whole file at the END of styles.css.
+      build.mjs hashes styles.css for the asset version, so the
+      change ships automatically. No build-script edit needed.
+   B) Separate file: commit this as theme-neon-seoul.css, then in
+      scripts/build.mjs add, right after the styles.css <link>
+      (~line 5927):
+        <link rel="stylesheet" href="/theme-neon-seoul.css?v=${assetVersion}">
+      and after the styles.css copyFile (~line 9568):
+        await fs.copyFile(path.join(root,"theme-neon-seoul.css"),
+                          path.join(dist,"theme-neon-seoul.css"));
+
+   ⚠ ALWAYS `npm run build` and preview dist/ locally (or run
+   `npm run design:baselines` / `npm run design:dom-audit`)
+   BEFORE pushing. Light-first stylesheets hide a few hardcoded
+   whites; the token remap below catches most, the component
+   rules catch the rest — but eyeball it once.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&display=swap');
+
+/* ---------- 1. TOKEN REMAP (does most of the work) ---------- */
+:root {
+  --ink:          #F3F0FF;   /* was #1d1d1f  → primary text        */
+  --muted:        #8781A0;   /* was #5f6b7a  → secondary text      */
+  --line:         rgba(255,255,255,.12);
+  --line-strong:  rgba(255,255,255,.20);
+  --paper:        #09080F;   /* page background                    */
+  --white:        #14121F;   /* was #fff → default card surface    */
+  --teal:         #38E0FF;
+  --teal-dark:    #0B0A16;
+  --blue:         #C427FB;
+  --blue-dark:    #38E0FF;
+  --coral:        #FF4D5E;
+  --green:        #3BF0A0;
+  --yellow:       #FFB24D;
+  --danger:       #FF4D5E;
+  --surface-blue: rgba(56,224,255,.08);
+  --surface-green:rgba(59,240,160,.08);
+  --surface-warn: rgba(255,178,77,.08);
+  --shadow:       0 12px 28px rgba(0,0,0,.45);
+  --shadow-md:    0 22px 50px -20px rgba(196,39,251,.45);
+  --control-shadow: 0 6px 14px rgba(0,0,0,.4);
+  --focus:        0 0 0 4px rgba(56,224,255,.35);
+}
+
+/* ---------- 2. Base / atmosphere ---------- */
+body {
+  color: var(--ink) !important;
+  background:
+    radial-gradient(760px 420px at 85% -6%, rgba(196,39,251,.28), transparent 62%),
+    radial-gradient(680px 460px at 6% 24%, rgba(56,224,255,.14), transparent 60%),
+    radial-gradient(900px 600px at 50% 108%, rgba(255,77,94,.16), transparent 60%),
+    #09080F !important;
+  background-attachment: fixed !important;
+}
+::selection { background: var(--coral); color: #09080F; }
+
+h1, h2, h3, .brand, .display,
+.service-hero h1, .city-hero h1, .about-wordmark, .calendar-month-heading {
+  font-family: 'Unbounded', Geist, system-ui, sans-serif;
+  letter-spacing: -.01em;
+}
+
+/* accent gradient helper for big display headings */
+.service-hero h1, .city-hero h1 {
+  background: linear-gradient(92deg,#FF4D5E 10%,#C427FB 60%,#38E0FF);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent !important;
+}
+
+/* ---------- 3. Header / nav ---------- */
+.site-header {
+  background: rgba(9,8,15,.72) !important;
+  border-bottom: 1px solid var(--line) !important;
+  backdrop-filter: blur(14px);
+}
+.site-header a { color: var(--ink); }
+.brand-mark {
+  background: linear-gradient(150deg,#FF4D5E,#C427FB) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 26px -8px rgba(196,39,251,.7);
+}
+.eyebrow { color: var(--teal) !important; letter-spacing:.18em; text-transform:uppercase; }
+
+/* ---------- 4. Buttons (keep white text on color) ---------- */
+.button.primary {
+  background: linear-gradient(92deg,#FF4D5E,#C427FB) !important;
+  color: #fff !important; border: none !important;
+  box-shadow: 0 12px 34px -10px rgba(196,39,251,.7);
+}
+.button.secondary {
+  background: rgba(255,255,255,.06) !important;
+  color: var(--ink) !important; border: 1px solid var(--line-strong) !important;
+}
+.button.light {
+  background: rgba(255,255,255,.05) !important;
+  color: var(--ink) !important; border: 1px solid var(--line) !important;
+}
+.button.light.affiliate-action { color: var(--teal) !important; }
+
+/* ---------- 5. Cards / generic surfaces ---------- */
+.event-card,
+.split-feature-card,
+.calendar-item,
+.month-block {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink);
+}
+.event-card:hover {
+  border-color: rgba(196,39,251,.5) !important;
+  box-shadow: 0 26px 50px -24px rgba(196,39,251,.6) !important;
+}
+.event-card em, .calendar-item em, .event-card small, .calendar-item small { color: var(--muted) !important; }
+
+/* ---------- 6. Spotlight ---------- */
+.spotlight-nav-panel {
+  background: linear-gradient(165deg,rgba(255,255,255,.09),rgba(255,255,255,.03)) !important;
+  border: 1px solid var(--line-strong) !important;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 40px 80px -30px rgba(196,39,251,.5) !important;
+}
+.spotlight-dot { background: rgba(255,255,255,.16) !important; }
+.spotlight-dot[aria-pressed="true"], .spotlight-dot.is-active {
+  background: linear-gradient(90deg,#FF4D5E,#C427FB) !important;
+}
+
+/* ---------- 7. Filters / chips ---------- */
+.filter-bar button {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--muted) !important;
+  border: 1px solid var(--line-strong) !important;
+  min-height: 44px;
+}
+.filter-bar button[aria-pressed="true"] {
+  background: linear-gradient(92deg,#FF4D5E,#C427FB) !important;
+  color: #fff !important; border-color: transparent !important;
+}
+
+/* ---------- 8. Status + freshness flags ---------- */
+.now-status-flag {
+  background: rgba(9,8,15,.6) !important;
+  border: 1px solid var(--line-strong) !important;
+}
+.now-status-flag.is-live    { color: var(--green) !important; }
+.now-status-flag.is-upcoming{ color: var(--teal)  !important; }
+.now-status-flag.is-ending  { color: var(--yellow)!important; }
+.now-status-flag.is-week,
+.now-status-flag.is-soon     { color: var(--coral) !important; }
+.freshness-chip { background: rgba(255,255,255,.05) !important; color: var(--muted) !important; border-color: var(--line) !important; }
+
+/* calendar preview mini-grid dots */
+.calendar-preview-grid .is-live    { color: var(--green) !important; }
+.calendar-preview-grid .is-upcoming{ color: var(--teal)  !important; }
+
+/* ---------- 9. Fact grid / handoff / detail ---------- */
+.fact-grid > * {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border: 1px solid var(--line) !important;
+}
+.handoff-note {
+  background: rgba(59,240,160,.07) !important;
+  border: 1px solid rgba(59,240,160,.25) !important;
+  color: var(--muted) !important;
+}
+.handoff-chip { color: var(--green) !important; }
+.detail-hero, .detail-section {
+  background: linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.015)) !important;
+  border: 1px solid var(--line) !important;
+}
+
+/* ---------- 10. Calendar list ---------- */
+.date-pill {
+  background: rgba(196,39,251,.14) !important;
+  border: 1px solid rgba(196,39,251,.35) !important;
+  color: #d79bff !important;
+}
+.calendar-month-heading { color: var(--ink) !important; }
+
+/* ---------- 11. City hero ---------- */
+.city-hero-feature::after {
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(9,8,15,.92) 8%, rgba(9,8,15,.4) 55%, transparent);
+}
+.city-hero-tags span {
+  background: rgba(9,8,15,.55) !important; backdrop-filter: blur(6px);
+  border: 1px solid var(--line-strong) !important; color: var(--ink) !important;
+}
+
+/* ---------- 12. About identity ---------- */
+.about-brand-mark {
+  background: linear-gradient(150deg,#FF4D5E,#C427FB) !important;
+  color:#fff !important;
+  box-shadow: 0 20px 50px -16px rgba(196,39,251,.7);
+}
+
+/* ---------- 13. Footer ---------- */
+.site-footer, footer {
+  background: transparent !important;
+  border-top: 1px solid var(--line) !important;
+  color: var(--muted) !important;
+}
+.site-footer a { color: var(--muted) !important; }
+.site-footer a:hover { color: var(--teal) !important; }
+
+/* ---------- 14. Ads stay peripheral & muted ---------- */
+.affiliate-action, [data-ad], .ad { opacity:.9; }
+
+/* ---------- 15. Safety net: any leftover light pastel panels ---------- */
+/* Catches the handful of hardcoded #fff / pastel surfaces that don't
+   use --white. If your local build preview shows a light block that
+   isn't covered above, send a screenshot and I'll target it. */
+.tooltip, .badge, .pill, .rail, .note, .panel {
+  color: var(--ink);
+}

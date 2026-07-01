@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T21:51:04.228Z",
+  "generatedAt": "2026-07-01T04:58:34.149Z",
   "files": {
     "audit": "source-audit-2026-07-01.json",
     "candidates": "official-page-candidates-2026-07-01.json",
@@ -13,12 +13,12 @@
     "auditFailed": 0,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 647,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 626,
     "dateSignals": 251,
     "draftCandidates": 55,
-    "skippedCandidates": 645
+    "skippedCandidates": 624
   },
   "failedSources": [
     {
@@ -40,6 +40,16 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -75,21 +85,17 @@
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 10
     },
     {
       "key": "kpop",
       "count": 8
-    },
-    {
-      "key": "duty-free",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 597
+      "count": 572
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -100,15 +106,15 @@
       "count": 7
     },
     {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 5
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 5
-    },
-    {
       "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
+      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
       "count": 5
     }
   ],
@@ -134,8 +140,8 @@
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 6,
-      "score": 139
+      "keywords": 7,
+      "score": 140
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -158,16 +164,16 @@
       "url": "https://grandpark.seoul.go.kr/main.do",
       "links": 24,
       "dates": 18,
-      "keywords": 4,
-      "score": 134
+      "keywords": 5,
+      "score": 135
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 132
+      "keywords": 6,
+      "score": 133
     },
     {
       "sourceName": "Korea Sale FESTA",

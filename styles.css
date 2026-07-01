@@ -8394,3 +8394,17 @@ h1, h2, h3, .brand, .display,
 .live-ticker-item .lt-date{color:#38E0FF;font-weight:700}
 @keyframes lt-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (max-width:640px){.live-ticker-label{font-size:.62rem;padding:8px 12px}.live-ticker-row{animation-duration:32s}}
+
+/* === Neon Seoul: hero 2-column composition === */
+@media (min-width:900px){
+  .service-hero-inner{grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)!important;align-items:center!important;gap:clamp(28px,4vw,52px)!important}
+  .service-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:16px!important;max-width:none!important}
+  .service-copy>.eyebrow{margin-bottom:0!important}
+  .service-copy>p:not(.eyebrow){grid-column:auto!important;grid-row:auto!important;max-width:470px!important}
+  .service-hero h1{max-width:none!important}
+  .service-visual{align-self:stretch}
+  .spotlight-card{inset:0!important}
+  .spotlight-arrow-prev{left:12px!important}
+  .spotlight-arrow-next{right:12px!important}
+  .spotlight-track{min-height:clamp(330px,26vw,430px)!important}
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T18:21:24.157Z",
+  "generatedAt": "2026-07-01T21:55:24.641Z",
   "files": {
     "audit": "source-audit-2026-07-02.json",
     "candidates": "official-page-candidates-2026-07-02.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
+    "auditOk": 51,
+    "auditFailed": 4,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 561,
-    "dateSignals": 209,
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 585,
+    "dateSignals": 227,
     "draftCandidates": 56,
-    "skippedCandidates": 558
+    "skippedCandidates": 582
   },
   "failedSources": [
     {
@@ -40,11 +40,6 @@
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Daegu Tourist Information Festival Schedule",
@@ -119,11 +114,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 504
+      "count": 529
     },
     {
       "key": "source fetch did not succeed",
-      "count": 10
+      "count": 9
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -176,6 +171,14 @@
       "score": 136
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 135
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -198,14 +201,6 @@
       "dates": 3,
       "keywords": 7,
       "score": 118
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 8,
-      "keywords": 5,
-      "score": 114
     }
   ]
 }

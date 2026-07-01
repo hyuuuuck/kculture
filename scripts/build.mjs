@@ -6081,34 +6081,34 @@ function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
   const role = sourceRoleType(event);
+  const kind = eventKindLabel(event, lang);
+  const venueLine = [event.venue, cityLabel(lang, event.city)].filter(Boolean).join(" \u00b7 ");
+  const icCal = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>`;
+  const icPin = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
+  const icChk = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>`;
   return `
-    <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
-      <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
+    <article class="event-card" data-card-variant="nc" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
+      <a class="nc-media" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
-        <span class="badge ${status}">${statusLabel(lang, status)}</span>
+        <span class="nc-flag is-${status}">${statusLabel(lang, status)}</span>
         <span class="thumb-overlay">
           <span class="thumb-brand">${esc(thumbnailBrand(event, lang))}</span>
           <strong>${esc(trimHeading(local(event.title, lang), 54))}</strong>
           <span>${esc(thumbnailContext(event, lang))}</span>
         </span>
       </a>
-      <div class="event-body">
-        <div class="event-meta">
-          <span>${categoryLabel(lang, event.category)}</span>
-          ${eventKindLabel(event, lang) ? `<span>${esc(eventKindLabel(event, lang))}</span>` : ""}
-          <span>${esc(cityLabel(lang, event.city))}</span>
-        </div>
+      <div class="nc-body">
+        <div class="nc-cat">${categoryLabel(lang, event.category)}${kind ? ` \u00b7 ${esc(kind)}` : ""}</div>
         <div class="event-source-row">
           <span class="source-role-chip ${esc(role)}">${esc(sourceRoleLabel(event, lang))}</span>
           <span>${esc(event.sourceName)}</span>
         </div>
-        <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
-        <p>${esc(eventSummaryText(event, lang))}</p>
-        <dl class="compact-facts">
-          <div><dt>${tr(lang, "period")}</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div>
-          <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
-          <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
-        </dl>
+        <h3 class="nc-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
+        <div class="nc-meta">
+          <span class="nc-row">${icCal}<b>${esc(eventDateLabel(event, lang))}</b></span>
+          <span class="nc-row">${icPin}${esc(venueLine)}</span>
+        </div>
+        <div class="nc-src">${icChk}<span class="nc-v">${esc(sourceRoleLabel(event, lang))}</span> \u00b7 ${esc(event.sourceName)} \u00b7 ${tr(lang, "lastChecked")} ${dateText(lang, event.lastChecked)}</div>
         ${eventPlanTools(lang)}
         ${saveEventButton(event, lang)}
       </div>

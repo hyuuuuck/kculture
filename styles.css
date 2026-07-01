@@ -8408,3 +8408,209 @@ h1, h2, h3, .brand, .display,
   .spotlight-arrow-next{right:12px!important}
   .spotlight-track{min-height:clamp(330px,26vw,430px)!important}
 }
+
+/* === Neon Seoul: leftover white-in-gradient sweep (auto 2) === */
+.site-header { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.language-menu summary { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.service-hero { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.service-summary { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.ad-band { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.city-hero { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.city-hero-tags span { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.save-event { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.calendar-preview-panel { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.route-label { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.recheck-panel { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.now-panel:nth-child(2) h2 { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.now-panel:nth-child(4) h2 { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.detail-actions .affiliate-action { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.coupang-affiliate-widget { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.coupang-frame-wrap { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.detail-quick-plan { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.fact { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.visitor-action-grid article { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.source-transparency-grid div { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.localized-visitor-brief { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.localized-brief-grid article { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.weather-detail-section { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.weather-metric { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.forecast-card { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.forecast-card.sun { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.forecast-card.cloud { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.forecast-card.rain { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.weather-tags > span { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.trip-rail-card { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.routes-ad-rail .ad-disclosure { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.trip-rail-visual { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.about-flow { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.guide-decision-panel { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.source-refresh-rule { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.saved-planner { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.planner-starter { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.planner-utility { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+.planner-starter-card { background-image: none !important; background-color: transparent !important; border-color: rgba(255,255,255,.12) !important; }
+
+/* === Neon Seoul: re-assert dark glass surfaces === */
+.site-header { background:rgba(9,8,15,.82) !important; backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.1) !important; }
+.fact { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.forecast-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.forecast-card.sun { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.forecast-card.cloud { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.forecast-card.rain { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.weather-metric { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.weather-detail-section { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.detail-quick-plan { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.saved-planner { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.planner-starter-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.guide-decision-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.visitor-action-grid article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.source-transparency-grid div { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.localized-brief-grid article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.localized-visitor-brief { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.trip-rail-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.recheck-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.calendar-preview-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.about-flow { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.1) !important; }
+.city-stat strong { background:linear-gradient(92deg,#FF4D5E,#C427FB);-webkit-background-clip:text;background-clip:text;color:transparent !important; }
+.city-dashboard { border:1px solid rgba(255,255,255,.1) !important; border-radius:8px; overflow:hidden; }
+
+/* === Neon Seoul: luminance final sweep === */
+.service-hero { background:transparent !important; }
+.ad-band { background:transparent !important; }
+.city-hero { background:transparent !important; }
+.city-hero-tags span { background:transparent !important; }
+.coupang-frame-wrap { background:transparent !important; }
+.weather-detail-section { background:transparent !important; }
+.site-header { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.language-menu summary { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.service-summary { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.text-link { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.route-mini-list a { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.event-thumb { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.event-plan-tools span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.split-feature-visual { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.calendar-preview-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.calendar-preview-grid span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.calendar-preview-grid .is-upcoming { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.calendar-preview-note span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.route-preview { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.route-label { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-feed-links a { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.recheck-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.recheck-thumb { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.recheck-meta span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.recheck-meta span:last-child { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-panel h2 { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-panel:nth-child(2) h2 { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-panel:nth-child(3) h2 { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-panel:nth-child(4) h2 { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.now-item { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.empty-state { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.calendar-item { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.detail-actions .affiliate-action { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.coupang-affiliate-widget { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.coupang-affiliate-frame { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.detail-quick-plan { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.quick-plan-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.quick-plan-icon, .visitor-action-icon, .source-step-icon, .about-icon { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.quick-plan-card.is-sponsored { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.fact { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.fact-icon { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.visitor-action-grid article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.source-transparency-grid div { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.source-boundary-callout { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.localized-visitor-brief { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.localized-brief-grid article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.weather-metric { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.forecast-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.forecast-card.sun { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.forecast-card.cloud { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.forecast-card.rain { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.forecast-period { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.weather-tags > span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.weather-tag-icon { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.weather-source-line { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.visitor-info-item, .venue-schedule-list article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.route-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.trip-rail-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.routes-ad-rail .ad-disclosure { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.trip-rail-visual { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.guide-card-media { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.about-flow { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.guide-decision-panel { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.guide-source-list a { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.source-refresh-stats div { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.source-refresh-columns article { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.source-refresh-rule { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.watch-card dl div { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.queue-list a { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.saved-planner { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.saved-planner-item { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-starter { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-utility { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-utility-links span { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-starter-card { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-empty { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.planner-card-map { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+.gallery-load-more { background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important; }
+/* keep hairlines subtle on darkened surfaces */
+
+/* === Neon Seoul: dark-on-dark text fix === */
+.city-hero-tags span { color:#E6E1F5 !important; }
+.save-event { color:#E6E1F5 !important; }
+.event-plan-tools span { color:#E6E1F5 !important; }
+.calendar-preview-grid span { color:#E6E1F5 !important; }
+.calendar-preview-grid .is-upcoming { color:#E6E1F5 !important; }
+.calendar-preview-note span { color:#E6E1F5 !important; }
+.route-label { color:#E6E1F5 !important; }
+.now-panel h2 { color:#E6E1F5 !important; }
+.now-panel:nth-child(2) h2 { color:#E6E1F5 !important; }
+.now-panel:nth-child(3) h2 { color:#E6E1F5 !important; }
+.now-panel:nth-child(4) h2 { color:#E6E1F5 !important; }
+.detail-actions .affiliate-action { color:#E6E1F5 !important; }
+.weather-tags > span { color:#E6E1F5 !important; }
+.weather-tag-icon { color:#E6E1F5 !important; }
+.weather-source-line { color:#E6E1F5 !important; }
+.trip-rail-card { color:#E6E1F5 !important; }
+.source-refresh-rule { color:#E6E1F5 !important; }
+
+/* === Neon Seoul: event card structure (nc) === */
+.event-card[data-card-variant="nc"]{display:flex;flex-direction:column;overflow:hidden;padding:0 !important}
+.nc-media{position:relative;display:block;aspect-ratio:16/10;overflow:hidden}
+.nc-media img{width:100%;height:100%;object-fit:cover;display:block}
+.event-card[data-card-variant="nc"]:hover .nc-media img{transform:scale(1.04)}
+.nc-media img{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.nc-flag{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:rgba(9,8,15,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);color:#b3adc9}
+.nc-flag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.nc-flag.is-live{color:#3BF0A0}
+.nc-flag.is-upcoming{color:#38E0FF}
+.nc-flag.is-ended{color:#8781a0}
+.nc-flag.is-ended::before{box-shadow:none}
+.nc-body{display:flex;flex-direction:column;padding:15px 16px 16px}
+.nc-cat{font-size:.64rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#38E0FF}
+.nc-title{font-family:'Unbounded',Geist,system-ui,sans-serif;font-size:1rem;font-weight:600;line-height:1.22;margin:9px 0 0;min-height:2.5em;letter-spacing:-.01em}
+.nc-title a{color:#F3F0FF;text-decoration:none}
+.nc-title a:hover{color:#38E0FF}
+.nc-meta{display:flex;flex-direction:column;gap:7px;margin-top:13px;padding-top:13px;border-top:1px solid rgba(255,255,255,.1)}
+.nc-row{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#b8b2ce}
+.nc-row b{color:#F3F0FF;font-weight:600}
+.nc-row svg{color:#6f6a86;flex:none}
+.nc-src{display:flex;align-items:center;gap:6px;margin-top:11px;font-size:.68rem;color:#8781a0}
+.nc-src .nc-v{color:#3BF0A0;font-weight:600}
+.nc-src svg{flex:none}
+.event-card[data-card-variant="nc"] .save-event{margin-top:13px;width:100%;justify-content:center}
+.event-card[data-card-variant="nc"] .thumb-overlay{
+  left:12px;
+  right:12px;
+  bottom:12px;
+  gap:5px;
+  padding:10px 11px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(9,8,15,.08),rgba(9,8,15,.78));
+  color:#fff;
+  pointer-events:none;
+}
+.event-card[data-card-variant="nc"] .thumb-overlay strong{font-size:.9rem;line-height:1.1;color:#fff}
+.event-card[data-card-variant="nc"] .thumb-overlay span:last-child{font-size:.66rem;color:rgba(255,255,255,.78)}
+.event-card[data-card-variant="nc"] .thumb-overlay .thumb-brand{max-width:72%;background:rgba(9,8,15,.58);color:#fff}

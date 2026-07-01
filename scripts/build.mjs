@@ -7605,6 +7605,7 @@ function renderCalendar(lang) {
         ${[...groups.entries()].map(([key, items]) => `
           <div class="month-block" data-filter-group data-calendar-month="${esc(key)}">
             ${calendarMonthHeading(lang, key)}
+            ${calendarMonthGrid(lang, key, items)}
             <div class="month-events">
               ${items.map((event) => calendarItem(event, lang)).join("")}
             </div>
@@ -7627,6 +7628,32 @@ function calendarMonthHeading(lang, key) {
   const date = new Date(`${key}-01T00:00:00Z`);
   const monthName = new Intl.DateTimeFormat(languages[lang]?.locale || "en-US", { month: "long", timeZone: "UTC" }).format(date);
   return `<h2 class="calendar-month-heading"><span>${esc(monthName)}</span> <span>${esc(year || "")}</span></h2>`;
+}
+
+function calPillClass(category) {
+  if (category === "kpop") return "ev-pink";
+  if (category === "beauty") return "ev-green";
+  if (category === "festival") return "ev-mag";
+  return "ev-cyan";
+}
+
+function calendarMonthGrid(lang, key, items) {
+  const [y, mo] = key.split("-").map(Number);
+  if (!y || !mo) return "";
+  const startDow = new Date(Date.UTC(y, mo - 1, 1)).getUTCDay();
+  const daysInMonth = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+  const dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let cells = "";
+  for (let i = 0; i < startDow; i++) cells += `<div class="cal-cell off"></div>`;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+    const dayEvents = items.filter((e) => e.startDate <= iso && iso <= e.endDate);
+    const pills = dayEvents.slice(0, 3).map((e) => `<span class="cal-ev ${calPillClass(e.category)}" title="${esc(local(e.title, lang))}">${esc(trimHeading(local(e.title, lang), 16))}</span>`).join("");
+    const isToday = iso === today ? " today" : "";
+    cells += `<div class="cal-cell${isToday}"><span class="cal-dnum">${d}</span>${pills}</div>`;
+  }
+  const head = dows.map((x) => `<div class="cal-dow">${x}</div>`).join("");
+  return `<div class="cal-grid" aria-hidden="true">${head}${cells}</div>`;
 }
 
 function calendarItem(event, lang) {

@@ -6060,55 +6060,38 @@ function galleryControls(lang, { categories = false, cities = false } = {}) {
         </div>`;
 }
 
-function liveTicker(sorted, lang) {
-  const items = sorted.filter((e) => ["live", "upcoming"].includes(statusOf(e))).slice(0, 8);
-  if (!items.length) return "";
-  const cells = items.map((e) => {
-    const live = statusOf(e) === "live";
-    const flag = live
-      ? `<b class="lt-live">\u25cf ${esc(tr(lang, "statusLive"))}</b>`
-      : `<b class="lt-date">${esc(dateText(lang, e.startDate))}</b>`;
-    return `<span class="live-ticker-item">${flag} ${esc(trimHeading(local(e.title, lang), 42))} <em>${esc(cityLabel(lang, e.city))}</em></span>`;
-  }).join("");
-  return `
-      <div class="live-ticker" aria-label="${esc(tr(lang, "liveNow"))}">
-        <span class="live-ticker-label">\u25cf ${esc(tr(lang, "liveNow"))}</span>
-        <div class="live-ticker-scroll"><div class="live-ticker-row">${cells}${cells}</div></div>
-      </div>`;
-}
-
 function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
   const role = sourceRoleType(event);
-  const kind = eventKindLabel(event, lang);
-  const venueLine = [event.venue, cityLabel(lang, event.city)].filter(Boolean).join(" \u00b7 ");
-  const icCal = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>`;
-  const icPin = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
-  const icChk = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>`;
   return `
-    <article class="event-card" data-card-variant="nc" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
-      <a class="nc-media" href="/${lang}/events/${event.slug}.html">
+    <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
+      <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
-        <span class="nc-flag is-${status}">${statusLabel(lang, status)}</span>
+        <span class="badge ${status}">${statusLabel(lang, status)}</span>
         <span class="thumb-overlay">
           <span class="thumb-brand">${esc(thumbnailBrand(event, lang))}</span>
           <strong>${esc(trimHeading(local(event.title, lang), 54))}</strong>
           <span>${esc(thumbnailContext(event, lang))}</span>
         </span>
       </a>
-      <div class="nc-body">
-        <div class="nc-cat">${categoryLabel(lang, event.category)}${kind ? ` \u00b7 ${esc(kind)}` : ""}</div>
+      <div class="event-body">
+        <div class="event-meta">
+          <span>${categoryLabel(lang, event.category)}</span>
+          ${eventKindLabel(event, lang) ? `<span>${esc(eventKindLabel(event, lang))}</span>` : ""}
+          <span>${esc(cityLabel(lang, event.city))}</span>
+        </div>
         <div class="event-source-row">
           <span class="source-role-chip ${esc(role)}">${esc(sourceRoleLabel(event, lang))}</span>
           <span>${esc(event.sourceName)}</span>
         </div>
-        <h3 class="nc-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
-        <div class="nc-meta">
-          <span class="nc-row">${icCal}<b>${esc(eventDateLabel(event, lang))}</b></span>
-          <span class="nc-row">${icPin}${esc(venueLine)}</span>
-        </div>
-        <div class="nc-src">${icChk}<span class="nc-v">${esc(sourceRoleLabel(event, lang))}</span> \u00b7 ${esc(event.sourceName)} \u00b7 ${tr(lang, "lastChecked")} ${dateText(lang, event.lastChecked)}</div>
+        <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
+        <p>${esc(eventSummaryText(event, lang))}</p>
+        <dl class="compact-facts">
+          <div><dt>${tr(lang, "period")}</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div>
+          <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
+          <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
+        </dl>
         ${eventPlanTools(lang)}
         ${saveEventButton(event, lang)}
       </div>
@@ -7042,7 +7025,6 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
   const body = `
     <main>
-      ${liveTicker(sorted, lang)}
       <section class="service-hero" aria-labelledby="home-title">
         <div class="service-hero-inner">
           <div class="service-copy">
@@ -7605,7 +7587,6 @@ function renderCalendar(lang) {
         ${[...groups.entries()].map(([key, items]) => `
           <div class="month-block" data-filter-group data-calendar-month="${esc(key)}">
             ${calendarMonthHeading(lang, key)}
-            ${calendarMonthGrid(lang, key, items)}
             <div class="month-events">
               ${items.map((event) => calendarItem(event, lang)).join("")}
             </div>
@@ -7628,32 +7609,6 @@ function calendarMonthHeading(lang, key) {
   const date = new Date(`${key}-01T00:00:00Z`);
   const monthName = new Intl.DateTimeFormat(languages[lang]?.locale || "en-US", { month: "long", timeZone: "UTC" }).format(date);
   return `<h2 class="calendar-month-heading"><span>${esc(monthName)}</span> <span>${esc(year || "")}</span></h2>`;
-}
-
-function calPillClass(category) {
-  if (category === "kpop") return "ev-pink";
-  if (category === "beauty") return "ev-green";
-  if (category === "festival") return "ev-mag";
-  return "ev-cyan";
-}
-
-function calendarMonthGrid(lang, key, items) {
-  const [y, mo] = key.split("-").map(Number);
-  if (!y || !mo) return "";
-  const startDow = new Date(Date.UTC(y, mo - 1, 1)).getUTCDay();
-  const daysInMonth = new Date(Date.UTC(y, mo, 0)).getUTCDate();
-  const dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let cells = "";
-  for (let i = 0; i < startDow; i++) cells += `<div class="cal-cell off"></div>`;
-  for (let d = 1; d <= daysInMonth; d++) {
-    const iso = `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-    const dayEvents = items.filter((e) => e.startDate <= iso && iso <= e.endDate);
-    const pills = dayEvents.slice(0, 3).map((e) => `<span class="cal-ev ${calPillClass(e.category)}" title="${esc(local(e.title, lang))}">${esc(trimHeading(local(e.title, lang), 16))}</span>`).join("");
-    const isToday = iso === today ? " today" : "";
-    cells += `<div class="cal-cell${isToday}"><span class="cal-dnum">${d}</span>${pills}</div>`;
-  }
-  const head = dows.map((x) => `<div class="cal-dow">${x}</div>`).join("");
-  return `<div class="cal-grid" aria-hidden="true">${head}${cells}</div>`;
 }
 
 function calendarItem(event, lang) {

@@ -8272,3 +8272,125 @@ h1, h2, h3, .brand, .display,
 .tooltip, .badge, .pill, .rail, .note, .panel {
   color: var(--ink);
 }
+
+/* === Neon Seoul: hero band fix === */
+/* hero background: kill the hardcoded white/gradient, show dark wash */
+.service-hero { background: transparent !important; border-bottom: 1px solid var(--line) !important; }
+/* lede paragraph was dark #344054 */
+.service-copy p:not(.eyebrow) { color: #b8b2ce !important; }
+/* stat bar was a white pill */
+.service-summary {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+.service-summary div + div { border-left: 1px solid var(--line) !important; }
+.service-summary div:nth-child(n+3) { border-top-color: var(--line) !important; }
+.service-summary dt { color: var(--muted) !important; }
+.service-summary dd { color: #F3F0FF !important; }
+
+/* --white was remapped dark, so "white text over image" went dark. restore it. */
+.spotlight-card { color: #fff !important; }
+.spotlight-title, .spotlight-meta { color: #fff !important; }
+.spotlight-badge { color: #fff !important; }
+
+/* === Neon Seoul: leftover light-surface sweep (auto) === */
+.site-header {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.service-summary {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.ad-band {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.city-hero-tags span {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.calendar-preview-panel {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.route-label {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.recheck-panel {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.now-panel:nth-child(2) h2 {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.now-panel:nth-child(4) h2 {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.coupang-frame-wrap {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.detail-quick-plan {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.localized-visitor-brief {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.forecast-card {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.weather-tags > span {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.routes-ad-rail .ad-disclosure {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.source-refresh-rule {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color: #F3F0FF !important;
+}
+.saved-planner {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.planner-utility {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.planner-starter-card {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+.service-hero {
+  background: linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+
+/* === Neon Seoul: live ticker === */
+.live-ticker{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--line);overflow:hidden}
+.live-ticker-label{flex:none;background:linear-gradient(90deg,#FF4D5E,#C427FB);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.16em;padding:10px 16px;text-transform:uppercase;white-space:nowrap}
+.live-ticker-scroll{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent);flex:1;min-width:0}
+.live-ticker-row{display:inline-flex;gap:34px;padding:10px 20px;white-space:nowrap;animation:lt-marquee 42s linear infinite;will-change:transform}
+.live-ticker:hover .live-ticker-row{animation-play-state:paused}
+.live-ticker-item{font-size:.82rem;color:#b3adc9}
+.live-ticker-item em{font-style:normal;color:#8781a0}
+.live-ticker-item .lt-live{color:#FF4D5E;font-weight:700}
+.live-ticker-item .lt-date{color:#38E0FF;font-weight:700}
+@keyframes lt-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:640px){.live-ticker-label{font-size:.62rem;padding:8px 12px}.live-ticker-row{animation-duration:32s}}

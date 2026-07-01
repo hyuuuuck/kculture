@@ -6060,6 +6060,23 @@ function galleryControls(lang, { categories = false, cities = false } = {}) {
         </div>`;
 }
 
+function liveTicker(sorted, lang) {
+  const items = sorted.filter((e) => ["live", "upcoming"].includes(statusOf(e))).slice(0, 8);
+  if (!items.length) return "";
+  const cells = items.map((e) => {
+    const live = statusOf(e) === "live";
+    const flag = live
+      ? `<b class="lt-live">\u25cf ${esc(tr(lang, "statusLive"))}</b>`
+      : `<b class="lt-date">${esc(dateText(lang, e.startDate))}</b>`;
+    return `<span class="live-ticker-item">${flag} ${esc(trimHeading(local(e.title, lang), 42))} <em>${esc(cityLabel(lang, e.city))}</em></span>`;
+  }).join("");
+  return `
+      <div class="live-ticker" aria-label="${esc(tr(lang, "liveNow"))}">
+        <span class="live-ticker-label">\u25cf ${esc(tr(lang, "liveNow"))}</span>
+        <div class="live-ticker-scroll"><div class="live-ticker-row">${cells}${cells}</div></div>
+      </div>`;
+}
+
 function eventCard(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
@@ -7025,6 +7042,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
 
   const body = `
     <main>
+      ${liveTicker(sorted, lang)}
       <section class="service-hero" aria-labelledby="home-title">
         <div class="service-hero-inner">
           <div class="service-copy">

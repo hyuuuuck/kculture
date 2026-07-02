@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T04:36:32.814Z",
+  "generatedAt": "2026-07-02T11:05:25.922Z",
   "files": {
     "audit": "source-audit-2026-07-02.json",
     "candidates": "official-page-candidates-2026-07-02.json",
@@ -13,12 +13,12 @@
     "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 44,
-    "candidateFailed": 9,
-    "discoveredLinks": 583,
-    "dateSignals": 227,
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 582,
+    "dateSignals": 228,
     "draftCandidates": 57,
-    "skippedCandidates": 579
+    "skippedCandidates": 578
   },
   "failedSources": [
     {
@@ -62,7 +62,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Culture Portal API",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -123,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 525
+      "count": 522
     },
     {
       "key": "source fetch did not succeed",
-      "count": 9
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",

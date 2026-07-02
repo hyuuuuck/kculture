@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-02T14:33:29.340Z",
+  "generatedAt": "2026-07-02T18:07:03.512Z",
   "files": {
-    "audit": "source-audit-2026-07-02.json",
-    "candidates": "official-page-candidates-2026-07-02.json",
-    "drafts": "draft-events-2026-07-02.json",
-    "reviewReport": "review-report-2026-07-02.md",
-    "reviewBoard": "review-board-2026-07-02.html"
+    "audit": "source-audit-2026-07-03.json",
+    "candidates": "official-page-candidates-2026-07-03.json",
+    "drafts": "draft-events-2026-07-03.json",
+    "reviewReport": "review-report-2026-07-03.md",
+    "reviewBoard": "review-board-2026-07-03.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 626,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 604,
     "dateSignals": 256,
-    "draftCandidates": 57,
-    "skippedCandidates": 622
+    "draftCandidates": 56,
+    "skippedCandidates": 601
   },
   "failedSources": [
     {
@@ -50,19 +50,19 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 19
+      "count": 18
     },
     {
       "key": "Visit Seoul",
-      "count": 14
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
+      "count": 11
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 7
+      "count": 8
     },
     {
       "key": "Andong Maskdance Festival",
@@ -87,10 +87,6 @@
       "count": 8
     },
     {
-      "key": "department-store",
-      "count": 1
-    },
-    {
       "key": "duty-free",
       "count": 1
     }
@@ -98,7 +94,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 569
+      "count": 548
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -109,19 +105,27 @@
       "count": 7
     },
     {
+      "key": "duplicate draft source URL",
+      "count": 6
+    },
+    {
       "key": "listing page is not a specific event",
       "count": 6
     },
     {
-      "key": "duplicate draft source URL",
-      "count": 5
-    },
-    {
       "key": "source fetch did not succeed",
-      "count": 5
+      "count": 6
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 147
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -137,14 +141,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 140
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",

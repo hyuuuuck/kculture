@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T21:55:24.641Z",
+  "generatedAt": "2026-07-02T04:36:32.814Z",
   "files": {
     "audit": "source-audit-2026-07-02.json",
     "candidates": "official-page-candidates-2026-07-02.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 51,
-    "auditFailed": 4,
+    "auditOk": 50,
+    "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 44,
     "candidateFailed": 9,
-    "discoveredLinks": 585,
+    "discoveredLinks": 583,
     "dateSignals": 227,
-    "draftCandidates": 56,
-    "skippedCandidates": 582
+    "draftCandidates": 57,
+    "skippedCandidates": 579
   },
   "failedSources": [
     {
@@ -60,6 +60,11 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Culture Portal API",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "KMA ASOS Daily Weather API",
@@ -107,6 +112,10 @@
       "count": 8
     },
     {
+      "key": "department-store",
+      "count": 1
+    },
+    {
       "key": "duty-free",
       "count": 1
     }
@@ -114,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 529
+      "count": 525
     },
     {
       "key": "source fetch did not succeed",
@@ -195,12 +204,12 @@
       "score": 128
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 23,
-      "dates": 3,
-      "keywords": 7,
-      "score": 118
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

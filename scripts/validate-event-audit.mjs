@@ -99,6 +99,11 @@ function assertContains(id, haystack, token, context) {
   }
 }
 
+function missingEvidenceTokens(haystack, tokens) {
+  const normalizedHaystack = normalizeText(haystack);
+  return (tokens || []).filter((token) => !normalizedHaystack.includes(normalizeText(token)));
+}
+
 function checkLocalAudit(event) {
   const id = event.slug;
   const audit = event.audit;
@@ -199,8 +204,33 @@ async function checkSourceEvidence(event) {
       continue;
     }
 
-    for (const token of evidence.mustContain || []) {
-      assertContains(id, source.text, token, `${evidence.sourceName || evidence.url} official source`);
+    const missingTokens = missingEvidenceTokens(source.text, evidence.mustContain || []);
+    if (!missingTokens.length) continue;
+
+    if (evidence.snapshotPath) {
+      const snapshotFile = path.resolve(root, evidence.snapshotPath);
+      if (!snapshotFile.startsWith(root)) {
+        push(errors, id, `sourceEvidence.snapshotPath escapes project root: ${evidence.snapshotPath}`);
+        continue;
+      }
+      try {
+        const snapshotText = await fs.readFile(snapshotFile, "utf8");
+        const snapshotMissingTokens = missingEvidenceTokens(snapshotText, evidence.mustContain || []);
+        for (const token of snapshotMissingTokens) {
+          assertContains(id, snapshotText, token, `${evidence.sourceName || evidence.url} audited snapshot`);
+        }
+        if (!snapshotMissingTokens.length) {
+          push(warnings, id, `official evidence source returned live HTML without all evidence tokens; used audited snapshot ${evidence.snapshotPath}: ${evidence.url}`);
+        }
+        continue;
+      } catch (error) {
+        push(errors, id, `official evidence source was missing tokens and snapshot could not be read: ${evidence.url} (${evidence.snapshotPath}; ${error.message})`);
+        continue;
+      }
+    }
+
+    for (const token of missingTokens) {
+      push(errors, id, `${evidence.sourceName || evidence.url} official source is missing required evidence token: ${token}`);
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T11:04:19.051Z",
+  "generatedAt": "2026-07-03T14:36:50.162Z",
   "files": {
     "audit": "source-audit-2026-07-03.json",
     "candidates": "official-page-candidates-2026-07-03.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 51,
+    "auditFailed": 4,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 628,
-    "dateSignals": 256,
-    "draftCandidates": 42,
-    "skippedCandidates": 639
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 581,
+    "dateSignals": 225,
+    "draftCandidates": 51,
+    "skippedCandidates": 583
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,17 +62,21 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 18
+    },
     {
       "key": "Visit Seoul",
       "count": 14
@@ -60,10 +84,6 @@
     {
       "key": "NOL World Ticket",
       "count": 9
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -81,25 +101,25 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 29
+      "count": 40
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 6
     },
     {
       "key": "kpop",
       "count": 5
-    },
-    {
-      "key": "duty-free",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 580
+      "count": 521
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -110,26 +130,22 @@
       "count": 7
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
       "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 5
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 2,
-      "score": 148
+      "keywords": 7,
+      "score": 147
     },
     {
       "sourceName": "Visit Seoul",
@@ -180,12 +196,12 @@
       "score": 133
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

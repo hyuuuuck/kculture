@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T21:39:58.624Z",
+  "generatedAt": "2026-07-03T04:14:04.992Z",
   "files": {
     "audit": "source-audit-2026-07-03.json",
     "candidates": "official-page-candidates-2026-07-03.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 582,
-    "dateSignals": 229,
-    "draftCandidates": 56,
-    "skippedCandidates": 579
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 634,
+    "dateSignals": 258,
+    "draftCandidates": 47,
+    "skippedCandidates": 640
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,21 +42,17 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 18
-    },
     {
       "key": "Visit Seoul",
       "count": 15
@@ -90,26 +66,34 @@
       "count": 8
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
-      "key": "Dongdaemun Design Plaza",
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 39
+      "count": 30
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 7
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
+    },
+    {
+      "key": "department-store",
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -119,11 +103,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 523
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 588
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -131,7 +111,7 @@
     },
     {
       "key": "already published source URL",
-      "count": 7
+      "count": 6
     },
     {
       "key": "duplicate draft source URL",
@@ -139,17 +119,21 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
       "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 147
+      "keywords": 2,
+      "score": 148
     },
     {
       "sourceName": "Visit Seoul",
@@ -166,6 +150,14 @@
       "dates": 18,
       "keywords": 7,
       "score": 140
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 137
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
@@ -192,20 +184,12 @@
       "score": 133
     },
     {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 128
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 10,
-      "keywords": 5,
-      "score": 118
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

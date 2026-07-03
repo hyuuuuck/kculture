@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T17:54:33.661Z",
+  "generatedAt": "2026-07-03T21:36:51.461Z",
   "files": {
     "audit": "source-audit-2026-07-04.json",
     "candidates": "official-page-candidates-2026-07-04.json",
@@ -13,12 +13,12 @@
     "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 624,
-    "dateSignals": 254,
-    "draftCandidates": 54,
-    "skippedCandidates": 623
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 628,
+    "dateSignals": 257,
+    "draftCandidates": 55,
+    "skippedCandidates": 626
   },
   "failedSources": [
     {
@@ -40,11 +40,6 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Shinsegae Department Store Events",
@@ -95,19 +90,19 @@
     {
       "key": "shopping",
       "count": 6
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 563
+      "count": 567
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 7
-    },
-    {
-      "key": "source fetch did not succeed",
       "count": 7
     },
     {
@@ -116,6 +111,10 @@
     },
     {
       "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 6
     },
     {

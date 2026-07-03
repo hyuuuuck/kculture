@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T06:27:41.222Z",
+  "generatedAt": "2026-07-03T07:44:58.567Z",
   "files": {
     "audit": "source-audit-2026-07-03.json",
     "candidates": "official-page-candidates-2026-07-03.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 524,
-    "dateSignals": 283,
-    "draftCandidates": 55,
-    "skippedCandidates": 522
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 537,
+    "dateSignals": 209,
+    "draftCandidates": 58,
+    "skippedCandidates": 532
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -40,46 +60,66 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Incheon Pentaport Music Festival",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 13
+      "count": 18
     },
     {
       "key": "Visit Seoul",
-      "count": 11
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
-      "count": 10
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "count": 11
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 7
+      "count": 8
     },
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 40
+      "count": 41
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 7
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 7
     },
     {
       "key": "department-store",
@@ -93,7 +133,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 470
+      "count": 476
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 11
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -104,82 +148,78 @@
       "count": 6
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "duplicate draft source URL",
       "count": 6
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 5
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 4
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 18,
-      "dates": 18,
-      "keywords": 2,
-      "score": 130
-    },
-    {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 7,
-      "score": 129
+      "score": 147
     },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 5,
-      "score": 124
+      "score": 142
     },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 7,
-      "score": 122
-    },
-    {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 18,
-      "dates": 18,
-      "keywords": 2,
-      "score": 119
+      "score": 140
     },
     {
       "sourceName": "Seoul Grand Park",
       "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 5,
-      "score": 117
+      "score": 135
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 18,
+      "links": 24,
       "dates": 17,
       "keywords": 3,
-      "score": 116
+      "score": 134
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 115
+      "score": 133
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 3,
+      "keywords": 6,
+      "score": 116
     }
   ]
 }

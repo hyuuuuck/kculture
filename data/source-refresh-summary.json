@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T21:36:51.461Z",
+  "generatedAt": "2026-07-04T04:08:53.213Z",
   "files": {
     "audit": "source-audit-2026-07-04.json",
     "candidates": "official-page-candidates-2026-07-04.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 628,
-    "dateSignals": 257,
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 585,
+    "dateSignals": 229,
     "draftCandidates": 55,
-    "skippedCandidates": 626
+    "skippedCandidates": 583
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,12 +62,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -99,7 +119,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 567
+      "count": 521
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -110,15 +134,11 @@
       "count": 6
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
       "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 5
     }
   ],
@@ -180,12 +200,12 @@
       "score": 135
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

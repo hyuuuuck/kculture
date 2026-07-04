@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T17:33:23.635Z",
+  "generatedAt": "2026-07-04T21:17:37.300Z",
   "files": {
     "audit": "source-audit-2026-07-05.json",
     "candidates": "official-page-candidates-2026-07-05.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 585,
-    "dateSignals": 224,
-    "draftCandidates": 54,
-    "skippedCandidates": 584
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 677,
+    "dateSignals": 271,
+    "draftCandidates": 61,
+    "skippedCandidates": 669
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -63,11 +43,6 @@
     },
     {
       "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -90,18 +65,18 @@
       "count": 8
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
-      "key": "Dongdaemun Design Plaza",
+      "key": "Andong Maskdance Festival",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 41
+      "count": 48
     },
     {
       "key": "kpop",
@@ -119,22 +94,22 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 524
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 609
     },
     {
       "key": "already published source URL",
       "count": 7
     },
     {
+      "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -143,6 +118,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -198,14 +181,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 5,
-      "score": 116
     }
   ]
 }

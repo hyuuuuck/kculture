@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T04:37:43.831Z",
+  "generatedAt": "2026-07-05T10:32:44.650Z",
   "files": {
     "audit": "source-audit-2026-07-05.json",
     "candidates": "official-page-candidates-2026-07-05.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
-    "fallbackSources": 5,
+    "auditOk": 53,
+    "auditFailed": 2,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 561,
-    "dateSignals": 206,
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 504,
+    "dateSignals": 237,
     "draftCandidates": 35,
-    "skippedCandidates": 579
+    "skippedCandidates": 522
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,6 +42,26 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Hyundai Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Hyundai Department Store Events",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -70,11 +70,6 @@
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -83,11 +78,11 @@
       "count": 14
     },
     {
-      "key": "NOL World Ticket",
-      "count": 9
+      "key": "NOL World Seoul Pop-ups",
+      "count": 8
     },
     {
-      "key": "NOL World Seoul Pop-ups",
+      "key": "NOL World Ticket",
       "count": 8
     },
     {
@@ -124,26 +119,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 521
+      "count": 467
     },
     {
       "key": "source fetch did not succeed",
-      "count": 11
+      "count": 10
     },
     {
       "key": "already published source URL",
       "count": 7
     },
     {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 5
-    },
-    {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
+      "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     }
   ],
@@ -197,20 +192,20 @@
       "score": 135
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 5,
-      "score": 116
-    },
-    {
       "sourceName": "Shinsegae Group Newsroom",
       "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
       "links": 23,
       "dates": 3,
       "keywords": 6,
       "score": 116
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

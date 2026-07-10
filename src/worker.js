@@ -32,6 +32,9 @@ export default {
 
     if (contentType.toLowerCase().startsWith("text/html") || url.pathname.endsWith(".html")) {
       headers.set("content-type", "text/html; charset=utf-8");
+      // HTML carries editorial dates, AdSense consent state, and the current
+      // approved catalog. Do not let an edge copy outlive a deployment.
+      headers.set("cache-control", "no-cache, must-revalidate");
     }
 
     return new Response(response.body, {

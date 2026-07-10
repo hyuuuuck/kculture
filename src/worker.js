@@ -16,7 +16,10 @@ export default {
       return Response.redirect(`${url.origin}/en/`, 301);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    // The editorial HTML must come from the current asset manifest. A
+    // no-store subrequest prevents an older edge copy from surviving a
+    // validated content or monetization release.
+    const response = await env.ASSETS.fetch(request, { cache: "no-store" });
     const retiredLanguagePath = /^\/(es|zh|pt|ru|ja|fr|de)(?:\/|$)/.test(url.pathname);
     if (response.status === 404 && retiredLanguagePath) {
       return new Response("This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition.", {

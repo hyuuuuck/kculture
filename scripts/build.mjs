@@ -3326,7 +3326,7 @@ function rfc2822Date(iso) {
 }
 
 function eventPublicUrl(event, lang) {
-  return absoluteUrl(`/${lang}/events/${event.slug}.html`);
+  return absoluteUrl(eventHref(lang, event));
 }
 
 function eventFeedSummary(event, lang) {
@@ -3404,7 +3404,7 @@ function recheckJson() {
       daysUntilDue,
       sourceName: event.sourceName,
       sourceUrl: event.sourceUrl,
-      publicUrl: absoluteUrl(`/en/events/${event.slug}.html`)
+      publicUrl: absoluteUrl(eventHref("en", event))
     }))
   }, null, 2);
 }
@@ -3501,8 +3501,16 @@ function cityHref(lang, city) {
   return `/${lang}/cities/${citySlug(city)}/`;
 }
 
+function eventHref(lang, event) {
+  return `/${lang}/events/${event.slug}`;
+}
+
+function guideHref(lang, guide) {
+  return `/${lang}/guides/${guide.slug}`;
+}
+
 function routeHref(lang, route) {
-  return `/${lang}/routes/${route.slug}.html`;
+  return `/${lang}/routes/${route.slug}`;
 }
 
 function cityLinkStrip(lang) {
@@ -5861,7 +5869,7 @@ function itemListSchema(lang, title, itemEvents, pageUrl) {
     itemListElement: itemEvents.map((event, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: absoluteUrl(`/${lang}/events/${event.slug}.html`),
+      url: absoluteUrl(eventHref(lang, event)),
       name: local(event.title, lang)
     }))
   };
@@ -5874,7 +5882,7 @@ function shouldUseEventSchema(event) {
 }
 
 function detailPageSchema(event, lang) {
-  const pageUrl = absoluteUrl(`/${lang}/events/${event.slug}.html`);
+  const pageUrl = absoluteUrl(eventHref(lang, event));
   const imageUrl = absoluteUrl(`/${event.thumbnail}`);
   const review = editorialReviewFor(event);
   return {
@@ -5909,7 +5917,7 @@ function detailPageSchema(event, lang) {
 }
 
 function eventSchema(event, lang) {
-  const eventUrl = absoluteUrl(`/${lang}/events/${event.slug}.html`);
+  const eventUrl = absoluteUrl(eventHref(lang, event));
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -6152,7 +6160,7 @@ function eventCard(event, lang) {
   const role = sourceRoleType(event);
   return `
     <article class="event-card" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-source-role="${esc(role)}" data-search="${esc(eventSearchText(event, lang))}">
-      <a class="event-thumb" href="/${lang}/events/${event.slug}.html">
+      <a class="event-thumb" href="${eventHref(lang, event)}">
         <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
         <span class="badge ${status}">${statusLabel(lang, status)}</span>
         <span class="thumb-overlay">
@@ -6171,7 +6179,7 @@ function eventCard(event, lang) {
           <span class="source-role-chip ${esc(role)}">${esc(sourceRoleLabel(event, lang))}</span>
           <span>${esc(event.sourceName)}</span>
         </div>
-        <h3><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></h3>
+        <h3><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></h3>
         <p>${esc(eventSummaryText(event, lang))}</p>
         <dl class="compact-facts">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div>
@@ -6194,7 +6202,7 @@ function eventPlanTools(lang) {
 }
 
 function saveEventButton(event, lang) {
-  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(eventDateLabel(event, lang, false))}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="/${lang}/events/${event.slug}.html" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-event-map-query="${esc(eventPlaceQuery(event))}" data-event-venue="${esc([event.venue, event.district].filter(Boolean).join(", "))}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
+  return `<button type="button" class="save-event" data-save-event data-event-slug="${esc(event.slug)}" data-event-title="${esc(local(event.title, lang))}" data-event-date="${esc(eventDateLabel(event, lang, false))}" data-event-start="${esc(event.startDate)}" data-event-end="${esc(event.endDate)}" data-event-city="${esc(event.city)}" data-event-category="${esc(categoryLabel(lang, event.category))}" data-event-url="${eventHref(lang, event)}" data-event-source-url="${esc(event.sourceUrl)}" data-event-source-name="${esc(event.sourceName)}" data-event-map-query="${esc(eventPlaceQuery(event))}" data-event-venue="${esc([event.venue, event.district].filter(Boolean).join(", "))}" data-save-label="${esc(tr(lang, "saveEvent"))}" data-saved-label="${esc(tr(lang, "savedEvent"))}" aria-pressed="false"><span class="save-event-label" data-save-event-label>${tr(lang, "saveEvent")}</span></button>`;
 }
 
 function spotlightEvents(sorted) {
@@ -6238,7 +6246,7 @@ function spotlightCarousel(slides, lang) {
                         ? " is-prev"
                         : "";
                   return `
-                <a class="spotlight-card${positionClass}" data-spotlight-slide href="/${lang}/events/${event.slug}.html" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
+                <a class="spotlight-card${positionClass}" data-spotlight-slide href="${eventHref(lang, event)}" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
                   <img src="/${event.thumbnail}" alt="" aria-hidden="true" draggable="false">
                   <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
                   <span class="spotlight-title">${esc(local(event.title, lang))}</span>
@@ -7416,12 +7424,12 @@ function recheckQueuePanel(lang) {
           const freshness = freshnessInfo(event, lang);
           return `
           <article class="recheck-card ${freshness.tone}">
-            <a class="recheck-thumb" href="/${lang}/events/${event.slug}.html" aria-label="${esc(local(event.title, lang))}">
+            <a class="recheck-thumb" href="${eventHref(lang, event)}" aria-label="${esc(local(event.title, lang))}">
               <img src="/${event.thumbnail}" alt="${esc(local(event.title, lang))}" loading="lazy">
               <span class="recheck-badge">${esc(recheckDueText(lang, daysUntilDue))}</span>
             </a>
             <div class="recheck-card-body">
-              <strong class="recheck-title"><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+              <strong class="recheck-title"><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></strong>
               <em class="recheck-meta"><span>${esc(cityLabel(lang, event.city))}</span><span>${categoryLabel(lang, event.category)}</span><span>${esc(statusLabel(lang, statusOf(event)))}</span></em>
               <small class="recheck-checked">${esc(tr(lang, "lastChecked"))}: ${esc(dateText(lang, event.lastChecked))} / ${esc(ageDays)} of ${esc(limitDays)} days</small>
               <a class="recheck-source" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank"><span>${esc(tr(lang, "sourceLink"))}</span><strong>${esc(event.sourceName)}</strong></a>
@@ -7437,7 +7445,7 @@ function nowItem(event, lang, mode = "ends") {
   const metric = nowMetric(event, lang, mode);
   const tone = nowMetricTone(event, mode);
   return `
-    <a class="now-item" href="/${lang}/events/${event.slug}.html">
+    <a class="now-item" href="${eventHref(lang, event)}">
       <img src="/${event.thumbnail}" alt="" aria-hidden="true">
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
@@ -7594,7 +7602,7 @@ function renderCity(lang, city) {
           </div>
         </div>
         ${heroEvent ? `
-        <a class="city-hero-feature" href="/${lang}/events/${heroEvent.slug}.html">
+        <a class="city-hero-feature" href="${eventHref(lang, heroEvent)}">
           <img src="/${esc(heroEvent.thumbnail)}" alt="" aria-hidden="true">
           <span>${esc(statusLabel(lang, statusOf(heroEvent)))} · ${esc(eventDateLabel(heroEvent, lang))}</span>
           <strong>${esc(local(heroEvent.title, lang))}</strong>
@@ -7818,7 +7826,7 @@ function calendarMonthHeading(lang, key) {
 function calendarItem(event, lang) {
   const status = statusOf(event);
   return `
-    <a class="calendar-item" href="/${lang}/events/${event.slug}.html" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
+    <a class="calendar-item" href="${eventHref(lang, event)}" data-card data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
       <span class="date-pill">${dateText(lang, event.startDate)}<small>${dateText(lang, event.endDate)}</small></span>
       <span>
         <strong>${esc(local(event.title, lang))}</strong>
@@ -8117,8 +8125,8 @@ function renderEvent(event, lang) {
             <h2>Useful next pages</h2>
           </div>
           <div class="compact-related-links">
-            ${(relatedGuides.length ? relatedGuides : guides.slice(0, 2)).slice(0, 2).map((guide) => `<a href="/${lang}/guides/${guide.slug}.html"><strong>${esc(guideTitleText(guide, lang))}</strong><span>${esc(guideSummaryText(guide, lang))}</span></a>`).join("")}
-            ${relatedEvents.slice(0, 2).map((item) => `<a href="/${lang}/events/${item.slug}.html"><strong>${esc(local(item.title, lang))}</strong><span>${esc(eventDateLabel(item, lang, false))} / ${esc(cityLabel(lang, item.city))}</span></a>`).join("")}
+            ${(relatedGuides.length ? relatedGuides : guides.slice(0, 2)).slice(0, 2).map((guide) => `<a href="${guideHref(lang, guide)}"><strong>${esc(guideTitleText(guide, lang))}</strong><span>${esc(guideSummaryText(guide, lang))}</span></a>`).join("")}
+            ${relatedEvents.slice(0, 2).map((item) => `<a href="${eventHref(lang, item)}"><strong>${esc(local(item.title, lang))}</strong><span>${esc(eventDateLabel(item, lang, false))} / ${esc(cityLabel(lang, item.city))}</span></a>`).join("")}
           </div>
         </section>
       </article>
@@ -8129,8 +8137,8 @@ function renderEvent(event, lang) {
     title: `${local(event.title, lang)} - K-Spot Now`,
     description,
     body,
-    canonicalPath: `/${lang}/events/${event.slug}.html`,
-    currentPathBuilder: (code) => `/${code}/events/${event.slug}.html`,
+    canonicalPath: eventHref(lang, event),
+    currentPathBuilder: (code) => eventHref(code, event),
     imagePath: `/${event.thumbnail}`,
     pageType: "article",
     noindex: status === "ended",
@@ -8140,7 +8148,7 @@ function renderEvent(event, lang) {
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
         { name: categoryLabel(lang, event.category), url: categoryHref(lang, event.category) },
-        { name: local(event.title, lang), url: `/${lang}/events/${event.slug}.html` }
+        { name: local(event.title, lang), url: eventHref(lang, event) }
       ])
     ]
   });
@@ -8197,7 +8205,7 @@ function guideCard(guide, lang) {
     "travel-benefits": "assets/thumb-travel.jpg"
   }[guide.category] || "assets/hero.jpg";
   return `
-    <a class="guide-card guide-card-${esc(categoryClass)}" href="/${lang}/guides/${guide.slug}.html">
+    <a class="guide-card guide-card-${esc(categoryClass)}" href="${guideHref(lang, guide)}">
       <span class="guide-card-media" aria-hidden="true">
         <img src="/${esc(guideMedia)}" alt="" loading="lazy" aria-hidden="true" role="presentation">
         <span class="guide-card-icon" aria-hidden="true"></span>
@@ -8498,7 +8506,7 @@ function renderGuideSection(section, index) {
 }
 
 function guideArticleSchema(guide, lang) {
-  const pageUrl = absoluteUrl(`/${lang}/guides/${guide.slug}.html`);
+  const pageUrl = absoluteUrl(guideHref(lang, guide));
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -8551,7 +8559,7 @@ function renderGuide(guide, lang) {
       <section class="guide-next-section" aria-labelledby="guide-next-title">
         <div class="section-head"><div><p class="eyebrow">Apply the guide</p><h2 id="guide-next-title">Current pages to compare</h2></div></div>
         <div class="guide-next-grid">
-          ${relatedEvents.slice(0, 3).map((event) => `<a href="/${lang}/events/${event.slug}.html"><strong>${esc(local(event.title, lang))}</strong><span>${esc(eventDateLabel(event, lang, false))} / ${esc(cityLabel(lang, event.city))}</span></a>`).join("")}
+          ${relatedEvents.slice(0, 3).map((event) => `<a href="${eventHref(lang, event)}"><strong>${esc(local(event.title, lang))}</strong><span>${esc(eventDateLabel(event, lang, false))} / ${esc(cityLabel(lang, event.city))}</span></a>`).join("")}
           ${relatedRoutes.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}"><strong>${esc(routeCopy(route, lang).title)}</strong><span>${esc(routeCopy(route, lang).summary || "Route planning page")}</span></a>`).join("")}
         </div>
       </section>
@@ -8561,8 +8569,8 @@ function renderGuide(guide, lang) {
     title: `${guideTitleText(guide, lang)} - K-Spot Now`,
     description: guideSummaryText(guide, lang),
     body,
-    canonicalPath: `/${lang}/guides/${guide.slug}.html`,
-    currentPathBuilder: (code) => `/${code}/guides/${guide.slug}.html`,
+    canonicalPath: guideHref(lang, guide),
+    currentPathBuilder: (code) => guideHref(code, guide),
     adsEligible: approvedGuideSlugs.has(guide.slug),
     pageType: "article",
     schemaData: [
@@ -8570,7 +8578,7 @@ function renderGuide(guide, lang) {
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
         { name: "Guides", url: `/${lang}/guides/` },
-        { name: guideTitleText(guide, lang), url: `/${lang}/guides/${guide.slug}.html` }
+        { name: guideTitleText(guide, lang), url: guideHref(lang, guide) }
       ])
     ]
   });
@@ -9307,7 +9315,7 @@ function renderFreshness(lang) {
           <article class="freshness-row ${freshness.tone}">
             <div>
               <span>${dateText(lang, event.lastChecked)}</span>
-              <strong><a href="/${lang}/events/${event.slug}.html">${esc(local(event.title, lang))}</a></strong>
+              <strong><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></strong>
               <em>${esc(cityLabel(lang, event.city))} · ${categoryLabel(lang, event.category)} · ${statusLabel(lang, statusOf(event))}</em>
               <span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span>
             </div>
@@ -10088,7 +10096,7 @@ function sitemap() {
   }
   for (const event of seoEvents) {
     entries.push({
-      url: `/${lang}/events/${event.slug}.html`,
+      url: eventHref(lang, event),
       lastmod: editorialReviewFor(event)?.reviewedAt || event.lastChecked,
       image: {
         loc: absoluteUrl(`/${event.thumbnail}`),
@@ -10099,7 +10107,7 @@ function sitemap() {
   }
   for (const guide of guides) {
     entries.push({
-      url: `/${lang}/guides/${guide.slug}.html`,
+      url: guideHref(lang, guide),
       lastmod: guide.updatedAt || guide.publishedAt || editorialProgram.staticUpdatedAt?.["/en/guides/"] || latestEventReview
     });
   }

@@ -179,3 +179,16 @@ jobs:
         run: |
           echo "Deployment URL: $DEPLOYMENT_URL"
           echo "Deployment alias URL: $DEPLOYMENT_ALIAS_URL"
+
+      - name: Verify live canonical surface
+        if: ${{ steps.cloudflare-token.outputs.available == 'true' }}
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            echo "Live canonical audit attempt $attempt of 6"
+            if npm run check:domain; then
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error title=Live canonical audit failed::The custom domain did not expose a redirect-free canonical sitemap after deployment."
+          exit 1

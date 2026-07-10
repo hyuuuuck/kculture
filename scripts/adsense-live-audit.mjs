@@ -20,7 +20,7 @@ const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."] },
   { path: "/en/", label: "English home", needles: ["K-Spot Now", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
-  { path: "/en/events/bts-city-arirang-busan-2026.html", label: "Representative event", needles: ["Official source", "Weather planning", "Map and transit checks"] },
+  { path: "/en/events/bts-city-arirang-busan-2026", label: "Representative event", needles: ["Official source", "Weather planning", "Map and transit checks"] },
   { path: "/en/routes/", label: "Travel routes", needles: ["Travel routes", "routes-with-ad no-ad"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides"] },
@@ -32,7 +32,7 @@ const hiddenLanguageRoots = ["/de/", "/fr/", "/ja/", "/es/", "/zh/", "/pt/", "/r
 const layoutPages = [
   { path: "/en/", label: "Home" },
   { path: "/en/routes/", label: "Routes", routeCheck: true },
-  { path: "/en/events/bts-city-arirang-busan-2026.html", label: "Event detail" },
+  { path: "/en/events/bts-city-arirang-busan-2026", label: "Event detail" },
   { path: "/en/calendar/", label: "Calendar" }
 ];
 const viewports = [
@@ -114,6 +114,34 @@ async function auditAdsTxt() {
   }
 }
 
+async function auditSitemapTargets() {
+  const sitemap = await fetchLive("/sitemap.xml", "manual");
+  if (!sitemap.ok || sitemap.status !== 200) {
+    fail("Search", "Sitemap targets", `${sitemap.url} returned ${sitemap.status || sitemap.error}`, "Redeploy and verify the root sitemap before requesting AdSense review.");
+    return;
+  }
+
+  const urls = [...sitemap.text.matchAll(/<loc>(https:\/\/kspotnow\.com[^<]+)<\/loc>/g)].map((match) => match[1]);
+  const failures = [];
+  for (const url of urls) {
+    const target = await fetchLive(url, "manual");
+    if (target.status !== 200) {
+      failures.push(`${url} -> ${target.status || target.error}`);
+      continue;
+    }
+    const canonical = target.text.match(/<link rel="canonical" href="([^"]+)">/)?.[1];
+    if (canonical !== url) failures.push(`${url} -> canonical ${canonical || "missing"}`);
+  }
+
+  if (!urls.length) {
+    fail("Search", "Sitemap targets", "No canonical URLs were found in the live sitemap.", "Rebuild sitemap.xml from the approved editorial set.");
+  } else if (failures.length) {
+    fail("Search", "Sitemap targets", `${failures.length}/${urls.length} sitemap URLs redirect, fail, or disagree with canonical: ${failures.slice(0, 3).join("; ")}`, "Sitemap URLs must return 200 directly and exactly match each page canonical.");
+  } else {
+    pass("Search", "Sitemap targets", `${urls.length} sitemap URLs return 200 directly and exactly match their canonical tags.`);
+  }
+}
+
 async function auditAdSenseHead() {
   const result = await fetchLive("/en/");
   if (clientId && result.text.includes(clientId) && result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
@@ -133,7 +161,7 @@ async function auditAffiliatePause() {
 
   const samples = await Promise.all([
     fetchLive("/en/"),
-    fetchLive("/en/events/bts-city-arirang-busan-2026.html"),
+    fetchLive("/en/events/bts-city-arirang-busan-2026"),
     fetchLive("/en/routes/")
   ]);
   const joined = samples.map((sample) => sample.text).join("\n");
@@ -149,7 +177,7 @@ async function auditAffiliatePause() {
 async function auditHiddenLanguages() {
   for (const pathname of hiddenLanguageRoots) {
     const result = await fetchLive(pathname, "manual");
-    if (result.status === 404) {
+    if (result.status === 404 || result.status === 410) {
       pass("Localization", pathname, "Hidden during English-only AdSense review.");
     } else {
       fail("Localization", pathname, `Returned ${result.status}; unfinished localized pages should not be public.`, "Keep PUBLIC_LANGUAGES=en until each localized depth audit passes.");
@@ -415,6 +443,7 @@ ${checks.map((check) => `| ${check.status} | ${check.area} | ${check.item} | ${S
 await auditRequiredPages();
 await auditAdsTxt();
 await auditAdSenseHead();
+await auditSitemapTargets();
 await auditAffiliatePause();
 await auditHiddenLanguages();
 await auditLayout();

@@ -54,18 +54,18 @@ for (const lang of languages) {
 
   const now = read(`${lang}/now/index.html`);
   for (const event of approvedEvents) {
-    const href = `/${lang}/events/${event.slug}.html`;
+    const href = `/${lang}/events/${event.slug}`;
     if (!now.includes(href)) push(`${lang}/now/index.html`, `reviewed event is missing from the current-event page: ${event.slug}`);
   }
 
   const routeIndex = read(`${lang}/routes/index.html`);
   for (const route of approvedRoutes) {
-    if (!routeIndex.includes(`/${lang}/routes/${route.slug}.html`)) push(`${lang}/routes/index.html`, `approved route is missing: ${route.slug}`);
+    if (!routeIndex.includes(`/${lang}/routes/${route.slug}`)) push(`${lang}/routes/index.html`, `approved route is missing: ${route.slug}`);
   }
 
   const guideIndex = read(`${lang}/guides/index.html`);
   for (const guide of approvedGuides) {
-    if (!guideIndex.includes(`/${lang}/guides/${guide.slug}.html`)) push(`${lang}/guides/index.html`, `approved guide is missing: ${guide.slug}`);
+    if (!guideIndex.includes(`/${lang}/guides/${guide.slug}`)) push(`${lang}/guides/index.html`, `approved guide is missing: ${guide.slug}`);
   }
 
   for (const event of approvedEvents) {

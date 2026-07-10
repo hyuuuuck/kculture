@@ -93,11 +93,38 @@ async function fetchRaw(urlString) {
       signal: controller.signal,
       headers: { "user-agent": "KSpotNowDomainCheck/1.0" }
     });
-    return { status: response.status, headers: response.headers };
+    const text = await response.text();
+    return { status: response.status, headers: response.headers, text };
   } catch (error) {
-    return { status: 0, headers: new Headers(), error: error.message };
+    return { status: 0, headers: new Headers(), text: "", error: error.message };
   } finally {
     clearTimeout(timer);
+  }
+}
+
+async function expectSitemapTargets() {
+  const sitemap = await fetchText("/sitemap.xml");
+  if (!sitemap.ok || sitemap.status !== 200) return;
+  const urls = [...sitemap.text.matchAll(/<loc>(https:\/\/kspotnow\.com[^<]+)<\/loc>/g)].map((match) => match[1]);
+  if (!urls.length) {
+    fail("Sitemap canonical targets", "No production URLs found in sitemap.xml", "Rebuild the focused editorial sitemap and redeploy.");
+    return;
+  }
+
+  const results = await Promise.all(urls.map(async (url) => {
+    const response = await fetchRaw(url);
+    const canonical = response.text.match(/<link rel="canonical" href="([^"]+)">/)?.[1] || "";
+    return { url, status: response.status, error: response.error, canonical };
+  }));
+  const invalid = results.filter((result) => result.status !== 200 || result.canonical !== result.url);
+  if (invalid.length) {
+    fail(
+      "Sitemap canonical targets",
+      `${invalid.length}/${results.length} invalid: ${invalid.slice(0, 3).map((item) => `${item.url} -> ${item.status || item.error || 0}, canonical ${item.canonical || "missing"}`).join("; ")}`,
+      "Every sitemap URL must return 200 without a redirect and exactly match its canonical tag."
+    );
+  } else {
+    pass("Sitemap canonical targets", `${results.length} URLs return 200 directly and match canonical tags`);
   }
 }
 
@@ -119,8 +146,9 @@ if (siteUrl) {
   await expectPage("/en/cookie-policy/", "Cookie policy", ["Cookie"]);
   await expectPage("/en/advertising/", "Advertising policy", ["Advertising Policy", "ads cannot buy event inclusion"]);
   await expectPage("/en/contact/", "Contact page", [contactEmail]);
-  await expectPage("/en/events/bts-city-arirang-busan-2026.html", "Representative event detail", ["Official", "Weather planning", "Map and transit checks"]);
+  await expectPage("/en/events/bts-city-arirang-busan-2026", "Representative event detail", ["Official", "Weather planning", "Map and transit checks"]);
   await expectPage("/.well-known/security.txt", "security.txt", ["Contact: mailto:"]);
+  await expectSitemapTargets();
 
   if (!isPreviewHost(siteUrl.hostname)) {
     await expectCanonicalRedirect(`http://${siteUrl.hostname}/en/`, "HTTP to HTTPS redirect");

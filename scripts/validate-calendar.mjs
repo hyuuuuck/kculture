@@ -131,7 +131,7 @@ function validateCalendarHtml() {
     if (!html.includes("calendar-weather")) push(`${lang}/calendar`, "calendar page should show weather planning notes.");
 
     for (const event of currentEvents) {
-      const href = `/${lang}/events/${event.slug}.html`;
+      const href = `/${lang}/events/${event.slug}`;
       const count = html.split(`href="${href}"`).length - 1;
       if (count !== 1) {
         push(`${lang}/calendar:${event.slug}`, `expected exactly one calendar link to ${href}, found ${count}.`);

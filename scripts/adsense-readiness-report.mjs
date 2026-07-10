@@ -83,9 +83,9 @@ function wordCount(value) {
 function expectedSitemapPaths() {
   return new Set([
     ...(program.indexableHubs || []),
-    ...approvedEvents.map((event) => `/en/events/${event.slug}.html`),
-    ...approvedGuides.map((guide) => `/en/guides/${guide.slug}.html`),
-    ...approvedRoutes.map((route) => `/en/routes/${route.slug}.html`)
+    ...approvedEvents.map((event) => `/en/events/${event.slug}`),
+    ...approvedGuides.map((guide) => `/en/guides/${guide.slug}`),
+    ...approvedRoutes.map((route) => `/en/routes/${route.slug}`)
   ]);
 }
 

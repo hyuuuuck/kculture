@@ -18,7 +18,11 @@ function targetFor(file, url) {
   const clean = url.split("#")[0].split("?")[0];
   if (!clean || clean === "/") return null;
   let target = clean.startsWith("/") ? path.join(root, clean) : path.resolve(path.dirname(file), clean);
-  if (clean.endsWith("/")) target = path.join(target, "index.html");
+  if (clean.endsWith("/")) {
+    target = path.join(target, "index.html");
+  } else if (!path.extname(target) && fs.existsSync(`${target}.html`)) {
+    target = `${target}.html`;
+  }
   return target;
 }
 

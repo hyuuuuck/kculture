@@ -53,7 +53,11 @@ jobs:
       GOOGLE_ADSENSE_PUBLISHER_ID: ${{ vars.GOOGLE_ADSENSE_PUBLISHER_ID }}
       GOOGLE_ADSENSE_CLIENT: ${{ vars.GOOGLE_ADSENSE_CLIENT }}
       GOOGLE_ADSENSE_SLOT: ${{ vars.GOOGLE_ADSENSE_SLOT }}
-      GOOGLE_ADSENSE_CMP_READY: ${{ vars.GOOGLE_ADSENSE_CMP_READY || '0' }}
+      # Google AdSense Privacy & Messaging has a published EEA/UK/CH message
+      # for kspotnow.com. Keep an explicit repository override available, but
+      # default releases to the verified CMP state so the production build can
+      # serve AdSense after the consent flow.
+      GOOGLE_ADSENSE_CMP_READY: ${{ vars.GOOGLE_ADSENSE_CMP_READY || '1' }}
       GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       AGODA_PARTNER_CID: ${{ vars.AGODA_PARTNER_CID }}
       TRIP_ALLIANCE_ID: ${{ vars.TRIP_ALLIANCE_ID }}

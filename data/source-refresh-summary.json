@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-10T11:22:26.435Z",
+  "generatedAt": "2026-07-10T15:07:57.201Z",
   "files": {
-    "audit": "source-audit-2026-07-10.json",
-    "candidates": "official-page-candidates-2026-07-10.json",
-    "drafts": "draft-events-2026-07-10.json",
-    "reviewReport": "review-report-2026-07-10.md",
-    "reviewBoard": "review-board-2026-07-10.html"
+    "audit": "source-audit-2026-07-11.json",
+    "candidates": "official-page-candidates-2026-07-11.json",
+    "drafts": "draft-events-2026-07-11.json",
+    "reviewReport": "review-report-2026-07-11.md",
+    "reviewBoard": "review-board-2026-07-11.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
+    "auditOk": 54,
+    "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 651,
-    "dateSignals": 277,
-    "draftCandidates": 76,
-    "skippedCandidates": 628
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 625,
+    "dateSignals": 274,
+    "draftCandidates": 75,
+    "skippedCandidates": 603
   },
   "failedSources": [
     {
@@ -42,7 +42,17 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -57,12 +67,12 @@
       "count": 15
     },
     {
-      "key": "NOL World Ticket",
-      "count": 13
+      "key": "NOL World Seoul Pop-ups",
+      "count": 12
     },
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 10
+      "key": "NOL World Ticket",
+      "count": 11
     },
     {
       "key": "Busan Metropolitan City Events and English News",
@@ -89,19 +99,19 @@
     {
       "key": "department-store",
       "count": 3
-    },
-    {
-      "key": "duty-free",
-      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 574
+      "count": 549
     },
     {
       "key": "duplicate draft source URL",
+      "count": 10
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 8
     },
     {
@@ -110,11 +120,7 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 5
+      "count": 4
     },
     {
       "key": "already published similar event: day6-decade-finale-seoul-2026",
@@ -135,8 +141,8 @@
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 8,
-      "score": 145
+      "keywords": 7,
+      "score": 144
     },
     {
       "sourceName": "Visit Seoul",

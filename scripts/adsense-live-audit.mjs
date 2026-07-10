@@ -5,6 +5,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { todayString } from "./lib/date.mjs";
 import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { envFlag } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
 const today = todayString();
@@ -13,6 +14,7 @@ const timeoutMs = Number(process.env.LIVE_AUDIT_TIMEOUT_MS || 12000);
 const reviewMode = process.env.ADSENSE_REVIEW_MODE !== "0";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
+const cmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
 const checks = [];
 const layoutResults = [];
 
@@ -144,8 +146,10 @@ async function auditSitemapTargets() {
 
 async function auditAdSenseHead() {
   const result = await fetchLive("/en/");
-  if (clientId && result.text.includes(clientId) && result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
-    pass("AdSense", "Auto ads script", `Live home includes ${clientId}.`);
+  if (cmpReady && clientId && result.text.includes(clientId) && result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
+    pass("AdSense", "Auto ads script", `Live home includes ${clientId} after CMP confirmation.`);
+  } else if (!cmpReady && clientId && !result.text.includes("adsbygoogle")) {
+    pass("AdSense", "Auto ads script", "Live ad script is held behind the CMP gate; no ad markup is served before confirmation.");
   } else if (clientId) {
     fail("AdSense", "Auto ads script", `Live home is missing ${clientId}.`, "Rebuild with the configured AdSense client and redeploy.");
   } else {

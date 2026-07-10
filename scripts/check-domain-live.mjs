@@ -146,7 +146,7 @@ if (siteUrl) {
   await expectPage("/en/cookie-policy/", "Cookie policy", ["Cookie"]);
   await expectPage("/en/advertising/", "Advertising policy", ["Advertising Policy", "ads cannot buy event inclusion"]);
   await expectPage("/en/contact/", "Contact page", [contactEmail]);
-  await expectPage("/en/events/bts-city-arirang-busan-2026", "Representative event detail", ["Official", "Weather planning", "Map and transit checks"]);
+  await expectPage("/en/events/red-velvet-day-in-red-velvet-seoul-2026", "Representative event detail", ["Official", "Place, timing, weather", "What we checked"]);
   await expectPage("/.well-known/security.txt", "security.txt", ["Contact: mailto:"]);
   await expectSitemapTargets();
 

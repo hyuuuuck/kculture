@@ -20,7 +20,7 @@ const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."] },
   { path: "/en/", label: "English home", needles: ["K-Spot Now", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
-  { path: "/en/events/bts-city-arirang-busan-2026", label: "Representative event", needles: ["Official source", "Weather planning", "Map and transit checks"] },
+  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Representative event", needles: ["Official source", "Place, timing, weather", "What we checked"] },
   { path: "/en/routes/", label: "Travel routes", needles: ["Travel routes", "routes-with-ad no-ad"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides"] },
@@ -32,7 +32,7 @@ const hiddenLanguageRoots = ["/de/", "/fr/", "/ja/", "/es/", "/zh/", "/pt/", "/r
 const layoutPages = [
   { path: "/en/", label: "Home" },
   { path: "/en/routes/", label: "Routes", routeCheck: true },
-  { path: "/en/events/bts-city-arirang-busan-2026", label: "Event detail" },
+  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Event detail" },
   { path: "/en/calendar/", label: "Calendar" }
 ];
 const viewports = [
@@ -161,7 +161,7 @@ async function auditAffiliatePause() {
 
   const samples = await Promise.all([
     fetchLive("/en/"),
-    fetchLive("/en/events/bts-city-arirang-busan-2026"),
+    fetchLive("/en/events/red-velvet-day-in-red-velvet-seoul-2026"),
     fetchLive("/en/routes/")
   ]);
   const joined = samples.map((sample) => sample.text).join("\n");

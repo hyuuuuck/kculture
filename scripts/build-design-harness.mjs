@@ -96,7 +96,7 @@ const fallbackSystem = {
     {
       group: "Detail",
       title: "Event Detail",
-      path: "/en/events/bts-city-arirang-busan-2026",
+      path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026",
       heroType: "detail-decision",
       contract: "Visit decision page. Useful facts beat long explanations.",
       watch: "Fact cards, source handoff, weather module, ad placement."

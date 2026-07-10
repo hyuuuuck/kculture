@@ -15,7 +15,7 @@ const fallbackPageContracts = [
   { id: "planner", page: "Planner", path: "en/planner/index.html", owner: "designer", contract: "Saved-board tool feels distinct without becoming a homepage clone." },
   { id: "routes", page: "Routes", path: "en/routes/index.html", owner: "publisher", contract: "Route cards lead; ads stay peripheral." },
   { id: "city", page: "City", path: "en/cities/seoul/index.html", owner: "designer", contract: "City identity appears before generic event lists." },
-  { id: "detail", page: "Detail", path: "en/events/bts-city-arirang-busan-2026.html", owner: "planner", contract: "Facts, weather, and source handoff beat explanatory prose." },
+  { id: "detail", page: "Detail", path: "en/events/red-velvet-day-in-red-velvet-seoul-2026.html", owner: "planner", contract: "Facts, weather, and source handoff beat explanatory prose." },
   { id: "about", page: "About", path: "en/about/index.html", owner: "designer", contract: "Service identity feels intentional and branded." }
 ];
 

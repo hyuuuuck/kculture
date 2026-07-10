@@ -12,8 +12,8 @@ const today = todayString();
 const dayMs = 24 * 60 * 60 * 1000;
 const strict = process.argv.includes("--strict") || process.env.ADSENSE_READINESS_STRICT === "1";
 
-const siteUrl = process.env.SITE_URL || "";
-const contactEmail = process.env.CONTACT_EMAIL || "";
+const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
+const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
@@ -384,6 +384,52 @@ function originalVisitorValueStats() {
   };
 }
 
+function htmlText(value) {
+  return String(value || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function wordCount(value) {
+  return (htmlText(value).match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
+}
+
+function eventEditorialBriefStats() {
+  const missing = [];
+  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
+  for (const lang of languages) {
+    for (const event of activeEvents) {
+      const relativePath = `dist/${lang}/events/${event.slug}.html`;
+      if (!exists(relativePath)) {
+        missing.push(`${lang}:${event.slug}:page`);
+        continue;
+      }
+      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
+      const match = html.match(/<section class="detail-section editorial-brief-section"[\s\S]*?<\/section>/);
+      if (!match) {
+        missing.push(`${lang}:${event.slug}:missing-editorial-brief`);
+        continue;
+      }
+      const words = wordCount(match[0]);
+      if (words < 260) missing.push(`${lang}:${event.slug}:brief-${words}-words`);
+    }
+  }
+  return {
+    expected: activeEvents.length * languages.length,
+    ok: activeEvents.length * languages.length - missing.length,
+    missing
+  };
+}
+
 function runChecks() {
   const stats = summaryStats();
   if (publicUrlOk()) pass("Production", "SITE_URL", siteUrl);
@@ -417,6 +463,13 @@ function runChecks() {
     pass("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events include why-go context and 3+ practical visitor tips`);
   } else {
     fail("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events meet the original-value floor`, `Add stronger whyGo copy or 3+ practical tips: ${originalValue.missing.slice(0, 4).map((item) => item.slug).join(", ")}.`);
+  }
+
+  const editorialBriefs = eventEditorialBriefStats();
+  if (editorialBriefs.ok === editorialBriefs.expected) {
+    pass("Content", "Indexable detail originality", `${editorialBriefs.ok}/${editorialBriefs.expected} live/upcoming detail pages include a 260+ word original planning brief`);
+  } else {
+    fail("Content", "Indexable detail originality", `${editorialBriefs.ok}/${editorialBriefs.expected} live/upcoming detail pages meet the editorial brief floor`, `Expand or regenerate original planning briefs: ${editorialBriefs.missing.slice(0, 4).join(", ")}.`);
   }
 
   const thumbnails = thumbnailStats();

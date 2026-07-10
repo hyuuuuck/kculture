@@ -6,8 +6,8 @@ import { todayString } from "./lib/date.mjs";
 
 const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
 const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
-const siteUrl = process.env.SITE_URL || "";
-const contactEmail = process.env.CONTACT_EMAIL || "";
+const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
+const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
@@ -22,6 +22,7 @@ const minimumPublicContentPages = 30;
 const today = todayString();
 const languages = publicLanguageCodes();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const noindexAllowedPages = new Set(["sources", "freshness", "watchlist"]);
 const eventStatusBySlug = new Map(events.map((event) => [event.slug, event.endDate < today ? "ended" : event.startDate > today ? "upcoming" : "live"]));
 
 function normalizeGoogleSiteVerification(value) {
@@ -226,8 +227,10 @@ for (const file of generatedHtmlFiles) {
   if (/<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(text)) {
     const relative = path.relative(dist, file).replaceAll(path.sep, "/");
     const eventMatch = relative.match(/^[a-z]{2}\/events\/([^/]+)\.html$/);
+    const pageMatch = relative.match(/^[a-z]{2}\/([^/]+)\/index\.html$/);
     const isEndedEventPage = eventMatch && eventStatusBySlug.get(eventMatch[1]) === "ended";
-    if (!isEndedEventPage) {
+    const isAllowedOperationalPage = pageMatch && noindexAllowedPages.has(pageMatch[1]);
+    if (!isEndedEventPage && !isAllowedOperationalPage) {
       fail(`${relative} contains a noindex robots meta tag.`);
     }
   }

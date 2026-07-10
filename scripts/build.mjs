@@ -3410,6 +3410,17 @@ function citiesWithEvents() {
     .sort((a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b));
 }
 
+function citiesWithPages() {
+  const counts = cityCounts();
+  const cities = new Set(citiesWithEvents());
+  for (const route of routes) {
+    for (const region of route.regions || []) {
+      if (cityDefinitions[region]) cities.add(region);
+    }
+  }
+  return [...cities].sort((a, b) => (counts.get(b) || 0) - (counts.get(a) || 0) || a.localeCompare(b));
+}
+
 function shortHash(value) {
   let hash = 0;
   for (const char of String(value || "")) {
@@ -6995,6 +7006,138 @@ function visitorActionChecklist(event, lang) {
         </section>`;
 }
 
+function categoryPlanningProfile(event) {
+  const profiles = {
+    festival: {
+      decision: "Treat this as a day-plan page, not only a date listing. Festivals can change program order, booth locations, crowd routes, and outdoor operating notices close to the visit date.",
+      check: "Confirm opening hours, paid or free areas, reservation rules, weather notices, and the exact entrance on the organizer or tourism source before leaving.",
+      timing: "Arrive earlier for photo zones, food stalls, riverside programs, fireworks, parades, or any event promoted heavily by a city tourism office."
+    },
+    kpop: {
+      decision: "Use this page to separate the fan plan from the final ticket or reservation step. K-pop pop-ups and concerts often involve identity checks, queue numbers, purchase limits, venue rules, and same-day crowd changes.",
+      check: "Open the linked source for final ticketing, reservation, fanclub, pickup, refund, and entry rules because those details can change faster than a general travel page.",
+      timing: "Save the map query, nearby route idea, and a backup indoor stop before entering the venue because exits and taxis can become the hardest part of the day."
+    },
+    beauty: {
+      decision: "Use this as a shopping-planning page. Beauty offers can depend on country, app login, online checkout, store stock, membership, gift availability, or campaign period.",
+      check: "Confirm whether the offer is online-only, offline-friendly, limited by country, or tied to a specific product set before building a store route around it.",
+      timing: "Plan the store visit with nearby shopping, cafe, or transit stops so a sold-out item does not waste the whole route."
+    },
+    "duty-free": {
+      decision: "Use this page before payment or airport pickup planning. Duty-free campaigns can depend on passport, flight, payment method, purchase allowance, pickup terminal, and delivery cutoff.",
+      check: "Confirm eligibility, pickup rules, airport terminal, product exclusions, and final price on the duty-free source before buying.",
+      timing: "Leave airport buffer time because pickup counters and security lines can make a tight itinerary risky."
+    },
+    "department-store": {
+      decision: "Use this as a branch and floor-planning page. Department-store pop-ups and brand events can move between floors, sell out gifts, or change queue rules without much warning.",
+      check: "Confirm branch, floor, operating hours, reservation needs, purchase conditions, and whether the event is open to walk-in visitors.",
+      timing: "Pair the visit with food hall, subway, or nearby shopping stops so the plan still works if the featured event is crowded."
+    },
+    shopping: {
+      decision: "Use this as a practical deal filter. Shopping events can be useful only when dates, store access, stock, payment rules, and visitor eligibility line up with the trip.",
+      check: "Confirm discount exclusions, gift conditions, store participation, and product availability on the linked source before heading out.",
+      timing: "Build a short route with a backup stop so the trip still has value if one item or brand is unavailable."
+    },
+    "travel-benefits": {
+      decision: "Use this as a visitor-benefit checkpoint before booking or moving around Korea. Benefits can depend on nationality, app account, route, purchase channel, and redemption window.",
+      check: "Confirm eligibility, redemption method, available language, required documents, and the final action page before relying on the benefit.",
+      timing: "Use the benefit with a route plan, not as a standalone coupon, so it fits the actual travel day."
+    }
+  };
+  return profiles[event.category] || {
+    decision: "Use this page as a decision layer before the final official action. The value is in combining timing, place, weather, source role, and nearby planning signals.",
+    check: "Confirm the final rules, tickets, reservations, operating hours, and visitor eligibility on the linked source before committing.",
+    timing: "Keep a backup route nearby and recheck the page close to the visit date."
+  };
+}
+
+function weatherBriefSentence(forecast, weatherInfo, lang) {
+  if (forecast) {
+    return `${tr(lang, "weatherKmaShortForecast")} for ${forecast.locationLabel}: ${forecastRangeText(lang, forecast)}; ${forecastSummaryText(forecast, lang)}.`;
+  }
+  const baseline = weatherInfo.baseline || {};
+  return `Seasonal planning baseline for ${weatherInfo.regionKey} in ${weatherInfo.monthName}: ${baselineRangeText(baseline, lang)}. Use it as a trip-planning frame and recheck a live forecast before leaving.`;
+}
+
+function compactRouteSentence(routeIdeas, lang) {
+  if (!routeIdeas.length) return "No fixed route is forced; use the Korean map query and the official source to choose the nearest station, entrance, or branch before leaving.";
+  const first = routeIdeas[0];
+  const stops = Array.isArray(first.stops) ? first.stops.slice(0, 3).join(", ") : "";
+  return `A matching route idea is ${first.title || "a nearby visitor route"}${stops ? `, built around ${stops}` : ""}. Use it as a flexible pattern rather than a fixed tour.`;
+}
+
+function relatedDecisionSentence(relatedEvents, event, lang) {
+  const alternatives = relatedEvents
+    .filter((item) => item.slug !== event.slug)
+    .slice(0, 2)
+    .map((item) => local(item.title, lang));
+  if (!alternatives.length) {
+    return `For comparison, scan the ${categoryLabel(lang, event.category)} and ${cityLabel(lang, event.city)} pages to see whether another current listing fits the trip better.`;
+  }
+  return `If timing or tickets do not work, compare nearby or similar listings such as ${alternatives.join(" and ")} before changing the whole itinerary.`;
+}
+
+function eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, routeIdeas, relatedEvents) {
+  const profile = categoryPlanningProfile(event);
+  const title = local(event.title, lang);
+  const category = categoryLabel(lang, event.category);
+  const city = cityLabel(lang, event.city);
+  const period = eventDateLabel(event, lang, false);
+  const place = eventPlaceQuery(event);
+  const status = statusLabel(lang, statusOf(event));
+  const role = sourceRoleLabel(event, lang);
+  const summary = eventSummaryText(event, lang);
+  const whyGo = eventWhyGoText(event, lang);
+  const tips = eventTravelTips(event, lang).slice(0, 4);
+  const weatherSentence = weatherBriefSentence(forecastInfo, weatherInfo, lang);
+  const routeSentence = compactRouteSentence(routeIdeas, lang);
+  const relatedSentence = relatedDecisionSentence(relatedEvents, event, lang);
+  const recheckWindow = freshnessLimitDays(event);
+  const checklist = [
+    `Open ${event.sourceName} for the final ${role.toLowerCase()} details before buying, reserving, or leaving.`,
+    `Search the Korean place name: ${event.mapQueryKo || place}.`,
+    `Recheck this listing within ${recheckWindow} day${recheckWindow === 1 ? "" : "s"} because ${category.toLowerCase()} details can move quickly.`,
+    ...tips
+  ].slice(0, 7);
+
+  return `
+        <section class="detail-section editorial-brief-section" aria-labelledby="editorial-brief-title">
+          <div class="detail-section-head">
+            <div>
+              <p class="eyebrow">Original visitor brief</p>
+              <h2 id="editorial-brief-title">Use this before you commit to the visit</h2>
+            </div>
+            <p>${esc(status)} / ${esc(category)} / ${esc(city)}</p>
+          </div>
+          <div class="editorial-brief-body">
+            <p><strong>${esc(title)}</strong> is listed for ${esc(period)} around ${esc(place)}. ${esc(summary)} ${esc(whyGo)}</p>
+            <p>${esc(profile.decision)} K-Spot Now adds a visitor-planning layer by putting the source role, Korean map query, weather frame, route idea, calendar file, and recheck timing on one page before the final action happens elsewhere.</p>
+            <p>${esc(profile.check)} ${esc(weatherSentence)} ${esc(routeSentence)}</p>
+            <p>${esc(profile.timing)} ${esc(relatedSentence)} This page should help visitors decide whether the event is worth saving, whether it belongs in the same travel day, and what must still be confirmed on the official source.</p>
+          </div>
+          <div class="editorial-brief-grid">
+            <article>
+              <span>01</span>
+              <strong>Decision fit</strong>
+              <p>Best for visitors comparing ${esc(category.toLowerCase())} options in ${esc(city)} before they spend time on ticketing, checkout, or a long transfer.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>Place and route</strong>
+              <p>Use ${esc(event.mapQueryKo || place)} as the map query, then confirm the exact entrance, floor, station exit, or pickup point on the linked source.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>Freshness check</strong>
+              <p>Last checked ${esc(dateText(lang, event.lastChecked))}. Recheck fast-moving items, queue rules, reservations, and weather close to the visit.</p>
+            </article>
+          </div>
+          <ul class="editorial-brief-checklist">
+            ${checklist.map((item) => `<li>${esc(item)}</li>`).join("")}
+          </ul>
+        </section>`;
+}
+
 function renderHome(lang, canonicalPath = `/${lang}/`) {
   const sorted = currentEvents().sort((a, b) => {
     const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -7784,12 +7927,7 @@ function renderEvent(event, lang) {
         ${sourceTransparencySection(event, lang)}
         ${localizedVisitorBriefSection(event, lang)}
         ${visitorInfoSection(event, lang)}
-
-        <section class="detail-section">
-          <h2>${tr(lang, "readDetails")}</h2>
-          <p>${esc(eventWhyGoText(event, lang))}</p>
-          <p class="notice">${tr(lang, "verifyBefore")}</p>
-        </section>
+        ${eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, routeIdeas, relatedEvents)}
         ${adUnit("detail")}
         ${coupangShoppingWidget(event, lang)}
 
@@ -8260,7 +8398,8 @@ function renderSources(lang) {
     description: tr(lang, "sourcesText"),
     body,
     canonicalPath: `/${lang}/sources/`,
-    currentPathBuilder: (code) => `/${code}/sources/`
+    currentPathBuilder: (code) => `/${code}/sources/`,
+    noindex: true
   });
 }
 
@@ -8922,7 +9061,8 @@ function renderWatchlist(lang) {
     description: tr(lang, "watchlistText"),
     body,
     canonicalPath: `/${lang}/watchlist/`,
-    currentPathBuilder: (code) => `/${code}/watchlist/`
+    currentPathBuilder: (code) => `/${code}/watchlist/`,
+    noindex: true
   });
 }
 
@@ -8958,7 +9098,8 @@ function renderFreshness(lang) {
     description: tr(lang, "freshnessText"),
     body,
     canonicalPath: `/${lang}/freshness/`,
-    currentPathBuilder: (code) => `/${code}/freshness/`
+    currentPathBuilder: (code) => `/${code}/freshness/`,
+    noindex: true
   });
 }
 
@@ -9596,7 +9737,7 @@ async function build() {
     for (const category of Object.keys(categoryDefinitions)) {
       await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
     }
-    for (const city of citiesWithEvents()) {
+    for (const city of citiesWithPages()) {
       await writeHtml(`${lang}/cities/${citySlug(city)}/index.html`, renderCity(lang, city));
     }
     for (const route of routes) {
@@ -9714,9 +9855,6 @@ function sitemap() {
       { url: `/${lang}/planner/`, lastmod: today },
       { url: `/${lang}/guides/`, lastmod: today },
       { url: `/${lang}/routes/`, lastmod: latestEventCheck },
-      { url: `/${lang}/sources/`, lastmod: today },
-      { url: `/${lang}/watchlist/`, lastmod: today },
-      { url: `/${lang}/freshness/`, lastmod: today },
       { url: `/${lang}/editorial-policy/`, lastmod: today },
       { url: `/${lang}/corrections/`, lastmod: today },
       { url: `/${lang}/about/`, lastmod: today },
@@ -9730,7 +9868,7 @@ function sitemap() {
       const categoryEvents = seoEvents.filter((event) => event.category === category);
       entries.push({ url: categoryHref(lang, category), lastmod: maxIso(categoryEvents.map((event) => event.lastChecked), latestEventCheck) });
     }
-    for (const city of citiesWithEvents()) {
+    for (const city of citiesWithPages()) {
       const cityEvents = seoEvents.filter((event) => event.city === city);
       entries.push({ url: cityHref(lang, city), lastmod: maxIso(cityEvents.map((event) => event.lastChecked), latestEventCheck) });
     }

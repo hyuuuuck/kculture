@@ -37,6 +37,12 @@ jobs:
       - name: Import current KMA forecast
         run: npm run import:forecast
 
+      - name: Recheck published live and upcoming events
+        run: npm run recheck:published
+        env:
+          EVENT_RECHECK_TIMEOUT_MS: "12000"
+          EVENT_RECHECK_CONCURRENCY: "5"
+
       - name: Check source availability
         run: npm run check:sources
         env:
@@ -89,7 +95,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/kma-forecast.json data/source-refresh-summary.json
+          git add data/events.json data/kma-forecast.json data/source-refresh-summary.json data/published-event-recheck.json
           if git diff --cached --quiet; then
             echo "No operational snapshot changes to commit."
           else

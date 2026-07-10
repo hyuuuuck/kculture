@@ -3502,6 +3502,96 @@ img {
   color: var(--ink);
 }
 
+.editorial-brief-section {
+  display: grid;
+  gap: 20px;
+  border-color: #b9cdea;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 255, 0.94)),
+    var(--white);
+}
+
+.editorial-brief-section .detail-section-head {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.editorial-brief-body {
+  display: grid;
+  gap: 14px;
+  max-width: 76rem;
+}
+
+.editorial-brief-body p {
+  margin: 0;
+  color: #344054;
+  font-size: 1rem;
+  line-height: 1.66;
+}
+
+.editorial-brief-body strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.editorial-brief-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.editorial-brief-grid article {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.editorial-brief-grid span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--blue-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.editorial-brief-grid strong {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.editorial-brief-grid p {
+  margin: 0;
+  color: #526173;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.editorial-brief-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin: 0;
+  padding: 16px 18px 16px 36px;
+  border: 1px solid #d7e4f5;
+  border-radius: 8px;
+  background: #f8fbff;
+}
+
+.editorial-brief-checklist li {
+  color: #344054;
+  font-size: 0.94rem;
+  font-weight: 720;
+  line-height: 1.48;
+}
+
 .weather-detail-section {
   display: grid;
   gap: 16px;
@@ -6277,6 +6367,8 @@ img {
   .guide-decision-grid,
   .guide-source-list,
   .source-transparency-grid,
+  .editorial-brief-grid,
+  .editorial-brief-checklist,
   .fact-grid,
   .visitor-info-grid,
   .venue-schedule-list,
@@ -7155,6 +7247,38 @@ img {
 
   .detail-section {
     padding: 16px;
+  }
+
+  .editorial-brief-section {
+    gap: 14px;
+  }
+
+  .editorial-brief-section .detail-section-head {
+    display: grid;
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+
+  .editorial-brief-body {
+    gap: 10px;
+  }
+
+  .editorial-brief-body p {
+    font-size: 0.94rem;
+    line-height: 1.54;
+  }
+
+  .editorial-brief-grid {
+    gap: 8px;
+  }
+
+  .editorial-brief-grid article,
+  .editorial-brief-checklist {
+    padding: 12px;
+  }
+
+  .editorial-brief-checklist {
+    padding-left: 30px;
   }
 
   .coupang-affiliate-widget {

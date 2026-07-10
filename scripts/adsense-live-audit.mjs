@@ -20,7 +20,7 @@ const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."] },
   { path: "/en/", label: "English home", needles: ["K-Spot Now", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
-  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Representative event", needles: ["Official source", "Place, timing, weather", "What we checked"] },
+  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Representative event", needles: ["Open Ticketing source", "Place, timing, weather", "What we checked"] },
   { path: "/en/routes/", label: "Travel routes", needles: ["Travel routes", "routes-with-ad no-ad"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides"] },

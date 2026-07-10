@@ -21,10 +21,11 @@ const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-rout
 const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
   .then(JSON.parse)
   .catch(() => []);
+const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
-const requiredLanguages = ["en", "es", "zh", "pt", "ru", "ja"];
 const publicLanguages = publicLanguageCodes();
+const requiredLanguages = publicLanguages;
 const sourceNames = new Set(sources.map((source) => source.name));
 const queueStatuses = new Set(["active", "paused", "archived"]);
 const weatherRegions = new Set(Object.keys(weather.regions));
@@ -481,8 +482,8 @@ for (const item of Array.isArray(curationQueue) ? curationQueue : []) {
   assertUrl(id, "sourceUrl", item.sourceUrl);
 }
 
-if (guides.length < 10) {
-  push(errors, "guides", "at least 10 evergreen guides are required for AdSense readiness.");
+if (guides.length < 8) {
+  push(errors, "guides", "at least 8 source-backed editorial guides are required for the review edition.");
 }
 
 const guideSlugs = new Set();
@@ -496,14 +497,61 @@ for (const guide of guides) {
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
   validateLocalizedObject(id, "guide.title", guide.title, { requireAll: true });
   validateLocalizedObject(id, "guide.summary", guide.summary, { requireAll: true });
-  for (const lang of requiredLanguages) {
-    const sections = guideSections(guide.sections, lang);
-    if (sections.length < 2) push(errors, id, `guide.sections.${lang} needs at least two localized sections.`);
-    for (const section of sections) {
-      if (lang === "en" && String(section || "").trim().length < 60) push(errors, id, "guide sections should be substantial visitor guidance.");
-      if (lang !== "en" && hasBrokenLocalizedText(section)) push(errors, id, `guide.sections.${lang} appears to contain mojibake or encoding-loss question marks.`);
+  if (!isDate(guide.publishedAt)) push(errors, id, "guide.publishedAt must be YYYY-MM-DD.");
+  if (!isDate(guide.updatedAt)) push(errors, id, "guide.updatedAt must be YYYY-MM-DD.");
+  if (!nonEmptyString(guide.reviewedBy)) push(errors, id, "guide.reviewedBy is required.");
+  if (!nonEmptyString(guide.method) || guide.method.length < 60) push(errors, id, "guide.method must explain the editorial research method.");
+  if (!Array.isArray(guide.sources) || guide.sources.length < 2) {
+    push(errors, id, "guide.sources needs at least two primary or authoritative sources.");
+  } else {
+    guide.sources.forEach((source, index) => {
+      if (!nonEmptyString(source.name)) push(errors, id, `guide.sources[${index}].name is required.`);
+      assertUrl(id, `guide.sources[${index}].url`, source.url);
+      if (!nonEmptyString(source.note)) push(errors, id, `guide.sources[${index}].note is required.`);
+    });
+  }
+  const sections = guideSections(guide.sections, "en");
+  if (sections.length < 4) push(errors, id, "guide.sections.en needs at least four decision-focused sections.");
+  let totalParagraphText = "";
+  for (const [index, section] of sections.entries()) {
+    if (!section || typeof section !== "object" || Array.isArray(section)) {
+      push(errors, id, `guide.sections.en[${index}] must be a structured section object.`);
+      continue;
+    }
+    if (!nonEmptyString(section.heading)) push(errors, id, `guide.sections.en[${index}].heading is required.`);
+    if (!Array.isArray(section.paragraphs) || section.paragraphs.length < 2 || !section.paragraphs.every(nonEmptyString)) {
+      push(errors, id, `guide.sections.en[${index}].paragraphs needs at least two substantial paragraphs.`);
+    } else {
+      totalParagraphText += ` ${section.paragraphs.join(" ")}`;
     }
   }
+  if (totalParagraphText.trim().split(/\s+/).length < 280) {
+    push(errors, id, "guide needs at least 280 words of original decision-focused paragraph copy.");
+  }
+}
+
+const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
+const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
+for (const slug of approvedEventSlugs) {
+  const event = events.find((item) => item.slug === slug);
+  const review = editorialProgram.eventReviews?.[slug];
+  if (!event) {
+    push(errors, slug, "editorial-program references a missing event.");
+    continue;
+  }
+  const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
+  if (!review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120) {
+    push(errors, slug, "approved event needs a dated editorial review and substantial visitor decision.");
+  }
+  if (!Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3) {
+    push(errors, slug, "approved event needs at least three foreign-visitor checks.");
+  }
+  if (!evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2)) {
+    push(errors, slug, "approved event needs structured official-source evidence tokens.");
+  }
+}
+for (const slug of approvedGuideSlugs) {
+  if (!guides.some((guide) => guide.slug === slug)) push(errors, slug, "editorial-program references a missing guide.");
 }
 
 const routeSlugs = new Set();

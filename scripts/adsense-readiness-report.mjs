@@ -2,293 +2,43 @@ import fs from "node:fs/promises";
 import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { todayString } from "./lib/date.mjs";
 import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
-import { publicLanguageCodes, affiliatePublishingEnabled } from "./lib/public-languages.mjs";
+import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const today = todayString();
-const dayMs = 24 * 60 * 60 * 1000;
-const strict = process.argv.includes("--strict") || process.env.ADSENSE_READINESS_STRICT === "1";
-
 const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
 const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
-const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
-const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
+const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
+const languages = publicLanguageCodes();
+const affiliateEnabled = affiliatePublishingEnabled();
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
+const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
-const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8")
-  .then(JSON.parse)
-  .catch(() => []);
-const languages = publicLanguageCodes();
-const affiliateEnabled = affiliatePublishingEnabled();
-const eventRichResultCategories = new Set(["festival", "kpop"]);
-const sourceCoverageBuckets = [
-  { id: "tourism-festivals", minSources: 12, pattern: /\b(tourism|tourist|visitkorea|tourapi|festival|visit seoul|visit jeju|busan|incheon|daegu|boryeong|andong|jinju|coex|ddp)\b/i },
-  { id: "government-culture", minSources: 4, pattern: /\b(ministry|mcst|government|policy briefing|culture portal|culture|metropolitan government|kofice)\b/i },
-  { id: "sale-shopping", minSources: 4, pattern: /\b(korea grand sale|korea sale festa|shopping|sale|retail|benefits|promotion)\b/i },
-  { id: "beauty-olive-young", minSources: 2, pattern: /\b(olive young|beauty|cosmetic|cj olive)\b/i },
-  { id: "duty-free", minSources: 4, pattern: /\b(duty free|duty-free|dfs|shilla|lottedfs|shinsegaedf)\b/i },
-  { id: "department-store", minSources: 5, pattern: /\b(department store|lotte department|hyundai department|shinsegae department|galleria|ak plaza|e-hyundai|ehyundai)\b/i },
-  { id: "kpop-popups", minSources: 8, pattern: /\b(k-pop|kpop|pop-up|popup|weverse|fans shop|smtown|yg select|nol world|artist|fan|merch)\b/i },
-  { id: "ticketing", minSources: 4, pattern: /\b(ticket|ticketing|yes24|ticketlink|melon ticket|nol world|reservation)\b/i },
-  { id: "weather", minSources: 1, pattern: /\b(weather|meteorological|kma|asos|temperature|precipitation)\b/i }
-];
-const sourceAutomationStatuses = new Set(["ready-with-api-key", "planned-api", "monitor-and-curate"]);
-
+const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const thumbnailSources = JSON.parse(await fs.readFile(path.join(root, "data", "thumbnail-sources.json"), "utf8"));
+const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
+const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
+const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
 const checks = [];
-
-function normalizeGoogleSiteVerification(value) {
-  const trimmed = String(value || "").trim();
-  if (!trimmed) return "";
-  const contentMatch = trimmed.match(/content=["']([^"']+)["']/i);
-  return contentMatch ? contentMatch[1].trim() : trimmed.replace(/^["']|["']$/g, "");
-}
-
-function envFlag(value) {
-  return /^(1|true|yes)$/i.test(String(value || "").trim());
-}
 
 function exists(relativePath) {
   return fssync.existsSync(path.join(root, relativePath));
 }
 
-function htmlEsc(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function readJson(relativePath) {
+function read(relativePath) {
   try {
-    return JSON.parse(fssync.readFileSync(path.join(root, relativePath), "utf8"));
+    return fssync.readFileSync(path.join(root, relativePath), "utf8");
   } catch {
-    return null;
+    return "";
   }
-}
-
-function structuredEventStats() {
-  const missing = [];
-  let ok = 0;
-  for (const lang of languages) {
-    for (const event of events) {
-      const relativePath = `dist/${lang}/events/${event.slug}.html`;
-      const file = path.join(root, relativePath);
-      if (!fssync.existsSync(file)) {
-        missing.push(relativePath);
-        continue;
-      }
-      const html = fssync.readFileSync(file, "utf8");
-      const shouldUseEventSchema = eventRichResultCategories.has(event.category);
-      const hasExpectedDetailSchema = shouldUseEventSchema
-        ? html.includes("\"@type\":\"Event\"") && html.includes("\"mainEntityOfPage\"")
-        : html.includes("\"@type\":\"WebPage\"") && html.includes("\"primaryImageOfPage\"");
-      if (hasExpectedDetailSchema && html.includes("\"@type\":\"BreadcrumbList\"")) {
-        ok += 1;
-      } else {
-        missing.push(relativePath);
-      }
-    }
-  }
-  return {
-    expected: events.length * languages.length,
-    ok,
-    missing
-  };
-}
-
-function manualAdSlotStats(slotId) {
-  const checks = [
-    "dist/index.html",
-    `dist/en/events/${events[0]?.slug || ""}.html`,
-    `dist/en/guides/${guides[0]?.slug || ""}.html`
-  ].filter((relativePath) => !relativePath.includes("undefined") && exists(relativePath));
-  const ok = checks.filter((relativePath) => fssync.readFileSync(path.join(root, relativePath), "utf8").includes(`data-ad-slot="${slotId}"`));
-  return {
-    expected: checks.length,
-    ok: ok.length,
-    missing: checks.filter((relativePath) => !ok.includes(relativePath))
-  };
-}
-
-function recognizedImage(file) {
-  try {
-    const buffer = fssync.readFileSync(file);
-    return (
-      (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) ||
-      (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) ||
-      (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP") ||
-      buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").includes("<svg")
-    );
-  } catch {
-    return false;
-  }
-}
-
-function thumbnailStats() {
-  const missing = [];
-  const invalid = [];
-  const generatedFallbacks = [];
-  for (const event of events) {
-    if (!event.thumbnail) {
-      missing.push(event.slug);
-      continue;
-    }
-    const file = path.join(root, event.thumbnail);
-    if (!fssync.existsSync(file)) missing.push(event.slug);
-    else if (!recognizedImage(file)) invalid.push(event.slug);
-    if (!String(event.thumbnail).includes("/official/")) generatedFallbacks.push(event.slug);
-  }
-  return {
-    expected: events.length,
-    ok: events.length - missing.length - invalid.length,
-    missing,
-    invalid,
-    generatedFallbacks
-  };
-}
-
-function calendarStats() {
-  const missingPages = [];
-  const missingLinks = [];
-  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
-  for (const lang of languages) {
-    const relativePath = `dist/${lang}/calendar/index.html`;
-    if (!exists(relativePath)) {
-      missingPages.push(lang);
-      continue;
-    }
-    const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
-    for (const event of activeEvents) {
-      if (!html.includes(`href="/${lang}/events/${event.slug}.html"`)) missingLinks.push(`${lang}:${event.slug}`);
-    }
-  }
-  const icsBlocks = exists("dist/events.ics")
-    ? (fssync.readFileSync(path.join(root, "dist", "events.ics"), "utf8").match(/BEGIN:VEVENT/g) || []).length
-    : 0;
-  return {
-    expectedPages: languages.length,
-    presentPages: languages.length - missingPages.length,
-    expectedLinks: languages.length * activeEvents.length,
-    presentLinks: languages.length * activeEvents.length - missingLinks.length,
-    expectedIcsBlocks: events.length,
-    icsBlocks,
-    missingPages,
-    missingLinks
-  };
-}
-
-function detailPlanningStats() {
-  const missing = [];
-  const weatherBaselineSignals = {
-    fr: "Base mensuelle de l&#39;annee precedente",
-    de: "Monatsbasis des Vorjahres"
-  };
-  for (const lang of languages) {
-    for (const event of events) {
-      const relativePath = `dist/${lang}/events/${event.slug}.html`;
-      if (!exists(relativePath)) {
-        missing.push(`${lang}:${event.slug}:page`);
-        continue;
-      }
-      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
-      const requiredSignals = [
-        htmlEsc(event.sourceUrl),
-        `/events/${event.slug}.ics`,
-        "data-save-event",
-        weatherBaselineSignals[lang] || "Previous-year monthly baseline",
-        "www.google.com/maps/search",
-        "map.naver.com",
-        "map.kakao.com",
-        `/${lang}/routes/`,
-        `/${lang}/guides/`
-      ];
-      for (const signal of requiredSignals) {
-        if (!html.includes(signal)) missing.push(`${lang}:${event.slug}:${signal}`);
-      }
-    }
-  }
-  return {
-    expected: languages.length * events.length,
-    ok: languages.length * events.length - new Set(missing.map((item) => item.split(":").slice(0, 2).join(":"))).size,
-    missing
-  };
-}
-
-function detailSourceBoundaryStats() {
-  const checkedLanguages = languages;
-  const missing = [];
-  for (const lang of checkedLanguages) {
-    for (const event of events) {
-      const relativePath = `dist/${lang}/events/${event.slug}.html`;
-      if (!exists(relativePath)) {
-        missing.push(`${lang}:${event.slug}:page`);
-        continue;
-      }
-      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
-      if (!html.includes("source-boundary-callout")) {
-        missing.push(`${lang}:${event.slug}:source-boundary`);
-      }
-    }
-  }
-  return {
-    expected: checkedLanguages.length * events.length,
-    ok: checkedLanguages.length * events.length - missing.length,
-    missing
-  };
-}
-
-function sourceHaystack(source) {
-  return [
-    source.name,
-    source.type,
-    source.owner,
-    source.url,
-    ...(source.alternateUrls || []),
-    ...(source.coverage || []),
-    source.refreshCadence,
-    source.automationStatus,
-    source.notes
-  ].filter(Boolean).join(" ");
-}
-
-function sourceCoverageStats() {
-  const active = sources.filter((source) => sourceAutomationStatuses.has(source.automationStatus));
-  const buckets = sourceCoverageBuckets.map((bucket) => ({
-    id: bucket.id,
-    minSources: bucket.minSources,
-    count: active.filter((source) => bucket.pattern.test(sourceHaystack(source))).length
-  }));
-  return {
-    active: active.length,
-    buckets,
-    missing: buckets.filter((bucket) => bucket.count < bucket.minSources)
-  };
-}
-
-function check(status, area, item, detail, next = "") {
-  checks.push({ status, area, item, detail, next });
-}
-
-function pass(area, item, detail, next = "") {
-  check("pass", area, item, detail, next);
-}
-
-function warn(area, item, detail, next = "") {
-  check("warn", area, item, detail, next);
-}
-
-function fail(area, item, detail, next = "") {
-  check("fail", area, item, detail, next);
 }
 
 function statusOf(event) {
@@ -297,91 +47,20 @@ function statusOf(event) {
   return "live";
 }
 
-function daysSince(iso) {
-  return Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${iso}T00:00:00Z`)) / dayMs);
+function add(status, area, item, detail, next = "") {
+  checks.push({ status, area, item, detail, next });
 }
 
-function freshnessLimitDays(event) {
-  const fastMoving = new Set(["kpop", "beauty", "duty-free", "department-store"]);
-  const status = statusOf(event);
-  if (status === "ended") return 45;
-  if (status === "live") return fastMoving.has(event.category) ? 2 : 3;
-  return fastMoving.has(event.category) ? 3 : 7;
+function pass(area, item, detail) {
+  add("pass", area, item, detail);
 }
 
-function publicUrlOk() {
-  try {
-    const parsed = new URL(siteUrl);
-    return parsed.protocol === "https:" && !["example.com", "your-domain.com", "localhost", "127.0.0.1"].includes(parsed.hostname);
-  } catch {
-    return false;
-  }
+function warn(area, item, detail, next) {
+  add("warn", area, item, detail, next);
 }
 
-function markdownTable(rows) {
-  const header = "| Status | Area | Item | Detail | Next |\n| --- | --- | --- | --- | --- |";
-  const body = rows.map((row) => `| ${row.status} | ${escapeMd(row.area)} | ${escapeMd(row.item)} | ${escapeMd(row.detail)} | ${escapeMd(row.next)} |`).join("\n");
-  return `${header}\n${body}`;
-}
-
-function escapeMd(value) {
-  return String(value || "").replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
-}
-
-function score() {
-  const passed = checks.filter((item) => item.status === "pass").length;
-  const failed = checks.filter((item) => item.status === "fail").length;
-  const warned = checks.filter((item) => item.status === "warn").length;
-  const possible = checks.length || 1;
-  return {
-    passed,
-    warned,
-    failed,
-    percent: Math.round((passed / possible) * 100)
-  };
-}
-
-function summaryStats() {
-  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
-  const statusCounts = events.reduce((acc, event) => {
-    acc[statusOf(event)] = (acc[statusOf(event)] || 0) + 1;
-    return acc;
-  }, {});
-  const categoryCounts = activeEvents.reduce((acc, event) => {
-    acc[event.category] = (acc[event.category] || 0) + 1;
-    return acc;
-  }, {});
-  return {
-    events: events.length,
-    activeEvents: activeEvents.length,
-    guides: guides.length,
-    publicContentPages: activeEvents.length + guides.length,
-    sources: sources.length,
-    curationItems: Array.isArray(curationQueue) ? curationQueue.length : 0,
-    statusCounts,
-    categoryCounts
-  };
-}
-
-function originalVisitorValueStats() {
-  const missing = [];
-  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
-  for (const event of activeEvents) {
-    const whyGo = String(event.whyGo?.en || "").trim();
-    const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
-    if (whyGo.length < 70 || tips.length < 3) {
-      missing.push({
-        slug: event.slug,
-        whyGoLength: whyGo.length,
-        tips: tips.length
-      });
-    }
-  }
-  return {
-    expected: activeEvents.length,
-    ok: activeEvents.length - missing.length,
-    missing
-  };
+function fail(area, item, detail, next) {
+  add("fail", area, item, detail, next);
 }
 
 function htmlText(value) {
@@ -393,8 +72,6 @@ function htmlText(value) {
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, "\"")
     .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -403,265 +80,231 @@ function wordCount(value) {
   return (htmlText(value).match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
 }
 
-function eventEditorialBriefStats() {
-  const missing = [];
-  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
-  for (const lang of languages) {
-    for (const event of activeEvents) {
-      const relativePath = `dist/${lang}/events/${event.slug}.html`;
-      if (!exists(relativePath)) {
-        missing.push(`${lang}:${event.slug}:page`);
-        continue;
-      }
-      const html = fssync.readFileSync(path.join(root, relativePath), "utf8");
-      const match = html.match(/<section class="detail-section editorial-brief-section"[\s\S]*?<\/section>/);
-      if (!match) {
-        missing.push(`${lang}:${event.slug}:missing-editorial-brief`);
-        continue;
-      }
-      const words = wordCount(match[0]);
-      if (words < 260) missing.push(`${lang}:${event.slug}:brief-${words}-words`);
+function expectedSitemapPaths() {
+  return new Set([
+    ...(program.indexableHubs || []),
+    ...approvedEvents.map((event) => `/en/events/${event.slug}.html`),
+    ...approvedGuides.map((guide) => `/en/guides/${guide.slug}.html`),
+    ...approvedRoutes.map((route) => `/en/routes/${route.slug}.html`)
+  ]);
+}
+
+function sitemapPaths() {
+  const xml = read("dist/sitemap.xml");
+  return new Set([...xml.matchAll(/<url><loc>https:\/\/kspotnow\.com([^<]+)<\/loc>/g)].map((match) => match[1] || "/"));
+}
+
+function eventEvidence(event) {
+  return [
+    ...(event.audit?.sourceEvidence || []),
+    ...(program.eventReviews?.[event.slug]?.sourceEvidence || [])
+  ];
+}
+
+function eventPageAudit() {
+  const failures = [];
+  for (const event of approvedEvents) {
+    const relative = `dist/en/events/${event.slug}.html`;
+    const html = read(relative);
+    const requiredMarkers = [
+      "compact-event-detail",
+      "event-review-section",
+      "event-visit-section",
+      "event-evidence-section",
+      "review-byline",
+      "What matters before you go",
+      "What we checked"
+    ];
+    if (!html) {
+      failures.push(`${event.slug}:missing-page`);
+      continue;
     }
+    for (const marker of requiredMarkers) {
+      if (!html.includes(marker)) failures.push(`${event.slug}:missing-${marker}`);
+    }
+    if (/<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html)) failures.push(`${event.slug}:noindex`);
+    if (wordCount(html) < 350) failures.push(`${event.slug}:thin-${wordCount(html)}-words`);
   }
-  return {
-    expected: activeEvents.length * languages.length,
-    ok: activeEvents.length * languages.length - missing.length,
-    missing
-  };
+  return failures;
+}
+
+function guidePageAudit() {
+  const failures = [];
+  for (const guide of approvedGuides) {
+    const relative = `dist/en/guides/${guide.slug}.html`;
+    const html = read(relative);
+    const structuredSections = guide.sections?.en || [];
+    const paragraphWords = structuredSections.flatMap((section) => section.paragraphs || []).join(" ");
+    if (!html) failures.push(`${guide.slug}:missing-page`);
+    if (!html.includes("guide-byline") || !html.includes("guide-citations")) failures.push(`${guide.slug}:missing-authorship-or-citations`);
+    if (structuredSections.length < 4) failures.push(`${guide.slug}:fewer-than-4-sections`);
+    if (!Array.isArray(guide.sources) || guide.sources.length < 2) failures.push(`${guide.slug}:fewer-than-2-sources`);
+    if (wordCount(paragraphWords) < 280) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
+    if (!guide.method || !guide.reviewedBy || !guide.updatedAt) failures.push(`${guide.slug}:missing-method-or-review`);
+  }
+  return failures;
+}
+
+function imageAudit() {
+  const failures = [];
+  for (const event of approvedEvents) {
+    if (!event.thumbnail || !exists(event.thumbnail)) failures.push(`${event.slug}:missing-image`);
+    const imageSource = thumbnailSources[event.slug];
+    if (!imageSource) failures.push(`${event.slug}:missing-image-audit`);
+    if (event.thumbnail?.endsWith(".svg") || /identity card/i.test(String(imageSource?.kind || ""))) failures.push(`${event.slug}:generated-image-card`);
+    if (!/^https?:\/\//i.test(String(imageSource?.sourceImageUrl || ""))) failures.push(`${event.slug}:missing-source-image-url`);
+    const html = read(`dist/en/events/${event.slug}.html`);
+    if (!html.includes(`src="/${event.thumbnail}"`)) failures.push(`${event.slug}:image-not-rendered`);
+  }
+  return failures;
 }
 
 function runChecks() {
-  const stats = summaryStats();
-  if (publicUrlOk()) pass("Production", "SITE_URL", siteUrl);
-  else fail("Production", "SITE_URL", siteUrl || "missing", "Set a real https production domain before applying to AdSense.");
-
-  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail) && contactEmail !== "hello@example.com") {
-    pass("Production", "CONTACT_EMAIL", contactEmail);
-  } else {
-    fail("Production", "CONTACT_EMAIL", contactEmail || "missing", "Set a real public contact email for policy and correction requests.");
+  try {
+    const parsed = new URL(siteUrl);
+    if (parsed.protocol === "https:" && parsed.hostname === "kspotnow.com") pass("Production", "Canonical domain", siteUrl);
+    else fail("Production", "Canonical domain", siteUrl, "Use https://kspotnow.com as SITE_URL.");
+  } catch {
+    fail("Production", "Canonical domain", siteUrl, "Set a valid production URL.");
   }
 
-  if (stats.publicContentPages >= 40) {
-    pass("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`);
-  } else if (stats.publicContentPages >= 30) {
-    warn("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`, "Keep publishing verified official event pages before applying.");
-  } else {
-    fail("Content", "Public content depth", `${stats.publicContentPages} current event/guide pages`, "Reach at least 30 original current event/guide pages before reapplying.");
-  }
-
-  if (stats.activeEvents >= 25) {
-    pass("Content", "Event catalog", `${stats.activeEvents} live/upcoming public events`);
-  } else {
-    warn("Content", "Event catalog", `${stats.activeEvents} live/upcoming public events`, "Aim for 25+ current verified event pages so the gallery feels substantial without relying on expired listings.");
-  }
-
-  if (guides.length >= 10) pass("Content", "Evergreen guides", `${guides.length} guides`);
-  else fail("Content", "Evergreen guides", `${guides.length} guides`, "Add at least 10 useful visitor guides.");
-
-  const originalValue = originalVisitorValueStats();
-  if (originalValue.ok === originalValue.expected) {
-    pass("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events include why-go context and 3+ practical visitor tips`);
-  } else {
-    fail("Content", "Original visitor value", `${originalValue.ok}/${originalValue.expected} current events meet the original-value floor`, `Add stronger whyGo copy or 3+ practical tips: ${originalValue.missing.slice(0, 4).map((item) => item.slug).join(", ")}.`);
-  }
-
-  const editorialBriefs = eventEditorialBriefStats();
-  if (editorialBriefs.ok === editorialBriefs.expected) {
-    pass("Content", "Indexable detail originality", `${editorialBriefs.ok}/${editorialBriefs.expected} live/upcoming detail pages include a 260+ word original planning brief`);
-  } else {
-    fail("Content", "Indexable detail originality", `${editorialBriefs.ok}/${editorialBriefs.expected} live/upcoming detail pages meet the editorial brief floor`, `Expand or regenerate original planning briefs: ${editorialBriefs.missing.slice(0, 4).join(", ")}.`);
-  }
-
-  const thumbnails = thumbnailStats();
-  if (thumbnails.ok === thumbnails.expected) {
-    pass("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`);
-    if (thumbnails.generatedFallbacks.length) {
-      warn("UX", "Official thumbnail coverage", `${events.length - thumbnails.generatedFallbacks.length}/${events.length} official or collected images`, `Replace generated fallbacks when official event, brand, or venue images become available: ${thumbnails.generatedFallbacks.slice(0, 4).join(", ")}.`);
-    }
-  } else {
-    fail("UX", "Gallery thumbnails", `${thumbnails.ok}/${thumbnails.expected} event thumbnails`, `Run npm.cmd run validate:images and fix ${[...thumbnails.missing, ...thumbnails.invalid].slice(0, 4).join(", ")}.`);
-  }
-
-  const calendar = calendarStats();
-  if (calendar.presentPages === calendar.expectedPages && calendar.presentLinks === calendar.expectedLinks && calendar.icsBlocks === calendar.expectedIcsBlocks) {
-    pass("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`);
-  } else {
-    fail("UX", "Calendar coverage", `${calendar.presentLinks}/${calendar.expectedLinks} event links; ${calendar.icsBlocks}/${calendar.expectedIcsBlocks} ICS events`, "Run npm.cmd run validate:calendar and rebuild if any event is missing.");
-  }
-
-  const detailPlanning = detailPlanningStats();
-  if (detailPlanning.ok === detailPlanning.expected) {
-    pass("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`);
-  } else {
-    fail("UX", "Detail planning blocks", `${detailPlanning.ok}/${detailPlanning.expected} event detail pages`, "Run npm.cmd run validate:details and fix missing source, weather, map, route, or guide blocks.");
-  }
-
-  const sourceBoundary = detailSourceBoundaryStats();
-  if (sourceBoundary.ok === sourceBoundary.expected) {
-    pass("UX", "Planning-layer differentiation", `${sourceBoundary.ok}/${sourceBoundary.expected} checked detail pages explain K-Spot Now before the linked source`);
-  } else {
-    fail("UX", "Planning-layer differentiation", `${sourceBoundary.ok}/${sourceBoundary.expected} checked detail pages include source-boundary copy`, `Add linked-source boundary copy to ${sourceBoundary.missing.slice(0, 4).join(", ")}.`);
-  }
-
-  const activeEvents = events.filter((event) => statusOf(event) !== "ended");
-  const officialEvents = activeEvents.filter((event) => /^official/.test(event.verification || "")).length;
-  if (officialEvents === activeEvents.length) pass("Trust", "Official verification labels", `${officialEvents}/${activeEvents.length} current events`);
-  else fail("Trust", "Official verification labels", `${officialEvents}/${activeEvents.length} current events`, "Every indexable event should be official or official-ended.");
-
-  const staleLiveUpcoming = events
-    .filter((event) => ["live", "upcoming"].includes(statusOf(event)))
-    .filter((event) => daysSince(event.lastChecked) > freshnessLimitDays(event));
-  if (!staleLiveUpcoming.length) {
-    pass("Freshness", "Live/upcoming freshness", "No stale live or upcoming event pages");
-  } else {
-    fail("Freshness", "Live/upcoming freshness", `${staleLiveUpcoming.length} stale live/upcoming events`, staleLiveUpcoming.slice(0, 4).map((event) => event.slug).join(", "));
-  }
-
-  const requiredFiles = [
-    "dist/index.html",
-    "dist/sitemap.xml",
-    "dist/robots.txt",
-    "dist/events.ics",
-    "dist/feed.xml",
-    "dist/latest.json",
-    "dist/recheck.json",
-    "dist/source-refresh.json",
-    "dist/_headers"
-  ];
-  for (const file of requiredFiles) {
-    if (exists(file)) pass("Build", file, "present");
-    else fail("Build", file, "missing", "Run npm.cmd run build before deploy.");
-  }
-
-  const structuredEvents = structuredEventStats();
-  if (structuredEvents.ok === structuredEvents.expected) {
-    pass("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} public detail pages`);
-  } else {
-    fail("Build", "Detail structured data", `${structuredEvents.ok}/${structuredEvents.expected} pages valid`, `Run npm.cmd run validate:structured and inspect ${structuredEvents.missing.slice(0, 3).join(", ")}.`);
-  }
+  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail)) pass("Trust", "Public contact", contactEmail);
+  else fail("Trust", "Public contact", contactEmail || "missing", "Set a working public contact address.");
 
   if (languages.length === 1 && languages[0] === "en") {
-    pass("Content", "AdSense review language scope", "English-only review build hides unfinished localized pages");
+    pass("Content", "Public language scope", "English-only review edition; unfinished translations are retired");
   } else {
-    warn("Content", "AdSense review language scope", `${languages.join(", ")} public`, "Before reapplying, keep only languages whose event data, guide copy, and UI labels pass human-readable translation review.");
+    fail("Content", "Public language scope", languages.join(", "), "Publish only languages that have completed human editorial review.");
   }
 
-  const policyPages = ["privacy", "cookie-policy", "advertising", "contact", "about", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
-  const missingPolicy = policyPages.filter((page) => !exists(`dist/en/${page}/index.html`));
-  if (!missingPolicy.length) pass("Trust", "English policy/source pages", `${policyPages.length} required pages present`);
-  else fail("Trust", "English policy/source pages", `Missing ${missingPolicy.join(", ")}`, "Run build and keep all trust pages available.");
-
-  const publicSourceRefresh = readJson("dist/source-refresh.json");
-  const watchlistHtml = exists("dist/en/watchlist/index.html")
-    ? fssync.readFileSync(path.join(root, "dist", "en", "watchlist", "index.html"), "utf8")
-    : "";
-  if (publicSourceRefresh?.generatedAt && Number(publicSourceRefresh.counts?.auditedSources || 0) >= 20) {
-    pass("Trust", "Public source refresh status", `${publicSourceRefresh.counts.auditedSources} audited sources`);
-  } else if (publicSourceRefresh) {
-    warn("Trust", "Public source refresh status", "present but empty", "Run npm.cmd run source:refresh before a major content push or AdSense application.");
+  if (approvedEvents.length >= 12 && approvedEvents.length <= 18) {
+    pass("Content", "Curated event catalog", `${approvedEvents.length} current events selected from ${events.length} records`);
   } else {
-    fail("Trust", "Public source refresh status", "missing or invalid", "Run npm.cmd run build after a source refresh summary is available.");
-  }
-  if (watchlistHtml.includes("source-refresh-panel") && watchlistHtml.includes("/source-refresh.json")) {
-    pass("Trust", "Watchlist source refresh panel", "present");
-  } else {
-    fail("Trust", "Watchlist source refresh panel", "missing", "Rebuild the site and confirm /en/watchlist/ links to /source-refresh.json.");
+    fail("Content", "Curated event catalog", `${approvedEvents.length} approved current events`, "Keep a focused 12-18 event review set rather than indexing the full feed.");
   }
 
-  if (publisherId && /^pub-\d{16}$/.test(publisherId)) {
-    pass("AdSense", "Publisher ID", publisherId);
-    if (exists("dist/ads.txt")) pass("AdSense", "ads.txt", "present");
-    else fail("AdSense", "ads.txt", "missing", "Build with GOOGLE_ADSENSE_PUBLISHER_ID set.");
+  if (approvedGuides.length === 8) pass("Content", "Editorial guides", "8 structured source-backed guides");
+  else fail("Content", "Editorial guides", `${approvedGuides.length} approved guides`, "Maintain the eight reviewed guide topics in editorial-program.json.");
+
+  if (approvedRoutes.length >= 5) pass("Content", "Useful route pages", `${approvedRoutes.length} selected routes`);
+  else fail("Content", "Useful route pages", `${approvedRoutes.length} selected routes`, "Keep at least five route pages tied to reviewed events.");
+
+  const evidenceFailures = approvedEvents.filter((event) => {
+    const review = program.eventReviews?.[event.slug];
+    const evidence = eventEvidence(event);
+    return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
+      || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
+      || !evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+  });
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have source tokens, review ownership, and visitor checks`);
+  else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
+
+  const eventFailures = eventPageAudit();
+  if (!eventFailures.length) pass("Content", "Event page usefulness", `${approvedEvents.length}/${approvedEvents.length} pages include decision, practical plan, evidence, and authorship`);
+  else fail("Content", "Event page usefulness", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
+
+  const guideFailures = guidePageAudit();
+  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have 4 sections, 2+ sources, method, and byline`);
+  else fail("Content", "Guide originality", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
+
+  const expected = expectedSitemapPaths();
+  const actual = sitemapPaths();
+  const missing = [...expected].filter((item) => !actual.has(item));
+  const extra = [...actual].filter((item) => !expected.has(item));
+  if (!missing.length && !extra.length && actual.size === 34) {
+    pass("Search", "Focused sitemap", `34 approved URLs; no root duplicate, filter, legal, city, or category URLs`);
   } else {
-    warn("AdSense", "Publisher ID", "not set", "Normal before approval; required before enabling ads and ads.txt.");
-    if (exists("dist/ads.txt.example")) pass("AdSense", "ads.txt example", "present");
-    else warn("AdSense", "ads.txt example", "missing", "Run build to create ads.txt.example before approval.");
+    fail("Search", "Focused sitemap", `${actual.size} URLs; ${missing.length} missing, ${extra.length} extra`, `Missing: ${missing.slice(0, 3).join(", ")}; extra: ${extra.slice(0, 3).join(", ")}`);
   }
 
-  if (clientId && /^ca-pub-\d{16}$/.test(clientId)) {
-    pass("AdSense", "Auto ads client", clientId);
+  const worker = read("src/worker.js");
+  if (worker.includes('url.pathname === "/"') && worker.includes('/en/') && worker.includes("status: 410")) {
+    pass("Search", "Legacy URL control", "Root redirects to /en/ and retired translations return 410 after asset lookup");
   } else {
-    warn("AdSense", "Auto ads client", "not set", "Add GOOGLE_ADSENSE_CLIENT after the publisher ID is issued.");
+    fail("Search", "Legacy URL control", "Worker redirect/retirement rule incomplete", "Keep one canonical home and explicitly retire removed translations.");
   }
 
-  if (slotId && /^\d{8,20}$/.test(slotId) && exists("dist/index.html")) {
-    const adSlots = manualAdSlotStats(slotId);
-    if (adSlots.expected && adSlots.ok === adSlots.expected) {
-      pass("AdSense", "Manual ad slot", `${slotId} on ${adSlots.ok}/${adSlots.expected} checked pages`);
-    } else {
-      fail("AdSense", "Manual ad slot", `${adSlots.ok}/${adSlots.expected} checked pages`, `Rebuild with GOOGLE_ADSENSE_SLOT set and inspect ${adSlots.missing.slice(0, 3).join(", ")}.`);
-    }
-  } else if (slotId) {
-    fail("AdSense", "Manual ad slot", "invalid", "Use the numeric ad slot ID from an AdSense ad unit.");
+  const imageFailures = imageAudit();
+  if (!imageFailures.length) pass("UX", "Approved event visuals", `${approvedEvents.length}/${approvedEvents.length} event pages render a local visual`);
+  else fail("UX", "Approved event visuals", `${imageFailures.length} visual issues`, imageFailures.slice(0, 5).join(", "));
+
+  const home = read("dist/en/index.html");
+  const homeCards = (home.match(/class="event-card/g) || []).length;
+  if (homeCards === 6 && home.includes("home-guide-band")) pass("UX", "Compact home", "6 event cards plus reviewed guide entry points");
+  else fail("UX", "Compact home", `${homeCards} event cards`, "Keep the home scan short and link to the full reviewed list.");
+
+  const prohibitedCopy = ["For AdSense-safe content", "AdSense-safe", "260+ word", "low-value content fix"];
+  const generatedHtml = fssync.readdirSync(path.join(root, "dist", "en"), { recursive: true })
+    .filter((item) => String(item).endsWith(".html"))
+    .map((item) => read(path.join("dist", "en", String(item))));
+  const foundProhibited = prohibitedCopy.filter((phrase) => generatedHtml.some((html) => html.includes(phrase)));
+  if (!foundProhibited.length) pass("Content", "Visitor-facing language", "No internal AdSense or word-count language appears in public copy");
+  else fail("Content", "Visitor-facing language", foundProhibited.join(", "), "Remove publisher-internal language from public pages.");
+
+  if (publisherId && /^pub-\d{16}$/.test(publisherId) && read("dist/ads.txt").includes(`google.com, ${publisherId}, DIRECT`)) {
+    pass("AdSense", "Publisher and ads.txt", `${publisherId} present`);
   } else {
-    warn("AdSense", "Manual ad slot", "not set", "Optional before approval; add GOOGLE_ADSENSE_SLOT to enable reserved in-page ad placements.");
+    fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
   }
 
-  if (adsenseCmpReady) {
-    pass("AdSense", "Google-certified CMP readiness", "confirmed");
+  if (clientId && /^ca-pub-\d{16}$/.test(clientId) && home.includes(`client=${clientId}`)) {
+    pass("AdSense", "Client script placement", "Present on the approved /en/ home");
   } else {
-    warn("AdSense", "Google-certified CMP readiness", "not set", "Choose and configure a Google-certified consent management platform before serving ads to EEA, UK, and Switzerland visitors, then set GOOGLE_ADSENSE_CMP_READY=1.");
+    fail("AdSense", "Client script placement", clientId || "missing", "Keep the AdSense client script on approved indexable pages only.");
   }
 
-  if (!affiliateEnabled) {
-    pass("AdSense", "Affiliate review mode", "third-party affiliate blocks disabled");
+  if (!affiliateEnabled && !generatedHtml.some((html) => /kr\.trip\.com\/partners\/ad|coupa\.ng\/cny5Rl/.test(html))) {
+    pass("AdSense", "Monetization restraint", "Affiliate widgets are disabled during low-value-content re-review");
   } else {
-    warn("AdSense", "Affiliate review mode", "affiliate blocks enabled", "For a low-value-content re-review, disable affiliate widgets unless they are clearly secondary to substantial publisher content.");
+    warn("AdSense", "Monetization restraint", "Affiliate content is enabled", "Disable affiliate widgets until the AdSense content review is resolved.");
   }
 
-  if (googleSiteVerification && exists("dist/index.html")) {
-    const home = fssync.readFileSync(path.join(root, "dist", "index.html"), "utf8");
-    if (home.includes(`name="google-site-verification"`) && home.includes(`content="${googleSiteVerification}"`)) {
-      pass("Search", "Search Console meta verification", "present");
-    } else {
-      fail("Search", "Search Console meta verification", "configured but missing from dist/index.html", "Rebuild with GOOGLE_SITE_VERIFICATION set.");
-    }
+  if (slotId && !/^\d{8,20}$/.test(slotId)) fail("AdSense", "Manual ad slot", "Invalid slot ID", "Use a numeric AdSense unit ID.");
+  else if (slotId) pass("AdSense", "Manual ad slot", slotId);
+  else warn("AdSense", "Manual ad slot", "Not configured", "This is not a content-review blocker; add units only after approval if desired.");
+
+  const sourceRefresh = exists("dist/source-refresh.json") ? JSON.parse(read("dist/source-refresh.json")) : null;
+  if (sourceRefresh?.generatedAt && Number(sourceRefresh.counts?.auditedSources || 0) >= 20) {
+    pass("Operations", "Source monitor", `${sourceRefresh.counts.auditedSources} registered sources audited`);
   } else {
-    warn("Search", "Search Console meta verification", "not set", "Set GOOGLE_SITE_VERIFICATION or verify the domain through DNS before submitting the sitemap.");
+    warn("Operations", "Source monitor", "Refresh summary is missing or shallow", "Run source:refresh after the editorial release, but keep automatic publishing behind review.");
   }
 
-  if (sources.length >= 20) pass("Operations", "Official source registry", `${sources.length} sources`);
-  else warn("Operations", "Official source registry", `${sources.length} sources`, "Keep expanding official monitors.");
-
-  const sourceCoverage = sourceCoverageStats();
-  if (!sourceCoverage.missing.length) {
-    pass("Operations", "Required source coverage", `${sourceCoverage.buckets.length} buckets covered by ${sourceCoverage.active} active automation sources`);
-  } else {
-    fail("Operations", "Required source coverage", `${sourceCoverage.missing.length} missing buckets`, sourceCoverage.missing.map((bucket) => `${bucket.id} ${bucket.count}/${bucket.minSources}`).join(", "));
-  }
-
-  const latestAudit = latestMatchingFile(/^source-audit-\d{4}-\d{2}-\d{2}\.md$/);
-  if (latestAudit) pass("Operations", "Source audit report", latestAudit);
-  else warn("Operations", "Source audit report", "not found", "Run npm.cmd run check:sources before an application or major content push.");
-
-  const latestDraft = latestMatchingFile(/^draft-events-\d{4}-\d{2}-\d{2}\.json$/);
-  if (latestDraft) pass("Operations", "Candidate draft feed", latestDraft);
-  else warn("Operations", "Candidate draft feed", "not found", "Run npm.cmd run source:refresh to keep the pipeline warm.");
+  if (sources.length >= 20) pass("Operations", "Official source registry", `${sources.length} sources registered`);
+  else warn("Operations", "Official source registry", `${sources.length} sources`, "Expand only with primary sources that can be reviewed reliably.");
 }
 
-function latestMatchingFile(pattern) {
-  const dir = path.join(root, "data", "feeds");
-  if (!fssync.existsSync(dir)) return "";
-  return fssync.readdirSync(dir)
-    .filter((name) => pattern.test(name))
-    .sort()
-    .at(-1) || "";
+function escapeMd(value) {
+  return String(value || "").replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
+}
+
+function markdownTable(rows) {
+  return `| Status | Area | Item | Detail | Next |\n| --- | --- | --- | --- | --- |\n${rows.map((row) => `| ${row.status} | ${escapeMd(row.area)} | ${escapeMd(row.item)} | ${escapeMd(row.detail)} | ${escapeMd(row.next)} |`).join("\n")}`;
 }
 
 runChecks();
 
-const stats = summaryStats();
+const passed = checks.filter((item) => item.status === "pass").length;
+const warned = checks.filter((item) => item.status === "warn").length;
+const failed = checks.filter((item) => item.status === "fail").length;
 const result = {
   generatedAt: new Date().toISOString(),
   siteUrl,
-  contactEmail,
-  publisherIdSet: Boolean(publisherId),
-  clientIdSet: Boolean(clientId),
-  slotIdSet: Boolean(slotId),
-  googleSiteVerificationSet: Boolean(googleSiteVerification),
-  adsenseCmpReadySet: Boolean(adsenseCmpReady),
-  stats,
-  score: score(),
+  scope: "Internal editorial release gates; not a Google approval prediction",
+  stats: {
+    totalEventRecords: events.length,
+    approvedCurrentEvents: approvedEvents.length,
+    approvedGuides: approvedGuides.length,
+    approvedRoutes: approvedRoutes.length,
+    sitemapUrls: sitemapPaths().size,
+    publicLanguages: languages
+  },
+  score: {
+    passed,
+    warned,
+    failed,
+    percent: Math.round((passed / Math.max(checks.length, 1)) * 100)
+  },
   checks
 };
 
@@ -670,44 +313,35 @@ await fs.mkdir(feedDir, { recursive: true });
 const jsonOut = path.join(feedDir, `adsense-readiness-${today}.json`);
 const mdOut = path.join(feedDir, `adsense-readiness-${today}.md`);
 await fs.writeFile(jsonOut, `${JSON.stringify(result, null, 2)}\n`, "utf8");
-await fs.writeFile(mdOut, `# AdSense Readiness Report
+await fs.writeFile(mdOut, `# AdSense Editorial Release Gates
 
 Generated: ${result.generatedAt}
 
-Site: ${siteUrl || "(not set)"}
+Site: ${siteUrl}
 
-Score: ${result.score.percent}% (${result.score.passed} pass, ${result.score.warned} warn, ${result.score.failed} fail)
+Scope: **${result.scope}**
 
-## Content Stats
+Gate result: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warning, ${failed} fail)
 
-- Events: ${stats.events}
-- Live/upcoming events: ${stats.activeEvents}
-- Guides: ${stats.guides}
-- Current indexable event/guide pages: ${stats.publicContentPages}
-- Official sources watched: ${stats.sources}
-- Curation queue items: ${stats.curationItems}
-- Event statuses: ${JSON.stringify(stats.statusCounts)}
-- Event categories: ${JSON.stringify(stats.categoryCounts)}
+## Review Scope
+
+- Approved current events: ${result.stats.approvedCurrentEvents}
+- Approved guides: ${result.stats.approvedGuides}
+- Approved routes: ${result.stats.approvedRoutes}
+- Sitemap URLs: ${result.stats.sitemapUrls}
+- Public languages: ${result.stats.publicLanguages.join(", ")}
 
 ## Checks
 
 ${markdownTable(checks)}
 
-## Recommended Next Actions
+## Blocking Actions
 
-${checks.filter((item) => item.status !== "pass" && item.next).map((item) => `- ${item.area} / ${item.item}: ${item.next}`).join("\n") || "- No blocking next action from this report."}
+${checks.filter((item) => item.status === "fail").map((item) => `- ${item.area} / ${item.item}: ${item.next || item.detail}`).join("\n") || "- No internal release blocker. Google may still reject the site based on signals outside this audit."}
 `, "utf8");
 
-console.log(`AdSense readiness score: ${result.score.percent}% (${result.score.passed} pass, ${result.score.warned} warn, ${result.score.failed} fail)`);
-console.table(checks.map((item) => ({
-  status: item.status,
-  area: item.area,
-  item: item.item,
-  detail: item.detail,
-  next: item.next
-})));
-console.log(`Saved AdSense readiness report: ${mdOut}`);
+console.log(`AdSense editorial gates: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warn, ${failed} fail)`);
+console.table(checks.map((item) => ({ status: item.status, area: item.area, item: item.item, detail: item.detail })));
+console.log(`Saved gate report: ${mdOut}`);
 
-if (strict && checks.some((item) => item.status === "fail")) {
-  process.exitCode = 1;
-}
+if (strict && failed) process.exitCode = 1;

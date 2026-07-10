@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "mode": "adsense-editorial-review",
+  "canonicalHome": "/en/",
+  "minimumEventScore": 85,
+  "editorialTeam": {
+    "name": "K-Spot Now Editorial Desk",
+    "role": "Official-source research and visitor planning review",
+    "contact": "contact@kspotnow.com",
+    "method": "Desk research against the linked primary source. Reviews are not represented as first-hand visits."
+  },
+  "indexableHubs": [
+    "/en/",
+    "/en/now/",
+    "/en/guides/",
+    "/en/routes/",
+    "/en/about/",
+    "/en/editorial-policy/"
+  ],
+  "staticUpdatedAt": {
+    "/en/": "2026-07-10",
+    "/en/now/": "2026-07-10",
+    "/en/guides/": "2026-07-10",
+    "/en/routes/": "2026-07-10",
+    "/en/about/": "2026-07-10",
+    "/en/editorial-policy/": "2026-07-10"
+  },
+  "indexableEvents": [
+    "nct-dream-sweet-dream-hotel-incheon-2026",
+    "korea-beauty-festival-2026",
+    "boryeong-mud-festival-2026",
+    "red-velvet-day-in-red-velvet-seoul-2026",
+    "boynextdoor-knock-on-vol2-seoul-2026",
+    "waterbomb-seoul-2026",
+    "incheon-pentaport-rock-festival-2026",
+    "psy-summer-swag-2026",
+    "gwangalli-m-drone-light-show-2026",
+    "namsangol-traditional-experience-2026",
+    "seoul-international-garden-show-2026",
+    "national-geographic-ocean-seoul-2026",
+    "korea-accommodation-sale-festa-summer-2026",
+    "visitkorea-exclusive-benefits-2026",
+    "fernando-botero-seoul-2026"
+  ],
+  "indexableGuides": [
+    "how-to-verify-korea-popups",
+    "korea-duty-free-before-flight",
+    "korea-shopping-sale-calendar",
+    "weather-for-korea-events",
+    "olive-young-shopping-strategy",
+    "department-store-popup-planning",
+    "kpop-ticket-merch-safety",
+    "tax-refund-payments-korea-shopping"
+  ],
+  "indexableRoutes": [
+    "central-seoul-shopping-route",
+    "yongsan-fan-route",
+    "busan-concert-weekend",
+    "regional-summer-festival-rail-route",
+    "autumn-heritage-night-route"
+  ],
+  "eventReviews": {
+    "nct-dream-sweet-dream-hotel-incheon-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a destination concert rather than a central-Seoul stop. Overseas visitors should decide on the Incheon transfer and return transport before choosing a ticket, especially if they are staying in Seoul.",
+      "foreignerChecks": [
+        "The global ticket page lists an age limit of seven and a KRW 121,000 general price; recheck seat and pickup rules at checkout.",
+        "Search for the Korean venue name, 인스파이어 아레나, and reserve extra airport-area transfer time.",
+        "Fanclub verification and global booking periods are separate from the concert dates."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
+          "mustContain": ["THE SWEET DREAM HOTEL", "Aug 22, 2026 - Aug 23, 2026", "INSPIRE ARENA", "121,000 won"]
+        }
+      ]
+    },
+    "korea-beauty-festival-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The campaign has different offline and online windows. Visitors should use the HiKR Ground dates for an in-person Seoul plan and treat the later September end date as the online promotion window.",
+      "foreignerChecks": [
+        "KBF Beauty House and the online special promotions do not share the same closing date.",
+        "Use 하이커 그라운드 as the map query and confirm the program floor before arrival.",
+        "Brand classes and partner offers can require a separate reservation or account."
+      ]
+    },
+    "boryeong-mud-festival-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a full-day regional trip with a paid activity zone, not a quick photo stop. The transport plan, changing clothes, shower time, and return journey matter as much as the ticket.",
+      "foreignerChecks": [
+        "A paid-zone bracelet is required for paid activities; free surrounding programs may follow different rules.",
+        "Search 대천해수욕장 and check the final entrance rather than using only the city name.",
+        "Carry a waterproof phone pouch, dry clothes, and enough return-transport buffer."
+      ]
+    },
+    "red-velvet-day-in-red-velvet-seoul-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The official ticket page added a Friday performance, so the event now runs for three days. Visitors comparing flights or hotels should use July 31 through August 2, not the earlier two-day range.",
+      "foreignerChecks": [
+        "The official page lists Friday 20:00, Saturday 18:00, and Sunday 16:00 performances.",
+        "The listed reserved and restricted-view prices are KRW 143,000; final availability belongs on Melon Ticket.",
+        "Search 고려대학교 화정체육관 and allow time for the uphill campus approach and post-show crowds."
+      ]
+    },
+    "boynextdoor-knock-on-vol2-seoul-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "Ticket types include different benefits and prices, so visitors should compare the actual package rather than treating every available seat as equivalent. The return trip from Olympic Park also needs a crowd buffer.",
+      "foreignerChecks": [
+        "The global page lists sound-check, meet-and-greet, and general ticket levels.",
+        "Confirm mobile-ticket delivery, cancellation cutoff, and identity requirements before payment.",
+        "Search 올림픽공원 KSPO DOME and save the subway route before entering."
+      ]
+    },
+    "waterbomb-seoul-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The official Waterbomb page confirms the dates but still labels the location TBA, while NOL World lists KINTEX. The useful decision is to keep the venue provisional until the organizer replaces TBA.",
+      "foreignerChecks": [
+        "Do not book a fixed KINTEX transfer solely from a secondary listing while the organizer still shows TBA.",
+        "Water protection, changing time, and a dry return outfit are part of the day plan.",
+        "Reopen the organizer page before departure for venue, entry, and safety notices."
+      ]
+    },
+    "incheon-pentaport-rock-festival-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This three-day festival requires a pass, wristband, outdoor-weather, and late return decision. A visitor staying in Seoul should compare the final train plan before buying a multi-day pass.",
+      "foreignerChecks": [
+        "The global ticket listing identifies Songdo Moonlight Festival Park and mobile-ticket exchange rules.",
+        "Search 송도달빛축제공원 and identify the festival entrance, not only the park boundary.",
+        "Save rain protection and a late-night Incheon return plan before entering."
+      ]
+    },
+    "psy-summer-swag-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a multi-city tour, so a single Seoul-style map or weather note is misleading. Visitors must choose the specific city and date first, then confirm that venue's ticket and transport details.",
+      "foreignerChecks": [
+        "The official listing describes 14 shows across nine cities and exposes city-specific dates.",
+        "Expect water, heat, and wet clothing; check the venue's prohibited-items and changing guidance.",
+        "Use the Korean venue name for the selected city instead of relying on the tour title."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
+          "mustContain": ["PSY SUMMER SWAG 2026", "14 shows across 9 cities", "Uijeongbu Sports Complex"]
+        }
+      ]
+    },
+    "gwangalli-m-drone-light-show-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The recurring Saturday schedule makes this a flexible Busan evening anchor, but weather and special-event changes can cancel or move a show. Treat the city listing as the final same-day check.",
+      "foreignerChecks": [
+        "Seasonal show times differ, so do not reuse a saved winter time in summer.",
+        "Search 광안리해수욕장 and arrive early enough to choose a clear beach view.",
+        "Check wind, rain, and official cancellation notices on the day."
+      ]
+    },
+    "namsangol-traditional-experience-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The program is useful only on operating days and pauses in July and August. Visitors should match the craft session and reservation method to a specific Friday, Saturday, or Sunday rather than using the full seasonal range.",
+      "foreignerChecks": [
+        "The long headline date does not mean daily operation; confirm the specific session calendar.",
+        "Search 남산골한옥마을 and verify the hanok or meeting point inside the village.",
+        "Group tea and etiquette programs can use separate reservation conditions."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
+          "mustContain": ["Namsangol Hanok Village", "April 3", "October 25", "July and August"]
+        }
+      ]
+    },
+    "seoul-international-garden-show-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "The six-month headline contains two locations and different program windows. Seoul Forest is the main May-to-October visit, while the Maeheon Citizen's Forest program is an October special.",
+      "foreignerChecks": [
+        "Choose Seoul Forest or Maeheon Citizen's Forest before opening a map.",
+        "Outdoor gardens are sensitive to heat, rain, maintenance, and bloom timing.",
+        "Search 서울숲 for the main site and confirm the current gate or zone on the official page."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
+          "mustContain": ["2026 Seoul International Garden Show", "May 1", "October 27", "Seoul Forest"]
+        }
+      ]
+    },
+    "national-geographic-ocean-seoul-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This indoor exhibition is a dependable weather backup, but Monday and holiday closures matter more than the broad seasonal date range. Visitors should confirm the selected day and final admission time.",
+      "foreignerChecks": [
+        "The venue is Chungmu Art Center Gallery, not the similarly named performance halls.",
+        "Search 충무아트센터 갤러리 and confirm the gallery floor after arrival.",
+        "Check Monday, Chuseok, and last-entry rules before using it as a fixed indoor plan."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
+          "mustContain": ["National Geographic", "Jun 06, 2026", "Oct 11, 2026", "Chungmu Art Center"]
+        }
+      ]
+    },
+    "korea-accommodation-sale-festa-summer-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a coupon campaign with first-come inventory, eligible regions, minimum spend, and participating booking channels. It should be checked before hotel selection, not treated as a guaranteed discount afterward.",
+      "foreignerChecks": [
+        "Coupon issue starts daily at 10:00 KST and can close when inventory is exhausted.",
+        "Only eligible non-capital population-decline municipalities and participating products qualify.",
+        "Compare the final payable price and cancellation conditions on the booking channel."
+      ]
+    },
+    "visitkorea-exclusive-benefits-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a benefits directory rather than one discount. Visitors should open the relevant partner card and confirm nationality, booking channel, redemption date, and inventory before relying on it.",
+      "foreignerChecks": [
+        "Partner offers can have different countries, languages, account requirements, and end dates.",
+        "Do not treat the directory launch date as the end date of every individual benefit.",
+        "Keep the partner's final terms with the trip plan before checkout or arrival."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
+          "mustContain": ["VISITKOREA Exclusive", "travel benefits", "shopping"]
+        }
+      ]
+    },
+    "fernando-botero-seoul-2026": {
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "visitorDecision": "This is a paid indoor exhibition that works well as a heat or rain backup near Gangnam, but a visitor still needs to choose a timed arrival around the Monday closure and 18:00 last admission.",
+      "foreignerChecks": [
+        "Visit Seoul lists Tuesday-Sunday hours of 10:00-19:00, with last admission at 18:00 and Monday closure.",
+        "Search 예술의전당 한가람디자인미술관 rather than only the English exhibition title.",
+        "The listed adult price is KRW 23,000; confirm current inventory and age pricing on the linked reservation page before traveling."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
+          "mustContain": ["Fernando Botero", "Apr 24, 2026", "Aug 30, 2026", "Hangaram Design Museum", "23,000"]
+        }
+      ]
+    }
+  }
+}

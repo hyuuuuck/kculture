@@ -1,53 +1,55 @@
 import fs from "node:fs";
 import path from "node:path";
-import { publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
 const root = process.cwd();
 const sitemapPath = path.join(root, "dist", "sitemap.xml");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
-const languages = publicLanguageCodes();
-const errors = [];
+const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
+const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
+const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const today = todayString();
-const indexableEvents = events.filter((event) => event.endDate >= today);
+const errors = [];
+const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
+const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
+const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
+const expectedPaths = new Set([
+  ...(program.indexableHubs || []),
+  ...approvedEvents.map((event) => `/en/events/${event.slug}.html`),
+  ...approvedGuides.map((guide) => `/en/guides/${guide.slug}.html`),
+  ...approvedRoutes.map((route) => `/en/routes/${route.slug}.html`)
+]);
 
 if (!fs.existsSync(sitemapPath)) {
   errors.push("dist/sitemap.xml is missing. Run npm run build first.");
 } else {
   const xml = fs.readFileSync(sitemapPath, "utf8");
-  if (!xml.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) {
-    errors.push("sitemap.xml is missing the sitemap namespace.");
-  }
-  if (!xml.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) {
-    errors.push("sitemap.xml is missing the image sitemap namespace.");
-  }
+  if (!xml.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) errors.push("sitemap.xml is missing the sitemap namespace.");
+  if (!xml.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) errors.push("sitemap.xml is missing the image sitemap namespace.");
 
   const invalidChar = xml.match(/[^\u0009\u000a\u000d\u0020-\ud7ff\ue000-\ufffd]/u);
   if (invalidChar) errors.push(`sitemap.xml contains an invalid XML character near index ${invalidChar.index}.`);
 
-  const stack = [];
-  for (const match of xml.matchAll(/<([^>]+)>/g)) {
-    const raw = match[1].trim();
-    if (!raw || raw.startsWith("?") || raw.startsWith("!")) continue;
-    if (raw.endsWith("/")) continue;
-
-    if (raw.startsWith("/")) {
-      const name = raw.slice(1).trim().split(/\s+/)[0];
-      const open = stack.pop();
-      if (open !== name) {
-        errors.push(`sitemap.xml tag mismatch: expected </${open || "(none)"}> but found </${name}> near index ${match.index}.`);
-        break;
-      }
-    } else {
-      stack.push(raw.split(/\s+/)[0]);
-    }
-  }
-  if (stack.length) errors.push(`sitemap.xml has unclosed tags: ${stack.slice(-5).join(", ")}.`);
+  const actualPaths = new Set([...xml.matchAll(/<url><loc>https:\/\/kspotnow\.com([^<]+)<\/loc>/g)].map((match) => match[1] || "/"));
+  const missing = [...expectedPaths].filter((item) => !actualPaths.has(item));
+  const extra = [...actualPaths].filter((item) => !expectedPaths.has(item));
+  if (missing.length) errors.push(`sitemap.xml is missing approved paths: ${missing.slice(0, 8).join(", ")}.`);
+  if (extra.length) errors.push(`sitemap.xml contains non-approved paths: ${extra.slice(0, 8).join(", ")}.`);
+  if (actualPaths.size !== expectedPaths.size) errors.push(`sitemap.xml should contain ${expectedPaths.size} URLs; found ${actualPaths.size}.`);
+  if (actualPaths.has("/")) errors.push("sitemap.xml must not contain the redirecting root URL.");
 
   const imageCount = (xml.match(/<image:image>/g) || []).length;
-  const expectedImages = indexableEvents.length * languages.length;
-  if (imageCount !== expectedImages) {
-    errors.push(`sitemap.xml should contain ${expectedImages} image entries for current multilingual event pages; found ${imageCount}.`);
+  if (imageCount !== approvedEvents.length) errors.push(`sitemap.xml should contain ${approvedEvents.length} approved event image entries; found ${imageCount}.`);
+
+  for (const event of approvedEvents) {
+    const reviewDate = program.eventReviews?.[event.slug]?.reviewedAt || event.lastChecked;
+    const pattern = new RegExp(`<loc>https://kspotnow\\.com/en/events/${event.slug}\\.html</loc><lastmod>${reviewDate}</lastmod>`);
+    if (!pattern.test(xml)) errors.push(`${event.slug} sitemap lastmod must match editorial review date ${reviewDate}.`);
+  }
+  for (const guide of approvedGuides) {
+    const expectedDate = guide.updatedAt || guide.publishedAt;
+    const pattern = new RegExp(`<loc>https://kspotnow\\.com/en/guides/${guide.slug}\\.html</loc><lastmod>${expectedDate}</lastmod>`);
+    if (!pattern.test(xml)) errors.push(`${guide.slug} sitemap lastmod must match guide update date ${expectedDate}.`);
   }
 }
 
@@ -57,4 +59,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap validation passed: ${indexableEvents.length * languages.length} current event image entries.`);
+console.log(`Sitemap validation passed: ${expectedPaths.size} approved URLs and ${approvedEvents.length} event image entries.`);

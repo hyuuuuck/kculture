@@ -52,12 +52,19 @@ const affiliateIds = {
 const affiliateEnabled = affiliatePublishingEnabled() && Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId || affiliateIds.coupangDisplayAdUrl);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
+const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
+const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
+const approvedRouteSlugs = new Set(editorialProgram.indexableRoutes || []);
+const indexableHubPaths = new Set(editorialProgram.indexableHubs || []);
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const curationQueue = JSON.parse(await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8"));
-const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
+const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"))
+  .filter((guide) => approvedGuideSlugs.has(guide.slug));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
-const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
+const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"))
+  .filter((route) => approvedRouteSlugs.has(route.slug));
 const sourceRefreshSummary = await latestSourceRefreshSummary();
 
 async function sourceAssetVersion() {
@@ -2887,10 +2894,11 @@ function guideSummaryText(guide, lang) {
 }
 
 function guideSectionsForLang(guide, lang) {
-  if (lang === "en") return localList(guide.sections, lang);
   const localized = Array.isArray(guide.sections?.[lang]) ? guide.sections[lang].filter(Boolean) : [];
   if (localized.length) return localized;
-  return visitorCopy(lang).guideSections;
+  const english = Array.isArray(guide.sections?.en) ? guide.sections.en.filter(Boolean) : [];
+  if (english.length) return english;
+  return [];
 }
 
 function trimHeading(value, maxLength = 64) {
@@ -2986,8 +2994,62 @@ function isCurrentEvent(event) {
   return statusOf(event) !== "ended";
 }
 
+function editorialReviewFor(event) {
+  return editorialProgram.eventReviews?.[event.slug] || null;
+}
+
+function eventSourceEvidence(event) {
+  const inherited = Array.isArray(event.audit?.sourceEvidence) ? event.audit.sourceEvidence : [];
+  const reviewed = Array.isArray(editorialReviewFor(event)?.sourceEvidence) ? editorialReviewFor(event).sourceEvidence : [];
+  const seen = new Set();
+  return [...inherited, ...reviewed].filter((item) => {
+    const key = `${item.url || ""}|${(item.mustContain || []).join("|")}`;
+    if (!item.url || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function eventEditorialScore(event) {
+  const review = editorialReviewFor(event);
+  const evidence = eventSourceEvidence(event);
+  const checks = Array.isArray(review?.foreignerChecks) ? review.foreignerChecks.filter(Boolean) : [];
+  const sourceEvidence = evidence.length && evidence.every((item) => Array.isArray(item.mustContain) && item.mustContain.length >= 2) ? 25 : 0;
+  const visitorUtility = (event.mapQueryKo ? 5 : 0)
+    + (event.venue ? 5 : 0)
+    + (event.startDate && event.endDate ? 5 : 0)
+    + (checks.length >= 3 ? 10 : checks.length * 3);
+  const originalAnalysis = String(review?.visitorDecision || "").trim().length >= 120 ? 10 : 0;
+  const originalChecks = checks.length >= 3 && checks.every((item) => String(item).trim().length >= 45) ? 10 : 0;
+  const completeness = event.sourceUrl && event.sourceName && event.category && event.city && event.verification ? 15 : 0;
+  const visual = event.thumbnail ? 10 : 0;
+  const accountability = review?.reviewedAt && review?.reviewedBy ? 5 : 0;
+  const breakdown = {
+    sourceEvidence,
+    visitorUtility,
+    originalAnalysis: originalAnalysis + originalChecks,
+    completeness,
+    visual,
+    accountability
+  };
+  return {
+    total: Object.values(breakdown).reduce((sum, value) => sum + value, 0),
+    breakdown
+  };
+}
+
+function isApprovedEvent(event) {
+  if (!approvedEventSlugs.has(event.slug)) return false;
+  if (!editorialReviewFor(event)) return false;
+  return eventEditorialScore(event).total >= Number(editorialProgram.minimumEventScore || 85);
+}
+
+function publicEvents() {
+  return events.filter(isApprovedEvent);
+}
+
 function currentEvents() {
-  return events.filter(isCurrentEvent);
+  return publicEvents().filter(isCurrentEvent);
 }
 
 function statusLabel(lang, status) {
@@ -3045,7 +3107,7 @@ function freshnessInfo(event, lang) {
 }
 
 function recheckQueueItems(limit = 8) {
-  return events
+  return publicEvents()
     .map((event) => {
       const ageDays = daysSince(event.lastChecked);
       const limitDays = freshnessLimitDays(event);
@@ -3097,11 +3159,11 @@ function calendarSort(a, b) {
 }
 
 function nowGroups() {
-  const live = events
+  const live = publicEvents()
     .filter((event) => statusOf(event) === "live")
     .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
     .slice(0, 6);
-  const endingSoon = events
+  const endingSoon = publicEvents()
     .filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7)
     .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
     .slice(0, 6);
@@ -3109,7 +3171,7 @@ function nowGroups() {
     .filter((event) => event.lastChecked === today)
     .sort(statusSort)
     .slice(0, 6);
-  const thisWeek = events
+  const thisWeek = publicEvents()
     .filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7)
     .sort((a, b) => a.startDate.localeCompare(b.startDate) || b.priority - a.priority)
     .slice(0, 6);
@@ -3482,7 +3544,7 @@ function eventDateDistanceDays(a, b) {
 }
 
 function relatedEventsForEvent(event) {
-  return events
+  return publicEvents()
     .filter((candidate) => candidate.slug !== event.slug)
     .map((candidate) => {
       const score =
@@ -3501,7 +3563,7 @@ function relatedEventsForEvent(event) {
 
 function relatedEventsForGuide(guide) {
   const statusWeight = { live: 0, upcoming: 1, ended: 2 };
-  return events
+  return publicEvents()
     .filter((event) => event.category === guide.category)
     .sort((a, b) => {
       const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
@@ -3529,6 +3591,13 @@ const guideSourceTokens = {
 };
 
 function guideSourceExamples(guide) {
+  if (Array.isArray(guide.sources) && guide.sources.length) {
+    return guide.sources.map((source) => ({
+      ...source,
+      type: source.type || "official guide",
+      coverage: source.note ? [source.note] : []
+    }));
+  }
   const tokens = guideSourceTokens[guide.category] || [guide.category];
   return sources
     .filter((source) => {
@@ -3761,7 +3830,7 @@ function localizedSourceNote(source, lang = "en") {
 function eventsForRoute(route) {
   const regionSet = new Set(route.regions || []);
   const categorySet = new Set(route.categories || []);
-  return events
+  return publicEvents()
     .filter((event) => (regionSet.has(event.city) || regionSet.has(event.weatherRegion) || regionSet.has("Nationwide")) && categorySet.has(event.category))
     .sort((a, b) => {
       const statusWeight = { live: 0, upcoming: 1, ended: 2 };
@@ -4947,7 +5016,7 @@ function localizedVisitorInfoValue(event, key, value, lang) {
 function localizedVisitorInfoItems(event, lang) {
   const info = event.visitorInfo || {};
   return Object.entries(visitorInfoLabels)
-    .map(([key, labelKey]) => ({ label: tr(lang, labelKey), value: localizedVisitorInfoValue(event, key, info[key], lang) }))
+    .map(([key, labelKey]) => ({ key, label: tr(lang, labelKey), value: localizedVisitorInfoValue(event, key, info[key], lang) }))
     .filter((item) => item.value);
 }
 
@@ -5807,6 +5876,7 @@ function shouldUseEventSchema(event) {
 function detailPageSchema(event, lang) {
   const pageUrl = absoluteUrl(`/${lang}/events/${event.slug}.html`);
   const imageUrl = absoluteUrl(`/${event.thumbnail}`);
+  const review = editorialReviewFor(event);
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -5815,7 +5885,12 @@ function detailPageSchema(event, lang) {
     description: eventSummaryText(event, lang),
     url: pageUrl,
     inLanguage: lang,
-    dateModified: event.lastChecked,
+    dateModified: review?.reviewedAt || event.lastChecked,
+    author: {
+      "@type": "Organization",
+      name: review?.reviewedBy || editorialProgram.editorialTeam?.name || siteName,
+      url: absoluteUrl(`/${lang}/about/`)
+    },
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: imageUrl
@@ -5900,7 +5975,7 @@ function googleVerificationMeta() {
   return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
 }
 
-function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website", noindex = false }) {
+function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website", noindex = false, adsEligible = false }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   const metaImage = /^https?:\/\//.test(imagePath) ? imagePath : absoluteUrl(imagePath);
   const pageUrl = absoluteUrl(canonicalPath);
@@ -5936,7 +6011,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
   ${googleVerificationMeta()}
   <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
-  ${adsenseHeadScript()}
+  ${adsEligible ? adsenseHeadScript() : ""}
   ${structuredDataScript(structuredData)}
 </head>
 <body>
@@ -7193,44 +7268,25 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
       ${adUnit("home")}
 
-      <section class="content-shell" id="events" data-gallery-scope data-gallery-limit="8" data-gallery-mobile-limit="6" data-gallery-step="8">
+      <section class="content-shell home-event-section" id="events">
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "navEvents")}</p>
             <h2>${esc(eventsHeading)}</h2>
           </div>
+          <a class="text-link" href="/${lang}/now/">See all ${sorted.length} reviewed events</a>
         </div>
-        ${galleryControls(lang, { categories: true })}
-        <section class="browse-directory" aria-label="${tr(lang, "browseDirectory")}">
-          <div class="browse-group browse-group-types">
-            <div class="browse-head">
-              <div>
-                <p class="eyebrow">${tr(lang, "categoryPages")}</p>
-                <h3>${tr(lang, "browseTypeTitle")}</h3>
-              </div>
-              <p>${tr(lang, "browseTypeText")}</p>
-            </div>
-            <div class="category-strip home-category-strip" aria-label="${tr(lang, "categoryPages")}">
-              ${categoryLinkStrip(lang)}
-            </div>
-          </div>
-          <div class="browse-group browse-group-places">
-            <div class="browse-head">
-              <div>
-                <p class="eyebrow">${tr(lang, "location")}</p>
-                <h3>${tr(lang, "browsePlaceTitle")}</h3>
-              </div>
-              <p>${tr(lang, "browsePlaceText")}</p>
-            </div>
-            <div class="city-strip home-city-strip" aria-label="${tr(lang, "cityPages")}">
-              ${cityLinkStrip(lang)}
-            </div>
-          </div>
-        </section>
         <div class="gallery-grid">
-          ${sorted.map((event) => eventCard(event, lang)).join("")}
+          ${sorted.slice(0, 6).map((event) => eventCard(event, lang)).join("")}
         </div>
-        <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
+      </section>
+
+      <section class="home-guide-band">
+        <div class="section-head">
+          <div><p class="eyebrow">Visitor guides</p><h2>Plan with current rules, not old screenshots</h2></div>
+          <a class="text-link" href="/${lang}/guides/">All guides</a>
+        </div>
+        <div class="guide-grid">${guides.slice(0, 3).map((guide) => guideCard(guide, lang)).join("")}</div>
       </section>
 
       <section class="split-band">
@@ -7296,6 +7352,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
     body,
     canonicalPath,
     currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
+    adsEligible: canonicalPath === editorialProgram.canonicalHome,
     schemaData: [
       schema(lang, homePageTitle, description, canonicalPath),
       itemListSchema(lang, `${siteName} latest events`, sorted.slice(0, 12), canonicalPath)
@@ -7425,7 +7482,7 @@ function renderNow(lang) {
         ${nowPanel(tr(lang, "newlyChecked"), groups.newlyChecked, lang)}
         ${nowPanel(tr(lang, "thisWeek"), groups.thisWeek, lang, "starts")}
       </section>
-      <section class="latest-checked-section">
+      <section class="latest-checked-section" data-gallery-scope data-gallery-limit="6" data-gallery-mobile-limit="4" data-gallery-step="6">
         <div class="section-head">
           <div>
             <p class="eyebrow">${tr(lang, "lastChecked")}</p>
@@ -7435,7 +7492,7 @@ function renderNow(lang) {
           <a class="text-link" href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
         </div>
         <div class="gallery-grid">
-          ${feedEvents(9).map((event) => eventCard(event, lang)).join("")}
+          ${feedEvents().map((event) => eventCard(event, lang)).join("")}
         </div>
       </section>
     </main>`;
@@ -7490,6 +7547,7 @@ function renderCategory(lang, category) {
     body,
     canonicalPath: categoryHref(lang, category),
     currentPathBuilder: (code) => categoryHref(code, category),
+    noindex: true,
     schemaData: [
       schema(lang, `${title} - K-Spot Now`, description, categoryHref(lang, category)),
       itemListSchema(lang, title, items, categoryHref(lang, category)),
@@ -7589,6 +7647,7 @@ function renderCity(lang, city) {
     body,
     canonicalPath: cityHref(lang, city),
     currentPathBuilder: (code) => cityHref(code, city),
+    noindex: true,
     schemaData: [
       schema(lang, `${meta.title} - K-Spot Now`, meta.description, cityHref(lang, city)),
       itemListSchema(lang, meta.title, items, cityHref(lang, city)),
@@ -7675,7 +7734,7 @@ function renderRoute(route, lang) {
             ${route.regions.map((region) => cityDefinitions[region] ? `
               <a class="city-pill" href="${cityHref(lang, region)}">
                 <strong>${esc(cityLabel(lang, region))}</strong>
-                <span>${events.filter((event) => event.city === region).length} ${tr(lang, "eventsUnit")}</span>
+                <span>${publicEvents().filter((event) => event.city === region).length} ${tr(lang, "eventsUnit")}</span>
               </a>` : "").join("")}
           </div>
         </section>
@@ -7696,6 +7755,7 @@ function renderRoute(route, lang) {
     body,
     canonicalPath: routeHref(lang, route),
     currentPathBuilder: (code) => routeHref(code, route),
+    adsEligible: true,
     schemaData: [
       schema(lang, `${copy.title} - K-Spot Now`, description, routeHref(lang, route)),
       itemListSchema(lang, copy.title, relatedEvents, routeHref(lang, route)),
@@ -7743,7 +7803,8 @@ function renderCalendar(lang) {
     description: tr(lang, "calendarText"),
     body,
     canonicalPath: `/${lang}/calendar/`,
-    currentPathBuilder: (code) => `/${code}/calendar/`
+    currentPathBuilder: (code) => `/${code}/calendar/`,
+    noindex: true
   });
 }
 
@@ -7877,8 +7938,134 @@ function renderPlanner(lang) {
     description: tr(lang, "plannerText"),
     body,
     canonicalPath: `/${lang}/planner/`,
-    currentPathBuilder: (code) => `/${code}/planner/`
+    currentPathBuilder: (code) => `/${code}/planner/`,
+    noindex: true
   });
+}
+
+function eventReviewSection(event, lang) {
+  const review = editorialReviewFor(event);
+  const score = eventEditorialScore(event);
+  if (!review) return "";
+  return `
+        <section class="detail-section event-review-section" aria-labelledby="event-review-title">
+          <div class="event-review-heading">
+            <div>
+              <p class="eyebrow">Editorial review</p>
+              <h2 id="event-review-title">What matters before you go</h2>
+            </div>
+            <span class="review-score" aria-label="Editorial quality score ${score.total} out of 100">${score.total}/100 reviewed</span>
+          </div>
+          <p class="event-decision">${esc(review.visitorDecision)}</p>
+          <ul class="event-check-list">
+            ${(review.foreignerChecks || []).map((item) => `<li>${esc(item)}</li>`).join("")}
+          </ul>
+          <p class="review-byline">Reviewed ${esc(dateText(lang, review.reviewedAt))} by ${esc(review.reviewedBy)}. ${esc(editorialProgram.editorialTeam?.method || "")}</p>
+        </section>`;
+}
+
+function compactEventMapPanel(event, lang) {
+  if (isNationwideTravelBenefit(event)) {
+    return `
+          <div class="event-map-panel">
+            <p class="eyebrow">Campaign access</p>
+            <h3>No single venue</h3>
+            <p>Open the campaign source and select the participating place or offer before building a route.</p>
+            <a class="button light" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">Open campaign source</a>
+          </div>`;
+  }
+  return `
+          <div class="event-map-panel">
+            <p class="eyebrow">Korean map query</p>
+            <h3 lang="ko">${esc(eventPlaceQuery(event))}</h3>
+            <p>${esc([event.district, cityLabel(lang, event.city)].filter(Boolean).join(", "))}</p>
+            <div class="compact-map-links">
+              ${mapLinks(event, lang).map((link) => `<a href="${esc(link.href)}" rel="nofollow noopener" target="_blank">${esc(link.label)}</a>`).join("")}
+            </div>
+          </div>`;
+}
+
+function compactEventWeather(lang, forecast, weatherInfo) {
+  if (forecast) {
+    const days = (forecast.days || []).filter((day) => day.date >= today).slice(0, 3);
+    const packing = forecastPacking(forecast, lang).slice(0, 4);
+    return `
+            <div class="weather-section-head compact-weather-heading">
+              <div><p class="eyebrow">KMA short-range forecast</p><h3>Weather at the event area</h3></div>
+              <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</span>
+            </div>
+            <div class="forecast-strip compact-forecast-strip">${days.map((day) => forecastDayCard(day, lang)).join("")}</div>
+            <div class="compact-weather-meta">${weatherTags(packing)}<span>Updated ${esc(kmaBaseTimeText(forecast.baseTime))}</span></div>`;
+  }
+  const region = weatherInfo.baseline;
+  const packing = baselinePackingItems(region.packing || [], lang).slice(0, 4);
+  return `
+            <div class="weather-section-head compact-weather-heading">
+              <div><p class="eyebrow">Seasonal planning baseline</p><h3>Weather at the event area</h3></div>
+              <span>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</span>
+            </div>
+            <div class="event-weather-baseline">
+              <div><span>Typical range</span><strong>${esc(baselineRangeText(region, lang))}</strong></div>
+              <p>${esc(baselineOutdoorAdvice(region, lang))}</p>
+            </div>
+            <div class="compact-weather-meta">${weatherTags(packing)}<span>${esc(weather.source.name)} historical baseline; check the live forecast before departure.</span></div>`;
+}
+
+function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas) {
+  const allInfo = localizedVisitorInfoItems(event, lang);
+  const preferredInfoKeys = ["hours", "programHours", "address", "transportation", "websiteLanguages", "parking", "smartGuide"];
+  const info = preferredInfoKeys.map((key) => allInfo.find((item) => item.key === key)).filter(Boolean).slice(0, 4);
+  const tips = eventTravelTips(event, lang).slice(0, 4);
+  return `
+        <section class="detail-section event-visit-section" aria-labelledby="visit-plan-title">
+          <div class="event-visit-heading">
+            <div>
+              <p class="eyebrow">Practical plan</p>
+              <h2 id="visit-plan-title">Place, timing, weather</h2>
+            </div>
+            <a class="text-link" href="/events/${esc(event.slug)}.ics">Add to calendar</a>
+          </div>
+          <div class="event-visit-grid">
+            <div class="event-practical-panel">
+              <dl>
+                ${info.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${item.html ? item.value : esc(item.value)}</dd></div>`).join("")}
+              </dl>
+              ${tips.length ? `<ul>${tips.map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>` : ""}
+            </div>
+            ${compactEventMapPanel(event, lang)}
+          </div>
+          <div class="compact-weather-panel">
+            ${compactEventWeather(lang, forecastInfo, weatherInfo)}
+          </div>
+          ${routeIdeas.length ? `<div class="compact-route-links"><strong>Nearby route ideas</strong>${routeIdeas.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}">${esc(routeCopy(route, lang).title)}</a>`).join("")}</div>` : ""}
+        </section>`;
+}
+
+function eventEvidenceSection(event, lang) {
+  const evidence = eventSourceEvidence(event);
+  const review = editorialReviewFor(event);
+  return `
+        <section class="detail-section event-evidence-section" aria-labelledby="event-evidence-title">
+          <div class="event-evidence-heading">
+            <div>
+              <p class="eyebrow">Source record</p>
+              <h2 id="event-evidence-title">What we checked</h2>
+            </div>
+            <span>Last editorial review ${esc(dateText(lang, review?.reviewedAt || event.lastChecked))}</span>
+          </div>
+          <div class="evidence-list">
+            ${evidence.map((item) => `
+              <article>
+                <div>
+                  <strong>${esc(item.sourceName || event.sourceName)}</strong>
+                  <span>${esc(new URL(item.url).hostname.replace(/^www\./, ""))}</span>
+                </div>
+                <p>Checked for: ${(item.mustContain || []).slice(0, 5).map((token) => `<span>${esc(token)}</span>`).join("")}</p>
+                <a href="${esc(item.url)}" rel="nofollow noopener" target="_blank">Open source</a>
+              </article>`).join("")}
+          </div>
+          <p class="evidence-note">A source link confirms the page we reviewed; inventory, admission, weather, and operating notices can still change. Complete the final action on that source.</p>
+        </section>`;
 }
 
 function renderEvent(event, lang) {
@@ -7894,73 +8081,44 @@ function renderEvent(event, lang) {
   const venueText = [event.venue, event.district].filter(Boolean).join(", ");
   const body = `
     <main class="page">
-      <article class="detail-layout">
-        <header class="detail-hero">
-          <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))}">
-          <div>
-            <p class="eyebrow">${categoryLabel(lang, event.category)} · ${statusLabel(lang, status)}</p>
+      <article class="detail-layout compact-event-detail">
+        <header class="detail-hero compact-detail-hero">
+          <div class="detail-hero-media">
+            <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))} event visual">
+            <a class="detail-media-credit" href="${esc(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">Official visual: ${esc(event.sourceName)}</a>
+          </div>
+          <div class="detail-hero-copy">
+            <p class="eyebrow">${esc(statusLabel(lang, status))} / ${esc(categoryLabel(lang, event.category))}</p>
             <h1>${esc(local(event.title, lang))}</h1>
             <p>${esc(description)}</p>
             <div class="detail-actions">
-              <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(sourceRoleLabel(event, lang))}</a>
+              <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">Open ${esc(sourceRoleLabel(event, lang))}</a>
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
-              ${hotelAffiliateButton(event, lang)}
               ${saveEventButton(event, lang)}
             </div>
-            ${handoffChips(event, lang)}
           </div>
         </header>
-        ${affiliatePlanningRail(event, lang)}
 
-        <section class="fact-grid" aria-label="Event facts">
-          ${fact(tr(lang, "period"), periodText, "calendar")}
-          ${fact(tr(lang, "venue"), venueText, "pin")}
-          ${fact(tr(lang, "location"), cityLabel(lang, event.city), "place")}
-          ${fact(tr(lang, "lastChecked"), dateText(lang, event.lastChecked), "check")}
-          ${fact(tr(lang, "freshness"), `<span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span>`, "pulse", true)}
-          ${fact(tr(lang, "verification"), prettyVerification(event.verification, lang), "shield")}
-          ${fact(tr(lang, "collectionMode"), prettyCollectionMode(event.collectionMode, lang), "review")}
-          ${eventKindLabel(event, lang) ? fact(tr(lang, "dateBasis"), eventKindLabel(event, lang), "basis") : ""}
-        </section>
+        <dl class="event-fact-bar" aria-label="Event essentials">
+          <div><dt>${tr(lang, "period")}</dt><dd>${esc(periodText)}</dd></div>
+          <div><dt>${tr(lang, "venue")}</dt><dd>${esc(venueText)}</dd></div>
+          <div><dt>${tr(lang, "location")}</dt><dd>${esc(cityLabel(lang, event.city))}</dd></div>
+          <div><dt>${tr(lang, "lastChecked")}</dt><dd>${esc(dateText(lang, event.lastChecked))} <span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span></dd></div>
+        </dl>
 
-        ${visitorActionChecklist(event, lang)}
-        ${sourceTransparencySection(event, lang)}
-        ${localizedVisitorBriefSection(event, lang)}
-        ${visitorInfoSection(event, lang)}
-        ${eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, routeIdeas, relatedEvents)}
+        ${eventReviewSection(event, lang)}
+        ${eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas)}
+        ${eventEvidenceSection(event, lang)}
         ${adUnit("detail")}
-        ${coupangShoppingWidget(event, lang)}
 
-        <section class="detail-section weather-detail-section">
-          ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
-        </section>
-
-        <section class="detail-section travel-ideas-section">
-          <h2>${tr(lang, "travelIdeas")}</h2>
-          <ul>${eventTravelTips(event, lang).map((tip) => `<li>${esc(tip)}</li>`).join("")}</ul>
-        </section>
-        ${mapLinkSection(event, lang)}
-
-        ${routeIdeas.length ? `
-          <section class="detail-section">
-            <h2>${tr(lang, "routeIdeas")}</h2>
-            <div class="route-grid">
-              ${routeIdeas.map((route) => routeLinkCard(route, lang)).join("")}
-            </div>
-          </section>` : ""}
-
-        ${relatedEvents.length ? `
-          <section class="detail-section related-events-section">
-            <h2>${tr(lang, "relatedEventsTitle")}</h2>
-            <div class="gallery-grid">
-              ${relatedEvents.map((item) => eventCard(item, lang)).join("")}
-            </div>
-          </section>` : ""}
-
-        <section class="detail-section">
-          <h2>${tr(lang, "relatedGuides")}</h2>
-          <div class="guide-grid">
-            ${(relatedGuides.length ? relatedGuides : guides.slice(0, 3)).map((guide) => guideCard(guide, lang)).join("")}
+        <section class="detail-section compact-related-section">
+          <div>
+            <p class="eyebrow">Continue planning</p>
+            <h2>Useful next pages</h2>
+          </div>
+          <div class="compact-related-links">
+            ${(relatedGuides.length ? relatedGuides : guides.slice(0, 2)).slice(0, 2).map((guide) => `<a href="/${lang}/guides/${guide.slug}.html"><strong>${esc(guideTitleText(guide, lang))}</strong><span>${esc(guideSummaryText(guide, lang))}</span></a>`).join("")}
+            ${relatedEvents.slice(0, 2).map((item) => `<a href="/${lang}/events/${item.slug}.html"><strong>${esc(local(item.title, lang))}</strong><span>${esc(eventDateLabel(item, lang, false))} / ${esc(cityLabel(lang, item.city))}</span></a>`).join("")}
           </div>
         </section>
       </article>
@@ -7976,6 +8134,7 @@ function renderEvent(event, lang) {
     imagePath: `/${event.thumbnail}`,
     pageType: "article",
     noindex: status === "ended",
+    adsEligible: status !== "ended" && isApprovedEvent(event),
     schemaData: [
       shouldUseEventSchema(event) ? eventSchema(event, lang) : detailPageSchema(event, lang),
       breadcrumbSchema(lang, [
@@ -8318,6 +8477,50 @@ function renderGuides(lang) {
   });
 }
 
+function renderGuideSection(section, index) {
+  if (typeof section === "string") {
+    return `<section class="guide-content-section"><h2>${index + 1}. Planning note</h2><p>${esc(section)}</p></section>`;
+  }
+  const table = section.table?.headers?.length && section.table?.rows?.length ? `
+        <div class="guide-table-wrap" tabindex="0" aria-label="Scrollable comparison table">
+          <table class="guide-table">
+            <thead><tr>${section.table.headers.map((header) => `<th scope="col">${esc(header)}</th>`).join("")}</tr></thead>
+            <tbody>${section.table.rows.map((row) => `<tr>${row.map((cell, cellIndex) => cellIndex === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+          </table>
+        </div>` : "";
+  return `
+        <section class="guide-content-section">
+          <h2>${esc(section.heading || `${index + 1}. Planning note`)}</h2>
+          ${(section.paragraphs || []).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
+          ${table}
+          ${(section.checklist || []).length ? `<ul class="guide-checklist">${section.checklist.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}
+        </section>`;
+}
+
+function guideArticleSchema(guide, lang) {
+  const pageUrl = absoluteUrl(`/${lang}/guides/${guide.slug}.html`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guideTitleText(guide, lang),
+    description: guideSummaryText(guide, lang),
+    datePublished: guide.publishedAt,
+    dateModified: guide.updatedAt,
+    inLanguage: lang,
+    mainEntityOfPage: pageUrl,
+    author: {
+      "@type": "Organization",
+      name: guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName,
+      url: absoluteUrl(`/${lang}/about/`)
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl
+    }
+  };
+}
+
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
   const relatedEvents = relatedEventsForGuide(guide);
@@ -8325,21 +8528,33 @@ function renderGuide(guide, lang) {
   const sourceExamples = guideSourceExamples(guide);
   const body = `
     <main class="page guide-detail-page">
-      <article class="article-page">
-        <p class="eyebrow">${categoryLabel(lang, guide.category)}</p>
-        <h1>${esc(guideTitleText(guide, lang))}</h1>
-        <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
+      <article class="article-page editorial-guide">
+        <header class="guide-article-header">
+          <p class="eyebrow">${categoryLabel(lang, guide.category)} guide</p>
+          <h1>${esc(guideTitleText(guide, lang))}</h1>
+          <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
+          <div class="guide-byline">
+            <strong>${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</strong>
+            <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
+            <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
+          </div>
+          <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
+        </header>
         ${adUnit("article")}
-        ${sections.map((section, index) => `
-          <section>
-            <h2>${esc(guideSectionHeading(guide, lang, index))}</h2>
-            <p>${esc(section)}</p>
-          </section>`).join("")}
+        ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
+        <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
+          <h2 id="guide-citations-title">Official sources used</h2>
+          <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
+          <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
+        </section>
       </article>
-      ${guideDecisionPanel(guide, lang, relatedEvents, relatedRoutes, sourceExamples)}
-      ${guideRelatedEventsSection(guide, lang, relatedEvents)}
-      ${guideRoutesSection(guide, lang, relatedRoutes)}
-      ${guideSourceSection(guide, lang, sourceExamples)}
+      <section class="guide-next-section" aria-labelledby="guide-next-title">
+        <div class="section-head"><div><p class="eyebrow">Apply the guide</p><h2 id="guide-next-title">Current pages to compare</h2></div></div>
+        <div class="guide-next-grid">
+          ${relatedEvents.slice(0, 3).map((event) => `<a href="/${lang}/events/${event.slug}.html"><strong>${esc(local(event.title, lang))}</strong><span>${esc(eventDateLabel(event, lang, false))} / ${esc(cityLabel(lang, event.city))}</span></a>`).join("")}
+          ${relatedRoutes.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}"><strong>${esc(routeCopy(route, lang).title)}</strong><span>${esc(routeCopy(route, lang).summary || "Route planning page")}</span></a>`).join("")}
+        </div>
+      </section>
     </main>`;
   return layout({
     lang,
@@ -8347,7 +8562,17 @@ function renderGuide(guide, lang) {
     description: guideSummaryText(guide, lang),
     body,
     canonicalPath: `/${lang}/guides/${guide.slug}.html`,
-    currentPathBuilder: (code) => `/${code}/guides/${guide.slug}.html`
+    currentPathBuilder: (code) => `/${code}/guides/${guide.slug}.html`,
+    adsEligible: approvedGuideSlugs.has(guide.slug),
+    pageType: "article",
+    schemaData: [
+      guideArticleSchema(guide, lang),
+      breadcrumbSchema(lang, [
+        { name: "Home", url: `/${lang}/` },
+        { name: "Guides", url: `/${lang}/guides/` },
+        { name: guideTitleText(guide, lang), url: `/${lang}/guides/${guide.slug}.html` }
+      ])
+    ]
   });
 }
 
@@ -9283,7 +9508,8 @@ ${numberedSections(sections)}
     description: tr(lang, "correctionsText"),
     body,
     canonicalPath: `/${lang}/corrections/`,
-    currentPathBuilder: (code) => `/${code}/corrections/`
+    currentPathBuilder: (code) => `/${code}/corrections/`,
+    noindex: true
   });
 }
 
@@ -9675,7 +9901,8 @@ function staticPage(lang, kind) {
     description: paragraphs[0] || title,
     body,
     canonicalPath: `/${lang}/${kind}/`,
-    currentPathBuilder: (code) => `/${code}/${kind}/`
+    currentPathBuilder: (code) => `/${code}/${kind}/`,
+    noindex: !indexableHubPaths.has(`/${lang}/${kind}/`)
   });
 }
 
@@ -9743,7 +9970,7 @@ async function build() {
     for (const route of routes) {
       await writeHtml(`${lang}/routes/${route.slug}.html`, renderRoute(route, lang));
     }
-    for (const event of events) {
+    for (const event of currentEvents()) {
       await writeHtml(`${lang}/events/${event.slug}.html`, renderEvent(event, lang));
     }
     for (const guide of guides) {
@@ -9761,7 +9988,7 @@ async function build() {
   }
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
   await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
-  for (const event of events) {
+  for (const event of currentEvents()) {
     await writeText(`events/${event.slug}.ics`, singleEventIcs(event));
   }
 }
@@ -9845,50 +10072,38 @@ function headers() {
 
 function sitemap() {
   const seoEvents = currentEvents();
-  const entries = [{ url: "/", lastmod: maxIso(seoEvents.map((event) => event.lastChecked)) }];
-  for (const lang of Object.keys(languages)) {
-    const latestEventCheck = maxIso(seoEvents.map((event) => event.lastChecked));
-    entries.push(
-      { url: `/${lang}/`, lastmod: latestEventCheck },
-      { url: `/${lang}/now/`, lastmod: today },
-      { url: `/${lang}/calendar/`, lastmod: today },
-      { url: `/${lang}/planner/`, lastmod: today },
-      { url: `/${lang}/guides/`, lastmod: today },
-      { url: `/${lang}/routes/`, lastmod: latestEventCheck },
-      { url: `/${lang}/editorial-policy/`, lastmod: today },
-      { url: `/${lang}/corrections/`, lastmod: today },
-      { url: `/${lang}/about/`, lastmod: today },
-      { url: `/${lang}/contact/`, lastmod: today },
-      { url: `/${lang}/privacy/`, lastmod: today },
-      { url: `/${lang}/cookie-policy/`, lastmod: today },
-      { url: `/${lang}/advertising/`, lastmod: today },
-      { url: `/${lang}/terms/`, lastmod: today }
-    );
-    for (const category of Object.keys(categoryDefinitions)) {
-      const categoryEvents = seoEvents.filter((event) => event.category === category);
-      entries.push({ url: categoryHref(lang, category), lastmod: maxIso(categoryEvents.map((event) => event.lastChecked), latestEventCheck) });
-    }
-    for (const city of citiesWithPages()) {
-      const cityEvents = seoEvents.filter((event) => event.city === city);
-      entries.push({ url: cityHref(lang, city), lastmod: maxIso(cityEvents.map((event) => event.lastChecked), latestEventCheck) });
-    }
-    for (const route of routes) {
-      const routeEvents = eventsForRoute(route).filter(isCurrentEvent);
-      entries.push({ url: routeHref(lang, route), lastmod: maxIso(routeEvents.map((event) => event.lastChecked), latestEventCheck) });
-    }
-    for (const event of seoEvents) {
-      entries.push({
-        url: `/${lang}/events/${event.slug}.html`,
-        lastmod: event.lastChecked || latestEventCheck,
-        image: {
-          loc: absoluteUrl(`/${event.thumbnail}`),
-          title: local(event.title, "en"),
-          caption: local(event.summary, "en")
-        }
-      });
-    }
-    for (const guide of guides) entries.push({ url: `/${lang}/guides/${guide.slug}.html`, lastmod: today });
+  const lang = "en";
+  const latestEventReview = maxIso(seoEvents.map((event) => editorialReviewFor(event)?.reviewedAt || event.lastChecked));
+  const entries = [...indexableHubPaths].map((url) => ({
+    url,
+    lastmod: editorialProgram.staticUpdatedAt?.[url] || latestEventReview
+  }));
+
+  for (const route of routes) {
+    const routeEvents = eventsForRoute(route).filter(isCurrentEvent);
+    entries.push({
+      url: routeHref(lang, route),
+      lastmod: maxIso(routeEvents.map((event) => editorialReviewFor(event)?.reviewedAt || event.lastChecked), editorialProgram.staticUpdatedAt?.["/en/routes/"] || latestEventReview)
+    });
   }
+  for (const event of seoEvents) {
+    entries.push({
+      url: `/${lang}/events/${event.slug}.html`,
+      lastmod: editorialReviewFor(event)?.reviewedAt || event.lastChecked,
+      image: {
+        loc: absoluteUrl(`/${event.thumbnail}`),
+        title: local(event.title, "en"),
+        caption: local(event.summary, "en")
+      }
+    });
+  }
+  for (const guide of guides) {
+    entries.push({
+      url: `/${lang}/guides/${guide.slug}.html`,
+      lastmod: guide.updatedAt || guide.publishedAt || editorialProgram.staticUpdatedAt?.["/en/guides/"] || latestEventReview
+    });
+  }
+  entries.sort((a, b) => a.url.localeCompare(b.url));
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.map(sitemapEntryXml).join("\n")}\n</urlset>\n`;
 }
 
@@ -9956,7 +10171,7 @@ function calendarIcs(calendarName, calendarEvents) {
 }
 
 function ics() {
-  return calendarIcs("K-Spot Now Events", events);
+  return calendarIcs("K-Spot Now Events", currentEvents());
 }
 
 function singleEventIcs(event) {
@@ -9964,4 +10179,4 @@ function singleEventIcs(event) {
 }
 
 await build();
-console.log(`Built ${events.length} events, ${guides.length} guides, ${Object.keys(languages).length} languages into ${dist}`);
+console.log(`Built ${currentEvents().length} editorially approved events, ${guides.length} guides, ${Object.keys(languages).length} languages into ${dist}`);

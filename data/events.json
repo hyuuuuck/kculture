@@ -369,7 +369,7 @@
     "lastChecked": "2026-07-10",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official-ticketing-page",
-    "thumbnail": "assets/event-thumbnails/official/nct-dream-sweet-dream-hotel-incheon-2026.svg",
+    "thumbnail": "assets/event-thumbnails/official/nct-dream-sweet-dream-hotel-incheon-2026.gif",
     "title": {
       "en": "NCT DREAM 10th Anniversary Party: The Sweet Dream Hotel",
       "es": "NCT DREAM 10th Anniversary Party: The Sweet Dream Hotel",
@@ -1192,9 +1192,9 @@
     "category": "kpop",
     "eventKind": "concert",
     "priority": 94,
-    "startDate": "2026-08-01",
+    "startDate": "2026-07-31",
     "endDate": "2026-08-02",
-    "dateLabel": "2026-08-01 - 2026-08-02 KST",
+    "dateLabel": "2026-07-31 - 2026-08-02 KST",
     "city": "Seoul",
     "district": "Seongbuk-gu",
     "venue": "Korea University Hwajeong Gymnasium",
@@ -1205,7 +1205,7 @@
     "lastChecked": "2026-07-10",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
-    "thumbnail": "assets/event-thumbnails/official/red-velvet-day-in-red-velvet-seoul-2026.svg",
+    "thumbnail": "assets/event-thumbnails/official/red-velvet-day-in-red-velvet-seoul-2026.jpg",
     "title": {
       "en": "Red Velvet FAN-CON A Day in Red and Velvet",
       "es": "Red Velvet FAN-CON A Day in Red and Velvet",
@@ -1215,7 +1215,7 @@
       "ja": "Red Velvet FAN-CON A Day in Red and Velvet"
     },
     "summary": {
-      "en": "Melon Ticket lists Red Velvet FAN-CON A Day in Red and Velvet for August 1-2, 2026 at Korea University Hwajeong Gymnasium, with Saturday 18:00 and Sunday 16:00 showtimes shown on the ticket page.",
+      "en": "Melon Ticket lists Red Velvet FAN-CON A Day in Red and Velvet for July 31-August 2, 2026 at Korea University Hwajeong Gymnasium, with Friday 20:00, Saturday 18:00, and Sunday 16:00 showtimes.",
       "es": "Melon Ticket lista Red Velvet FAN-CON A Day in Red and Velvet para el 1 y 2 de agosto de 2026 en Korea University Hwajeong Gymnasium, con funciones el sábado a las 18:00 y el domingo a las 16:00.",
       "zh": "Melon Ticket列出Red Velvet FAN-CON A Day in Red and Velvet，2026年8月1日至2日在高丽大学化汀体育馆举行，周六18:00、周日16:00。",
       "pt": "A Melon Ticket lista Red Velvet FAN-CON A Day in Red and Velvet para 1 e 2 de agosto de 2026 no Korea University Hwajeong Gymnasium, sábado às 18:00 e domingo às 16:00.",
@@ -1240,7 +1240,7 @@
     "mapQueryKo": "고려대학교 화정체육관",
     "visitorInfo": {
       "theme": "K-pop fan-con at Korea University Hwajeong Gymnasium",
-      "hours": "August 1, 2026 at 18:00 and August 2, 2026 at 16:00 per Melon Ticket.",
+      "hours": "July 31, 2026 at 20:00, August 1 at 18:00, and August 2 at 16:00 per Melon Ticket.",
       "address": "Korea University Hwajeong Gymnasium, Seoul",
       "transportation": "Use Anam or Korea University area routing and confirm post-show transit before booking lodging.",
       "websiteLanguages": [
@@ -1251,13 +1251,14 @@
     "audit": {
       "risk": "high",
       "expectedEventKind": "concert",
-      "expectedStartDate": "2026-08-01",
+      "expectedStartDate": "2026-07-31",
       "expectedEndDate": "2026-08-02",
       "expectedSourceName": "Melon Ticket",
       "expectedSourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
       "localMustContain": [
         "Red Velvet",
         "Hwajeong Gymnasium",
+        "20:00",
         "18:00",
         "16:00"
       ],
@@ -1268,9 +1269,11 @@
           "allowBlockedStatuses": [
             423
           ],
-          "blockedReason": "Melon Ticket can block automated datacenter requests; page text was manually fetched on 2026-06-30 from the local workstation.",
+          "blockedReason": "Melon Ticket can block automated datacenter requests; page text was manually reviewed on 2026-07-10 and stored as an audited fallback snapshot.",
+          "snapshotPath": "data/audit-snapshots/red-velvet-day-in-red-velvet-seoul-2026.txt",
           "mustContain": [
             "Red Velvet FAN-CON",
+            "2026.07.31",
             "2026.08.01",
             "2026.08.02",
             "고려대학교 화정체육관"
@@ -1578,7 +1581,7 @@
     "lastChecked": "2026-07-10",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
-    "thumbnail": "assets/event-thumbnails/official/boynextdoor-knock-on-vol2-seoul-2026.svg",
+    "thumbnail": "assets/event-thumbnails/official/boynextdoor-knock-on-vol2-seoul-2026.gif",
     "title": {
       "en": "BOYNEXTDOOR TOUR KNOCK ON Vol.2 in Seoul",
       "es": "BOYNEXTDOOR TOUR KNOCK ON Vol.2 en Seúl",
@@ -2072,7 +2075,7 @@
     "lastChecked": "2026-07-10",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official-nol-world-listing",
-    "thumbnail": "assets/event-thumbnails/official/psy-summer-swag-2026.svg",
+    "thumbnail": "assets/event-thumbnails/official/psy-summer-swag-2026.gif",
     "title": {
       "en": "PSY SUMMER SWAG 2026 Korea Tour",
       "es": "PSY SUMMER SWAG 2026 Korea Tour",

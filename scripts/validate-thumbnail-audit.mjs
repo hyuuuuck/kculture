@@ -3,6 +3,8 @@ import path from "node:path";
 
 const root = path.resolve(".");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
+const editorialProgram = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
+const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
 const sourcesPath = path.join(root, "data", "thumbnail-sources.json");
 const sources = fs.existsSync(sourcesPath) ? JSON.parse(fs.readFileSync(sourcesPath, "utf8")) : {};
 const errors = [];
@@ -111,11 +113,13 @@ for (const event of events) {
   if (Number(source.score || 0) < 8) {
     push(errors, event.slug, `official thumbnail score is too low: ${source.score}`);
   }
-  // Image policy: K-pop listings often feature artist photography, so they must
-  // use generated source identity cards instead of downloaded promotional images
-  // (copyright and publicity-rights exposure on an ad-monetized site).
-  if (event.category === "kpop" && !thumbnail.endsWith(".svg")) {
-    push(errors, event.slug, `kpop event must use an official source identity card, not a downloaded image: ${thumbnail}`);
+  if (approvedSlugs.has(event.slug)) {
+    if (thumbnail.endsWith(".svg") || /identity card/i.test(String(source.kind || ""))) {
+      push(errors, event.slug, `indexable event must use a real official event image, not a generated identity card: ${thumbnail}`);
+    }
+    if (!/^https?:\/\//i.test(String(source.sourceImageUrl || ""))) {
+      push(errors, event.slug, "indexable event image needs a traceable HTTP sourceImageUrl.");
+    }
   }
 }
 

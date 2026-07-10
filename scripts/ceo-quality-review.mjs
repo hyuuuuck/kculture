@@ -1,83 +1,41 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
+import fssync from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
-import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
 
-const root = path.resolve(".");
-const dist = path.join(root, "dist");
-const feedDir = path.join(root, "data", "feeds");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, "..");
 const today = todayString();
-
-const qualitySystem = readJson("data/quality-system.json");
-const events = readJson("data/events.json");
-const sources = readJson("data/sources.json");
-const guides = readJson("data/guides.json");
-const curationQueue = readJson("data/curation-queue.json");
-const routes = readJson("data/travel-routes.json");
-const thumbnailSources = readJson("data/thumbnail-sources.json", {});
-
-const languages = publicLanguageCodes();
-const affiliateEnabled = affiliatePublishingEnabled();
-const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const feedDir = path.join(root, "data", "feeds");
+const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
+const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"));
+const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
+const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const publishedRecheck = JSON.parse(await fs.readFile(path.join(root, "data", "published-event-recheck.json"), "utf8").catch(() => "{}"));
 const checks = [];
-const dayMs = 24 * 60 * 60 * 1000;
-const fastMovingCategories = new Set(["kpop", "beauty", "duty-free", "department-store"]);
-const defaultSiteUrl = "https://kspotnow.com";
-const defaultContactEmail = "contact@kspotnow.com";
 
-function readJson(relativePath, fallback = null) {
-  try {
-    return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
-  } catch {
-    if (fallback !== null) return fallback;
-    throw new Error(`Missing or invalid JSON: ${relativePath}`);
-  }
+function exists(relative) {
+  return fssync.existsSync(path.join(root, relative));
 }
 
-function readText(relativePath) {
+function read(relative) {
   try {
-    return fs.readFileSync(path.join(root, relativePath), "utf8");
+    return fssync.readFileSync(path.join(root, relative), "utf8");
   } catch {
     return "";
   }
 }
 
-function htmlText(value) {
-  return String(value || "")
-    .replace(/<script[\s\S]*?<\/script>/g, " ")
-    .replace(/<style[\s\S]*?<\/style>/g, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, "\"")
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function exists(relativePath) {
-  return fs.existsSync(path.join(root, relativePath));
-}
-
-function statusOf(event) {
-  if (event.endDate < today) return "ended";
-  if (event.startDate > today) return "upcoming";
-  return "live";
-}
-
-function daysSince(iso) {
-  return Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${iso}T00:00:00Z`)) / dayMs);
-}
-
-function freshnessLimitDays(event) {
-  const status = statusOf(event);
-  if (status === "ended") return 45;
-  if (status === "live") return fastMovingCategories.has(event.category) ? 2 : 3;
-  return fastMovingCategories.has(event.category) ? 3 : 7;
-}
-
-function countMatches(text, pattern) {
-  return [...text.matchAll(pattern)].length;
+function latestJson(pattern) {
+  if (!fssync.existsSync(feedDir)) return null;
+  const name = fssync.readdirSync(feedDir).filter((item) => pattern.test(item)).sort().at(-1);
+  if (!name) return null;
+  try {
+    return JSON.parse(fssync.readFileSync(path.join(feedDir, name), "utf8"));
+  } catch {
+    return null;
+  }
 }
 
 function add(owner, area, item, status, detail, task = "") {
@@ -96,702 +54,159 @@ function fail(owner, area, item, detail, task) {
   add(owner, area, item, "fail", detail, task);
 }
 
-function latestMatchingFile(pattern) {
-  if (!fs.existsSync(feedDir)) return "";
-  return fs.readdirSync(feedDir)
-    .filter((name) => pattern.test(name))
-    .sort()
-    .at(-1) || "";
+function htmlWordCount(value) {
+  const text = String(value || "")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z0-9#]+;/gi, " ")
+    .replace(/\s+/g, " ");
+  return (text.match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
 }
 
-function latestJson(pattern) {
-  const fileName = latestMatchingFile(pattern);
-  if (!fileName) return null;
-  try {
-    return JSON.parse(fs.readFileSync(path.join(feedDir, fileName), "utf8"));
-  } catch {
-    return null;
-  }
+const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
+const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
+const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
+
+if (program.mode === "adsense-editorial-review" && approvedEvents.length === 15 && approvedGuides.length === 8 && approvedRoutes.length === 5) {
+  pass("planner", "Scope", "Editorial review set", "15 current events, 8 guides, and 5 routes are explicitly approved.");
+} else {
+  fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} events, ${approvedGuides.length} guides, ${approvedRoutes.length} routes.`, "Planner: restore the explicit review set before release.");
 }
 
-function customDomainStatus() {
-  const siteUrl = String(process.env.SITE_URL || defaultSiteUrl).trim();
-  if (!siteUrl) return { ok: false, detail: "SITE_URL not set in this review run." };
-  try {
-    const parsed = new URL(siteUrl);
-    const platformPreview = /\.(pages\.dev|netlify\.app|vercel\.app|github\.io)$/i.test(parsed.hostname);
-    return {
-      ok: parsed.protocol === "https:" && !platformPreview && !["localhost", "127.0.0.1", "example.com", "your-domain.com"].includes(parsed.hostname),
-      detail: siteUrl
-    };
-  } catch {
-    return { ok: false, detail: siteUrl };
-  }
+const missingReviews = approvedEvents.filter((event) => {
+  const review = program.eventReviews?.[event.slug];
+  const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
+  return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
+    || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
+    || !evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+});
+if (!missingReviews.length) {
+  pass("auditor", "Evidence", "Structured event review", "15/15 approved events have ownership, visitor analysis, and official-source evidence tokens.");
+} else {
+  fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
 
-function collectHomeUx() {
-  const home = readText("dist/en/index.html");
-  if (!home) {
-    fail("publisher", "Build", "Home page generated", "dist/en/index.html missing.", "Publisher: rebuild dist before CEO review.");
-    return;
-  }
-
-  const slides = countMatches(home, /data-spotlight-slide/g);
-  const dots = countMatches(home, /class="spotlight-dot"/g);
-  const hasSimpleDots = home.includes("class=\"spotlight-nav-panel\"")
-    && dots === slides
-    && !home.includes("data-spotlight-title-label")
-    && !home.includes("data-spotlight-count")
-    && !home.includes("spotlight-content");
-  if (slides >= 3 && slides <= 5 && hasSimpleDots) {
-    pass("designer", "Hero", "Spotlight carousel", `${slides} slides with compact dot navigation and no repeated title/count/overlay clutter.`);
-  } else {
-    fail("designer", "Hero", "Spotlight carousel", `${slides} slides, ${dots} dots, simple dots ${hasSimpleDots}.`, "Designer: keep 3-5 spotlight slides with dot-only navigation; do not repeat title, overlay, or sequence count below the hero.");
-  }
-
-  if (home.includes("Live Korea events, pop-ups, and deals for visitors.") && home.includes("K-Spot Now")) {
-    pass("planner", "Positioning", "Brand promise", "Homepage states the live Korea events/pop-ups/deals promise.");
-  } else {
-    fail("planner", "Positioning", "Brand promise", "Homepage promise is missing or unclear.", "Planner: restore brand promise above the fold.");
-  }
-
-  if (home.includes("data-gallery-limit=\"8\"") && home.includes("data-gallery-mobile-limit=\"6\"")) {
-    pass("designer", "Content density", "Home event gallery", "Homepage starts with a short event set and lets visitors expand when they want more.");
-  } else {
-    fail("designer", "Content density", "Home event gallery", "Home event gallery is not progressively disclosed.", "Designer/Developer: keep the homepage event list short by default and expose a clear more button.");
-  }
-
-  const navHasOpsNoise = /<nav class="top-nav"[\s\S]*?(Sources|Watchlist)[\s\S]*?<\/nav>/i.test(home);
-  if (!navHasOpsNoise) pass("designer", "Navigation", "Visitor-first primary nav", "Operations pages are not in the primary visitor nav.");
-  else warn("designer", "Navigation", "Visitor-first primary nav", "Sources or Watchlist appear in primary nav.", "Designer: keep operations pages in footer or trust sections, not the main visitor nav.");
-
-  const summaryBlock = home.match(/<dl class="service-summary"[\s\S]*?<\/dl>/)?.[0] || "";
-  if (summaryBlock.includes("<dt>Guides</dt>") && !summaryBlock.includes("<dt>Sources</dt>")) {
-    pass("designer", "Hero", "Visitor-facing summary stats", "Hero summary shows content value instead of operational source counts.");
-  } else {
-    warn("designer", "Hero", "Visitor-facing summary stats", "Hero summary may expose operational source counts.", "Designer: use visitor-facing counts such as guides, languages, live, and upcoming instead of source totals.");
-  }
-
-  const categoryMediaCards = countMatches(home, /class="category-pill[^"]*has-media/g);
-  const cityMediaCards = countMatches(home, /class="city-pill[^"]*has-media/g);
-  if (categoryMediaCards >= 7 && cityMediaCards >= 3) {
-    pass("designer", "Browse", "Representative browse cards", `${categoryMediaCards} topic cards and ${cityMediaCards} place cards use real event thumbnails.`);
-  } else {
-    fail("designer", "Browse", "Representative browse cards", `${categoryMediaCards} topic cards and ${cityMediaCards} place cards use real event thumbnails.`, "Designer/Planner: use representative event or brand imagery for browse cards so visitors can recognize topics and destinations at a glance.");
-  }
-
-  const eventCards = countMatches(home, /class="event-card"/g);
-  const sourceRows = countMatches(home, /class="event-source-row"/g);
-  const sourceRoles = ["official", "ticketing", "listing", "offer"].filter((role) => home.includes(`data-source-role="${role}"`));
-  if (eventCards && sourceRows === eventCards && sourceRoles.length === 4) {
-    pass("planner", "Positioning", "Card-level source roles", `${sourceRows}/${eventCards} event cards show official, ticketing, listing, or offer handoff roles.`);
-  } else {
-    fail(
-      "planner",
-      "Positioning",
-      "Card-level source roles",
-      `${sourceRows}/${eventCards} rows; roles ${sourceRoles.join(", ") || "none"}.`,
-      "Planner/Designer: every event card must show the linked-source role so visitors understand K-Spot Now is the planning layer before official, ticketing, listing, or offer pages."
-    );
-  }
-
-  const planToolRows = countMatches(home, /class="event-plan-tools"/g);
-  const hasPlanToolLabels = ["Weather", "Korean map", "Calendar"].every((label) => home.includes(label));
-  if (eventCards && planToolRows === eventCards && hasPlanToolLabels) {
-    pass("planner", "Visitor retention", "Card-level planning tools", `${planToolRows}/${eventCards} event cards show weather, Korean map, and calendar planning context before the click.`);
-  } else {
-    fail(
-      "planner",
-      "Visitor retention",
-      "Card-level planning tools",
-      `${planToolRows}/${eventCards} rows; labels ${hasPlanToolLabels}.`,
-      "Planner/Designer: every event card must show why K-Spot Now is useful before the handoff: weather, Korean map names, and calendar planning tools."
-    );
-  }
-
-  const savedMapQueries = countMatches(home, /data-event-map-query="/g);
-  const plannerPage = readText("dist/en/planner/index.html");
-  const appJs = readText("dist/app.js");
-  const hasPlannerUtility = plannerPage.includes("class=\"planner-utility\"")
-    && plannerPage.includes("data-map-label=\"Korean map\"");
-  const hasSavedMapLinks = appJs.includes("planner-card-map-links")
-    && appJs.includes("map.naver.com/p/search")
-    && appJs.includes("map.kakao.com/?q=");
-  if (eventCards && savedMapQueries === eventCards && hasPlannerUtility && hasSavedMapLinks) {
-    pass("planner", "Visitor retention", "Saved planner map utility", `${savedMapQueries}/${eventCards} save buttons carry Korean map queries; planner renders local map handoff links.`);
-  } else {
-    fail(
-      "planner",
-      "Visitor retention",
-      "Saved planner map utility",
-      `${savedMapQueries}/${eventCards} map queries; utility ${hasPlannerUtility}; map links ${hasSavedMapLinks}.`,
-      "Planner/Publisher: saved events must preserve Korean map search terms and render Google, Naver, and Kakao map handoff links inside the planner."
-    );
-  }
-
-  const splitBand = home.match(/<section class="split-band">[\s\S]*?<\/section>/)?.[0] || "";
-  if (splitBand && !splitBand.includes("/en/sources/") && splitBand.includes("/en/routes/")) {
-    pass("planner", "Homepage utility", "Visitor-facing next step", "Homepage promotes routes and calendar instead of operational source pages.");
-  } else {
-    warn("planner", "Homepage utility", "Visitor-facing next step", "Homepage split band may still promote operational pages.", "Planner: route visitors toward calendar, routes, planner, or guides before source/audit pages.");
-  }
-
-  const planningLayer = home.match(/<section class="planning-layer"[\s\S]*?<\/section>/)?.[0] || "";
-  const differenceSection = home.match(/<section class="service-difference"[\s\S]*?<\/section>/)?.[0] || "";
-  if (!planningLayer && !differenceSection && planToolRows === eventCards && sourceRows === eventCards) {
-    pass("planner", "Positioning", "Homepage visitor focus", "Homepage moves straight from discovery into visitor-facing event cards with planning tools and source-role labels.");
-  } else {
-    fail("planner", "Positioning", "Homepage visitor focus", `planning layer ${Boolean(planningLayer)}, difference section ${Boolean(differenceSection)}, plan tools ${planToolRows}/${eventCards}, source rows ${sourceRows}/${eventCards}.`, "Planner/Designer: keep the homepage focused on visitor discovery; put official handoff context inside cards and detail pages.");
-  }
-
-  const seoulAffiliateEvent = events.find((event) => event.city === "Seoul" && event.endDate >= today) || events.find((event) => event.city === "Seoul");
-  const seoulAffiliateHtml = seoulAffiliateEvent ? readText(`dist/en/events/${seoulAffiliateEvent.slug}.html`) : "";
-  if (affiliateEnabled) {
-  const affiliateReady = seoulAffiliateHtml.includes("Allianceid=8627235")
-    && seoulAffiliateHtml.includes("SID=318693138")
-    && seoulAffiliateHtml.includes("trip_sub3=D17791636")
-    && seoulAffiliateHtml.includes("rel=\"sponsored nofollow noopener\"");
-  const affiliateDisclosure = seoulAffiliateHtml.includes("Sponsored hotel link");
-  if (affiliateReady && affiliateDisclosure) {
-    pass("ceo", "Monetization", "Trip.com affiliate handoff", "Trip.com hotel affiliate link is present with sponsored disclosure and rel attributes.");
-  } else {
-    fail("ceo", "Monetization", "Trip.com affiliate handoff", `link ${affiliateReady}, disclosure ${affiliateDisclosure}.`, "Publisher: keep Trip.com affiliate links visible on relevant event pages with sponsored disclosure and rel attributes.");
-  }
-
-  const coupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
-  const coupangHtml = coupangEvent ? readText(`dist/en/events/${coupangEvent.slug}.html`) : "";
-  const coupangReady = coupangHtml.includes("https://coupa.ng/cny5Rl")
-    && coupangHtml.includes("coupang-affiliate-widget")
-    && coupangHtml.includes("쿠팡 파트너스 활동의 일환");
-  if (coupangReady) {
-    pass("ceo", "Monetization", "Coupang Partners disclosure", `Sponsored shopping iframe is present on ${coupangEvent.slug} with commission disclosure.`);
-  } else {
-    fail("ceo", "Monetization", "Coupang Partners disclosure", `widget ${Boolean(coupangHtml.includes("https://coupa.ng/cny5Rl"))}, disclosure ${Boolean(coupangHtml.includes("쿠팡 파트너스 활동의 일환"))}.`, "Publisher: keep Coupang Partners iframe limited to shopping-relevant event pages and show the commission disclosure beside it.");
-  }
-  } else {
-    const reviewCoupangEvent = events.find((event) => ["beauty", "shopping", "duty-free", "department-store", "travel-benefits"].includes(event.category) && event.endDate >= today);
-    const reviewCoupangHtml = reviewCoupangEvent ? readText(`dist/en/events/${reviewCoupangEvent.slug}.html`) : "";
-    if (seoulAffiliateHtml.includes("rel=\"sponsored") || reviewCoupangHtml.includes("coupang-affiliate-widget")) {
-      fail("ceo", "Monetization", "AdSense review affiliate pause", "Affiliate markup is still visible.", "Publisher: leave affiliate blocks off until AdSense review is cleared, or set AFFILIATE_ENABLED=1 only for post-approval monetization.");
-    } else {
-      pass("ceo", "Monetization", "AdSense review affiliate pause", "Affiliate blocks are hidden by default for the re-review build.");
-    }
-  }
+if (publishedRecheck.date === today && publishedRecheck.passed === approvedEvents.length && publishedRecheck.failed === 0) {
+  pass("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed}/${approvedEvents.length} events passed live token checks on ${today}.`);
+} else {
+  fail("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed || 0}/${approvedEvents.length} passed; ${publishedRecheck.failed ?? "unknown"} failed.`, "Auditor: run npm.cmd run recheck:published and do not publish until all approved events pass.");
 }
 
-function collectCalendarUx() {
-  for (const lang of languages) {
-    const html = readText(`dist/${lang}/calendar/index.html`);
-    const blocks = countMatches(html, /class="month-block"/g);
-    const headings = countMatches(html, /class="calendar-month-heading"><span>[^<]+<\/span>\s*<span>\d{4}<\/span>/g);
-    if (html && blocks && blocks === headings) {
-      pass("designer", "Calendar", `${lang} month heading rhythm`, `${headings}/${blocks} month headings use split month/year spans.`);
-    } else {
-      fail("designer", "Calendar", `${lang} month heading rhythm`, `${headings}/${blocks} month headings are split.`, "Designer: keep all calendar month headings as month/year spans.");
-    }
-  }
+const home = read("dist/en/index.html");
+const homeCards = (home.match(/class="event-card/g) || []).length;
+const spotlightSlides = (home.match(/data-spotlight-slide/g) || []).length;
+if (homeCards === 6 && spotlightSlides >= 3 && spotlightSlides <= 5 && home.includes("home-guide-band")) {
+  pass("designer", "Home", "Scan density", `${homeCards} event cards, ${spotlightSlides} feature slides, and guide entry points.`);
+} else {
+  fail("designer", "Home", "Scan density", `${homeCards} event cards and ${spotlightSlides} slides.`, "Designer: restore the compact home hierarchy.");
 }
 
-function collectDetailUx() {
-  let missing = 0;
-  let missingChecklist = 0;
-  let missingSourceBoundary = 0;
-  let internalKeyLeaks = 0;
-  let checked = 0;
-  const sourceBoundaryLangs = new Set(["en", "es", "pt", "fr", "de"]);
-  for (const event of events) {
-    for (const lang of languages) {
-      checked += 1;
-      const html = readText(`dist/${lang}/events/${event.slug}.html`);
-      for (const token of ["fact-grid", "weather-overview", "map-link-list", "data-save-event", `href=\"/events/${event.slug}.ics\"`]) {
-        if (!html.includes(token)) missing += 1;
-      }
-      if (!html.includes("visitor-action-grid")) missingChecklist += 1;
-      if (sourceBoundaryLangs.has(lang) && !html.includes("source-boundary-callout")) missingSourceBoundary += 1;
-      if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) internalKeyLeaks += 1;
-    }
-  }
-  if (!missing) pass("designer", "Detail pages", "Visitor planning blocks", `${checked} detail pages include fact, weather, map, save, and calendar blocks.`);
-  else fail("designer", "Detail pages", "Visitor planning blocks", `${missing} required blocks missing across ${checked} pages.`, "Designer/Publisher: rebuild detail page layout and rerun validate:details.");
-
-  if (!missingChecklist) pass("designer", "Detail pages", "Visit-ready checklist", `${checked} detail pages show official confirmation, Korean map search, and flexible-plan reminders.`);
-  else fail("designer", "Detail pages", "Visit-ready checklist", `${missingChecklist}/${checked} detail pages are missing the checklist.`, "Designer/Planner: add the visit-ready checklist to every detail page.");
-
-  if (!missingSourceBoundary) {
-    pass("planner", "Positioning", "Detail source boundary", `${events.length * sourceBoundaryLangs.size} detail pages explain why visitors use K-Spot Now before the linked source.`);
-  } else {
-    fail("planner", "Positioning", "Detail source boundary", `${missingSourceBoundary}/${events.length * sourceBoundaryLangs.size} detail pages are missing linked-source boundary copy.`, "Planner/Designer: add a concise K-Spot Now before source handoff explanation to detail pages.");
-  }
-
-  if (!internalKeyLeaks) pass("audit-institution", "Public copy", "No internal label leakage", `${checked} detail pages hide internal verification and collection translation keys.`);
-  else fail("audit-institution", "Public copy", "No internal label leakage", `${internalKeyLeaks}/${checked} detail pages expose internal keys.`, "Audit Institution: block release until public labels replace internal translation keys.");
-
-}
-
-function collectGuideLocalization() {
-  const localizedLangs = languages.filter((lang) => ["fr", "de"].includes(lang));
-  if (!localizedLangs.length) {
-    pass("audit-institution", "Localization", "Review-mode language scope", `Public languages: ${languages.join(", ")}.`);
-    return;
-  }
-  const englishGuideTitles = guides.map((guide) => guide.title?.en).filter(Boolean);
-  const leaks = [];
-  for (const lang of localizedLangs) {
-    const indexText = htmlText(readText(`dist/${lang}/guides/index.html`));
-    for (const title of englishGuideTitles) {
-      if (indexText.includes(title)) leaks.push(`${lang}/guides:${title}`);
-    }
-    for (const guide of guides) {
-      const visible = htmlText(readText(`dist/${lang}/guides/${guide.slug}.html`));
-      for (const title of englishGuideTitles) {
-        if (visible.includes(title)) leaks.push(`${lang}/${guide.slug}:${title}`);
-      }
-    }
-  }
-
-  const frShopping = htmlText(readText("dist/fr/categories/shopping/index.html"));
-  const deShopping = htmlText(readText("dist/de/categories/shopping/index.html"));
-  const frDepartment = htmlText(readText("dist/fr/categories/department-store/index.html"));
-  const deDepartment = htmlText(readText("dist/de/categories/department-store/index.html"));
-  const categoryLeaks = [
-    [frShopping, /Korea shopping festivals and seasonal sale archives/i, "fr shopping"],
-    [deShopping, /Korea shopping festivals and seasonal sale archives/i, "de shopping"],
-    [frDepartment, /Korea department store sales and pop-ups/i, "fr department-store"],
-    [deDepartment, /Korea department store sales and pop-ups/i, "de department-store"]
-  ].filter(([text, pattern]) => pattern.test(text)).map(([, , label]) => label);
-
-  const localizedLeakPhrases = [
-    "At a glance",
-    "Weather summary",
-    "Rain peak",
-    "KMA forecast updated",
-    "Forecast source",
-    "Previous-year monthly baseline",
-    "water bottle",
-    "UV protection",
-    "comfortable walking shoes",
-    "Official source:",
-    "Practical Korea travel routes",
-    "Hangang evening route",
-    "Outdoor festivals",
-    "Fresh multilingual Korea events",
-    "Seasonal baseline",
-    "Typical range",
-    "previous-year pattern",
-    "visitor packing",
-    "Live forecast",
-    "before leaving",
-    "daily before public build",
-    "Busan festivals / city events",
-    "Busan pop-ups / K-pop regional events",
-    "official event watch",
-    "official campaign watch",
-    "duty-free event",
-    "foreign visitor benefits",
-    "shopping tourism",
-    "daily; hourly",
-    "manual queue; hourly",
-    "TOURISM-FESTIVALS",
-    "SHOPPING-BEAUTY-DUTYFREE",
-    "KPOP-POPUPS-TICKETING",
-    "WEATHER-ROUTES"
-  ];
-  const surfaceLeaks = [];
-  for (const lang of localizedLangs) {
-    const targets = [
-      [`${lang}/index`, readText(`dist/${lang}/index.html`), true],
-      [`${lang}/routes`, readText(`dist/${lang}/routes/index.html`), true],
-      [`${lang}/detail`, readText(`dist/${lang}/events/bts-city-arirang-busan-2026.html`), true],
-      [`${lang}/sources`, readText(`dist/${lang}/sources/index.html`), true],
-      [`${lang}/watchlist`, readText(`dist/${lang}/watchlist/index.html`), true],
-      [`${lang}/feed`, readText(`dist/${lang}/feed.xml`), false],
-      [`${lang}/latest`, readText(`dist/${lang}/latest.json`), false]
-    ];
-    for (const [id, raw, visibleOnly] of targets) {
-      const text = visibleOnly ? htmlText(raw) : raw;
-      for (const phrase of localizedLeakPhrases) {
-        if (text.includes(phrase)) surfaceLeaks.push(`${id}:${phrase}`);
-      }
-    }
-    if (/\bitems<\/span>|\bevents<\/span>/.test(readText(`dist/${lang}/index.html`))) {
-      surfaceLeaks.push(`${lang}/index:items-events-count-label`);
-    }
-  }
-
-  const deHomeText = htmlText(readText("dist/de/index.html"));
-  const germanHomeLeaks = [
-    [/\b\d+\s+Events\b/, "event-count-unit"],
-    [/\bDuty[- ]free\b/, "duty-free-label"],
-    [/\bShopping\b/, "shopping-label"],
-    [/\bSHOPPING\b/, "shopping-thumbnail-label"],
-    [/\bTRAVEL BENEFITS\b/, "travel-benefits-thumbnail-label"],
-    [/\bNationwide\b/, "nationwide-label"],
-    [/\bLive\b/, "live-status-label"],
-    [/\bCity project\b/, "event-kind-label"]
-  ].filter(([pattern]) => pattern.test(deHomeText)).map(([, label]) => `de/index:${label}`);
-  surfaceLeaks.push(...germanHomeLeaks);
-  for (const phrase of ["Veranstaltungsarten", "Feste & Kultur", "Zollfrei", "Einkaufen", "Landesweit", "Aktiv /"]) {
-    if (!deHomeText.includes(phrase)) surfaceLeaks.push(`de/index:missing-${phrase}`);
-  }
-
-  const frHomeText = htmlText(readText("dist/fr/index.html"));
-  const frenchHomeLeaks = [
-    [/\bDuty[- ]free\b/, "duty-free-label"],
-    [/\bShopping\b/, "shopping-label"],
-    [/\bSHOPPING\b/, "shopping-thumbnail-label"],
-    [/\bTRAVEL BENEFITS\b/, "travel-benefits-thumbnail-label"],
-    [/\bNationwide\b/, "nationwide-label"],
-    [/\bLive\b/, "live-status-label"],
-    [/\bCity project\b/, "event-kind-label"]
-  ].filter(([pattern]) => pattern.test(frHomeText)).map(([, label]) => `fr/index:${label}`);
-  surfaceLeaks.push(...frenchHomeLeaks);
-  for (const phrase of ["Types d'evenements", "Hors taxes", "Achats", "National", "En cours"]) {
-    if (!frHomeText.includes(phrase)) surfaceLeaks.push(`fr/index:missing-${phrase}`);
-  }
-
-  const frRoute = readText("dist/fr/routes/index.html");
-  const deRoute = readText("dist/de/routes/index.html");
-  const frDetail = readText("dist/fr/events/bts-city-arirang-busan-2026.html");
-  const deDetail = readText("dist/de/events/bts-city-arirang-busan-2026.html");
-  const requiredLocalizedPhrases = [
-    [frRoute, "Soiree au Hangang", "fr route"],
-    [deRoute, "Hangang-Abendroute", "de route"]
-  ];
-  if (frDetail.includes("Prevision courte KMA")) {
-    requiredLocalizedPhrases.push(
-      [frDetail, "Vue rapide", "fr weather"],
-      [frDetail, "Prevision courte KMA", "fr weather source"]
-    );
-  } else {
-    requiredLocalizedPhrases.push(
-      [frDetail, "Base saisonniere", "fr seasonal weather"],
-      [frDetail, "Base meteo", "fr seasonal weather source"]
-    );
-  }
-  if (deDetail.includes("KMA-Kurzfristprognose")) {
-    requiredLocalizedPhrases.push(
-      [deDetail, "Kurzuberblick", "de weather"],
-      [deDetail, "KMA-Kurzfristprognose", "de weather source"]
-    );
-  } else {
-    requiredLocalizedPhrases.push(
-      [deDetail, "Saisonale Basis", "de seasonal weather"],
-      [deDetail, "Wetterbasis", "de seasonal weather source"]
-    );
-  }
-  const missingLocalizedProofs = requiredLocalizedPhrases.filter(([text, phrase]) => !text.includes(phrase)).map(([, , label]) => label);
-
-  if (!leaks.length && !categoryLeaks.length && !surfaceLeaks.length && !missingLocalizedProofs.length) {
-    pass("audit-institution", "Translation quality", "FR/DE public-surface localization", `${localizedLangs.length * guides.length} guide details plus routes, weather, feeds, source pages, and browse labels avoid audited English leaks.`);
-  } else {
-    fail(
-      "audit-institution",
-      "Translation quality",
-      "FR/DE public-surface localization",
-      `${leaks.length} guide title leaks, ${categoryLeaks.length} category heading leaks, ${surfaceLeaks.length} surface leaks, ${missingLocalizedProofs.length} missing localized proofs.`,
-      "Audit Institution: block release until French/German guide titles, topic pages, weather blocks, routes, feed summaries, source pages, and browse labels are localized instead of exposing English UI copy."
-    );
+const eventPageProblems = [];
+for (const event of approvedEvents) {
+  const html = read(`dist/en/events/${event.slug}.html`);
+  const sectionCount = (html.match(/<section\b/g) || []).length;
+  if (!html || sectionCount < 4 || sectionCount > 6
+      || !html.includes("event-review-section")
+      || !html.includes("event-visit-section")
+      || !html.includes("event-evidence-section")
+      || !html.includes("review-byline")
+      || htmlWordCount(html) < 350) {
+    eventPageProblems.push(event.slug);
   }
 }
-
-function collectInteractionQuality() {
-  const styles = readText("styles.css");
-  const baseButtons = styles.match(/\.button,\s*\.filter-bar button\s*\{[\s\S]*?\}/)?.[0] || "";
-  const saveButton = styles.match(/\.save-event\s*\{[\s\S]*?\}/)?.[0] || "";
-  const savedClear = styles.match(/\.saved-clear\s*\{[\s\S]*?\}/)?.[0] || "";
-  const savedPlannerControls = styles.match(/\.saved-open,\s*\.planner-card-actions a,\s*\.planner-card-actions button\s*\{[\s\S]*?\}/)?.[0] || "";
-  const savedPlannerMapLinks = styles.match(/\.planner-card-map-links a\s*\{[\s\S]*?\}/)?.[0] || "";
-  const mobileSpotlight = styles.match(/@media \(max-width: 680px\)\s*\{[\s\S]*?\.service-summary dd[\s\S]*?\n\}/)?.[0] || "";
-  const minHeightAtLeast = (block, minimum) => {
-    const match = block.match(/min-height:\s*(\d+)px/);
-    return Boolean(match) && Number(match[1]) >= minimum;
-  };
-  const hasPrimaryTouchTargets = minHeightAtLeast(baseButtons, 44) && minHeightAtLeast(saveButton, 44);
-  const hasSavedPlannerTouchTargets = savedClear.includes("min-height: 44px") && savedPlannerControls.includes("min-height: 44px") && savedPlannerMapLinks.includes("min-height: 44px");
-  const hasCompactDots = mobileSpotlight.includes(".spotlight-controls .spotlight-dot")
-    && mobileSpotlight.includes("width: 24px")
-    && mobileSpotlight.includes("min-height: 24px");
-  const hasSpotlightArrows = styles.includes(".spotlight-arrow");
-  const hasArrowTouchTargets = !hasSpotlightArrows || (
-    mobileSpotlight.includes(".spotlight-arrow")
-    && mobileSpotlight.includes("min-height: 44px")
-  );
-  const hasMobileSpotlightTargets = hasCompactDots && hasArrowTouchTargets;
-
-  if (hasPrimaryTouchTargets && hasSavedPlannerTouchTargets && hasMobileSpotlightTargets) {
-    pass("designer", "Interaction", "Mobile touch targets", "Primary buttons, save buttons, saved planner actions/map links, compact spotlight dots, and overlay arrows meet touch-target rules.");
-  } else {
-    fail(
-      "designer",
-      "Interaction",
-      "Mobile touch targets",
-      `primary ${hasPrimaryTouchTargets}, saved planner ${hasSavedPlannerTouchTargets}, spotlight ${hasMobileSpotlightTargets}.`,
-      "Designer/Publisher: keep visitor controls and saved planner actions at least 44px high, keep spotlight dots compact, and keep any overlay arrows at least 44px."
-    );
-  }
+if (!eventPageProblems.length) {
+  pass("designer", "Detail", "Compact decision pages", "15/15 pages use the 4-6 section decision, plan, evidence, and related-content layout.");
+} else {
+  fail("designer", "Detail", "Compact decision pages", `${eventPageProblems.length} pages failed.`, `Designer/Publisher: fix ${eventPageProblems.slice(0, 5).join(", ")}.`);
 }
 
-function collectContentPlanning() {
-  if (events.length >= 35) pass("planner", "Content depth", "Event catalog", `${events.length} public events.`);
-  else fail("planner", "Content depth", "Event catalog", `${events.length} public events.`, "Planner: add reviewed official events before AdSense submission.");
-
-  if (guides.length >= 10) pass("planner", "Content depth", "Evergreen guides", `${guides.length} visitor guides.`);
-  else fail("planner", "Content depth", "Evergreen guides", `${guides.length} visitor guides.`, "Planner: publish more original evergreen guides.");
-
-  const thinEventGuidance = events.filter((event) => {
-    const whyGo = String(event.whyGo?.en || "").trim();
-    const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
-    return whyGo.length < 70 || tips.length < 3;
-  });
-  if (!thinEventGuidance.length) {
-    pass("audit-institution", "Low-value content guard", "Original event guidance", `${events.length}/${events.length} events include why-go context and 3+ practical visitor tips.`);
-  } else {
-    fail("audit-institution", "Low-value content guard", "Original event guidance", `${thinEventGuidance.length} event pages are too thin.`, `Planner: strengthen whyGo or travelTips for ${thinEventGuidance.slice(0, 4).map((event) => event.slug).join(", ")}.`);
-  }
-
-  if (routes.length >= 8) pass("planner", "Travel utility", "Route ideas", `${routes.length} route plans.`);
-  else warn("planner", "Travel utility", "Route ideas", `${routes.length} route plans.`, "Planner: add more city and shopping route plans.");
-
-  const categories = new Set(events.map((event) => event.category));
-  const requiredCategories = ["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"];
-  const missingCategories = requiredCategories.filter((category) => !categories.has(category));
-  if (!missingCategories.length) pass("planner", "Coverage", "Topic coverage", `${requiredCategories.length} public topic categories represented.`);
-  else fail("planner", "Coverage", "Topic coverage", `Missing ${missingCategories.join(", ")}.`, "Planner: add reviewed events for missing topic categories.");
-
-  const concertEvents = events.filter((event) => event.category === "kpop" && event.eventKind === "concert");
-  if (concertEvents.length) pass("planner", "K-pop", "Concert coverage", `${concertEvents.length} audited K-pop concert listing(s).`);
-  else fail("planner", "K-pop", "Concert coverage", "No K-pop concert listing exists.", "Planner: add at least one officially audited K-pop concert page.");
+const guideProblems = approvedGuides.filter((guide) => {
+  const html = read(`dist/en/guides/${guide.slug}.html`);
+  const paragraphWords = (guide.sections?.en || []).flatMap((section) => section.paragraphs || []).join(" ").split(/\s+/).length;
+  return !html.includes("guide-byline") || !html.includes("guide-citations") || (guide.sections?.en || []).length !== 4
+    || (guide.sources || []).length < 2 || paragraphWords < 280;
+});
+if (!guideProblems.length) {
+  pass("planner", "Guides", "Original editorial depth", "8/8 guides have four decision sections, source citations, method, and authorship.");
+} else {
+  fail("planner", "Guides", "Original editorial depth", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
 }
 
-function collectSourceAudit() {
-  const officialVerified = events.filter((event) => String(event.verification || "").startsWith("official")).length;
-  if (officialVerified === events.length) pass("audit-institution", "Trust", "Official verification labels", `${officialVerified}/${events.length} events.`);
-  else fail("audit-institution", "Trust", "Official verification labels", `${officialVerified}/${events.length} events.`, "Audit Institution: block non-official public listings.");
-
-  const stale = events.filter((event) => {
-    const status = statusOf(event);
-    if (status === "ended") return false;
-    const age = daysSince(event.lastChecked);
-    return Number.isFinite(age) && age > freshnessLimitDays(event);
-  });
-  if (!stale.length) pass("audit-institution", "Freshness", "Live/upcoming recheck windows", "No stale live or upcoming event pages.");
-  else fail("audit-institution", "Freshness", "Live/upcoming recheck windows", `${stale.length} stale active listings.`, `Audit Institution: recheck official sources for ${stale.slice(0, 4).map((event) => event.slug).join(", ")}.`);
-
-  const auditedHighRisk = events.filter((event) => event.audit).length;
-  if (auditedHighRisk >= 2) pass("audit-institution", "High-risk facts", "Event audit blocks", `${auditedHighRisk} high-risk listings have explicit audit evidence.`);
-  else warn("audit-institution", "High-risk facts", "Event audit blocks", `${auditedHighRisk} high-risk listings have audit evidence.`, "Audit Institution: add explicit audit blocks to more K-pop, ticketing, and sale-window pages.");
-
-  const officialThumbnails = events.filter((event) => String(event.thumbnail || "").includes("/official/")).length;
-  if (officialThumbnails >= Math.ceil(events.length * 0.8)) {
-    pass("audit-institution", "Imagery", "Official thumbnail coverage", `${officialThumbnails}/${events.length} official or collected thumbnails.`);
-  } else {
-    warn("audit-institution", "Imagery", "Official thumbnail coverage", `${officialThumbnails}/${events.length} official or collected thumbnails.`, "Audit Institution: keep replacing generated thumbnails with official event, brand, or venue images.");
-  }
-
-  const registeredThumbnailMetadata = Object.keys(thumbnailSources || {}).length;
-  if (registeredThumbnailMetadata >= officialThumbnails) pass("audit-institution", "Imagery", "Thumbnail provenance", `${registeredThumbnailMetadata} thumbnail source records.`);
-  else warn("audit-institution", "Imagery", "Thumbnail provenance", `${registeredThumbnailMetadata}/${officialThumbnails} source records.`, "Audit Institution: record source URL, page, dimensions, and collection date for official thumbnails.");
+const sitemap = read("dist/sitemap.xml");
+const sitemapUrls = (sitemap.match(/<url>/g) || []).length;
+if (sitemapUrls === 34 && !sitemap.includes("<loc>https://kspotnow.com</loc>") && !/\/categories\/|\/cities\//.test(sitemap)) {
+  pass("publisher", "Search", "Indexable surface", "34 editorial URLs; no root duplicate, category, or city pages in the sitemap.");
+} else {
+  fail("publisher", "Search", "Indexable surface", `${sitemapUrls} sitemap URLs.`, "Publisher: rebuild the focused editorial sitemap.");
 }
 
-function collectBenchmarkWatch() {
-  const sourceText = JSON.stringify(sources).toLowerCase();
-  const queueText = JSON.stringify(curationQueue).toLowerCase();
-  const benchmarkTerms = [
-    ["visitkorea", "VisitKorea/KTO tourism source coverage"],
-    ["olive young", "OLIVE YOUNG shopping source coverage"],
-    ["duty free", "Duty-free source coverage"],
-    ["department", "Department-store source coverage"],
-    ["kma", "Weather/KMA source coverage"],
-    ["ticketlink", "K-pop ticketing source coverage"],
-    ["yes24", "YES24 ticketing source coverage"],
-    ["melon", "Melon ticketing source coverage"],
-    ["weverse", "Weverse artist/shop source coverage"]
-  ];
-  for (const [term, label] of benchmarkTerms) {
-    if (sourceText.includes(term) || queueText.includes(term)) pass("audit-institution", "Benchmark watch", label, `Term "${term}" present in source registry or curation queue.`);
-    else fail("audit-institution", "Benchmark watch", label, `Term "${term}" missing.`, "Audit Institution: add official benchmark-equivalent source coverage.");
-  }
-
-  if (qualitySystem.benchmarks?.length >= 4) pass("ceo", "Benchmark strategy", "Reference set", `${qualitySystem.benchmarks.length} benchmark websites tracked.`);
-  else warn("ceo", "Benchmark strategy", "Reference set", `${qualitySystem.benchmarks?.length || 0} benchmark websites tracked.`, "CEO: add more official benchmark sites to data/quality-system.json.");
+const worker = read("src/worker.js");
+if (worker.includes('url.pathname === "/"') && worker.includes("status: 410")) {
+  pass("publisher", "Search", "Retired URL handling", "Root redirects and unavailable translation paths return 410 after asset lookup.");
+} else {
+  fail("publisher", "Search", "Retired URL handling", "Worker rules are incomplete.", "Publisher: restore canonical redirect and language retirement rules.");
 }
 
-function collectPublishing() {
-  const requiredRootFiles = ["dist/index.html", "dist/sitemap.xml", "dist/robots.txt", "dist/events.ics", "dist/feed.xml", "dist/latest.json", "dist/recheck.json", "dist/source-refresh.json", "dist/_headers"];
-  const missingRootFiles = requiredRootFiles.filter((file) => !exists(file));
-  if (!missingRootFiles.length) pass("publisher", "Build", "Production artifacts", `${requiredRootFiles.length} required root files present.`);
-  else fail("publisher", "Build", "Production artifacts", `Missing ${missingRootFiles.join(", ")}.`, "Publisher: run npm.cmd run build and validate production artifacts.");
+const policyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections"];
+const missingPolicy = policyPages.filter((page) => !exists(`dist/en/${page}/index.html`));
+if (!missingPolicy.length) pass("publisher", "Trust", "Policy access", `${policyPages.length} trust and policy pages are available.`);
+else fail("publisher", "Trust", "Policy access", `Missing ${missingPolicy.join(", ")}.`, "Publisher: restore trust pages before release.");
 
-  const missingPolicyPages = [];
-  for (const lang of languages) {
-    for (const page of requiredPolicyPages) {
-      if (!exists(`dist/${lang}/${page}/index.html`)) missingPolicyPages.push(`${lang}/${page}`);
-    }
-  }
-  if (!missingPolicyPages.length) pass("publisher", "Policy pages", "Multilingual trust pages", `${languages.length * requiredPolicyPages.length} required pages present.`);
-  else fail("publisher", "Policy pages", "Multilingual trust pages", `Missing ${missingPolicyPages.slice(0, 6).join(", ")}.`, "Publisher: restore policy pages before launch.");
-
-  const domain = customDomainStatus();
-  if (domain.ok) pass("publisher", "Production config", "Custom HTTPS domain", domain.detail);
-  else warn("publisher", "Production config", "Custom HTTPS domain", domain.detail, "Publisher: set SITE_URL to the real custom HTTPS domain for launch and AdSense review.");
-
-  const contactEmail = String(process.env.CONTACT_EMAIL || defaultContactEmail).trim();
-  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail) && !/@gmail\.com$/i.test(contactEmail)) {
-    pass("publisher", "Production config", "Public contact email", contactEmail);
-  } else {
-    warn("publisher", "Production config", "Public contact email", contactEmail || "not set", "Publisher: use a domain email alias such as contact@kspotnow.com.");
-  }
-
-  const adsense = latestJson(/^adsense-readiness-\d{4}-\d{2}-\d{2}\.json$/);
-  if (adsense?.score) {
-    const failed = Number(adsense.score.failed || 0);
-    const warned = Number(adsense.score.warned || 0);
-    const warningItems = Array.isArray(adsense.checks)
-      ? adsense.checks.filter((item) => item.status === "warn").map((item) => item.item).join(", ")
-      : "";
-    if (failed) {
-      fail("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with ${failed} fail.`, "Publisher/CEO: clear AdSense readiness failures before applying.");
-    } else if (warned) {
-      warn(
-        "publisher",
-        "AdSense readiness",
-        "Internal scorecard",
-        `${adsense.score.percent}% with 0 fail, ${warned} warn: ${warningItems || "warning items pending"}.`,
-        "Publisher/CEO: finish the non-code AdSense launch tasks, especially Search Console verification and real AdSense IDs after Google issues them."
-      );
-    } else {
-      pass("publisher", "AdSense readiness", "Internal scorecard", `${adsense.score.percent}% with 0 fail, 0 warn.`);
-    }
-  } else {
-    warn("publisher", "AdSense readiness", "Internal scorecard", "No latest adsense-readiness JSON found.", "Publisher: run npm.cmd run report:adsense before CEO review.");
-  }
+const adsense = latestJson(/^adsense-readiness-\d{4}-\d{2}-\d{2}\.json$/);
+if (!adsense) {
+  fail("publisher", "AdSense", "Editorial gate report", "No report found.", "Publisher: run npm.cmd run report:adsense.");
+} else if (adsense.score.failed) {
+  fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.failed} blocking failures.`, "Publisher/CEO: clear every internal gate before release.");
+} else {
+  pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} non-blocking warning, 0 fail.`);
 }
 
-function roleName(id) {
-  return qualitySystem.roles?.find((role) => role.id === id)?.name || id;
+if (home.includes("kr.trip.com/partners/ad") || home.includes("coupa.ng/cny5Rl")) {
+  warn("publisher", "Monetization", "Affiliate restraint", "Affiliate content appears in the review build.", "Publisher: disable affiliate widgets during AdSense content re-review.");
+} else {
+  pass("publisher", "Monetization", "Affiliate restraint", "Third-party affiliate widgets are absent from the review build.");
 }
 
-function statusIcon(status) {
-  if (status === "pass") return "PASS";
-  if (status === "warn") return "WARN";
-  return "FAIL";
-}
+const fails = checks.filter((item) => item.status === "fail").length;
+const warns = checks.filter((item) => item.status === "warn").length;
+const passes = checks.filter((item) => item.status === "pass").length;
+const decision = fails ? "REWORK_REQUIRED" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
+const tasks = checks.filter((item) => item.status !== "pass" && item.task);
+const result = {
+  generatedAt: new Date().toISOString(),
+  date: today,
+  objective: "Compete on visitor usefulness and source accountability without claiming Google approval certainty.",
+  decision,
+  summary: { pass: passes, warn: warns, fail: fails, tasks: tasks.length },
+  checks,
+  tasks
+};
 
-function decision() {
-  const fails = checks.filter((item) => item.status === "fail").length;
-  const warns = checks.filter((item) => item.status === "warn").length;
-  if (fails) return qualitySystem.releasePolicy?.failDecision || "REWORK_REQUIRED";
-  if (warns) return qualitySystem.releasePolicy?.warningDecision || "APPROVED_WITH_CEO_TASKS";
-  return qualitySystem.releasePolicy?.passDecision || "APPROVED_FOR_PUBLISH";
-}
+await fs.mkdir(feedDir, { recursive: true });
+const jsonOut = path.join(feedDir, `ceo-quality-review-${today}.json`);
+const mdOut = path.join(feedDir, `ceo-quality-review-${today}.md`);
+await fs.writeFile(jsonOut, `${JSON.stringify(result, null, 2)}\n`, "utf8");
+await fs.writeFile(mdOut, `# CEO Quality Review
 
-function ceoTasks() {
-  const items = checks
-    .filter((item) => item.status !== "pass")
-    .map((item, index) => ({
-      id: `CEO-${today}-${String(index + 1).padStart(2, "0")}`,
-      priority: item.status === "fail" ? "P0" : "P1",
-      owner: item.owner,
-      area: item.area,
-      task: item.task || `${roleName(item.owner)}: review ${item.item}.`,
-      evidence: `${item.item}: ${item.detail}`
-    }));
-  if (!items.some((item) => item.task.includes("official event, brand, or venue images"))) {
-    const officialThumbnails = events.filter((event) => String(event.thumbnail || "").includes("/official/")).length;
-    if (officialThumbnails < events.length) {
-      items.push({
-        id: `CEO-${today}-${String(items.length + 1).padStart(2, "0")}`,
-        priority: "P2",
-        owner: "designer",
-        area: "Imagery",
-        task: "Designer + Audit Institution: replace generated fallback thumbnails with official event, brand, or venue images as new official pages become available.",
-        evidence: `${officialThumbnails}/${events.length} official or collected thumbnails.`
-      });
-    }
-  }
-  return items;
-}
+Generated: ${result.generatedAt}
 
-function writeReports() {
-  fs.mkdirSync(feedDir, { recursive: true });
-  const result = {
-    generatedAt: new Date().toISOString(),
-    decision: decision(),
-    score: {
-      pass: checks.filter((item) => item.status === "pass").length,
-      warn: checks.filter((item) => item.status === "warn").length,
-      fail: checks.filter((item) => item.status === "fail").length
-    },
-    benchmarks: qualitySystem.benchmarks || [],
-    roles: qualitySystem.roles || [],
-    checks,
-    ceoTasks: ceoTasks()
-  };
+Decision: **${decision}**
 
-  const jsonOut = path.join(feedDir, `ceo-quality-review-${today}.json`);
-  const mdOut = path.join(feedDir, `ceo-quality-review-${today}.md`);
-  fs.writeFileSync(jsonOut, `${JSON.stringify(result, null, 2)}\n`, "utf8");
+Objective: ${result.objective}
 
-  const roleLines = (qualitySystem.roles || [])
-    .map((role) => `- ${role.name}: ${role.responsibility}`)
-    .join("\n");
-  const benchmarkLines = (qualitySystem.benchmarks || [])
-    .map((item) => `- ${item.name}: ${item.url} - ${item.standard}`)
-    .join("\n");
-  const checkRows = checks
-    .map((item) => `| ${roleName(item.owner)} | ${item.area} | ${statusIcon(item.status)} | ${item.item} | ${item.detail.replace(/\|/g, "/")} | ${(item.task || "").replace(/\|/g, "/")} |`)
-    .join("\n");
-  const taskRows = result.ceoTasks.length
-    ? result.ceoTasks.map((item) => `| ${item.id} | ${item.priority} | ${roleName(item.owner)} | ${item.area} | ${item.task.replace(/\|/g, "/")} | ${item.evidence.replace(/\|/g, "/")} |`).join("\n")
-    : "| - | - | CEO | Release | No new tasks. | All checks passed. |";
+## Quality Checks
 
-  const md = `# CEO Quality Review - ${today}
+| Status | Owner | Area | Item | Detail |
+| --- | --- | --- | --- | --- |
+${checks.map((item) => `| ${item.status} | ${item.owner} | ${item.area} | ${item.item} | ${String(item.detail).replaceAll("|", "\\|")} |`).join("\n")}
 
-Decision: **${result.decision}**
+## CEO Tasks
 
-Score: ${result.score.pass} pass / ${result.score.warn} warn / ${result.score.fail} fail
+${tasks.map((item, index) => `${index + 1}. ${item.task}`).join("\n") || "No blocking task. Preserve the review lock and monitor Search Console after deployment."}
+`, "utf8");
 
-## Organization
+console.table([{ decision, pass: passes, warn: warns, fail: fails, tasks: tasks.length }]);
+console.log(`CEO quality review saved: ${path.relative(root, mdOut)}`);
 
-${roleLines}
-
-## Benchmark Watch
-
-${benchmarkLines}
-
-## Audit Board
-
-| Owner | Area | Status | Check | Evidence | CEO Task |
-| --- | --- | --- | --- | --- | --- |
-${checkRows}
-
-## CEO Task Dispatch
-
-| Task ID | Priority | Owner | Area | Task | Evidence |
-| --- | --- | --- | --- | --- | --- |
-${taskRows}
-
-## Release Rule
-
-- Hard fail: ${qualitySystem.releasePolicy?.hardFailRule || "Any fail blocks release."}
-- Warning: ${qualitySystem.releasePolicy?.warningRule || "Warnings become CEO tasks."}
-`;
-  fs.writeFileSync(mdOut, md, "utf8");
-
-  console.table([
-    { decision: result.decision, pass: result.score.pass, warn: result.score.warn, fail: result.score.fail, tasks: result.ceoTasks.length }
-  ]);
-  console.log(`CEO quality review saved: ${path.relative(root, mdOut)}`);
-  if (result.score.fail) process.exit(1);
-}
-
-collectHomeUx();
-collectCalendarUx();
-collectDetailUx();
-collectGuideLocalization();
-collectInteractionQuality();
-collectContentPlanning();
-collectSourceAudit();
-collectBenchmarkWatch();
-collectPublishing();
-writeReports();
+if (fails) process.exitCode = 1;

@@ -1,360 +1,425 @@
 {
-  "generatedAt": "2026-07-10T06:01:52.297Z",
+  "generatedAt": "2026-07-10T08:07:10.185Z",
   "date": "2026-07-10",
-  "activeEvents": 29,
-  "ok": 29,
+  "approvedActiveEvents": 15,
+  "passed": 15,
   "failed": 0,
-  "updated": 29,
-  "timeoutMs": 12000,
-  "concurrency": 5,
+  "liveChecks": 17,
+  "snapshotChecks": 0,
+  "updated": 0,
+  "timeoutMs": 15000,
+  "concurrency": 4,
   "results": [
-    {
-      "slug": "shinsegae-simon-ss-season-off-sale-2026",
-      "title": "Shinsegae Simon Premium Outlets S/S Season-Off Sale",
-      "sourceName": "Shinsegae Group Newsroom",
-      "sourceUrl": "https://www.shinsegaegroupnewsroom.com/shinsegae-simon-outlets-launch-s-s-season-off-sale/",
-      "finalUrl": "https://www.shinsegaegroupnewsroom.com/shinsegae-simon-outlets-launch-s-s-season-off-sale/",
-      "status": 200,
-      "ok": true,
-      "bytes": 62143,
-      "durationMs": 429,
-      "snippet": "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-QGK1HFMZYK'); 여름 쇼핑 시즌 맞아 인기 브랜드 할인 혜택 풍성… 신세계사이먼 ..."
-    },
     {
       "slug": "nct-dream-sweet-dream-hotel-incheon-2026",
       "title": "NCT DREAM 10th Anniversary Party: The Sweet Dream Hotel",
       "sourceName": "NOL World Ticket",
-      "sourceUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
-      "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
-      "status": 200,
       "ok": true,
-      "bytes": 119955,
-      "durationMs": 119,
-      "snippet": "NCT DREAM 10TH ANNIVERSARY PARTY 〈THE SWEET DREAM HOTEL〉 | NOL World {\"@context\":\"https://schema.org\",\"@type\":\"Event\",\"name\":\"NCT DREAM 10TH ANNIVERSARY PARTY 〈THE SWEET DREAM HOT..."
+      "checks": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
+          "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
+          "status": 200,
+          "bytes": 119955,
+          "durationMs": 245,
+          "mode": "live",
+          "matchedTokens": [
+            "THE SWEET DREAM HOTEL",
+            "Aug 22, 2026 - Aug 23, 2026",
+            "INSPIRE ARENA",
+            "121,000 won"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "korea-beauty-festival-2026",
       "title": "2026 Korea Beauty Festival",
       "sourceName": "VISITKOREA",
-      "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
-      "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
-      "status": 200,
       "ok": true,
-      "bytes": 1104779,
-      "durationMs": 755,
-      "snippet": "2026 Korea Beauty Festival Overview- VISITKOREA :: Medical &amp; Wellness Korea !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arg..."
-    },
-    {
-      "slug": "p1harmony-fan-meeting-goyang-2026",
-      "title": "2026 P1Harmony FAN MEETING [P1uspace H: Horror Haven]",
-      "sourceName": "Melon Ticket",
-      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213323",
-      "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213323",
-      "status": 200,
-      "ok": true,
-      "bytes": 96983,
-      "durationMs": 312,
-      "snippet": "멜론 티켓 var NO_IMAGE_URL = 'https://cdnticket.melon.co.kr/resource/image/web/thumb/Noimage_%%W%%x%%H%%.png'; var NO_IMAGE_URL_ROUND = 'https://cdnticket.melon.co.kr/resource/image/w..."
+      "checks": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
+          "status": 200,
+          "bytes": 1104779,
+          "durationMs": 897,
+          "mode": "live",
+          "matchedTokens": [
+            "Korea Beauty Festival",
+            "June 24 - September 30, 2026",
+            "KBF Beauty House",
+            "June 24 - July 19, 2026",
+            "HiKR Ground",
+            "KBF Special Promotions",
+            "Korea Tourism Organization"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "boryeong-mud-festival-2026",
       "title": "29th Boryeong Mud Festival",
       "sourceName": "Boryeong Mud Festival",
-      "sourceUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
-      "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
-      "status": 200,
       "ok": true,
-      "bytes": 19064,
-      "durationMs": 112,
-      "snippet": "WebFont.load({ // For google fonts google: { families: ['Open Sans'] }, // For early access or custom font custom: { families: ['Noto Sans KR', 'NanumSquare','s-core-dream'], urls..."
+      "checks": [
+        {
+          "sourceName": "Boryeong Mud Festival",
+          "url": "https://www.mudfestival.or.kr/en/festival/main.html",
+          "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
+          "status": 200,
+          "bytes": 19064,
+          "durationMs": 251,
+          "mode": "live",
+          "matchedTokens": [
+            "29th Boryeong Mud Festival",
+            "2026.07.24.(Fri)~08.09(Sun)(17Days)/DaecheonBeach",
+            "paid entry bracelet"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "red-velvet-day-in-red-velvet-seoul-2026",
       "title": "Red Velvet FAN-CON A Day in Red and Velvet",
       "sourceName": "Melon Ticket",
-      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
-      "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
-      "status": 200,
       "ok": true,
-      "bytes": 118821,
-      "durationMs": 252,
-      "snippet": "멜론 티켓 var NO_IMAGE_URL = 'https://cdnticket.melon.co.kr/resource/image/web/thumb/Noimage_%%W%%x%%H%%.png'; var NO_IMAGE_URL_ROUND = 'https://cdnticket.melon.co.kr/resource/image/w..."
+      "checks": [
+        {
+          "sourceName": "Melon Ticket",
+          "url": "https://ticket.melon.com/performance/index.htm?prodId=213415",
+          "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
+          "status": 200,
+          "bytes": 118821,
+          "durationMs": 478,
+          "mode": "live",
+          "matchedTokens": [
+            "Red Velvet FAN-CON",
+            "2026.07.31",
+            "2026.08.01",
+            "2026.08.02",
+            "고려대학교 화정체육관"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "boynextdoor-knock-on-vol2-seoul-2026",
       "title": "BOYNEXTDOOR TOUR KNOCK ON Vol.2 in Seoul",
       "sourceName": "NOL World Ticket",
-      "sourceUrl": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
-      "finalUrl": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
-      "status": 200,
       "ok": true,
-      "bytes": 134386,
-      "durationMs": 27,
-      "snippet": "BOYNEXTDOOR TOUR ‘KNOCK ON Vol.2’ IN SEOUL | NOL World {\"@context\":\"https://schema.org\",\"@type\":\"Event\",\"name\":\"BOYNEXTDOOR TOUR ‘KNOCK ON Vol.2’ IN SEOUL\",\"description\":\"BOYNEXTD..."
+      "checks": [
+        {
+          "sourceName": "NOL World Ticket",
+          "url": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
+          "finalUrl": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
+          "status": 200,
+          "bytes": 134386,
+          "durationMs": 36,
+          "mode": "live",
+          "matchedTokens": [
+            "BOYNEXTDOOR TOUR",
+            "Jul 17, 2026 - Jul 19, 2026",
+            "KSPO DOME"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "waterbomb-seoul-2026",
       "title": "WATERBOMB SEOUL 2026",
       "sourceName": "WATERBOMB Official",
-      "sourceUrl": "https://www.waterbombfestival.com/en/event-details/waterbomb-seoul-2026",
-      "finalUrl": "https://www.waterbombfestival.com/en/event-details/waterbomb-seoul-2026",
-      "status": 200,
       "ok": true,
-      "bytes": 1307279,
-      "durationMs": 209,
-      "snippet": "--> if (!window.Intl || !window.Intl.Segmenter) { (function() { var script = document.createElement('script'); script.src = 'https://static.parastorage.com/unpkg/@formatjs/intl-se..."
+      "checks": [
+        {
+          "sourceName": "WATERBOMB Official",
+          "url": "https://www.waterbombfestival.com/en/event-details/waterbomb-seoul-2026",
+          "finalUrl": "https://www.waterbombfestival.com/en/event-details/waterbomb-seoul-2026",
+          "status": 200,
+          "bytes": 1309933,
+          "durationMs": 284,
+          "mode": "live",
+          "matchedTokens": [
+            "WATERBOMB SEOUL 2026",
+            "2026.07.24(FRI)-07.26(SUN)",
+            "TBA"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019d664a-eb9f-7f11-a2fc-1aa3688bcd92",
+          "finalUrl": "https://world.nol.com/en/content/festas/019d664a-eb9f-7f11-a2fc-1aa3688bcd92",
+          "status": 200,
+          "bytes": 107899,
+          "durationMs": 23,
+          "mode": "live",
+          "matchedTokens": [
+            "KINTEX OUTDOOR GLOBAL STAGE",
+            "Jul 24 (Fri) - Jul 26 (Sun), 2026",
+            "217-60, Kintex-ro"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "incheon-pentaport-rock-festival-2026",
       "title": "2026 Incheon Pentaport Rock Festival",
       "sourceName": "Incheon Pentaport Music Festival",
-      "sourceUrl": "https://pentaport.co.kr/",
-      "finalUrl": "https://pentaport.co.kr/",
-      "status": 200,
       "ok": true,
-      "bytes": 415567,
-      "durationMs": 701,
-      "snippet": "INCHEON PENTAPORT MUSIC FESTIVAL 인천펜타포트 음악축제 :root{--safe-bottom:env(safe-area-inset-bottom)} @import url(\"https://vendor-cdn.imweb.me/css/nanumbarungothic.css?v1\"); @import url(\"..."
-    },
-    {
-      "slug": "toy-story-5-hyundai-popup-2026",
-      "title": "Toy Story 5 POP-UP at The Hyundai Seoul and Hyundai Department Store",
-      "sourceName": "NOL World Seoul Pop-ups",
-      "sourceUrl": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9",
-      "finalUrl": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9",
-      "status": 200,
-      "ok": true,
-      "bytes": 112740,
-      "durationMs": 36,
-      "snippet": "Toy Story 5 POP-UP at The Hyundai Seoul and More | NOL World {\"@context\":\"https://schema.org\",\"@type\":\"Event\",\"name\":\"Toy Story 5 POP-UP at The Hyundai Seoul and More\",\"descriptio..."
+      "checks": [
+        {
+          "sourceName": "Incheon Pentaport Music Festival",
+          "url": "https://pentaport.co.kr/",
+          "finalUrl": "https://pentaport.co.kr/",
+          "status": 200,
+          "bytes": 415567,
+          "durationMs": 705,
+          "mode": "live",
+          "matchedTokens": [
+            "Regular Ticket Booking",
+            "NOL ticket"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
+          "finalUrl": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
+          "status": 200,
+          "bytes": 129190,
+          "durationMs": 21,
+          "mode": "live",
+          "matchedTokens": [
+            "INCHEON PENTAPORT ROCK FESTIVAL 2026",
+            "Jul 31, 2026 - Aug 02, 2026",
+            "Songdo Moonlight Festival Park",
+            "Regular 3days pass",
+            "mobile ticket"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "psy-summer-swag-2026",
       "title": "PSY SUMMER SWAG 2026 Korea Tour",
       "sourceName": "NOL World Ticket",
-      "sourceUrl": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
-      "finalUrl": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
-      "status": 200,
       "ok": true,
-      "bytes": 110917,
-      "durationMs": 75,
-      "snippet": "PSY SUMMER SWAG 2026 Concert Tour Dates &amp; Tickets | NOL World {\"@context\":\"https://schema.org\",\"@type\":\"Event\",\"name\":\"PSY SUMMER SWAG 2026 Concert Tour Dates & Tickets\",\"desc..."
-    },
-    {
-      "slug": "jinju-namgang-yudeung-festival-2026",
-      "title": "2026 Jinju Namgang Yudeung Festival",
-      "sourceName": "VISITKOREA",
-      "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362",
-      "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362",
-      "status": 200,
-      "ok": true,
-      "bytes": 217813,
-      "durationMs": 452,
-      "snippet": "Jinju Namgang Yudeung Festival (진주 남강유등축제)- VISITKOREA !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(argu..."
-    },
-    {
-      "slug": "deoksugung-royal-guard-changing-ceremony-2026",
-      "title": "Deoksugung Royal Guard Changing Ceremony 2026",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/events/TheRoyalGuardChangingCeremony/ENP81fkn2",
-      "finalUrl": "https://english.visitseoul.net/events/TheRoyalGuardChangingCeremony/ENP81fkn2",
-      "status": 200,
-      "ok": true,
-      "bytes": 3359,
-      "durationMs": 75,
-      "snippet": "Welcome to Seoul - Visit Seoul --> visitseoul.net sorry. The page you are looking for cannot be found. The page cannot be found due to a change or deletion of the address of the p..."
+      "checks": [
+        {
+          "sourceName": "NOL World",
+          "url": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
+          "finalUrl": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
+          "status": 200,
+          "bytes": 112149,
+          "durationMs": 25,
+          "mode": "live",
+          "matchedTokens": [
+            "PSY SUMMER SWAG 2026",
+            "14 shows across 9 cities",
+            "Uijeongbu Sports Complex"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "gwangalli-m-drone-light-show-2026",
       "title": "Gwangalli M Drone Light Show",
       "sourceName": "Busan Metropolitan City Events and English News",
-      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-      "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-      "status": 200,
       "ok": true,
-      "bytes": 60805,
-      "durationMs": 365,
-      "snippet": "--> Gwangalli M Drone Light Show : Visit &gt; Calendar of Events $(function () { $(window).scroll(function () { if ($(this).scrollTop() > 100) { $('#scrollup').fadeIn(); } else { ..."
-    },
-    {
-      "slug": "yeowoorak-festival-2026",
-      "title": "2026 Yeowoorak Festival at the National Theater of Korea",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/events/2026YeowoorakFestival/ENPocnv9w",
-      "finalUrl": "https://english.visitseoul.net/events/2026YeowoorakFestival/ENPocnv9w",
-      "status": 200,
-      "ok": true,
-      "bytes": 181882,
-      "durationMs": 504,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
-    },
-    {
-      "slug": "andong-maskdance-festival-2026",
-      "title": "2026 Andong Maskdance Festival",
-      "sourceName": "Andong Maskdance Festival",
-      "sourceUrl": "https://en.maskdance.com/",
-      "finalUrl": "https://en.maskdance.com/2024/main.asp",
-      "status": 200,
-      "ok": true,
-      "bytes": 30842,
-      "durationMs": 129,
-      "snippet": "Andong Maskdance Festival $(function(){ var $subMenu = $(\"body\").attr(\"id\"); // 탑 메뉴 오버 $(\"#topMenuDiv > li > a\").hover( function(){ $(this).css({ color: \"#00FF00\" }); var $index ..."
+      "checks": [
+        {
+          "sourceName": "Busan Metropolitan City",
+          "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+          "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+          "status": 200,
+          "bytes": 60805,
+          "durationMs": 394,
+          "mode": "live",
+          "matchedTokens": [
+            "Gwangalli M Drone Light Show",
+            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
+            "Gwangalli Marvelous Drone Light Show",
+            "Every Saturday, at 20:00, 22:00",
+            "Gwangalli Beach",
+            "Free admission"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "namsangol-traditional-experience-2026",
       "title": "2026 Namsangol Traditional Experience: Artist's Time",
       "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
-      "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
-      "status": 200,
       "ok": true,
-      "bytes": 184500,
-      "durationMs": 841,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
+      "checks": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
+          "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
+          "status": 200,
+          "bytes": 184500,
+          "durationMs": 695,
+          "mode": "live",
+          "matchedTokens": [
+            "Namsangol Hanok Village",
+            "April 3",
+            "October 25",
+            "July and August"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "fernando-botero-seoul-2026",
       "title": "Fernando Botero: The Aesthetics of Form in Seoul",
       "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
-      "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
-      "status": 200,
       "ok": true,
-      "bytes": 180702,
-      "durationMs": 724,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
+      "checks": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
+          "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
+          "status": 200,
+          "bytes": 180702,
+          "durationMs": 576,
+          "mode": "live",
+          "matchedTokens": [
+            "Fernando Botero",
+            "Apr 24, 2026",
+            "Aug 30, 2026",
+            "Hangaram Design Museum",
+            "23,000"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "seoul-international-garden-show-2026",
       "title": "2026 Seoul International Garden Show",
       "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
-      "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
-      "status": 200,
       "ok": true,
-      "bytes": 179728,
-      "durationMs": 832,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
+      "checks": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
+          "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
+          "status": 200,
+          "bytes": 179728,
+          "durationMs": 767,
+          "mode": "live",
+          "matchedTokens": [
+            "2026 Seoul International Garden Show",
+            "May 1",
+            "October 27",
+            "Seoul Forest"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "national-geographic-ocean-seoul-2026",
       "title": "National Geographic Special Exhibition: OCEAN in Seoul",
       "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
-      "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
-      "status": 200,
       "ok": true,
-      "bytes": 179923,
-      "durationMs": 791,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
-    },
-    {
-      "slug": "busan-moon-jars-2026",
-      "title": "Moon Journey: Busan Moon Jars",
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1717594?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-      "finalUrl": "https://www.busan.go.kr/eng/bsevents/1717594?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-      "status": 200,
-      "ok": true,
-      "bytes": 61329,
-      "durationMs": 267,
-      "snippet": "--> Moon Journey: Busan Moon Jars : Visit &gt; Calendar of Events $(function () { $(window).scroll(function () { if ($(this).scrollTop() > 100) { $('#scrollup').fadeIn(); } else {..."
-    },
-    {
-      "slug": "seoul-outdoor-library-2026",
-      "title": "2026 Seoul Outdoor Library",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/events/2026SeoulOutdoorLibrary/ENPvro3vg",
-      "finalUrl": "https://english.visitseoul.net/events/2026SeoulOutdoorLibrary/ENPvro3vg",
-      "status": 200,
-      "ok": true,
-      "bytes": 181468,
-      "durationMs": 649,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
-    },
-    {
-      "slug": "where-writing-breathes-seoul-2026",
-      "title": "Where Writing Breathes at Buk-Seoul Museum of Art",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/exhibition/Where-Writing-Breathes/ENPqphj9g",
-      "finalUrl": "https://english.visitseoul.net/exhibition/Where-Writing-Breathes/ENPqphj9g",
-      "status": 200,
-      "ok": true,
-      "bytes": 180342,
-      "durationMs": 689,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
-    },
-    {
-      "slug": "shilla-duty-free-summer-board-2026",
-      "title": "Shilla Duty Free Summer Event Board",
-      "sourceName": "The Shilla Duty Free",
-      "sourceUrl": "https://www.shilladfs.com/comm/kr/en/eventMain",
-      "finalUrl": "https://www.shilladfs.com/comm/kr/en/eventMain",
-      "status": 200,
-      "ok": true,
-      "bytes": 62683,
-      "durationMs": 143,
-      "snippet": "Events | The Shilla Duty Free var country = 'kr'; var language = 'en'; var useCoupon = ''; var useBlack = '0'; var device= 'pc'; var domainCn = \"shilladutyfree.cn\"; --> var inApp ..."
-    },
-    {
-      "slug": "louis-vuitton-visionary-journeys-seoul-2026",
-      "title": "Louis Vuitton Visionary Journeys Seoul",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
-      "finalUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
-      "status": 200,
-      "ok": true,
-      "bytes": 182288,
-      "durationMs": 725,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
-    },
-    {
-      "slug": "dialogue-in-the-dark-bukchon-2026",
-      "title": "Dialogue in the Dark Bukchon 2026",
-      "sourceName": "Visit Seoul",
-      "sourceUrl": "https://english.visitseoul.net/exhibition/2026-12/ENPwly2p0",
-      "finalUrl": "https://english.visitseoul.net/exhibition/2026-12/ENPwly2p0",
-      "status": 200,
-      "ok": true,
-      "bytes": 177177,
-      "durationMs": 647,
-      "snippet": "(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl ..."
+      "checks": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
+          "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
+          "status": 200,
+          "bytes": 179923,
+          "durationMs": 726,
+          "mode": "live",
+          "matchedTokens": [
+            "National Geographic",
+            "Jun 06, 2026",
+            "Oct 11, 2026",
+            "Chungmu Art Center"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "korea-accommodation-sale-festa-summer-2026",
       "title": "2026 Korea Accommodation Sale Festa Summer Coupons",
       "sourceName": "KTO Accommodation Sale Festa",
-      "sourceUrl": "https://ktostay.visitkorea.or.kr/",
-      "finalUrl": "https://ktostay.visitkorea.or.kr/",
-      "status": 200,
       "ok": true,
-      "bytes": 26779,
-      "durationMs": 51,
-      "snippet": "2026 대한민국 숙박세일 페스타 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!=..."
+      "checks": [
+        {
+          "sourceName": "KTO Accommodation Sale Festa",
+          "url": "https://ktostay.visitkorea.or.kr/",
+          "finalUrl": "https://ktostay.visitkorea.or.kr/",
+          "status": 200,
+          "bytes": 26779,
+          "durationMs": 84,
+          "mode": "live",
+          "matchedTokens": [
+            "2026 대한민국 숙박세일 페스타",
+            "발급기간 2026.6.11",
+            "입실기간 2026. 6.11",
+            "비수도권 인구감소지역",
+            "85개 지자체",
+            "7만원 이상 국내 숙박상품 예약 시 3만원 할인"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     },
     {
       "slug": "visitkorea-exclusive-benefits-2026",
       "title": "VISITKOREA Exclusive Travel Benefits Hub",
       "sourceName": "VISITKOREA",
-      "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
-      "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
-      "status": 200,
       "ok": true,
-      "bytes": 167141,
-      "durationMs": 620,
-      "snippet": "VISITKOREA Exclusive Unveiled: The Official Hub for Korea Travel Benefits!- VISITKOREA !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.appl..."
-    },
-    {
-      "slug": "weverse-lucky-store-yongsan-2026",
-      "title": "Weverse Lucky Store at Yongsan I'Park Mall",
-      "sourceName": "Weverse Shop Notices",
-      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
-      "finalUrl": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
-      "status": 200,
-      "ok": true,
-      "bytes": 131240,
-      "durationMs": 204,
-      "snippet": "[Weverse Global] 2026 SEASON&#x27;S GREETINGS Weverse Lucky Store Opening .gbiFem{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:..."
+      "checks": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
+          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
+          "status": 200,
+          "bytes": 167141,
+          "durationMs": 267,
+          "mode": "live",
+          "matchedTokens": [
+            "VISITKOREA Exclusive",
+            "travel benefits",
+            "shopping"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
     }
   ]
 }

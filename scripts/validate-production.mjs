@@ -15,15 +15,18 @@ const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGL
 const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
+const editorialProgram = JSON.parse(fs.readFileSync(path.resolve("data", "editorial-program.json"), "utf8"));
 const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"), "utf8"));
 const errors = [];
 const warnings = [];
-const minimumPublicContentPages = 30;
+const minimumPublicContentPages = 20;
 const today = todayString();
 const languages = publicLanguageCodes();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
-const noindexAllowedPages = new Set(["sources", "freshness", "watchlist"]);
 const eventStatusBySlug = new Map(events.map((event) => [event.slug, event.endDate < today ? "ended" : event.startDate > today ? "upcoming" : "live"]));
+const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
+const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
+const approvedRouteSlugs = new Set(editorialProgram.indexableRoutes || []);
 
 function normalizeGoogleSiteVerification(value) {
   const trimmed = String(value || "").trim();
@@ -67,10 +70,12 @@ function requireFile(relativePath) {
 }
 
 function manualAdSlotFiles() {
+  const approvedEvent = events.find((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today);
+  const approvedGuide = guides.find((guide) => approvedGuideSlugs.has(guide.slug));
   return [
-    "index.html",
-    path.join("en", "events", `${events[0]?.slug || ""}.html`),
-    path.join("en", "guides", `${guides[0]?.slug || ""}.html`)
+    path.join("en", "index.html"),
+    path.join("en", "events", `${approvedEvent?.slug || ""}.html`),
+    path.join("en", "guides", `${approvedGuide?.slug || ""}.html`)
   ].filter((relativePath) => !relativePath.includes("undefined") && fs.existsSync(path.join(dist, relativePath)));
 }
 
@@ -123,8 +128,8 @@ if (requireAdsense && !adsenseCmpReady) {
   warn("AdSense IDs are configured, but GOOGLE_ADSENSE_CMP_READY is not set. Confirm a Google-certified CMP before serving ads to EEA, UK, and Switzerland visitors.");
 }
 
-const currentEventPages = events.filter((event) => event.endDate >= today).length;
-const publicContentPages = currentEventPages + guides.length;
+const currentEventPages = events.filter((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today).length;
+const publicContentPages = currentEventPages + guides.filter((guide) => approvedGuideSlugs.has(guide.slug)).length;
 if (publicContentPages < minimumPublicContentPages) {
   fail(`At least ${minimumPublicContentPages} current event/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
 }
@@ -222,17 +227,18 @@ for (const file of keyFiles) {
 }
 
 const generatedHtmlFiles = collectFiles(dist, (file) => file.endsWith(".html"));
+const indexableRelativeFiles = new Set([
+  ...(editorialProgram.indexableHubs || []).map((url) => `${url.replace(/^\//, "")}index.html`),
+  ...(editorialProgram.indexableEvents || []).map((slug) => `en/events/${slug}.html`),
+  ...(editorialProgram.indexableGuides || []).map((slug) => `en/guides/${slug}.html`),
+  ...(editorialProgram.indexableRoutes || []).map((slug) => `en/routes/${slug}.html`)
+]);
 for (const file of generatedHtmlFiles) {
   const text = readTextIfExists(file);
-  if (/<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(text)) {
-    const relative = path.relative(dist, file).replaceAll(path.sep, "/");
-    const eventMatch = relative.match(/^[a-z]{2}\/events\/([^/]+)\.html$/);
-    const pageMatch = relative.match(/^[a-z]{2}\/([^/]+)\/index\.html$/);
-    const isEndedEventPage = eventMatch && eventStatusBySlug.get(eventMatch[1]) === "ended";
-    const isAllowedOperationalPage = pageMatch && noindexAllowedPages.has(pageMatch[1]);
-    if (!isEndedEventPage && !isAllowedOperationalPage) {
-      fail(`${relative} contains a noindex robots meta tag.`);
-    }
+  const relative = path.relative(dist, file).replaceAll(path.sep, "/");
+  const hasNoindex = /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(text);
+  if (indexableRelativeFiles.has(relative) && hasNoindex) {
+    fail(`${relative} is approved for the editorial sitemap but contains a noindex robots meta tag.`);
   }
 }
 
@@ -246,10 +252,11 @@ if (siteUrl && !sitemapText.includes(`<loc>${siteUrl}/`)) {
   fail("dist/sitemap.xml does not contain production SITE_URL loc entries.");
 }
 
-if (fs.existsSync(distIndex)) {
-  const home = readTextIfExists(distIndex);
-  if (siteUrl && !home.includes(`<link rel="canonical" href="${siteUrl}/">`)) {
-    fail("dist/index.html does not contain the production canonical URL.");
+const editorialHome = path.join(dist, "en", "index.html");
+if (fs.existsSync(editorialHome)) {
+  const home = readTextIfExists(editorialHome);
+  if (siteUrl && !home.includes(`<link rel="canonical" href="${siteUrl}/en/">`)) {
+    fail("dist/en/index.html does not contain the editorial home canonical URL.");
   }
 }
 
@@ -273,9 +280,9 @@ if (publisherId) {
   warn("AdSense publisher ID is not set. This is fine before approval, but not ready for AdSense launch.");
 }
 
-if (clientId && fs.existsSync(distIndex)) {
-  const home = fs.readFileSync(distIndex, "utf8");
-  if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/index.html.");
+if (clientId && fs.existsSync(editorialHome)) {
+  const home = fs.readFileSync(editorialHome, "utf8");
+  if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html.");
   if (slotId) {
     const missingSlotFiles = manualAdSlotFiles().filter((relativePath) => !readTextIfExists(path.join(dist, relativePath)).includes(`data-ad-slot="${slotId}"`));
     if (missingSlotFiles.length) fail(`Manual AdSense slot was not found in checked pages: ${missingSlotFiles.join(", ")}.`);

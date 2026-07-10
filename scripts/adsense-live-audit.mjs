@@ -18,7 +18,8 @@ const layoutResults = [];
 
 const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."] },
-  { path: "/en/", label: "English home", needles: ["K-Spot Now", "data-gallery-limit=\"8\""] },
+  { path: "/en/", label: "English home", needles: ["K-Spot Now", "spotlight-carousel"] },
+  { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
   { path: "/en/events/bts-city-arirang-busan-2026.html", label: "Representative event", needles: ["Official source", "Weather planning", "Map and transit checks"] },
   { path: "/en/routes/", label: "Travel routes", needles: ["Travel routes", "routes-with-ad no-ad"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },

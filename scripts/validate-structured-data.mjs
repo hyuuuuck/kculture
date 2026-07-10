@@ -7,6 +7,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
+const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
+const approvedEvents = events.filter((event) => approvedSlugs.has(event.slug));
 const languages = publicLanguageCodes();
 const scriptRe = /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi;
 const dateRe = /^\d{4}-\d{2}-\d{2}$/;
@@ -115,7 +118,8 @@ function validateWebPageNode(node, sourceEvent, file, lang) {
   assert(node["@id"] === `${node.url}#webpage`, file, "WebPage.@id should identify the detail page.");
   assert(node.inLanguage === lang, file, "WebPage.inLanguage must match page language.");
   assertDate(node.dateModified, file, "WebPage.dateModified");
-  assert(node.dateModified === sourceEvent.lastChecked, file, "WebPage.dateModified must match event lastChecked.");
+  const expectedModified = editorialProgram.eventReviews?.[sourceEvent.slug]?.reviewedAt || sourceEvent.lastChecked;
+  assert(node.dateModified === expectedModified, file, "WebPage.dateModified must match the editorial review date.");
   assert(hasType(node.primaryImageOfPage, "ImageObject"), file, "WebPage.primaryImageOfPage must be an ImageObject.");
   assertUrl(node.primaryImageOfPage?.url, file, "WebPage.primaryImageOfPage.url");
   assert(hasType(node.about, "Thing"), file, "WebPage.about must be a Thing.");
@@ -138,7 +142,7 @@ function validateBreadcrumbNode(node, file) {
 }
 
 for (const lang of languages) {
-  for (const event of events) {
+  for (const event of approvedEvents) {
     const file = path.join(dist, lang, "events", `${event.slug}.html`);
     const id = relative(file);
     let html = "";
@@ -173,6 +177,6 @@ if (errors.length) {
   process.exit(1);
 }
 
-const eventPageCount = events.filter((event) => eventRichResultCategories.has(event.category)).length * languages.length;
-const webPageCount = events.filter((event) => !eventRichResultCategories.has(event.category)).length * languages.length;
+const eventPageCount = approvedEvents.filter((event) => eventRichResultCategories.has(event.category)).length * languages.length;
+const webPageCount = approvedEvents.filter((event) => !eventRichResultCategories.has(event.category)).length * languages.length;
 console.log(`Structured data validation passed: ${eventPageCount} event-rich pages use Event JSON-LD and ${webPageCount} shopping/info pages use WebPage JSON-LD.`);

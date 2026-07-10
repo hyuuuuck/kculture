@@ -6,13 +6,15 @@ import { todayString } from "./lib/date.mjs";
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
+const editorialProgram = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const languages = publicLanguageCodes();
 const today = todayString();
-const currentEvents = events.filter((event) => event.endDate >= today);
+const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
+const currentEvents = events.filter((event) => approvedSlugs.has(event.slug) && event.endDate >= today);
 const errors = [];
 const warnings = [];
 const checkedImages = new Map();
-const allowedExt = new Set([".jpg", ".jpeg", ".png", ".webp", ".svg"]);
+const allowedExt = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"]);
 
 function readUInt24LE(buffer, offset) {
   return buffer[offset] | (buffer[offset + 1] << 8) | (buffer[offset + 2] << 16);
@@ -39,6 +41,10 @@ function imageInfo(file) {
     info.type = "png";
     info.width = buffer.readUInt32BE(16);
     info.height = buffer.readUInt32BE(20);
+  } else if (buffer.length >= 10 && /^(GIF87a|GIF89a)$/.test(buffer.subarray(0, 6).toString("ascii"))) {
+    info.type = "gif";
+    info.width = buffer.readUInt16LE(6);
+    info.height = buffer.readUInt16LE(8);
   } else if (buffer.length >= 12 && buffer.subarray(0, 4).toString("ascii") === "RIFF" && buffer.subarray(8, 12).toString("ascii") === "WEBP") {
     info.type = "webp";
     const chunk = buffer.subarray(12, 16).toString("ascii");
@@ -121,7 +127,7 @@ function requireImage(relativeUrl, context, { eventThumbnail = false } = {}) {
 
   const info = imageInfo(file);
   if (info.type === "unknown") {
-    push(errors, context, `image file is not a recognized PNG/JPEG/WebP asset: ${relativeUrl}`);
+    push(errors, context, `image file is not a recognized PNG/JPEG/WebP/GIF/SVG asset: ${relativeUrl}`);
   }
   if (info.bytes < 1024) {
     push(errors, context, `image file is suspiciously small: ${relativeUrl}`);
@@ -177,8 +183,9 @@ if (!fs.existsSync(dist)) {
     const homeHtml = fs.readFileSync(home, "utf8");
     const overlayCount = (homeHtml.match(/class="thumb-overlay"/g) || []).length;
     const brandCount = (homeHtml.match(/class="thumb-brand"/g) || []).length;
-    if (overlayCount < currentEvents.length || brandCount < currentEvents.length) {
-      push(errors, `gallery:${lang}`, `event gallery should show brand/source overlays on every current thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${currentEvents.length} current events.`);
+    const expectedHomeCards = Math.min(6, currentEvents.length);
+    if (overlayCount < expectedHomeCards || brandCount < expectedHomeCards) {
+      push(errors, `gallery:${lang}`, `compact home gallery should show brand/source overlays on every visible thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${expectedHomeCards} visible events.`);
     }
   }
   for (const file of htmlFiles) {

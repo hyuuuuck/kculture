@@ -1,83 +1,24 @@
 import fs from "node:fs";
 import path from "node:path";
-import { todayString } from "./lib/date.mjs";
-import { configuredAdSenseClientId } from "./lib/adsense.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
-const today = todayString();
-const dayMs = 24 * 60 * 60 * 1000;
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
-const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
-const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
-const weather = JSON.parse(fs.readFileSync(path.join(root, "data", "weather-baselines.json"), "utf8"));
-const currentWeather = fs.existsSync(path.join(root, "data", "kma-forecast.json"))
-  ? JSON.parse(fs.readFileSync(path.join(root, "data", "kma-forecast.json"), "utf8"))
-  : null;
+const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const languages = publicLanguageCodes();
-const languageLocales = {
-  en: "en-US",
-  es: "es-ES",
-  zh: "zh-CN",
-  pt: "pt-BR",
-  ru: "ru-RU",
-  ja: "ja-JP",
-  fr: "fr-FR",
-  de: "de-DE"
-};
-const forecastLabels = {
-  en: {
-    lowHigh: "Low / High",
-    morning: "AM",
-    afternoon: "PM"
-  },
-  es: {
-    lowHigh: "Mín / Máx",
-    morning: "AM",
-    afternoon: "PM"
-  },
-  zh: {
-    lowHigh: "最低 / 最高",
-    morning: "上午",
-    afternoon: "下午"
-  },
-  pt: {
-    lowHigh: "Mín / Máx",
-    morning: "AM",
-    afternoon: "PM"
-  },
-  ru: {
-    lowHigh: "Мин / Макс",
-    morning: "Утро",
-    afternoon: "День"
-  },
-  ja: {
-    lowHigh: "最低 / 最高",
-    morning: "午前",
-    afternoon: "午後"
-  },
-  fr: {
-    lowHigh: "Min / Max",
-    morning: "Matin",
-    afternoon: "Apres-midi"
-  },
-  de: {
-    lowHigh: "Tief / Hoch",
-    morning: "Vormittag",
-    afternoon: "Nachmittag"
-  }
-};
-const adsenseClientId = configuredAdSenseClientId();
-const adsenseSlotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
+const today = todayString();
+const approved = new Set(program.indexableEvents || []);
+const publicEvents = events.filter((event) => approved.has(event.slug) && event.endDate >= today);
 const errors = [];
 
 function push(id, message) {
   errors.push({ id, message });
 }
 
-function esc(value) {
-  return String(value ?? "")
+function escapeHtml(value) {
+  return String(value || "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -85,301 +26,65 @@ function esc(value) {
     .replaceAll("'", "&#39;");
 }
 
-function manualAdsExpected() {
-  return /^ca-pub-\d{16}$/.test(adsenseClientId) && /^\d{8,20}$/.test(adsenseSlotId);
-}
-
-function statusOf(event) {
-  if (event.endDate < today) return "ended";
-  if (event.startDate > today) return "upcoming";
-  return "live";
-}
-
-function monthNameFromIso(iso) {
-  const date = new Date(`${String(iso || today).slice(0, 7)}-01T00:00:00Z`);
-  return new Intl.DateTimeFormat("en-US", { month: "long", timeZone: "UTC" }).format(date);
-}
-
-function dateText(lang, iso) {
-  const date = new Date(`${iso}T00:00:00Z`);
-  return new Intl.DateTimeFormat(languageLocales[lang] || "en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
-}
-
-function containsEnglishSourceText(value) {
-  const text = String(value || "").replace(/\b(KST|QR|KMA|BTS|K-POP|KPOP|VIP|UV|AM|PM)\b/g, "");
-  return /\b[A-Za-z]{4,}\b/.test(text);
-}
-
-function eventDateLabel(event, lang, useLocalizedDates = true) {
-  const fallback = useLocalizedDates ? `${dateText(lang, event.startDate)} - ${dateText(lang, event.endDate)}` : `${event.startDate} - ${event.endDate}`;
-  const raw = String(event.dateLabel || "").trim();
-  if (!raw) return fallback;
-  if (lang === "en") return raw;
-  if (!containsEnglishSourceText(raw)) return raw;
-  if (lang !== "fr" && lang !== "de") return fallback;
-  let text = raw
-    .replace(/\bFrom\s+(\d{4}-\d{2}-\d{2}),\s*until sold out\b/gi, lang === "fr" ? "Depuis $1, jusqu'a epuisement" : "Seit $1, bis ausverkauft")
-    .replace(/\bEvery Saturday in 2026\b/gi, lang === "fr" ? "Chaque samedi en 2026" : "Jeden Samstag 2026")
-    .replace(/\bSelected exhibitions through\b/gi, lang === "fr" ? "Expositions selectionnees jusqu'au" : "Ausgewahlte Ausstellungen bis")
-    .replace(/\bMain listed date range\b/gi, lang === "fr" ? "Periode principale indiquee" : "Hauptzeitraum laut Quelle")
-    .replace(/\bOverall campaign\b/gi, lang === "fr" ? "Campagne globale" : "Gesamtkampagne")
-    .replace(/\bCoupon issue and stay period\b/gi, lang === "fr" ? "Emission des coupons et sejour" : "Coupon-Ausgabe und Aufenthaltszeitraum")
-    .replace(/\bopen Thu-Sun during the event period\b/gi, lang === "fr" ? "ouvert jeu-dim pendant l'evenement" : "geoffnet Do-So wahrend der Veranstaltung")
-    .replace(/\breservation-only entry via Weverse\b/gi, lang === "fr" ? "entree sur reservation via Weverse" : "Eintritt nur mit Reservierung via Weverse")
-    .replace(/\brelay dates can differ by branch\b/gi, lang === "fr" ? "les dates varient selon la branche" : "Termine konnen je nach Filiale variieren")
-    .replace(/\bdaily\b/gi, lang === "fr" ? "tous les jours" : "taglich")
-    .replace(/\bthrough\b/gi, lang === "fr" ? "jusqu'au" : "bis")
-    .replace(/\buntil sold out\b/gi, lang === "fr" ? "jusqu'a epuisement" : "bis ausverkauft");
-  if (text === raw && /\b(date range|campaign|selected|daily|through|until|every)\b/i.test(raw)) return fallback;
-  if (containsEnglishSourceText(text)) return fallback;
-  return text;
-}
-
-const weatherCopy = {
-  en: {
-    previousBaseline: "Previous-year monthly baseline",
-    kmaShortForecast: "KMA short-term forecast",
-    baseline: "Weather baseline",
-    typicalRange: "Typical range"
-  },
-  fr: {
-    previousBaseline: "Base mensuelle de l&#39;annee precedente",
-    kmaShortForecast: "Prevision courte KMA",
-    baseline: "Base meteo",
-    typicalRange: "Plage typique"
-  },
-  de: {
-    previousBaseline: "Monatsbasis des Vorjahres",
-    kmaShortForecast: "KMA-Kurzfristprognose",
-    baseline: "Wetterbasis",
-    typicalRange: "Typischer Bereich"
-  }
-};
-
-function weatherLabel(lang, key) {
-  return weatherCopy[lang]?.[key] || weatherCopy.en[key];
-}
-
-function forecastShortDate(iso) {
-  const match = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!match) return iso;
-  return `${Number(match[2])}.${Number(match[3])}.`;
-}
-
-function weatherIsoForEvent(event) {
-  const status = statusOf(event);
-  if (status === "live") return today;
-  if (status === "ended") return event.endDate || event.startDate || today;
-  return event.startDate || event.endDate || today;
-}
-
-function weatherBaseline(event) {
-  const regionKey = weather.regions[event.weatherRegion] ? event.weatherRegion : "Nationwide";
-  const monthName = monthNameFromIso(weatherIsoForEvent(event));
-  const regionData = weather.regions[regionKey] || weather.regions.Nationwide;
-  const nationalData = weather.regions.Nationwide || {};
-  return {
-    regionKey,
-    monthName,
-    baseline: regionData[monthName] || nationalData[monthName] || regionData.June || nationalData.June
-  };
-}
-
-function forecastRegionKey(city, weatherRegion) {
-  if (!currentWeather?.regions) return null;
-  const key = currentWeather.cityMap?.[city] || currentWeather.weatherRegionMap?.[weatherRegion] || weatherRegion || "Nationwide";
-  if (currentWeather.regions[key]?.summary?.days?.length) return key;
-  return currentWeather.regions.Nationwide?.summary?.days?.length ? "Nationwide" : null;
-}
-
-function currentForecastForEvent(event) {
-  if (statusOf(event) === "ended") return null;
-  const key = forecastRegionKey(event.city, event.weatherRegion);
-  const region = key ? currentWeather.regions[key] : null;
-  const days = region?.summary?.days || [];
-  const startDate = statusOf(event) === "live" ? today : event.startDate;
-  const endDate = event.endDate || event.startDate || startDate;
-  const selected = days.filter((day) => day.date >= startDate && day.date <= endDate);
-  return selected.length ? { region, days: selected } : null;
-}
-
-function routeHref(lang, route) {
-  return `/${lang}/routes/${route.slug}.html`;
-}
-
-function routesForEvent(event) {
-  const regionKeys = new Set([event.city, event.weatherRegion, "Nationwide"].filter(Boolean));
-  const matches = routes.filter((route) => {
-    const regionMatch = route.regions?.some((region) => regionKeys.has(region));
-    const categoryMatch = route.categories?.includes(event.category);
-    return regionMatch && categoryMatch;
-  });
-  const fallback = routes.filter((route) => route.regions?.some((region) => regionKeys.has(region)));
-  return (matches.length ? matches : fallback).slice(0, 3);
-}
-
-function guidesForEvent(event) {
-  const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
-  return relatedGuides.length ? relatedGuides : guides.slice(0, 3);
-}
-
-function assertIncludes(html, needle, id, message) {
-  if (!html.includes(needle)) push(id, message);
-}
-
-function forecastLabel(lang, key) {
-  return forecastLabels[lang]?.[key] || forecastLabels.en[key];
-}
-
-function validateDetailPage(event, lang) {
-  const relativePath = path.join("dist", lang, "events", `${event.slug}.html`);
-  const file = path.join(root, relativePath);
-  const id = relativePath.replace(/\\/g, "/");
-  if (!fs.existsSync(file)) {
-    push(id, "event detail page is missing.");
-    return;
-  }
-
-  const html = fs.readFileSync(file, "utf8");
-  const weatherInfo = weatherBaseline(event);
-  const forecastInfo = currentForecastForEvent(event);
-  const routeIdeas = routesForEvent(event);
-  const relatedGuides = guidesForEvent(event);
-
-  if (/verificationOfficial|collectionOfficial[A-Za-z]+/.test(html)) {
-    push(id, "internal verification or collection translation keys are visible on the public detail page.");
-  }
-  assertIncludes(html, `href="${esc(event.sourceUrl)}"`, id, "official source link is missing.");
-  assertIncludes(html, `href="/events/${event.slug}.ics"`, id, "single-event calendar download link is missing.");
-  assertIncludes(html, `data-save-event`, id, "save-event planner button is missing.");
-  assertIncludes(html, `data-event-slug="${esc(event.slug)}"`, id, "save-event planner metadata is missing the event slug.");
-  assertIncludes(html, esc(eventDateLabel(event, lang, false)), id, "event period is missing from visible facts.");
-  assertIncludes(html, esc(event.venue), id, "event venue is missing from visible facts.");
-  assertIncludes(html, esc(event.city), id, "event city is missing from visible facts.");
-  assertIncludes(html, esc(event.sourceName), id, "source name is missing from the page.");
-  assertIncludes(html, "visitor-action-grid", id, "visit-ready action checklist is missing.");
-  assertIncludes(html, "source-transparency-section", id, "source transparency section is missing.");
-  if (["en", "fr", "de"].includes(lang)) {
-    assertIncludes(html, "source-boundary-callout", id, "linked-source boundary callout is missing.");
-  }
-  assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing from visit-ready checklist.");
-  if (event.officialWebsiteUrl) {
-    assertIncludes(html, `href="${esc(event.officialWebsiteUrl)}"`, id, "official event website link is missing.");
-    assertIncludes(html, esc(event.officialWebsiteName || event.officialWebsiteUrl), id, "official event website label is missing.");
-  }
-  if (event.visitorInfo) {
-    assertIncludes(html, "visitor-info-section", id, "official visitor info section is missing.");
-    if (lang === "en") {
-      for (const value of Object.values(event.visitorInfo).flat().filter(Boolean)) {
-        assertIncludes(html, esc(value), id, `visitorInfo value is missing from the detail page: ${value}`);
-      }
-    }
-  }
-  for (const item of event.venueSchedule || []) {
-    assertIncludes(html, esc(item.venue), id, `venue schedule venue is missing: ${item.venue}`);
-    assertIncludes(html, esc(dateText(lang, item.startDate)), id, `venue schedule start date is missing: ${item.startDate}`);
-    assertIncludes(html, esc(dateText(lang, item.endDate)), id, `venue schedule end date is missing: ${item.endDate}`);
-    if (lang === "en") {
-      if (item.theme) assertIncludes(html, esc(item.theme), id, `venue schedule theme is missing: ${item.theme}`);
-      if (item.note) assertIncludes(html, esc(item.note), id, `venue schedule note is missing: ${item.note}`);
-    } else {
-      assertIncludes(html, "venue-schedule", id, "localized venue schedule section is missing.");
-    }
-  }
-  if (lang === "en") {
-    for (const item of (event.officialHighlights || []).slice(0, 2)) {
-      assertIncludes(html, esc(item), id, `official highlight is missing: ${item}`);
-    }
-  } else if ((event.officialHighlights || []).length) {
-    assertIncludes(html, "official-highlights", id, "localized official highlights section is missing.");
-    assertIncludes(html, esc(event.sourceName), id, "localized official highlights should keep the source name visible.");
-  }
-
-  assertIncludes(html, weatherLabel(lang, "previousBaseline"), id, "previous-year weather baseline label is missing.");
-  assertIncludes(html, esc(weather.source.name), id, "weather source name is missing.");
-  if (forecastInfo) {
-    assertIncludes(html, weatherLabel(lang, "kmaShortForecast"), id, "current KMA forecast label is missing.");
-    assertIncludes(html, esc(currentWeather.source.name), id, "current KMA forecast source is missing.");
-    assertIncludes(html, esc(forecastInfo.region.label), id, "current KMA forecast location is missing.");
-    assertIncludes(html, "forecast-strip", id, "day-by-day forecast strip is missing.");
-    assertIncludes(html, forecastLabel(lang, "lowHigh"), id, "forecast low/high label is missing.");
-    assertIncludes(html, forecastLabel(lang, "morning"), id, "forecast morning period is missing.");
-    assertIncludes(html, forecastLabel(lang, "afternoon"), id, "forecast afternoon period is missing.");
-    for (const day of forecastInfo.days.slice(0, 2)) {
-      assertIncludes(html, esc(forecastShortDate(day.date)), id, `forecast day card is missing short date: ${day.date}`);
-    }
-  } else {
-    assertIncludes(html, esc(weatherInfo.regionKey), id, "weather region is missing.");
-    assertIncludes(html, esc(weatherInfo.monthName), id, "weather month is missing.");
-    if (["fr", "de"].includes(lang)) {
-      assertIncludes(html, weatherLabel(lang, "baseline"), id, "localized weather baseline section is missing.");
-      assertIncludes(html, weatherLabel(lang, "typicalRange"), id, "localized weather range label is missing.");
-    } else {
-      assertIncludes(html, esc(weatherInfo.baseline.range), id, "weather range is missing.");
-      for (const item of (weatherInfo.baseline.packing || []).slice(0, 3)) {
-        assertIncludes(html, esc(item), id, `weather packing item is missing: ${item}`);
-      }
-    }
-  }
-
-  if (lang === "fr") {
-    assertIncludes(html, "localized-visitor-brief", id, "French localized visitor brief is missing.");
-    assertIncludes(html, "Brief visiteur localise", id, "French localized visitor brief heading is missing.");
-    assertIncludes(html, "Nom officiel a copier", id, "French localized visitor brief should preserve the official searchable name.");
-  } else if (lang === "de") {
-    assertIncludes(html, "localized-visitor-brief", id, "German localized visitor brief is missing.");
-    assertIncludes(html, "Lokales Besucherbriefing", id, "German localized visitor brief heading is missing.");
-    assertIncludes(html, "Offiziellen Namen kopieren", id, "German localized visitor brief should preserve the official searchable name.");
-  }
-
-  const localizedTipProof = {
-    es: "fuente oficial",
-    zh: "官方来源",
-    pt: "fonte oficial",
-    ru: "официальный источник",
-    ja: "公式情報",
-    fr: "source officielle",
-    de: "offizielle Quelle"
-  };
-  if (lang === "en") {
-    for (const tip of (event.travelTips || []).slice(0, 2)) {
-      assertIncludes(html, esc(tip), id, `travel tip is missing: ${tip}`);
-    }
-  } else {
-    assertIncludes(html, "travel-ideas-section", id, "localized travel ideas section is missing.");
-    assertIncludes(html, localizedTipProof[lang], id, "localized travel tips should mention official-source recheck.");
-    assertIncludes(html, "Naver Map", id, "localized travel tips should mention Korean map apps.");
-  }
-
-  assertIncludes(html, "www.google.com/maps/search", id, "Google Maps shortcut is missing.");
-  assertIncludes(html, "map.naver.com", id, "Naver Map shortcut is missing.");
-  assertIncludes(html, "map.kakao.com", id, "Kakao Map shortcut is missing.");
-  assertIncludes(html, esc(event.mapQueryKo), id, "Korean map search query is missing.");
-  assertIncludes(html, encodeURIComponent(event.mapQueryKo), id, "encoded Korean map search query is missing from map links.");
-
-  if (!routeIdeas.length) {
-    push(id, "at least one nearby travel route should be available.");
-  }
-  for (const route of routeIdeas.slice(0, 1)) {
-    assertIncludes(html, `href="${routeHref(lang, route)}"`, id, `nearby route link is missing: ${route.slug}`);
-  }
-
-  if (!relatedGuides.length) {
-    push(id, "at least one related guide should be available.");
-  }
-  for (const guide of relatedGuides.slice(0, 1)) {
-    assertIncludes(html, `href="/${lang}/guides/${guide.slug}.html"`, id, `related guide link is missing: ${guide.slug}`);
-  }
-
-  if (manualAdsExpected()) {
-    assertIncludes(html, "adsbygoogle", id, "detail ad unit is missing while manual AdSense settings are enabled.");
-    assertIncludes(html, `data-ad-slot="${esc(adsenseSlotId)}"`, id, "detail ad unit is missing the configured AdSense slot.");
-  }
+function evidenceFor(event) {
+  return [
+    ...(event.audit?.sourceEvidence || []),
+    ...(program.eventReviews?.[event.slug]?.sourceEvidence || [])
+  ];
 }
 
 for (const lang of languages) {
-  for (const event of events) {
-    validateDetailPage(event, lang);
+  for (const event of publicEvents) {
+    const relative = `${lang}/events/${event.slug}.html`;
+    const file = path.join(dist, relative);
+    if (!fs.existsSync(file)) {
+      push(`dist/${relative}`, "approved event detail page is missing.");
+      continue;
+    }
+    const html = fs.readFileSync(file, "utf8");
+    const review = program.eventReviews?.[event.slug];
+    const markers = [
+      'class="detail-layout compact-event-detail"',
+      'class="detail-hero compact-detail-hero"',
+      'class="event-fact-bar"',
+      'class="detail-section event-review-section"',
+      'class="detail-section event-visit-section"',
+      'class="detail-section event-evidence-section"',
+      'class="review-byline"',
+      'class="compact-weather-panel"',
+      "What matters before you go",
+      "What we checked"
+    ];
+    for (const marker of markers) {
+      if (!html.includes(marker)) push(`dist/${relative}`, `required compact detail marker is missing: ${marker}`);
+    }
+    if (!html.includes(`href="${escapeHtml(event.sourceUrl)}"`)) push(`dist/${relative}`, "official source link is missing.");
+    if (!html.includes(`href="/events/${event.slug}.ics"`)) push(`dist/${relative}`, "event calendar download is missing.");
+    if (!html.includes(`src="/${event.thumbnail}"`)) push(`dist/${relative}`, "event-specific visual is missing.");
+    for (const value of [event.startDate, event.endDate, event.venue, event.city]) {
+      if (value && !html.includes(escapeHtml(value))) push(`dist/${relative}`, `essential event fact is missing: ${value}`);
+    }
+    if (!review || !html.includes(escapeHtml(review.visitorDecision))) push(`dist/${relative}`, "editorial visitor decision is missing.");
+    for (const item of review?.foreignerChecks || []) {
+      if (!html.includes(escapeHtml(item))) push(`dist/${relative}`, `foreign-visitor check is missing: ${item.slice(0, 60)}`);
+    }
+    const evidence = evidenceFor(event);
+    if (!evidence.length) push(`dist/${relative}`, "structured source evidence is missing.");
+    for (const item of evidence) {
+      if (!html.includes(`href="${escapeHtml(item.url)}"`)) push(`dist/${relative}`, `evidence source link is missing: ${item.url}`);
+      for (const token of (item.mustContain || []).slice(0, 5)) {
+        if (!html.includes(escapeHtml(token))) push(`dist/${relative}`, `visible evidence token is missing: ${token}`);
+      }
+    }
+    if (event.category !== "travel-benefits" || event.city !== "Nationwide") {
+      const encoded = encodeURIComponent(event.mapQueryKo || event.venue || event.city);
+      for (const mapHost of ["google.com/maps", "map.naver.com", "map.kakao.com"]) {
+        if (!html.includes(mapHost)) push(`dist/${relative}`, `map shortcut is missing: ${mapHost}`);
+      }
+      if (!html.includes(encoded)) push(`dist/${relative}`, "encoded Korean map query is missing.");
+    } else if (!html.includes("No single venue")) {
+      push(`dist/${relative}`, "nationwide campaign must explain that it has no single venue.");
+    }
   }
 }
 
@@ -389,4 +94,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Detail page validation passed: ${events.length * languages.length} public event detail pages include official source, calendar, weather, map, route, and guide blocks.`);
+console.log(`Detail page validation passed: ${publicEvents.length} approved events across ${languages.length} public language.`);

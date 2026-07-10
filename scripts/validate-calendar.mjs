@@ -6,10 +6,12 @@ import { todayString } from "./lib/date.mjs";
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
+const editorialProgram = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const languages = publicLanguageCodes();
 const errors = [];
 const today = todayString();
-const currentEvents = events.filter((event) => event.endDate >= today);
+const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
+const currentEvents = events.filter((event) => approvedSlugs.has(event.slug) && event.endDate >= today);
 
 function push(id, message) {
   errors.push({ id, message });
@@ -76,8 +78,8 @@ function validateIcs() {
   }
 
   const blocks = parseEventBlocks(unfoldIcs(text));
-  if (blocks.length !== events.length) {
-    push("events.ics", `expected ${events.length} VEVENT blocks, found ${blocks.length}.`);
+  if (blocks.length !== currentEvents.length) {
+    push("events.ics", `expected ${currentEvents.length} approved VEVENT blocks, found ${blocks.length}.`);
   }
 
   const byUid = new Map();
@@ -91,7 +93,7 @@ function validateIcs() {
     byUid.set(uid, block);
   }
 
-  for (const event of events) {
+  for (const event of currentEvents) {
     const uid = `${event.slug}@kspotnow`;
     const block = byUid.get(uid);
     if (!block) {
@@ -147,4 +149,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Calendar validation passed: ${events.length} events in events.ics and ${currentEvents.length} current events in ${languages.length} calendar pages.`);
+console.log(`Calendar validation passed: ${currentEvents.length} approved events in events.ics and ${currentEvents.length} current events in ${languages.length} calendar pages.`);

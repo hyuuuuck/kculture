@@ -44,7 +44,7 @@ for (const lang of languages) {
   const spotlightSlides = count(home, /data-spotlight-slide/g);
   const eventCards = count(home, /class="event-card/g);
   if (spotlightSlides < 3 || spotlightSlides > 5) push(homeId, `home should expose 3-5 spotlight slides; found ${spotlightSlides}.`);
-  if (eventCards !== 6) push(homeId, `home should show exactly 6 reviewed event cards; found ${eventCards}.`);
+  if (eventCards !== 5) push(homeId, `home should show exactly 5 representative reviewed event cards; found ${eventCards}.`);
   assertIncludes(home, "home-guide-band", homeId, "home should connect events to original visitor guides.");
   assertIncludes(home, `See all ${approvedEvents.length} reviewed events`, homeId, "home should link to the full reviewed event list.");
   assertIncludes(home, "spotlight-arrow", homeId, "spotlight needs visible previous/next controls.");

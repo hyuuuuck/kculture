@@ -3,7 +3,7 @@ import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
-import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
+import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -14,6 +14,7 @@ const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
+const cmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
 const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
 const languages = publicLanguageCodes();
 const affiliateEnabled = affiliatePublishingEnabled();
@@ -211,8 +212,8 @@ function runChecks() {
   const actual = sitemapPaths();
   const missing = [...expected].filter((item) => !actual.has(item));
   const extra = [...actual].filter((item) => !expected.has(item));
-  if (!missing.length && !extra.length && actual.size === 34) {
-    pass("Search", "Focused sitemap", `34 approved URLs; no root duplicate, filter, legal, city, or category URLs`);
+  if (!missing.length && !extra.length && actual.size === expected.size) {
+    pass("Search", "Focused sitemap", `${actual.size} approved URLs; no root duplicate, filter, legal, city, or category URLs`);
   } else {
     fail("Search", "Focused sitemap", `${actual.size} URLs; ${missing.length} missing, ${extra.length} extra`, `Missing: ${missing.slice(0, 3).join(", ")}; extra: ${extra.slice(0, 3).join(", ")}`);
   }
@@ -230,7 +231,7 @@ function runChecks() {
 
   const home = read("dist/en/index.html");
   const homeCards = (home.match(/class="event-card/g) || []).length;
-  if (homeCards === 6 && home.includes("home-guide-band")) pass("UX", "Compact home", "6 event cards plus reviewed guide entry points");
+  if (homeCards === 5 && home.includes("home-guide-band")) pass("UX", "Compact home", "5 representative event cards plus reviewed guide entry points");
   else fail("UX", "Compact home", `${homeCards} event cards`, "Keep the home scan short and link to the full reviewed list.");
 
   const prohibitedCopy = ["For AdSense-safe content", "AdSense-safe", "260+ word", "low-value content fix"];
@@ -247,8 +248,10 @@ function runChecks() {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
   }
 
-  if (clientId && /^ca-pub-\d{16}$/.test(clientId) && home.includes(`client=${clientId}`)) {
-    pass("AdSense", "Client script placement", "Present on the approved /en/ home");
+  if (!cmpReady && !home.includes("adsbygoogle.js") && !home.includes("adsbygoogle")) {
+    pass("AdSense", "Client script placement", "Held behind the CMP gate; no ad script or slot is served until CMP is confirmed");
+  } else if (cmpReady && clientId && /^ca-pub-\d{16}$/.test(clientId) && home.includes(`client=${clientId}`)) {
+    pass("AdSense", "Client script placement", "Present on the approved /en/ home after CMP confirmation");
   } else {
     fail("AdSense", "Client script placement", clientId || "missing", "Keep the AdSense client script on approved indexable pages only.");
   }

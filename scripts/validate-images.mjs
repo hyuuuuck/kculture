@@ -183,7 +183,7 @@ if (!fs.existsSync(dist)) {
     const homeHtml = fs.readFileSync(home, "utf8");
     const overlayCount = (homeHtml.match(/class="thumb-overlay"/g) || []).length;
     const brandCount = (homeHtml.match(/class="thumb-brand"/g) || []).length;
-    const expectedHomeCards = Math.min(6, currentEvents.length);
+    const expectedHomeCards = Math.min(5, currentEvents.length);
     if (overlayCount < expectedHomeCards || brandCount < expectedHomeCards) {
       push(errors, `gallery:${lang}`, `compact home gallery should show brand/source overlays on every visible thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${expectedHomeCards} visible events.`);
     }

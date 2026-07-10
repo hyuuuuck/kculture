@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
 import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
-import { affiliatePublishingEnabled, publicLanguageCodes } from "./lib/public-languages.mjs";
+import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -18,6 +18,7 @@ const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
 const adsensePublisherId = configuredAdSensePublisherId();
 const adsenseClientId = configuredAdSenseClientId();
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
+const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
 const defaultTripAffiliate = {
@@ -3010,19 +3011,89 @@ function eventSourceEvidence(event) {
   });
 }
 
+function eventPublicationFacts(event) {
+  const facts = editorialProgram.eventPublicationFacts?.[event.slug] || {};
+  const review = editorialReviewFor(event);
+  const info = event.visitorInfo || {};
+  const sourceText = [
+    event.dateLabel,
+    event.venue,
+    event.summary?.en,
+    event.whyGo?.en,
+    event.audit?.localMustContain || [],
+    event.travelTips || [],
+    review?.visitorDecision,
+    review?.foreignerChecks || [],
+    eventSourceEvidence(event).flatMap((item) => item.mustContain || []),
+    Object.values(info).flat()
+  ].flat().filter(Boolean).join(" ");
+  const mapQuery = eventPlaceQuery(event);
+  const priceMatch = sourceText.match(/(?:KRW|₩)\s?[\d,]+(?:\s?(?:won|원))?|[\d,]+\s?(?:KRW|won|원)/i);
+  const entry = facts.entry || (/free admission|free program|free entry/i.test(sourceText)
+    ? "Free admission"
+    : /paid (?:activity )?zone|paid entry/i.test(sourceText)
+      ? "Paid activity zone"
+      : /ticket|wristband|ticketing|fanclub/i.test(sourceText)
+        ? "Ticketed event"
+        : "Entry rules not confirmed");
+  const reservation = facts.reservation || (/reservation|reserve|booking|fanclub|pickup|identity|mobile ticket|ticket/i.test(sourceText)
+    ? "Reservation or ticket steps apply"
+    : /free admission/i.test(sourceText)
+      ? "No reservation stated"
+      : "Reservation status not confirmed");
+  const price = facts.price || priceMatch?.[0] || "Price not listed in the reviewed source";
+  const englishSupport = facts.englishSupport || ((info.websiteLanguages || []).some((item) => /english/i.test(item)) || /\/en\//i.test(event.sourceUrl || "")
+    ? "English source or page available"
+    : "English support not confirmed");
+  const address = facts.address || info.address || [event.venue, event.district].filter(Boolean).join(", ");
+  const hours = facts.hours || info.hours || info.programHours || (/\d{1,2}:\d{2}/.test(event.dateLabel || "") ? event.dateLabel : "Schedule details are on the official source");
+  const cancellation = facts.cancellation || (/cancel|refund|reschedule|notice/i.test(sourceText)
+    ? "Cancellation or change notice is in the source record"
+    : "Cancellation rules are not listed in the reviewed source");
+  const age = facts.age || (/age|adult|child|children|all ages|under/i.test(sourceText)
+    ? "Age rules are listed in the source record"
+    : "Age rules are not listed in the reviewed source");
+  const weather = facts.weather || (/rain|weather|outdoor|indoor|wet|heat|sun|wind/i.test(sourceText)
+    ? "Weather and operating conditions are part of the visit plan"
+    : "Weather operation rules are not listed in the reviewed source");
+  return { entry, reservation, price, englishSupport, address, hours, cancellation, age, weather, mapQuery };
+}
+
+function eventPublicationDates(event) {
+  const review = editorialReviewFor(event);
+  return {
+    publishedAt: review?.publishedAt || event.publishedAt || event.lastChecked,
+    updatedAt: review?.updatedAt || event.updatedAt || review?.reviewedAt || event.lastChecked
+  };
+}
+
+function eventPublicationBlockers(event) {
+  const review = editorialReviewFor(event);
+  const facts = eventPublicationFacts(event);
+  const blockers = [];
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(event.startDate || "") || !/^\d{4}-\d{2}-\d{2}$/.test(event.endDate || "")) blockers.push("date");
+  if (!event.venue || /TBA|unknown|varies|other tour venues/i.test(event.venue)) blockers.push("venue");
+  if (!facts.entry || /not confirmed|unknown|\bTBA\b/i.test(facts.entry)) blockers.push("entry");
+  if (/\b(?:TBA|provisional|unknown venue)\b/i.test(`${review?.visitorDecision || ""} ${event.visitorInfo?.hours || ""}`)) blockers.push("uncertain-source");
+  return blockers;
+}
+
 function eventEditorialScore(event) {
   const review = editorialReviewFor(event);
   const evidence = eventSourceEvidence(event);
+  const facts = eventPublicationFacts(event);
   const checks = Array.isArray(review?.foreignerChecks) ? review.foreignerChecks.filter(Boolean) : [];
   const sourceEvidence = evidence.length && evidence.every((item) => Array.isArray(item.mustContain) && item.mustContain.length >= 2) ? 25 : 0;
-  const visitorUtility = (event.mapQueryKo ? 5 : 0)
-    + (event.venue ? 5 : 0)
-    + (event.startDate && event.endDate ? 5 : 0)
-    + (checks.length >= 3 ? 10 : checks.length * 3);
-  const originalAnalysis = String(review?.visitorDecision || "").trim().length >= 120 ? 10 : 0;
-  const originalChecks = checks.length >= 3 && checks.every((item) => String(item).trim().length >= 45) ? 10 : 0;
-  const completeness = event.sourceUrl && event.sourceName && event.category && event.city && event.verification ? 15 : 0;
-  const visual = event.thumbnail ? 10 : 0;
+  const visitorUtility = (facts.entry && !/not confirmed/i.test(facts.entry) ? 5 : 0)
+    + (facts.reservation && !/not confirmed/i.test(facts.reservation) ? 5 : 0)
+    + (facts.price && !/not listed|not confirmed/i.test(facts.price) ? 5 : 0)
+    + (facts.englishSupport && !/not confirmed/i.test(facts.englishSupport) ? 5 : 0)
+    + (/^[\uac00-\uD7A3]/u.test(facts.mapQuery || "") ? 5 : 0);
+  const originalAnalysis = String(review?.visitorDecision || "").trim().length >= 120 && String(event.whyGo?.en || "").trim().length >= 80 ? 10 : 0;
+  const originalChecks = checks.length >= 3 && (event.travelTips || []).length >= 3 ? 10 : 0;
+  const completeness = [facts.address, facts.hours, facts.cancellation, facts.age, facts.weather]
+    .filter((value) => value && !/not listed|not confirmed|schedule details are on/i.test(value)).length * 3;
+  const visual = /^assets\/event-thumbnails\/official\//.test(event.thumbnail || "") ? 10 : 0;
   const accountability = review?.reviewedAt && review?.reviewedBy ? 5 : 0;
   const breakdown = {
     sourceEvidence,
@@ -3034,14 +3105,16 @@ function eventEditorialScore(event) {
   };
   return {
     total: Object.values(breakdown).reduce((sum, value) => sum + value, 0),
-    breakdown
+    breakdown,
+    blockers: eventPublicationBlockers(event)
   };
 }
 
 function isApprovedEvent(event) {
   if (!approvedEventSlugs.has(event.slug)) return false;
   if (!editorialReviewFor(event)) return false;
-  return eventEditorialScore(event).total >= Number(editorialProgram.minimumEventScore || 85);
+  const score = eventEditorialScore(event);
+  return !score.blockers.length && score.total >= Number(editorialProgram.minimumEventScore || 85);
 }
 
 function publicEvents() {
@@ -5885,6 +5958,7 @@ function detailPageSchema(event, lang) {
   const pageUrl = absoluteUrl(eventHref(lang, event));
   const imageUrl = absoluteUrl(`/${event.thumbnail}`);
   const review = editorialReviewFor(event);
+  const dates = eventPublicationDates(event);
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -5893,7 +5967,8 @@ function detailPageSchema(event, lang) {
     description: eventSummaryText(event, lang),
     url: pageUrl,
     inLanguage: lang,
-    dateModified: review?.reviewedAt || event.lastChecked,
+    datePublished: dates.publishedAt,
+    dateModified: dates.updatedAt,
     author: {
       "@type": "Organization",
       name: review?.reviewedBy || editorialProgram.editorialTeam?.name || siteName,
@@ -5918,6 +5993,7 @@ function detailPageSchema(event, lang) {
 
 function eventSchema(event, lang) {
   const eventUrl = absoluteUrl(eventHref(lang, event));
+  const dates = eventPublicationDates(event);
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -5926,6 +6002,8 @@ function eventSchema(event, lang) {
     description: eventSummaryText(event, lang),
     startDate: event.startDate,
     endDate: event.endDate,
+    datePublished: dates.publishedAt,
+    dateModified: dates.updatedAt,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     inLanguage: lang,
@@ -5955,12 +6033,12 @@ function eventSchema(event, lang) {
 }
 
 function adsenseHeadScript() {
-  if (!/^ca-pub-\d{16}$/.test(adsenseClientId)) return "";
+  if (!adsenseCmpReady || !/^ca-pub-\d{16}$/.test(adsenseClientId)) return "";
   return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adsenseClientId)}" crossorigin="anonymous"></script>`;
 }
 
 function manualAdsEnabled() {
-  return /^ca-pub-\d{16}$/.test(adsenseClientId) && /^\d{8,20}$/.test(adsenseSlotId);
+  return adsenseCmpReady && /^ca-pub-\d{16}$/.test(adsenseClientId) && /^\d{8,20}$/.test(adsenseSlotId);
 }
 
 function adUnit(placement = "inline") {
@@ -7285,7 +7363,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <a class="text-link" href="/${lang}/now/">See all ${sorted.length} reviewed events</a>
         </div>
         <div class="gallery-grid">
-          ${sorted.slice(0, 6).map((event) => eventCard(event, lang)).join("")}
+          ${sorted.slice(0, 5).map((event) => eventCard(event, lang)).join("")}
         </div>
       </section>
 
@@ -8052,6 +8130,7 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
 function eventEvidenceSection(event, lang) {
   const evidence = eventSourceEvidence(event);
   const review = editorialReviewFor(event);
+  const dates = eventPublicationDates(event);
   return `
         <section class="detail-section event-evidence-section" aria-labelledby="event-evidence-title">
           <div class="event-evidence-heading">
@@ -8059,7 +8138,7 @@ function eventEvidenceSection(event, lang) {
               <p class="eyebrow">Source record</p>
               <h2 id="event-evidence-title">What we checked</h2>
             </div>
-            <span>Last editorial review ${esc(dateText(lang, review?.reviewedAt || event.lastChecked))}</span>
+            <span>Published ${esc(dateText(lang, dates.publishedAt))} · Updated ${esc(dateText(lang, dates.updatedAt))}</span>
           </div>
           <div class="evidence-list">
             ${evidence.map((item) => `
@@ -8087,6 +8166,8 @@ function renderEvent(event, lang) {
   const description = eventSummaryText(event, lang);
   const periodText = eventDateLabel(event, lang, false);
   const venueText = [event.venue, event.district].filter(Boolean).join(", ");
+  const publicationFacts = eventPublicationFacts(event);
+  const publicationDates = eventPublicationDates(event);
   const body = `
     <main class="page">
       <article class="detail-layout compact-event-detail">
@@ -8104,13 +8185,18 @@ function renderEvent(event, lang) {
               <a class="button light" href="/events/${event.slug}.ics">${tr(lang, "downloadCalendar")}</a>
               ${saveEventButton(event, lang)}
             </div>
+            <p class="detail-published-stamp">Published ${esc(dateText(lang, publicationDates.publishedAt))} &middot; Updated ${esc(dateText(lang, publicationDates.updatedAt))}</p>
           </div>
         </header>
 
         <dl class="event-fact-bar" aria-label="Event essentials">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(periodText)}</dd></div>
           <div><dt>${tr(lang, "venue")}</dt><dd>${esc(venueText)}</dd></div>
-          <div><dt>${tr(lang, "location")}</dt><dd>${esc(cityLabel(lang, event.city))}</dd></div>
+          <div><dt>Admission</dt><dd>${esc(publicationFacts.entry)}</dd></div>
+          <div><dt>Price</dt><dd>${esc(publicationFacts.price)}</dd></div>
+          <div><dt>Reservation</dt><dd>${esc(publicationFacts.reservation)}</dd></div>
+          <div><dt>Korean map</dt><dd lang="ko">${esc(publicationFacts.mapQuery)}</dd></div>
+          <div><dt>Official source</dt><dd><a class="fact-source-link" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(sourceRoleLabel(event, lang))}</a></dd></div>
           <div><dt>${tr(lang, "lastChecked")}</dt><dd>${esc(dateText(lang, event.lastChecked))} <span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span></dd></div>
         </dl>
 
@@ -9495,7 +9581,8 @@ ${numberedSections(sections)}
     description: tr(lang, "editorialText"),
     body,
     canonicalPath: `/${lang}/editorial-policy/`,
-    currentPathBuilder: (code) => `/${code}/editorial-policy/`
+    currentPathBuilder: (code) => `/${code}/editorial-policy/`,
+    noindex: true
   });
 }
 

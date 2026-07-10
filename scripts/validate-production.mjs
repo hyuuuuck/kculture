@@ -282,8 +282,9 @@ if (publisherId) {
 
 if (clientId && fs.existsSync(editorialHome)) {
   const home = fs.readFileSync(editorialHome, "utf8");
-  if (!home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html.");
-  if (slotId) {
+  if (adsenseCmpReady && !home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html after CMP confirmation.");
+  if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until GOOGLE_ADSENSE_CMP_READY=1.");
+  if (adsenseCmpReady && slotId) {
     const missingSlotFiles = manualAdSlotFiles().filter((relativePath) => !readTextIfExists(path.join(dist, relativePath)).includes(`data-ad-slot="${slotId}"`));
     if (missingSlotFiles.length) fail(`Manual AdSense slot was not found in checked pages: ${missingSlotFiles.join(", ")}.`);
   }

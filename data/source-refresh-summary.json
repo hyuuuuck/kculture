@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T18:06:48.078Z",
+  "generatedAt": "2026-07-10T21:33:37.651Z",
   "files": {
     "audit": "source-audit-2026-07-11.json",
     "candidates": "official-page-candidates-2026-07-11.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 48,
+    "auditFailed": 7,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 557,
-    "dateSignals": 228,
-    "draftCandidates": 68,
-    "skippedCandidates": 542
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 581,
+    "dateSignals": 229,
+    "draftCandidates": 69,
+    "skippedCandidates": 565
   },
   "failedSources": [
     {
@@ -67,12 +67,17 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "Visit Jeju Festival Calendar",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -80,7 +85,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 18
+      "count": 19
     },
     {
       "key": "Visit Seoul",
@@ -106,7 +111,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 44
+      "count": 45
     },
     {
       "key": "shopping",
@@ -128,23 +133,23 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 489
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 11
+      "count": 512
     },
     {
       "key": "duplicate draft source URL",
       "count": 10
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 10
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: day6-decade-finale-seoul-2026",

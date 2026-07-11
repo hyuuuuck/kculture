@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-11T14:00:21.060Z",
+  "generatedAt": "2026-07-11T17:28:29.744Z",
   "files": {
-    "audit": "source-audit-2026-07-11.json",
-    "candidates": "official-page-candidates-2026-07-11.json",
-    "drafts": "draft-events-2026-07-11.json",
-    "reviewReport": "review-report-2026-07-11.md",
-    "reviewBoard": "review-board-2026-07-11.html"
+    "audit": "source-audit-2026-07-12.json",
+    "candidates": "official-page-candidates-2026-07-12.json",
+    "drafts": "draft-events-2026-07-12.json",
+    "reviewReport": "review-report-2026-07-12.md",
+    "reviewBoard": "review-board-2026-07-12.html"
   },
   "counts": {
     "auditedSources": 55,
@@ -17,8 +17,8 @@
     "candidateFailed": 10,
     "discoveredLinks": 581,
     "dateSignals": 229,
-    "draftCandidates": 69,
-    "skippedCandidates": 565
+    "draftCandidates": 68,
+    "skippedCandidates": 566
   },
   "failedSources": [
     {
@@ -75,7 +75,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 19
+      "count": 18
     },
     {
       "key": "Visit Seoul",
@@ -101,7 +101,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 44
     },
     {
       "key": "shopping",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 511
+      "count": 513
     },
     {
       "key": "duplicate draft source URL",
@@ -152,8 +152,8 @@
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 144
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "Visit Seoul",

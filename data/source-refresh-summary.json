@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T21:33:37.651Z",
+  "generatedAt": "2026-07-11T03:50:09.860Z",
   "files": {
     "audit": "source-audit-2026-07-11.json",
     "candidates": "official-page-candidates-2026-07-11.json",
@@ -9,9 +9,9 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 48,
-    "auditFailed": 7,
-    "fallbackSources": 4,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 43,
     "candidateFailed": 10,
@@ -70,16 +70,6 @@
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "status": "ERR",
-      "error": "timeout"
-    },
-    {
-      "sourceName": "Visit Jeju Festival Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -133,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 512
+      "count": 511
     },
     {
       "key": "duplicate draft source URL",
@@ -162,8 +152,8 @@
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 144
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "Visit Seoul",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T09:54:53.406Z",
+  "generatedAt": "2026-07-11T14:00:21.060Z",
   "files": {
     "audit": "source-audit-2026-07-11.json",
     "candidates": "official-page-candidates-2026-07-11.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
+    "auditOk": 50,
+    "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 43,
     "candidateFailed": 10,
-    "discoveredLinks": 558,
-    "dateSignals": 211,
-    "draftCandidates": 50,
-    "skippedCandidates": 561
+    "discoveredLinks": 581,
+    "dateSignals": 229,
+    "draftCandidates": 69,
+    "skippedCandidates": 565
   },
   "failedSources": [
     {
@@ -57,14 +57,14 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Lotte Department Store Global",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     },
     {
       "sourceName": "KMA ASOS Daily Weather API",
@@ -73,6 +73,10 @@
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 19
+    },
     {
       "key": "Visit Seoul",
       "count": 15
@@ -92,16 +96,12 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
-    },
-    {
-      "key": "Andong Maskdance Festival",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 26
+      "count": 45
     },
     {
       "key": "shopping",
@@ -134,12 +134,12 @@
       "count": 10
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "key": "listing page is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: day6-decade-finale-seoul-2026",
@@ -147,6 +147,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 144
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -202,14 +210,6 @@
       "dates": 10,
       "keywords": 5,
       "score": 118
-    },
-    {
-      "sourceName": "Hyundai Department Store",
-      "url": "https://www.ehyundai.com/newPortal/index.do",
-      "links": 24,
-      "dates": 4,
-      "keywords": 6,
-      "score": 104
     }
   ]
 }

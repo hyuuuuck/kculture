@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T10:03:46.840Z",
+  "generatedAt": "2026-07-12T14:01:36.168Z",
   "files": {
     "audit": "source-audit-2026-07-12.json",
     "candidates": "official-page-candidates-2026-07-12.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 3,
+    "auditOk": 50,
+    "auditFailed": 5,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 623,
-    "dateSignals": 255,
-    "draftCandidates": 67,
-    "skippedCandidates": 609
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 581,
+    "dateSignals": 230,
+    "draftCandidates": 69,
+    "skippedCandidates": 565
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -42,17 +62,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -98,13 +113,17 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 558
+      "count": 511
     },
     {
       "key": "duplicate draft source URL",
@@ -112,14 +131,14 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 6
+      "count": 10
     },
     {
       "key": "curation root is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
@@ -185,12 +204,12 @@
       "score": 134
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 11,
+      "keywords": 5,
+      "score": 120
     }
   ]
 }

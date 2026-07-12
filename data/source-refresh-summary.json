@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T04:05:40.143Z",
+  "generatedAt": "2026-07-12T07:05:38.361Z",
   "files": {
     "audit": "source-audit-2026-07-12.json",
     "candidates": "official-page-candidates-2026-07-12.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 581,
-    "dateSignals": 229,
-    "draftCandidates": 69,
-    "skippedCandidates": 565
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 629,
+    "dateSignals": 280,
+    "draftCandidates": 75,
+    "skippedCandidates": 607
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,12 +42,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -90,18 +70,18 @@
       "count": 11
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 3
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
-      "key": "Weverse Shop BTS Notices",
+      "key": "Hyundai Department Store",
       "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 52
     },
     {
       "key": "shopping",
@@ -113,7 +93,7 @@
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -123,23 +103,23 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 512
+      "count": 553
     },
     {
       "key": "duplicate draft source URL",
       "count": 10
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 10
-    },
-    {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "already published similar event: day6-decade-finale-seoul-2026",
@@ -147,6 +127,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -202,14 +190,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 134
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 10,
-      "keywords": 5,
-      "score": 118
     }
   ]
 }

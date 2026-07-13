@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T21:11:40.956Z",
+  "generatedAt": "2026-07-13T04:07:32.996Z",
   "files": {
     "audit": "source-audit-2026-07-13.json",
     "candidates": "official-page-candidates-2026-07-13.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
+    "auditOk": 51,
+    "auditFailed": 4,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 580,
-    "dateSignals": 230,
-    "draftCandidates": 64,
-    "skippedCandidates": 569
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 584,
+    "dateSignals": 228,
+    "draftCandidates": 66,
+    "skippedCandidates": 571
   },
   "failedSources": [
     {
@@ -62,11 +62,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
@@ -83,7 +78,7 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 11
+      "count": 13
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -101,7 +96,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
+      "count": 46
     },
     {
       "key": "shopping",
@@ -109,7 +104,7 @@
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 7
     },
     {
       "key": "department-store",
@@ -123,15 +118,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 518
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 519
     },
     {
       "key": "duplicate draft source URL",
-      "count": 8
+      "count": 9
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 9
     },
     {
       "key": "already published source URL",
@@ -160,8 +155,8 @@
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 6,
-      "score": 139
+      "keywords": 7,
+      "score": 140
     },
     {
       "sourceName": "Melon Ticket",
@@ -207,9 +202,9 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 11,
+      "dates": 8,
       "keywords": 5,
-      "score": 120
+      "score": 114
     }
   ]
 }

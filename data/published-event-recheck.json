@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T04:05:40.296Z",
+  "generatedAt": "2026-07-13T07:46:39.114Z",
   "date": "2026-07-13",
   "approvedActiveEvents": 12,
   "passed": 12,
   "failed": 0,
-  "liveChecks": 12,
-  "snapshotChecks": 1,
+  "liveChecks": 11,
+  "snapshotChecks": 2,
   "updated": 0,
   "timeoutMs": 12000,
   "concurrency": 5,
@@ -21,8 +21,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
-          "bytes": 118771,
-          "durationMs": 153,
+          "bytes": 119955,
+          "durationMs": 168,
           "mode": "live",
           "matchedTokens": [
             "THE SWEET DREAM HOTEL",
@@ -46,8 +46,8 @@
           "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "status": 200,
-          "bytes": 1104779,
-          "durationMs": 1573,
+          "bytes": 1104778,
+          "durationMs": 1551,
           "mode": "live",
           "matchedTokens": [
             "Korea Beauty Festival",
@@ -75,7 +75,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 1474,
+          "durationMs": 1137,
           "mode": "live",
           "matchedTokens": [
             "29th Boryeong Mud Festival",
@@ -98,9 +98,10 @@
           "url": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "status": 200,
-          "bytes": 118708,
-          "durationMs": 1892,
-          "mode": "live",
+          "bytes": 118590,
+          "durationMs": 1323,
+          "mode": "audited-snapshot",
+          "snapshotPath": "data/audit-snapshots/red-velvet-day-in-red-velvet-seoul-2026.txt",
           "matchedTokens": [
             "Red Velvet FAN-CON",
             "2026.07.31",
@@ -109,6 +110,9 @@
             "고려대학교 화정체육관"
           ],
           "missingTokens": [],
+          "liveMissingTokens": [
+            "2026.08.01"
+          ],
           "ok": true
         }
       ]
@@ -124,8 +128,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
           "status": 200,
-          "bytes": 133202,
-          "durationMs": 620,
+          "bytes": 134386,
+          "durationMs": 626,
           "mode": "live",
           "matchedTokens": [
             "BOYNEXTDOOR TOUR",
@@ -148,8 +152,8 @@
           "url": "https://pentaport.co.kr/",
           "finalUrl": "https://pentaport.co.kr/",
           "status": 200,
-          "bytes": 415613,
-          "durationMs": 1873,
+          "bytes": 415614,
+          "durationMs": 1599,
           "mode": "live",
           "matchedTokens": [
             "Regular Ticket Booking",
@@ -163,8 +167,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "status": 200,
-          "bytes": 128006,
-          "durationMs": 9,
+          "bytes": 129190,
+          "durationMs": 21,
           "mode": "live",
           "matchedTokens": [
             "INCHEON PENTAPORT ROCK FESTIVAL 2026",
@@ -189,7 +193,7 @@
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": "ERROR",
           "bytes": 0,
-          "durationMs": 10375,
+          "durationMs": 10358,
           "mode": "audited-snapshot",
           "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
           "matchedTokens": [
@@ -224,8 +228,8 @@
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "status": 200,
-          "bytes": 184502,
-          "durationMs": 1983,
+          "bytes": 184499,
+          "durationMs": 1802,
           "mode": "live",
           "matchedTokens": [
             "Namsangol Hanok Village",
@@ -249,8 +253,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 180704,
-          "durationMs": 1796,
+          "bytes": 180701,
+          "durationMs": 1695,
           "mode": "live",
           "matchedTokens": [
             "Fernando Botero",
@@ -275,8 +279,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 179730,
-          "durationMs": 2011,
+          "bytes": 179727,
+          "durationMs": 1849,
           "mode": "live",
           "matchedTokens": [
             "2026 Seoul International Garden Show",
@@ -300,8 +304,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 179925,
-          "durationMs": 1858,
+          "bytes": 179922,
+          "durationMs": 1606,
           "mode": "live",
           "matchedTokens": [
             "National Geographic",
@@ -326,7 +330,7 @@
           "finalUrl": "https://ktostay.visitkorea.or.kr/",
           "status": 200,
           "bytes": 26917,
-          "durationMs": 1326,
+          "durationMs": 1070,
           "mode": "live",
           "matchedTokens": [
             "2026 대한민국 숙박세일 페스타",

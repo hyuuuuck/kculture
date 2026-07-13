@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T04:07:32.996Z",
+  "generatedAt": "2026-07-13T07:48:45.313Z",
   "files": {
     "audit": "source-audit-2026-07-13.json",
     "candidates": "official-page-candidates-2026-07-13.json",
@@ -9,15 +9,15 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 51,
-    "auditFailed": 4,
+    "auditOk": 50,
+    "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 44,
-    "candidateFailed": 9,
-    "discoveredLinks": 584,
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 583,
     "dateSignals": 228,
-    "draftCandidates": 66,
+    "draftCandidates": 65,
     "skippedCandidates": 571
   },
   "failedSources": [
@@ -62,6 +62,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
@@ -70,7 +75,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 19
+      "count": 18
     },
     {
       "key": "Visit Seoul",
@@ -96,7 +101,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 45
     },
     {
       "key": "shopping",
@@ -118,14 +123,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 519
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 9
+      "count": 518
     },
     {
       "key": "source fetch did not succeed",
+      "count": 10
+    },
+    {
+      "key": "duplicate draft source URL",
       "count": 9
     },
     {

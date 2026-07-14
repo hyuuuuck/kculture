@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T03:43:02.882Z",
+  "generatedAt": "2026-07-14T06:32:04.906Z",
   "files": {
     "audit": "source-audit-2026-07-14.json",
     "candidates": "official-page-candidates-2026-07-14.json",
@@ -11,14 +11,14 @@
     "auditedSources": 55,
     "auditOk": 50,
     "auditFailed": 5,
-    "fallbackSources": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 43,
     "candidateFailed": 10,
-    "discoveredLinks": 581,
-    "dateSignals": 230,
-    "draftCandidates": 66,
-    "skippedCandidates": 568
+    "discoveredLinks": 558,
+    "dateSignals": 212,
+    "draftCandidates": 47,
+    "skippedCandidates": 564
   },
   "failedSources": [
     {
@@ -62,9 +62,9 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     },
     {
       "sourceName": "KMA ASOS Daily Weather API",
@@ -73,10 +73,6 @@
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 19
-    },
     {
       "key": "Visit Seoul",
       "count": 14
@@ -96,12 +92,16 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 27
     },
     {
       "key": "shopping",
@@ -138,23 +138,15 @@
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 144
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -210,6 +202,14 @@
       "dates": 9,
       "keywords": 5,
       "score": 116
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 19,
+      "dates": 4,
+      "keywords": 7,
+      "score": 112
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T03:41:36.177Z",
+  "generatedAt": "2026-07-15T06:34:20.592Z",
   "files": {
     "audit": "source-audit-2026-07-15.json",
     "candidates": "official-page-candidates-2026-07-15.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 53,
-    "auditFailed": 2,
-    "fallbackSources": 3,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 583,
-    "dateSignals": 227,
-    "draftCandidates": 48,
-    "skippedCandidates": 588
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 588,
+    "dateSignals": 263,
+    "draftCandidates": 71,
+    "skippedCandidates": 570
   },
   "failedSources": [
     {
@@ -27,7 +27,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Seoul Grand Park",
+      "sourceName": "Daegu Tourist Information Festival Schedule",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -45,26 +45,20 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "Visit Seoul",
-      "count": 14
+      "key": "Melon Ticket",
+      "count": 19
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
+      "count": 14
+    },
+    {
+      "key": "Visit Seoul",
+      "count": 14
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -77,16 +71,12 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
-    },
-    {
-      "key": "Andong Maskdance Festival",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 27
+      "count": 47
     },
     {
       "key": "shopping",
@@ -94,11 +84,11 @@
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 8
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 5
     },
     {
       "key": "duty-free",
@@ -108,15 +98,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 542
+      "count": 522
     },
     {
       "key": "duplicate draft source URL",
-      "count": 9
+      "count": 8
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "key": "curation root is not a specific event",
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
@@ -127,8 +117,8 @@
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "key": "source fetch did not succeed",
+      "count": 5
     }
   ],
   "highSignalCandidates": [
@@ -149,6 +139,14 @@
       "score": 141
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
+    },
+    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -165,6 +163,14 @@
       "score": 136
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 135
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -173,28 +179,12 @@
       "score": 132
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
-    },
-    {
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 10,
+      "dates": 8,
       "keywords": 5,
-      "score": 118
+      "score": 114
     }
   ]
 }

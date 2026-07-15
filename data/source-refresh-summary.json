@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-15T14:16:10.469Z",
+  "generatedAt": "2026-07-15T17:42:50.529Z",
   "files": {
-    "audit": "source-audit-2026-07-15.json",
-    "candidates": "official-page-candidates-2026-07-15.json",
-    "drafts": "draft-events-2026-07-15.json",
-    "reviewReport": "review-report-2026-07-15.md",
-    "reviewBoard": "review-board-2026-07-15.html"
+    "audit": "source-audit-2026-07-16.json",
+    "candidates": "official-page-candidates-2026-07-16.json",
+    "drafts": "draft-events-2026-07-16.json",
+    "reviewReport": "review-report-2026-07-16.md",
+    "reviewBoard": "review-board-2026-07-16.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
+    "auditOk": 54,
+    "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 623,
-    "dateSignals": 256,
-    "draftCandidates": 69,
-    "skippedCandidates": 607
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 598,
+    "dateSignals": 238,
+    "draftCandidates": 47,
+    "skippedCandidates": 604
   },
   "failedSources": [
     {
@@ -50,13 +50,14 @@
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 19
-    },
     {
       "key": "NOL World Ticket",
       "count": 14
@@ -67,7 +68,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 10
+      "count": 9
     },
     {
       "key": "Hyundai Department Store",
@@ -76,12 +77,16 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 27
     },
     {
       "key": "shopping",
@@ -89,11 +94,11 @@
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 7
     },
     {
       "key": "department-store",
-      "count": 5
+      "count": 3
     }
   ],
   "topSkippedReasons": [
@@ -106,11 +111,11 @@
       "count": 8
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 6
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "listing page is not a specific event",
       "count": 6
     },
     {
@@ -138,14 +143,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 138
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -178,6 +175,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 132
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     },
     {
       "sourceName": "Korea Sale FESTA",

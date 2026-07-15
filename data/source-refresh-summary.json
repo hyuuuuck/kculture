@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T07:51:56.321Z",
+  "generatedAt": "2026-07-15T10:19:13.169Z",
   "files": {
     "audit": "source-audit-2026-07-15.json",
     "candidates": "official-page-candidates-2026-07-15.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 49,
+    "auditFailed": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 525,
-    "dateSignals": 282,
-    "draftCandidates": 64,
-    "skippedCandidates": 514
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 556,
+    "dateSignals": 225,
+    "draftCandidates": 69,
+    "skippedCandidates": 540
   },
   "failedSources": [
     {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
-      "status": "ROBOTS",
-      "error": "blocked by robots.txt"
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -40,46 +60,61 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
+      "count": 19
+    },
+    {
+      "key": "NOL World Ticket",
       "count": 14
     },
     {
       "key": "Visit Seoul",
-      "count": 11
-    },
-    {
-      "key": "NOL World Ticket",
-      "count": 10
+      "count": 14
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 8
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "count": 10
     },
     {
       "key": "Hyundai Department Store",
+      "count": 3
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
       "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 43
+      "count": 46
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "department-store",
@@ -93,91 +128,91 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 470
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 7
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 6
+      "count": 489
     },
     {
       "key": "source fetch did not succeed",
-      "count": 4
+      "count": 11
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 8
     },
     {
       "key": "already published source URL",
-      "count": 3
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 18,
-      "dates": 18,
-      "keywords": 2,
-      "score": 130
-    },
-    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 8,
-      "score": 123
+      "score": 141
     },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 123
+      "score": 141
     },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 121
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 2,
-      "score": 119
+      "score": 137
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 3,
-      "score": 118
+      "score": 136
     },
     {
       "sourceName": "Seoul Grand Park",
       "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 5,
-      "score": 117
+      "score": 135
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 18,
+      "links": 24,
       "dates": 18,
+      "keywords": 5,
+      "score": 132
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 8,
       "keywords": 5,
       "score": 114
     }

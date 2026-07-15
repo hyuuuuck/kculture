@@ -115,6 +115,25 @@
       ]
     },
     {
+      "id": "home-gallery",
+      "name": "Home Gallery",
+      "className": "home-event-section",
+      "purpose": "The home event section is a concise visitor shortlist; the full reviewed set remains one click away.",
+      "titleScale": "section",
+      "requiredSelectors": [
+        ".home-event-section",
+        ".gallery-grid"
+      ],
+      "avoid": [
+        "A full archive dump before visitor intent",
+        "Search and filter controls that duplicate the Now page",
+        "Internal feed language in the event entry point"
+      ],
+      "examples": [
+        "Home Events"
+      ]
+    },
+    {
       "id": "utility-page",
       "name": "Utility Page",
       "className": "page-hero compact",
@@ -137,14 +156,14 @@
     {
       "id": "workspace-tool",
       "name": "Workspace Tool",
-      "className": "planner-hero",
-      "purpose": "Planner must feel like a usable saved-event board with a visual preview, utility shortcuts, and starter actions.",
+      "className": "planner-page-hero",
+      "purpose": "Planner must feel like a usable saved-event board with starter actions, map handoff, and a clear empty state.",
       "titleScale": "feature",
       "requiredSelectors": [
-        ".planner-hero",
-        ".planner-preview",
+        ".planner-page-hero",
+        ".planner-starter",
         ".planner-utility",
-        ".planner-starter"
+        ".planner-board"
       ],
       "avoid": [
         "Passive documentation cards",
@@ -183,10 +202,10 @@
       "titleScale": "decision",
       "requiredSelectors": [
         ".detail-hero",
-        ".fact-grid",
-        ".detail-quick-plan",
-        ".handoff-note",
-        ".weather-detail-section"
+        ".event-fact-bar",
+        ".event-visit-section",
+        ".compact-weather-panel",
+        ".event-evidence-section"
       ],
       "avoid": [
         "Long defensive source paragraphs",
@@ -243,12 +262,11 @@
       "path": "/en/#events",
       "distPath": "en/index.html",
       "owner": "designer",
-      "heroType": "utility-page",
+      "heroType": "home-gallery",
       "contract": "Event cards start as a concise browsing surface and expand only when visitors ask for more.",
       "watch": "Search/filter density, initial card count, load-more affordance, card rhythm.",
       "requiredSelectors": [
-        "[data-gallery-scope]",
-        ".gallery-tools",
+        ".home-event-section",
         ".gallery-grid"
       ]
     },
@@ -265,7 +283,7 @@
       "requiredSelectors": [
         ".page-hero.compact",
         ".now-status-flag",
-        ".recheck-card"
+        ".recheck-panel"
       ],
       "forbiddenVisibleText": [
         "RSS feed",
@@ -299,10 +317,10 @@
       "contract": "Saved-board tool feels distinct without becoming a homepage clone.",
       "watch": "Hero size, preview panel, button quality, empty state.",
       "requiredSelectors": [
-        ".planner-hero",
-        ".planner-preview",
+        ".planner-page-hero",
+        ".planner-starter",
         ".planner-utility",
-        ".planner-starter"
+        ".planner-board"
       ]
     },
     {
@@ -334,7 +352,7 @@
       "requiredSelectors": [
         ".page-hero.compact",
         ".routes-with-ad",
-        ".routes-ad-rail"
+        ".routes-content"
       ]
     },
     {
@@ -365,10 +383,10 @@
       "watch": "Fact cards, source handoff, weather module, ad placement.",
       "requiredSelectors": [
         ".detail-hero",
-        ".fact-grid",
-        ".detail-quick-plan",
-        ".handoff-note",
-        ".weather-detail-section"
+        ".event-fact-bar",
+        ".event-visit-section",
+        ".compact-weather-panel",
+        ".event-evidence-section"
       ]
     },
     {

@@ -87,7 +87,13 @@ function staticServer() {
       let relativePath = decodeURIComponent(requestUrl.pathname).replace(/^\/+/, "");
       if (!relativePath || relativePath.endsWith("/")) relativePath = path.join(relativePath, "index.html");
 
-      const filePath = path.resolve(dist, relativePath);
+      let filePath = path.resolve(dist, relativePath);
+      if (!(await exists(filePath)) && !path.extname(relativePath)) {
+        const htmlPath = path.resolve(dist, `${relativePath}.html`);
+        const indexPath = path.resolve(dist, relativePath, "index.html");
+        if (await exists(htmlPath)) filePath = htmlPath;
+        else if (await exists(indexPath)) filePath = indexPath;
+      }
       if (!filePath.startsWith(dist)) {
         response.writeHead(403);
         response.end("Forbidden");

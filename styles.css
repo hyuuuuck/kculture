@@ -9196,3 +9196,56 @@ img {
     white-space: normal;
   }
 }
+
+/* Final QA guardrails for the current spotlight and mobile card system. */
+@media (min-width: 981px) {
+  .service-copy {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    column-gap: 28px;
+  }
+
+  .service-actions {
+    grid-template-columns: repeat(3, max-content);
+    width: auto;
+  }
+
+  .service-actions .button {
+    width: auto;
+    min-width: max-content;
+  }
+
+  .spotlight-track {
+    overflow: hidden;
+  }
+
+  .spotlight-card.is-prev .spotlight-badge,
+  .spotlight-card.is-prev .spotlight-title,
+  .spotlight-card.is-prev .spotlight-meta,
+  .spotlight-card.is-next .spotlight-badge,
+  .spotlight-card.is-next .spotlight-title,
+  .spotlight-card.is-next .spotlight-meta {
+    opacity: 0;
+  }
+}
+
+.save-event {
+  min-height: 44px;
+}
+
+@media (max-width: 980px) {
+  .spotlight-track {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 680px) {
+  .save-event {
+    min-height: 44px;
+    padding: 9px 10px;
+  }
+
+  .detail-actions > .button,
+  .detail-actions > .save-event {
+    min-height: 44px;
+  }
+}

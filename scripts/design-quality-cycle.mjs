@@ -338,17 +338,29 @@ async function collectChecks() {
     { owner: "user-panel", area: "Calendar first month", detail: `Calendar opens on ${firstCalendarMonth}, not an archive month.` }
   );
 
+  const routesHaveStableAd = pages.routes.includes("routes-ad-rail")
+    && pages.routes.includes("trip-rail-card")
+    && pages.routes.includes("rel=\"sponsored nofollow noopener\"");
+  const routesHaveIntentionalNoAd = pages.routes.includes('class="routes-with-ad no-ad"')
+    && pages.routes.includes("routes-content")
+    && !pages.routes.includes("trip-square-ad")
+    && !pages.routes.includes("TD17833727")
+    && !pages.routes.includes("<iframe");
+
   assertIssue(
-    pages.routes.includes("routes-ad-rail") && pages.routes.includes("trip-rail-card") && pages.routes.includes("rel=\"sponsored nofollow noopener\"") && !pages.routes.includes("trip-square-ad") && !pages.routes.includes("TD17833727") && !pages.routes.includes("<iframe"),
+    (routesHaveStableAd || routesHaveIntentionalNoAd)
+      && !pages.routes.includes("trip-square-ad")
+      && !pages.routes.includes("TD17833727")
+      && !pages.routes.includes("<iframe"),
     {
       severity: "P1",
       owner: "publisher",
       page: "Routes",
       symptom: "Ad placement can look broken when external creative fails to render.",
-      evidence: "Expected a visible sponsored hotel rail card and no square or iframe ad shell.",
-      proposal: "Keep monetization in a peripheral rail with a stable visual card; route cards remain the primary content."
+      evidence: "When monetization is enabled, the page needs a stable sponsored rail card; when disabled, it must render route content without a blank ad shell or iframe.",
+      proposal: "Keep monetization peripheral and explicit. Use a stable sponsored rail only after the monetization gate is enabled; otherwise keep the route grid full-width."
     },
-    { owner: "publisher", area: "Ad placement", detail: "Routes page uses a visible sponsored hotel rail card and no blank-prone iframe ad." }
+    { owner: "publisher", area: "Ad placement", detail: routesHaveStableAd ? "Routes page uses a visible sponsored hotel rail card without a blank-prone iframe ad." : "Routes page intentionally hides ads and keeps the route grid primary without a blank-prone iframe ad." }
   );
 
   assertIssue(
@@ -378,7 +390,9 @@ async function collectChecks() {
   );
 
   assertIssue(
-    hasBlock(styles, ".planner-hero h1") && !/planner-hero h1\s*\{[\s\S]*?5\.\d+rem/.test(styles),
+    pages.planner.includes('class="page-hero compact planner-page-hero"')
+      && styles.includes(".page-hero.compact h1")
+      && !/page-hero\.compact h1\s*\{[\s\S]*?5\.\d+rem/.test(styles),
     {
       severity: "P2",
       owner: "designer",
@@ -391,7 +405,7 @@ async function collectChecks() {
   );
 
   assertIssue(
-    pages.planner.includes("class=\"planner-preview\"") && pages.planner.includes("class=\"planner-utility\""),
+    pages.planner.includes("class=\"planner-starter\"") && pages.planner.includes("class=\"planner-utility\"") && pages.planner.includes("class=\"planner-board\""),
     {
       severity: "P2",
       owner: "planner",
@@ -457,17 +471,17 @@ async function collectChecks() {
     { owner: "user-panel", area: "First screen scan", detail: "Home spotlight is dot-only, uncluttered, and swipeable." }
   );
 
+  const homeEventCardCount = (pages.home.match(/<article class="event-card/g) || []).length;
+  const homeHasFullListLink = pages.home.includes('href="/en/now/"') && pages.home.includes("See all");
+
   assertIssue(
-    pages.home.includes("data-gallery-limit=\"8\"")
-      && pages.home.includes("data-gallery-mobile-limit=\"6\"")
-      && appJs.includes("gallery-load-more")
-      && appJs.includes("is-gallery-limited"),
+    homeEventCardCount === 5 && homeHasFullListLink,
     {
       severity: "P1",
       owner: "advisory-board",
       page: "Home",
       symptom: "Homepage can dump too many event cards before the visitor asks for more.",
-      evidence: "Expected desktop limit 8, mobile limit 6, and an explicit more button.",
+      evidence: `Expected five representative cards and a full-list handoff; found ${homeEventCardCount} cards and full-list link=${homeHasFullListLink}.`,
       proposal: "Start with a curated scan set; let search, filters, or Show more reveal the full list.",
       designerResponse: "디자이너는 첫 화면 아래 카드가 정보 과부하가 아니라 탐색 입구처럼 보이는지 본다.",
       developerResponse: "개발자는 검색/필터 중에는 제한을 풀고, 기본 상태에서만 progressive disclosure를 적용한다.",

@@ -37,7 +37,7 @@ Set these in GitHub repository settings under `Secrets and variables` -> `Action
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: add after AdSense gives the publisher ID
 - `GOOGLE_ADSENSE_CLIENT`: add after AdSense gives the client ID
 - `GOOGLE_ADSENSE_SLOT`: add after creating a manual ad unit
-- `GOOGLE_ADSENSE_CMP_READY`: set to `1` only after a Google-certified consent management platform is configured for EEA, UK, and Switzerland visitors
+- `GOOGLE_ADSENSE_CMP_READY` and `GOOGLE_ADSENSE_CMP_EVIDENCE`: set to `1` only after a Google-certified consent management platform is configured and its published accept/reject/manage flow is manually verified
 - `AGODA_PARTNER_CID`: add after Agoda Partners approval to enable hotel affiliate links on event pages
 - `TRIP_ALLIANCE_ID` / `TRIP_ALLIANCE_SID`: add after Trip.com Affiliates approval
 - `KLOOK_AFFILIATE_AID`: add after Klook affiliate approval
@@ -117,6 +117,7 @@ $env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
 $env:GOOGLE_ADSENSE_CLIENT="ca-pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
 $env:GOOGLE_ADSENSE_CMP_READY="1"
+$env:GOOGLE_ADSENSE_CMP_EVIDENCE="1"
 npm.cmd run preflight:adsense
 ```
 
@@ -127,7 +128,7 @@ npm.cmd run preflight:adsense
 - Wait until important pages are indexed before applying to AdSense.
 - Apply with the real custom domain, not the Cloudflare preview URL.
 - After approval, add the real AdSense IDs and rebuild so `/ads.txt` and ad placements are generated.
-- Before serving ads to EEA, UK, and Switzerland visitors, configure a Google-certified CMP and set `GOOGLE_ADSENSE_CMP_READY=1`.
+- Before serving ads to EEA, UK, and Switzerland visitors, configure a Google-certified CMP, manually verify its published flow, and set both `GOOGLE_ADSENSE_CMP_READY=1` and `GOOGLE_ADSENSE_CMP_EVIDENCE=1`.
 
 Approval and revenue are not guaranteed. The safest operating model is still official-source monitoring, reviewed publishing, original multilingual summaries, clear correction policy, and frequent freshness checks.
 
@@ -145,4 +146,4 @@ Do not submit the site for AdSense review until these checks are true:
 - A Google-certified CMP is configured before serving ads to EEA, UK, and Switzerland visitors.
 - The public contact email works and is not a personal Gmail address.
 
-After Google issues the publisher and ad unit values, set `GOOGLE_ADSENSE_PUBLISHER_ID`, `GOOGLE_ADSENSE_CLIENT`, `GOOGLE_ADSENSE_SLOT`, and `GOOGLE_ADSENSE_CMP_READY=1`, then run `npm.cmd run preflight:adsense` before enabling live ad placements.
+After Google issues the publisher and ad unit values, set `GOOGLE_ADSENSE_PUBLISHER_ID`, `GOOGLE_ADSENSE_CLIENT`, `GOOGLE_ADSENSE_SLOT`, and both CMP flags, then run `npm.cmd run preflight:adsense` before enabling live ad placements.

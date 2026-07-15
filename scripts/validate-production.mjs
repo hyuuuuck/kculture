@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
@@ -12,7 +12,7 @@ const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
-const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY || "");
+const adsenseCmpReady = configuredAdSenseCmpReady();
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
 const editorialProgram = JSON.parse(fs.readFileSync(path.resolve("data", "editorial-program.json"), "utf8"));
@@ -123,9 +123,9 @@ if (requireAdsense && !publisherId) {
 }
 
 if (requireAdsense && !adsenseCmpReady) {
-  fail("GOOGLE_ADSENSE_CMP_READY=1 is required after configuring a Google-certified CMP for EEA, UK, and Switzerland visitors before enabling AdSense ads.");
+  fail("GOOGLE_ADSENSE_CMP_READY=1 and GOOGLE_ADSENSE_CMP_EVIDENCE=1 are required after configuring and manually verifying a Google-certified CMP for EEA, UK, and Switzerland visitors before enabling AdSense ads.");
 } else if ((publisherId || clientId || slotId) && !adsenseCmpReady) {
-  warn("AdSense IDs are configured, but GOOGLE_ADSENSE_CMP_READY is not set. Confirm a Google-certified CMP before serving ads to EEA, UK, and Switzerland visitors.");
+  warn("AdSense IDs are configured, but CMP readiness evidence is incomplete. Confirm a Google-certified CMP and set both CMP flags before serving ads.");
 }
 
 const currentEventPages = events.filter((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today).length;
@@ -283,7 +283,7 @@ if (publisherId) {
 if (clientId && fs.existsSync(editorialHome)) {
   const home = fs.readFileSync(editorialHome, "utf8");
   if (adsenseCmpReady && !home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html after CMP confirmation.");
-  if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until GOOGLE_ADSENSE_CMP_READY=1.");
+  if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until both CMP readiness and human evidence flags are set.");
   if (adsenseCmpReady && slotId) {
     const missingSlotFiles = manualAdSlotFiles().filter((relativePath) => !readTextIfExists(path.join(dist, relativePath)).includes(`data-ad-slot="${slotId}"`));
     if (missingSlotFiles.length) fail(`Manual AdSense slot was not found in checked pages: ${missingSlotFiles.join(", ")}.`);

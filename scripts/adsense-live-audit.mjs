@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { todayString } from "./lib/date.mjs";
-import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { envFlag } from "./lib/public-languages.mjs";
 
 const root = path.resolve(".");
@@ -14,7 +14,7 @@ const timeoutMs = Number(process.env.LIVE_AUDIT_TIMEOUT_MS || 12000);
 const reviewMode = process.env.ADSENSE_REVIEW_MODE !== "0";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
-const cmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
+const cmpReady = configuredAdSenseCmpReady();
 const checks = [];
 const layoutResults = [];
 

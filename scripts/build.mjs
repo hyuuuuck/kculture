@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
-import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -18,7 +18,7 @@ const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
 const adsensePublisherId = configuredAdSensePublisherId();
 const adsenseClientId = configuredAdSenseClientId();
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
-const adsenseCmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
+const adsenseCmpReady = configuredAdSenseCmpReady();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
 const defaultTripAffiliate = {

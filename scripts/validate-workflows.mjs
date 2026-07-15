@@ -73,6 +73,7 @@ assertIncludes(deployFile, deploy, "npm run validate:event-audit", "manual Cloud
 assertIncludes(deployFile, deploy, "npm run validate:workflows", "manual Cloudflare deploy must validate workflow guardrails before release.");
 assertIncludes(deployFile, deploy, "npm run quality:ceo", "manual Cloudflare deploy must run CEO quality review.");
 assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_READY", "manual Cloudflare deploy must pass Google-certified CMP readiness into AdSense checks.");
+assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_EVIDENCE", "manual Cloudflare deploy must require human CMP evidence before enabling AdSense.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
 assertIncludes(deployFile, deploy, "Check Cloudflare deploy secret", "manual deploy should check the API token only after validation can report quality gates.");
 assertOrder(deployFile, deploy, "npm run quality:ceo", "Check Cloudflare deploy secret", "Cloudflare token checks should run after CEO quality review so missing secrets do not hide build quality.");
@@ -97,6 +98,7 @@ assertIncludes(launchChecklistFile, launchChecklist, "https://kspotnow.com", "la
 assertIncludes(launchChecklistFile, launchChecklist, "contact@kspotnow.com", "launch checklist must document the public domain contact address.");
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_SITE_VERIFICATION", "launch checklist must document Search Console verification.");
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_READY", "launch checklist must document CMP readiness before serving ads.");
+assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_EVIDENCE", "launch checklist must document human CMP evidence before serving ads.");
 assertIncludes(launchChecklistFile, launchChecklist, "/en/advertising/", "launch checklist must include the advertising policy trust page.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:launch", "launch checklist must require full launch preflight.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:adsense", "launch checklist must require strict AdSense preflight after IDs are issued.");

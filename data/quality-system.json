@@ -53,9 +53,9 @@
   ],
   "releasePolicy": {
     "failDecision": "REWORK_REQUIRED",
-    "warningDecision": "APPROVED_WITH_CEO_TASKS",
+    "warningDecision": "REWORK_REQUIRED_IN_ADSENSE_REVIEW",
     "passDecision": "APPROVED_FOR_PUBLISH",
     "hardFailRule": "Any failed audit item blocks release until the responsible department fixes it and the audit institution re-runs the review.",
-    "warningRule": "Warnings do not block an emergency release, but the CEO must assign them as next tasks and review them again before AdSense submission."
+    "warningRule": "Warnings block an AdSense review release. Optional monetization setup notes must be recorded as informational passes; unresolved content, trust, freshness, CMP, SEO, or UX warnings require rework and a second audit."
   }
 }

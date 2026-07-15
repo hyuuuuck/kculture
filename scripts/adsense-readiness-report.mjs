@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { configuredAdSenseClientId, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
@@ -14,7 +14,7 @@ const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
-const cmpReady = envFlag(process.env.GOOGLE_ADSENSE_CMP_READY || process.env.ADSENSE_CMP_READY, false);
+const cmpReady = configuredAdSenseCmpReady();
 const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
 const languages = publicLanguageCodes();
 const affiliateEnabled = affiliatePublishingEnabled();
@@ -264,7 +264,7 @@ function runChecks() {
 
   if (slotId && !/^\d{8,20}$/.test(slotId)) fail("AdSense", "Manual ad slot", "Invalid slot ID", "Use a numeric AdSense unit ID.");
   else if (slotId) pass("AdSense", "Manual ad slot", slotId);
-  else warn("AdSense", "Manual ad slot", "Not configured", "This is not a content-review blocker; add units only after approval if desired.");
+  else pass("AdSense", "Manual ad slot", "Optional manual ad unit is not configured; Auto ads remain independently controlled.");
 
   const sourceRefresh = exists("dist/source-refresh.json") ? JSON.parse(read("dist/source-refresh.json")) : null;
   if (sourceRefresh?.generatedAt && Number(sourceRefresh.counts?.auditedSources || 0) >= 20) {

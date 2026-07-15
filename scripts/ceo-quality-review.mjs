@@ -164,8 +164,10 @@ if (!adsense) {
   fail("publisher", "AdSense", "Editorial gate report", "No report found.", "Publisher: run npm.cmd run report:adsense.");
 } else if (adsense.score.failed) {
   fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.failed} blocking failures.`, "Publisher/CEO: clear every internal gate before release.");
+} else if (program.mode === "adsense-editorial-review" && adsense.score.warned) {
+  fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.warned} warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve every review-mode warning before release or re-review.");
 } else {
-  pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} non-blocking warning, 0 fail.`);
+  pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);
 }
 
 if (home.includes("kr.trip.com/partners/ad") || home.includes("coupa.ng/cny5Rl")) {
@@ -177,7 +179,8 @@ if (home.includes("kr.trip.com/partners/ad") || home.includes("coupa.ng/cny5Rl")
 const fails = checks.filter((item) => item.status === "fail").length;
 const warns = checks.filter((item) => item.status === "warn").length;
 const passes = checks.filter((item) => item.status === "pass").length;
-const decision = fails ? "REWORK_REQUIRED" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
+const reviewLocked = program.mode === "adsense-editorial-review" && warns > 0;
+const decision = fails || reviewLocked ? "REWORK_REQUIRED" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
 const tasks = checks.filter((item) => item.status !== "pass" && item.task);
 const result = {
   generatedAt: new Date().toISOString(),
@@ -215,4 +218,4 @@ ${tasks.map((item, index) => `${index + 1}. ${item.task}`).join("\n") || "No blo
 console.table([{ decision, pass: passes, warn: warns, fail: fails, tasks: tasks.length }]);
 console.log(`CEO quality review saved: ${path.relative(root, mdOut)}`);
 
-if (fails) process.exitCode = 1;
+if (fails || reviewLocked) process.exitCode = 1;

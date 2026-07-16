@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T06:38:24.468Z",
+  "generatedAt": "2026-07-16T10:24:13.811Z",
   "files": {
     "audit": "source-audit-2026-07-16.json",
     "candidates": "official-page-candidates-2026-07-16.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
-    "fallbackSources": 8,
+    "auditOk": 53,
+    "auditFailed": 2,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 558,
-    "dateSignals": 209,
-    "draftCandidates": 49,
-    "skippedCandidates": 562
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 578,
+    "dateSignals": 252,
+    "draftCandidates": 51,
+    "skippedCandidates": 580
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,19 +42,14 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "COEX Event Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -88,7 +63,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 9
+      "count": 10
     },
     {
       "key": "Hyundai Department Store",
@@ -106,7 +81,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 27
+      "count": 28
     },
     {
       "key": "shopping",
@@ -114,7 +89,7 @@
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "department-store",
@@ -128,37 +103,45 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 514
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 533
     },
     {
       "key": "duplicate draft source URL",
       "count": 8
     },
     {
+      "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
       "key": "already published source URL",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 145
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 8,
-      "score": 141
+      "keywords": 9,
+      "score": 142
     },
     {
       "sourceName": "Visit Seoul",
@@ -191,14 +174,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
-    },
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 132
     },
     {
       "sourceName": "YG SELECT Notices",

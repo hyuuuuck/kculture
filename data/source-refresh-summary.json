@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T21:26:48.686Z",
+  "generatedAt": "2026-07-16T03:46:01.908Z",
   "files": {
     "audit": "source-audit-2026-07-16.json",
     "candidates": "official-page-candidates-2026-07-16.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditOk": 51,
+    "auditFailed": 4,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 651,
-    "dateSignals": 260,
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 582,
+    "dateSignals": 227,
     "draftCandidates": 68,
-    "skippedCandidates": 636
+    "skippedCandidates": 567
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -40,6 +60,11 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "KMA ASOS Daily Weather API",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -75,7 +100,7 @@
     },
     {
       "key": "shopping",
-      "count": 10
+      "count": 9
     },
     {
       "key": "kpop",
@@ -83,7 +108,7 @@
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 5
     },
     {
       "key": "duty-free",
@@ -93,15 +118,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 591
+      "count": 516
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 9
     },
     {
       "key": "duplicate draft source URL",
       "count": 8
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 6
     },
     {
       "key": "already published source URL",
@@ -112,8 +137,8 @@
       "count": 5
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 4
+      "key": "listing page is not a specific event",
+      "count": 5
     }
   ],
   "highSignalCandidates": [
@@ -162,8 +187,8 @@
       "url": "https://grandpark.seoul.go.kr/main.do",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 135
+      "keywords": 4,
+      "score": 134
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
@@ -174,12 +199,12 @@
       "score": 132
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 9,
+      "keywords": 5,
+      "score": 116
     }
   ]
 }

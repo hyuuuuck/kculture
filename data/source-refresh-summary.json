@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T21:30:43.282Z",
+  "generatedAt": "2026-07-17T03:45:50.540Z",
   "files": {
     "audit": "source-audit-2026-07-17.json",
     "candidates": "official-page-candidates-2026-07-17.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 49,
-    "auditFailed": 6,
+    "auditOk": 47,
+    "auditFailed": 8,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 581,
-    "dateSignals": 227,
-    "draftCandidates": 72,
-    "skippedCandidates": 562
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 557,
+    "dateSignals": 210,
+    "draftCandidates": 52,
+    "skippedCandidates": 558
   },
   "failedSources": [
     {
@@ -67,16 +67,22 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "SHOWALA exhibition listing",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "NOL World Ticket",
       "count": 15
@@ -96,12 +102,16 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 28
     },
     {
       "key": "kpop",
@@ -123,11 +133,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 514
+      "count": 511
     },
     {
       "key": "source fetch did not succeed",
-      "count": 10
+      "count": 11
     },
     {
       "key": "duplicate draft source URL",
@@ -138,12 +148,12 @@
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
@@ -170,14 +180,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 137
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -207,9 +209,17 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 9,
+      "dates": 10,
       "keywords": 5,
-      "score": 116
+      "score": 118
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 20,
+      "dates": 2,
+      "keywords": 6,
+      "score": 106
     }
   ]
 }

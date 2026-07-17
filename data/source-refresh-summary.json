@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-17T14:09:57.758Z",
+  "generatedAt": "2026-07-17T17:36:35.792Z",
   "files": {
-    "audit": "source-audit-2026-07-17.json",
-    "candidates": "official-page-candidates-2026-07-17.json",
-    "drafts": "draft-events-2026-07-17.json",
-    "reviewReport": "review-report-2026-07-17.md",
-    "reviewBoard": "review-board-2026-07-17.html"
+    "audit": "source-audit-2026-07-18.json",
+    "candidates": "official-page-candidates-2026-07-18.json",
+    "drafts": "draft-events-2026-07-18.json",
+    "reviewReport": "review-report-2026-07-18.md",
+    "reviewBoard": "review-board-2026-07-18.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 50,
     "auditFailed": 5,
-    "fallbackSources": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 557,
-    "dateSignals": 227,
-    "draftCandidates": 70,
-    "skippedCandidates": 540
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 581,
+    "dateSignals": 229,
+    "draftCandidates": 71,
+    "skippedCandidates": 563
   },
   "failedSources": [
     {
@@ -62,11 +62,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -84,11 +79,11 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 14
+      "count": 15
     },
     {
       "key": "Visit Seoul",
-      "count": 14
+      "count": 13
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -118,7 +113,7 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
     },
     {
       "key": "duty-free",
@@ -128,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 490
+      "count": 514
     },
     {
       "key": "source fetch did not succeed",
-      "count": 11
+      "count": 10
     },
     {
       "key": "duplicate draft source URL",
@@ -148,7 +143,7 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 4
     }
   ],
   "highSignalCandidates": [
@@ -212,9 +207,9 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 10,
+      "dates": 11,
       "keywords": 5,
-      "score": 118
+      "score": 120
     }
   ]
 }

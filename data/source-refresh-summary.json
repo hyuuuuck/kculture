@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T17:36:35.792Z",
+  "generatedAt": "2026-07-17T21:13:16.995Z",
   "files": {
     "audit": "source-audit-2026-07-18.json",
     "candidates": "official-page-candidates-2026-07-18.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 581,
-    "dateSignals": 229,
-    "draftCandidates": 71,
-    "skippedCandidates": 563
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 579,
+    "dateSignals": 268,
+    "draftCandidates": 70,
+    "skippedCandidates": 562
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,12 +42,17 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -79,15 +64,15 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 15
+      "count": 14
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 13
     },
     {
       "key": "Visit Seoul",
       "count": 13
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 12
     },
     {
       "key": "Hyundai Department Store",
@@ -105,7 +90,7 @@
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 11
     },
     {
       "key": "shopping",
@@ -113,11 +98,7 @@
     },
     {
       "key": "department-store",
-      "count": 4
-    },
-    {
-      "key": "duty-free",
-      "count": 1
+      "count": 3
     }
   ],
   "topSkippedReasons": [
@@ -126,23 +107,23 @@
       "count": 514
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 10
-    },
-    {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "already published source URL",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "already published source URL",
       "count": 4
     }
   ],

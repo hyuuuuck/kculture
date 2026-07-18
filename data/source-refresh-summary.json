@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T21:13:16.995Z",
+  "generatedAt": "2026-07-18T03:40:25.693Z",
   "files": {
     "audit": "source-audit-2026-07-18.json",
     "candidates": "official-page-candidates-2026-07-18.json",
@@ -9,22 +9,42 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 4,
+    "auditOk": 49,
+    "auditFailed": 6,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 579,
-    "dateSignals": 268,
+    "candidateOk": 42,
+    "candidateFailed": 11,
+    "discoveredLinks": 578,
+    "dateSignals": 226,
     "draftCandidates": 70,
-    "skippedCandidates": 562
+    "skippedCandidates": 561
   },
   "failedSources": [
+    {
+      "sourceName": "Korea Sale FESTA",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Korea Policy Briefing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -47,14 +67,19 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
@@ -86,7 +111,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 47
+      "count": 46
     },
     {
       "key": "kpop",
@@ -98,29 +123,29 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 514
+      "count": 511
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 11
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
-    },
-    {
       "key": "curation root is not a specific event",
-      "count": 6
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
-      "count": 6
+      "count": 5
     },
     {
       "key": "already published source URL",

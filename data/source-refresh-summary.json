@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T09:52:31.271Z",
+  "generatedAt": "2026-07-18T13:55:33.748Z",
   "files": {
     "audit": "source-audit-2026-07-18.json",
     "candidates": "official-page-candidates-2026-07-18.json",
@@ -9,42 +9,22 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 53,
+    "auditFailed": 2,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 582,
-    "dateSignals": 228,
-    "draftCandidates": 71,
-    "skippedCandidates": 564
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 555,
+    "dateSignals": 252,
+    "draftCandidates": 52,
+    "skippedCandidates": 556
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -67,16 +47,17 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "NOL World Ticket",
       "count": 14
@@ -96,12 +77,16 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 27
     },
     {
       "key": "kpop",
@@ -123,26 +108,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 515
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 512
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "already published source URL",
+      "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     }
   ],
@@ -170,14 +155,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 137
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -210,6 +187,14 @@
       "dates": 10,
       "keywords": 5,
       "score": 118
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 20,
+      "dates": 2,
+      "keywords": 6,
+      "score": 106
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T03:40:25.693Z",
+  "generatedAt": "2026-07-18T06:26:17.353Z",
   "files": {
     "audit": "source-audit-2026-07-18.json",
     "candidates": "official-page-candidates-2026-07-18.json",
@@ -13,11 +13,11 @@
     "auditFailed": 6,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 42,
-    "candidateFailed": 11,
-    "discoveredLinks": 578,
-    "dateSignals": 226,
-    "draftCandidates": 70,
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 559,
+    "dateSignals": 210,
+    "draftCandidates": 51,
     "skippedCandidates": 561
   },
   "failedSources": [
@@ -57,36 +57,22 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Lotte Department Store Global",
-      "status": "ROBOTS",
-      "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
       "sourceName": "KMA ASOS Daily Weather API",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Dongdaemun Design Plaza",
-      "status": "ERR",
-      "error": "timeout"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 20
-    },
     {
       "key": "NOL World Ticket",
       "count": 14
@@ -106,12 +92,16 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 26
     },
     {
       "key": "kpop",
@@ -124,24 +114,24 @@
     {
       "key": "department-store",
       "count": 4
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 511
+      "count": 515
     },
     {
       "key": "source fetch did not succeed",
-      "count": 11
+      "count": 10
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
     },
     {
       "key": "listing page is not a specific event",
@@ -149,6 +139,10 @@
     },
     {
       "key": "already published source URL",
+      "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     }
   ],
@@ -178,14 +172,6 @@
       "score": 141
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 137
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -213,9 +199,17 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 11,
+      "dates": 10,
       "keywords": 5,
-      "score": 120
+      "score": 118
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 20,
+      "dates": 2,
+      "keywords": 6,
+      "score": 106
     }
   ]
 }

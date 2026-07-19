@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T10:04:01.011Z",
+  "generatedAt": "2026-07-19T13:59:23.509Z",
   "files": {
     "audit": "source-audit-2026-07-19.json",
     "candidates": "official-page-candidates-2026-07-19.json",
@@ -13,12 +13,12 @@
     "auditFailed": 5,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 41,
-    "candidateFailed": 12,
-    "discoveredLinks": 554,
-    "dateSignals": 224,
-    "draftCandidates": 69,
-    "skippedCandidates": 538
+    "candidateOk": 43,
+    "candidateFailed": 10,
+    "discoveredLinks": 582,
+    "dateSignals": 227,
+    "draftCandidates": 71,
+    "skippedCandidates": 564
   },
   "failedSources": [
     {
@@ -60,16 +60,6 @@
       "sourceName": "Lotte Department Store Global",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Galleria Department Store",
@@ -123,17 +113,21 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 489
+      "count": 517
     },
     {
       "key": "source fetch did not succeed",
-      "count": 12
+      "count": 10
     },
     {
       "key": "duplicate draft source URL",
@@ -213,9 +207,9 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 10,
+      "dates": 9,
       "keywords": 5,
-      "score": 118
+      "score": 116
     }
   ]
 }

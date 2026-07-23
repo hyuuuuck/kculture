@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { todayString } from "./lib/date.mjs";
 import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { envFlag } from "./lib/public-languages.mjs";
@@ -208,7 +208,12 @@ async function resolveBrowser() {
     if (path.isAbsolute(candidate)) {
       if (fsSync.existsSync(candidate)) return candidate;
     } else {
-      return candidate;
+      const locator = process.platform === "win32" ? "where" : "which";
+      const located = spawnSync(locator, [candidate], {
+        encoding: "utf8",
+        windowsHide: true
+      });
+      if (located.status === 0 && String(located.stdout || "").trim()) return candidate;
     }
   }
   return null;

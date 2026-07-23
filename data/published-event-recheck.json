@@ -1,28 +1,31 @@
 {
-  "generatedAt": "2026-07-19T13:57:33.321Z",
-  "date": "2026-07-19",
-  "approvedActiveEvents": 12,
-  "passed": 12,
-  "failed": 0,
+  "generatedAt": "2026-07-23T10:14:40.495Z",
+  "date": "2026-07-23",
+  "approvedActiveEvents": 11,
+  "passed": 10,
+  "failed": 1,
+  "sourceFailures": 0,
+  "manualReviewRequired": 1,
   "liveChecks": 11,
-  "snapshotChecks": 2,
-  "updated": 0,
-  "timeoutMs": 12000,
-  "concurrency": 5,
+  "snapshotChecks": 1,
+  "updated": 1,
+  "timeoutMs": 15000,
+  "concurrency": 4,
   "results": [
     {
       "slug": "nct-dream-sweet-dream-hotel-incheon-2026",
       "title": "NCT DREAM 10th Anniversary Party: The Sweet Dream Hotel",
       "sourceName": "NOL World Ticket",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "NOL World Ticket",
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
-          "bytes": 119210,
-          "durationMs": 112,
+          "bytes": 119396,
+          "durationMs": 119,
           "mode": "live",
           "matchedTokens": [
             "THE SWEET DREAM HOTEL",
@@ -40,14 +43,15 @@
       "title": "2026 Korea Beauty Festival",
       "sourceName": "VISITKOREA",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "VISITKOREA",
           "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "status": 200,
-          "bytes": 1104780,
-          "durationMs": 1542,
+          "bytes": 1104746,
+          "durationMs": 582,
           "mode": "live",
           "matchedTokens": [
             "Korea Beauty Festival",
@@ -68,6 +72,7 @@
       "title": "29th Boryeong Mud Festival",
       "sourceName": "Boryeong Mud Festival",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Boryeong Mud Festival",
@@ -75,7 +80,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 1507,
+          "durationMs": 78,
           "mode": "live",
           "matchedTokens": [
             "29th Boryeong Mud Festival",
@@ -92,14 +97,15 @@
       "title": "Red Velvet FAN-CON A Day in Red and Velvet",
       "sourceName": "Melon Ticket",
       "ok": true,
+      "liveVerified": false,
       "checks": [
         {
           "sourceName": "Melon Ticket",
           "url": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "status": 200,
-          "bytes": 118747,
-          "durationMs": 1921,
+          "bytes": 122234,
+          "durationMs": 88,
           "mode": "audited-snapshot",
           "snapshotPath": "data/audit-snapshots/red-velvet-day-in-red-velvet-seoul-2026.txt",
           "matchedTokens": [
@@ -118,42 +124,19 @@
       ]
     },
     {
-      "slug": "boynextdoor-knock-on-vol2-seoul-2026",
-      "title": "BOYNEXTDOOR TOUR KNOCK ON Vol.2 in Seoul",
-      "sourceName": "NOL World Ticket",
-      "ok": true,
-      "checks": [
-        {
-          "sourceName": "NOL World Ticket",
-          "url": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
-          "finalUrl": "https://world.nol.com/en/ticket/places/26000541/products/26007138",
-          "status": 200,
-          "bytes": 133311,
-          "durationMs": 802,
-          "mode": "live",
-          "matchedTokens": [
-            "BOYNEXTDOOR TOUR",
-            "Jul 17, 2026 - Jul 19, 2026",
-            "KSPO DOME"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
       "slug": "incheon-pentaport-rock-festival-2026",
       "title": "2026 Incheon Pentaport Rock Festival",
       "sourceName": "Incheon Pentaport Music Festival",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Incheon Pentaport Music Festival",
           "url": "https://pentaport.co.kr/",
           "finalUrl": "https://pentaport.co.kr/",
           "status": 200,
-          "bytes": 416474,
-          "durationMs": 1490,
+          "bytes": 438556,
+          "durationMs": 568,
           "mode": "live",
           "matchedTokens": [
             "Regular Ticket Booking",
@@ -167,8 +150,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "status": 200,
-          "bytes": 129427,
-          "durationMs": 9,
+          "bytes": 129583,
+          "durationMs": 27,
           "mode": "live",
           "matchedTokens": [
             "INCHEON PENTAPORT ROCK FESTIVAL 2026",
@@ -187,15 +170,16 @@
       "title": "Gwangalli M Drone Light Show",
       "sourceName": "Busan Metropolitan City Events and English News",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Busan Metropolitan City",
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-          "status": "ERROR",
-          "bytes": 0,
-          "durationMs": 10183,
-          "mode": "audited-snapshot",
-          "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
+          "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+          "status": 200,
+          "bytes": 60805,
+          "durationMs": 382,
+          "mode": "live",
           "matchedTokens": [
             "Gwangalli M Drone Light Show",
             "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
@@ -205,14 +189,6 @@
             "Free admission"
           ],
           "missingTokens": [],
-          "liveMissingTokens": [
-            "Gwangalli M Drone Light Show",
-            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
-            "Gwangalli Marvelous Drone Light Show",
-            "Every Saturday, at 20:00, 22:00",
-            "Gwangalli Beach",
-            "Free admission"
-          ],
           "ok": true
         }
       ]
@@ -222,14 +198,15 @@
       "title": "2026 Namsangol Traditional Experience: Artist's Time",
       "sourceName": "Visit Seoul",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "status": 200,
-          "bytes": 184267,
-          "durationMs": 1948,
+          "bytes": 185726,
+          "durationMs": 677,
           "mode": "live",
           "matchedTokens": [
             "Namsangol Hanok Village",
@@ -247,14 +224,15 @@
       "title": "Fernando Botero: The Aesthetics of Form in Seoul",
       "sourceName": "Visit Seoul",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 180469,
-          "durationMs": 1798,
+          "bytes": 181566,
+          "durationMs": 565,
           "mode": "live",
           "matchedTokens": [
             "Fernando Botero",
@@ -273,14 +251,15 @@
       "title": "2026 Seoul International Garden Show",
       "sourceName": "Visit Seoul",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 179495,
-          "durationMs": 2039,
+          "bytes": 180604,
+          "durationMs": 749,
           "mode": "live",
           "matchedTokens": [
             "2026 Seoul International Garden Show",
@@ -298,14 +277,15 @@
       "title": "National Geographic Special Exhibition: OCEAN in Seoul",
       "sourceName": "Visit Seoul",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 179690,
-          "durationMs": 1977,
+          "bytes": 181149,
+          "durationMs": 735,
           "mode": "live",
           "matchedTokens": [
             "National Geographic",
@@ -323,6 +303,7 @@
       "title": "2026 Korea Accommodation Sale Festa Summer Coupons",
       "sourceName": "KTO Accommodation Sale Festa",
       "ok": true,
+      "liveVerified": true,
       "checks": [
         {
           "sourceName": "KTO Accommodation Sale Festa",
@@ -330,7 +311,7 @@
           "finalUrl": "https://ktostay.visitkorea.or.kr/",
           "status": 200,
           "bytes": 26917,
-          "durationMs": 1310,
+          "durationMs": 57,
           "mode": "live",
           "matchedTokens": [
             "2026 대한민국 숙박세일 페스타",

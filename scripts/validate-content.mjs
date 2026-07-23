@@ -22,6 +22,7 @@ const curationQueue = await fs.readFile(path.join(root, "data", "curation-queue.
   .then(JSON.parse)
   .catch(() => []);
 const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const reviewedEventSlugs = new Set(editorialProgram.indexableEvents || []);
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
 const publicLanguages = publicLanguageCodes();
@@ -271,7 +272,7 @@ for (const event of events) {
     if (ageDays >= 0 && isDate(event.startDate) && isDate(event.endDate)) {
       const status = statusOf(event);
       const limitDays = freshnessLimitDays(event);
-      const freshnessTarget = freshnessStrict ? errors : warnings;
+      const freshnessTarget = freshnessStrict && status !== "ended" && reviewedEventSlugs.has(event.slug) ? errors : warnings;
       if (ageDays > limitDays) {
         push(freshnessTarget, id, `${status} listing was last checked ${ageDays} days ago; limit is ${limitDays} days.`);
       }

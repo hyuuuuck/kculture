@@ -36,6 +36,13 @@ function validateGeneratedCanonical(kind, slug) {
   }
 }
 
+function generatedFileForPublicPath(publicPath) {
+  const clean = publicPath.replace(/^\/+|\/+$/g, "");
+  return publicPath.endsWith("/")
+    ? path.join(root, "dist", clean, "index.html")
+    : path.join(root, "dist", `${clean}.html`);
+}
+
 if (!fs.existsSync(sitemapPath)) {
   errors.push("dist/sitemap.xml is missing. Run npm run build first.");
 } else {
@@ -55,6 +62,12 @@ if (!fs.existsSync(sitemapPath)) {
   if (actualPaths.has("/")) errors.push("sitemap.xml must not contain the redirecting root URL.");
   const redirectingDetailUrls = [...actualPaths].filter((item) => /^\/en\/(events|guides|routes)\/[^/]+\.html$/.test(item));
   if (redirectingDetailUrls.length) errors.push(`sitemap.xml contains redirecting .html detail URLs: ${redirectingDetailUrls.slice(0, 8).join(", ")}.`);
+  const noindexUrls = [...actualPaths].filter((item) => {
+    const file = generatedFileForPublicPath(item);
+    if (!fs.existsSync(file)) return false;
+    return /<meta\s+name="robots"\s+content="[^"]*\bnoindex\b/i.test(fs.readFileSync(file, "utf8"));
+  });
+  if (noindexUrls.length) errors.push(`sitemap.xml contains noindex URLs: ${noindexUrls.slice(0, 8).join(", ")}.`);
 
   const imageCount = (xml.match(/<image:image>/g) || []).length;
   if (imageCount !== approvedEvents.length) errors.push(`sitemap.xml should contain ${approvedEvents.length} approved event image entries; found ${imageCount}.`);

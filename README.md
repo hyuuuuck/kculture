@@ -34,6 +34,9 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-images.mjs`: checks event thumbnails, generated image assets, image signatures, minimum dimensions, and non-decorative image alt text
 - `scripts/validate-calendar.mjs`: checks that all events appear in the calendar page and downloadable `events.ics` with correct date ranges
 - `scripts/validate-detail-pages.mjs`: checks generated event detail pages for official source links, calendar downloads, saved-planner metadata, previous-year weather, map shortcuts, travel routes, and related guides
+- `scripts/validate-original-value.mjs`: blocks thin, duplicated, unaccountable, or source-rewritten public content by requiring distinct visitor analysis, practical checks, research methods, and traceable evidence
+- `data/adsense-compliance.json`: versioned manual evidence record for the selected Google-certified CMP, TCF coverage, review date, and accountable verifier
+- `scripts/validate-adsense-compliance.mjs`: keeps AdSense markup off until both release flags and the complete CMP evidence record agree, and blocks ads from noindex or policy pages
 - `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
 - `scripts/validate-event-audit.mjs`: checks high-risk event audit blocks against official evidence pages so concert dates, city-project dates, and shopping campaign windows do not get merged by mistake
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
@@ -147,15 +150,20 @@ npm.cmd run validate:content
 
 Preview:
 
-```powershell
-python -m http.server 8766 -d dist
+```text
+npm run preview
 ```
 
 Then open:
 
 ```text
-http://127.0.0.1:8766/
+http://127.0.0.1:8766/en/
 ```
+
+The preview server resolves the same clean internal URLs used by the site, so
+event, guide, route, and policy links work in Safari without adding `.html`.
+Use `npm run preview:worker` only when the Cloudflare Worker runtime itself
+needs local testing.
 
 ## Cloudflare Workers/Pages
 

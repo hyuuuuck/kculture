@@ -38,6 +38,7 @@ Set these in GitHub repository settings under `Secrets and variables` -> `Action
 - `GOOGLE_ADSENSE_CLIENT`: add after AdSense gives the client ID
 - `GOOGLE_ADSENSE_SLOT`: add after creating a manual ad unit
 - `GOOGLE_ADSENSE_CMP_READY` and `GOOGLE_ADSENSE_CMP_EVIDENCE`: set to `1` only after a Google-certified consent management platform is configured and its published accept/reject/manage flow is manually verified
+- `data/adsense-compliance.json`: record the certified CMP provider and ID, TCF coverage for EEA/UK/CH, verification date, accountable reviewer, and evidence note; environment flags alone do not enable ads
 - `AGODA_PARTNER_CID`: add after Agoda Partners approval to enable hotel affiliate links on event pages
 - `TRIP_ALLIANCE_ID` / `TRIP_ALLIANCE_SID`: add after Trip.com Affiliates approval
 - `KLOOK_AFFILIATE_AID`: add after Klook affiliate approval
@@ -129,6 +130,7 @@ npm.cmd run preflight:adsense
 - Apply with the real custom domain, not the Cloudflare preview URL.
 - After approval, add the real AdSense IDs and rebuild so `/ads.txt` and ad placements are generated.
 - Before serving ads to EEA, UK, and Switzerland visitors, configure a Google-certified CMP, manually verify its published flow, and set both `GOOGLE_ADSENSE_CMP_READY=1` and `GOOGLE_ADSENSE_CMP_EVIDENCE=1`.
+- Complete `data/adsense-compliance.json` during the same manual verification. The release build keeps AdSense markup disabled when the record is missing, stale, or incomplete.
 
 Approval and revenue are not guaranteed. The safest operating model is still official-source monitoring, reviewed publishing, original multilingual summaries, clear correction policy, and frequent freshness checks.
 

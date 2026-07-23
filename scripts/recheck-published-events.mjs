@@ -208,6 +208,7 @@ async function checkEvent(event) {
     title: event.title?.en || event.slug,
     sourceName: event.sourceName,
     ok: checks.every((check) => check.ok),
+    liveVerified: checks.length > 0 && checks.every((check) => check.ok && check.mode === "live"),
     checks
   };
 }
@@ -227,10 +228,10 @@ async function mapLimit(items, limit, worker) {
 }
 
 const results = await mapLimit(activeEvents, concurrency, checkEvent);
-const okSlugs = new Set(results.filter((result) => result.ok).map((result) => result.slug));
+const liveVerifiedSlugs = new Set(results.filter((result) => result.liveVerified).map((result) => result.slug));
 let updated = 0;
 for (const event of events) {
-  if (okSlugs.has(event.slug) && event.lastChecked !== today) {
+  if (liveVerifiedSlugs.has(event.slug) && event.lastChecked !== today) {
     event.lastChecked = today;
     updated += 1;
   }
@@ -243,8 +244,10 @@ const summary = {
   generatedAt: new Date().toISOString(),
   date: today,
   approvedActiveEvents: activeEvents.length,
-  passed: results.filter((result) => result.ok).length,
-  failed: results.filter((result) => !result.ok).length,
+  passed: results.filter((result) => result.liveVerified).length,
+  failed: results.filter((result) => !result.liveVerified).length,
+  sourceFailures: results.filter((result) => !result.ok).length,
+  manualReviewRequired: results.filter((result) => result.ok && !result.liveVerified).length,
   liveChecks: results.flatMap((result) => result.checks).filter((check) => check.mode === "live").length,
   snapshotChecks: results.flatMap((result) => result.checks).filter((check) => check.mode === "audited-snapshot").length,
   updated,
@@ -262,7 +265,8 @@ await fs.writeFile(snapshotOut, `${JSON.stringify(summary, null, 2)}\n`, "utf8")
 const tableRows = results.map((result) => {
   const modes = result.checks.map((check) => check.mode).join(", ") || "none";
   const missing = result.checks.flatMap((check) => check.missingTokens || []).join("; ") || "-";
-  return `| ${result.ok ? "PASS" : "FAIL"} | ${result.slug} | ${modes} | ${missing.replaceAll("|", "\\|")} |`;
+  const status = result.liveVerified ? "PASS" : result.ok ? "MANUAL" : "FAIL";
+  return `| ${status} | ${result.slug} | ${modes} | ${missing.replaceAll("|", "\\|")} |`;
 });
 await fs.writeFile(mdOut, `# Published Event Evidence Recheck
 
@@ -273,6 +277,8 @@ Approved live/upcoming events: ${summary.approvedActiveEvents}
 Passed: ${summary.passed}
 
 Failed: ${summary.failed}
+
+Manual review required: ${summary.manualReviewRequired}
 
 Live evidence checks: ${summary.liveChecks}
 
@@ -286,13 +292,14 @@ ${tableRows.join("\n")}
 `, "utf8");
 
 console.table(results.map((result) => ({
-  ok: result.ok,
+  fresh: result.liveVerified,
   evidence: result.checks.length,
   live: result.checks.filter((check) => check.mode === "live").length,
   snapshot: result.checks.filter((check) => check.mode === "audited-snapshot").length,
   slug: result.slug
 })));
 console.log(`Published event evidence recheck: ${summary.passed}/${summary.approvedActiveEvents} passed; ${summary.updated} lastChecked fields updated.`);
+if (summary.manualReviewRequired) console.log(`${summary.manualReviewRequired} event(s) require manual live verification because only audited snapshots matched.`);
 console.log(`Saved evidence report: ${jsonOut}`);
 
 if (requireAll && summary.failed > 0) process.exitCode = 1;

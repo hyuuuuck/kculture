@@ -136,6 +136,8 @@ jobs:
           run_check "validate:calendar" npm run validate:calendar
           run_check "validate:details" npm run validate:details
           run_check "validate:publication" npm run validate:publication
+          run_check "validate:original-value" npm run validate:original-value
+          run_check "validate:adsense-compliance" npm run validate:adsense-compliance
           run_check "validate:ux" npm run validate:ux
           run_check "validate:workflows" npm run validate:workflows
           run_check "validate:sitemap" npm run validate:sitemap

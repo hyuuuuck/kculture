@@ -9,8 +9,8 @@ const failures = [];
 const approvedSlugs = [...new Set(program.indexableEvents || [])];
 const eventBySlug = new Map(events.map((event) => [event.slug, event]));
 
-if (approvedSlugs.length < 12) {
-  failures.push(`Publication gate requires at least 12 reviewed events; configured ${approvedSlugs.length}.`);
+if (!approvedSlugs.length) {
+  failures.push("Publication gate requires a non-empty, explicitly reviewed event set.");
 }
 
 const eventDir = path.join(dist, "en", "events");

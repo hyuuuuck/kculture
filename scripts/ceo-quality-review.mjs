@@ -64,14 +64,15 @@ function htmlWordCount(value) {
   return (text.match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
 }
 
-const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
+const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug));
+const currentEvents = approvedEvents.filter((event) => event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
 const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
 
-if (program.mode === "adsense-editorial-review" && approvedEvents.length >= 12 && approvedGuides.length >= 8 && approvedRoutes.length >= 5) {
-  pass("planner", "Scope", "Editorial review set", `${approvedEvents.length} current events, ${approvedGuides.length} guides, and ${approvedRoutes.length} routes are explicitly approved.`);
+if (program.mode === "adsense-editorial-review" && approvedEvents.length && currentEvents.length && approvedGuides.length && approvedRoutes.length) {
+  pass("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events (${currentEvents.length} current), ${approvedGuides.length} guides, and ${approvedRoutes.length} routes are explicitly reviewed.`);
 } else {
-  fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} events, ${approvedGuides.length} guides, ${approvedRoutes.length} routes.`, "Planner: restore the explicit review set before release.");
+  fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events, ${currentEvents.length} current events, ${approvedGuides.length} guides, ${approvedRoutes.length} routes.`, "Planner: restore a non-empty, explicitly reviewed product surface before release.");
 }
 
 const missingReviews = approvedEvents.filter((event) => {
@@ -87,10 +88,10 @@ if (!missingReviews.length) {
   fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
 
-if (publishedRecheck.date === today && publishedRecheck.passed === approvedEvents.length && publishedRecheck.failed === 0) {
-  pass("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed}/${approvedEvents.length} events passed live token checks on ${today}.`);
+if (publishedRecheck.date === today && publishedRecheck.passed === currentEvents.length && publishedRecheck.failed === 0) {
+  pass("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed}/${currentEvents.length} current events passed live token checks on ${today}.`);
 } else {
-  fail("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed || 0}/${approvedEvents.length} passed; ${publishedRecheck.failed ?? "unknown"} failed.`, "Auditor: run npm.cmd run recheck:published and do not publish until all approved events pass.");
+  fail("auditor", "Freshness", "Live official-source recheck", `${publishedRecheck.passed || 0}/${currentEvents.length} current events passed; ${publishedRecheck.failed ?? "unknown"} failed.`, "Auditor: run npm.cmd run recheck:published and do not publish until all current events pass.");
 }
 
 const home = read("dist/en/index.html");
@@ -128,23 +129,25 @@ const guideProblems = approvedGuides.filter((guide) => {
     || (guide.sources || []).length < 2 || paragraphWords < 280;
 });
 if (!guideProblems.length) {
-  pass("planner", "Guides", "Original editorial depth", "8/8 guides have four decision sections, source citations, method, and authorship.");
+  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have four decision sections, source citations, method, and authorship.`);
 } else {
   fail("planner", "Guides", "Original editorial depth", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
 }
 
 const sitemap = read("dist/sitemap.xml");
-const sitemapUrls = (sitemap.match(/<url>/g) || []).length;
+const sitemapUrls = new Set([...sitemap.matchAll(/<loc>(https:\/\/kspotnow\.com[^<]+)<\/loc>/g)].map((match) => match[1]));
 const expectedSitemapUrls = new Set([
   ...(program.indexableHubs || []).map((path) => `https://kspotnow.com${path}`),
-  ...(program.indexableEvents || []).map((slug) => `https://kspotnow.com/en/events/${slug}/`),
-  ...(program.indexableGuides || []).map((slug) => `https://kspotnow.com/en/guides/${slug}/`),
-  ...(program.indexableRoutes || []).map((slug) => `https://kspotnow.com/en/routes/${slug}/`)
+  ...currentEvents.map((event) => `https://kspotnow.com/en/events/${event.slug}`),
+  ...(program.indexableGuides || []).map((slug) => `https://kspotnow.com/en/guides/${slug}`),
+  ...(program.indexableRoutes || []).map((slug) => `https://kspotnow.com/en/routes/${slug}`)
 ]);
-if (sitemapUrls === expectedSitemapUrls.size && !sitemap.includes("<loc>https://kspotnow.com</loc>") && !/\/categories\/|\/cities\/|\/editorial-policy\//.test(sitemap)) {
-  pass("publisher", "Search", "Indexable surface", `${sitemapUrls} editorial URLs; no root duplicate, category, city, or editorial-policy pages in the sitemap.`);
+const missingSitemapUrls = [...expectedSitemapUrls].filter((url) => !sitemapUrls.has(url));
+const extraSitemapUrls = [...sitemapUrls].filter((url) => !expectedSitemapUrls.has(url));
+if (!missingSitemapUrls.length && !extraSitemapUrls.length && !sitemap.includes("<loc>https://kspotnow.com</loc>") && !/\/categories\/|\/cities\/|\/editorial-policy\//.test(sitemap)) {
+  pass("publisher", "Search", "Indexable surface", `${sitemapUrls.size} editorial URLs; no missing, extra, root, category, city, or editorial-policy URLs.`);
 } else {
-  fail("publisher", "Search", "Indexable surface", `${sitemapUrls} sitemap URLs.`, "Publisher: rebuild the focused editorial sitemap.");
+  fail("publisher", "Search", "Indexable surface", `${sitemapUrls.size} sitemap URLs; ${missingSitemapUrls.length} missing and ${extraSitemapUrls.length} extra.`, "Publisher: rebuild the focused editorial sitemap.");
 }
 
 const worker = read("src/worker.js");

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import { adSenseCmpEvidenceStatus, configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
@@ -8,19 +8,20 @@ const requireAdsense = process.argv.includes("--require-adsense") || process.env
 const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
 const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
 const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
+const today = todayString();
+const adsenseCompliance = readJsonIfExists(path.resolve("data", "adsense-compliance.json"));
+const cmpEvidence = adSenseCmpEvidenceStatus(adsenseCompliance, today);
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
-const adsenseCmpReady = configuredAdSenseCmpReady();
+const adsenseCmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
 const events = JSON.parse(fs.readFileSync(path.resolve("data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.resolve("data", "guides.json"), "utf8"));
 const editorialProgram = JSON.parse(fs.readFileSync(path.resolve("data", "editorial-program.json"), "utf8"));
 const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"), "utf8"));
 const errors = [];
 const warnings = [];
-const minimumPublicContentPages = 20;
-const today = todayString();
 const languages = publicLanguageCodes();
 const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
 const eventStatusBySlug = new Map(events.map((event) => [event.slug, event.endDate < today ? "ended" : event.startDate > today ? "upcoming" : "live"]));
@@ -123,16 +124,15 @@ if (requireAdsense && !publisherId) {
 }
 
 if (requireAdsense && !adsenseCmpReady) {
-  fail("GOOGLE_ADSENSE_CMP_READY=1 and GOOGLE_ADSENSE_CMP_EVIDENCE=1 are required after configuring and manually verifying a Google-certified CMP for EEA, UK, and Switzerland visitors before enabling AdSense ads.");
+  fail(`AdSense requires both CMP environment flags and a complete data/adsense-compliance.json record. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 } else if ((publisherId || clientId || slotId) && !adsenseCmpReady) {
-  warn("AdSense IDs are configured, but CMP readiness evidence is incomplete. Confirm a Google-certified CMP and set both CMP flags before serving ads.");
+  warn(`AdSense IDs are configured, but ads remain disabled until CMP evidence and release flags are complete. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 }
 
 const currentEventPages = events.filter((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today).length;
-const publicContentPages = currentEventPages + guides.filter((guide) => approvedGuideSlugs.has(guide.slug)).length;
-if (publicContentPages < minimumPublicContentPages) {
-  fail(`At least ${minimumPublicContentPages} current event/guide pages are recommended before AdSense review; found ${publicContentPages}.`);
-}
+const approvedGuidePages = guides.filter((guide) => approvedGuideSlugs.has(guide.slug)).length;
+if (!currentEventPages) fail("At least one current, explicitly reviewed event page is required for the live event product.");
+if (!approvedGuidePages) fail("At least one source-backed editorial guide is required for the visitor guidance product.");
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
@@ -229,7 +229,7 @@ for (const file of keyFiles) {
 const generatedHtmlFiles = collectFiles(dist, (file) => file.endsWith(".html"));
 const indexableRelativeFiles = new Set([
   ...(editorialProgram.indexableHubs || []).map((url) => `${url.replace(/^\//, "")}index.html`),
-  ...(editorialProgram.indexableEvents || []).map((slug) => `en/events/${slug}.html`),
+  ...events.filter((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today).map((event) => `en/events/${event.slug}.html`),
   ...(editorialProgram.indexableGuides || []).map((slug) => `en/guides/${slug}.html`),
   ...(editorialProgram.indexableRoutes || []).map((slug) => `en/routes/${slug}.html`)
 ]);

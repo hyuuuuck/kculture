@@ -1,16 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
-import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const languages = publicLanguageCodes();
-const today = todayString();
 const approved = new Set(program.indexableEvents || []);
-const publicEvents = events.filter((event) => approved.has(event.slug) && event.endDate >= today);
+const publicEvents = events.filter((event) => approved.has(event.slug));
 const errors = [];
 
 function push(id, message) {

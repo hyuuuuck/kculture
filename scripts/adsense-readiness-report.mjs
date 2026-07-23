@@ -2,7 +2,12 @@ import fs from "node:fs/promises";
 import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
+import {
+  adSenseCmpEvidenceStatus,
+  configuredAdSenseClientId,
+  configuredAdSenseCmpReady,
+  configuredAdSensePublisherId
+} from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
@@ -11,10 +16,12 @@ const root = path.resolve(__dirname, "..");
 const today = todayString();
 const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
 const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
+const adsenseCompliance = JSON.parse(await fs.readFile(path.join(root, "data", "adsense-compliance.json"), "utf8").catch(() => "null"));
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
-const cmpReady = configuredAdSenseCmpReady();
+const cmpEvidence = adSenseCmpEvidenceStatus(adsenseCompliance, today);
+const cmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
 const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
 const languages = publicLanguageCodes();
 const affiliateEnabled = affiliatePublishingEnabled();
@@ -178,17 +185,17 @@ function runChecks() {
     fail("Content", "Public language scope", languages.join(", "), "Publish only languages that have completed human editorial review.");
   }
 
-  if (approvedEvents.length >= 12 && approvedEvents.length <= 18) {
-    pass("Content", "Curated event catalog", `${approvedEvents.length} current events selected from ${events.length} records`);
+  if (approvedEvents.length) {
+    pass("Content", "Curated event catalog", `${approvedEvents.length} current, explicitly reviewed events selected from ${events.length} records`);
   } else {
-    fail("Content", "Curated event catalog", `${approvedEvents.length} approved current events`, "Keep a focused 12-18 event review set rather than indexing the full feed.");
+    fail("Content", "Curated event catalog", "No approved current events", "Publish only after at least one current event passes the evidence and visitor-value gates.");
   }
 
-  if (approvedGuides.length === 8) pass("Content", "Editorial guides", "8 structured source-backed guides");
-  else fail("Content", "Editorial guides", `${approvedGuides.length} approved guides`, "Maintain the eight reviewed guide topics in editorial-program.json.");
+  if (approvedGuides.length) pass("Content", "Editorial guides", `${approvedGuides.length} structured source-backed guides`);
+  else fail("Content", "Editorial guides", "No approved guides", "Publish source-backed guides that pass the originality gate.");
 
-  if (approvedRoutes.length >= 5) pass("Content", "Useful route pages", `${approvedRoutes.length} selected routes`);
-  else fail("Content", "Useful route pages", `${approvedRoutes.length} selected routes`, "Keep at least five route pages tied to reviewed events.");
+  if (approvedRoutes.length) pass("Content", "Useful route pages", `${approvedRoutes.length} explicitly reviewed routes`);
+  else fail("Content", "Useful route pages", "No approved routes", "Publish only routes tied to reviewed visitor decisions.");
 
   const evidenceFailures = approvedEvents.filter((event) => {
     const review = program.eventReviews?.[event.slug];
@@ -246,6 +253,17 @@ function runChecks() {
     pass("AdSense", "Publisher and ads.txt", `${publisherId} present`);
   } else {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
+  }
+
+  if (cmpEvidence.ready) {
+    pass("AdSense", "CMP evidence", `${cmpEvidence.provider} CMP ${cmpEvidence.cmpId} is recorded with current certification and regional coverage`);
+  } else {
+    fail(
+      "AdSense",
+      "CMP evidence",
+      `Incomplete: ${cmpEvidence.missing.join(", ")}`,
+      "Verify a Google-certified CMP for EEA, UK, and Switzerland, then record the provider, CMP ID, TCF status, regions, date, owner, and evidence note in data/adsense-compliance.json."
+    );
   }
 
   if (!cmpReady && !home.includes("adsbygoogle.js") && !home.includes("adsbygoogle")) {

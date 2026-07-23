@@ -15,10 +15,11 @@ const siteTagline = "Korea events for visitors.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
 const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
+const adsenseCompliance = await fs.readFile(path.join(root, "data", "adsense-compliance.json"), "utf8").then(JSON.parse).catch(() => null);
 const adsensePublisherId = configuredAdSensePublisherId();
 const adsenseClientId = configuredAdSenseClientId();
 const adsenseSlotId = normalizeAdSenseSlotId(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "");
-const adsenseCmpReady = configuredAdSenseCmpReady();
+const adsenseCmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
 const googleSiteVerification = normalizeGoogleSiteVerification(process.env.GOOGLE_SITE_VERIFICATION || "");
 const assetVersion = encodeURIComponent(process.env.SITE_ASSET_VERSION || await sourceAssetVersion());
 const defaultTripAffiliate = {
@@ -6041,8 +6042,8 @@ function manualAdsEnabled() {
   return adsenseCmpReady && /^ca-pub-\d{16}$/.test(adsenseClientId) && /^\d{8,20}$/.test(adsenseSlotId);
 }
 
-function adUnit(placement = "inline") {
-  if (!manualAdsEnabled()) return "";
+function adUnit(placement = "inline", eligible = true) {
+  if (!eligible || !manualAdsEnabled()) return "";
   return `
         <aside class="ad-band ${esc(placement)}" aria-label="Advertisement">
           <span>Advertisement</span>
@@ -7352,7 +7353,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           </div>
         </div>
       </section>
-      ${adUnit("home")}
+      ${adUnit("home", canonicalPath === editorialProgram.canonicalHome)}
 
       <section class="content-shell home-event-section" id="events">
         <div class="section-head">
@@ -8203,7 +8204,7 @@ function renderEvent(event, lang) {
         ${eventReviewSection(event, lang)}
         ${eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas)}
         ${eventEvidenceSection(event, lang)}
-        ${adUnit("detail")}
+        ${adUnit("detail", status !== "ended" && isApprovedEvent(event))}
 
         <section class="detail-section compact-related-section">
           <div>
@@ -8634,7 +8635,7 @@ function renderGuide(guide, lang) {
           </div>
           <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
         </header>
-        ${adUnit("article")}
+          ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
         ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
         <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
           <h2 id="guide-citations-title">Official sources used</h2>
@@ -9755,7 +9756,9 @@ function staticPageParagraphs(lang, kind) {
         "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. K-Spot Now does not receive that saved list unless you email it to us.",
         "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
         "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
-        "For visitors in the EEA, the UK, and Switzerland, advertising consent should be handled through a Google-certified consent management platform when AdSense ads are served.",
+        adsenseCmpReady
+          ? "For visitors in the EEA, the UK, and Switzerland, advertising consent is handled through the verified Google-certified consent management platform recorded in our release checks."
+          : "AdSense advertising remains disabled until a Google-certified consent management platform is manually verified for visitors in the EEA, the UK, and Switzerland.",
         "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
       ],
       es: [
@@ -9806,7 +9809,9 @@ function staticPageParagraphs(lang, kind) {
         "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
         "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
         "Personalized advertising choices: visitors can manage Google personalized ads in Google Ads Settings, use browser cookie controls, or use industry opt-out tools where available.",
-        "European consent: for users in the EEA, the UK, and Switzerland, AdSense ads should be paired with a Google-certified consent management platform so visitors can accept, reject, or manage advertising purposes.",
+        adsenseCmpReady
+          ? "European consent: for users in the EEA, the UK, and Switzerland, the verified Google-certified consent management platform provides accept, reject, and manage choices for advertising purposes."
+          : "European consent: AdSense advertising remains disabled until a Google-certified consent management platform is verified for EEA, UK, and Switzerland users.",
         `Questions or correction requests can be sent to ${contactEmail}.`
       ],
       es: [
@@ -10065,7 +10070,7 @@ async function build() {
     for (const route of routes) {
       await writeHtml(`${lang}/routes/${route.slug}.html`, renderRoute(route, lang));
     }
-    for (const event of currentEvents()) {
+    for (const event of publicEvents()) {
       await writeHtml(`${lang}/events/${event.slug}.html`, renderEvent(event, lang));
     }
     for (const guide of guides) {
@@ -10083,7 +10088,7 @@ async function build() {
   }
   await fs.writeFile(path.join(dist, "sitemap.xml"), sitemap(), "utf8");
   await fs.writeFile(path.join(dist, "events.ics"), ics(), "utf8");
-  for (const event of currentEvents()) {
+  for (const event of publicEvents()) {
     await writeText(`events/${event.slug}.ics`, singleEventIcs(event));
   }
 }
@@ -10274,4 +10279,4 @@ function singleEventIcs(event) {
 }
 
 await build();
-console.log(`Built ${currentEvents().length} editorially approved events, ${guides.length} guides, ${Object.keys(languages).length} languages into ${dist}`);
+console.log(`Built ${publicEvents().length} published event pages (${currentEvents().length} current), ${guides.length} guides, ${Object.keys(languages).length} languages into ${dist}`);

@@ -12,9 +12,10 @@ const today = todayString();
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://kspotnow.com");
 const timeoutMs = Number(process.env.LIVE_AUDIT_TIMEOUT_MS || 12000);
 const reviewMode = process.env.ADSENSE_REVIEW_MODE !== "0";
+const adsenseCompliance = JSON.parse(await fs.readFile(path.join(root, "data", "adsense-compliance.json"), "utf8").catch(() => "null"));
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
-const cmpReady = configuredAdSenseCmpReady();
+const cmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
 const checks = [];
 const layoutResults = [];
 

@@ -111,15 +111,23 @@ npm.cmd run preflight:launch
 
 The CEO report is written under `data/feeds/ceo-quality-review-YYYY-MM-DD.md`. Read it before a launch decision. A release can proceed only when the decision is `APPROVED_FOR_PUBLISH` or `APPROVED_WITH_CEO_TASKS`; `REWORK_REQUIRED` means the audit institution blocked release.
 
-After AdSense gives a publisher ID and ad unit slot, run:
+For AdSense site review, use the publisher ID and `/ads.txt` while ads remain
+disabled:
 
 ```powershell
 $env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
+npm.cmd run preflight:adsense-review
+```
+
+Before enabling ad serving, add the client or slot configuration, complete the
+versioned CMP evidence, set both CMP flags, and run:
+
+```powershell
 $env:GOOGLE_ADSENSE_CLIENT="ca-pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
 $env:GOOGLE_ADSENSE_CMP_READY="1"
 $env:GOOGLE_ADSENSE_CMP_EVIDENCE="1"
-npm.cmd run preflight:adsense
+npm.cmd run preflight:ad-serving
 ```
 
 ## 7. Search and AdSense
@@ -144,8 +152,9 @@ Do not submit the site for AdSense review until these checks are true:
 - The footer trust pages return 200, including `/en/privacy/`, `/en/cookie-policy/`, `/en/advertising/`, `/en/terms/`, `/en/contact/`, `/en/editorial-policy/`, and `/en/corrections/`.
 - Google Search Console is verified by DNS or `GOOGLE_SITE_VERIFICATION`, and the sitemap has been submitted.
 - The latest `npm.cmd run preflight:launch` has 0 failures.
+- The latest `npm.cmd run preflight:adsense-review` passes with `/ads.txt` available and ad markup disabled unless CMP evidence is complete.
 - The latest `npm.cmd run report:adsense` has 0 failures and only expected external warnings.
 - A Google-certified CMP is configured before serving ads to EEA, UK, and Switzerland visitors.
 - The public contact email works and is not a personal Gmail address.
 
-After Google issues the publisher and ad unit values, set `GOOGLE_ADSENSE_PUBLISHER_ID`, `GOOGLE_ADSENSE_CLIENT`, `GOOGLE_ADSENSE_SLOT`, and both CMP flags, then run `npm.cmd run preflight:adsense` before enabling live ad placements.
+Before enabling live ad placements, set `GOOGLE_ADSENSE_CLIENT`, any manual `GOOGLE_ADSENSE_SLOT`, both CMP flags, and complete `data/adsense-compliance.json`, then run `npm.cmd run preflight:ad-serving`.

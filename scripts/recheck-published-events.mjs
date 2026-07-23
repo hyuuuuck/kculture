@@ -143,6 +143,7 @@ async function checkEvidence(evidence) {
       bytes: source.bytes,
       durationMs: source.durationMs,
       mode: "live",
+      freshnessAuthority: evidence.freshnessAuthority === true,
       matchedTokens: evidence.mustContain || [],
       missingTokens: [],
       ok: true
@@ -165,6 +166,7 @@ async function checkEvidence(evidence) {
       bytes: source.bytes,
       durationMs: source.durationMs,
       mode: "audited-snapshot",
+      freshnessAuthority: evidence.freshnessAuthority === true,
       snapshotPath: snapshot.path,
       matchedTokens: evidence.mustContain || [],
       missingTokens: [],
@@ -181,6 +183,7 @@ async function checkEvidence(evidence) {
     bytes: source.bytes,
     durationMs: source.durationMs,
     mode: "failed",
+    freshnessAuthority: evidence.freshnessAuthority === true,
     matchedTokens: (evidence.mustContain || []).filter((token) => !liveMissingTokens.includes(token)),
     missingTokens: snapshot?.missingTokens || liveMissingTokens,
     snapshotPath: snapshot?.path,
@@ -203,12 +206,16 @@ async function checkEvent(event) {
   }
   const checks = [];
   for (const item of evidence) checks.push(await checkEvidence(item));
+  const explicitFreshnessChecks = checks.filter((check) => check.freshnessAuthority);
+  const freshnessChecks = explicitFreshnessChecks.length ? explicitFreshnessChecks : checks;
   return {
     slug: event.slug,
     title: event.title?.en || event.slug,
     sourceName: event.sourceName,
     ok: checks.every((check) => check.ok),
-    liveVerified: checks.length > 0 && checks.every((check) => check.ok && check.mode === "live"),
+    liveVerified: checks.length > 0
+      && checks.every((check) => check.ok)
+      && freshnessChecks.every((check) => check.mode === "live"),
     checks
   };
 }

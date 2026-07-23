@@ -22,6 +22,10 @@ const clientId = configuredAdSenseClientId();
 const slotId = String(process.env.GOOGLE_ADSENSE_SLOT || process.env.ADSENSE_SLOT || "").trim();
 const cmpEvidence = adSenseCmpEvidenceStatus(adsenseCompliance, today);
 const cmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
+const reportMode = process.argv.includes("--ad-serving") || process.env.ADSENSE_REPORT_MODE === "ad-serving"
+  ? "ad-serving"
+  : "site-review";
+const adServingMode = reportMode === "ad-serving";
 const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
 const languages = publicLanguageCodes();
 const affiliateEnabled = affiliatePublishingEnabled();
@@ -257,12 +261,18 @@ function runChecks() {
 
   if (cmpEvidence.ready) {
     pass("AdSense", "CMP evidence", `${cmpEvidence.provider} CMP ${cmpEvidence.cmpId} is recorded with current certification and regional coverage`);
-  } else {
+  } else if (adServingMode) {
     fail(
       "AdSense",
       "CMP evidence",
       `Incomplete: ${cmpEvidence.missing.join(", ")}`,
       "Verify a Google-certified CMP for EEA, UK, and Switzerland, then record the provider, CMP ID, TCF status, regions, date, owner, and evidence note in data/adsense-compliance.json."
+    );
+  } else {
+    pass(
+      "AdSense",
+      "Review-safe ad state",
+      `Ads are disabled during site review; CMP evidence remains required before ad serving. Pending: ${cmpEvidence.missing.join(", ")}`
     );
   }
 
@@ -311,7 +321,10 @@ const failed = checks.filter((item) => item.status === "fail").length;
 const result = {
   generatedAt: new Date().toISOString(),
   siteUrl,
-  scope: "Internal editorial release gates; not a Google approval prediction",
+  mode: reportMode,
+  scope: adServingMode
+    ? "Ad-serving release gates; not a Google approval prediction"
+    : "AdSense site-review gates using ads.txt ownership while ads remain disabled; not a Google approval prediction",
   stats: {
     totalEventRecords: events.length,
     approvedCurrentEvents: approvedEvents.length,
@@ -326,15 +339,21 @@ const result = {
     failed,
     percent: Math.round((passed / Math.max(checks.length, 1)) * 100)
   },
+  adServing: {
+    ready: cmpReady,
+    cmpEvidenceReady: cmpEvidence.ready,
+    missing: cmpEvidence.missing
+  },
   checks
 };
 
 const feedDir = path.join(root, "data", "feeds");
 await fs.mkdir(feedDir, { recursive: true });
-const jsonOut = path.join(feedDir, `adsense-readiness-${today}.json`);
-const mdOut = path.join(feedDir, `adsense-readiness-${today}.md`);
+const reportStem = adServingMode ? "adsense-ad-serving" : "adsense-readiness";
+const jsonOut = path.join(feedDir, `${reportStem}-${today}.json`);
+const mdOut = path.join(feedDir, `${reportStem}-${today}.md`);
 await fs.writeFile(jsonOut, `${JSON.stringify(result, null, 2)}\n`, "utf8");
-await fs.writeFile(mdOut, `# AdSense Editorial Release Gates
+await fs.writeFile(mdOut, `# AdSense ${adServingMode ? "Ad-Serving" : "Site-Review"} Gates
 
 Generated: ${result.generatedAt}
 
@@ -343,6 +362,8 @@ Site: ${siteUrl}
 Scope: **${result.scope}**
 
 Gate result: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warning, ${failed} fail)
+
+Ad-serving status: ${cmpReady ? "READY" : `BLOCKED (${cmpEvidence.missing.join(", ") || "release flags"})`}
 
 ## Review Scope
 
@@ -361,7 +382,7 @@ ${markdownTable(checks)}
 ${checks.filter((item) => item.status === "fail").map((item) => `- ${item.area} / ${item.item}: ${item.next || item.detail}`).join("\n") || "- No internal release blocker. Google may still reject the site based on signals outside this audit."}
 `, "utf8");
 
-console.log(`AdSense editorial gates: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warn, ${failed} fail)`);
+console.log(`AdSense ${reportMode} gates: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warn, ${failed} fail)`);
 console.table(checks.map((item) => ({ status: item.status, area: item.area, item: item.item, detail: item.detail })));
 console.log(`Saved gate report: ${mdOut}`);
 

@@ -76,6 +76,9 @@ assertIncludes(deployFile, deploy, "npm run validate:workflows", "manual Cloudfl
 assertIncludes(deployFile, deploy, "npm run quality:ceo", "manual Cloudflare deploy must run CEO quality review.");
 assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_READY", "manual Cloudflare deploy must pass Google-certified CMP readiness into AdSense checks.");
 assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_EVIDENCE", "manual Cloudflare deploy must require human CMP evidence before enabling AdSense.");
+assertIncludes(deployFile, deploy, "preflight:adsense-review", "manual deploy must expose an ads.txt-based site-review gate.");
+assertIncludes(deployFile, deploy, "preflight:ad-serving", "manual deploy must keep CMP-gated ad serving separate from site review.");
+assertIncludes(deployFile, deploy, "require_ad_serving", "manual deploy must require an explicit ad-serving release choice.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
 assertIncludes(deployFile, deploy, "Check Cloudflare deploy secret", "manual deploy should check the API token only after validation can report quality gates.");
 assertOrder(deployFile, deploy, "npm run quality:ceo", "Check Cloudflare deploy secret", "Cloudflare token checks should run after CEO quality review so missing secrets do not hide build quality.");
@@ -104,11 +107,14 @@ assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_EVIDENC
 assertIncludes(launchChecklistFile, launchChecklist, "data/adsense-compliance.json", "launch checklist must require a versioned CMP evidence record.");
 assertIncludes(launchChecklistFile, launchChecklist, "/en/advertising/", "launch checklist must include the advertising policy trust page.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:launch", "launch checklist must require full launch preflight.");
-assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:adsense", "launch checklist must require strict AdSense preflight after IDs are issued.");
+assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:adsense-review", "launch checklist must document the site-review gate.");
+assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:ad-serving", "launch checklist must document the separate ad-serving gate.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run check:domain", "launch checklist must require live custom-domain verification.");
 assertIncludes(launchChecklistFile, launchChecklist, "AdSense Submission Gate", "launch checklist must separate the final AdSense submission gate.");
 
 assertIncludes(packageJsonFile, packageJson, "\"check:domain\"", "package scripts must expose the live domain verification command.");
+assertIncludes(packageJsonFile, packageJson, "\"preflight:adsense-review\"", "package scripts must expose the AdSense site-review preflight.");
+assertIncludes(packageJsonFile, packageJson, "\"preflight:ad-serving\"", "package scripts must expose the CMP-gated ad-serving preflight.");
 assertIncludes(packageJsonFile, packageJson, "\"stage:review-candidates\"", "package scripts must expose review candidate staging for scheduled PRs.");
 assertIncludes(domainCheckFile, domainCheck, "https://kspotnow.com", "domain check must default to the intended custom domain.");
 assertIncludes(domainCheckFile, domainCheck, "/sitemap.xml", "domain check must verify the live sitemap.");

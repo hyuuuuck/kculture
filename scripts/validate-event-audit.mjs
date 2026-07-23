@@ -10,7 +10,8 @@ const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json
 const feedDir = path.join(root, "data", "feeds");
 const timeoutMs = Number(process.env.EVENT_AUDIT_TIMEOUT_MS || 12000);
 const offline = process.env.EVENT_AUDIT_OFFLINE === "1";
-const userAgent = process.env.EVENT_AUDIT_USER_AGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 KoreaNowGuide/0.1 event-audit";
+const userAgent = process.env.EVENT_AUDIT_USER_AGENT
+  || "Mozilla/5.0 (compatible; KSpotNowEditorialAudit/2.0; +https://kspotnow.com/editorial-policy/)";
 
 const errors = [];
 const warnings = [];

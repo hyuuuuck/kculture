@@ -11,7 +11,12 @@ import { todayString } from "./lib/date.mjs";
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const today = todayString();
-const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
+const requireAdsenseReview = process.argv.includes("--require-adsense-review")
+  || process.argv.includes("--require-adsense")
+  || process.env.REQUIRE_ADSENSE_REVIEW === "1"
+  || process.env.REQUIRE_ADSENSE === "1";
+const requireAdServing = process.argv.includes("--require-ad-serving")
+  || process.env.REQUIRE_AD_SERVING === "1";
 const compliance = readJson(path.join(root, "data", "adsense-compliance.json"));
 const cmpEvidence = adSenseCmpEvidenceStatus(compliance, today);
 const cmpReady = configuredAdSenseCmpReady(process.env, compliance, today);
@@ -140,8 +145,12 @@ if (cmpReady) {
   }
 }
 
-if (requireAdsense && !cmpReady) {
-  fail(`Strict AdSense mode requires complete CMP evidence and both release flags. Missing: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
+if (requireAdsenseReview && !adsTxt.includes(`google.com, ${publisherId}, DIRECT`)) {
+  fail("AdSense site-review mode requires a matching ads.txt ownership record.");
+}
+
+if (requireAdServing && !cmpReady) {
+  fail(`Ad-serving mode requires complete CMP evidence and both release flags. Missing: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 }
 
 if (failures.length) {
@@ -152,5 +161,5 @@ if (failures.length) {
 
 const state = cmpReady
   ? `enabled with verified ${cmpEvidence.provider} CMP ${cmpEvidence.cmpId}`
-  : `held disabled; pending ${cmpEvidence.missing.join(", ")}`;
+  : `held disabled for site review; ad serving is pending ${cmpEvidence.missing.join(", ")}`;
 console.log(`AdSense compliance validation passed: ads are ${state}.`);

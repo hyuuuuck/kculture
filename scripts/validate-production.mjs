@@ -4,7 +4,12 @@ import { adSenseCmpEvidenceStatus, configuredAdSenseClientId, configuredAdSenseC
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
 
-const requireAdsense = process.argv.includes("--require-adsense") || process.env.REQUIRE_ADSENSE === "1";
+const requireAdsenseReview = process.argv.includes("--require-adsense-review")
+  || process.argv.includes("--require-adsense")
+  || process.env.REQUIRE_ADSENSE_REVIEW === "1"
+  || process.env.REQUIRE_ADSENSE === "1";
+const requireAdServing = process.argv.includes("--require-ad-serving")
+  || process.env.REQUIRE_AD_SERVING === "1";
 const allowPlatformSubdomain = process.env.ALLOW_PLATFORM_SUBDOMAIN === "1";
 const siteUrl = process.env.SITE_URL || "https://kspotnow.com";
 const contactEmail = process.env.CONTACT_EMAIL || "contact@kspotnow.com";
@@ -119,14 +124,14 @@ if (slotId && !/^\d{8,20}$/.test(slotId)) {
   fail("GOOGLE_ADSENSE_SLOT must be the numeric ad slot ID from an AdSense ad unit.");
 }
 
-if (requireAdsense && !publisherId) {
-  fail("GOOGLE_ADSENSE_PUBLISHER_ID is required for AdSense preflight.");
+if ((requireAdsenseReview || requireAdServing) && !publisherId) {
+  fail("GOOGLE_ADSENSE_PUBLISHER_ID is required for AdSense site review or ad serving.");
 }
 
-if (requireAdsense && !adsenseCmpReady) {
-  fail(`AdSense requires both CMP environment flags and a complete data/adsense-compliance.json record. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
+if (requireAdServing && !adsenseCmpReady) {
+  fail(`Ad serving requires both CMP environment flags and a complete data/adsense-compliance.json record. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 } else if ((publisherId || clientId || slotId) && !adsenseCmpReady) {
-  warn(`AdSense IDs are configured, but ads remain disabled until CMP evidence and release flags are complete. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
+  warn(`AdSense site ownership can be verified through ads.txt while ads remain disabled. Ad serving still requires CMP evidence and release flags. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 }
 
 const currentEventPages = events.filter((event) => approvedEventSlugs.has(event.slug) && event.endDate >= today).length;
@@ -316,4 +321,9 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Production preflight passed.");
+const preflightScope = requireAdServing
+  ? "Ad-serving"
+  : requireAdsenseReview
+    ? "AdSense site-review"
+    : "Production";
+console.log(`${preflightScope} preflight passed.`);

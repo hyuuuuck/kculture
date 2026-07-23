@@ -18,7 +18,12 @@ on:
   workflow_dispatch:
     inputs:
       require_adsense:
-        description: "Require AdSense publisher ID before deploying"
+        description: "Require AdSense site-review readiness before deploying"
+        required: false
+        type: boolean
+        default: false
+      require_ad_serving:
+        description: "Require verified CMP evidence and ad-serving readiness"
         required: false
         type: boolean
         default: false
@@ -107,7 +112,8 @@ jobs:
 
       - name: Validate production build
         env:
-          REQUIRE_ADSENSE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
+          REQUIRE_ADSENSE_REVIEW: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
+          REQUIRE_AD_SERVING: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && '1' || '0' }}
           STRICT_FRESHNESS: ${{ github.event_name == 'workflow_dispatch' && inputs.strict_freshness && '1' || '0' }}
         run: |
           set -o pipefail
@@ -119,8 +125,10 @@ jobs:
               exit 1
             fi
           }
-          if [ "$REQUIRE_ADSENSE" = "1" ]; then
-            run_check "preflight:adsense" npm run preflight:adsense
+          if [ "$REQUIRE_AD_SERVING" = "1" ]; then
+            run_check "preflight:ad-serving" npm run preflight:ad-serving
+          elif [ "$REQUIRE_ADSENSE_REVIEW" = "1" ]; then
+            run_check "preflight:adsense-review" npm run preflight:adsense-review
           else
             run_check "validate:production" npm run validate:production
           fi

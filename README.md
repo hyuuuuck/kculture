@@ -36,11 +36,11 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-detail-pages.mjs`: checks generated event detail pages for official source links, calendar downloads, saved-planner metadata, previous-year weather, map shortcuts, travel routes, and related guides
 - `scripts/validate-original-value.mjs`: blocks thin, duplicated, unaccountable, or source-rewritten public content by requiring distinct visitor analysis, practical checks, research methods, and traceable evidence
 - `data/adsense-compliance.json`: versioned manual evidence record for the selected Google-certified CMP, TCF coverage, review date, and accountable verifier
-- `scripts/validate-adsense-compliance.mjs`: keeps AdSense markup off until both release flags and the complete CMP evidence record agree, and blocks ads from noindex or policy pages
+- `scripts/validate-adsense-compliance.mjs`: lets site review use `ads.txt` ownership with ads disabled, requires verified CMP evidence only for ad serving, and blocks ads from noindex or policy pages
 - `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
 - `scripts/validate-event-audit.mjs`: checks high-risk event audit blocks against official evidence pages so concert dates, city-project dates, and shopping campaign windows do not get merged by mistake
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
-- `scripts/adsense-readiness-report.mjs`: writes a private AdSense readiness scorecard with content, trust, freshness, feed, and ad setup checks
+- `scripts/adsense-readiness-report.mjs`: writes separate site-review and ad-serving readiness scorecards so pending CMP evidence does not falsely block a review-safe build
 - `data/quality-system.json`: defines the CEO, planner, designer, publisher, audit institution, benchmark websites, and release policy
 - `scripts/ceo-quality-review.mjs`: writes the CEO quality review and task dispatch after the audit institution checks design, planning, publishing, source trust, and benchmark parity
 - `scripts/apply-official-thumbnail-overrides.mjs`: applies audited official-image or official source identity-card replacements so event thumbnails do not fall back to generic generated art
@@ -461,7 +461,7 @@ The curation queue is still non-public. It only helps the review board surface o
 - `/source-refresh.json` generated from the latest official-source refresh
 - `/en/watchlist/` shows the latest source refresh panel
 - `/en/privacy/`, `/en/contact/`, `/en/about/`, `/en/terms/`, `/en/editorial-policy/`, `/en/corrections/`, `/en/sources/`, `/en/freshness/`, `/en/watchlist/`, and `/en/planner/` working
-- At least 30 verified event, guide, or archive pages
+- A non-empty, explicitly reviewed set of current events and source-backed guides that passes the originality gate
 - No broken images or broken internal links
 - Mobile layout checked
 - No ad-click encouragement text
@@ -472,17 +472,27 @@ The curation queue is still non-public. It only helps the review board surface o
 - `ads.txt` generated at `/ads.txt` after publisher ID is issued
 - Private `npm.cmd run report:adsense` scorecard reviewed before applying
 
-AdSense preflight after you have the publisher ID:
+AdSense site-review preflight after you have the publisher ID:
 
 ```powershell
 $env:SITE_URL="https://kspotnow.com"
 $env:CONTACT_EMAIL="contact@kspotnow.com"
 $env:GOOGLE_ADSENSE_PUBLISHER_ID="pub-0000000000000000"
+npm.cmd run build
+npm.cmd run preflight:adsense-review
+```
+
+The site-review build verifies ownership through `/ads.txt` and keeps all ad
+markup disabled while CMP evidence is pending. Before enabling ad serving,
+complete `data/adsense-compliance.json`, set both CMP flags, and run:
+
+```powershell
+$env:GOOGLE_ADSENSE_CLIENT="ca-pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
 $env:GOOGLE_ADSENSE_CMP_READY="1"
 $env:GOOGLE_ADSENSE_CMP_EVIDENCE="1"
 npm.cmd run build
-npm.cmd run preflight:adsense
+npm.cmd run preflight:ad-serving
 ```
 
 ## Strict Source Audit

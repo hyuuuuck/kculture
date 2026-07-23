@@ -1,50 +1,30 @@
 {
-  "generatedAt": "2026-07-19T13:59:23.509Z",
+  "generatedAt": "2026-07-23T14:38:26.300Z",
   "files": {
-    "audit": "source-audit-2026-07-19.json",
-    "candidates": "official-page-candidates-2026-07-19.json",
-    "drafts": "draft-events-2026-07-19.json",
-    "reviewReport": "review-report-2026-07-19.md",
-    "reviewBoard": "review-board-2026-07-19.html"
+    "audit": "source-audit-2026-07-23.json",
+    "candidates": "official-page-candidates-2026-07-23.json",
+    "drafts": "draft-events-2026-07-23.json",
+    "reviewReport": "review-report-2026-07-23.md",
+    "reviewBoard": "review-board-2026-07-23.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 50,
-    "auditFailed": 5,
-    "fallbackSources": 5,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 43,
-    "candidateFailed": 10,
-    "discoveredLinks": 582,
-    "dateSignals": 227,
-    "draftCandidates": 71,
-    "skippedCandidates": 564
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 633,
+    "dateSignals": 255,
+    "draftCandidates": 70,
+    "skippedCandidates": 616
   },
   "failedSources": [
-    {
-      "sourceName": "Korea Sale FESTA",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Korea Policy Briefing",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Lotte Duty Free",
@@ -62,12 +42,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "KMA ASOS Daily Weather API",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -78,16 +53,16 @@
       "count": 20
     },
     {
+      "key": "Visit Seoul",
+      "count": 16
+    },
+    {
       "key": "NOL World Ticket",
-      "count": 14
+      "count": 12
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 13
-    },
-    {
-      "key": "Visit Seoul",
-      "count": 13
+      "count": 11
     },
     {
       "key": "Hyundai Department Store",
@@ -101,19 +76,19 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
-    },
-    {
-      "key": "kpop",
-      "count": 11
+      "count": 48
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 10
+    },
+    {
+      "key": "kpop",
+      "count": 8
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -123,18 +98,18 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 517
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 10
+      "count": 577
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -142,26 +117,26 @@
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 3
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 146
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
       "keywords": 9,
-      "score": 142
+      "score": 146
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 145
     },
     {
       "sourceName": "Visit Seoul",
@@ -177,7 +152,7 @@
       "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 137
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -204,12 +179,12 @@
       "score": 134
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "links": 24,
-      "dates": 9,
-      "keywords": 5,
-      "score": 116
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

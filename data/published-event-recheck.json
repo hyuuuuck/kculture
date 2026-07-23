@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T10:30:46.517Z",
+  "generatedAt": "2026-07-23T14:37:43.171Z",
   "date": "2026-07-23",
   "approvedActiveEvents": 11,
   "passed": 11,
@@ -9,8 +9,8 @@
   "liveChecks": 12,
   "snapshotChecks": 1,
   "updated": 0,
-  "timeoutMs": 15000,
-  "concurrency": 4,
+  "timeoutMs": 12000,
+  "concurrency": 5,
   "results": [
     {
       "slug": "nct-dream-sweet-dream-hotel-incheon-2026",
@@ -25,7 +25,7 @@
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
           "bytes": 119396,
-          "durationMs": 102,
+          "durationMs": 675,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -52,7 +52,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "status": 200,
           "bytes": 1104746,
-          "durationMs": 661,
+          "durationMs": 1312,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -82,7 +82,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 81,
+          "durationMs": 1182,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -107,8 +107,8 @@
           "url": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "status": 200,
-          "bytes": 122182,
-          "durationMs": 328,
+          "bytes": 122209,
+          "durationMs": 1324,
           "mode": "audited-snapshot",
           "freshnessAuthority": false,
           "snapshotPath": "data/audit-snapshots/red-velvet-day-in-red-velvet-seoul-2026.txt",
@@ -131,7 +131,7 @@
           "finalUrl": "https://weverse.io/redvelvet/notice/37362?hl=ko",
           "status": 200,
           "bytes": 54427,
-          "durationMs": 203,
+          "durationMs": 801,
           "mode": "live",
           "freshnessAuthority": true,
           "matchedTokens": [
@@ -159,7 +159,7 @@
           "finalUrl": "https://pentaport.co.kr/",
           "status": 200,
           "bytes": 438557,
-          "durationMs": 392,
+          "durationMs": 1339,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -175,7 +175,7 @@
           "finalUrl": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "status": 200,
           "bytes": 129583,
-          "durationMs": 25,
+          "durationMs": 21,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -203,7 +203,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 383,
+          "durationMs": 4858,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -231,8 +231,8 @@
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "status": 200,
-          "bytes": 185726,
-          "durationMs": 959,
+          "bytes": 185729,
+          "durationMs": 1634,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -258,8 +258,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 181566,
-          "durationMs": 724,
+          "bytes": 181569,
+          "durationMs": 1464,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -286,8 +286,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 180604,
-          "durationMs": 830,
+          "bytes": 180601,
+          "durationMs": 1666,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -313,8 +313,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181149,
-          "durationMs": 782,
+          "bytes": 181152,
+          "durationMs": 1366,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -341,7 +341,7 @@
           "finalUrl": "https://ktostay.visitkorea.or.kr/",
           "status": 200,
           "bytes": 26917,
-          "durationMs": 61,
+          "durationMs": 887,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [

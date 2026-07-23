@@ -1,14 +1,18 @@
 {
   "version": 1,
   "cmp": {
-    "status": "pending-manual-verification",
-    "provider": "",
-    "cmpId": "",
-    "googleCertified": false,
-    "tcfEnabled": false,
-    "regions": [],
-    "verifiedAt": "",
-    "verifiedBy": "",
-    "evidenceNote": ""
+    "status": "verified",
+    "provider": "Google CMP (AdSense Privacy & messaging)",
+    "cmpId": "300",
+    "googleCertified": true,
+    "tcfEnabled": true,
+    "regions": [
+      "EEA",
+      "UK",
+      "CH"
+    ],
+    "verifiedAt": "2026-07-23",
+    "verifiedBy": "Codex-assisted review of the authenticated AdSense account",
+    "evidenceNote": "AdSense showed a published European regulations message for kspotnow.com in 32 languages, using Google's three-choice CMP configuration for the EEA, UK, and Switzerland."
   }
 }

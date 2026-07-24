@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-24T14:18:16.751Z",
+  "generatedAt": "2026-07-24T21:34:02.457Z",
   "files": {
-    "audit": "source-audit-2026-07-24.json",
-    "candidates": "official-page-candidates-2026-07-24.json",
-    "drafts": "draft-events-2026-07-24.json",
-    "reviewReport": "review-report-2026-07-24.md",
-    "reviewBoard": "review-board-2026-07-24.html"
+    "audit": "source-audit-2026-07-25.json",
+    "candidates": "official-page-candidates-2026-07-25.json",
+    "drafts": "draft-events-2026-07-25.json",
+    "reviewReport": "review-report-2026-07-25.md",
+    "reviewBoard": "review-board-2026-07-25.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
+    "auditOk": 52,
+    "auditFailed": 3,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 651,
-    "dateSignals": 268,
-    "draftCandidates": 77,
-    "skippedCandidates": 627
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 624,
+    "dateSignals": 250,
+    "draftCandidates": 55,
+    "skippedCandidates": 622
   },
   "failedSources": [
     {
@@ -47,16 +47,32 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -76,12 +92,16 @@
     {
       "key": "Hyundai Department Store",
       "count": 3
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
+      "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
+      "count": 34
     },
     {
       "key": "shopping",
@@ -93,7 +113,7 @@
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 3
     },
     {
       "key": "beauty",
@@ -107,15 +127,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 583
+      "count": 579
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 9
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
     },
     {
       "key": "listing page is not a specific event",
@@ -123,11 +143,11 @@
     },
     {
       "key": "already published source URL",
-      "count": 4
+      "count": 3
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 3
     }
   ],
   "highSignalCandidates": [
@@ -164,14 +184,6 @@
       "score": 141
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 139
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -194,6 +206,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

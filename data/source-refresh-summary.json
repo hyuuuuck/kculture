@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T10:31:58.450Z",
+  "generatedAt": "2026-07-24T14:18:16.751Z",
   "files": {
     "audit": "source-audit-2026-07-24.json",
     "candidates": "official-page-candidates-2026-07-24.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 52,
-    "auditFailed": 3,
-    "fallbackSources": 8,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 628,
-    "dateSignals": 280,
-    "draftCandidates": 79,
-    "skippedCandidates": 602
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 651,
+    "dateSignals": 268,
+    "draftCandidates": 77,
+    "skippedCandidates": 627
   },
   "failedSources": [
     {
@@ -42,17 +42,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Daegu Chimac Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Boryeong Mud Festival",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -94,7 +89,7 @@
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 7
     },
     {
       "key": "department-store",
@@ -105,22 +100,22 @@
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 559
+      "count": 583
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
@@ -131,7 +126,7 @@
       "count": 4
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 4
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T21:34:02.457Z",
+  "generatedAt": "2026-07-25T03:45:29.958Z",
   "files": {
     "audit": "source-audit-2026-07-25.json",
     "candidates": "official-page-candidates-2026-07-25.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 52,
-    "auditFailed": 3,
+    "auditOk": 53,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 44,
     "candidateFailed": 9,
-    "discoveredLinks": 624,
-    "dateSignals": 250,
+    "discoveredLinks": 600,
+    "dateSignals": 247,
     "draftCandidates": 55,
-    "skippedCandidates": 622
+    "skippedCandidates": 598
   },
   "failedSources": [
     {
@@ -47,11 +47,6 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Duty Free English Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -65,11 +60,6 @@
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
-    },
-    {
-      "sourceName": "Dongdaemun Design Plaza",
-      "status": "ERR",
-      "error": "timeout"
     }
   ],
   "topDraftSources": [
@@ -127,7 +117,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 579
+      "count": 555
     },
     {
       "key": "source fetch did not succeed",

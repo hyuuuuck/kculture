@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T10:04:50.458Z",
+  "generatedAt": "2026-07-25T14:07:44.908Z",
   "files": {
     "audit": "source-audit-2026-07-25.json",
     "candidates": "official-page-candidates-2026-07-25.json",
@@ -15,10 +15,10 @@
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 605,
-    "dateSignals": 233,
-    "draftCandidates": 52,
-    "skippedCandidates": 606
+    "discoveredLinks": 581,
+    "dateSignals": 259,
+    "draftCandidates": 57,
+    "skippedCandidates": 577
   },
   "failedSources": [
     {
@@ -42,11 +42,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -55,6 +50,11 @@
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -71,22 +71,22 @@
       "count": 13
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 4
+    },
+    {
       "key": "Hyundai Department Store",
       "count": 3
     },
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
-    },
-    {
-      "key": "Andong Maskdance Festival",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 30
+      "count": 35
     },
     {
       "key": "shopping",
@@ -112,7 +112,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 535
     },
     {
       "key": "duplicate draft source URL",
@@ -127,15 +127,23 @@
       "count": 5
     },
     {
-      "key": "already published source URL",
-      "count": 3
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "already published source URL",
       "count": 3
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
@@ -185,20 +193,12 @@
       "score": 134
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 8,
+      "keywords": 5,
+      "score": 114
     }
   ]
 }

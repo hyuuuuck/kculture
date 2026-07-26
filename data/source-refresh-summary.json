@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-26T14:04:39.246Z",
+  "generatedAt": "2026-07-26T21:16:28.200Z",
   "files": {
-    "audit": "source-audit-2026-07-26.json",
-    "candidates": "official-page-candidates-2026-07-26.json",
-    "drafts": "draft-events-2026-07-26.json",
-    "reviewReport": "review-report-2026-07-26.md",
-    "reviewBoard": "review-board-2026-07-26.html"
+    "audit": "source-audit-2026-07-27.json",
+    "candidates": "official-page-candidates-2026-07-27.json",
+    "drafts": "draft-events-2026-07-27.json",
+    "reviewReport": "review-report-2026-07-27.md",
+    "reviewBoard": "review-board-2026-07-27.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 54,
     "auditFailed": 1,
-    "fallbackSources": 3,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 48,
     "candidateFailed": 5,
-    "discoveredLinks": 652,
-    "dateSignals": 252,
+    "discoveredLinks": 627,
+    "dateSignals": 278,
     "draftCandidates": 76,
-    "skippedCandidates": 629
+    "skippedCandidates": 604
   },
   "failedSources": [
     {
@@ -50,41 +50,41 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 21
+      "count": 19
     },
     {
       "key": "Visit Seoul",
       "count": 17
     },
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 14
-    },
-    {
       "key": "NOL World Ticket",
       "count": 13
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 3
+      "key": "NOL World Seoul Pop-ups",
+      "count": 12
     },
     {
-      "key": "Weverse Shop BTS Notices",
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 4
+    },
+    {
+      "key": "Hyundai Department Store",
       "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
+      "count": 54
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 8
     },
     {
       "key": "shopping",
-      "count": 10
+      "count": 8
     },
     {
       "key": "department-store",
@@ -102,11 +102,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 593
+      "count": 566
     },
     {
       "key": "duplicate draft source URL",
-      "count": 7
+      "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
@@ -117,15 +121,19 @@
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 4
-    },
-    {
       "key": "already published source URL",
       "count": 3
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
@@ -156,7 +164,7 @@
       "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 139
+      "score": 137
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -181,14 +189,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
     }
   ]
 }

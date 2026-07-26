@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-25T14:07:44.908Z",
+  "generatedAt": "2026-07-26T04:04:20.394Z",
   "files": {
-    "audit": "source-audit-2026-07-25.json",
-    "candidates": "official-page-candidates-2026-07-25.json",
-    "drafts": "draft-events-2026-07-25.json",
-    "reviewReport": "review-report-2026-07-25.md",
-    "reviewBoard": "review-board-2026-07-25.html"
+    "audit": "source-audit-2026-07-26.json",
+    "candidates": "official-page-candidates-2026-07-26.json",
+    "drafts": "draft-events-2026-07-26.json",
+    "reviewReport": "review-report-2026-07-26.md",
+    "reviewBoard": "review-board-2026-07-26.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 53,
-    "auditFailed": 2,
+    "auditOk": 54,
+    "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 581,
-    "dateSignals": 259,
-    "draftCandidates": 57,
-    "skippedCandidates": 577
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 629,
+    "dateSignals": 278,
+    "draftCandidates": 80,
+    "skippedCandidates": 602
   },
   "failedSources": [
     {
@@ -45,26 +45,20 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
+      "key": "Melon Ticket",
+      "count": 21
+    },
+    {
       "key": "Visit Seoul",
-      "count": 16
+      "count": 17
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 13
+      "count": 14
     },
     {
       "key": "NOL World Ticket",
@@ -77,24 +71,20 @@
     {
       "key": "Hyundai Department Store",
       "count": 3
-    },
-    {
-      "key": "Weverse Shop BTS Notices",
-      "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 35
+      "count": 55
+    },
+    {
+      "key": "kpop",
+      "count": 10
     },
     {
       "key": "shopping",
       "count": 9
-    },
-    {
-      "key": "kpop",
-      "count": 7
     },
     {
       "key": "department-store",
@@ -112,23 +102,23 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 535
+      "count": 562
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "key": "source fetch did not succeed",
+      "count": 5
     },
     {
       "key": "already published source URL",
@@ -169,6 +159,14 @@
       "score": 141
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 140
+    },
+    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -191,14 +189,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 8,
-      "keywords": 5,
-      "score": 114
     }
   ]
 }

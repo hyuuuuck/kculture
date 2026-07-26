@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T10:16:44.187Z",
+  "generatedAt": "2026-07-26T14:04:39.246Z",
   "files": {
     "audit": "source-audit-2026-07-26.json",
     "candidates": "official-page-candidates-2026-07-26.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 53,
-    "auditFailed": 2,
+    "auditOk": 54,
+    "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 556,
-    "dateSignals": 258,
-    "draftCandidates": 60,
-    "skippedCandidates": 549
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 652,
+    "dateSignals": 252,
+    "draftCandidates": 76,
+    "skippedCandidates": 629
   },
   "failedSources": [
     {
@@ -42,22 +42,16 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 21
+    },
     {
       "key": "Visit Seoul",
       "count": 17
@@ -71,10 +65,6 @@
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 4
-    },
-    {
       "key": "Hyundai Department Store",
       "count": 3
     },
@@ -86,15 +76,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 36
+      "count": 50
+    },
+    {
+      "key": "kpop",
+      "count": 10
     },
     {
       "key": "shopping",
       "count": 10
-    },
-    {
-      "key": "kpop",
-      "count": 8
     },
     {
       "key": "department-store",
@@ -112,11 +102,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 508
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 8
+      "count": 593
     },
     {
       "key": "duplicate draft source URL",
@@ -124,6 +110,10 @@
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -136,14 +126,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
@@ -167,6 +149,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 141
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -193,12 +183,12 @@
       "score": 134
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "links": 24,
-      "dates": 8,
-      "keywords": 5,
-      "score": 114
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

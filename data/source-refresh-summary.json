@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T04:04:20.394Z",
+  "generatedAt": "2026-07-26T07:12:28.280Z",
   "files": {
     "audit": "source-audit-2026-07-26.json",
     "candidates": "official-page-candidates-2026-07-26.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
+    "auditOk": 53,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 629,
-    "dateSignals": 278,
-    "draftCandidates": 80,
-    "skippedCandidates": 602
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 652,
+    "dateSignals": 252,
+    "draftCandidates": 59,
+    "skippedCandidates": 646
   },
   "failedSources": [
     {
@@ -45,13 +45,14 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "Visit Seoul",
       "count": 17
@@ -71,20 +72,24 @@
     {
       "key": "Hyundai Department Store",
       "count": 3
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
+      "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
-    },
-    {
-      "key": "kpop",
-      "count": 10
+      "count": 35
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 10
+    },
+    {
+      "key": "kpop",
+      "count": 8
     },
     {
       "key": "department-store",
@@ -102,26 +107,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 562
+      "count": 608
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 5
+      "key": "already published source URL",
+      "count": 3
     },
     {
-      "key": "already published source URL",
+      "key": "curation root is not a specific event",
       "count": 3
     }
   ],
@@ -159,14 +164,6 @@
       "score": 141
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 140
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
@@ -189,6 +186,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

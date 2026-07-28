@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T17:59:54.234Z",
+  "generatedAt": "2026-07-28T14:44:57.233Z",
   "files": {
     "audit": "source-audit-2026-07-28.json",
     "candidates": "official-page-candidates-2026-07-28.json",
@@ -11,14 +11,14 @@
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 591,
-    "dateSignals": 277,
-    "draftCandidates": 75,
-    "skippedCandidates": 569
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 621,
+    "dateSignals": 254,
+    "draftCandidates": 71,
+    "skippedCandidates": 603
   },
   "failedSources": [
     {
@@ -35,6 +35,21 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Department Store Global",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Shinsegae Department Store Events",
@@ -60,18 +75,18 @@
       "count": 12
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 4
+      "key": "Hyundai Department Store",
+      "count": 3
     },
     {
-      "key": "Hyundai Department Store",
+      "key": "Weverse Shop BTS Notices",
       "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 54
+      "count": 50
     },
     {
       "key": "shopping",
@@ -83,36 +98,36 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
     },
     {
       "key": "beauty",
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 531
+      "count": 564
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -121,14 +136,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -184,6 +191,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-30T14:39:16.131Z",
+  "generatedAt": "2026-07-30T17:55:35.658Z",
   "files": {
-    "audit": "source-audit-2026-07-30.json",
-    "candidates": "official-page-candidates-2026-07-30.json",
-    "drafts": "draft-events-2026-07-30.json",
-    "reviewReport": "review-report-2026-07-30.md",
-    "reviewBoard": "review-board-2026-07-30.html"
+    "audit": "source-audit-2026-07-31.json",
+    "candidates": "official-page-candidates-2026-07-31.json",
+    "drafts": "draft-events-2026-07-31.json",
+    "reviewReport": "review-report-2026-07-31.md",
+    "reviewBoard": "review-board-2026-07-31.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 53,
-    "auditFailed": 2,
-    "fallbackSources": 3,
+    "auditOk": 54,
+    "auditFailed": 1,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 49,
     "candidateFailed": 4,
     "discoveredLinks": 620,
     "dateSignals": 270,
-    "draftCandidates": 77,
-    "skippedCandidates": 596
+    "draftCandidates": 75,
+    "skippedCandidates": 598
   },
   "failedSources": [
     {
@@ -38,11 +38,6 @@
     },
     {
       "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Culture Portal API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -83,11 +78,11 @@
       "count": 9
     },
     {
-      "key": "kpop",
-      "count": 8
+      "key": "department-store",
+      "count": 6
     },
     {
-      "key": "department-store",
+      "key": "kpop",
       "count": 6
     },
     {
@@ -102,7 +97,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 561
+      "count": 564
     },
     {
       "key": "duplicate draft source URL",
@@ -113,11 +108,11 @@
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "key": "already published source URL",
+      "count": 4
     },
     {
-      "key": "already published source URL",
+      "key": "listing page is not a specific event",
       "count": 4
     },
     {

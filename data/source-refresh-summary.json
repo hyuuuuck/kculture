@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T10:36:01.843Z",
+  "generatedAt": "2026-07-30T14:39:16.131Z",
   "files": {
     "audit": "source-audit-2026-07-30.json",
     "candidates": "official-page-candidates-2026-07-30.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 55,
-    "auditFailed": 0,
+    "auditOk": 53,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 49,
     "candidateFailed": 4,
-    "discoveredLinks": 665,
-    "dateSignals": 259,
-    "draftCandidates": 75,
-    "skippedCandidates": 643
+    "discoveredLinks": 620,
+    "dateSignals": 270,
+    "draftCandidates": 77,
+    "skippedCandidates": 596
   },
   "failedSources": [
     {
@@ -37,7 +37,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Culture Portal API",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -71,7 +76,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
+      "count": 51
     },
     {
       "key": "shopping",
@@ -90,18 +95,22 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 609
+      "count": 561
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
@@ -109,10 +118,6 @@
     },
     {
       "key": "already published source URL",
-      "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -178,12 +183,12 @@
       "score": 135
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 8,
+      "keywords": 4,
+      "score": 113
     }
   ]
 }

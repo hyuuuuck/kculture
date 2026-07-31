@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T17:55:35.658Z",
+  "generatedAt": "2026-07-31T07:20:45.955Z",
   "files": {
     "audit": "source-audit-2026-07-31.json",
     "candidates": "official-page-candidates-2026-07-31.json",
@@ -15,10 +15,10 @@
     "monitorSources": 53,
     "candidateOk": 49,
     "candidateFailed": 4,
-    "discoveredLinks": 620,
-    "dateSignals": 270,
-    "draftCandidates": 75,
-    "skippedCandidates": 598
+    "discoveredLinks": 641,
+    "dateSignals": 288,
+    "draftCandidates": 81,
+    "skippedCandidates": 613
   },
   "failedSources": [
     {
@@ -45,7 +45,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 20
+      "count": 21
     },
     {
       "key": "Visit Seoul",
@@ -53,36 +53,36 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 14
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
       "count": 14
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 3
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 4
     },
     {
-      "key": "Shinsegae Group Newsroom",
-      "count": 2
+      "key": "Hyundai Department Store",
+      "count": 3
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 55
     },
     {
       "key": "shopping",
-      "count": 9
-    },
-    {
-      "key": "department-store",
-      "count": 6
+      "count": 10
     },
     {
       "key": "kpop",
+      "count": 7
+    },
+    {
+      "key": "department-store",
       "count": 6
     },
     {
@@ -97,7 +97,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 564
+      "count": 576
     },
     {
       "key": "duplicate draft source URL",
@@ -122,6 +122,14 @@
   ],
   "highSignalCandidates": [
     {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
+    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
@@ -138,20 +146,20 @@
       "score": 146
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 142
+    },
+    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 140
     },
     {
       "sourceName": "YES24 Ticket English",
@@ -176,14 +184,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 8,
-      "keywords": 4,
-      "score": 113
     }
   ]
 }

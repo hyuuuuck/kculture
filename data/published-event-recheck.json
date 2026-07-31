@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-31T07:18:54.672Z",
-  "date": "2026-07-31",
-  "approvedActiveEvents": 11,
-  "passed": 11,
+  "generatedAt": "2026-07-31T21:32:17.135Z",
+  "date": "2026-08-01",
+  "approvedActiveEvents": 10,
+  "passed": 10,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 12,
+  "liveChecks": 11,
   "snapshotChecks": 1,
-  "updated": 0,
+  "updated": 10,
   "timeoutMs": 12000,
   "concurrency": 5,
   "results": [
@@ -25,7 +25,7 @@
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
           "bytes": 106045,
-          "durationMs": 186,
+          "durationMs": 129,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -52,7 +52,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "status": 200,
           "bytes": 1105290,
-          "durationMs": 2286,
+          "durationMs": 1706,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -82,7 +82,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 1942,
+          "durationMs": 6006,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -106,9 +106,9 @@
           "sourceName": "Melon Ticket",
           "url": "https://ticket.melon.com/performance/index.htm?prodId=213415",
           "finalUrl": "https://ticket.melon.com/performance/index.htm?prodId=213415",
-          "status": 200,
-          "bytes": 136965,
-          "durationMs": 2378,
+          "status": 423,
+          "bytes": 0,
+          "durationMs": 1209,
           "mode": "audited-snapshot",
           "freshnessAuthority": false,
           "snapshotPath": "data/audit-snapshots/red-velvet-day-in-red-velvet-seoul-2026.txt",
@@ -121,7 +121,11 @@
           ],
           "missingTokens": [],
           "liveMissingTokens": [
-            "2026.08.01"
+            "Red Velvet FAN-CON",
+            "2026.07.31",
+            "2026.08.01",
+            "2026.08.02",
+            "고려대학교 화정체육관"
           ],
           "ok": true
         },
@@ -131,7 +135,7 @@
           "finalUrl": "https://weverse.io/redvelvet/notice/37362?hl=ko",
           "status": 200,
           "bytes": 54427,
-          "durationMs": 359,
+          "durationMs": 840,
           "mode": "live",
           "freshnessAuthority": true,
           "matchedTokens": [
@@ -159,7 +163,7 @@
           "finalUrl": "https://pentaport.co.kr/",
           "status": 200,
           "bytes": 439124,
-          "durationMs": 2210,
+          "durationMs": 1466,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -174,8 +178,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000456/products/26006159",
           "status": 200,
-          "bytes": 117245,
-          "durationMs": 261,
+          "bytes": 117246,
+          "durationMs": 12,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -203,7 +207,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 3175,
+          "durationMs": 2337,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -231,8 +235,8 @@
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "status": 200,
-          "bytes": 185776,
-          "durationMs": 1994,
+          "bytes": 185782,
+          "durationMs": 1599,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -258,8 +262,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 181618,
-          "durationMs": 1869,
+          "bytes": 181624,
+          "durationMs": 1444,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -286,8 +290,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 180644,
-          "durationMs": 1800,
+          "bytes": 180650,
+          "durationMs": 1381,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -313,8 +317,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181199,
-          "durationMs": 1781,
+          "bytes": 181205,
+          "durationMs": 1229,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -322,35 +326,6 @@
             "Jun 06, 2026",
             "Oct 11, 2026",
             "Chungmu Art Center"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "korea-accommodation-sale-festa-summer-2026",
-      "title": "2026 Korea Accommodation Sale Festa Summer Coupons",
-      "sourceName": "KTO Accommodation Sale Festa",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "KTO Accommodation Sale Festa",
-          "url": "https://ktostay.visitkorea.or.kr/",
-          "finalUrl": "https://ktostay.visitkorea.or.kr/",
-          "status": 200,
-          "bytes": 26917,
-          "durationMs": 1119,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026 대한민국 숙박세일 페스타",
-            "발급기간 2026.6.11",
-            "입실기간 2026. 6.11",
-            "비수도권 인구감소지역",
-            "85개 지자체",
-            "7만원 이상 국내 숙박상품 예약 시 3만원 할인"
           ],
           "missingTokens": [],
           "ok": true

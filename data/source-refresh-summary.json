@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-07-31T07:20:45.955Z",
+  "generatedAt": "2026-07-31T21:34:27.810Z",
   "files": {
-    "audit": "source-audit-2026-07-31.json",
-    "candidates": "official-page-candidates-2026-07-31.json",
-    "drafts": "draft-events-2026-07-31.json",
-    "reviewReport": "review-report-2026-07-31.md",
-    "reviewBoard": "review-board-2026-07-31.html"
+    "audit": "source-audit-2026-08-01.json",
+    "candidates": "official-page-candidates-2026-08-01.json",
+    "drafts": "draft-events-2026-08-01.json",
+    "reviewReport": "review-report-2026-08-01.md",
+    "reviewBoard": "review-board-2026-08-01.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 3,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 641,
-    "dateSignals": 288,
-    "draftCandidates": 81,
-    "skippedCandidates": 613
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 640,
+    "dateSignals": 247,
+    "draftCandidates": 53,
+    "skippedCandidates": 640
   },
   "failedSources": [
     {
@@ -40,13 +40,19 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -57,33 +63,37 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 14
+      "count": 12
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 4
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 3
+      "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Boryeong Mud Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
+      "count": 30
     },
     {
       "key": "shopping",
       "count": 10
     },
     {
-      "key": "kpop",
-      "count": 7
+      "key": "department-store",
+      "count": 5
     },
     {
-      "key": "department-store",
-      "count": 6
+      "key": "kpop",
+      "count": 5
     },
     {
       "key": "beauty",
@@ -97,15 +107,19 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 576
+      "count": 605
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 5
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
     },
     {
       "key": "already published source URL",
@@ -114,21 +128,9 @@
     {
       "key": "listing page is not a specific event",
       "count": 4
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -144,14 +146,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 146
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 142
     },
     {
       "sourceName": "Visit Seoul",
@@ -184,6 +178,22 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

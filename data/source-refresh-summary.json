@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-08-01T14:03:40.761Z",
+  "generatedAt": "2026-08-01T17:28:37.891Z",
   "files": {
-    "audit": "source-audit-2026-08-01.json",
-    "candidates": "official-page-candidates-2026-08-01.json",
-    "drafts": "draft-events-2026-08-01.json",
-    "reviewReport": "review-report-2026-08-01.md",
-    "reviewBoard": "review-board-2026-08-01.html"
+    "audit": "source-audit-2026-08-02.json",
+    "candidates": "official-page-candidates-2026-08-02.json",
+    "drafts": "draft-events-2026-08-02.json",
+    "reviewReport": "review-report-2026-08-02.md",
+    "reviewBoard": "review-board-2026-08-02.html"
   },
   "counts": {
     "auditedSources": 55,
     "auditOk": 54,
     "auditFailed": 1,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 613,
-    "dateSignals": 287,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 638,
+    "dateSignals": 288,
     "draftCandidates": 81,
-    "skippedCandidates": 585
+    "skippedCandidates": 610
   },
   "failedSources": [
     {
@@ -38,11 +38,6 @@
     },
     {
       "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -107,15 +102,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 540
+      "count": 567
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
     },
     {
       "key": "curation root is not a specific event",
@@ -123,6 +114,10 @@
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {

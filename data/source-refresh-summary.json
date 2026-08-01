@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T10:14:45.857Z",
+  "generatedAt": "2026-08-01T14:03:40.761Z",
   "files": {
     "audit": "source-audit-2026-08-01.json",
     "candidates": "official-page-candidates-2026-08-01.json",
@@ -13,12 +13,12 @@
     "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 641,
-    "dateSignals": 291,
-    "draftCandidates": 82,
-    "skippedCandidates": 612
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 613,
+    "dateSignals": 287,
+    "draftCandidates": 81,
+    "skippedCandidates": 585
   },
   "failedSources": [
     {
@@ -35,6 +35,16 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Galleria Department Store",
@@ -90,18 +100,22 @@
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 569
+      "count": 540
     },
     {
       "key": "duplicate draft source URL",
       "count": 7
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
@@ -113,10 +127,6 @@
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
-    },
-    {
-      "key": "already published source URL",
       "count": 4
     }
   ],

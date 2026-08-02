@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T17:28:37.891Z",
+  "generatedAt": "2026-08-02T04:01:55.438Z",
   "files": {
     "audit": "source-audit-2026-08-02.json",
     "candidates": "official-page-candidates-2026-08-02.json",
@@ -13,12 +13,12 @@
     "auditFailed": 1,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 638,
-    "dateSignals": 288,
-    "draftCandidates": 81,
-    "skippedCandidates": 610
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 618,
+    "dateSignals": 273,
+    "draftCandidates": 74,
+    "skippedCandidates": 597
   },
   "failedSources": [
     {
@@ -35,11 +35,6 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Galleria Department Store",
@@ -65,18 +60,18 @@
       "count": 12
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 59
+      "count": 51
     },
     {
       "key": "shopping",
@@ -95,14 +90,14 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 567
+      "count": 559
     },
     {
       "key": "duplicate draft source URL",
@@ -117,23 +112,15 @@
       "count": 5
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 5
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
     },
     {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "key": "already published source URL",
       "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -189,6 +176,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 4,
+      "score": 115
     }
   ]
 }

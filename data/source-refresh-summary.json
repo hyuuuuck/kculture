@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-02T10:12:55.507Z",
+  "generatedAt": "2026-08-02T14:04:15.053Z",
   "files": {
     "audit": "source-audit-2026-08-02.json",
     "candidates": "official-page-candidates-2026-08-02.json",
@@ -9,16 +9,16 @@
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
+    "auditOk": 53,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 637,
-    "dateSignals": 279,
-    "draftCandidates": 79,
-    "skippedCandidates": 611
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 617,
+    "dateSignals": 274,
+    "draftCandidates": 62,
+    "skippedCandidates": 608
   },
   "failedSources": [
     {
@@ -37,26 +37,17 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -76,23 +67,27 @@
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
+      "count": 37
     },
     {
       "key": "shopping",
       "count": 10
     },
     {
-      "key": "department-store",
-      "count": 5
+      "key": "kpop",
+      "count": 7
     },
     {
-      "key": "kpop",
+      "key": "department-store",
       "count": 5
     },
     {
@@ -100,7 +95,7 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
@@ -111,14 +106,14 @@
     },
     {
       "key": "duplicate draft source URL",
-      "count": 7
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "count": 8
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -156,14 +151,6 @@
       "score": 146
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 142
-    },
-    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
@@ -194,6 +181,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 135
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 10,
+      "keywords": 4,
+      "score": 117
     }
   ]
 }

@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-08-02T21:14:34.354Z",
+  "generatedAt": "2026-08-03T15:22:47.516Z",
   "files": {
-    "audit": "source-audit-2026-08-03.json",
-    "candidates": "official-page-candidates-2026-08-03.json",
-    "drafts": "draft-events-2026-08-03.json",
-    "reviewReport": "review-report-2026-08-03.md",
-    "reviewBoard": "review-board-2026-08-03.html"
+    "audit": "source-audit-2026-08-04.json",
+    "candidates": "official-page-candidates-2026-08-04.json",
+    "drafts": "draft-events-2026-08-04.json",
+    "reviewReport": "review-report-2026-08-04.md",
+    "reviewBoard": "review-board-2026-08-04.html"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 53,
-    "auditFailed": 2,
-    "fallbackSources": 3,
+    "auditOk": 49,
+    "auditFailed": 6,
+    "fallbackSources": 7,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 664,
-    "dateSignals": 266,
-    "draftCandidates": 53,
-    "skippedCandidates": 664
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 568,
+    "dateSignals": 274,
+    "draftCandidates": 59,
+    "skippedCandidates": 562
   },
   "failedSources": [
     {
@@ -37,7 +37,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -45,9 +45,38 @@
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
+    },
+    {
+      "sourceName": "Boryeong Mud Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "COEX Event Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "SHOWALA exhibition listing",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "NOL World Ticket",
+      "count": 14
+    },
     {
       "key": "Visit Seoul",
       "count": 14
@@ -57,26 +86,22 @@
       "count": 13
     },
     {
-      "key": "NOL World Ticket",
-      "count": 11
-    },
-    {
       "key": "Busan Metropolitan City Events and English News",
       "count": 8
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     },
     {
-      "key": "Dongdaemun Design Plaza",
+      "key": "Andong Maskdance Festival",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 35
+      "count": 37
     },
     {
       "key": "shopping",
@@ -84,11 +109,11 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 5
     },
     {
       "key": "kpop",
-      "count": 3
+      "count": 5
     },
     {
       "key": "beauty",
@@ -102,18 +127,18 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 624
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 7
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 5
+      "count": 522
     },
     {
       "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
@@ -179,16 +204,16 @@
       "url": "https://grandpark.seoul.go.kr/main.do",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 135
+      "keywords": 4,
+      "score": 134
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motie.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 4,
+      "keywords": 10,
+      "score": 132
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T03:44:27.071Z",
+  "generatedAt": "2026-08-04T14:45:57.858Z",
   "files": {
     "audit": "source-audit-2026-08-04.json",
     "candidates": "official-page-candidates-2026-08-04.json",
@@ -11,14 +11,14 @@
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 612,
-    "dateSignals": 276,
-    "draftCandidates": 73,
-    "skippedCandidates": 592
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 634,
+    "dateSignals": 261,
+    "draftCandidates": 74,
+    "skippedCandidates": 613
   },
   "failedSources": [
     {
@@ -40,6 +40,11 @@
       "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -49,7 +54,7 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 14
+      "count": 16
     },
     {
       "key": "Visit Seoul",
@@ -79,7 +84,7 @@
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "department-store",
@@ -97,11 +102,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 556
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 578
     },
     {
       "key": "duplicate draft source URL",
@@ -109,6 +110,10 @@
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {

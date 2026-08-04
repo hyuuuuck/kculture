@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T18:13:26.357Z",
+  "generatedAt": "2026-08-04T03:44:27.071Z",
   "files": {
     "audit": "source-audit-2026-08-04.json",
     "candidates": "official-page-candidates-2026-08-04.json",
@@ -11,14 +11,14 @@
     "auditedSources": 55,
     "auditOk": 55,
     "auditFailed": 0,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 50,
-    "candidateFailed": 3,
-    "discoveredLinks": 688,
-    "dateSignals": 286,
-    "draftCandidates": 80,
-    "skippedCandidates": 661
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 612,
+    "dateSignals": 276,
+    "draftCandidates": 73,
+    "skippedCandidates": 592
   },
   "failedSources": [
     {
@@ -35,12 +35,17 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 22
+      "count": 23
     },
     {
       "key": "NOL World Ticket",
@@ -55,29 +60,29 @@
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 58
+      "count": 50
     },
     {
       "key": "shopping",
       "count": 9
     },
     {
-      "key": "department-store",
-      "count": 5
+      "key": "kpop",
+      "count": 7
     },
     {
-      "key": "kpop",
+      "key": "department-store",
       "count": 5
     },
     {
@@ -85,14 +90,18 @@
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 624
+      "count": 556
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "duplicate draft source URL",
@@ -109,21 +118,9 @@
     {
       "key": "already published source URL",
       "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -145,8 +142,8 @@
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 4,
-      "score": 141
+      "keywords": 5,
+      "score": 142
     },
     {
       "sourceName": "Visit Seoul",
@@ -179,6 +176,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 5,
+      "keywords": 7,
+      "score": 128
     }
   ]
 }

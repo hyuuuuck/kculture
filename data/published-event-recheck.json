@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-04T12:34:33.316Z",
-  "date": "2026-08-04",
-  "approvedActiveEvents": 8,
-  "passed": 8,
+  "generatedAt": "2026-08-04T15:07:26.239Z",
+  "date": "2026-08-05",
+  "approvedActiveEvents": 6,
+  "passed": 6,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 16,
+  "liveChecks": 12,
   "snapshotChecks": 0,
-  "updated": 0,
+  "updated": 6,
   "timeoutMs": 15000,
   "concurrency": 4,
   "results": [
@@ -25,7 +25,7 @@
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
           "bytes": 106428,
-          "durationMs": 91,
+          "durationMs": 70,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -43,7 +43,7 @@
           "finalUrl": "https://weverse.io/nctdream/notice/36671",
           "status": 200,
           "bytes": 82319,
-          "durationMs": 186,
+          "durationMs": 184,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -51,54 +51,6 @@
             "August 22, 2026",
             "INSPIRE ARENA",
             "KRW 121,000"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "korea-beauty-festival-2026",
-      "title": "2026 Korea Beauty Festival",
-      "sourceName": "VISITKOREA",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "VISITKOREA",
-          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
-          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
-          "status": 200,
-          "bytes": 1105290,
-          "durationMs": 608,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Korea Beauty Festival",
-            "June 24 - September 30, 2026",
-            "KBF Beauty House",
-            "June 24 - July 19, 2026",
-            "HiKR Ground",
-            "KBF Special Promotions",
-            "Korea Tourism Organization"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Ministry of Culture, Sports and Tourism",
-          "url": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
-          "finalUrl": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
-          "status": 200,
-          "bytes": 25534,
-          "durationMs": 115,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026 Korea Beauty Festival",
-            "HiKR Ground",
-            "June 24",
-            "September 30"
           ],
           "missingTokens": [],
           "ok": true
@@ -118,7 +70,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 78,
+          "durationMs": 77,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -135,7 +87,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
           "status": 200,
           "bytes": 194549,
-          "durationMs": 301,
+          "durationMs": 381,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -161,7 +113,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 349,
+          "durationMs": 358,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -181,56 +133,13 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 35329,
-          "durationMs": 84,
+          "durationMs": 93,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Gwangalli",
             "Drone Light Show",
             "Saturday"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "namsangol-traditional-experience-2026",
-      "title": "2026 Namsangol Traditional Experience: Artist's Time",
-      "sourceName": "Visit Seoul",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Visit Seoul",
-          "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
-          "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
-          "status": 200,
-          "bytes": 185777,
-          "durationMs": 702,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Namsangol Hanok Village",
-            "April 3",
-            "October 25",
-            "July and August"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Seoul Metropolitan Government",
-          "url": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
-          "finalUrl": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
-          "status": 200,
-          "bytes": 108413,
-          "durationMs": 101,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Namsangol Hanok Village",
-            "Chungmuro"
           ],
           "missingTokens": [],
           "ok": true
@@ -249,8 +158,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 181973,
-          "durationMs": 579,
+          "bytes": 181979,
+          "durationMs": 654,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -269,7 +178,7 @@
           "finalUrl": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "status": 200,
           "bytes": 355661,
-          "durationMs": 192,
+          "durationMs": 254,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -295,7 +204,7 @@
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
           "bytes": 180999,
-          "durationMs": 713,
+          "durationMs": 707,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -312,8 +221,8 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 96180,
-          "durationMs": 140,
+          "bytes": 96251,
+          "durationMs": 974,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -338,8 +247,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181200,
-          "durationMs": 680,
+          "bytes": 181194,
+          "durationMs": 755,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -356,8 +265,8 @@
           "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "status": 200,
-          "bytes": 132963,
-          "durationMs": 230,
+          "bytes": 132913,
+          "durationMs": 3314,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [

@@ -51,6 +51,7 @@ for (const slug of approvedSlugs) {
     failures.push(`${slug}: unresolved uncertainty is visible on a public event page.`);
   }
   const review = program.eventReviews?.[slug];
+  const fit = review?.decisionFit || {};
   const evidence = [
     ...(Array.isArray(event.audit?.sourceEvidence) ? event.audit.sourceEvidence : []),
     ...(Array.isArray(review?.sourceEvidence) ? review.sourceEvidence : [])
@@ -60,6 +61,10 @@ for (const slug of approvedSlugs) {
   }).filter(Boolean));
   if (!review?.reviewedAt || !review?.reviewedBy || evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
     failures.push(`${slug}: manual review record or original-source evidence is incomplete.`);
+  }
+  if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
+      || !html.includes('class="event-decision-fit"')) {
+    failures.push(`${slug}: visitor decision-fit analysis is incomplete or not rendered.`);
   }
 }
 

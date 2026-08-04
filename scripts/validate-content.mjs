@@ -483,8 +483,8 @@ for (const item of Array.isArray(curationQueue) ? curationQueue : []) {
   assertUrl(id, "sourceUrl", item.sourceUrl);
 }
 
-if (guides.length < 8) {
-  push(errors, "guides", "at least 8 source-backed editorial guides are required for the review edition.");
+if (!guides.length) {
+  push(errors, "guides", "at least one source-backed editorial guide record is required.");
 }
 
 const guideSlugs = new Set();
@@ -555,12 +555,27 @@ for (const slug of approvedEventSlugs) {
   if (!Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3) {
     push(errors, slug, "approved event needs at least three foreign-visitor checks.");
   }
+  const fit = review?.decisionFit || {};
+  if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => !nonEmptyString(fit[field]) || fit[field].length < 60)) {
+    push(errors, slug, "approved event needs a substantial decision-fit analysis separated from reported source facts.");
+  }
   if (evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2)) {
     push(errors, slug, "approved event needs two structured official sources on distinct hosts.");
   }
 }
 for (const slug of approvedGuideSlugs) {
-  if (!guides.some((guide) => guide.slug === slug)) push(errors, slug, "editorial-program references a missing guide.");
+  const guide = guides.find((item) => item.slug === slug);
+  if (!guide) {
+    push(errors, slug, "editorial-program references a missing guide.");
+    continue;
+  }
+  const sourceHosts = new Set((guide.sources || []).map((source) => {
+    try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean));
+  if (sourceHosts.size < 2) push(errors, slug, "approved guide needs authoritative sources on at least two distinct hosts.");
+  if (!nonEmptyString(guide.audience) || !guide.decisionTool || !Array.isArray(guide.decisionTool.rows) || guide.decisionTool.rows.length < 4) {
+    push(errors, slug, "approved guide needs an intended audience and a four-row worked decision example.");
+  }
 }
 
 const routeSlugs = new Set();

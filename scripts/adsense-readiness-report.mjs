@@ -154,11 +154,23 @@ function guidePageAudit() {
     const html = read(relative);
     const structuredSections = guide.sections?.en || [];
     const paragraphWords = structuredSections.flatMap((section) => section.paragraphs || []).join(" ");
+    const decisionTool = guide.decisionTool || {};
+    const decisionToolText = [
+      decisionTool.scenario,
+      decisionTool.verdict,
+      decisionTool.limitations,
+      ...(decisionTool.rows || []).flatMap((row) => [row.signal, row.interpretation, row.action])
+    ].join(" ");
+    const sourceHosts = new Set((guide.sources || []).map((source) => {
+      try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+    }).filter(Boolean));
     if (!html) failures.push(`${guide.slug}:missing-page`);
-    if (!html.includes("guide-byline") || !html.includes("guide-citations")) failures.push(`${guide.slug}:missing-authorship-or-citations`);
+    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-decision-tool")) failures.push(`${guide.slug}:missing-authorship-citations-or-worked-example`);
     if (structuredSections.length < 4) failures.push(`${guide.slug}:fewer-than-4-sections`);
-    if (!Array.isArray(guide.sources) || guide.sources.length < 2) failures.push(`${guide.slug}:fewer-than-2-sources`);
+    if (!Array.isArray(guide.sources) || guide.sources.length < 2 || sourceHosts.size < 2) failures.push(`${guide.slug}:fewer-than-2-distinct-source-hosts`);
     if (wordCount(paragraphWords) < 280) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
+    if (wordCount(`${paragraphWords} ${decisionToolText}`) < 500 || (decisionTool.rows || []).length < 4) failures.push(`${guide.slug}:thin-or-incomplete-worked-example`);
+    if (!guide.audience) failures.push(`${guide.slug}:missing-intended-audience`);
     if (!guide.method || !guide.reviewedBy || !guide.updatedAt) failures.push(`${guide.slug}:missing-method-or-review`);
   }
   return failures;
@@ -222,12 +234,14 @@ function runChecks() {
   const evidenceFailures = approvedEvents.filter((event) => {
     const review = program.eventReviews?.[event.slug];
     const evidence = eventEvidence(event);
+    const fit = review?.decisionFit || {};
     return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
       || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
+      || ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
       || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
       || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
   });
-  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, and visitor checks`);
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, visitor checks, and decision-fit analysis`);
   else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
 
   const eventFailures = eventPageAudit();
@@ -235,7 +249,7 @@ function runChecks() {
   else fail("Content", "Event page usefulness", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
 
   const guideFailures = guidePageAudit();
-  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have 4 sections, 2+ sources, method, and byline`);
+  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have 4 sections, distinct official source hosts, intended audience, worked example, method, and byline`);
   else fail("Content", "Guide originality", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
 
   const expected = expectedSitemapPaths();

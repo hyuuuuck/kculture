@@ -5,9 +5,38 @@
     "title": { "en": "How to verify a Korea pop-up before you travel" },
     "summary": { "en": "A practical source-checking method for fast-changing K-pop, character, fashion, and brand pop-ups in Korea." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-04",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research comparing organizer, venue, ticketing, and store notices. This guide does not claim a first-hand visit.",
+    "audience": "Independent Korea visitors deciding whether a fast-changing pop-up is reliable enough to reserve travel time, money, or a fixed route.",
+    "decisionTool": {
+      "title": "Worked example: an attractive poster with incomplete visit details",
+      "scenario": "This is an illustrative desk-research example, not a claim about one current event. A reposted image gives a Seoul date range and brand name, while the organizer notice names a department-store branch, the venue guide supplies the floor, and a ticket page describes timed entry. The question is not whether the poster looks official; it is whether those records combine into one visit that can actually be executed.",
+      "rows": [
+        {
+          "signal": "Organizer notice has dates but no floor",
+          "interpretation": "The event is plausible, but the arrival point is incomplete and a map search by title may fail.",
+          "action": "Keep the stop provisional and obtain the exact branch and floor from the venue record."
+        },
+        {
+          "signal": "Venue guide confirms branch and floor",
+          "interpretation": "The physical location is now usable, but location alone does not prove walk-in admission.",
+          "action": "Save the Korean branch name, then continue to the reservation or ticket rule."
+        },
+        {
+          "signal": "Ticket page requires a timed slot and matching identity",
+          "interpretation": "The visit is no longer spontaneous; account access and the traveler name become part of the plan.",
+          "action": "Do not book transport around the stop until the slot and identity requirements are workable."
+        },
+        {
+          "signal": "Stock is described only as until sold out",
+          "interpretation": "Admission can be valid while the desired product remains uncertain.",
+          "action": "Choose a same-neighborhood fallback so the journey still has value if stock is gone."
+        }
+      ],
+      "verdict": "Make the pop-up a fixed stop only when date, branch, floor, and entry method agree across the current primary records. If only product stock is uncertain, keep the stop flexible. If the venue or operating date still conflicts, remove it from the itinerary instead of merging whichever details are most convenient.",
+      "limitations": "The example demonstrates a repeatable comparison method. It does not verify inventory, queue length, or a first-hand visit, and the live organizer or ticket page remains controlling."
+    },
     "sources": [
       {
         "name": "Weverse Shop notices",
@@ -159,9 +188,38 @@
     "title": { "en": "How to use Korea's shopping-sale calendar without chasing expired offers" },
     "summary": { "en": "A method for separating national campaigns, retailer promotions, branch events, and product stock when planning a Korea shopping trip." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-04",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research across official tourism campaigns and retailer pages. Campaign dates are treated as time-limited evidence, not evergreen promises.",
+    "audience": "Korea visitors comparing a national shopping campaign with retailer, branch, and product-level terms before changing a travel route for a discount.",
+    "decisionTool": {
+      "title": "Worked example: a campaign headline that is not yet a usable deal",
+      "scenario": "This illustrative example separates four records that are often collapsed into one promise. A tourism campaign advertises a broad visitor period, a retailer posts a shorter sale, one branch promotes a gift above a minimum spend, and the desired product remains subject to stock. The visitor must decide whether the trip is justified by the final payable result, not by the largest percentage printed at the campaign level.",
+      "rows": [
+        {
+          "signal": "Campaign period is longer than the retailer sale",
+          "interpretation": "The campaign is a discovery window, not evidence that this retailer discounts the item for the whole period.",
+          "action": "Use the retailer's dated terms for the shopping day and keep the campaign page only as context."
+        },
+        {
+          "signal": "Gift requires a branch-specific minimum spend",
+          "interpretation": "A theoretical benefit may disappear after exclusions, payment conditions, or the visitor's actual basket are applied.",
+          "action": "Calculate the basket total without the gift first and treat the gift as optional value."
+        },
+        {
+          "signal": "Product inventory is not confirmed",
+          "interpretation": "A valid coupon does not reserve the item and does not justify a long cross-city transfer by itself.",
+          "action": "Choose a branch already on the route and identify one nearby substitute rather than adding a distant single-purpose stop."
+        },
+        {
+          "signal": "Tax-refund wording is separate from sale price",
+          "interpretation": "The headline percentage and the amount actually paid can follow different eligibility and receipt procedures.",
+          "action": "Compare the checkout total, refund path, return conditions, and transfer time as one cost."
+        }
+      ],
+      "verdict": "Fix the shopping stop only when the retailer dates, eligible branch, payment method, and expected basket all align with a neighborhood already in the itinerary. Keep it optional when stock is the remaining uncertainty. Drop it when the route depends on an old campaign date or an unverified branch benefit.",
+      "limitations": "This framework does not promise a price, coupon, gift, or stock level. Current retailer terms and the checkout screen control the purchase."
+    },
     "sources": [
       {
         "name": "Korea Grand Sale",
@@ -455,9 +513,38 @@
     "title": { "en": "K-pop tickets and merchandise: a safer verification checklist" },
     "summary": { "en": "How overseas visitors can verify authorized ticketing, identity rules, presales, mobile delivery, and merchandise notices before paying." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-04",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research against organizer, fan-platform, and authorized ticketing notices. K-Spot Now does not sell tickets or authenticate resale offers.",
+    "audience": "Overseas K-pop visitors checking seller authority, account identity, ticket delivery, merchandise stock, and the return journey before paying.",
+    "decisionTool": {
+      "title": "Worked example: official event, unsafe purchase path",
+      "scenario": "This is an illustrative verification case rather than a report about one current concert. An artist notice confirms the performance and links an authorized ticket platform. The official sale is unavailable, and a direct message offers a screenshot plus an off-platform bank transfer. The event itself is real, but that does not make the proposed seller, ticket transfer, or entry identity valid.",
+      "rows": [
+        {
+          "signal": "Artist notice links a named ticket platform",
+          "interpretation": "That platform is the controlling purchase path for the announced sale and its identity rules.",
+          "action": "Begin from the organizer link and keep the exact domain, sale time, and account requirements together."
+        },
+        {
+          "signal": "Direct message asks for external payment",
+          "interpretation": "The payment path is not supported by the organizer record, even though the event title and seat image may be genuine.",
+          "action": "Stop the transaction; a screenshot cannot prove transferability, ownership, or valid venue entry."
+        },
+        {
+          "signal": "Ticket name or membership does not match the traveler",
+          "interpretation": "Identity inspection can fail at pickup or entry regardless of whether money changed hands.",
+          "action": "Proceed only through an organizer-approved transfer or resale mechanism that explicitly resolves the name rule."
+        },
+        {
+          "signal": "Return transport is unknown after the show",
+          "interpretation": "A valid ticket can still create an unsafe or impractical trip when the venue is remote or the last train is tight.",
+          "action": "Save the Korean venue name, pickup area, and a realistic late return before considering the purchase complete."
+        }
+      ],
+      "verdict": "Do not pay merely because the event is authentic. Pay only when the seller path is named by the organizer, the account and identity rules fit the traveler, delivery is usable on the correct device or at pickup, and cancellation plus return transport are understood. Otherwise the decision remains no, not maybe.",
+      "limitations": "K-Spot Now cannot authenticate resale tickets, private sellers, payment screenshots, or merchandise inventory. Only an organizer-approved mechanism can change that limitation."
+    },
     "sources": [
       {
         "name": "Weverse Shop notices",

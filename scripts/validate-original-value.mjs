@@ -79,6 +79,8 @@ for (const slug of approvedEvents) {
   const tips = Array.isArray(event.travelTips) ? event.travelTips.filter(Boolean) : [];
   const editorialText = [whyGo, decision, ...checks, ...tips].join(" ");
   const evidence = evidenceFor(event, review);
+  const decisionFit = review.decisionFit || {};
+  const decisionFitFields = ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"];
 
   if (wordCount(summary) < 24) fail(slug, "English summary needs at least 24 substantive words.");
   if (wordCount(whyGo) < 20) fail(slug, "visitor-value explanation needs at least 20 substantive words.");
@@ -101,6 +103,12 @@ for (const slug of approvedEvents) {
   if (!review.reviewedAt || !review.reviewedBy) {
     fail(slug, "review date and accountable reviewer are required.");
   }
+  if (decisionFitFields.some((field) => wordCount(decisionFit[field]) < 9)) {
+    fail(slug, "needs a complete availability, audience fit, poor fit, time cost, and commitment threshold analysis.");
+  }
+  if (wordCount(decisionFitFields.map((field) => decisionFit[field]).join(" ")) < 75) {
+    fail(slug, "decision-fit analysis needs at least 75 substantive words beyond the source facts.");
+  }
   if (evidence.length < 2 || distinctEvidenceHosts(evidence) < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
     fail(slug, "needs two traceable official sources on distinct hosts with verification tokens.");
   }
@@ -119,20 +127,82 @@ for (const slug of approvedGuides) {
   const sections = guide.sections?.en || [];
   const paragraphs = sections.flatMap((section) => section.paragraphs || []);
   const body = paragraphs.join(" ");
+  const decisionTool = guide.decisionTool || {};
+  const decisionRows = Array.isArray(decisionTool.rows) ? decisionTool.rows : [];
+  const decisionToolText = [
+    decisionTool.title,
+    decisionTool.scenario,
+    decisionTool.verdict,
+    decisionTool.limitations,
+    ...decisionRows.flatMap((row) => [row.signal, row.interpretation, row.action])
+  ].join(" ");
 
   if (sections.length !== 4) fail(slug, "guide needs four deliberate editorial sections.");
   if (sections.some((section) => wordCount(section.heading) < 2 || (section.paragraphs || []).length < 2)) {
     fail(slug, "every guide section needs a specific heading and at least two explanatory paragraphs.");
   }
   if (wordCount(body) < 300) fail(slug, "guide body needs at least 300 substantive words.");
+  if (wordCount(`${body} ${decisionToolText}`) < 500) fail(slug, "guide and worked example need at least 500 substantive words of combined visitor value.");
   if (wordCount(guide.method) < 15) fail(slug, "research method disclosure needs at least 15 substantive words.");
-  if ((guide.sources || []).length < 2 || (guide.sources || []).some((source) => !/^https?:\/\//.test(source.url || ""))) {
-    fail(slug, "guide needs at least two valid external research sources.");
+  if ((guide.sources || []).length < 2 || distinctEvidenceHosts(guide.sources || []) < 2 || (guide.sources || []).some((source) => !/^https?:\/\//.test(source.url || ""))) {
+    fail(slug, "guide needs at least two valid research sources on distinct official hosts.");
+  }
+  if (wordCount(guide.audience) < 12) fail(slug, "guide needs a specific intended-audience statement.");
+  if (decisionRows.length < 4 || decisionRows.some((row) => wordCount(row.signal) < 5 || wordCount(row.interpretation) < 10 || wordCount(row.action) < 9)) {
+    fail(slug, "worked example needs four substantial signal, interpretation, and action rows.");
+  }
+  if (wordCount(decisionTool.scenario) < 45 || wordCount(decisionTool.verdict) < 35 || wordCount(decisionTool.limitations) < 15) {
+    fail(slug, "worked example needs a substantial scenario, verdict, and limitation disclosure.");
   }
   if (!guide.reviewedBy || !guide.publishedAt || !guide.updatedAt) {
     fail(slug, "reviewer, published date, and updated date are required.");
   }
-  if (firstHandClaimRe.test(body)) fail(slug, "contains an unverified first-hand experience claim.");
+  if (firstHandClaimRe.test(`${body} ${decisionToolText}`)) fail(slug, "contains an unverified first-hand experience claim.");
+}
+
+const builtGuideDir = path.join(root, "dist", "en", "guides");
+if (fs.existsSync(builtGuideDir)) {
+  const builtGuides = fs.readdirSync(builtGuideDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".html") && entry.name !== "index.html")
+    .map((entry) => entry.name.replace(/\.html$/, ""));
+  const unexpected = builtGuides.filter((slug) => !approvedGuides.includes(slug));
+  const missing = approvedGuides.filter((slug) => !builtGuides.includes(slug));
+  if (unexpected.length || missing.length || builtGuides.length !== approvedGuides.length) {
+    failures.push(`Built guide pages must exactly match the focused review set. Unexpected: ${unexpected.join(", ") || "none"}; missing: ${missing.join(", ") || "none"}.`);
+  }
+}
+
+const aboutPath = path.join(root, "dist", "en", "about", "index.html");
+if (fs.existsSync(aboutPath)) {
+  const aboutHtml = fs.readFileSync(aboutPath, "utf8");
+  for (const marker of ["about-accountability", ">Who<", ">How<", ">Why<", ">Limits<", "contact@kspotnow.com"]) {
+    if (!aboutHtml.includes(marker)) fail("about", `editorial accountability marker is missing: ${marker}`);
+  }
+}
+
+const publicHtmlRoot = path.join(root, "dist", "en");
+if (fs.existsSync(publicHtmlRoot)) {
+  const htmlFiles = [];
+  const collectHtml = (directory) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const absolute = path.join(directory, entry.name);
+      if (entry.isDirectory()) collectHtml(absolute);
+      else if (entry.isFile() && entry.name.endsWith(".html")) htmlFiles.push(absolute);
+    }
+  };
+  collectHtml(publicHtmlRoot);
+  const withdrawnSlugs = [
+    ...events.filter((event) => !approvedEvents.includes(event.slug)).map((event) => event.slug),
+    ...guides.filter((guide) => !approvedGuides.includes(guide.slug)).map((guide) => guide.slug),
+    ...routes.filter((route) => !approvedRoutes.includes(route.slug)).map((route) => route.slug)
+  ];
+  for (const file of htmlFiles) {
+    const html = fs.readFileSync(file, "utf8");
+    const leaked = withdrawnSlugs.filter((slug) => html.includes(slug));
+    if (leaked.length) {
+      fail(path.relative(root, file), `references withdrawn public records: ${leaked.join(", ")}`);
+    }
+  }
 }
 
 for (let index = 0; index < approvedGuides.length; index += 1) {
@@ -175,4 +245,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Original visitor-value validation passed: ${approvedEvents.length} reviewed events, ${approvedGuides.length} guides, and ${approvedRoutes.length} routes provide distinct, sourced planning value; ${routes.length - approvedRoutes.length} route drafts remain unpublished.`);
+const routeSummary = approvedRoutes.length
+  ? `${approvedRoutes.length} reviewed travel routes`
+  : "no travel routes approved for publication";
+console.log(`Original visitor-value validation passed: ${approvedEvents.length} reviewed events, ${approvedGuides.length} guides, and ${routeSummary}; every published page provides distinct, sourced planning value. ${routes.length - approvedRoutes.length} route drafts remain unpublished.`);

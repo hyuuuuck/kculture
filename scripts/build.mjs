@@ -7988,7 +7988,7 @@ function renderPlanner(lang) {
     utilityText: `${tr(lang, "googleMap")} / ${tr(lang, "naverMap")} / ${tr(lang, "kakaoMap")}`,
     utilityMeta: tr(lang, "plannerText")
   };
-  const starterEvents = events
+  const starterEvents = publicEvents()
     .filter((event) => statusOf(event) !== "ended")
     .sort((a, b) => b.priority - a.priority || a.startDate.localeCompare(b.startDate))
     .slice(0, 3);
@@ -8059,6 +8059,7 @@ function renderPlanner(lang) {
 function eventReviewSection(event, lang) {
   const review = editorialReviewFor(event);
   if (!review) return "";
+  const fit = review.decisionFit;
   return `
         <section class="detail-section event-review-section" aria-labelledby="event-review-title">
           <div class="event-review-heading">
@@ -8069,6 +8070,20 @@ function eventReviewSection(event, lang) {
             <span class="review-state">Source-checked desk review</span>
           </div>
           <p class="event-decision">${esc(review.visitorDecision)}</p>
+          ${fit ? `
+          <div class="event-decision-fit" aria-label="Editorial decision fit">
+            <div class="event-decision-fit-head">
+              <strong>Decision fit</strong>
+              <span>Editorial analysis based on the source record below</span>
+            </div>
+            <dl>
+              <div><dt>Current availability</dt><dd>${esc(fit.availability)}</dd></div>
+              <div><dt>Best for</dt><dd>${esc(fit.bestFor)}</dd></div>
+              <div><dt>Poor fit</dt><dd>${esc(fit.poorFit)}</dd></div>
+              <div><dt>Time cost</dt><dd>${esc(fit.timeCost)}</dd></div>
+              <div><dt>Commit when</dt><dd>${esc(fit.commitWhen)}</dd></div>
+            </dl>
+          </div>` : ""}
           <ul class="event-check-list">
             ${(review.foreignerChecks || []).map((item) => `<li>${esc(item)}</li>`).join("")}
           </ul>
@@ -8647,8 +8662,35 @@ function guideArticleSchema(guide, lang) {
   };
 }
 
+function renderGuideDecisionTool(guide, sectionNumber) {
+  const tool = guide.decisionTool;
+  if (!tool || !Array.isArray(tool.rows) || !tool.rows.length) return "";
+  return `
+            <section class="guide-decision-tool" id="guide-decision-tool" aria-labelledby="guide-decision-tool-title">
+              <div class="guide-decision-tool-head">
+                <p class="eyebrow">Worked decision example</p>
+                <h2 id="guide-decision-tool-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(tool.title)}</span></h2>
+                <p>${esc(tool.scenario)}</p>
+              </div>
+              <div class="guide-decision-rows">
+                ${tool.rows.map((row) => `
+                <article>
+                  <p><span>Signal</span><strong>${esc(row.signal)}</strong></p>
+                  <p><span>Interpretation</span>${esc(row.interpretation)}</p>
+                  <p><span>Action</span>${esc(row.action)}</p>
+                </article>`).join("")}
+              </div>
+              <div class="guide-decision-verdict">
+                <p><span>Editorial verdict</span>${esc(tool.verdict)}</p>
+                <p><span>Limit</span>${esc(tool.limitations)}</p>
+              </div>
+            </section>`;
+}
+
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
+  const decisionToolNumber = sections.length + 1;
+  const citationNumber = decisionToolNumber + (guide.decisionTool ? 1 : 0);
   const relatedEvents = relatedEventsForGuide(guide);
   const relatedRoutes = relatedRoutesForGuide(guide);
   const sourceExamples = guideSourceExamples(guide);
@@ -8659,6 +8701,7 @@ function renderGuide(guide, lang) {
           <p class="eyebrow">${categoryLabel(lang, guide.category)} guide</p>
           <h1>${esc(guideTitleText(guide, lang))}</h1>
           <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
+          ${guide.audience ? `<p class="guide-audience"><strong>Best for:</strong> ${esc(guide.audience)}</p>` : ""}
           <div class="guide-byline">
             <strong>${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</strong>
             <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
@@ -8671,14 +8714,16 @@ function renderGuide(guide, lang) {
             <p>On this page</p>
             <ol>
               ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
-              <li><a href="#guide-citations-title"><span>${String(sections.length + 1).padStart(2, "0")}</span>Official sources used</a></li>
+              ${guide.decisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
+              <li><a href="#guide-citations-title"><span>${String(citationNumber).padStart(2, "0")}</span>Official sources used</a></li>
             </ol>
           </nav>
           <div class="guide-article-body">
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
+            ${renderGuideDecisionTool(guide, decisionToolNumber)}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
-              <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(sections.length + 1).padStart(2, "0")}</span><span>Official sources used</span></h2>
+              <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(citationNumber).padStart(2, "0")}</span><span>Official sources used</span></h2>
               <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
               <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
             </section>
@@ -9736,8 +9781,9 @@ function staticPageParagraphs(lang, kind) {
     about: {
       en: [
         "K-Spot Now is an independent English-language desk-research guide for visitors deciding whether a time-sensitive Korea event is worth fitting into a trip.",
-        "Each published event is checked against at least two official sources with different roles where available: an organizer, venue, or ticketing source for admission rules, and a government or tourism source for dates, place context, and visitor access.",
-        "Editors compare those records, state unresolved limits, preserve the Korean map query, and add a practical decision note about transfers, reservation steps, weather, crowding, or schedule combinations. Research is not presented as a first-hand visit.",
+        "Each published event must be checked against at least two official sources on distinct hosts: an organizer, venue, or ticketing source for admission rules, and a government, tourism, or venue record for dates, place context, or visitor access.",
+        "Editors separate reported facts from K-Spot Now analysis, preserve the Korean map query, and state who the event fits, who should skip it, the likely time cost, and what must be true before a visitor commits. Research is not presented as a first-hand visit.",
+        "Pages are withdrawn when the current visitor action has ended, a seasonal operating gap makes the live label misleading, or the page cannot provide a distinct decision beyond the linked source.",
         "K-Spot Now does not sell tickets or process payments. Visitors complete booking and confirm last-minute changes on the linked official source. Corrections can be sent to contact@kspotnow.com."
       ],
       es: [
@@ -9982,6 +10028,12 @@ const aboutIdentityCopy = {
       ["Honest limits", "Desk research is never described as a first-hand visit."],
       ["Final source", "Booking and last-minute rules stay official."]
     ],
+    accountability: [
+      ["Who", "K-Spot Now Editorial Desk is the accountable publisher. Review dates, source roles, evidence links, and contact@kspotnow.com appear with the public research record."],
+      ["How", "Only pages that pass the current publication allowlist are built. Event pages require two official source hosts, a Korean map term, practical checks, and analysis clearly labeled as editorial judgment."],
+      ["Why", "The site exists to answer a narrow trip question: is this event worth the visitor's time, transfer, reservation effort, and money before the final official action?"],
+      ["Limits", "Desk research cannot guarantee inventory, queue length, weather operation, or admission. We do not claim a visit unless first-hand work is explicitly documented."]
+    ],
     boundaryTitle: "How it works"
   }
 };
@@ -10013,6 +10065,15 @@ function aboutPage(lang, title, paragraphs) {
           <strong>${esc(label)}</strong>
           <span>${esc(text)}</span>
         </article>`).join("")}
+      </section>
+      <section class="about-accountability" aria-labelledby="about-accountability-title">
+        <div class="about-accountability-head">
+          <p class="eyebrow">Editorial accountability</p>
+          <h2 id="about-accountability-title">Who, how, why, and limits</h2>
+        </div>
+        <div class="about-accountability-grid">
+          ${(copy.accountability || []).map(([label, text]) => `<article><strong>${esc(label)}</strong><p>${esc(text)}</p></article>`).join("")}
+        </div>
       </section>
       <section class="about-copy-section">
         <div>

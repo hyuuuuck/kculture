@@ -83,6 +83,7 @@ for (const lang of languages) {
       "detail-hero-media",
       "event-fact-bar",
       "event-review-section",
+      "event-decision-fit",
       "event-visit-section",
       "event-evidence-section",
       "compact-related-section",
@@ -98,7 +99,7 @@ for (const lang of languages) {
     const html = read(id);
     const guideSections = count(html, /class="guide-content-section"/g);
     if (guideSections !== 4) push(id, `guide should render exactly 4 editorial sections; found ${guideSections}.`);
-    for (const marker of ["guide-article-header", "guide-byline", "guide-method", "guide-citations", "guide-next-section"]) {
+    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-decision-tool", "guide-citations", "guide-next-section"]) {
       assertIncludes(html, marker, id, `guide trust or workflow marker is missing: ${marker}`);
     }
     if (count(html, /<h2/g) < 5) push(id, "guide needs visible section headings and source heading.");

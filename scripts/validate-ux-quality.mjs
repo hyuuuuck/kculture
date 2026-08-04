@@ -120,7 +120,14 @@ for (const marker of [
   if (!styles.includes(marker)) push("styles.css", `required responsive editorial style is missing: ${marker}`);
 }
 
-if (!/\.compact-detail-hero \{[\s\S]*?height:\s*clamp\(520px,\s*64vh,\s*620px\)/.test(styles)
+const desktopHeroHeight = styles.match(/\.compact-detail-hero \{[\s\S]*?height:\s*clamp\((\d+)px,\s*(\d+(?:\.\d+)?)vh,\s*(\d+)px\)/);
+const desktopHeroHeightIsStable = desktopHeroHeight
+  && Number(desktopHeroHeight[1]) >= 460
+  && Number(desktopHeroHeight[2]) >= 45
+  && Number(desktopHeroHeight[2]) <= 70
+  && Number(desktopHeroHeight[3]) <= 650
+  && Number(desktopHeroHeight[1]) <= Number(desktopHeroHeight[3]);
+if (!desktopHeroHeightIsStable
     || !/\.compact-detail-hero \.detail-hero-media \{[\s\S]*?overflow:\s*hidden/.test(styles)) {
   push("styles.css", "desktop event visual needs a stable hero height and constrained media track.");
 }

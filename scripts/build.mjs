@@ -8201,7 +8201,10 @@ function renderEvent(event, lang) {
       <article class="detail-layout compact-event-detail">
         <header class="detail-hero compact-detail-hero">
           <div class="detail-hero-media">
-            <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))} event visual">
+            <div class="detail-media-stage">
+              <img class="detail-media-backdrop" src="/${esc(event.thumbnail)}" alt="" aria-hidden="true">
+              <img class="detail-media-primary" src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))} event visual">
+            </div>
             <a class="detail-media-credit" href="${esc(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">Official visual: ${esc(event.sourceName)}</a>
           </div>
           <div class="detail-hero-copy">
@@ -8600,8 +8603,9 @@ function renderGuides(lang) {
 }
 
 function renderGuideSection(section, index) {
+  const sectionId = `guide-section-${index + 1}`;
   if (typeof section === "string") {
-    return `<section class="guide-content-section"><h2>${index + 1}. Planning note</h2><p>${esc(section)}</p></section>`;
+    return `<section class="guide-content-section" id="${sectionId}"><h2><span class="guide-section-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span><span>Planning note</span></h2><p>${esc(section)}</p></section>`;
   }
   const table = section.table?.headers?.length && section.table?.rows?.length ? `
         <div class="guide-table-wrap" tabindex="0" aria-label="Scrollable comparison table">
@@ -8611,8 +8615,8 @@ function renderGuideSection(section, index) {
           </table>
         </div>` : "";
   return `
-        <section class="guide-content-section">
-          <h2>${esc(section.heading || `${index + 1}. Planning note`)}</h2>
+        <section class="guide-content-section" id="${sectionId}">
+          <h2><span class="guide-section-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span><span>${esc(section.heading || "Planning note")}</span></h2>
           ${(section.paragraphs || []).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
           ${table}
           ${(section.checklist || []).length ? `<ul class="guide-checklist">${section.checklist.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}
@@ -8662,13 +8666,24 @@ function renderGuide(guide, lang) {
           </div>
           <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
         </header>
+        <div class="guide-reading-layout">
+          <nav class="guide-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ol>
+              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
+              <li><a href="#guide-citations-title"><span>${String(sections.length + 1).padStart(2, "0")}</span>Official sources used</a></li>
+            </ol>
+          </nav>
+          <div class="guide-article-body">
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
-        ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
-        <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
-          <h2 id="guide-citations-title">Official sources used</h2>
-          <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
-          <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
-        </section>
+            ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
+            <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
+              <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(sections.length + 1).padStart(2, "0")}</span><span>Official sources used</span></h2>
+              <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
+              <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
+            </section>
+          </div>
+        </div>
       </article>
       <section class="guide-next-section" aria-labelledby="guide-next-title">
         <div class="section-head"><div><p class="eyebrow">Apply the guide</p><h2 id="guide-next-title">Current pages to compare</h2></div></div>

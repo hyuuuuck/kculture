@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T18:10:15.989Z",
+  "generatedAt": "2026-08-04T21:42:13.507Z",
   "files": {
     "audit": "source-audit-2026-08-05.json",
     "candidates": "official-page-candidates-2026-08-05.json",
@@ -13,12 +13,12 @@
     "auditFailed": 0,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 50,
-    "candidateFailed": 3,
+    "candidateOk": 49,
+    "candidateFailed": 4,
     "discoveredLinks": 638,
-    "dateSignals": 292,
-    "draftCandidates": 83,
-    "skippedCandidates": 608
+    "dateSignals": 265,
+    "draftCandidates": 74,
+    "skippedCandidates": 617
   },
   "failedSources": [
     {
@@ -35,6 +35,11 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -55,18 +60,18 @@
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 58
+      "count": 49
     },
     {
       "key": "shopping",
@@ -92,11 +97,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 570
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 583
     },
     {
       "key": "duplicate draft source URL",
@@ -113,17 +114,13 @@
     {
       "key": "already published source URL",
       "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -179,6 +176,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 5,
+      "keywords": 7,
+      "score": 128
     }
   ]
 }

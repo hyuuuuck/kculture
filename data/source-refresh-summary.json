@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-04T14:45:57.858Z",
+  "generatedAt": "2026-08-04T18:10:15.989Z",
   "files": {
-    "audit": "source-audit-2026-08-04.json",
-    "candidates": "official-page-candidates-2026-08-04.json",
-    "drafts": "draft-events-2026-08-04.json",
-    "reviewReport": "review-report-2026-08-04.md",
-    "reviewBoard": "review-board-2026-08-04.html"
+    "audit": "source-audit-2026-08-05.json",
+    "candidates": "official-page-candidates-2026-08-05.json",
+    "drafts": "draft-events-2026-08-05.json",
+    "reviewReport": "review-report-2026-08-05.md",
+    "reviewBoard": "review-board-2026-08-05.html"
   },
   "counts": {
     "auditedSources": 55,
@@ -13,12 +13,12 @@
     "auditFailed": 0,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 634,
-    "dateSignals": 261,
-    "draftCandidates": 74,
-    "skippedCandidates": 613
+    "candidateOk": 50,
+    "candidateFailed": 3,
+    "discoveredLinks": 638,
+    "dateSignals": 292,
+    "draftCandidates": 83,
+    "skippedCandidates": 608
   },
   "failedSources": [
     {
@@ -35,22 +35,12 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 23
+      "count": 22
     },
     {
       "key": "NOL World Ticket",
@@ -65,26 +55,26 @@
       "count": 13
     },
     {
-      "key": "Shinsegae Group Newsroom",
-      "count": 2
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
+      "count": 58
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 10
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 7
     },
     {
       "key": "department-store",
@@ -95,14 +85,18 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 578
+      "count": 570
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "duplicate draft source URL",
@@ -110,10 +104,6 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -126,6 +116,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -181,14 +179,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 134
-    },
-    {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 23,
-      "dates": 5,
-      "keywords": 7,
-      "score": 128
     }
   ]
 }

@@ -198,8 +198,8 @@ function runChecks() {
   if (approvedGuides.length) pass("Content", "Editorial guides", `${approvedGuides.length} structured source-backed guides`);
   else fail("Content", "Editorial guides", "No approved guides", "Publish source-backed guides that pass the originality gate.");
 
-  if (approvedRoutes.length) pass("Content", "Useful route pages", `${approvedRoutes.length} explicitly reviewed routes`);
-  else fail("Content", "Useful route pages", "No approved routes", "Publish only routes tied to reviewed visitor decisions.");
+  if (approvedRoutes.length) pass("Content", "Useful route pages", `${approvedRoutes.length} routes passed the explicit editorial allowlist`);
+  else pass("Content", "Thin route retirement", `${routes.length} draft route records are withheld from HTML, navigation, ads, and the sitemap until they gain source-backed visitor decisions`);
 
   const evidenceFailures = approvedEvents.filter((event) => {
     const review = program.eventReviews?.[event.slug];
@@ -230,8 +230,8 @@ function runChecks() {
   }
 
   const worker = read("src/worker.js");
-  if (worker.includes('url.pathname === "/"') && worker.includes('/en/') && worker.includes("status: 410")) {
-    pass("Search", "Legacy URL control", "Root redirects to /en/ and retired translations return 410 after asset lookup");
+  if (worker.includes('url.pathname === "/"') && worker.includes('/en/') && worker.includes("status: 410") && worker.includes("retiredRoutePath")) {
+    pass("Search", "Legacy URL control", "Root redirects to /en/; retired translations and withdrawn route pages return 410 after asset lookup");
   } else {
     fail("Search", "Legacy URL control", "Worker redirect/retirement rule incomplete", "Keep one canonical home and explicitly retire removed translations.");
   }

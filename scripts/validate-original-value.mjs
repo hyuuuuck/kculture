@@ -4,12 +4,15 @@ import path from "node:path";
 const root = process.cwd();
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
+const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const eventBySlug = new Map(events.map((event) => [event.slug, event]));
 const guideBySlug = new Map(guides.map((guide) => [guide.slug, guide]));
+const routeBySlug = new Map(routes.map((route) => [route.slug, route]));
 const failures = [];
 const approvedEvents = [...new Set(program.indexableEvents || [])];
 const approvedGuides = [...new Set(program.indexableGuides || [])];
+const approvedRoutes = [...new Set(program.indexableRoutes || [])];
 const firstHandClaimRe = /\b(?:i|we)\s+(?:visited|attended|bought|tested|tried|stayed|experienced)\b/i;
 
 function words(value) {
@@ -140,10 +143,30 @@ for (let index = 0; index < approvedGuides.length; index += 1) {
   }
 }
 
+for (const slug of approvedRoutes) {
+  const route = routeBySlug.get(slug);
+  if (!route) {
+    fail(slug, "reviewed route data is missing.");
+    continue;
+  }
+  const sections = route.sections?.en || [];
+  const body = sections.flatMap((section) => section.paragraphs || []).join(" ");
+  const evidence = route.sourceEvidence || [];
+  if (sections.length < 4 || sections.some((section) => wordCount(section.heading) < 2 || (section.paragraphs || []).length < 2)) {
+    fail(slug, "route needs four source-backed decision sections with at least two paragraphs each.");
+  }
+  if (wordCount(body) < 350) fail(slug, "route needs at least 350 substantive words of visitor decision material.");
+  if (evidence.length < 3 || evidence.some((item) => !/^https?:\/\//.test(item.url || "") || (item.mustContain || []).length < 2)) {
+    fail(slug, "route needs at least three traceable sources with verification tokens.");
+  }
+  if (!route.reviewedBy || !route.reviewedAt || !route.method) fail(slug, "route reviewer, review date, and research method are required.");
+  if (firstHandClaimRe.test(body)) fail(slug, "contains an unverified first-hand experience claim.");
+}
+
 if (failures.length) {
   console.error("Original visitor-value validation failed.");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Original visitor-value validation passed: ${approvedEvents.length} reviewed events and ${approvedGuides.length} guides provide distinct, sourced planning value.`);
+console.log(`Original visitor-value validation passed: ${approvedEvents.length} reviewed events, ${approvedGuides.length} guides, and ${approvedRoutes.length} routes provide distinct, sourced planning value; ${routes.length - approvedRoutes.length} route drafts remain unpublished.`);

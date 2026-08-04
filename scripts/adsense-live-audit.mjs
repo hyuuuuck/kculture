@@ -20,11 +20,10 @@ const checks = [];
 const layoutResults = [];
 
 const requiredPages = [
-  { path: "/", label: "Root home", needles: ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."] },
-  { path: "/en/", label: "English home", needles: ["K-Spot Now", "spotlight-carousel"] },
+  { path: "/", label: "Root home", needles: ["K-Spot Now", "Decide what is worth the trip."] },
+  { path: "/en/", label: "English home", needles: ["Source-checked Korea event briefs", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
-  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Representative event", needles: ["Open Ticketing source", "Place, timing, weather", "What we checked"] },
-  { path: "/en/routes/", label: "Travel routes", needles: ["Travel routes", "routes-with-ad no-ad"] },
+  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
@@ -32,10 +31,11 @@ const requiredPages = [
 ];
 
 const hiddenLanguageRoots = ["/de/", "/fr/", "/ja/", "/es/", "/zh/", "/pt/", "/ru/"];
+const retiredContentPaths = ["/en/routes/", "/en/routes/central-seoul-shopping-route"];
 const layoutPages = [
   { path: "/en/", label: "Home" },
-  { path: "/en/routes/", label: "Routes", routeCheck: true },
-  { path: "/en/events/red-velvet-day-in-red-velvet-seoul-2026", label: "Event detail" },
+  { path: "/en/guides/how-to-verify-korea-popups", label: "Verification guide" },
+  { path: "/en/events/boryeong-mud-festival-2026", label: "Event detail" },
   { path: "/en/calendar/", label: "Calendar" }
 ];
 const viewports = [
@@ -166,8 +166,8 @@ async function auditAffiliatePause() {
 
   const samples = await Promise.all([
     fetchLive("/en/"),
-    fetchLive("/en/events/red-velvet-day-in-red-velvet-seoul-2026"),
-    fetchLive("/en/routes/")
+    fetchLive("/en/events/boryeong-mud-festival-2026"),
+    fetchLive("/en/guides/how-to-verify-korea-popups")
   ]);
   const joined = samples.map((sample) => sample.text).join("\n");
   const blockedSignals = ["Allianceid=8627235", "coupa.ng", "coupang-affiliate-widget", "trip.com/partners/ad"];
@@ -186,6 +186,14 @@ async function auditHiddenLanguages() {
       pass("Localization", pathname, "Hidden during English-only AdSense review.");
     } else {
       fail("Localization", pathname, `Returned ${result.status}; unfinished localized pages should not be public.`, "Keep PUBLIC_LANGUAGES=en until each localized depth audit passes.");
+    }
+  }
+  for (const pathname of retiredContentPaths) {
+    const result = await fetchLive(pathname, "manual");
+    if (result.status === 410) {
+      pass("Content", pathname, "Thin route surface is explicitly retired.");
+    } else {
+      fail("Content", pathname, `Returned ${result.status}; withdrawn route pages should return 410.`, "Deploy the route-retirement Worker rule before AdSense re-review.");
     }
   }
 }

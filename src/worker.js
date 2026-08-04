@@ -21,8 +21,12 @@ export default {
     // validated content or monetization release.
     const response = await env.ASSETS.fetch(request, { cache: "no-store" });
     const retiredLanguagePath = /^\/(es|zh|pt|ru|ja|fr|de)(?:\/|$)/.test(url.pathname);
-    if (response.status === 404 && retiredLanguagePath) {
-      return new Response("This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition.", {
+    const retiredRoutePath = /^\/en\/routes(?:\/|$)/.test(url.pathname);
+    if (response.status === 404 && (retiredLanguagePath || retiredRoutePath)) {
+      const message = retiredRoutePath
+        ? "These route pages have been retired while their source-backed visitor decisions are rewritten. Use /en/guides/ or /en/now/ for the reviewed edition."
+        : "This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition.";
+      return new Response(message, {
         status: 410,
         headers: {
           "content-type": "text/plain; charset=utf-8",

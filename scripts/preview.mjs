@@ -88,7 +88,9 @@ const server = http.createServer(async (request, response) => {
 
   const asset = await firstFile(candidates(pathname));
   if (!asset) {
-    if (/^\/(es|zh|pt|ru|ja|fr|de)(?:\/|$)/.test(pathname)) {
+    if (/^\/en\/routes(?:\/|$)/.test(pathname)) {
+      textResponse(response, 410, "These route pages have been retired while their source-backed visitor decisions are rewritten. Use /en/guides/ or /en/now/ for the reviewed edition.");
+    } else if (/^\/(es|zh|pt|ru|ja|fr|de)(?:\/|$)/.test(pathname)) {
       textResponse(response, 410, "This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition.");
     } else {
       textResponse(response, 404, "Not found");

@@ -13,7 +13,6 @@ const fallbackPageContracts = [
   { id: "now", page: "Now", path: "en/now/index.html", owner: "designer", contract: "Urgency reads as status flags, not text headings." },
   { id: "calendar", page: "Calendar", path: "en/calendar/index.html", owner: "designer", contract: "Date navigation is calm, consistent, and utility-first." },
   { id: "planner", page: "Planner", path: "en/planner/index.html", owner: "designer", contract: "Saved-board tool feels distinct without becoming a homepage clone." },
-  { id: "routes", page: "Routes", path: "en/routes/index.html", owner: "publisher", contract: "Route cards lead; ads stay peripheral." },
   { id: "city", page: "City", path: "en/cities/seoul/index.html", owner: "designer", contract: "City identity appears before generic event lists." },
   { id: "detail", page: "Detail", path: "en/events/red-velvet-day-in-red-velvet-seoul-2026.html", owner: "planner", contract: "Facts, weather, and source handoff beat explanatory prose." },
   { id: "about", page: "About", path: "en/about/index.html", owner: "designer", contract: "Service identity feels intentional and branded." }
@@ -338,30 +337,34 @@ async function collectChecks() {
     { owner: "user-panel", area: "Calendar first month", detail: `Calendar opens on ${firstCalendarMonth}, not an archive month.` }
   );
 
-  const routesHaveStableAd = pages.routes.includes("routes-ad-rail")
-    && pages.routes.includes("trip-rail-card")
-    && pages.routes.includes("rel=\"sponsored nofollow noopener\"");
-  const routesHaveIntentionalNoAd = pages.routes.includes('class="routes-with-ad no-ad"')
-    && pages.routes.includes("routes-content")
-    && !pages.routes.includes("trip-square-ad")
-    && !pages.routes.includes("TD17833727")
-    && !pages.routes.includes("<iframe");
-
-  assertIssue(
-    (routesHaveStableAd || routesHaveIntentionalNoAd)
+  if (pages.routes) {
+    const routesHaveStableAd = pages.routes.includes("routes-ad-rail")
+      && pages.routes.includes("trip-rail-card")
+      && pages.routes.includes("rel=\"sponsored nofollow noopener\"");
+    const routesHaveIntentionalNoAd = pages.routes.includes('class="routes-with-ad no-ad"')
+      && pages.routes.includes("routes-content")
       && !pages.routes.includes("trip-square-ad")
       && !pages.routes.includes("TD17833727")
-      && !pages.routes.includes("<iframe"),
-    {
-      severity: "P1",
-      owner: "publisher",
-      page: "Routes",
-      symptom: "Ad placement can look broken when external creative fails to render.",
-      evidence: "When monetization is enabled, the page needs a stable sponsored rail card; when disabled, it must render route content without a blank ad shell or iframe.",
-      proposal: "Keep monetization peripheral and explicit. Use a stable sponsored rail only after the monetization gate is enabled; otherwise keep the route grid full-width."
-    },
-    { owner: "publisher", area: "Ad placement", detail: routesHaveStableAd ? "Routes page uses a visible sponsored hotel rail card without a blank-prone iframe ad." : "Routes page intentionally hides ads and keeps the route grid primary without a blank-prone iframe ad." }
-  );
+      && !pages.routes.includes("<iframe");
+
+    assertIssue(
+      (routesHaveStableAd || routesHaveIntentionalNoAd)
+        && !pages.routes.includes("trip-square-ad")
+        && !pages.routes.includes("TD17833727")
+        && !pages.routes.includes("<iframe"),
+      {
+        severity: "P1",
+        owner: "publisher",
+        page: "Routes",
+        symptom: "Ad placement can look broken when external creative fails to render.",
+        evidence: "When monetization is enabled, the page needs a stable sponsored rail card; when disabled, it must render route content without a blank ad shell or iframe.",
+        proposal: "Keep monetization peripheral and explicit. Use a stable sponsored rail only after the monetization gate is enabled; otherwise keep the route grid full-width."
+      },
+      { owner: "publisher", area: "Ad placement", detail: routesHaveStableAd ? "Routes page uses a visible sponsored hotel rail card without a blank-prone iframe ad." : "Routes page intentionally hides ads and keeps the route grid primary without a blank-prone iframe ad." }
+    );
+  } else {
+    signoff("publisher", "Route retirement", "Thin route pages are absent from the design review surface until rewritten.");
+  }
 
   assertIssue(
     styles.includes(".about-page h1") && styles.includes("text-wrap: nowrap;") && styles.includes("word-break: keep-all;"),

@@ -69,10 +69,13 @@ const currentEvents = approvedEvents.filter((event) => event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
 const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
 
-if (program.mode === "adsense-editorial-review" && approvedEvents.length && currentEvents.length && approvedGuides.length && approvedRoutes.length) {
-  pass("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events (${currentEvents.length} current), ${approvedGuides.length} guides, and ${approvedRoutes.length} routes are explicitly reviewed.`);
+if (program.mode === "adsense-editorial-review" && approvedEvents.length && currentEvents.length && approvedGuides.length) {
+  const routeDetail = approvedRoutes.length
+    ? `${approvedRoutes.length} source-backed routes are explicitly reviewed`
+    : `${routes.length} thin route drafts are withheld from the public build`;
+  pass("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events (${currentEvents.length} current), ${approvedGuides.length} guides, and ${routeDetail}.`);
 } else {
-  fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events, ${currentEvents.length} current events, ${approvedGuides.length} guides, ${approvedRoutes.length} routes.`, "Planner: restore a non-empty, explicitly reviewed product surface before release.");
+  fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events, ${currentEvents.length} current events, ${approvedGuides.length} guides.`, "Planner: restore a non-empty, explicitly reviewed event and guide surface before release.");
 }
 
 const missingReviews = approvedEvents.filter((event) => {
@@ -151,8 +154,8 @@ if (!missingSitemapUrls.length && !extraSitemapUrls.length && !sitemap.includes(
 }
 
 const worker = read("src/worker.js");
-if (worker.includes('url.pathname === "/"') && worker.includes("status: 410")) {
-  pass("publisher", "Search", "Retired URL handling", "Root redirects and unavailable translation paths return 410 after asset lookup.");
+if (worker.includes('url.pathname === "/"') && worker.includes("status: 410") && worker.includes("retiredRoutePath")) {
+  pass("publisher", "Search", "Retired URL handling", "Root redirects; unavailable translation and withdrawn route paths return 410 after asset lookup.");
 } else {
   fail("publisher", "Search", "Retired URL handling", "Worker rules are incomplete.", "Publisher: restore canonical redirect and language retirement rules.");
 }

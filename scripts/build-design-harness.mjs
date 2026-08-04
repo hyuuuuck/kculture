@@ -79,14 +79,6 @@ const fallbackSystem = {
     },
     {
       group: "Discovery",
-      title: "Routes",
-      path: "/en/routes/",
-      heroType: "utility-page",
-      contract: "Trip route index. Route cards should lead, ads stay peripheral.",
-      watch: "Left ad rail, route card density, no square ad block."
-    },
-    {
-      group: "Discovery",
       title: "Seoul City",
       path: "/en/cities/seoul/",
       heroType: "city-landing",

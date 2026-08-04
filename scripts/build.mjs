@@ -129,9 +129,9 @@ let dict = {
     navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
-    heroEyebrow: siteTagline,
-    heroTitle: siteName,
-    heroText: "Live Korea events, pop-ups, and deals for visitors.",
+    heroEyebrow: "Source-checked Korea event briefs",
+    heroTitle: "Decide what is worth the trip.",
+    heroText: "We compare linked sources, flag entry and timing risks, add Korean map queries, and show what still needs a final check before you book or travel.",
     ctaEvents: "Browse events",
     ctaCalendar: "Calendar",
     liveNow: "Live now",
@@ -538,9 +538,9 @@ dict = {
     navPlanner: "Planner",
     navSources: "Sources",
     navAbout: "About",
-    heroEyebrow: siteTagline,
-    heroTitle: siteName,
-    heroText: "Live Korea events, pop-ups, and deals for visitors.",
+    heroEyebrow: "Source-checked Korea event briefs",
+    heroTitle: "Decide what is worth the trip.",
+    heroText: "We compare linked sources, flag entry and timing risks, add Korean map queries, and show what still needs a final check before you book or travel.",
     ctaEvents: "Browse events",
     ctaCalendar: "Calendar",
     liveNow: "Live now",
@@ -5891,7 +5891,7 @@ function nav(lang) {
       <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
       <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
       <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
-      <a href="/${lang}/routes/"><span class="nav-full">${tr(lang, "routePages")}</span><span class="nav-short">${esc(routeShort)}</span></a>
+      ${routes.length ? `<a href="/${lang}/routes/"><span class="nav-full">${tr(lang, "routePages")}</span><span class="nav-short">${esc(routeShort)}</span></a>` : ""}
       <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
     </nav>`;
 }
@@ -7309,17 +7309,17 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const upcomingCount = currentEvents().filter((event) => statusOf(event) === "upcoming").length;
   const spotlights = spotlightEvents(sorted);
   const homePageTitle = local({
-    en: `${siteName} - Events, K-pop Pop-ups, Shopping Deals`,
+    en: `${siteName} - Source-checked Korea event briefs`,
     fr: `${siteName} - Evenements, pop-ups K-pop et offres d'achats`,
     de: `${siteName} - Veranstaltungen, K-Pop-Pop-ups und Einkaufsangebote`
   }, lang);
   const eventsHeading = local({
-    en: siteTagline,
+    en: "Current event decisions, not an unfiltered listing feed.",
     fr: "Evenements, pop-ups et offres en Coree pour les visiteurs.",
     de: "Korea-Veranstaltungen, Pop-ups und Angebote fur Besucher."
   }, lang);
   const description = local({
-    en: "Fresh multilingual Korea events, K-pop pop-ups, shopping deals, duty-free campaigns, calendars, official sources, and travel planning notes.",
+    en: "Source-checked Korea event briefs for international visitors, with entry conditions, Korean map queries, weather and transport risks, and clear links for the final official check.",
     es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
     fr: "Evenements de Coree, pop-ups K-pop, offres d'achats, offres hors taxes, calendriers, sources officielles et notes de planification.",
     de: "Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufsangebote, zollfreie Kampagnen, Kalender, offizielle Quellen und Reiseplanung.",
@@ -7348,7 +7348,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
               <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
               <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
               <div><dt>${tr(lang, "navGuides")}</dt><dd>${guides.length}</dd></div>
-              <div><dt>${tr(lang, "routePages")}</dt><dd>${routes.length}</dd></div>
+              <div><dt>Reviewed briefs</dt><dd>${sorted.length}</dd></div>
             </dl>
           </div>
         </div>
@@ -7401,7 +7401,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
             <a class="text-link" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
           </div>
         </article>
-        <article class="split-feature-card split-feature-routes">
+        ${routes.length ? `<article class="split-feature-card split-feature-routes">
           <div class="split-feature-visual route-preview" aria-hidden="true">
             <div class="route-preview-map">
               <span class="route-line"></span>
@@ -7428,7 +7428,25 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           }, lang))}</p>
             <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
           </div>
-        </article>
+        </article>` : `<article class="split-feature-card split-feature-routes">
+          <div class="split-feature-visual route-preview" aria-hidden="true">
+            <div class="route-preview-map">
+              <span class="route-line"></span>
+              <span class="route-pin pin-start"></span>
+              <span class="route-pin pin-mid"></span>
+              <span class="route-pin pin-end"></span>
+              <span class="route-label label-one">Source</span>
+              <span class="route-label label-two">Risk</span>
+              <span class="route-label label-three">Decision</span>
+            </div>
+          </div>
+          <div class="split-feature-copy">
+            <p class="eyebrow">Verification method</p>
+            <h2>Check the claim before the commute</h2>
+            <p>See how we separate organizer, ticketing, and listing roles, then verify dates, entry rules, inventory signals, and the Korean place name.</p>
+            <a class="text-link" href="/${lang}/guides/how-to-verify-korea-popups">Read the verification guide</a>
+          </div>
+        </article>`}
       </section>
     </main>`;
 
@@ -7696,14 +7714,14 @@ function renderCity(lang, city) {
         <div class="city-stat"><strong>${items.length}</strong><span>${tr(lang, "navEvents")}</span></div>
         <div class="city-stat"><strong>${liveCount}</strong><span>${tr(lang, "liveNow")}</span></div>
         <div class="city-stat"><strong>${upcomingCount}</strong><span>${tr(lang, "upcoming")}</span></div>
-        <div class="city-stat"><strong>${routeIdeas.length}</strong><span>${tr(lang, "routePages")}</span></div>
+        <div class="city-stat"><strong>${items.length}</strong><span>Source-checked</span></div>
       </section>
 
       <section class="detail-section two-col">
         <div>
           ${weatherPlanInner(lang, forecastInfo, weatherInfo)}
         </div>
-        <div>
+        ${routeIdeas.length ? `<div>
           <h2>${tr(lang, "routeIdeas")}</h2>
           <div class="route-mini-list">
             ${routeIdeas.map((route) => {
@@ -7715,7 +7733,10 @@ function renderCity(lang, city) {
               </a>`;
             }).join("")}
           </div>
-        </div>
+        </div>` : `<div>
+          <h2>Use the event brief, not a generic itinerary</h2>
+          <p>Open a reviewed event to check its Korean map query, exact venue or campaign scope, entry conditions, weather exposure, and official-source handoff before building the rest of the day.</p>
+        </div>`}
       </section>
 
       <section id="events" class="city-gallery" data-gallery-scope>
@@ -10049,7 +10070,7 @@ async function build() {
     await writeHtml(`${lang}/calendar/index.html`, renderCalendar(lang));
     await writeHtml(`${lang}/planner/index.html`, renderPlanner(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
-    await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
+    if (routes.length) await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
     await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
     await writeHtml(`${lang}/watchlist/index.html`, renderWatchlist(lang));
     await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));

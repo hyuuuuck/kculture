@@ -340,22 +340,6 @@
       ]
     },
     {
-      "id": "routes",
-      "group": "Discovery",
-      "title": "Routes",
-      "path": "/en/routes/",
-      "distPath": "en/routes/index.html",
-      "owner": "publisher",
-      "heroType": "utility-page",
-      "contract": "Route cards lead; ads stay peripheral.",
-      "watch": "Left ad rail, route card density, no square ad block.",
-      "requiredSelectors": [
-        ".page-hero.compact",
-        ".routes-with-ad",
-        ".routes-content"
-      ]
-    },
-    {
       "id": "city",
       "group": "Discovery",
       "title": "Seoul City",

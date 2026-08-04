@@ -58,9 +58,14 @@ for (const lang of languages) {
     if (!now.includes(href)) push(`${lang}/now/index.html`, `reviewed event is missing from the current-event page: ${event.slug}`);
   }
 
-  const routeIndex = read(`${lang}/routes/index.html`);
-  for (const route of approvedRoutes) {
-    if (!routeIndex.includes(`/${lang}/routes/${route.slug}`)) push(`${lang}/routes/index.html`, `approved route is missing: ${route.slug}`);
+  if (approvedRoutes.length) {
+    const routeIndex = read(`${lang}/routes/index.html`);
+    for (const route of approvedRoutes) {
+      if (!routeIndex.includes(`/${lang}/routes/${route.slug}`)) push(`${lang}/routes/index.html`, `approved route is missing: ${route.slug}`);
+    }
+  } else {
+    if (fs.existsSync(path.join(dist, lang, "routes", "index.html"))) push(`${lang}/routes/index.html`, "unreviewed route hub must not be generated.");
+    if (home.includes(`/${lang}/routes/`)) push(homeId, "home must not link to the retired route surface.");
   }
 
   const guideIndex = read(`${lang}/guides/index.html`);
@@ -127,6 +132,12 @@ if (!/\.compact-detail-hero \.detail-actions \{[\s\S]*?grid-template-columns:\s*
 }
 if (!/\.event-fact-bar \{[\s\S]*?grid-template-columns:\s*1fr/.test(styles)) {
   push("styles.css", "mobile essential facts must collapse to one column.");
+}
+if (/\.service-hero h1 \{[^}]*white-space:\s*nowrap/s.test(styles)) {
+  push("styles.css", "mobile home title must wrap instead of forcing horizontal overflow.");
+}
+if (!/\.compact-detail-hero h1 \{[^}]*overflow-wrap:\s*anywhere\s*!important[^}]*white-space:\s*normal\s*!important/s.test(styles)) {
+  push("styles.css", "mobile event title needs a specific wrapping guard for Safari.");
 }
 
 if (errors.length) {

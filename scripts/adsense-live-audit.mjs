@@ -31,7 +31,20 @@ const requiredPages = [
 ];
 
 const hiddenLanguageRoots = ["/de/", "/fr/", "/ja/", "/es/", "/zh/", "/pt/", "/ru/"];
-const retiredContentPaths = ["/en/routes/", "/en/routes/central-seoul-shopping-route"];
+const retiredContentPaths = [
+  "/en/routes/",
+  "/en/routes/central-seoul-shopping-route",
+  "/en/categories/festival/",
+  "/en/cities/seoul/",
+  "/en/sources/",
+  "/en/watchlist/",
+  "/en/freshness/",
+  "/en/events/red-velvet-day-in-red-velvet-seoul-2026"
+];
+const duplicateHtmlVariants = [
+  ["/en/events/boryeong-mud-festival-2026.html", "/en/events/boryeong-mud-festival-2026"],
+  ["/en/guides/how-to-verify-korea-popups.html", "/en/guides/how-to-verify-korea-popups"]
+];
 const layoutPages = [
   { path: "/en/", label: "Home" },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Verification guide" },
@@ -191,9 +204,22 @@ async function auditHiddenLanguages() {
   for (const pathname of retiredContentPaths) {
     const result = await fetchLive(pathname, "manual");
     if (result.status === 410) {
-      pass("Content", pathname, "Thin route surface is explicitly retired.");
+      pass("Content", pathname, "Withdrawn surface is explicitly retired.");
     } else {
-      fail("Content", pathname, `Returned ${result.status}; withdrawn route pages should return 410.`, "Deploy the route-retirement Worker rule before AdSense re-review.");
+      fail("Content", pathname, `Returned ${result.status}; withdrawn pages should return 410.`, "Deploy the complete URL-retirement Worker rule before AdSense re-review.");
+    }
+  }
+}
+
+async function auditCanonicalVariants() {
+  for (const [legacyPath, canonicalPath] of duplicateHtmlVariants) {
+    const result = await fetchLive(legacyPath, "manual");
+    const location = result.headers.get("location");
+    const expected = new URL(canonicalPath, siteUrl).href;
+    if (result.status === 301 && location === expected) {
+      pass("Search", legacyPath, `Legacy HTML variant redirects to ${expected}.`);
+    } else {
+      fail("Search", legacyPath, `Returned ${result.status} with location ${location || "missing"}; expected 301 to ${expected}.`, "Deploy the canonical .html redirect before AdSense re-review.");
     }
   }
 }
@@ -464,5 +490,6 @@ await auditAdSenseHead();
 await auditSitemapTargets();
 await auditAffiliatePause();
 await auditHiddenLanguages();
+await auditCanonicalVariants();
 await auditLayout();
 await writeReport();

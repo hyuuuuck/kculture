@@ -35,6 +35,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const searchConsoleAudit = JSON.parse(await fs.readFile(path.join(root, "data", "search-console-audit.json"), "utf8").catch(() => "{}"));
 const thumbnailSources = JSON.parse(await fs.readFile(path.join(root, "data", "thumbnail-sources.json"), "utf8"));
 const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
@@ -113,6 +114,12 @@ function eventEvidence(event) {
   ];
 }
 
+function distinctEvidenceHosts(evidence) {
+  return new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean)).size;
+}
+
 function eventPageAudit() {
   const failures = [];
   for (const event of approvedEvents) {
@@ -189,6 +196,17 @@ function runChecks() {
     fail("Content", "Public language scope", languages.join(", "), "Publish only languages that have completed human editorial review.");
   }
 
+  if (searchConsoleAudit.status === "ready" && searchConsoleAudit.performance?.legacyPagesDominateTopPages === false) {
+    pass("Search", "Search Console index alignment", `Authenticated audit is ready (${searchConsoleAudit.auditedAt})`);
+  } else {
+    warn(
+      "Search",
+      "Search Console index alignment",
+      `${searchConsoleAudit.coverage?.indexed ?? "?"} indexed vs ${searchConsoleAudit.coverage?.notIndexed ?? "?"} not indexed; legacy pages still dominate (${searchConsoleAudit.auditedAt || "audit missing"})`,
+      "Deploy the canonicalization and retirement fixes, wait for Google to recrawl them, then update the authenticated audit before requesting another AdSense review."
+    );
+  }
+
   if (approvedEvents.length) {
     pass("Content", "Curated event catalog", `${approvedEvents.length} current, explicitly reviewed events selected from ${events.length} records`);
   } else {
@@ -206,9 +224,10 @@ function runChecks() {
     const evidence = eventEvidence(event);
     return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
       || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
-      || !evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+      || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
+      || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
   });
-  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have source tokens, review ownership, and visitor checks`);
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, and visitor checks`);
   else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
 
   const eventFailures = eventPageAudit();
@@ -230,10 +249,11 @@ function runChecks() {
   }
 
   const worker = read("src/worker.js");
-  if (worker.includes('url.pathname === "/"') && worker.includes('/en/') && worker.includes("status: 410") && worker.includes("retiredRoutePath")) {
-    pass("Search", "Legacy URL control", "Root redirects to /en/; retired translations and withdrawn route pages return 410 after asset lookup");
+  if (worker.includes('url.pathname === "/"') && worker.includes('url.pathname.endsWith(".html")') && worker.includes("status: 410")
+      && worker.includes("retiredRoutePath") && worker.includes("retiredBrowsePath") && worker.includes("retiredOperationsPath") && worker.includes("retiredEditorialPath")) {
+    pass("Search", "Legacy URL control", "Root and .html variants redirect; removed translation, route, browse, operations, and editorial URLs return 410 after asset lookup");
   } else {
-    fail("Search", "Legacy URL control", "Worker redirect/retirement rule incomplete", "Keep one canonical home and explicitly retire removed translations.");
+    fail("Search", "Legacy URL control", "Worker redirect/retirement rule incomplete", "Collapse duplicate HTML variants and explicitly retire every removed public surface.");
   }
 
   const imageFailures = imageAudit();
@@ -318,6 +338,7 @@ runChecks();
 const passed = checks.filter((item) => item.status === "pass").length;
 const warned = checks.filter((item) => item.status === "warn").length;
 const failed = checks.filter((item) => item.status === "fail").length;
+const reviewSubmissionReady = failed === 0 && warned === 0;
 const result = {
   generatedAt: new Date().toISOString(),
   siteUrl,
@@ -339,6 +360,7 @@ const result = {
     failed,
     percent: Math.round((passed / Math.max(checks.length, 1)) * 100)
   },
+  reviewSubmissionReady,
   adServing: {
     ready: cmpReady,
     cmpEvidenceReady: cmpEvidence.ready,
@@ -361,7 +383,7 @@ Site: ${siteUrl}
 
 Scope: **${result.scope}**
 
-Gate result: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warning, ${failed} fail)
+Gate result: ${failed ? "BLOCKED" : reviewSubmissionReady ? "READY" : "HOLD"} (${passed} pass, ${warned} warning, ${failed} fail)
 
 Ad-serving status: ${cmpReady ? "READY" : `BLOCKED (${cmpEvidence.missing.join(", ") || "release flags"})`}
 
@@ -382,7 +404,7 @@ ${markdownTable(checks)}
 ${checks.filter((item) => item.status === "fail").map((item) => `- ${item.area} / ${item.item}: ${item.next || item.detail}`).join("\n") || "- No internal release blocker. Google may still reject the site based on signals outside this audit."}
 `, "utf8");
 
-console.log(`AdSense ${reportMode} gates: ${failed ? "BLOCKED" : "PASS"} (${passed} pass, ${warned} warn, ${failed} fail)`);
+console.log(`AdSense ${reportMode} gates: ${failed ? "BLOCKED" : reviewSubmissionReady ? "READY" : "HOLD"} (${passed} pass, ${warned} warn, ${failed} fail)`);
 console.table(checks.map((item) => ({ status: item.status, area: item.area, item: item.item, detail: item.detail })));
 console.log(`Saved gate report: ${mdOut}`);
 

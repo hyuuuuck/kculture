@@ -30,8 +30,9 @@ for (const slug of approvedSlugs) {
     continue;
   }
   const html = fs.readFileSync(htmlPath, "utf8");
-  const score = Number(html.match(/Editorial quality score (\d+) out of 100/)?.[1] || 0);
-  if (score < 85) failures.push(`${slug}: publication score is ${score}/100.`);
+  if (!html.includes("Source-checked desk review") || /\d+\/100 reviewed/.test(html)) {
+    failures.push(`${slug}: public review state must be non-numeric and source-accountable.`);
+  }
   if (!html.includes('class="event-fact-bar"')) failures.push(`${slug}: first-screen fact bar is missing.`);
   for (const fact of requiredFacts) {
     if (!html.includes(`<dt>${fact}</dt>`)) failures.push(`${slug}: first-screen fact missing: ${fact}.`);
@@ -54,7 +55,10 @@ for (const slug of approvedSlugs) {
     ...(Array.isArray(event.audit?.sourceEvidence) ? event.audit.sourceEvidence : []),
     ...(Array.isArray(review?.sourceEvidence) ? review.sourceEvidence : [])
   ];
-  if (!review?.reviewedAt || !review?.reviewedBy || evidence.length === 0 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
+  const evidenceHosts = new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean));
+  if (!review?.reviewedAt || !review?.reviewedBy || evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
     failures.push(`${slug}: manual review record or original-source evidence is incomplete.`);
   }
 }
@@ -79,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Publication gate passed: ${approvedSlugs.length} reviewed events at 85+ with evidence, first-screen facts, dates, and no affiliate content.`);
+console.log(`Publication gate passed: ${approvedSlugs.length} reviewed events with two-source evidence, first-screen facts, dates, and no affiliate content.`);

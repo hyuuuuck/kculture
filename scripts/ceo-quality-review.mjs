@@ -64,6 +64,12 @@ function htmlWordCount(value) {
   return (text.match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
 }
 
+function distinctEvidenceHosts(evidence) {
+  return new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean)).size;
+}
+
 const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug));
 const currentEvents = approvedEvents.filter((event) => event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
@@ -83,10 +89,11 @@ const missingReviews = approvedEvents.filter((event) => {
   const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
   return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
     || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
-    || !evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+    || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
+    || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
 });
 if (!missingReviews.length) {
-  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have ownership, visitor analysis, and official-source evidence tokens.`);
+  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have ownership, visitor analysis, and two distinct official source hosts.`);
 } else {
   fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
@@ -154,8 +161,9 @@ if (!missingSitemapUrls.length && !extraSitemapUrls.length && !sitemap.includes(
 }
 
 const worker = read("src/worker.js");
-if (worker.includes('url.pathname === "/"') && worker.includes("status: 410") && worker.includes("retiredRoutePath")) {
-  pass("publisher", "Search", "Retired URL handling", "Root redirects; unavailable translation and withdrawn route paths return 410 after asset lookup.");
+if (worker.includes('url.pathname === "/"') && worker.includes('url.pathname.endsWith(".html")') && worker.includes("status: 410")
+    && worker.includes("retiredRoutePath") && worker.includes("retiredBrowsePath") && worker.includes("retiredOperationsPath") && worker.includes("retiredEditorialPath")) {
+  pass("publisher", "Search", "Retired URL handling", "Root and .html variants redirect; unavailable legacy, browse, operations, translation, and editorial paths return 410 after asset lookup.");
 } else {
   fail("publisher", "Search", "Retired URL handling", "Worker rules are incomplete.", "Publisher: restore canonical redirect and language retirement rules.");
 }
@@ -171,7 +179,12 @@ if (!adsense) {
 } else if (adsense.score.failed) {
   fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.failed} blocking failures.`, "Publisher/CEO: clear every internal gate before release.");
 } else if (program.mode === "adsense-editorial-review" && adsense.score.warned) {
-  fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.warned} warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve every review-mode warning before release or re-review.");
+  const nonSearchWarnings = (adsense.checks || []).filter((item) => item.status === "warn" && item.area !== "Search");
+  if (nonSearchWarnings.length) {
+    fail("publisher", "AdSense", "Editorial gate report", `${nonSearchWarnings.length} non-search warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
+  } else {
+    warn("publisher", "Search", "Post-deploy index hold", "Production cleanup may be deployed, but another AdSense review request remains blocked until Search Console is re-audited.", "Publisher: deploy only the verified cleanup, then wait for recrawl evidence before re-review.");
+  }
 } else {
   pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);
 }
@@ -185,8 +198,10 @@ if (home.includes("kr.trip.com/partners/ad") || home.includes("coupa.ng/cny5Rl")
 const fails = checks.filter((item) => item.status === "fail").length;
 const warns = checks.filter((item) => item.status === "warn").length;
 const passes = checks.filter((item) => item.status === "pass").length;
-const reviewLocked = program.mode === "adsense-editorial-review" && warns > 0;
-const decision = fails || reviewLocked ? "REWORK_REQUIRED" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
+const blockingWarnings = checks.filter((item) => item.status === "warn" && item.area !== "Search").length;
+const reviewLocked = program.mode === "adsense-editorial-review" && blockingWarnings > 0;
+const searchHold = checks.some((item) => item.status === "warn" && item.area === "Search");
+const decision = fails || reviewLocked ? "REWORK_REQUIRED" : searchHold ? "DEPLOY_FIXES_ONLY" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
 const tasks = checks.filter((item) => item.status !== "pass" && item.task);
 const result = {
   generatedAt: new Date().toISOString(),

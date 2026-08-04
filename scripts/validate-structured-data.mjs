@@ -117,9 +117,17 @@ function validateWebPageNode(node, sourceEvent, file, lang) {
   assertUrl(node.url, file, "WebPage.url");
   assert(node["@id"] === `${node.url}#webpage`, file, "WebPage.@id should identify the detail page.");
   assert(node.inLanguage === lang, file, "WebPage.inLanguage must match page language.");
+  assertDate(node.datePublished, file, "WebPage.datePublished");
   assertDate(node.dateModified, file, "WebPage.dateModified");
-  const expectedModified = editorialProgram.eventReviews?.[sourceEvent.slug]?.reviewedAt || sourceEvent.lastChecked;
-  assert(node.dateModified === expectedModified, file, "WebPage.dateModified must match the editorial review date.");
+  const review = editorialProgram.eventReviews?.[sourceEvent.slug] || {};
+  const expectedPublished = review.publishedAt || sourceEvent.publishedAt || review.reviewedAt || sourceEvent.lastChecked;
+  const expectedModified = [expectedPublished, review.updatedAt, sourceEvent.updatedAt, review.reviewedAt, sourceEvent.lastChecked]
+    .filter((value) => dateRe.test(String(value || "")))
+    .sort()
+    .at(-1);
+  assert(node.datePublished === expectedPublished, file, "WebPage.datePublished must match the first editorial publication date.");
+  assert(node.dateModified === expectedModified, file, "WebPage.dateModified must match the latest editorial or source-check date.");
+  assert(node.datePublished <= node.dateModified, file, "WebPage.datePublished cannot be later than WebPage.dateModified.");
   assert(hasType(node.primaryImageOfPage, "ImageObject"), file, "WebPage.primaryImageOfPage must be an ImageObject.");
   assertUrl(node.primaryImageOfPage?.url, file, "WebPage.primaryImageOfPage.url");
   assert(hasType(node.about, "Thing"), file, "WebPage.about must be a Thing.");

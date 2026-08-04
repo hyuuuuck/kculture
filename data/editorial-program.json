@@ -25,14 +25,10 @@
     "nct-dream-sweet-dream-hotel-incheon-2026",
     "korea-beauty-festival-2026",
     "boryeong-mud-festival-2026",
-    "red-velvet-day-in-red-velvet-seoul-2026",
-    "boynextdoor-knock-on-vol2-seoul-2026",
-    "incheon-pentaport-rock-festival-2026",
     "gwangalli-m-drone-light-show-2026",
     "namsangol-traditional-experience-2026",
     "seoul-international-garden-show-2026",
     "national-geographic-ocean-seoul-2026",
-    "korea-accommodation-sale-festa-summer-2026",
     "fernando-botero-seoul-2026"
   ],
   "indexableGuides": [
@@ -195,6 +191,13 @@
           "sourceName": "NOL World Ticket",
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "mustContain": ["THE SWEET DREAM HOTEL", "Aug 22, 2026 - Aug 23, 2026", "INSPIRE ARENA", "121,000 won"]
+        },
+        {
+          "sourceName": "NCT DREAM Weverse",
+          "url": "https://weverse.io/nctdream/notice/36671",
+          "role": "Organizer notice",
+          "supports": "Confirms performance times, venue, price, age limit, and the separate global fanclub verification schedule.",
+          "mustContain": ["THE SWEET DREAM HOTEL", "August 22, 2026", "INSPIRE ARENA", "KRW 121,000"]
         }
       ]
     },
@@ -206,6 +209,15 @@
         "KBF Beauty House and the online special promotions do not share the same closing date.",
         "Use 하이커 그라운드 as the map query and confirm the program floor before arrival.",
         "Brand classes and partner offers can require a separate reservation or account."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Ministry of Culture, Sports and Tourism",
+          "url": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
+          "role": "Government program announcement",
+          "supports": "Separates the HiKR Ground experience dates from the later online tourism-product promotion window.",
+          "mustContain": ["2026 Korea Beauty Festival", "HiKR Ground", "June 24", "September 30"]
+        }
       ]
     },
     "boryeong-mud-festival-2026": {
@@ -216,6 +228,15 @@
         "A paid-zone bracelet is required for paid activities; free surrounding programs may follow different rules.",
         "Search 대천해수욕장 and check the final entrance rather than using only the city name.",
         "Carry a waterproof phone pouch, dry clothes, and enough return-transport buffer."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Korea Tourism Organization",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
+          "role": "National tourism context",
+          "supports": "Cross-checks the festival window in the national tourism organization's summer-festival roundup.",
+          "mustContain": ["Boryeong Mud Festival", "July 24", "August 9"]
+        }
       ]
     },
     "red-velvet-day-in-red-velvet-seoul-2026": {
@@ -283,6 +304,15 @@
         "Seasonal show times differ, so do not reuse a saved winter time in summer.",
         "Search 광안리해수욕장 and arrive early enough to choose a clear beach view.",
         "Check wind, rain, and official cancellation notices on the day."
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Gwangalli M Drone Light Show",
+          "url": "https://www.gwangallimdrone.co.kr/en/overview",
+          "role": "Official show operator",
+          "supports": "Confirms the recurring Saturday format and operating-time information controlled by the show organizer.",
+          "mustContain": ["Gwangalli", "Drone Light Show", "Saturday"]
+        }
       ]
     },
     "namsangol-traditional-experience-2026": {
@@ -299,6 +329,13 @@
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "mustContain": ["Namsangol Hanok Village", "April 3", "October 25", "July and August"]
+        },
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
+          "role": "City venue context",
+          "supports": "Cross-checks the village location and Chungmuro access; the Visit Seoul event listing remains controlling for session dates.",
+          "mustContain": ["Namsangol Hanok Village", "Chungmuro"]
         }
       ]
     },
@@ -316,6 +353,13 @@
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "mustContain": ["2026 Seoul International Garden Show", "May 1", "October 27", "Seoul Forest"]
+        },
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
+          "role": "City program announcement",
+          "supports": "Confirms the long-running Seoul Forest program and distinguishes the October special program.",
+          "mustContain": ["Seoul International Garden Show", "Seoul Forest", "October 27"]
         }
       ]
     },
@@ -333,6 +377,13 @@
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "mustContain": ["National Geographic", "Jun 06, 2026", "Oct 11, 2026", "Chungmu Art Center"]
+        },
+        {
+          "sourceName": "Ministry of Culture, Sports and Tourism",
+          "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
+          "role": "Government culture listing",
+          "supports": "Cross-checks the exhibition period and Chungmu Art Center venue in the national culture directory.",
+          "mustContain": ["OCEAN", "2026.06.06", "2026.10.11", "충무아트센터"]
         }
       ]
     },
@@ -377,6 +428,13 @@
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "mustContain": ["Fernando Botero", "Apr 24, 2026", "Aug 30, 2026", "Hangaram Design Museum", "23,000"]
+        },
+        {
+          "sourceName": "Seoul Arts Center",
+          "url": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
+          "role": "Venue listing",
+          "supports": "Cross-checks the museum, exhibition identity, and venue-controlled schedule.",
+          "mustContain": ["Fernando Botero", "Hangaram Design Museum", "Seoul Arts Center"]
         }
       ]
     }

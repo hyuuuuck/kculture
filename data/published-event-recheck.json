@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-04T03:43:39.004Z",
+  "generatedAt": "2026-08-04T12:34:33.316Z",
   "date": "2026-08-04",
   "approvedActiveEvents": 8,
   "passed": 8,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 8,
+  "liveChecks": 16,
   "snapshotChecks": 0,
   "updated": 0,
-  "timeoutMs": 12000,
-  "concurrency": 5,
+  "timeoutMs": 15000,
+  "concurrency": 4,
   "results": [
     {
       "slug": "nct-dream-sweet-dream-hotel-incheon-2026",
@@ -24,8 +24,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
-          "bytes": 106045,
-          "durationMs": 120,
+          "bytes": 106428,
+          "durationMs": 91,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -33,6 +33,24 @@
             "Aug 22, 2026 - Aug 23, 2026",
             "INSPIRE ARENA",
             "121,000 won"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "NCT DREAM Weverse",
+          "url": "https://weverse.io/nctdream/notice/36671",
+          "finalUrl": "https://weverse.io/nctdream/notice/36671",
+          "status": 200,
+          "bytes": 82319,
+          "durationMs": 186,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "THE SWEET DREAM HOTEL",
+            "August 22, 2026",
+            "INSPIRE ARENA",
+            "KRW 121,000"
           ],
           "missingTokens": [],
           "ok": true
@@ -52,7 +70,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?dataSetId=288&menuSn=923&vcontsId=1590136",
           "status": 200,
           "bytes": 1105290,
-          "durationMs": 1505,
+          "durationMs": 608,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -63,6 +81,24 @@
             "HiKR Ground",
             "KBF Special Promotions",
             "Korea Tourism Organization"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Ministry of Culture, Sports and Tourism",
+          "url": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
+          "finalUrl": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
+          "status": 200,
+          "bytes": 25534,
+          "durationMs": 115,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "2026 Korea Beauty Festival",
+            "HiKR Ground",
+            "June 24",
+            "September 30"
           ],
           "missingTokens": [],
           "ok": true
@@ -82,13 +118,30 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 1222,
+          "durationMs": 78,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
             "29th Boryeong Mud Festival",
             "2026.07.24.(Fri)~08.09(Sun)(17Days)/DaecheonBeach",
             "paid entry bracelet"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Korea Tourism Organization",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
+          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
+          "status": 200,
+          "bytes": 194549,
+          "durationMs": 301,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Boryeong Mud Festival",
+            "July 24",
+            "August 9"
           ],
           "missingTokens": [],
           "ok": true
@@ -108,7 +161,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 2298,
+          "durationMs": 349,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -118,6 +171,23 @@
             "Every Saturday, at 20:00, 22:00",
             "Gwangalli Beach",
             "Free admission"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Gwangalli M Drone Light Show",
+          "url": "https://www.gwangallimdrone.co.kr/en/overview",
+          "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
+          "status": 200,
+          "bytes": 35329,
+          "durationMs": 84,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Gwangalli",
+            "Drone Light Show",
+            "Saturday"
           ],
           "missingTokens": [],
           "ok": true
@@ -136,8 +206,8 @@
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "finalUrl": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
           "status": 200,
-          "bytes": 185779,
-          "durationMs": 2377,
+          "bytes": 185777,
+          "durationMs": 702,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -145,6 +215,22 @@
             "April 3",
             "October 25",
             "July and August"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
+          "finalUrl": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
+          "status": 200,
+          "bytes": 108413,
+          "durationMs": 101,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Namsangol Hanok Village",
+            "Chungmuro"
           ],
           "missingTokens": [],
           "ok": true
@@ -163,8 +249,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 181987,
-          "durationMs": 2202,
+          "bytes": 181973,
+          "durationMs": 579,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -173,6 +259,23 @@
             "Aug 30, 2026",
             "Hangaram Design Museum",
             "23,000"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Seoul Arts Center",
+          "url": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
+          "finalUrl": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
+          "status": 200,
+          "bytes": 355661,
+          "durationMs": 192,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Fernando Botero",
+            "Hangaram Design Museum",
+            "Seoul Arts Center"
           ],
           "missingTokens": [],
           "ok": true
@@ -191,8 +294,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 181013,
-          "durationMs": 1839,
+          "bytes": 180999,
+          "durationMs": 713,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -200,6 +303,23 @@
             "May 1",
             "October 27",
             "Seoul Forest"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
+          "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
+          "status": 200,
+          "bytes": 96180,
+          "durationMs": 140,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Seoul International Garden Show",
+            "Seoul Forest",
+            "October 27"
           ],
           "missingTokens": [],
           "ok": true
@@ -218,8 +338,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181202,
-          "durationMs": 1732,
+          "bytes": 181200,
+          "durationMs": 680,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -227,6 +347,24 @@
             "Jun 06, 2026",
             "Oct 11, 2026",
             "Chungmu Art Center"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Ministry of Culture, Sports and Tourism",
+          "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
+          "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
+          "status": 200,
+          "bytes": 132963,
+          "durationMs": 230,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "OCEAN",
+            "2026.06.06",
+            "2026.10.11",
+            "충무아트센터"
           ],
           "missingTokens": [],
           "ok": true

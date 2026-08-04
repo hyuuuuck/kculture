@@ -3062,9 +3062,10 @@ function eventPublicationFacts(event) {
 
 function eventPublicationDates(event) {
   const review = editorialReviewFor(event);
+  const publishedAt = review?.publishedAt || event.publishedAt || review?.reviewedAt || event.lastChecked;
   return {
-    publishedAt: review?.publishedAt || event.publishedAt || event.lastChecked,
-    updatedAt: review?.updatedAt || event.updatedAt || review?.reviewedAt || event.lastChecked
+    publishedAt,
+    updatedAt: maxIso([publishedAt, review?.updatedAt, event.updatedAt, review?.reviewedAt, event.lastChecked], publishedAt)
   };
 }
 
@@ -3084,7 +3085,14 @@ function eventEditorialScore(event) {
   const evidence = eventSourceEvidence(event);
   const facts = eventPublicationFacts(event);
   const checks = Array.isArray(review?.foreignerChecks) ? review.foreignerChecks.filter(Boolean) : [];
-  const sourceEvidence = evidence.length && evidence.every((item) => Array.isArray(item.mustContain) && item.mustContain.length >= 2) ? 25 : 0;
+  const evidenceHosts = new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean));
+  const sourceEvidence = evidence.length >= 2
+    && evidenceHosts.size >= 2
+    && evidence.every((item) => Array.isArray(item.mustContain) && item.mustContain.length >= 2)
+    ? 25
+    : 0;
   const visitorUtility = (facts.entry && !/not confirmed/i.test(facts.entry) ? 5 : 0)
     + (facts.reservation && !/not confirmed/i.test(facts.reservation) ? 5 : 0)
     + (facts.price && !/not listed|not confirmed/i.test(facts.price) ? 5 : 0)
@@ -3119,7 +3127,7 @@ function isApprovedEvent(event) {
 }
 
 function publicEvents() {
-  return events.filter(isApprovedEvent);
+  return events.filter((event) => isApprovedEvent(event) && isCurrentEvent(event));
 }
 
 function currentEvents() {
@@ -6126,9 +6134,6 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
       <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
       <a href="/${lang}/corrections/">${tr(lang, "correctionsTitle")}</a>
-      <a href="/${lang}/sources/">${tr(lang, "navSources")}</a>
-      <a href="/${lang}/watchlist/">${tr(lang, "navWatchlist")}</a>
-      <a href="/${lang}/freshness/">${tr(lang, "freshnessTitle")}</a>
       <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
     </div>
   </footer>
@@ -7594,7 +7599,7 @@ function renderNow(lang) {
             <h2>${tr(lang, "latestCheckedGallery")}</h2>
             <p>${tr(lang, "latestCheckedText")}</p>
           </div>
-          <a class="text-link" href="/${lang}/freshness/">${tr(lang, "freshnessLogLabel")}</a>
+          <a class="text-link" href="/${lang}/editorial-policy/">How reviews work</a>
         </div>
         <div class="gallery-grid">
           ${feedEvents().map((event) => eventCard(event, lang)).join("")}
@@ -8053,7 +8058,6 @@ function renderPlanner(lang) {
 
 function eventReviewSection(event, lang) {
   const review = editorialReviewFor(event);
-  const score = eventEditorialScore(event);
   if (!review) return "";
   return `
         <section class="detail-section event-review-section" aria-labelledby="event-review-title">
@@ -8062,7 +8066,7 @@ function eventReviewSection(event, lang) {
               <p class="eyebrow">Editorial review</p>
               <h2 id="event-review-title">What matters before you go</h2>
             </div>
-            <span class="review-score" aria-label="Editorial quality score ${score.total} out of 100">${score.total}/100 reviewed</span>
+            <span class="review-state">Source-checked desk review</span>
           </div>
           <p class="event-decision">${esc(review.visitorDecision)}</p>
           <ul class="event-check-list">
@@ -8169,11 +8173,13 @@ function eventEvidenceSection(event, lang) {
                   <strong>${esc(item.sourceName || event.sourceName)}</strong>
                   <span>${esc(new URL(item.url).hostname.replace(/^www\./, ""))}</span>
                 </div>
+                ${item.role ? `<p><strong>Role:</strong> ${esc(item.role)}</p>` : ""}
+                ${item.supports ? `<p>${esc(item.supports)}</p>` : ""}
                 <p>Checked for: ${(item.mustContain || []).slice(0, 5).map((token) => `<span>${esc(token)}</span>`).join("")}</p>
                 <a href="${esc(item.url)}" rel="nofollow noopener" target="_blank">Open source</a>
               </article>`).join("")}
           </div>
-          <p class="evidence-note">A source link confirms the page we reviewed; inventory, admission, weather, and operating notices can still change. Complete the final action on that source.</p>
+          <p class="evidence-note">We separate organizer or venue rules from tourism context when two official sources are available. If they conflict, the organizer or ticketing source controls admission and the discrepancy is stated. Inventory, weather, and operating notices can still change.</p>
         </section>`;
 }
 
@@ -8255,7 +8261,7 @@ function renderEvent(event, lang) {
       shouldUseEventSchema(event) ? eventSchema(event, lang) : detailPageSchema(event, lang),
       breadcrumbSchema(lang, [
         { name: "Home", url: `/${lang}/` },
-        { name: categoryLabel(lang, event.category), url: categoryHref(lang, event.category) },
+        { name: "Current events", url: `/${lang}/now/` },
         { name: local(event.title, lang), url: eventHref(lang, event) }
       ])
     ]
@@ -8521,7 +8527,7 @@ function guideRelatedEventsSection(guide, lang, relatedEvents) {
             <h2 id="guide-related-events-title">${esc(copy.relatedTitle)}</h2>
             <p>${esc(copy.relatedText)}</p>
           </div>
-          <a class="text-link" href="${categoryHref(lang, guide.category)}">${esc(copy.viewAll)}</a>
+          <a class="text-link" href="/${lang}/now/">${esc(copy.viewAll)}</a>
         </div>
         <div class="gallery-grid guide-event-grid">
           ${relatedEvents.map((event) => eventCard(event, lang)).join("")}
@@ -9714,10 +9720,10 @@ function staticPageParagraphs(lang, kind) {
   const copy = {
     about: {
       en: [
-        "K-Spot Now is a multilingual event and shopping radar for visitors planning Korea trips.",
-        "K-Spot Now is not a ticket marketplace or checkout service. It explains what is happening, compares official sources, and sends visitors to the original organizer, brand, venue, or ticketing page for final action.",
-        "The site prioritizes official sources, clear date ranges, practical travel notes, and honest freshness labels.",
-        "K-pop pop-ups and social-only announcements are queued for curation before publication."
+        "K-Spot Now is an independent English-language desk-research guide for visitors deciding whether a time-sensitive Korea event is worth fitting into a trip.",
+        "Each published event is checked against at least two official sources with different roles where available: an organizer, venue, or ticketing source for admission rules, and a government or tourism source for dates, place context, and visitor access.",
+        "Editors compare those records, state unresolved limits, preserve the Korean map query, and add a practical decision note about transfers, reservation steps, weather, crowding, or schedule combinations. Research is not presented as a first-hand visit.",
+        "K-Spot Now does not sell tickets or process payments. Visitors complete booking and confirm last-minute changes on the linked official source. Corrections can be sent to contact@kspotnow.com."
       ],
       es: [
         "K-Spot Now es un radar multilingue de eventos y compras para visitantes que planean viajar por Corea.",
@@ -9946,20 +9952,20 @@ function staticPageParagraphs(lang, kind) {
 const aboutIdentityCopy = {
   en: {
     eyebrow: "About",
-    lockup: "Events / Pop-ups / Routes",
-    hero: "Find / Check / Save",
-    lede: "Events, routes, official links.",
-    chips: ["Events", "Pop-ups", "Routes"],
+    lockup: "Independent visitor research",
+    hero: "Compare / Decide / Verify",
+    lede: "Source roles, visitor trade-offs, and a final official check.",
+    chips: ["Two-source review", "Korean map terms", "Change warnings"],
     flow: [
-      ["Find", "Live and upcoming spots"],
-      ["Check", "Dates, maps, weather"],
-      ["Save", "Keep a short plan"]
+      ["Compare", "Separate organizer rules from tourism context"],
+      ["Decide", "Assess timing, access, cost, and travel fit"],
+      ["Verify", "Finish on the controlling official source"]
     ],
     principles: [
-      ["Korea now", "Live events and pop-ups."],
-      ["Map-ready", "Korean place names."],
-      ["Calendar-ready", "Dates worth saving."],
-      ["Final source", "Booking stays official."]
+      ["Independent", "No paid placement in editorial selection."],
+      ["Source roles", "Admission rules and visitor context are checked separately."],
+      ["Honest limits", "Desk research is never described as a first-hand visit."],
+      ["Final source", "Booking and last-minute rules stay official."]
     ],
     boundaryTitle: "How it works"
   }
@@ -9968,6 +9974,7 @@ const aboutIdentityCopy = {
 function aboutPage(lang, title, paragraphs) {
   const copy = aboutIdentityCopy[lang] || aboutIdentityCopy.en;
   const [lede = "", ...rest] = paragraphs;
+  const bodyParagraphs = copy.lede ? paragraphs : rest;
   const principleIcons = ["icon-kspot", "icon-source", "icon-map", "icon-calendar"];
   const titleHtml = esc(siteName);
   const body = `
@@ -9998,7 +10005,7 @@ function aboutPage(lang, title, paragraphs) {
           <h2>${esc(copy.boundaryTitle)}</h2>
         </div>
         <div class="about-copy-text">
-          ${rest.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
+          ${bodyParagraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
         </div>
       </section>
     </main>`;
@@ -10071,9 +10078,6 @@ async function build() {
     await writeHtml(`${lang}/planner/index.html`, renderPlanner(lang));
     await writeHtml(`${lang}/guides/index.html`, renderGuides(lang));
     if (routes.length) await writeHtml(`${lang}/routes/index.html`, renderRoutes(lang));
-    await writeHtml(`${lang}/sources/index.html`, renderSources(lang));
-    await writeHtml(`${lang}/watchlist/index.html`, renderWatchlist(lang));
-    await writeHtml(`${lang}/freshness/index.html`, renderFreshness(lang));
     await writeHtml(`${lang}/editorial-policy/index.html`, renderEditorialPolicy(lang));
     await writeHtml(`${lang}/corrections/index.html`, renderCorrections(lang));
     await writeHtml(`${lang}/about/index.html`, staticPage(lang, "about"));
@@ -10082,12 +10086,6 @@ async function build() {
     await writeHtml(`${lang}/cookie-policy/index.html`, staticPage(lang, "cookie-policy"));
     await writeHtml(`${lang}/advertising/index.html`, staticPage(lang, "advertising"));
     await writeHtml(`${lang}/terms/index.html`, staticPage(lang, "terms"));
-    for (const category of Object.keys(categoryDefinitions)) {
-      await writeHtml(`${lang}/categories/${category}/index.html`, renderCategory(lang, category));
-    }
-    for (const city of citiesWithPages()) {
-      await writeHtml(`${lang}/cities/${citySlug(city)}/index.html`, renderCity(lang, city));
-    }
     for (const route of routes) {
       await writeHtml(`${lang}/routes/${route.slug}.html`, renderRoute(route, lang));
     }

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "property": "sc-domain:kspotnow.com",
+  "auditedAt": "2026-08-04T21:31:58+09:00",
+  "source": "Authenticated Google Search Console domain property",
+  "status": "hold",
+  "deployFixesAllowed": true,
+  "reason": "Legacy, duplicate, and retired URLs still dominate Google's view of the site. Deploying canonicalization and retirement fixes is appropriate, but another AdSense review request is not.",
+  "coverage": {
+    "reportUpdatedAt": "2026-07-24",
+    "indexed": 87,
+    "notIndexed": 551,
+    "notFound404": 435,
+    "alternateWithCanonical": 53,
+    "excludedByNoindex": 21,
+    "redirect": 7,
+    "crawledNotIndexed": 21,
+    "discoveredNotIndexed": 14
+  },
+  "performance": {
+    "periodStart": "2026-06-09",
+    "periodEnd": "2026-08-02",
+    "clicks": 19,
+    "impressions": 784,
+    "ctrPercent": 2.4,
+    "averagePosition": 8.6,
+    "legacyPagesDominateTopPages": true
+  },
+  "sitemap": {
+    "submittedAt": "2026-07-11",
+    "lastReadAt": "2026-08-01",
+    "status": "success",
+    "discoveredPages": 29
+  },
+  "releaseCriteria": [
+    "Deploy the focused English review build with .html canonical redirects and 410 responses for withdrawn URLs.",
+    "Confirm the live sitemap contains only the current hubs, current events, and reviewed guides.",
+    "Recheck Search Console after Google recrawls the deployment and verify that legacy variants no longer dominate coverage and top-page reports.",
+    "Run the AdSense re-review preflight only after this audit is updated to ready from authenticated evidence."
+  ]
+}

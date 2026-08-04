@@ -28,7 +28,7 @@ const sources = JSON.parse(fs.readFileSync(path.resolve("data", "sources.json"),
 const errors = [];
 const warnings = [];
 const languages = publicLanguageCodes();
-const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "sources", "freshness", "watchlist", "planner"];
+const requiredPolicyPages = ["about", "contact", "privacy", "cookie-policy", "advertising", "terms", "editorial-policy", "corrections", "planner"];
 const eventStatusBySlug = new Map(events.map((event) => [event.slug, event.endDate < today ? "ended" : event.startDate > today ? "upcoming" : "live"]));
 const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
 const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
@@ -195,6 +195,10 @@ if (!wranglerText.includes('main = "src/worker.js"') || !wranglerText.includes('
 }
 if (!workerText.includes("env.ASSETS.fetch") || !workerText.includes("text/html; charset=utf-8")) {
   fail("src/worker.js must fetch static assets and force text/html; charset=utf-8 for multilingual pages.");
+}
+if (!workerText.includes('url.pathname.endsWith(".html")') || !workerText.includes("retiredBrowsePath")
+    || !workerText.includes("retiredOperationsPath") || !workerText.includes("retiredEditorialPath")) {
+  fail("src/worker.js must collapse .html duplicates and retire removed browse, operations, and editorial URLs.");
 }
 
 for (const lang of languages) {

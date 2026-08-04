@@ -500,6 +500,11 @@ for (const guide of guides) {
   validateLocalizedObject(id, "guide.summary", guide.summary, { requireAll: true });
   if (!isDate(guide.publishedAt)) push(errors, id, "guide.publishedAt must be YYYY-MM-DD.");
   if (!isDate(guide.updatedAt)) push(errors, id, "guide.updatedAt must be YYYY-MM-DD.");
+  if (isDate(guide.publishedAt) && isDate(guide.updatedAt) && guide.publishedAt > guide.updatedAt) {
+    push(errors, id, "guide.publishedAt cannot be later than guide.updatedAt.");
+  }
+  if (isDate(guide.publishedAt) && guide.publishedAt > today) push(errors, id, "guide.publishedAt cannot be in the future.");
+  if (isDate(guide.updatedAt) && guide.updatedAt > today) push(errors, id, "guide.updatedAt cannot be in the future.");
   if (!nonEmptyString(guide.reviewedBy)) push(errors, id, "guide.reviewedBy is required.");
   if (!nonEmptyString(guide.method) || guide.method.length < 60) push(errors, id, "guide.method must explain the editorial research method.");
   if (!Array.isArray(guide.sources) || guide.sources.length < 2) {
@@ -541,14 +546,17 @@ for (const slug of approvedEventSlugs) {
     continue;
   }
   const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
+  const evidenceHosts = new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean));
   if (!review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120) {
     push(errors, slug, "approved event needs a dated editorial review and substantial visitor decision.");
   }
   if (!Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3) {
     push(errors, slug, "approved event needs at least three foreign-visitor checks.");
   }
-  if (!evidence.length || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2)) {
-    push(errors, slug, "approved event needs structured official-source evidence tokens.");
+  if (evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2)) {
+    push(errors, slug, "approved event needs two structured official sources on distinct hosts.");
   }
 }
 for (const slug of approvedGuideSlugs) {

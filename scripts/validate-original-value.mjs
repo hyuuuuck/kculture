@@ -46,6 +46,12 @@ function evidenceFor(event, review) {
   ];
 }
 
+function distinctEvidenceHosts(evidence) {
+  return new Set(evidence.map((item) => {
+    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  }).filter(Boolean)).size;
+}
+
 if (!approvedEvents.length) {
   failures.push("No reviewed events are configured for publication.");
 }
@@ -95,8 +101,8 @@ for (const slug of approvedEvents) {
   if (!review.reviewedAt || !review.reviewedBy) {
     fail(slug, "review date and accountable reviewer are required.");
   }
-  if (!evidence.length || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
-    fail(slug, "needs traceable source evidence with at least two verification tokens.");
+  if (evidence.length < 2 || distinctEvidenceHosts(evidence) < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
+    fail(slug, "needs two traceable official sources on distinct hosts with verification tokens.");
   }
   const isNationwide = event.category === "travel-benefits" && event.city === "Nationwide";
   if (!isNationwide && !/[\uac00-\ud7a3]/u.test(event.mapQueryKo || "")) {

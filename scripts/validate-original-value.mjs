@@ -101,11 +101,17 @@ for (const slug of approvedEvents) {
   if (jaccardSimilarity(summary, decision) > 0.55 || jaccardSimilarity(summary, whyGo) > 0.55) {
     fail(slug, "visitor analysis is too similar to the source summary.");
   }
-  if (firstHandClaimRe.test([summary, whyGo, decision, ...checks, ...tips].join(" "))) {
+  if (firstHandClaimRe.test([summary, whyGo, decision, review.updateSummary, ...checks, ...tips].join(" "))) {
     fail(slug, "contains an unverified first-hand experience claim.");
   }
   if (!review.reviewedAt || !review.reviewedBy) {
     fail(slug, "review date and accountable reviewer are required.");
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(review.publishedAt || "") || review.publishedAt > review.reviewedAt) {
+    fail(slug, "needs an immutable first-publication date that is not replaced by the latest review date.");
+  }
+  if (wordCount(review.updateSummary) < 18) {
+    fail(slug, "needs a substantial visitor-facing summary of the latest editorial change.");
   }
   if (decisionFitFields.some((field) => wordCount(decisionFit[field]) < 9)) {
     fail(slug, "needs a complete availability, audience fit, poor fit, time cost, and commitment threshold analysis.");

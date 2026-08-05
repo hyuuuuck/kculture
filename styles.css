@@ -8553,6 +8553,24 @@ img {
   line-height: 1.55;
 }
 
+.review-update-note {
+  display: grid;
+  grid-template-columns: minmax(145px, 0.26fr) minmax(0, 1fr);
+  gap: 18px;
+  margin: 22px 0 0;
+  padding: 15px 0;
+  border-block: 1px solid #dbe4ee;
+  color: #42566d;
+  line-height: 1.58;
+}
+
+.review-update-note strong {
+  color: #168777;
+  font-size: 0.7rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
 .event-visit-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
@@ -9407,6 +9425,11 @@ img {
 }
 
 @media (max-width: 680px) {
+  .review-update-note {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
   .decision-board-intro h2,
   .guide-scope-intro h2 {
     max-width: none;

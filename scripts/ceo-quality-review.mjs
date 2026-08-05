@@ -89,7 +89,9 @@ const missingReviews = approvedEvents.filter((event) => {
   const profile = review?.planningProfile || {};
   const reconciliation = review?.sourceReconciliation || {};
   const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
-  return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
+  return !review?.reviewedAt || !review?.reviewedBy || !/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "")
+    || review.publishedAt > review.reviewedAt || String(review?.updateSummary || "").length < 100
+    || String(review?.visitorDecision || "").length < 120
     || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
     || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
     || ["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
@@ -98,7 +100,7 @@ const missingReviews = approvedEvents.filter((event) => {
       || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
 });
 if (!missingReviews.length) {
-  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have ownership, source reconciliation, day-planning analysis, and two distinct official source hosts.`);
+  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have immutable publication history, latest-change notes, ownership, source reconciliation, day-planning analysis, and two distinct official source hosts.`);
 } else {
   fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
@@ -127,6 +129,8 @@ for (const event of approvedEvents) {
       || !html.includes("event-visit-section")
       || !html.includes("event-evidence-section")
       || !html.includes("source-reconciliation")
+      || !html.includes("review-update-note")
+      || !html.includes("First published")
       || !html.includes("review-byline")
       || htmlWordCount(html) < 350) {
     eventPageProblems.push(event.slug);

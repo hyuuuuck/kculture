@@ -164,7 +164,7 @@ let dict = {
     category: "Category",
     allCities: "All cities",
     all: "All",
-    festival: "Festivals",
+    festival: "Culture & events",
     kpop: "K-pop pop-ups",
     beauty: "Beauty deals",
     dutyfree: "Duty free",
@@ -570,7 +570,7 @@ dict = {
     cityPages: "Browse by city",
     browseDirectory: "Browse event types and places",
     browseTypeTitle: "Event types",
-    browseTypeText: "Start with festivals, K-pop pop-ups, beauty, duty-free, shopping, or visitor benefits.",
+    browseTypeText: "Start with cultural events, K-pop, beauty, duty-free, shopping, or visitor benefits.",
     browsePlaceTitle: "Places",
     browsePlaceText: "City and nationwide pages are separated from topics so visitors can scan by destination.",
     verifyBefore: "Verify on the official source before visiting.",
@@ -579,7 +579,7 @@ dict = {
     category: "Category",
     allCities: "All cities",
     all: "All",
-    festival: "Festivals",
+    festival: "Culture & events",
     kpop: "K-pop pop-ups",
     beauty: "Beauty deals",
     dutyfree: "Duty free",
@@ -1976,7 +1976,7 @@ const categoryLabels = {
 const filterShortLabels = {
   en: {
     all: "All",
-    festival: "Festivals",
+    festival: "Culture",
     kpop: "K-pop",
     beauty: "Beauty",
     dutyfree: "Duty-free",
@@ -3337,6 +3337,36 @@ function eventKindLabel(event, lang = "en") {
       fr: "Festival",
       de: "Fest"
     },
+    exhibition: {
+      en: "Exhibition",
+      es: "Exhibition",
+      zh: "Exhibition",
+      pt: "Exhibition",
+      ru: "Exhibition",
+      ja: "Exhibition",
+      fr: "Exposition",
+      de: "Ausstellung"
+    },
+    "drone-show": {
+      en: "Drone show",
+      es: "Drone show",
+      zh: "Drone show",
+      pt: "Drone show",
+      ru: "Drone show",
+      ja: "Drone show",
+      fr: "Spectacle de drones",
+      de: "Drohnenshow"
+    },
+    "garden-show": {
+      en: "Garden show",
+      es: "Garden show",
+      zh: "Garden show",
+      pt: "Garden show",
+      ru: "Garden show",
+      ja: "Garden show",
+      fr: "Exposition de jardins",
+      de: "Gartenschau"
+    },
     "pop-up": {
       en: "Pop-up",
       es: "Pop-up",
@@ -3377,6 +3407,10 @@ function thumbnailBrand(event, lang = "en") {
   if (text.includes("busan")) return "BUSAN";
   if (event.category === "festival") return lang === "de" ? "FESTE" : lang === "fr" ? "FESTIVAL" : "FESTIVAL";
   return categoryLabel(lang, event.category).toUpperCase();
+}
+
+function eventDisplayType(event, lang = "en") {
+  return eventKindLabel(event, lang) || categoryLabel(lang, event.category);
 }
 
 function thumbnailContext(event, lang) {
@@ -5989,7 +6023,7 @@ function detailPageSchema(event, lang) {
     },
     about: {
       "@type": "Thing",
-      name: categoryLabel(lang, event.category)
+      name: eventDisplayType(event, lang)
     },
     isPartOf: {
       "@type": "WebSite",
@@ -6332,7 +6366,7 @@ function spotlightCarousel(slides, lang) {
                   return `
                 <a class="spotlight-card${positionClass}" data-spotlight-slide href="${eventHref(lang, event)}" aria-hidden="${active ? "false" : "true"}" tabindex="${active ? "0" : "-1"}" draggable="false">
                   <img src="/${event.thumbnail}" alt="" aria-hidden="true" draggable="false">
-                  <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${categoryLabel(lang, event.category)}</span>
+                  <span class="spotlight-badge">${esc(statusLabel(lang, statusOf(event)))} / ${esc(eventDisplayType(event, lang))}</span>
                   <span class="spotlight-title">${esc(local(event.title, lang))}</span>
                   <span class="spotlight-meta">${esc(event.city)} / ${esc(eventDateLabel(event, lang, false))}</span>
                 </a>`;
@@ -8122,7 +8156,8 @@ function eventReviewSection(event, lang) {
           <ul class="event-check-list">
             ${(review.foreignerChecks || []).map((item) => `<li>${esc(item)}</li>`).join("")}
           </ul>
-          <p class="review-byline">Reviewed ${esc(dateText(lang, review.reviewedAt))} by <a href="/${lang}/about/">${esc(review.reviewedBy)}</a>. ${esc(editorialProgram.editorialTeam?.method || "")}</p>
+          ${review.updateSummary ? `<p class="review-update-note"><strong>Latest editorial change</strong>${esc(review.updateSummary)}</p>` : ""}
+          <p class="review-byline">First published ${esc(dateText(lang, review.publishedAt))}. Reviewed ${esc(dateText(lang, review.reviewedAt))} by <a href="/${lang}/about/">${esc(review.reviewedBy)}</a>. ${esc(editorialProgram.editorialTeam?.method || "")}</p>
         </section>`;
 }
 
@@ -8273,7 +8308,7 @@ function renderEvent(event, lang) {
             <a class="detail-media-credit" href="${esc(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">Official visual: ${esc(event.sourceName)}</a>
           </div>
           <div class="detail-hero-copy">
-            <p class="eyebrow">${esc(statusLabel(lang, status))} / ${esc(categoryLabel(lang, event.category))}</p>
+            <p class="eyebrow">${esc(statusLabel(lang, status))} / ${esc(eventDisplayType(event, lang))}</p>
             <h1>${esc(local(event.title, lang))}</h1>
             <p>${esc(description)}</p>
             <div class="detail-actions">

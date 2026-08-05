@@ -64,6 +64,11 @@ for (const slug of approvedSlugs) {
   if (!review?.reviewedAt || !review?.reviewedBy || evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
     failures.push(`${slug}: manual review record or original-source evidence is incomplete.`);
   }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "") || review.publishedAt > review.reviewedAt
+      || String(review?.updateSummary || "").length < 100 || !html.includes('class="review-update-note"')
+      || !html.includes("First published") || !html.includes(`"datePublished":"${review.publishedAt}"`)) {
+    failures.push(`${slug}: immutable publication history or the latest editorial change is incomplete or not rendered.`);
+  }
   if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
       || !html.includes('class="event-decision-fit"')) {
     failures.push(`${slug}: visitor decision-fit analysis is incomplete or not rendered.`);

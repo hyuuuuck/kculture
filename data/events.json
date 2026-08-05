@@ -2341,7 +2341,7 @@
   {
     "slug": "gwangalli-m-drone-light-show-2026",
     "category": "festival",
-    "eventKind": "festival",
+    "eventKind": "drone-show",
     "priority": 91,
     "startDate": "2026-01-03",
     "endDate": "2026-12-31",
@@ -2389,7 +2389,7 @@
     ],
     "audit": {
       "risk": "medium",
-      "expectedEventKind": "festival",
+      "expectedEventKind": "drone-show",
       "expectedStartDate": "2026-01-03",
       "expectedEndDate": "2026-12-31",
       "expectedSourceName": "Busan Metropolitan City Events and English News",
@@ -3067,6 +3067,7 @@
   {
     "slug": "seoul-international-garden-show-2026",
     "category": "festival",
+    "eventKind": "garden-show",
     "priority": 89,
     "startDate": "2026-05-01",
     "endDate": "2026-10-27",

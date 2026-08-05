@@ -552,6 +552,12 @@ for (const slug of approvedEventSlugs) {
   if (!review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120) {
     push(errors, slug, "approved event needs a dated editorial review and substantial visitor decision.");
   }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "") || review.publishedAt > review.reviewedAt) {
+    push(errors, slug, "approved event needs an immutable publication date that does not follow the latest review date.");
+  }
+  if (!nonEmptyString(review?.updateSummary) || review.updateSummary.length < 100) {
+    push(errors, slug, "approved event needs a substantial public summary of the latest editorial change.");
+  }
   if (!Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3) {
     push(errors, slug, "approved event needs at least three foreign-visitor checks.");
   }
@@ -572,6 +578,12 @@ for (const slug of approvedEventSlugs) {
   }
   if (evidence.some((item) => !nonEmptyString(item.role) || !nonEmptyString(item.supports) || item.supports.length < 60)) {
     push(errors, slug, "every approved event source needs a role and an explanation of what it supports.");
+  }
+  const englishTitle = String(event.title?.en || "");
+  if ((/exhibition/i.test(englishTitle) && event.eventKind !== "exhibition")
+      || (/drone light show/i.test(englishTitle) && event.eventKind !== "drone-show")
+      || (/garden show/i.test(englishTitle) && event.eventKind !== "garden-show")) {
+    push(errors, slug, "approved event kind does not match the visitor-facing event format.");
   }
 }
 for (const slug of approvedGuideSlugs) {

@@ -24,7 +24,7 @@ const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Decide what is worth the trip."] },
   { path: "/en/", label: "English home", needles: ["Source-checked Korea event briefs", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section", "event-decision-board", "decision-board-row"] },
-  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation"] },
+  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation", "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides", "guide-scope-ledger", "guide-scope-row"] },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-decision-tool", "guide-worksheet", "guide-citations"] },

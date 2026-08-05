@@ -92,6 +92,7 @@ for (const lang of languages) {
       "event-fact-bar",
       "event-review-section",
       "event-decision-fit",
+      "review-update-note",
       "source-reconciliation",
       "event-visit-section",
       "event-evidence-section",

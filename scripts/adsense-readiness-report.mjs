@@ -131,6 +131,7 @@ function eventPageAudit() {
       "event-visit-section",
       "event-evidence-section",
       "source-reconciliation",
+      "review-update-note",
       "review-byline",
       "What matters before you go",
       "What we checked"
@@ -253,7 +254,9 @@ function runChecks() {
     const fit = review?.decisionFit || {};
     const profile = review?.planningProfile || {};
     const reconciliation = review?.sourceReconciliation || {};
-    return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
+    return !review?.reviewedAt || !review?.reviewedBy || !/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "")
+      || review.publishedAt > review.reviewedAt || String(review?.updateSummary || "").length < 100
+      || String(review?.visitorDecision || "").length < 120
       || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
       || ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
       || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
@@ -262,7 +265,7 @@ function runChecks() {
       || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2
         || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
   });
-  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, source reconciliation, and day-planning analysis`);
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have immutable publication history, latest-change notes, two distinct official source hosts, source reconciliation, and day-planning analysis`);
   else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
 
   const eventFailures = eventPageAudit();

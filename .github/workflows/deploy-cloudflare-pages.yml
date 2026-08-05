@@ -58,10 +58,11 @@ jobs:
       GOOGLE_ADSENSE_PUBLISHER_ID: ${{ vars.GOOGLE_ADSENSE_PUBLISHER_ID }}
       GOOGLE_ADSENSE_CLIENT: ${{ vars.GOOGLE_ADSENSE_CLIENT }}
       GOOGLE_ADSENSE_SLOT: ${{ vars.GOOGLE_ADSENSE_SLOT }}
-      # Ads stay disabled unless both the CMP declaration and a separate human
-      # evidence confirmation are explicitly provided as repository variables.
-      GOOGLE_ADSENSE_CMP_READY: ${{ vars.GOOGLE_ADSENSE_CMP_READY || '0' }}
-      GOOGLE_ADSENSE_CMP_EVIDENCE: ${{ vars.GOOGLE_ADSENSE_CMP_EVIDENCE || '0' }}
+      # Ordinary pushes and site-review deployments always keep ads disabled.
+      # Only an explicit manual ad-serving release can consume the separately
+      # verified CMP declaration and evidence variables.
+      GOOGLE_ADSENSE_CMP_READY: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_READY || '0' }}
+      GOOGLE_ADSENSE_CMP_EVIDENCE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_EVIDENCE || '0' }}
       GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       AGODA_PARTNER_CID: ${{ vars.AGODA_PARTNER_CID }}
       TRIP_ALLIANCE_ID: ${{ vars.TRIP_ALLIANCE_ID }}

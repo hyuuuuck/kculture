@@ -1,5 +1,18 @@
 const canonicalHost = "kspotnow.com";
 
+function retiredResponse(retiredLanguagePath = false) {
+  const message = retiredLanguagePath
+    ? "This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition."
+    : "This page has been retired from the reviewed edition. Use /en/guides/ or /en/now/ for current, source-checked information.";
+  return new Response(message, {
+    status: 410,
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=3600"
+    }
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -28,27 +41,22 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    // The editorial HTML must come from the current asset manifest. A
-    // no-store subrequest prevents an older edge copy from surviving a
-    // validated content or monetization release.
-    const response = await env.ASSETS.fetch(request, { cache: "no-store" });
+    // Entire withdrawn sections must be rejected before asset lookup. This
+    // prevents a stale Cloudflare asset from keeping an old thin page at 200
+    // after the reviewed edition has removed it from the current manifest.
     const retiredLanguagePath = /^\/(es|zh|pt|ru|ja|fr|de)(?:\/|$)/.test(url.pathname);
     const retiredRoutePath = /^\/en\/routes(?:\/|$)/.test(url.pathname);
     const retiredBrowsePath = /^\/en\/(?:categories|cities)(?:\/|$)/.test(url.pathname);
     const retiredOperationsPath = /^\/en\/(?:sources|watchlist|freshness)(?:\/|$)/.test(url.pathname);
+    const retiredSectionPath = retiredLanguagePath || retiredRoutePath || retiredBrowsePath || retiredOperationsPath;
+    if (retiredSectionPath) return retiredResponse(retiredLanguagePath);
+
+    // The editorial HTML must come from the current asset manifest. A
+    // no-store subrequest prevents an older edge copy from surviving a
+    // validated content or monetization release.
+    const response = await env.ASSETS.fetch(request, { cache: "no-store" });
     const retiredEditorialPath = /^\/en\/(?:events|guides)\/[^/]+\/?$/.test(url.pathname);
-    if (response.status === 404 && (retiredLanguagePath || retiredRoutePath || retiredBrowsePath || retiredOperationsPath || retiredEditorialPath)) {
-      const message = retiredLanguagePath
-        ? "This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition."
-        : "This page has been retired from the reviewed edition. Use /en/guides/ or /en/now/ for current, source-checked information.";
-      return new Response(message, {
-        status: 410,
-        headers: {
-          "content-type": "text/plain; charset=utf-8",
-          "cache-control": "public, max-age=3600"
-        }
-      });
-    }
+    if (response.status === 404 && retiredEditorialPath) return retiredResponse();
     const headers = new Headers(response.headers);
     const contentType = headers.get("content-type") || "";
 

@@ -32,6 +32,7 @@ const draftEventsFile = "scripts/draft-events-from-feed.mjs";
 const launchChecklistFile = "launch-checklist.md";
 const packageJsonFile = "package.json";
 const domainCheckFile = "scripts/check-domain-live.mjs";
+const workerFile = "src/worker.js";
 
 const sourceRefresh = read(sourceRefreshFile);
 const deploy = read(deployFile);
@@ -40,6 +41,7 @@ const draftEvents = read(draftEventsFile);
 const launchChecklist = read(launchChecklistFile);
 const packageJson = read(packageJsonFile);
 const domainCheck = read(domainCheckFile);
+const worker = read(workerFile);
 
 assertIncludes(sourceRefreshFile, sourceRefresh, "cron: \"20 */4 * * *\"", "source refresh should run every 4 hours.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "source refresh must import current KMA forecast before building review artifacts.");
@@ -79,6 +81,8 @@ assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_EVIDENCE", "manual Cloudf
 assertIncludes(deployFile, deploy, "preflight:adsense-review", "manual deploy must expose an ads.txt-based site-review gate.");
 assertIncludes(deployFile, deploy, "preflight:ad-serving", "manual deploy must keep CMP-gated ad serving separate from site review.");
 assertIncludes(deployFile, deploy, "require_ad_serving", "manual deploy must require an explicit ad-serving release choice.");
+assertIncludes(deployFile, deploy, "inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_READY || '0'", "ordinary pushes must keep the AdSense CMP release flag disabled.");
+assertIncludes(deployFile, deploy, "inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_EVIDENCE || '0'", "ordinary pushes must keep the AdSense evidence release flag disabled.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
 assertIncludes(deployFile, deploy, "Check Cloudflare deploy secret", "manual deploy should check the API token only after validation can report quality gates.");
 assertOrder(deployFile, deploy, "npm run quality:ceo", "Check Cloudflare deploy secret", "Cloudflare token checks should run after CEO quality review so missing secrets do not hide build quality.");
@@ -120,6 +124,8 @@ assertIncludes(domainCheckFile, domainCheck, "https://kspotnow.com", "domain che
 assertIncludes(domainCheckFile, domainCheck, "/sitemap.xml", "domain check must verify the live sitemap.");
 assertIncludes(domainCheckFile, domainCheck, "/robots.txt", "domain check must verify robots.txt.");
 assertIncludes(domainCheckFile, domainCheck, "Advertising Policy", "domain check must verify a public advertising policy page.");
+assertIncludes(workerFile, worker, "retiredSectionPath", "the worker must explicitly retire withdrawn sections.");
+assertOrder(workerFile, worker, "if (retiredSectionPath)", "env.ASSETS.fetch", "withdrawn sections must return 410 before stale asset lookup.");
 
 if (errors.length) {
   console.error("Workflow validation failed:");

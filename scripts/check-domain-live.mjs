@@ -128,6 +128,16 @@ async function expectSitemapTargets() {
   }
 }
 
+async function expectRepresentativeEvent() {
+  const sitemap = await fetchText("/sitemap.xml");
+  const eventUrl = sitemap.text.match(/<loc>(https:\/\/kspotnow\.com\/en\/events\/[^<]+)<\/loc>/)?.[1];
+  if (!sitemap.ok || !eventUrl) {
+    fail("Representative event detail", "No approved event URL was found in the live sitemap.", "Publish at least one reviewed event and rebuild the focused sitemap.");
+    return;
+  }
+  await expectPage(new URL(eventUrl).pathname, "Representative event detail", ["Open Official source", "Place, timing, weather", "What we checked", "First published"]);
+}
+
 async function expectCanonicalRedirect(fromUrl, label) {
   const result = await fetchRaw(fromUrl);
   const location = result.headers.get("location") || "";
@@ -139,14 +149,14 @@ async function expectCanonicalRedirect(fromUrl, label) {
 }
 
 if (siteUrl) {
-  await expectPage("/", "Home page", ["K-Spot Now", "Live Korea events, pop-ups, and deals for visitors."]);
+  await expectPage("/", "Home page", ["K-Spot Now", "Source-checked Korea event briefs", "Decide what is worth the trip."]);
   await expectPage("/robots.txt", "robots.txt", ["Sitemap:"]);
   await expectPage("/sitemap.xml", "sitemap.xml", ["<urlset", "/en/"]);
   await expectPage("/en/privacy/", "Privacy policy", ["Privacy"]);
   await expectPage("/en/cookie-policy/", "Cookie policy", ["Cookie"]);
   await expectPage("/en/advertising/", "Advertising policy", ["Advertising Policy", "ads cannot buy event inclusion"]);
   await expectPage("/en/contact/", "Contact page", [contactEmail]);
-  await expectPage("/en/events/red-velvet-day-in-red-velvet-seoul-2026", "Representative event detail", ["Open Ticketing source", "Place, timing, weather", "What we checked"]);
+  await expectRepresentativeEvent();
   await expectPage("/.well-known/security.txt", "security.txt", ["Contact: mailto:"]);
   await expectSitemapTargets();
 

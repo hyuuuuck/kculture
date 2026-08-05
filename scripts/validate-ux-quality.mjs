@@ -53,6 +53,10 @@ for (const lang of languages) {
   assertIncludes(home, 'data-spotlight-next aria-label="Next featured event"', homeId, "next spotlight icon needs an accessible label.");
 
   const now = read(`${lang}/now/index.html`);
+  assertIncludes(now, "event-decision-board", `${lang}/now/index.html`, "current-event page needs a cross-event decision board.");
+  if (count(now, /class="decision-board-row"/g) !== approvedEvents.length) {
+    push(`${lang}/now/index.html`, `decision board should compare exactly ${approvedEvents.length} reviewed events.`);
+  }
   for (const event of approvedEvents) {
     const href = `/${lang}/events/${event.slug}`;
     if (!now.includes(href)) push(`${lang}/now/index.html`, `reviewed event is missing from the current-event page: ${event.slug}`);
@@ -69,6 +73,10 @@ for (const lang of languages) {
   }
 
   const guideIndex = read(`${lang}/guides/index.html`);
+  assertIncludes(guideIndex, "guide-scope-ledger", `${lang}/guides/index.html`, "guide hub needs an audience and stop-rule ledger.");
+  if (count(guideIndex, /class="guide-scope-row"/g) !== approvedGuides.length) {
+    push(`${lang}/guides/index.html`, `guide scope ledger should contain exactly ${approvedGuides.length} reviewed guides.`);
+  }
   for (const guide of approvedGuides) {
     if (!guideIndex.includes(`/${lang}/guides/${guide.slug}`)) push(`${lang}/guides/index.html`, `approved guide is missing: ${guide.slug}`);
   }
@@ -84,6 +92,7 @@ for (const lang of languages) {
       "event-fact-bar",
       "event-review-section",
       "event-decision-fit",
+      "source-reconciliation",
       "event-visit-section",
       "event-evidence-section",
       "compact-related-section",
@@ -99,7 +108,7 @@ for (const lang of languages) {
     const html = read(id);
     const guideSections = count(html, /class="guide-content-section"/g);
     if (guideSections !== 4) push(id, `guide should render exactly 4 editorial sections; found ${guideSections}.`);
-    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-decision-tool", "guide-citations", "guide-next-section"]) {
+    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-decision-tool", "guide-worksheet", "guide-citations", "guide-next-section"]) {
       assertIncludes(html, marker, id, `guide trust or workflow marker is missing: ${marker}`);
     }
     if (count(html, /<h2/g) < 5) push(id, "guide needs visible section headings and source heading.");

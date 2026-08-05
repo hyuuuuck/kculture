@@ -1177,6 +1177,8 @@
         {
           "sourceName": "Boryeong Mud Festival",
           "url": "https://www.mudfestival.or.kr/en/festival/main.html",
+          "role": "Official festival operator",
+          "supports": "Controls the festival operating window, Daecheon Beach destination, paid activity-zone entry, and bracelet guidance.",
           "mustContain": [
             "29th Boryeong Mud Festival",
             "2026.07.24.(Fri)~08.09(Sun)(17Days)/DaecheonBeach",
@@ -2403,6 +2405,8 @@
         {
           "sourceName": "Busan Metropolitan City",
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+          "role": "Official city event record",
+          "supports": "Provides the 2026 public listing, Gwangalli Beach location, recurring Saturday times, and free-admission context.",
           "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
           "mustContain": [
             "Gwangalli M Drone Light Show",

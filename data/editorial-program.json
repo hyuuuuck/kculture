@@ -16,10 +16,10 @@
     "/en/about/"
   ],
   "staticUpdatedAt": {
-    "/en/": "2026-08-04",
-    "/en/now/": "2026-08-04",
-    "/en/guides/": "2026-08-04",
-    "/en/about/": "2026-08-04"
+    "/en/": "2026-08-05",
+    "/en/now/": "2026-08-05",
+    "/en/guides/": "2026-08-05",
+    "/en/about/": "2026-08-05"
   },
   "indexableEvents": [
     "nct-dream-sweet-dream-hotel-incheon-2026",
@@ -171,7 +171,7 @@
   },
   "eventReviews": {
     "nct-dream-sweet-dream-hotel-incheon-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "This is a destination concert rather than a central-Seoul stop. Overseas visitors should decide on the Incheon transfer and return transport before choosing a ticket, especially if they are staying in Seoul.",
       "decisionFit": {
@@ -180,6 +180,19 @@
         "poorFit": "A weak fit for a spontaneous central-Seoul evening because INSPIRE ARENA is outside the normal subway-centered sightseeing pattern.",
         "timeCost": "Budget a half day around the performance, with additional margin for ticket pickup, arena entry, and the return from the airport area.",
         "commitWhen": "Commit only after the ticket account, passport name, pickup method, showtime, and post-show transport all work together."
+      },
+      "planningProfile": {
+        "commitment": "Ticket-first destination",
+        "routeRole": "A concert-day anchor in the airport area, not an add-on to a central-Seoul evening.",
+        "lockIn": "The ticket identity, pickup window, showtime, and post-show transfer are confirmed together.",
+        "keepFlexible": "Do not attach a fixed Seoul dinner or late reservation until the return route remains workable.",
+        "weatherExposure": "The show is indoors, but the long airport-area transfer remains exposed to weather and transport disruption."
+      },
+      "sourceReconciliation": {
+        "agreement": "NOL World and the organizer notice agree on the event identity, August 22-23 dates, INSPIRE ARENA, and the KRW 121,000 listed price.",
+        "sourceRoles": "NOL World controls the sale path and checkout details; Weverse controls the organizer timetable, fanclub verification, age rule, and event notice.",
+        "unresolved": "Seat inventory, the buyer's exact pickup path, and cancellation terms remain transaction-time variables.",
+        "visitorMeaning": "Treat ticket identity and the airport-area return as one go-or-no-go decision; solving only the seat does not make the trip executable."
       },
       "foreignerChecks": [
         "The global ticket page lists an age limit of seven and a KRW 121,000 general price; recheck seat and pickup rules at checkout.",
@@ -190,6 +203,8 @@
         {
           "sourceName": "NOL World Ticket",
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
+          "role": "Authorized global ticket listing",
+          "supports": "Provides the sale path, listed price, event dates, venue, and transaction-time ticket conditions for overseas buyers.",
           "mustContain": ["THE SWEET DREAM HOTEL", "Aug 22, 2026 - Aug 23, 2026", "INSPIRE ARENA", "121,000 won"]
         },
         {
@@ -221,7 +236,7 @@
       ]
     },
     "boryeong-mud-festival-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "This is a full-day regional trip with a paid activity zone, not a quick photo stop. The transport plan, changing clothes, shower time, and return journey matter as much as the ticket.",
       "decisionFit": {
@@ -230,6 +245,19 @@
         "poorFit": "A poor fit for a short Seoul-based day trip when the last transport, shower time, or luggage plan is unresolved.",
         "timeCost": "Treat Daecheon Beach as a full-day regional commitment rather than combining it with a fixed Seoul reservation on the same day.",
         "commitWhen": "Commit after choosing the paid or free zone, confirming bracelet rules, and deciding whether the return schedule makes an overnight stay safer."
+      },
+      "planningProfile": {
+        "commitment": "Full-day regional trip",
+        "routeRole": "The festival is the day's main destination; it should not be treated as a short stop between Seoul appointments.",
+        "lockIn": "The paid or free zone, bracelet rule, luggage plan, and return or overnight option are settled.",
+        "keepFlexible": "Keep the activity order flexible until the same-day weather and operating notice are clear.",
+        "weatherExposure": "High outdoor exposure at a beach festival, including heat, rain, wet clothing, and weather-led program changes."
+      },
+      "sourceReconciliation": {
+        "agreement": "The official festival site and Korea Tourism Organization both confirm the July 24-August 9 festival window at Daecheon Beach.",
+        "sourceRoles": "The festival site controls activity-zone and bracelet operations; the tourism listing independently confirms the public date window and destination context.",
+        "unresolved": "Daily program hours, re-entry details, crowd conditions, and weather-led changes can still vary by visit date.",
+        "visitorMeaning": "Decide the transport and clothing logistics before the ticket; the festival is poor value if the return journey or dry-change plan is missing."
       },
       "foreignerChecks": [
         "A paid-zone bracelet is required for paid activities; free surrounding programs may follow different rules.",
@@ -304,7 +332,7 @@
       ]
     },
     "gwangalli-m-drone-light-show-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "The recurring Saturday schedule makes this a flexible Busan evening anchor, but weather and special-event changes can cancel or move a show. Treat the city listing as the final same-day check.",
       "decisionFit": {
@@ -313,6 +341,19 @@
         "poorFit": "A weak standalone cross-city trip if the forecast is unstable or the official same-day notice has not been checked.",
         "timeCost": "The show itself is brief, but arriving early for a clear view and leaving with the beach crowd can make it a two-hour stop.",
         "commitWhen": "Keep it flexible until the same-day weather and operator notice are clear, then save the correct seasonal showtime and return route."
+      },
+      "planningProfile": {
+        "commitment": "Same-day flexible anchor",
+        "routeRole": "A Busan evening add-on that works best when the visitor is already near Gwangalli, Millak, or Centum City.",
+        "lockIn": "The day's operator notice, seasonal showtime, viewing area, and return route all remain valid.",
+        "keepFlexible": "Do not make a cross-city trip solely for the show while wind, rain, or a special schedule is unresolved.",
+        "weatherExposure": "Very high: the beach show can be changed or canceled by wind, rain, or special-event operations."
+      },
+      "sourceReconciliation": {
+        "agreement": "Busan's city event record and the show operator both identify Gwangalli, a Saturday format, and a recurring public drone show.",
+        "sourceRoles": "The city record supplies the 2026 public listing and free-admission context; the operator controls the current show format and operating notices.",
+        "unresolved": "Theme, exact same-day operation, crowd density, and weather cancellation remain visit-day variables.",
+        "visitorMeaning": "Use the normal timetable as a planning placeholder only; the operator's same-day notice determines whether the stop becomes fixed. A missing notice is not confirmation."
       },
       "foreignerChecks": [
         "Seasonal show times differ, so do not reuse a saved winter time in summer.",
@@ -354,7 +395,7 @@
       ]
     },
     "seoul-international-garden-show-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "The six-month headline contains two locations and different program windows. Seoul Forest is the main May-to-October visit, while the Maeheon Citizen's Forest program is an October special.",
       "decisionFit": {
@@ -363,6 +404,19 @@
         "poorFit": "A poor main plan during severe heat or rain, or for visitors expecting every advertised garden to be in one compact zone.",
         "timeCost": "Allow roughly two to three hours for the main gardens and walking, then add time separately if combining the visit with Seongsu.",
         "commitWhen": "Choose the correct location first and make it a fixed plan only after checking weather, maintenance notices, and the current garden map."
+      },
+      "planningProfile": {
+        "commitment": "Weather-led outdoor add-on",
+        "routeRole": "A flexible Seoul Forest and Seongsu stop, provided the visitor chooses the current garden zone before opening a map.",
+        "lockIn": "The correct location, current garden map, maintenance status, and usable weather window are confirmed.",
+        "keepFlexible": "Keep the duration open during heat or rain and do not assume the October Maeheon program is already operating.",
+        "weatherExposure": "High outdoor exposure; heat, rain, maintenance, and seasonal garden condition affect the value of the visit."
+      },
+      "sourceReconciliation": {
+        "agreement": "Visit Seoul and Seoul Metropolitan Government agree on the long Seoul Forest program and the October 27 end date.",
+        "sourceRoles": "Visit Seoul provides the visitor-facing event listing; the city announcement explains the Seoul Forest-Seongsu scope and separates the October special program.",
+        "unresolved": "Individual garden condition, maintenance, special-program access, and the most useful entrance can change during the season.",
+        "visitorMeaning": "Choose Seoul Forest as the current destination and treat the Maeheon Citizen's Forest component as a separate October decision."
       },
       "foreignerChecks": [
         "Choose Seoul Forest or Maeheon Citizen's Forest before opening a map.",
@@ -373,6 +427,8 @@
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
+          "role": "Official city tourism listing",
+          "supports": "Provides the public event window, Seoul Forest location, and visitor-facing program summary.",
           "mustContain": ["2026 Seoul International Garden Show", "May 1", "October 27", "Seoul Forest"]
         },
         {
@@ -385,7 +441,7 @@
       ]
     },
     "national-geographic-ocean-seoul-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "This indoor exhibition is a dependable weather backup, but Monday and holiday closures matter more than the broad seasonal date range. Visitors should confirm the selected day and final admission time.",
       "decisionFit": {
@@ -394,6 +450,19 @@
         "poorFit": "A weak choice for a Monday, a late arrival near last admission, or a visitor who has not confirmed the exact gallery inside the arts center.",
         "timeCost": "Reserve about ninety minutes for the exhibition plus transfer and floor-finding time inside Chungmu Art Center.",
         "commitWhen": "Use it as a fixed backup only after confirming the selected date is open, the final entry time works, and tickets remain available."
+      },
+      "planningProfile": {
+        "commitment": "Timed indoor backup",
+        "routeRole": "A Sindang or Dongdaemun-area indoor replacement for an outdoor plan, not a generic all-Seoul fallback.",
+        "lockIn": "The selected date is open, the gallery location is clear, last admission works, and inventory remains available.",
+        "keepFlexible": "Do not depend on it for Monday or for an arrival close to the final entry time.",
+        "weatherExposure": "Low inside the venue; weather mainly affects the transfer and makes the exhibition more valuable as a nearby backup."
+      },
+      "sourceReconciliation": {
+        "agreement": "Visit Seoul and the national culture directory agree on the June 6-October 11 period and Chungmu Art Center venue.",
+        "sourceRoles": "Visit Seoul supplies visitor-facing closure and admission context; the Ministry directory independently cross-checks the exhibition identity, dates, and Korean venue record.",
+        "unresolved": "Current ticket inventory, holiday exceptions, the exact gallery floor, and last-entry enforcement remain date-specific.",
+        "visitorMeaning": "Use the exhibition as a fixed backup only when the chosen date and final entry time are verified, not merely because the season is still open."
       },
       "foreignerChecks": [
         "The venue is Chungmu Art Center Gallery, not the similarly named performance halls.",
@@ -404,6 +473,8 @@
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
+          "role": "Official city tourism listing",
+          "supports": "Provides the visitor-facing exhibition period, venue, closure pattern, and planning context.",
           "mustContain": ["National Geographic", "Jun 06, 2026", "Oct 11, 2026", "Chungmu Art Center"]
         },
         {
@@ -443,7 +514,7 @@
       ]
     },
     "fernando-botero-seoul-2026": {
-      "reviewedAt": "2026-08-04",
+      "reviewedAt": "2026-08-05",
       "reviewedBy": "K-Spot Now Editorial Desk",
       "visitorDecision": "This is a paid indoor exhibition that works well as a heat or rain backup near Gangnam, but a visitor still needs to choose a timed arrival around the Monday closure and 18:00 last admission.",
       "decisionFit": {
@@ -452,6 +523,19 @@
         "poorFit": "A poor fit for a Monday or for a late Gangnam itinerary that reaches Seoul Arts Center close to last admission.",
         "timeCost": "Allow about two hours for three exhibition halls, plus the walk from Nambu Terminal Station and venue navigation.",
         "commitWhen": "Commit after confirming the selected date, current inventory, age pricing, and enough arrival margin before 18:00."
+      },
+      "planningProfile": {
+        "commitment": "Timed museum stop",
+        "routeRole": "A Seocho or Gangnam indoor anchor that works when the visitor can arrive well before the 18:00 last-admission time.",
+        "lockIn": "The date, inventory, age price, museum building, and arrival margin are confirmed before departure.",
+        "keepFlexible": "Do not place it after an uncertain Gangnam stop that could push arrival close to 18:00.",
+        "weatherExposure": "Low inside the museum; rain or heat mainly increases its value as an indoor neighborhood anchor."
+      },
+      "sourceReconciliation": {
+        "agreement": "Visit Seoul and Seoul Arts Center agree on the Botero exhibition identity and Hangaram Design Museum venue.",
+        "sourceRoles": "Visit Seoul provides the public period, hours, last admission, and listed adult price; Seoul Arts Center confirms the venue-controlled exhibition record.",
+        "unresolved": "Live reservation inventory, age-tier pricing, queue conditions, and temporary venue notices remain external.",
+        "visitorMeaning": "The 18:00 last-admission cutoff is the itinerary constraint; confirm inventory before making the museum a fixed late-day stop. Treat the listed price as a check point, not a guaranteed checkout total."
       },
       "foreignerChecks": [
         "Visit Seoul lists Tuesday-Sunday hours of 10:00-19:00, with last admission at 18:00 and Monday closure.",
@@ -462,6 +546,8 @@
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
+          "role": "Official city tourism listing",
+          "supports": "Provides the exhibition period, public hours, last admission, venue, and listed adult price used in the visitor plan.",
           "mustContain": ["Fernando Botero", "Apr 24, 2026", "Aug 30, 2026", "Hangaram Design Museum", "23,000"]
         },
         {

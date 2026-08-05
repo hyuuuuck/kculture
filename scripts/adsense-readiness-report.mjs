@@ -130,6 +130,7 @@ function eventPageAudit() {
       "event-review-section",
       "event-visit-section",
       "event-evidence-section",
+      "source-reconciliation",
       "review-byline",
       "What matters before you go",
       "What we checked"
@@ -161,15 +162,30 @@ function guidePageAudit() {
       decisionTool.limitations,
       ...(decisionTool.rows || []).flatMap((row) => [row.signal, row.interpretation, row.action])
     ].join(" ");
+    const worksheet = guide.worksheet || {};
+    const worksheetText = [
+      worksheet.title,
+      worksheet.intro,
+      worksheet.passRule,
+      worksheet.stopRule,
+      ...(worksheet.checks || []).flatMap((item) => [item.label, item.prompt])
+    ].join(" ");
     const sourceHosts = new Set((guide.sources || []).map((source) => {
       try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
     }).filter(Boolean));
     if (!html) failures.push(`${guide.slug}:missing-page`);
-    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-decision-tool")) failures.push(`${guide.slug}:missing-authorship-citations-or-worked-example`);
+    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-decision-tool") || !html.includes("guide-worksheet")) failures.push(`${guide.slug}:missing-authorship-citations-worked-example-or-worksheet`);
     if (structuredSections.length < 4) failures.push(`${guide.slug}:fewer-than-4-sections`);
     if (!Array.isArray(guide.sources) || guide.sources.length < 2 || sourceHosts.size < 2) failures.push(`${guide.slug}:fewer-than-2-distinct-source-hosts`);
     if (wordCount(paragraphWords) < 280) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
-    if (wordCount(`${paragraphWords} ${decisionToolText}`) < 500 || (decisionTool.rows || []).length < 4) failures.push(`${guide.slug}:thin-or-incomplete-worked-example`);
+    if (wordCount(`${paragraphWords} ${decisionToolText} ${worksheetText}`) < 650 || (decisionTool.rows || []).length < 4) failures.push(`${guide.slug}:thin-or-incomplete-decision-workflow`);
+    if ((worksheet.checks || []).length !== 5
+        || String(worksheet.intro || "").length < 100
+        || String(worksheet.passRule || "").length < 70
+        || String(worksheet.stopRule || "").length < 70
+        || (worksheet.checks || []).some((item) => String(item.label || "").length < 3 || String(item.prompt || "").length < 70)) {
+      failures.push(`${guide.slug}:incomplete-five-step-worksheet`);
+    }
     if (!guide.audience) failures.push(`${guide.slug}:missing-intended-audience`);
     if (!guide.method || !guide.reviewedBy || !guide.updatedAt) failures.push(`${guide.slug}:missing-method-or-review`);
   }
@@ -235,13 +251,18 @@ function runChecks() {
     const review = program.eventReviews?.[event.slug];
     const evidence = eventEvidence(event);
     const fit = review?.decisionFit || {};
+    const profile = review?.planningProfile || {};
+    const reconciliation = review?.sourceReconciliation || {};
     return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
       || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
       || ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
+      || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
+      || ["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
       || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
-      || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+      || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2
+        || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
   });
-  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, visitor checks, and decision-fit analysis`);
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have two distinct official source hosts, review ownership, source reconciliation, and day-planning analysis`);
   else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
 
   const eventFailures = eventPageAudit();
@@ -249,8 +270,21 @@ function runChecks() {
   else fail("Content", "Event page usefulness", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
 
   const guideFailures = guidePageAudit();
-  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have 4 sections, distinct official source hosts, intended audience, worked example, method, and byline`);
+  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have four sections, distinct official source hosts, a worked example, and a five-step worksheet with pass and stop rules`);
   else fail("Content", "Guide originality", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
+
+  const now = read("dist/en/now/index.html");
+  const decisionRows = (now.match(/class="decision-board-row"/g) || []).length;
+  if (now.includes("event-decision-board") && decisionRows === approvedEvents.length) {
+    pass("UX", "Cross-event decision board", `${decisionRows} reviewed events compared by commitment, route role, lock-in, and flexible variables`);
+  } else {
+    fail("UX", "Cross-event decision board", `${decisionRows}/${approvedEvents.length} comparison rows`, "Render every approved event in the decision board on /en/now/.");
+  }
+
+  const guideHub = read("dist/en/guides/index.html");
+  const guideScopeRows = (guideHub.match(/class="guide-scope-row"/g) || []).length;
+  if (guideHub.includes("guide-scope-ledger") && guideScopeRows === approvedGuides.length) pass("UX", "Guide scope ledger", `${guideScopeRows} guide audiences, pass rules, and stop rules are visible before article entry`);
+  else fail("UX", "Guide scope ledger", `${guideScopeRows}/${approvedGuides.length} guide rows`, "Render every approved guide in the scope ledger before AdSense re-review.");
 
   const expected = expectedSitemapPaths();
   const actual = sitemapPaths();

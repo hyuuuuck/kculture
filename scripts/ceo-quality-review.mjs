@@ -86,14 +86,19 @@ if (program.mode === "adsense-editorial-review" && approvedEvents.length && curr
 
 const missingReviews = approvedEvents.filter((event) => {
   const review = program.eventReviews?.[event.slug];
+  const profile = review?.planningProfile || {};
+  const reconciliation = review?.sourceReconciliation || {};
   const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
   return !review?.reviewedAt || !review?.reviewedBy || String(review?.visitorDecision || "").length < 120
     || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
+    || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
+    || ["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
     || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
-    || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2);
+    || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2
+      || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
 });
 if (!missingReviews.length) {
-  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have ownership, visitor analysis, and two distinct official source hosts.`);
+  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have ownership, source reconciliation, day-planning analysis, and two distinct official source hosts.`);
 } else {
   fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
@@ -121,6 +126,7 @@ for (const event of approvedEvents) {
       || !html.includes("event-review-section")
       || !html.includes("event-visit-section")
       || !html.includes("event-evidence-section")
+      || !html.includes("source-reconciliation")
       || !html.includes("review-byline")
       || htmlWordCount(html) < 350) {
     eventPageProblems.push(event.slug);
@@ -134,14 +140,38 @@ if (!eventPageProblems.length) {
 
 const guideProblems = approvedGuides.filter((guide) => {
   const html = read(`dist/en/guides/${guide.slug}.html`);
-  const paragraphWords = (guide.sections?.en || []).flatMap((section) => section.paragraphs || []).join(" ").split(/\s+/).length;
-  return !html.includes("guide-byline") || !html.includes("guide-citations") || (guide.sections?.en || []).length !== 4
-    || (guide.sources || []).length < 2 || paragraphWords < 280;
+  const worksheet = guide.worksheet || {};
+  const decisionTool = guide.decisionTool || {};
+  const combinedWords = [
+    ...(guide.sections?.en || []).flatMap((section) => section.paragraphs || []),
+    decisionTool.scenario,
+    decisionTool.verdict,
+    decisionTool.limitations,
+    ...(decisionTool.rows || []).flatMap((row) => [row.signal, row.interpretation, row.action]),
+    worksheet.intro,
+    worksheet.passRule,
+    worksheet.stopRule,
+    ...(worksheet.checks || []).flatMap((item) => [item.label, item.prompt])
+  ].join(" ");
+  return !html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-worksheet")
+    || (guide.sections?.en || []).length !== 4 || (guide.sources || []).length < 2
+    || htmlWordCount(combinedWords) < 650 || (worksheet.checks || []).length !== 5
+    || !worksheet.passRule || !worksheet.stopRule;
 });
 if (!guideProblems.length) {
-  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have four decision sections, source citations, method, and authorship.`);
+  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have four decision sections, source citations, a worked example, and a five-step pass/stop worksheet.`);
 } else {
   fail("planner", "Guides", "Original editorial depth", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
+}
+
+const now = read("dist/en/now/index.html");
+const decisionRows = (now.match(/class="decision-board-row"/g) || []).length;
+const guideHub = read("dist/en/guides/index.html");
+const guideScopeRows = (guideHub.match(/class="guide-scope-row"/g) || []).length;
+if (now.includes("event-decision-board") && decisionRows === approvedEvents.length && guideHub.includes("guide-scope-ledger") && guideScopeRows === approvedGuides.length) {
+  pass("designer", "Hubs", "Decision-led navigation", `${decisionRows} events are compared on the Now board and guide scope is visible before article entry.`);
+} else {
+  fail("designer", "Hubs", "Decision-led navigation", `${decisionRows}/${approvedEvents.length} event rows; ${guideScopeRows}/${approvedGuides.length} guide rows.`, "Designer: restore the Now decision board and guide scope ledger.");
 }
 
 const sitemap = read("dist/sitemap.xml");

@@ -52,6 +52,8 @@ for (const slug of approvedSlugs) {
   }
   const review = program.eventReviews?.[slug];
   const fit = review?.decisionFit || {};
+  const profile = review?.planningProfile || {};
+  const reconciliation = review?.sourceReconciliation || {};
   const evidence = [
     ...(Array.isArray(event.audit?.sourceEvidence) ? event.audit.sourceEvidence : []),
     ...(Array.isArray(review?.sourceEvidence) ? review.sourceEvidence : [])
@@ -65,6 +67,16 @@ for (const slug of approvedSlugs) {
   if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
       || !html.includes('class="event-decision-fit"')) {
     failures.push(`${slug}: visitor decision-fit analysis is incomplete or not rendered.`);
+  }
+  if (["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))) {
+    failures.push(`${slug}: day-planning profile is incomplete.`);
+  }
+  if (["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
+      || !html.includes('class="source-reconciliation"')) {
+    failures.push(`${slug}: source reconciliation is incomplete or not rendered.`);
+  }
+  if (evidence.some((item) => String(item.role || "").length < 8 || String(item.supports || "").length < 60)) {
+    failures.push(`${slug}: evidence role or claim coverage is incomplete.`);
   }
 }
 
@@ -88,4 +100,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Publication gate passed: ${approvedSlugs.length} reviewed events with two-source evidence, first-screen facts, dates, and no affiliate content.`);
+console.log(`Publication gate passed: ${approvedSlugs.length} reviewed events with two-source evidence, source reconciliation, planning profiles, first-screen facts, dates, and no affiliate content.`);

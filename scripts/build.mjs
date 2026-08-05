@@ -7567,6 +7567,40 @@ function nowPanel(title, items, lang, mode = "ends") {
     </section>`;
 }
 
+function eventDecisionBoard(eventsForBoard, lang) {
+  const rows = eventsForBoard
+    .map((event) => ({ event, profile: editorialReviewFor(event)?.planningProfile }))
+    .filter(({ profile }) => profile);
+  if (!rows.length) return "";
+  return `
+    <section class="event-decision-board" aria-labelledby="event-decision-board-title">
+      <div class="decision-board-intro">
+        <div>
+          <p class="eyebrow">Editorial comparison</p>
+          <h2 id="event-decision-board-title">Choose by commitment, not just category</h2>
+        </div>
+        <p>These are K-Spot Now planning judgments derived from the source records on each event page. They compare how an event fits a travel day; they do not replace the organizer's current operating notice.</p>
+      </div>
+      <div class="decision-board-labels" aria-hidden="true">
+        <span>Event and commitment</span><span>Role in the day</span><span>Lock it in when</span><span>Keep it flexible when</span>
+      </div>
+      <div class="decision-board-rows">
+        ${rows.map(({ event, profile }) => `
+        <article class="decision-board-row">
+          <div class="decision-board-event">
+            <span>${esc(profile.commitment)}</span>
+            <a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a>
+            <small>${esc(cityLabel(lang, event.city))} / ${esc(eventDateLabel(event, lang, false))}</small>
+          </div>
+          <p><span>Role in the day</span>${esc(profile.routeRole)}</p>
+          <p><span>Lock it in when</span>${esc(profile.lockIn)}</p>
+          <p><span>Keep it flexible when</span>${esc(profile.keepFlexible)}</p>
+          <a class="decision-board-open" href="${eventHref(lang, event)}">Open the full evidence brief</a>
+        </article>`).join("")}
+      </div>
+    </section>`;
+}
+
 function renderNow(lang) {
   const groups = nowGroups();
   const combined = [];
@@ -7585,6 +7619,7 @@ function renderNow(lang) {
         <p>${tr(lang, "nowText")}</p>
       </section>
       ${nowDashboard(lang)}
+      ${eventDecisionBoard(currentEvents(), lang)}
       ${recheckQueuePanel(lang)}
       <section class="now-grid">
         ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
@@ -8087,7 +8122,7 @@ function eventReviewSection(event, lang) {
           <ul class="event-check-list">
             ${(review.foreignerChecks || []).map((item) => `<li>${esc(item)}</li>`).join("")}
           </ul>
-          <p class="review-byline">Reviewed ${esc(dateText(lang, review.reviewedAt))} by ${esc(review.reviewedBy)}. ${esc(editorialProgram.editorialTeam?.method || "")}</p>
+          <p class="review-byline">Reviewed ${esc(dateText(lang, review.reviewedAt))} by <a href="/${lang}/about/">${esc(review.reviewedBy)}</a>. ${esc(editorialProgram.editorialTeam?.method || "")}</p>
         </section>`;
 }
 
@@ -8171,6 +8206,7 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
 function eventEvidenceSection(event, lang) {
   const evidence = eventSourceEvidence(event);
   const review = editorialReviewFor(event);
+  const reconciliation = review?.sourceReconciliation;
   const dates = eventPublicationDates(event);
   return `
         <section class="detail-section event-evidence-section" aria-labelledby="event-evidence-title">
@@ -8181,6 +8217,20 @@ function eventEvidenceSection(event, lang) {
             </div>
             <span>Published ${esc(dateText(lang, dates.publishedAt))} · Updated ${esc(dateText(lang, dates.updatedAt))}</span>
           </div>
+          ${reconciliation ? `
+          <div class="source-reconciliation" aria-label="Official source reconciliation">
+            <div class="source-reconciliation-head">
+              <p class="eyebrow">Record reconciliation</p>
+              <h3>How the official records combine</h3>
+              <p>This is the editorial bridge between the cited records and the visitor decision above.</p>
+            </div>
+            <dl>
+              <div><dt>What agrees</dt><dd>${esc(reconciliation.agreement)}</dd></div>
+              <div><dt>Source roles</dt><dd>${esc(reconciliation.sourceRoles)}</dd></div>
+              <div><dt>Still unresolved</dt><dd>${esc(reconciliation.unresolved)}</dd></div>
+              <div><dt>What it means for the visit</dt><dd>${esc(reconciliation.visitorMeaning)}</dd></div>
+            </dl>
+          </div>` : ""}
           <div class="evidence-list">
             ${evidence.map((item) => `
               <article>
@@ -8602,6 +8652,22 @@ function renderGuides(lang) {
       <section class="guide-grid wide">
         ${guides.map((guide) => guideCard(guide, lang)).join("")}
       </section>
+      <section class="guide-scope-ledger" aria-labelledby="guide-scope-title">
+        <div class="guide-scope-intro">
+          <p class="eyebrow">Decision scope</p>
+          <h2 id="guide-scope-title">Three guides, three different stop rules</h2>
+          <p>Each guide is kept public only when it closes a distinct visitor decision. The pass and stop rules below are the editorial boundary, not a promise of admission, inventory, price, or ticket validity.</p>
+        </div>
+        <div class="guide-scope-rows">
+          ${guides.map((guide) => `
+          <article class="guide-scope-row">
+            <a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a>
+            <p><span>Who it serves</span>${esc(guide.audience || "Independent Korea visitors using current official records.")}</p>
+            <p><span>Pass rule</span>${esc(guide.worksheet?.passRule || guide.decisionTool?.verdict || "Recheck the current official source.")}</p>
+            <p><span>Stop rule</span>${esc(guide.worksheet?.stopRule || guide.decisionTool?.limitations || "Do not proceed while a controlling detail remains unresolved.")}</p>
+          </article>`).join("")}
+        </div>
+      </section>
     </main>`;
   return layout({
     lang,
@@ -8687,10 +8753,31 @@ function renderGuideDecisionTool(guide, sectionNumber) {
             </section>`;
 }
 
+function renderGuideWorksheet(guide, sectionNumber) {
+  const worksheet = guide.worksheet;
+  if (!worksheet || !Array.isArray(worksheet.checks) || !worksheet.checks.length) return "";
+  return `
+            <section class="guide-worksheet" id="guide-worksheet" aria-labelledby="guide-worksheet-title">
+              <div class="guide-worksheet-head">
+                <p class="eyebrow">Use before committing</p>
+                <h2 id="guide-worksheet-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(worksheet.title)}</span></h2>
+                <p>${esc(worksheet.intro)}</p>
+              </div>
+              <ol class="guide-worksheet-checks">
+                ${worksheet.checks.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p><strong>${esc(item.label)}</strong>${esc(item.prompt)}</p></li>`).join("")}
+              </ol>
+              <div class="guide-worksheet-rules">
+                <p><span>Pass rule</span>${esc(worksheet.passRule)}</p>
+                <p><span>Stop rule</span>${esc(worksheet.stopRule)}</p>
+              </div>
+            </section>`;
+}
+
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
   const decisionToolNumber = sections.length + 1;
-  const citationNumber = decisionToolNumber + (guide.decisionTool ? 1 : 0);
+  const worksheetNumber = decisionToolNumber + (guide.decisionTool ? 1 : 0);
+  const citationNumber = worksheetNumber + (guide.worksheet ? 1 : 0);
   const relatedEvents = relatedEventsForGuide(guide);
   const relatedRoutes = relatedRoutesForGuide(guide);
   const sourceExamples = guideSourceExamples(guide);
@@ -8703,7 +8790,7 @@ function renderGuide(guide, lang) {
           <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
           ${guide.audience ? `<p class="guide-audience"><strong>Best for:</strong> ${esc(guide.audience)}</p>` : ""}
           <div class="guide-byline">
-            <strong>${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</strong>
+            <a href="/${lang}/about/">${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</a>
             <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
             <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
           </div>
@@ -8715,6 +8802,7 @@ function renderGuide(guide, lang) {
             <ol>
               ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
               ${guide.decisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
+              ${guide.worksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
               <li><a href="#guide-citations-title"><span>${String(citationNumber).padStart(2, "0")}</span>Official sources used</a></li>
             </ol>
           </nav>
@@ -8722,6 +8810,7 @@ function renderGuide(guide, lang) {
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
             ${renderGuideDecisionTool(guide, decisionToolNumber)}
+            ${renderGuideWorksheet(guide, worksheetNumber)}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
               <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(citationNumber).padStart(2, "0")}</span><span>Official sources used</span></h2>
               <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>

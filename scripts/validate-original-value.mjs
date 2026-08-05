@@ -81,6 +81,10 @@ for (const slug of approvedEvents) {
   const evidence = evidenceFor(event, review);
   const decisionFit = review.decisionFit || {};
   const decisionFitFields = ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"];
+  const planningProfile = review.planningProfile || {};
+  const planningProfileFields = ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"];
+  const reconciliation = review.sourceReconciliation || {};
+  const reconciliationFields = ["agreement", "sourceRoles", "unresolved", "visitorMeaning"];
 
   if (wordCount(summary) < 24) fail(slug, "English summary needs at least 24 substantive words.");
   if (wordCount(whyGo) < 20) fail(slug, "visitor-value explanation needs at least 20 substantive words.");
@@ -109,8 +113,18 @@ for (const slug of approvedEvents) {
   if (wordCount(decisionFitFields.map((field) => decisionFit[field]).join(" ")) < 75) {
     fail(slug, "decision-fit analysis needs at least 75 substantive words beyond the source facts.");
   }
+  if (planningProfileFields.some((field) => wordCount(planningProfile[field]) < (field === "commitment" ? 2 : 9))) {
+    fail(slug, "needs a complete commitment, route-role, lock-in, flexibility, and weather-exposure profile.");
+  }
+  if (reconciliationFields.some((field) => wordCount(reconciliation[field]) < 12)
+      || wordCount(reconciliationFields.map((field) => reconciliation[field]).join(" ")) < 75) {
+    fail(slug, "needs a substantial official-source reconciliation with agreement, role split, unresolved variables, and visitor meaning.");
+  }
   if (evidence.length < 2 || distinctEvidenceHosts(evidence) < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
     fail(slug, "needs two traceable official sources on distinct hosts with verification tokens.");
+  }
+  if (evidence.some((item) => wordCount(item.role) < 2 || wordCount(item.supports) < 8)) {
+    fail(slug, "every official source needs a visible role and a substantial explanation of what it supports.");
   }
   const isNationwide = event.category === "travel-benefits" && event.city === "Nationwide";
   if (!isNationwide && !/[\uac00-\ud7a3]/u.test(event.mapQueryKo || "")) {
@@ -136,13 +150,22 @@ for (const slug of approvedGuides) {
     decisionTool.limitations,
     ...decisionRows.flatMap((row) => [row.signal, row.interpretation, row.action])
   ].join(" ");
+  const worksheet = guide.worksheet || {};
+  const worksheetChecks = Array.isArray(worksheet.checks) ? worksheet.checks : [];
+  const worksheetText = [
+    worksheet.title,
+    worksheet.intro,
+    worksheet.passRule,
+    worksheet.stopRule,
+    ...worksheetChecks.flatMap((item) => [item.label, item.prompt])
+  ].join(" ");
 
   if (sections.length !== 4) fail(slug, "guide needs four deliberate editorial sections.");
   if (sections.some((section) => wordCount(section.heading) < 2 || (section.paragraphs || []).length < 2)) {
     fail(slug, "every guide section needs a specific heading and at least two explanatory paragraphs.");
   }
   if (wordCount(body) < 300) fail(slug, "guide body needs at least 300 substantive words.");
-  if (wordCount(`${body} ${decisionToolText}`) < 500) fail(slug, "guide and worked example need at least 500 substantive words of combined visitor value.");
+  if (wordCount(`${body} ${decisionToolText} ${worksheetText}`) < 650) fail(slug, "guide, worked example, and worksheet need at least 650 substantive words of combined visitor value.");
   if (wordCount(guide.method) < 15) fail(slug, "research method disclosure needs at least 15 substantive words.");
   if ((guide.sources || []).length < 2 || distinctEvidenceHosts(guide.sources || []) < 2 || (guide.sources || []).some((source) => !/^https?:\/\//.test(source.url || ""))) {
     fail(slug, "guide needs at least two valid research sources on distinct official hosts.");
@@ -154,10 +177,16 @@ for (const slug of approvedGuides) {
   if (wordCount(decisionTool.scenario) < 45 || wordCount(decisionTool.verdict) < 35 || wordCount(decisionTool.limitations) < 15) {
     fail(slug, "worked example needs a substantial scenario, verdict, and limitation disclosure.");
   }
+  if (worksheetChecks.length !== 5 || worksheetChecks.some((item) => wordCount(item.label) < 1 || wordCount(item.prompt) < 12)) {
+    fail(slug, "verification worksheet needs exactly five substantial labeled checks.");
+  }
+  if (wordCount(worksheet.intro) < 25 || wordCount(worksheet.passRule) < 15 || wordCount(worksheet.stopRule) < 15) {
+    fail(slug, "verification worksheet needs a substantial introduction, pass rule, and stop rule.");
+  }
   if (!guide.reviewedBy || !guide.publishedAt || !guide.updatedAt) {
     fail(slug, "reviewer, published date, and updated date are required.");
   }
-  if (firstHandClaimRe.test(`${body} ${decisionToolText}`)) fail(slug, "contains an unverified first-hand experience claim.");
+  if (firstHandClaimRe.test(`${body} ${decisionToolText} ${worksheetText}`)) fail(slug, "contains an unverified first-hand experience claim.");
 }
 
 const builtGuideDir = path.join(root, "dist", "en", "guides");
@@ -177,6 +206,22 @@ if (fs.existsSync(aboutPath)) {
   const aboutHtml = fs.readFileSync(aboutPath, "utf8");
   for (const marker of ["about-accountability", ">Who<", ">How<", ">Why<", ">Limits<", "contact@kspotnow.com"]) {
     if (!aboutHtml.includes(marker)) fail("about", `editorial accountability marker is missing: ${marker}`);
+  }
+}
+
+const nowPath = path.join(root, "dist", "en", "now", "index.html");
+if (fs.existsSync(nowPath)) {
+  const nowHtml = fs.readFileSync(nowPath, "utf8");
+  if (!nowHtml.includes("event-decision-board") || (nowHtml.match(/class="decision-board-row"/g) || []).length !== approvedEvents.length) {
+    fail("now", `decision board must render exactly ${approvedEvents.length} reviewed event comparisons.`);
+  }
+}
+
+const guidesHubPath = path.join(root, "dist", "en", "guides", "index.html");
+if (fs.existsSync(guidesHubPath)) {
+  const guidesHubHtml = fs.readFileSync(guidesHubPath, "utf8");
+  if (!guidesHubHtml.includes("guide-scope-ledger") || (guidesHubHtml.match(/class="guide-scope-row"/g) || []).length !== approvedGuides.length) {
+    fail("guides", `guide hub must render exactly ${approvedGuides.length} reviewed decision-scope rows.`);
   }
 }
 

@@ -5,7 +5,7 @@
     "title": { "en": "How to verify a Korea pop-up before you travel" },
     "summary": { "en": "A practical source-checking method for fast-changing K-pop, character, fashion, and brand pop-ups in Korea." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-08-04",
+    "updatedAt": "2026-08-05",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research comparing organizer, venue, ticketing, and store notices. This guide does not claim a first-hand visit.",
     "audience": "Independent Korea visitors deciding whether a fast-changing pop-up is reliable enough to reserve travel time, money, or a fixed route.",
@@ -36,6 +36,19 @@
       ],
       "verdict": "Make the pop-up a fixed stop only when date, branch, floor, and entry method agree across the current primary records. If only product stock is uncertain, keep the stop flexible. If the venue or operating date still conflicts, remove it from the itinerary instead of merging whichever details are most convenient.",
       "limitations": "The example demonstrates a repeatable comparison method. It does not verify inventory, queue length, or a first-hand visit, and the live organizer or ticket page remains controlling."
+    },
+    "worksheet": {
+      "title": "A 12-minute pop-up verification sheet",
+      "intro": "Complete this record from the current organizer, venue, and entry pages before turning a discovery post into a fixed trip stop. Leave a field unresolved rather than filling it from memory or an older screenshot.",
+      "checks": [
+        { "label": "Operating record", "prompt": "Write the exact date, daily hours, organizer name, and time you last opened the primary notice." },
+        { "label": "Arrival record", "prompt": "Save the branch, building, floor, Korean map query, and practical entrance as separate fields." },
+        { "label": "Entry record", "prompt": "Mark walk-in, lottery, reservation, or ticketed entry and record identity, age, companion, and re-entry conditions." },
+        { "label": "Stock record", "prompt": "Separate event admission from product availability, purchase limits, sold-out wording, and restock uncertainty." },
+        { "label": "Fallback record", "prompt": "Choose one useful stop in the same neighborhood that does not depend on another timed reservation." }
+      ],
+      "passRule": "Fix the stop only when the operating, arrival, and entry records agree across the sources that control them.",
+      "stopRule": "Remove the stop when the date or venue still conflicts, or when the only purchase path cannot be traced to the organizer."
     },
     "sources": [
       {
@@ -188,7 +201,7 @@
     "title": { "en": "How to use Korea's shopping-sale calendar without chasing expired offers" },
     "summary": { "en": "A method for separating national campaigns, retailer promotions, branch events, and product stock when planning a Korea shopping trip." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-08-04",
+    "updatedAt": "2026-08-05",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research across official tourism campaigns and retailer pages. Campaign dates are treated as time-limited evidence, not evergreen promises.",
     "audience": "Korea visitors comparing a national shopping campaign with retailer, branch, and product-level terms before changing a travel route for a discount.",
@@ -219,6 +232,19 @@
       ],
       "verdict": "Fix the shopping stop only when the retailer dates, eligible branch, payment method, and expected basket all align with a neighborhood already in the itinerary. Keep it optional when stock is the remaining uncertainty. Drop it when the route depends on an old campaign date or an unverified branch benefit.",
       "limitations": "This framework does not promise a price, coupon, gift, or stock level. Current retailer terms and the checkout screen control the purchase."
+    },
+    "worksheet": {
+      "title": "A sale-to-checkout comparison sheet",
+      "intro": "Use one row per layer instead of copying the largest discount headline. The goal is to decide whether the final payable result justifies the branch, transfer, and luggage cost for this trip.",
+      "checks": [
+        { "label": "Campaign layer", "prompt": "Record the campaign window and what it actually promises: discovery, coupon issue, partner access, or a specific price." },
+        { "label": "Retailer layer", "prompt": "Record the retailer sale dates, eligible channel, membership or payment condition, and excluded categories." },
+        { "label": "Branch layer", "prompt": "Confirm the exact branch, in-store eligibility, opening hours, and whether the benefit is branch-specific." },
+        { "label": "Basket layer", "prompt": "Calculate the expected basket without gifts first, then add stock, refund, return, and substitute-product conditions." },
+        { "label": "Route layer", "prompt": "Compare the transfer time and baggage cost with a branch already inside the day's neighborhood plan." }
+      ],
+      "passRule": "Fix the shopping stop when retailer dates, branch eligibility, payment method, and the expected basket all align with an existing route.",
+      "stopRule": "Drop the detour when it depends on an expired campaign, an unverified branch benefit, or a single uncertain product."
     },
     "sources": [
       {
@@ -513,7 +539,7 @@
     "title": { "en": "K-pop tickets and merchandise: a safer verification checklist" },
     "summary": { "en": "How overseas visitors can verify authorized ticketing, identity rules, presales, mobile delivery, and merchandise notices before paying." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-08-04",
+    "updatedAt": "2026-08-05",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research against organizer, fan-platform, and authorized ticketing notices. K-Spot Now does not sell tickets or authenticate resale offers.",
     "audience": "Overseas K-pop visitors checking seller authority, account identity, ticket delivery, merchandise stock, and the return journey before paying.",
@@ -544,6 +570,19 @@
       ],
       "verdict": "Do not pay merely because the event is authentic. Pay only when the seller path is named by the organizer, the account and identity rules fit the traveler, delivery is usable on the correct device or at pickup, and cancellation plus return transport are understood. Otherwise the decision remains no, not maybe.",
       "limitations": "K-Spot Now cannot authenticate resale tickets, private sellers, payment screenshots, or merchandise inventory. Only an organizer-approved mechanism can change that limitation."
+    },
+    "worksheet": {
+      "title": "A pre-payment authority and identity sheet",
+      "intro": "Complete this before entering payment details. A real event and a convincing seat image do not prove that the proposed seller, transfer method, or identity path will produce valid entry.",
+      "checks": [
+        { "label": "Authority", "prompt": "Start at the artist, organizer, or venue notice and record the exact ticket platform and domain it names." },
+        { "label": "Identity", "prompt": "Compare membership, ticket account, payment name, passport spelling, age rule, and companion conditions." },
+        { "label": "Delivery", "prompt": "Record whether the ticket arrives by app, account, device, or pickup and whether transfer is explicitly supported." },
+        { "label": "Cancellation", "prompt": "Save the cutoff in Korea Standard Time, refund path, and the official rule that controls a changed plan." },
+        { "label": "Return", "prompt": "Save the Korean venue name, pickup area, post-show route, and a realistic alternative if the last train is tight." }
+      ],
+      "passRule": "Pay only when the organizer-named platform, identity path, usable delivery, cancellation rule, and return journey are all workable.",
+      "stopRule": "Stop when payment moves off-platform, the traveler name cannot be reconciled, or transferability is supported only by a screenshot or private message."
     },
     "sources": [
       {

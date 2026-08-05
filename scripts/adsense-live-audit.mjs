@@ -13,6 +13,7 @@ const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://kspotnow.com")
 const timeoutMs = Number(process.env.LIVE_AUDIT_TIMEOUT_MS || 12000);
 const reviewMode = process.env.ADSENSE_REVIEW_MODE !== "0";
 const adsenseCompliance = JSON.parse(await fs.readFile(path.join(root, "data", "adsense-compliance.json"), "utf8").catch(() => "null"));
+const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const cmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
@@ -22,10 +23,11 @@ const layoutResults = [];
 const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Decide what is worth the trip."] },
   { path: "/en/", label: "English home", needles: ["Source-checked Korea event briefs", "spotlight-carousel"] },
-  { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section"] },
-  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked"] },
+  { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section", "event-decision-board", "decision-board-row"] },
+  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
-  { path: "/en/guides/", label: "Guides", needles: ["Guides"] },
+  { path: "/en/guides/", label: "Guides", needles: ["Guides", "guide-scope-ledger", "guide-scope-row"] },
+  { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-decision-tool", "guide-worksheet", "guide-citations"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
   { path: "/en/contact/", label: "Contact", needles: ["contact@kspotnow.com"] }
 ];
@@ -39,7 +41,14 @@ const retiredContentPaths = [
   "/en/sources/",
   "/en/watchlist/",
   "/en/freshness/",
-  "/en/events/red-velvet-day-in-red-velvet-seoul-2026"
+  "/en/events/red-velvet-day-in-red-velvet-seoul-2026",
+  "/en/events/korea-beauty-festival-2026",
+  "/en/events/namsangol-traditional-experience-2026",
+  "/en/guides/korea-duty-free-before-flight",
+  "/en/guides/weather-for-korea-events",
+  "/en/guides/olive-young-shopping-strategy",
+  "/en/guides/department-store-popup-planning",
+  "/en/guides/tax-refund-payments-korea-shopping"
 ];
 const duplicateHtmlVariants = [
   ["/en/events/boryeong-mud-festival-2026.html", "/en/events/boryeong-mud-festival-2026"],
@@ -138,6 +147,15 @@ async function auditSitemapTargets() {
   }
 
   const urls = [...sitemap.text.matchAll(/<loc>(https:\/\/kspotnow\.com[^<]+)<\/loc>/g)].map((match) => match[1]);
+  const expectedUrls = new Set([
+    ...(editorialProgram.indexableHubs || []).map((pathname) => new URL(pathname, siteUrl).href),
+    ...(editorialProgram.indexableEvents || []).map((slug) => new URL(`/en/events/${slug}`, siteUrl).href),
+    ...(editorialProgram.indexableGuides || []).map((slug) => new URL(`/en/guides/${slug}`, siteUrl).href),
+    ...(editorialProgram.indexableRoutes || []).map((slug) => new URL(`/en/routes/${slug}`, siteUrl).href)
+  ]);
+  const actualUrls = new Set(urls);
+  const missing = [...expectedUrls].filter((url) => !actualUrls.has(url));
+  const extra = [...actualUrls].filter((url) => !expectedUrls.has(url));
   const failures = [];
   for (const url of urls) {
     const target = await fetchLive(url, "manual");
@@ -151,21 +169,28 @@ async function auditSitemapTargets() {
 
   if (!urls.length) {
     fail("Search", "Sitemap targets", "No canonical URLs were found in the live sitemap.", "Rebuild sitemap.xml from the approved editorial set.");
-  } else if (failures.length) {
-    fail("Search", "Sitemap targets", `${failures.length}/${urls.length} sitemap URLs redirect, fail, or disagree with canonical: ${failures.slice(0, 3).join("; ")}`, "Sitemap URLs must return 200 directly and exactly match each page canonical.");
+  } else if (missing.length || extra.length || failures.length) {
+    const membership = `${missing.length} missing and ${extra.length} extra against the ${expectedUrls.size}-URL approved set`;
+    const targetDetail = failures.length ? `; ${failures.length} target issue(s): ${failures.slice(0, 3).join("; ")}` : "";
+    const examples = `${missing.length ? `; missing ${missing.slice(0, 2).join(", ")}` : ""}${extra.length ? `; extra ${extra.slice(0, 2).join(", ")}` : ""}`;
+    fail("Search", "Sitemap targets", `${membership}${examples}${targetDetail}`, "Deploy the exact approved editorial sitemap; every listed URL must return 200 directly and match its canonical.");
   } else {
-    pass("Search", "Sitemap targets", `${urls.length} sitemap URLs return 200 directly and exactly match their canonical tags.`);
+    pass("Search", "Sitemap targets", `${urls.length} approved sitemap URLs exactly match the local allowlist, return 200 directly, and match their canonical tags.`);
   }
 }
 
 async function auditAdSenseHead() {
   const result = await fetchLive("/en/");
-  if (cmpReady && clientId && result.text.includes(clientId) && result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
+  const hasAdScript = result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") || result.text.includes("adsbygoogle");
+  const hasConfiguredClient = Boolean(clientId && result.text.includes(clientId));
+  if (cmpReady && clientId && hasConfiguredClient && hasAdScript) {
     pass("AdSense", "Auto ads script", `Live home includes ${clientId} after CMP confirmation.`);
-  } else if (!cmpReady && clientId && !result.text.includes("adsbygoogle")) {
+  } else if (!cmpReady && !hasAdScript) {
     pass("AdSense", "Auto ads script", "Live ad script is held behind the CMP gate; no ad markup is served before confirmation.");
+  } else if (!cmpReady && hasAdScript) {
+    fail("AdSense", "Auto ads script", `Live home serves ${hasConfiguredClient ? clientId : "an AdSense client"} while the local CMP/release gate is not active.`, "Deploy the review-safe build with the AdSense script held until CMP verification and release flags are complete.");
   } else if (clientId) {
-    fail("AdSense", "Auto ads script", `Live home is missing ${clientId}.`, "Rebuild with the configured AdSense client and redeploy.");
+    fail("AdSense", "Auto ads script", `Live home is missing the configured ${clientId} script after the CMP/release gate was enabled.`, "Rebuild with the configured AdSense client and redeploy.");
   } else {
     warn("AdSense", "Auto ads script", "AdSense client is not configured.", "Set GOOGLE_ADSENSE_CLIENT after the account is ready.");
   }

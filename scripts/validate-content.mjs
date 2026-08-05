@@ -556,11 +556,22 @@ for (const slug of approvedEventSlugs) {
     push(errors, slug, "approved event needs at least three foreign-visitor checks.");
   }
   const fit = review?.decisionFit || {};
+  const profile = review?.planningProfile || {};
+  const reconciliation = review?.sourceReconciliation || {};
   if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => !nonEmptyString(fit[field]) || fit[field].length < 60)) {
     push(errors, slug, "approved event needs a substantial decision-fit analysis separated from reported source facts.");
   }
+  if (["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => !nonEmptyString(profile[field]) || profile[field].length < (field === "commitment" ? 8 : 60))) {
+    push(errors, slug, "approved event needs a complete cross-event planning profile.");
+  }
+  if (["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => !nonEmptyString(reconciliation[field]) || reconciliation[field].length < 85)) {
+    push(errors, slug, "approved event needs a substantial official-source reconciliation.");
+  }
   if (evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2)) {
     push(errors, slug, "approved event needs two structured official sources on distinct hosts.");
+  }
+  if (evidence.some((item) => !nonEmptyString(item.role) || !nonEmptyString(item.supports) || item.supports.length < 60)) {
+    push(errors, slug, "every approved event source needs a role and an explanation of what it supports.");
   }
 }
 for (const slug of approvedGuideSlugs) {
@@ -575,6 +586,10 @@ for (const slug of approvedGuideSlugs) {
   if (sourceHosts.size < 2) push(errors, slug, "approved guide needs authoritative sources on at least two distinct hosts.");
   if (!nonEmptyString(guide.audience) || !guide.decisionTool || !Array.isArray(guide.decisionTool.rows) || guide.decisionTool.rows.length < 4) {
     push(errors, slug, "approved guide needs an intended audience and a four-row worked decision example.");
+  }
+  if (!guide.worksheet || !Array.isArray(guide.worksheet.checks) || guide.worksheet.checks.length !== 5
+      || !nonEmptyString(guide.worksheet.passRule) || !nonEmptyString(guide.worksheet.stopRule)) {
+    push(errors, slug, "approved guide needs a five-check verification worksheet with pass and stop rules.");
   }
 }
 

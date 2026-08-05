@@ -129,7 +129,7 @@ if ((requireAdsenseReview || requireAdServing) && !publisherId) {
 }
 
 if (requireAdServing && !adsenseCmpReady) {
-  fail(`Ad serving requires both CMP environment flags and a complete data/adsense-compliance.json record. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
+  fail(`Ad serving requires the explicit serving switch, both CMP environment flags, and a complete data/adsense-compliance.json record. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 } else if ((publisherId || clientId || slotId) && !adsenseCmpReady) {
   warn(`AdSense site ownership can be verified through ads.txt while ads remain disabled. Ad serving still requires CMP evidence and release flags. Missing evidence: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 }
@@ -292,7 +292,7 @@ if (publisherId) {
 if (clientId && fs.existsSync(editorialHome)) {
   const home = fs.readFileSync(editorialHome, "utf8");
   if (adsenseCmpReady && !home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html after CMP confirmation.");
-  if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until both CMP readiness and human evidence flags are set.");
+  if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until the serving switch, CMP readiness, and human evidence flags are set.");
   if (adsenseCmpReady && slotId) {
     const missingSlotFiles = manualAdSlotFiles().filter((relativePath) => !readTextIfExists(path.join(dist, relativePath)).includes(`data-ad-slot="${slotId}"`));
     if (missingSlotFiles.length) fail(`Manual AdSense slot was not found in checked pages: ${missingSlotFiles.join(", ")}.`);

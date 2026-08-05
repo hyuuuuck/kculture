@@ -81,6 +81,8 @@ assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_CMP_EVIDENCE", "manual Cloudf
 assertIncludes(deployFile, deploy, "preflight:adsense-review", "manual deploy must expose an ads.txt-based site-review gate.");
 assertIncludes(deployFile, deploy, "preflight:ad-serving", "manual deploy must keep CMP-gated ad serving separate from site review.");
 assertIncludes(deployFile, deploy, "require_ad_serving", "manual deploy must require an explicit ad-serving release choice.");
+assertIncludes(deployFile, deploy, "GOOGLE_ADSENSE_SERVING_ENABLED", "ad serving must require a release flag that is absent from ordinary Cloudflare Git builds.");
+assertIncludes(deployFile, deploy, "inputs.require_ad_serving && '1' || '0'", "ordinary pushes must keep the AdSense serving release flag disabled.");
 assertIncludes(deployFile, deploy, "inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_READY || '0'", "ordinary pushes must keep the AdSense CMP release flag disabled.");
 assertIncludes(deployFile, deploy, "inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_EVIDENCE || '0'", "ordinary pushes must keep the AdSense evidence release flag disabled.");
 assertIncludes(deployFile, deploy, "cloudflare/wrangler-action@v3", "manual deploy must use Wrangler for Cloudflare Workers.");
@@ -108,6 +110,7 @@ assertIncludes(launchChecklistFile, launchChecklist, "contact@kspotnow.com", "la
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_SITE_VERIFICATION", "launch checklist must document Search Console verification.");
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_READY", "launch checklist must document CMP readiness before serving ads.");
 assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_CMP_EVIDENCE", "launch checklist must document human CMP evidence before serving ads.");
+assertIncludes(launchChecklistFile, launchChecklist, "GOOGLE_ADSENSE_SERVING_ENABLED", "launch checklist must document the separate ad-serving release switch.");
 assertIncludes(launchChecklistFile, launchChecklist, "data/adsense-compliance.json", "launch checklist must require a versioned CMP evidence record.");
 assertIncludes(launchChecklistFile, launchChecklist, "/en/advertising/", "launch checklist must include the advertising policy trust page.");
 assertIncludes(launchChecklistFile, launchChecklist, "npm.cmd run preflight:launch", "launch checklist must require full launch preflight.");

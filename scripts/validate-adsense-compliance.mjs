@@ -150,7 +150,7 @@ if (requireAdsenseReview && !adsTxt.includes(`google.com, ${publisherId}, DIRECT
 }
 
 if (requireAdServing && !cmpReady) {
-  fail(`Ad-serving mode requires complete CMP evidence and both release flags. Missing: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
+  fail(`Ad-serving mode requires the serving switch, complete CMP evidence, and both CMP release flags. Missing: ${cmpEvidence.missing.join(", ") || "release flags"}.`);
 }
 
 if (failures.length) {

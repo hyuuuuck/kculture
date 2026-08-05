@@ -61,6 +61,7 @@ jobs:
       # Ordinary pushes and site-review deployments always keep ads disabled.
       # Only an explicit manual ad-serving release can consume the separately
       # verified CMP declaration and evidence variables.
+      GOOGLE_ADSENSE_SERVING_ENABLED: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && '1' || '0' }}
       GOOGLE_ADSENSE_CMP_READY: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_READY || '0' }}
       GOOGLE_ADSENSE_CMP_EVIDENCE: ${{ github.event_name == 'workflow_dispatch' && inputs.require_ad_serving && vars.GOOGLE_ADSENSE_CMP_EVIDENCE || '0' }}
       GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}

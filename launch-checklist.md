@@ -37,6 +37,7 @@ Set these in GitHub repository settings under `Secrets and variables` -> `Action
 - `GOOGLE_ADSENSE_PUBLISHER_ID`: add after AdSense gives the publisher ID
 - `GOOGLE_ADSENSE_CLIENT`: add after AdSense gives the client ID
 - `GOOGLE_ADSENSE_SLOT`: add after creating a manual ad unit
+- `GOOGLE_ADSENSE_SERVING_ENABLED`: keep `0` during site review; set to `1` only for the explicit post-approval ad-serving release
 - `GOOGLE_ADSENSE_CMP_READY` and `GOOGLE_ADSENSE_CMP_EVIDENCE`: set to `1` only after a Google-certified consent management platform is configured and its published accept/reject/manage flow is manually verified
 - `data/adsense-compliance.json`: record the certified CMP provider and ID, TCF coverage for EEA/UK/CH, verification date, accountable reviewer, and evidence note; environment flags alone do not enable ads
 - `AGODA_PARTNER_CID`: add after Agoda Partners approval to enable hotel affiliate links on event pages
@@ -125,6 +126,7 @@ versioned CMP evidence, set both CMP flags, and run:
 ```powershell
 $env:GOOGLE_ADSENSE_CLIENT="ca-pub-0000000000000000"
 $env:GOOGLE_ADSENSE_SLOT="0000000000"
+$env:GOOGLE_ADSENSE_SERVING_ENABLED="1"
 $env:GOOGLE_ADSENSE_CMP_READY="1"
 $env:GOOGLE_ADSENSE_CMP_EVIDENCE="1"
 npm.cmd run preflight:ad-serving
@@ -137,7 +139,7 @@ npm.cmd run preflight:ad-serving
 - Wait until important pages are indexed before applying to AdSense.
 - Apply with the real custom domain, not the Cloudflare preview URL.
 - After approval, add the real AdSense IDs and rebuild so `/ads.txt` and ad placements are generated.
-- Before serving ads to EEA, UK, and Switzerland visitors, configure a Google-certified CMP, manually verify its published flow, and set both `GOOGLE_ADSENSE_CMP_READY=1` and `GOOGLE_ADSENSE_CMP_EVIDENCE=1`.
+- After AdSense approval and before serving ads, configure a Google-certified CMP, manually verify its published flow, and set `GOOGLE_ADSENSE_SERVING_ENABLED=1`, `GOOGLE_ADSENSE_CMP_READY=1`, and `GOOGLE_ADSENSE_CMP_EVIDENCE=1`.
 - Complete `data/adsense-compliance.json` during the same manual verification. The release build keeps AdSense markup disabled when the record is missing, stale, or incomplete.
 
 Approval and revenue are not guaranteed. The safest operating model is still official-source monitoring, reviewed publishing, original multilingual summaries, clear correction policy, and frequent freshness checks.

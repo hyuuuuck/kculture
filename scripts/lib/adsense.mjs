@@ -42,9 +42,10 @@ export function adSenseCmpEvidenceStatus(compliance, today = new Date().toISOStr
 // Environment switches are release intent, not evidence. Ads are generated
 // only when the versioned compliance record is also complete and current.
 export function configuredAdSenseCmpReady(env = process.env, compliance = null, today) {
+  const servingEnabled = flag(env.GOOGLE_ADSENSE_SERVING_ENABLED || env.ADSENSE_SERVING_ENABLED);
   const declaredReady = flag(env.GOOGLE_ADSENSE_CMP_READY || env.ADSENSE_CMP_READY);
   const evidenceConfirmed = flag(env.GOOGLE_ADSENSE_CMP_EVIDENCE || env.ADSENSE_CMP_EVIDENCE);
-  return declaredReady && evidenceConfirmed && adSenseCmpEvidenceStatus(compliance, today).ready;
+  return servingEnabled && declaredReady && evidenceConfirmed && adSenseCmpEvidenceStatus(compliance, today).ready;
 }
 
 export function normalizeAdSensePublisherId(value) {

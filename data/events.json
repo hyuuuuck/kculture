@@ -2217,6 +2217,7 @@
   {
     "slug": "jinju-namgang-yudeung-festival-2026",
     "category": "festival",
+    "eventKind": "festival",
     "priority": 92,
     "startDate": "2026-10-03",
     "endDate": "2026-10-18",
@@ -2226,7 +2227,9 @@
     "venue": "Jinjuseong Fortress and Namgang River areas",
     "sourceName": "VISITKOREA",
     "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362",
-    "lastChecked": "2026-07-10",
+    "officialWebsiteName": "Jinju Namgang Yudeung Festival official site",
+    "officialWebsiteUrl": "https://yudeung.com/?lang=en",
+    "lastChecked": "2026-08-06",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
     "thumbnail": "assets/event-thumbnails/official/jinju-namgang-yudeung-festival-2026.jpg",
@@ -2239,7 +2242,7 @@
       "ja": "2026 晋州南江流灯祭り"
     },
     "summary": {
-      "en": "VISITKOREA lists the 2026 Jinju Namgang Yudeung Festival along Jinjuseong Fortress and the Namgang River, centered on floating lanterns, wishes, and night displays.",
+      "en": "VISITKOREA and the festival operator list the 2026 Jinju Namgang Yudeung Festival around Jinjuseong Fortress and the Namgang River, with evening lantern displays, riverside operations, and date-specific programs that still require a final official check.",
       "es": "VISITKOREA lista el Festival Yudeung de Namgang en Jinju 2026 alrededor de la fortaleza Jinjuseong y el río Namgang, con faroles flotantes, deseos y exhibiciones nocturnas.",
       "zh": "VISITKOREA列出2026晋州南江流灯节将在晋州城和南江一带举行，以流灯、许愿和夜间灯光展示为核心。",
       "pt": "A VISITKOREA lista o Festival Yudeung de Namgang em Jinju 2026 nas áreas da Fortaleza Jinjuseong e do rio Namgang, com lanternas flutuantes, pedidos e exibições noturnas.",
@@ -2257,10 +2260,61 @@
     "travelTips": [
       "Cross-check the official Yudeung site and VISITKOREA page before visiting because fireworks, bridges, and crowd-control routes can change.",
       "Stay overnight in Jinju if planning late lantern photos or riverside programs; same-night intercity returns can be tight.",
-      "Bring a light jacket and choose photo spots away from the busiest bridge bottlenecks."
+      "Bring a light jacket and choose photo spots away from the busiest bridge bottlenecks.",
+      "Treat the 18:00 lantern lighting as the main visual anchor and use the earlier booth period for orientation rather than arriving at the river at the busiest moment."
     ],
     "weatherRegion": "Nationwide",
-    "mapQueryKo": "진주성"
+    "mapQueryKo": "진주성",
+    "visitorInfo": {
+      "theme": "Night lantern festival rooted in the history of Jinjuseong Fortress and the Namgang River",
+      "hours": "Official 2026 festival site lists lantern lighting 18:00-24:00 and bridge and booth operation 13:00-23:00; individual programs can differ.",
+      "address": "Jinjuseong Fortress and Namgang River areas, centered around 626 Namgang-ro, Jinju-si",
+      "transportation": "Choose intercity arrival and the late return or overnight plan before selecting a river entrance; use 진주성 for the central Korean map search.",
+      "websiteLanguages": [
+        "English",
+        "Korean"
+      ]
+    },
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "festival",
+      "expectedStartDate": "2026-10-03",
+      "expectedEndDate": "2026-10-18",
+      "expectedSourceName": "VISITKOREA",
+      "expectedSourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362",
+      "localMustContain": [
+        "Jinjuseong",
+        "Namgang River",
+        "2026-10-03",
+        "2026-10-18"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
+          "role": "National tourism festival record",
+          "supports": "Confirms the 2026 date range, fortress-and-river venue, free festival context, and that detailed program material is still being updated from the prior edition.",
+          "mustContain": [
+            "2026-10-03",
+            "2026-10-18",
+            "Jinjuseong Fortress",
+            "information below is based on the 2025 festivals"
+          ]
+        },
+        {
+          "sourceName": "Jinju Namgang Yudeung Festival Committee",
+          "url": "https://yudeung.com/?lang=en",
+          "role": "Official festival operator",
+          "supports": "Controls the current theme, river-area operating framework, lantern lighting hours, bridge and booth hours, and festival-site notices.",
+          "mustContain": [
+            "10월 03일",
+            "10월 18일",
+            "18:00",
+            "Jinju Fortress"
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "deoksugung-royal-guard-changing-ceremony-2026",
@@ -2275,9 +2329,9 @@
     "venue": "In front of Daehanmun Gate, Deoksugung Palace",
     "sourceName": "Visit Seoul",
     "sourceUrl": "https://english.visitseoul.net/events/TheRoyalGuardChangingCeremony/ENP81fkn2",
-    "officialWebsiteName": "Visit Seoul official event page",
-    "officialWebsiteUrl": "https://english.visitseoul.net/events/TheRoyalGuardChangingCeremony/ENP81fkn2",
-    "lastChecked": "2026-07-10",
+    "officialWebsiteName": "Seoul Metropolitan Government Jeong-dong visitor page",
+    "officialWebsiteUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
+    "lastChecked": "2026-08-06",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
     "thumbnail": "assets/event-thumbnails/official/deoksugung-royal-guard-changing-ceremony-2026.jpg",
@@ -2290,7 +2344,7 @@
       "ja": "2026 徳寿宮王宮守門将交代儀式"
     },
     "summary": {
-      "en": "Visit Seoul lists the Deoksugung Royal Guard Changing Ceremony as a year-round traditional reenactment in front of Daehanmun Gate, with free admission and two daily ceremony times at 11:00 and 14:00 except Mondays.",
+      "en": "Seoul's official visitor information lists the Deoksugung Royal Guard Changing Ceremony as a 25-minute traditional reenactment in front of Daehanmun Gate at 11:00 and 14:00, closed Mondays and subject to weather cancellation.",
       "es": "Visit Seoul presenta la ceremonia de cambio de guardia real de Deoksugung como una recreación tradicional durante todo el año frente a Daehanmun, con entrada gratuita y pases a las 11:00 y 14:00 excepto los lunes.",
       "zh": "Visit Seoul显示德寿宫王宫守门将换岗仪式全年在大汉门前举行，免费参观，除周一外每天11:00和14:00各有一场。",
       "pt": "A Visit Seoul lista a troca da guarda real de Deoksugung como uma recriação tradicional durante todo o ano em frente ao Portão Daehanmun, com entrada gratuita e sessões às 11:00 e 14:00, exceto às segundas.",
@@ -2309,7 +2363,8 @@
       "Arrive at least 10-15 minutes early because photo spots near Daehanmun Gate fill quickly before the ceremony.",
       "The official page lists no Monday operation, so use this as a Tuesday-Sunday plan unless Visit Seoul updates the schedule.",
       "Use the Korean map query 덕수궁 대한문 rather than a broad Deoksugung search when meeting a group.",
-      "Pair it with Seoul City Hall, Jeongdong-gil, Myeongdong, or Gwanghwamun depending on weather and walking comfort."
+      "Pair it with Seoul City Hall, Jeongdong-gil, Myeongdong, or Gwanghwamun depending on weather and walking comfort.",
+      "Do not confuse the free ceremony outside Daehanmun with palace admission or separately ticketed interior programs; decide on the palace visit as a second step."
     ],
     "weatherRegion": "Seoul",
     "mapQueryKo": "덕수궁 대한문",
@@ -2334,7 +2389,32 @@
         "Daehanmun",
         "11:00",
         "14:00",
-        "Free admission"
+        "free ceremony"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
+          "role": "Current city visitor operations",
+          "supports": "Confirms the Daehanmun venue, 11:00 and 14:00 times, Monday closure, 25-minute duration, and weather-cancellation condition.",
+          "mustContain": [
+            "11:00 AM",
+            "2:00 PM",
+            "closed on Mondays",
+            "Daehanmun Gate"
+          ]
+        },
+        {
+          "sourceName": "Royal Palaces and Tombs Center",
+          "url": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
+          "role": "National heritage venue context",
+          "supports": "Provides the controlling heritage authority's history and identity of Deoksugung, separating palace context from the city's outdoor ceremony schedule.",
+          "mustContain": [
+            "Deoksugung Palace",
+            "Korean Empire",
+            "Gyeongungung Palace"
+          ]
+        }
       ]
     }
   },
@@ -2743,6 +2823,7 @@
   {
     "slug": "andong-maskdance-festival-2026",
     "category": "festival",
+    "eventKind": "festival",
     "priority": 91,
     "startDate": "2026-09-24",
     "endDate": "2026-10-04",
@@ -2752,7 +2833,9 @@
     "venue": "Old Andong Station, Mask Dance Park, Hahoe Village, and downtown Andong",
     "sourceName": "Andong Maskdance Festival",
     "sourceUrl": "https://en.maskdance.com/",
-    "lastChecked": "2026-07-10",
+    "officialWebsiteName": "Andong Maskdance Festival official English site",
+    "officialWebsiteUrl": "https://en.maskdance.com/",
+    "lastChecked": "2026-08-06",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
     "thumbnail": "assets/event-thumbnails/official/andong-maskdance-festival-2026.png",
@@ -2765,7 +2848,7 @@
       "ja": "2026 安東国際仮面舞フェスティバル"
     },
     "summary": {
-      "en": "The official English Andong Maskdance Festival site lists the 2026 festival across Old Andong Station, downtown, Talchum Park, and related heritage venues.",
+      "en": "The official English Andong Maskdance Festival site and VISITKOREA list the 2026 festival across Central Line 1942 Andong Station, downtown, Mask Dance Park, and related heritage venues, with program locations and fees varying by performance.",
       "es": "El sitio oficial en inglés del Festival de Danza de Máscaras de Andong lista la edición 2026 en la antigua estación de Andong, el centro, Talchum Park y sedes patrimoniales relacionadas.",
       "zh": "安东国际假面舞节英文官方网站列出2026年活动将在旧安东站、市中心、假面舞公园和相关文化遗产场地举行。",
       "pt": "O site oficial em inglês do Festival de Dança de Máscaras de Andong lista a edição de 2026 na antiga Estação de Andong, no centro, no Talchum Park e em espaços de patrimônio relacionados.",
@@ -2783,10 +2866,61 @@
     "travelTips": [
       "Check the official schedule because performances can be split between Old Andong Station, Mask Dance Park, downtown, and Hahoe Village.",
       "Reserve lodging early if combining the festival with Hahoe Folk Village or a weekend heritage route.",
-      "Carry a light jacket and plan last transport carefully because evening programs can run later than regional train options."
+      "Carry a light jacket and plan last transport carefully because evening programs can run later than regional train options.",
+      "Use Jungang Line 1942 Andong Station and Mask Dance Park as the central festival zone, then treat Hahoe Village as a separate transfer rather than an adjacent stage."
     ],
     "weatherRegion": "Nationwide",
-    "mapQueryKo": "안동탈춤공원"
+    "mapQueryKo": "안동탈춤공원",
+    "visitorInfo": {
+      "theme": "Multi-venue international mask-dance festival combining Korean heritage, global performances, parades, and participatory programs",
+      "hours": "VISITKOREA lists a general 10:00-22:00 performance window; the official festival schedule controls each venue and program.",
+      "address": "Central Line 1942 Andong Station, Mask Dance Park, Andong Old Downtown, and related heritage venues",
+      "transportation": "Use the Andong rail or intercity arrival as the first decision, then separate the central festival zone from any Hahoe Village transfer.",
+      "websiteLanguages": [
+        "English",
+        "Korean"
+      ]
+    },
+    "audit": {
+      "risk": "high",
+      "expectedEventKind": "festival",
+      "expectedStartDate": "2026-09-24",
+      "expectedEndDate": "2026-10-04",
+      "expectedSourceName": "Andong Maskdance Festival",
+      "expectedSourceUrl": "https://en.maskdance.com/",
+      "localMustContain": [
+        "2026-09-24",
+        "2026-10-04",
+        "Andong Station",
+        "Mask Dance Park"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Andong Maskdance Festival",
+          "url": "https://en.maskdance.com/2024/sub1/sub1.asp",
+          "role": "Official festival operator",
+          "supports": "Confirms the 2026 dates, central venues, organizer, festival theme, and the division between station, downtown, park, and heritage-area programming.",
+          "mustContain": [
+            "Sep. 24",
+            "Oct. 4",
+            "Central Line 1942 Andong Station",
+            "Talchum Park"
+          ]
+        },
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
+          "role": "National tourism cross-check",
+          "supports": "Independently confirms the festival window, main event types, central Andong venues, general operating window, and free-with-program-fees model.",
+          "mustContain": [
+            "2026-09-24",
+            "2026-10-04",
+            "10:00",
+            "Jungang Line 1942 Andong Station"
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "namsangol-traditional-experience-2026",
@@ -3736,6 +3870,7 @@
   {
     "slug": "louis-vuitton-visionary-journeys-seoul-2026",
     "category": "shopping",
+    "eventKind": "exhibition",
     "priority": 87,
     "startDate": "2025-11-28",
     "endDate": "2028-12-31",
@@ -3745,7 +3880,9 @@
     "venue": "LV The Place Seoul, Shinsegae The Reserve 5F-4F",
     "sourceName": "Visit Seoul",
     "sourceUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
-    "lastChecked": "2026-07-10",
+    "officialWebsiteName": "Louis Vuitton Visionary Journeys Seoul",
+    "officialWebsiteUrl": "https://eu.louisvuitton.com/eng-e1/magazine/articles/visionary-journeys-seoul",
+    "lastChecked": "2026-08-06",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
     "thumbnail": "assets/event-thumbnails/official/louis-vuitton-visionary-journeys-seoul-2026.png",
@@ -3758,7 +3895,7 @@
       "ja": "Louis Vuitton Visionary Journeys Seoul"
     },
     "summary": {
-      "en": "Visit Seoul lists Louis Vuitton Visionary Journeys Seoul as a long-running cultural exhibition at LV The Place Seoul inside Shinsegae The Reserve.",
+      "en": "Visit Seoul and Louis Vuitton list Visionary Journeys Seoul as a free, reservation-required cultural exhibition across themed rooms on the fourth and fifth floors of LV The Place Seoul inside Shinsegae The Reserve.",
       "es": "Visit Seoul lista Louis Vuitton Visionary Journeys Seoul como una exposicion cultural de larga duracion en LV The Place Seoul dentro de Shinsegae The Reserve.",
       "zh": "Visit Seoul将Louis Vuitton Visionary Journeys Seoul列为长期文化展，地点在Shinsegae The Reserve内的LV The Place Seoul。",
       "pt": "A Visit Seoul lista Louis Vuitton Visionary Journeys Seoul como uma exposicao cultural de longa duracao no LV The Place Seoul, dentro do Shinsegae The Reserve.",
@@ -3766,7 +3903,7 @@
       "ja": "Visit Seoul は、Louis Vuitton Visionary Journeys Seoul を新世界 The Reserve 内の LV The Place Seoul で行われる長期文化展示として掲載しています。"
     },
     "whyGo": {
-      "en": "Good for luxury-shopping travelers who want an indoor brand-history exhibition near Myeongdong, Hoehyeon, Shinsegae, and central Seoul hotels.",
+      "en": "Useful for visitors who want an indoor design-and-craftsmanship exhibition near Myeongdong and Hoehyeon, provided the reservation is treated separately from the building's retail and dining offers.",
       "es": "Bueno para viajeros de lujo que quieren una exposicion indoor de historia de marca cerca de Myeongdong, Hoehyeon, Shinsegae y hoteles del centro.",
       "zh": "适合奢侈品购物游客，在明洞、会贤、新世界和市中心酒店附近安排室内品牌历史展。",
       "pt": "Bom para viajantes de compras de luxo que querem uma exposicao indoor de historia de marca perto de Myeongdong, Hoehyeon, Shinsegae e hoteis centrais.",
@@ -3774,12 +3911,65 @@
       "ja": "明洞、会賢、新世界百貨店、中心部ホテルの近くで、ラグジュアリーショッピングとブランド史展示を合わせたい旅行者に適しています。"
     },
     "travelTips": [
-      "Visit Seoul notes free admission and advance reservation benefits, but confirm the official reservation page before visiting.",
-      "Pair it with Namdaemun Market, Myeongdong, or Shinsegae Department Store shopping.",
-      "Because the run is long, use the freshness label and official source to confirm opening hours before setting a fixed itinerary."
+      "The official Louis Vuitton page states free admission with reservation required, so secure the exhibition slot before fixing the surrounding Myeongdong route.",
+      "Follow the exhibition route from the fifth floor to the fourth floor and distinguish it from separately reserved café, restaurant, and retail experiences in the same building.",
+      "Pair it with Namdaemun Market or Myeongdong only after protecting the booked entry time and allowing for department-store navigation.",
+      "Because the listed run is long, reopen the reservation page and current store hours before every visit rather than relying on the broad end date."
     ],
     "weatherRegion": "Seoul",
-    "mapQueryKo": "신세계백화점 본점"
+    "mapQueryKo": "신세계백화점 본점 더 리저브",
+    "visitorInfo": {
+      "theme": "Free reservation-based exhibition on travel, craftsmanship, design, and Louis Vuitton's cultural history",
+      "hours": "Official sources list Monday-Thursday 10:30-20:00 and Friday-Sunday and public holidays 10:30-20:30; reservation inventory controls entry.",
+      "address": "LV The Place Seoul, Shinsegae The Reserve 4F-5F, 63 Sogong-ro, Jung-gu, Seoul",
+      "transportation": "Use Hoehyeon or Myeongdong access and allow internal department-store wayfinding time before the reserved exhibition entry.",
+      "websiteLanguages": [
+        "English",
+        "Korean"
+      ]
+    },
+    "audit": {
+      "risk": "medium",
+      "expectedEventKind": "exhibition",
+      "expectedStartDate": "2025-11-28",
+      "expectedEndDate": "2028-12-31",
+      "expectedSourceName": "Visit Seoul",
+      "expectedSourceUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
+      "localMustContain": [
+        "Visionary Journeys",
+        "Free admission",
+        "reservation required",
+        "Shinsegae The Reserve"
+      ],
+      "sourceEvidence": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
+          "role": "Official city tourism listing",
+          "supports": "Confirms the long exhibition window, fourth- and fifth-floor venue, hours, accessibility facilities, and weekday docent-session listing.",
+          "mustContain": [
+            "Nov 28, 2025",
+            "Dec 31, 2028",
+            "5th-4th Floors",
+            "10:30-20:00",
+            "Fee Free",
+            "advance reservation"
+          ]
+        },
+        {
+          "sourceName": "Louis Vuitton",
+          "url": "https://kr.louisvuitton.com/kor-kr/point-of-sale/korea/louis-vuitton-shinsegae-the-reserve-vjs",
+          "role": "Exhibition operator booking and venue source",
+          "supports": "Controls the current exhibition booking route, building address, floor location, opening hours, and venue contact information.",
+          "mustContain": [
+            "Book a visit",
+            "Shinsegae The Reserve 4F-5F",
+            "63 Sogong ro",
+            "10:30 - 20:00"
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "my-pace-hangang-triathlon-festival-2026",

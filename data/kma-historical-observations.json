@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T04:41:39.632Z",
+  "generatedAt": "2026-08-06T08:09:48.950Z",
   "source": {
     "name": "KMA ASOS Daily Weather API",
     "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
@@ -8,7 +8,7 @@
   "note": "Exact same-period previous-year observations are planning references, not forecasts. Current forecasts and organizer notices control visit-day decisions.",
   "approvedOnly": true,
   "observationDays": 7,
-  "count": 6,
+  "count": 10,
   "items": [
     {
       "eventSlug": "nct-dream-sweet-dream-hotel-incheon-2026",
@@ -71,6 +71,66 @@
       }
     },
     {
+      "eventSlug": "jinju-namgang-yudeung-festival-2026",
+      "eventTitle": "2026 Jinju Namgang Yudeung Festival",
+      "region": "Jinju",
+      "eventRange": {
+        "startDate": "2026-10-03",
+        "endDate": "2026-10-18"
+      },
+      "referenceRange": {
+        "startDate": "2026-10-03",
+        "endDate": "2026-10-09"
+      },
+      "previousYearRange": {
+        "startDate": "2025-10-03",
+        "endDate": "2025-10-09"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "192",
+        "label": "Jinju ASOS"
+      },
+      "summary": {
+        "avgTempC": 19.8,
+        "avgMinTempC": 17.6,
+        "avgMaxTempC": 22.8,
+        "totalPrecipitationMm": 106.2,
+        "avgHumidityPct": 91.9,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "deoksugung-royal-guard-changing-ceremony-2026",
+      "eventTitle": "Deoksugung Royal Guard Changing Ceremony 2026",
+      "region": "Seoul",
+      "eventRange": {
+        "startDate": "2026-01-01",
+        "endDate": "2026-12-31"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "108",
+        "label": "Seoul ASOS"
+      },
+      "summary": {
+        "avgTempC": 27.1,
+        "avgMinTempC": 23.9,
+        "avgMaxTempC": 30.7,
+        "totalPrecipitationMm": 31.8,
+        "avgHumidityPct": 74.8,
+        "observedDays": 7
+      }
+    },
+    {
       "eventSlug": "gwangalli-m-drone-light-show-2026",
       "eventTitle": "Gwangalli M Drone Light Show",
       "region": "Busan",
@@ -97,6 +157,36 @@
         "avgMaxTempC": 29.4,
         "totalPrecipitationMm": 132.2,
         "avgHumidityPct": 83.4,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "andong-maskdance-festival-2026",
+      "eventTitle": "2026 Andong Maskdance Festival",
+      "region": "Andong",
+      "eventRange": {
+        "startDate": "2026-09-24",
+        "endDate": "2026-10-04"
+      },
+      "referenceRange": {
+        "startDate": "2026-09-24",
+        "endDate": "2026-09-30"
+      },
+      "previousYearRange": {
+        "startDate": "2025-09-24",
+        "endDate": "2025-09-30"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "136",
+        "label": "Andong ASOS"
+      },
+      "summary": {
+        "avgTempC": 20.9,
+        "avgMinTempC": 17.4,
+        "avgMaxTempC": 25.5,
+        "totalPrecipitationMm": 30.5,
+        "avgHumidityPct": 84.1,
         "observedDays": 7
       }
     },
@@ -167,6 +257,36 @@
       "eventRange": {
         "startDate": "2026-06-06",
         "endDate": "2026-10-11"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "108",
+        "label": "Seoul ASOS"
+      },
+      "summary": {
+        "avgTempC": 27.1,
+        "avgMinTempC": 23.9,
+        "avgMaxTempC": 30.7,
+        "totalPrecipitationMm": 31.8,
+        "avgHumidityPct": 74.8,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "louis-vuitton-visionary-journeys-seoul-2026",
+      "eventTitle": "Louis Vuitton Visionary Journeys Seoul",
+      "region": "Seoul",
+      "eventRange": {
+        "startDate": "2025-11-28",
+        "endDate": "2028-12-31"
       },
       "referenceRange": {
         "startDate": "2026-08-06",

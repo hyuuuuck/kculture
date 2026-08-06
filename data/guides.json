@@ -127,9 +127,52 @@
     "title": { "en": "Korea duty-free shopping: checks to make before your flight" },
     "summary": { "en": "How departure airport, pickup timing, passport details, and destination rules change a duty-free purchase decision." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-06",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "Desk research using VISITKOREA visitor guidance and retailer instructions. Allowances and pickup procedures must be rechecked for each trip.",
+    "method": "Desk research using VISITKOREA visitor guidance, airport process information, and retailer instructions. Pickup procedures, passenger details, and destination allowances must be rechecked for each trip.",
+    "audience": "International visitors deciding whether a downtown duty-free order is practical for their actual departure airport, terminal, baggage plan, and destination rules.",
+    "decisionTool": {
+      "title": "Worked example: the lower price that creates the harder airport day",
+      "scenario": "An illustrative traveler finds the same item in a downtown duty-free channel and a tax-refund store. The duty-free listing has the lower headline price, but collection happens after departure procedures in a specified terminal. The traveler has an early flight, checked baggage, a possible terminal change, and an arrival country with its own declaration rules. The useful comparison is the executable handoff, not the banner price.",
+      "rows": [
+        {
+          "signal": "The order requires a named passenger and flight",
+          "interpretation": "The purchase is attached to the traveler and departure record, so an ordinary store-pickup assumption is unsafe.",
+          "action": "Match passport spelling, flight number, departure date, and collector before paying."
+        },
+        {
+          "signal": "Pickup is assigned to one airport terminal",
+          "interpretation": "A terminal mismatch can remove the time advantage and may make collection impossible after security.",
+          "action": "Confirm the airline terminal and counter location, then reserve a realistic queue buffer."
+        },
+        {
+          "signal": "The flight or terminal changes after purchase",
+          "interpretation": "The original collection instruction may no longer describe the route the traveler will actually use.",
+          "action": "Open the live order record and retailer notice instead of relying on the saved confirmation image."
+        },
+        {
+          "signal": "Destination import rules remain unchecked",
+          "interpretation": "Korean sale eligibility does not determine whether the item is restricted or declarable after arrival.",
+          "action": "Check the destination customs authority and include declaration risk in the total purchase decision."
+        }
+      ],
+      "verdict": "Choose downtown duty-free only when the passenger identity, departure record, terminal counter, pickup margin, baggage plan, and destination rule all form one workable chain. Choose tax-refund retail when immediate possession and simpler routing are worth more than the headline difference. Abandon the purchase when collection depends on an unresolved terminal or an import rule that cannot be confirmed.",
+      "limitations": "This comparison does not quote a permanent allowance, guarantee retailer inventory, or replace the live checkout, airport, airline, and destination-customs instructions.",
+      "sourceNote": "The example combines official process roles without claiming that one retailer or airport procedure applies to every transaction."
+    },
+    "worksheet": {
+      "title": "A purchase-to-departure handoff sheet",
+      "intro": "Complete the chain in travel order, not shopping order. A blank terminal, collector, or destination-rule field means the advertised saving is not yet a usable trip decision.",
+      "checks": [
+        { "label": "Passenger", "prompt": "Record the exact passport name, collector eligibility, flight number, and departure date required at checkout." },
+        { "label": "Terminal", "prompt": "Write the airport, terminal, post-security counter, operating time, and route from the expected departure gate area." },
+        { "label": "Timing", "prompt": "Budget check-in, security, refund or pickup queues, gate travel, and a margin for process changes." },
+        { "label": "Baggage", "prompt": "Check liquid, cabin, checked-bag, fragile-item, and package-size constraints before committing to the product." },
+        { "label": "Arrival", "prompt": "Save the destination customs source, declaration threshold or restriction, and the date that rule was checked." }
+      ],
+      "passRule": "Proceed only when every handoff from checkout to arrival is confirmed on the current controlling source and fits the flight margin.",
+      "stopRule": "Do not buy when the collector, terminal, pickup cutoff, baggage method, or destination legality remains unresolved after the final official check."
+    },
     "sources": [
       {
         "name": "VISITKOREA duty-free and tax-refund guide",
@@ -140,6 +183,11 @@
         "name": "VISITKOREA tax-refund guide",
         "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=248765",
         "note": "Official guidance for immediate and departure tax-refund processes."
+      },
+      {
+        "name": "Incheon International Airport domestic tax-refund procedure",
+        "url": "https://airinfo.airport.kr/ap_en/1425/subview.do",
+        "note": "Official airport process and terminal-location reference for departure tax-refund planning."
       }
     ],
     "sections": {
@@ -323,9 +371,52 @@
     "title": { "en": "How to use Korea weather forecasts for event planning" },
     "summary": { "en": "A decision-focused guide to short-range forecasts, rain risk, heat, and backup plans for outdoor events in Korea." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-06",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "Desk research using Korea Meteorological Administration forecast products. Event cancellation decisions remain with organizers and venues.",
+    "method": "Desk research using Korea Meteorological Administration forecast products and Ministry of the Interior and Safety alerts. Event cancellation and entry decisions remain with organizers and venues.",
+    "audience": "Independent Korea visitors deciding whether weather changes the timing, equipment, route, or cancellation risk of a specific outdoor event.",
+    "decisionTool": {
+      "title": "Worked example: a waterfront show under an uncertain forecast",
+      "scenario": "An illustrative Saturday plan contains a short waterfront show, a long beach wait, and a cross-city return. A medium-range forecast first suggests rain, the later short-range forecast moves the rain to another time block, and the organizer has not yet issued a cancellation notice. The traveler must decide whether to keep the show flexible, change arrival time, or replace the outdoor segment without treating any single forecast icon as a final verdict.",
+      "rows": [
+        {
+          "signal": "Only a medium-range outlook is available",
+          "interpretation": "The forecast can guide packing and flexibility, but it is too broad for a fixed outdoor arrival time.",
+          "action": "Keep the event provisional and schedule the final decision after a short-range update."
+        },
+        {
+          "signal": "The forecast location follows the hotel",
+          "interpretation": "Rain, wind, and heat at the venue can differ from conditions where the visitor begins the day.",
+          "action": "Switch the weather check to the venue district and record the forecast issue time."
+        },
+        {
+          "signal": "Wind is elevated while rain risk is modest",
+          "interpretation": "A drone, fireworks, waterfront, or temporary-structure event can remain operationally vulnerable without heavy rain.",
+          "action": "Check the organizer's wind-sensitive operating notice instead of using precipitation alone."
+        },
+        {
+          "signal": "The backup requires another timed reservation",
+          "interpretation": "It cannot absorb a late cancellation unless admission and transfer time are already secured.",
+          "action": "Choose a same-district indoor option with a verified opening day and flexible entry."
+        }
+      ],
+      "verdict": "Keep the event when the venue-level short-range forecast, organizer notice, exposure time, clothing plan, and return route remain workable together. Move the arrival time when the risk is concentrated in one period. Use the backup when weather changes the visitor experience beyond the stated tolerance, and treat only the organizer—not the forecast—as the authority on formal cancellation.",
+      "limitations": "Forecasts and safety alerts change after publication; this framework does not predict an event outcome or replace emergency and organizer instructions.",
+      "sourceNote": "KMA supplies forecast evidence, while Safe Korea supplies public safety alerts; neither source controls event admission."
+    },
+    "worksheet": {
+      "title": "A venue-level weather decision sheet",
+      "intro": "Translate each weather signal into one visitor action. The sheet is complete only when forecast location, issue time, organizer notice, exposure, and backup all refer to the same visit.",
+      "checks": [
+        { "label": "Forecast", "prompt": "Record the venue district, forecast product, issue time, relevant hours, precipitation, temperature, and wind signal." },
+        { "label": "Exposure", "prompt": "Estimate queue, standing, walking, waterfront, wet-clothing, shade, and late-return time rather than event duration alone." },
+        { "label": "Operator", "prompt": "Save the organizer notice URL and separate no announcement, modified operation, delay, and formal cancellation." },
+        { "label": "Equipment", "prompt": "Choose specific heat, rain, wind, footwear, phone-protection, and dry-clothing responses for this event type." },
+        { "label": "Backup", "prompt": "Confirm a nearby indoor location, opening day, last entry, transfer time, and whether advance booking is required." }
+      ],
+      "passRule": "Fix the outdoor plan only when the current venue forecast and organizer notice support a tolerable exposure and usable return route.",
+      "stopRule": "Switch plans when a safety alert applies, the organizer cancels, or the remaining exposure exceeds the visitor's stated heat, rain, or wind limit."
+    },
     "sources": [
       {
         "name": "KMA short-range forecast",
@@ -336,6 +427,11 @@
         "name": "KMA medium-range forecast",
         "url": "https://www.weather.go.kr/neng/forecast/mid-term-forecast.do",
         "note": "Official medium-range outlook for early trip planning."
+      },
+      {
+        "name": "Safe Korea English alerts",
+        "url": "https://eng.safekorea.go.kr/",
+        "note": "Ministry of the Interior and Safety weather warnings, emergency alerts, and public safety guidance."
       }
     ],
     "sections": {
@@ -391,9 +487,52 @@
     "title": { "en": "How to plan an OLIVE YOUNG shopping stop in Korea" },
     "summary": { "en": "A branch-first strategy for store location, stock, campaign terms, tax refund, and fitting beauty shopping into a Korea itinerary." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-06",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research using OLIVE YOUNG official visitor and store information plus VISITKOREA tax-refund guidance. Store stock is not independently guaranteed.",
+    "audience": "Visitors planning a limited-time Korea beauty-shopping stop who need to choose a branch, control queue time, compare substitutes, and handle tax-refund documents.",
+    "decisionTool": {
+      "title": "Worked example: flagship visibility versus a usable neighborhood branch",
+      "scenario": "An illustrative visitor has ninety minutes between a museum and dinner. A campaign promotes a flagship store, while the official locator shows a smaller branch already on the route. The desired product appears online, a bundle carries a larger discount, and tax-refund eligibility is mentioned generally. The decision is whether assortment potential justifies extra transport and crowd time when branch inventory remains unknown.",
+      "rows": [
+        {
+          "signal": "The campaign names a flagship but not branch stock",
+          "interpretation": "The page confirms promotional attention, not that the specific shade, size, or set will be available on arrival.",
+          "action": "Treat the flagship as an assortment option and prepare an acceptable substitute before traveling."
+        },
+        {
+          "signal": "A smaller branch already fits the route",
+          "interpretation": "Lower transfer cost can create more useful shopping time even if the theoretical range is narrower.",
+          "action": "Use the nearby branch first unless one flagship-only service is confirmed and essential."
+        },
+        {
+          "signal": "A bundle has the largest displayed discount",
+          "interpretation": "Different unit sizes, unwanted extras, or luggage volume can make the headline saving poor value.",
+          "action": "Compare usable quantity, final basket price, expiry needs, and packing cost item by item."
+        },
+        {
+          "signal": "Tax refund is assumed before checkout",
+          "interpretation": "Store participation, transaction handling, documentation, and traveler eligibility still need confirmation at the branch.",
+          "action": "Ask about the current process before payment and preserve every required receipt and product condition."
+        }
+      ],
+      "verdict": "Choose the branch that preserves the itinerary while offering a realistic path to the priority products and checkout process. Travel farther only for a confirmed service or range that materially changes the basket. Leave without the item when crowd, stock uncertainty, unsuitable substitutes, or baggage cost turns a beauty stop into the day's dominant commitment.",
+      "limitations": "The method does not expose live inventory, reserve products, guarantee campaign gifts, or calculate a tax refund for a specific traveler or transaction.",
+      "sourceNote": "Official campaign and locator records describe different layers; neither should be presented as a live stock feed."
+    },
+    "worksheet": {
+      "title": "A branch-and-basket comparison sheet",
+      "intro": "Use one row for the route and one for the basket. A distant flagship should win only when a confirmed benefit outweighs transport, queue, substitute, and baggage costs.",
+      "checks": [
+        { "label": "Branch", "prompt": "Save the Korean branch name, address, official locator link, opening time, and position within the existing route." },
+        { "label": "Priority", "prompt": "List exact product, shade or size, acceptable substitute, and the consequence if all versions are unavailable." },
+        { "label": "Campaign", "prompt": "Separate channel, branch, account, payment, minimum-spend, gift-quantity, and date conditions from the headline." },
+        { "label": "Checkout", "prompt": "Confirm tax-refund handling, passport need, receipt documents, returns, payment alternative, and expected queue allowance." },
+        { "label": "Packing", "prompt": "Estimate liquids, aerosols, glass, boxed-set volume, baggage placement, destination restrictions, and breakage exposure." }
+      ],
+      "passRule": "Fix the stop when the branch fits the route and the basket remains worthwhile without assuming stock, gifts, or refund value.",
+      "stopRule": "Leave or switch branches when the queue exceeds the time limit, priority stock is gone, or substitutes and baggage costs no longer justify the visit."
+    },
     "sources": [
       {
         "name": "OLIVE YOUNG global information",
@@ -465,9 +604,52 @@
     "title": { "en": "How to plan a Korea department-store pop-up visit" },
     "summary": { "en": "A floor-by-floor method for branch names, reservation rules, queues, stock, and combining a pop-up with the rest of a travel day." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-06",
     "reviewedBy": "K-Spot Now Editorial Desk",
     "method": "Desk research using official department-store branch guides and organizer notices. Floor and stock details are rechecked on the event source.",
+    "audience": "Visitors evaluating a Korea department-store pop-up whose branch, floor, admission method, product stock, and neighborhood route must work together.",
+    "decisionTool": {
+      "title": "Worked example: one poster, three possible branches",
+      "scenario": "An illustrative reposted poster names a department-store brand and event dates but omits the branch. A venue article identifies one Seoul location, the organizer notice supplies a basement floor and timed-entry rule, and the store guide shows a separate annex connection. The desired merchandise remains first-come. The visitor must determine whether this is a fixed appointment, a flexible shopping stop, or an unreliable discovery lead.",
+      "rows": [
+        {
+          "signal": "The branch is missing from the discovery poster",
+          "interpretation": "The brand name cannot produce a reliable map route because several stores may share the campaign language.",
+          "action": "Keep the event provisional until the organizer and venue identify the same branch."
+        },
+        {
+          "signal": "The floor sits in an annex or connector",
+          "interpretation": "Station arrival is not event arrival, and internal wayfinding can consume the planned entry buffer.",
+          "action": "Save the building zone, floor, entrance, and escalator or elevator path separately."
+        },
+        {
+          "signal": "Timed entry is confirmed but merchandise is not",
+          "interpretation": "The reservation controls access only and should not be described as a product hold or purchase guarantee.",
+          "action": "Decide whether the experience still has value if the priority item is sold out."
+        },
+        {
+          "signal": "A second pop-up requires crossing Seoul",
+          "interpretation": "Combining two uncertain queues can erase both visits and make the itinerary dependent on ideal conditions.",
+          "action": "Keep one strict-entry event and choose a same-district fallback for the remaining time."
+        }
+      ],
+      "verdict": "Make the pop-up fixed only when branch, building, floor, operating window, and admission method agree across current controlling records. Keep merchandise flexible unless the organizer explicitly provides a reservation mechanism. Remove the stop when venue identity still conflicts or when its queue and transfer cost exceed the value of the experience without the desired product.",
+      "limitations": "This framework cannot confirm live queue length, locker space, product inventory, or a same-day internal route through a changing department-store floor plan.",
+      "sourceNote": "Organizer and department-store records have different authority: one controls event rules, while the other controls the building."
+    },
+    "worksheet": {
+      "title": "A branch-to-floor execution sheet",
+      "intro": "Complete the route from street entrance to event door. A department-store brand name is not a usable destination until branch, building zone, floor, and admission all agree.",
+      "checks": [
+        { "label": "Identity", "prompt": "Match the event title, organizer, branch, operating dates, and latest update across the primary notices." },
+        { "label": "Arrival", "prompt": "Record Korean branch name, station exit, building or annex, entrance, floor, and internal walking allowance." },
+        { "label": "Admission", "prompt": "Separate walk-in, queue ticket, reservation, lottery, identity, companion, re-entry, and late-arrival conditions." },
+        { "label": "Merchandise", "prompt": "Capture purchase limit, sold-out wording, restock uncertainty, payment condition, and whether reservation includes any product." },
+        { "label": "Fallback", "prompt": "Choose one same-neighborhood destination with independent value and set a queue or travel-time threshold for switching." }
+      ],
+      "passRule": "Fix the visit only when the physical route and admission record are complete and the day remains useful without guaranteed merchandise.",
+      "stopRule": "Drop the pop-up when branch or floor still conflicts, admission cannot be executed, or the queue breaches the preselected time limit."
+    },
     "sources": [
       {
         "name": "The Hyundai official English site",
@@ -661,9 +843,52 @@
     "title": { "en": "Tax refund and payment planning for shopping in Korea" },
     "summary": { "en": "A visitor checklist for eligible stores, passport and receipt handling, immediate versus departure refund, cards, and final customs checks." },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-07-10",
+    "updatedAt": "2026-08-06",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "Desk research using current VISITKOREA visitor guidance. Thresholds and procedures can change, so the live official guide controls the transaction.",
+    "method": "Desk research using current VISITKOREA, Korea Customs Service, and airport procedure guidance. Eligibility, thresholds, documents, and terminal processes can change, so live official instructions control the transaction.",
+    "audience": "Foreign visitors shopping in Korea who need to identify the correct refund path, retain the right documents, and complete departure procedures without relying on remembered thresholds.",
+    "decisionTool": {
+      "title": "Worked example: two receipts that require different next steps",
+      "scenario": "An illustrative traveler buys cosmetics at one store and clothing at another. The first transaction receives an immediate adjustment at checkout, while the second produces departure documents. The traveler plans to check a suitcase before locating the airport refund area and assumes both receipts are complete. The decision tool separates store eligibility, refund path, goods access, documentation, and terminal sequence before the airport day becomes irreversible.",
+      "rows": [
+        {
+          "signal": "The receipt shows an immediate refund",
+          "interpretation": "That transaction may already have completed its refund step, but returns and eligibility conditions still matter.",
+          "action": "Label the receipt as completed and preserve it separately from documents requiring departure action."
+        },
+        {
+          "signal": "Another purchase receives export-confirmation documents",
+          "interpretation": "The traveler may need the passport, goods, receipt, and kiosk or customs sequence before final payment of the refund.",
+          "action": "Write the required next step on the receipt while still at the store."
+        },
+        {
+          "signal": "Refund goods are packed into checked baggage",
+          "interpretation": "Required inspection can become difficult if the suitcase is surrendered before customs or kiosk instructions are followed.",
+          "action": "Check the airport sequence first and keep any inspectable goods accessible until cleared."
+        },
+        {
+          "signal": "A return changes the original purchase total",
+          "interpretation": "The refund record may no longer match the retained goods or payment, even if the old document still exists.",
+          "action": "Ask the retailer to update the refund record and retain the return evidence with the original receipt."
+        }
+      ],
+      "verdict": "Treat every receipt as a separate process until its store eligibility, refund type, documents, goods condition, payment destination, and airport step are known. Complete the store-side correction before leaving the branch. At departure, follow the current airport and customs sequence before checking any goods that may need verification, and abandon the expected refund when required evidence cannot be produced.",
+      "limitations": "This guide does not calculate eligibility, quote a permanent threshold, promise a refund, or replace retailer, customs, airport, payment-provider, and destination rules.",
+      "sourceNote": "The records describe process roles; transaction eligibility belongs to the current official rule and the actual purchase."
+    },
+    "worksheet": {
+      "title": "A receipt-by-receipt refund ledger",
+      "intro": "Give each purchase one explicit status so immediate, kiosk, customs-confirmation, counter, and completed transactions are never merged into a single airport assumption or one remembered rule from a previous trip.",
+      "checks": [
+        { "label": "Eligibility", "prompt": "Record store participation, traveler qualification, purchase date, product condition, export period, and the official rule checked." },
+        { "label": "Document", "prompt": "Match passport name, receipt, refund form, payment method, returned items, and any corrected transaction evidence." },
+        { "label": "Path", "prompt": "Mark immediate, kiosk, customs, service-counter, or other process and the exact remaining action for that receipt." },
+        { "label": "Terminal", "prompt": "Save airport, terminal, public or secure zone, operating hours, goods-inspection order, and baggage handoff sequence." },
+        { "label": "Settlement", "prompt": "Record refund destination, expected timing, fees or conversion uncertainty, and evidence needed if payment does not arrive." }
+      ],
+      "passRule": "Count a refund as usable value only when that receipt's eligibility, documents, goods access, settlement route, and every remaining departure step are complete and current.",
+      "stopRule": "Do not claim or plan around a refund when documents conflict, goods cannot be produced if required, the terminal sequence is unknown, or the current official process cannot be followed."
+    },
     "sources": [
       {
         "name": "VISITKOREA tax-refund guide",
@@ -674,6 +899,16 @@
         "name": "VISITKOREA duty-free and tax-refund overview",
         "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=140736",
         "note": "Official explanation of the difference between duty-free and tax-refund shopping."
+      },
+      {
+        "name": "Korea Customs Service tax-refund procedure",
+        "url": "https://www.customs.go.kr/english/cm/cntnts/cntntsView.do?cntntsId=5504&mi=10803",
+        "note": "Official customs guidance for export confirmation, required documents, and departure refund processing."
+      },
+      {
+        "name": "Incheon International Airport domestic tax-refund procedure",
+        "url": "https://airinfo.airport.kr/ap_en/1425/subview.do",
+        "note": "Official airport reference for terminal refund desks, kiosks, goods handling, and departure sequence."
       }
     ],
     "sections": {

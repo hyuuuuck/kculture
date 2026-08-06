@@ -8788,7 +8788,7 @@ function renderGuides(lang) {
       <section class="guide-scope-ledger" aria-labelledby="guide-scope-title">
         <div class="guide-scope-intro">
           <p class="eyebrow">Decision scope</p>
-          <h2 id="guide-scope-title">Three guides, three different stop rules</h2>
+          <h2 id="guide-scope-title">Different trip decisions need different stop rules</h2>
           <p>Each guide is kept public only when it closes a distinct visitor decision. The pass and stop rules below are the editorial boundary, not a promise of admission, inventory, price, or ticket validity.</p>
         </div>
         <div class="guide-scope-rows">

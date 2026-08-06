@@ -19,6 +19,8 @@ const stationByRegion = {
   Gwangju: { stnIds: "156", label: "Gwangju ASOS" },
   Incheon: { stnIds: "112", label: "Incheon ASOS" },
   Boryeong: { stnIds: "235", label: "Boryeong ASOS" },
+  Andong: { stnIds: "136", label: "Andong ASOS" },
+  Jinju: { stnIds: "192", label: "Jinju ASOS" },
   Nationwide: { stnIds: "108", label: "Seoul ASOS fallback" }
 };
 

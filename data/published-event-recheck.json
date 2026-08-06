@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-06T01:23:08.775Z",
+  "generatedAt": "2026-08-06T08:15:39.472Z",
   "date": "2026-08-06",
-  "approvedActiveEvents": 6,
-  "passed": 6,
+  "approvedActiveEvents": 10,
+  "passed": 10,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 12,
+  "liveChecks": 20,
   "snapshotChecks": 0,
   "updated": 0,
   "timeoutMs": 15000,
@@ -24,8 +24,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
-          "bytes": 106385,
-          "durationMs": 99,
+          "bytes": 106428,
+          "durationMs": 69,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -43,7 +43,7 @@
           "finalUrl": "https://weverse.io/nctdream/notice/36671",
           "status": 200,
           "bytes": 82319,
-          "durationMs": 255,
+          "durationMs": 330,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -70,7 +70,7 @@
           "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
           "status": 200,
           "bytes": 19064,
-          "durationMs": 3339,
+          "durationMs": 59,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -87,13 +87,102 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
           "status": 200,
           "bytes": 194549,
-          "durationMs": 491,
+          "durationMs": 408,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Boryeong Mud Festival",
             "July 24",
             "August 9"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "slug": "jinju-namgang-yudeung-festival-2026",
+      "title": "2026 Jinju Namgang Yudeung Festival",
+      "sourceName": "VISITKOREA",
+      "ok": true,
+      "liveVerified": true,
+      "checks": [
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
+          "finalUrl": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
+          "status": 200,
+          "bytes": 209128,
+          "durationMs": 556,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "2026-10-03",
+            "2026-10-18",
+            "Jinjuseong Fortress",
+            "information below is based on the 2025 festivals"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Jinju Namgang Yudeung Festival Committee",
+          "url": "https://yudeung.com/?lang=en",
+          "finalUrl": "https://yudeung.com/?lang=en",
+          "status": 200,
+          "bytes": 58977,
+          "durationMs": 338,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "10월 03일",
+            "10월 18일",
+            "18:00",
+            "Jinju Fortress"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "slug": "deoksugung-royal-guard-changing-ceremony-2026",
+      "title": "Deoksugung Royal Guard Changing Ceremony 2026",
+      "sourceName": "Visit Seoul",
+      "ok": true,
+      "liveVerified": true,
+      "checks": [
+        {
+          "sourceName": "Seoul Metropolitan Government",
+          "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
+          "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
+          "status": 200,
+          "bytes": 108375,
+          "durationMs": 67,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "11:00 AM",
+            "2:00 PM",
+            "closed on Mondays",
+            "Daehanmun Gate"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Royal Palaces and Tombs Center",
+          "url": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
+          "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
+          "status": 200,
+          "bytes": 33824,
+          "durationMs": 241,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Deoksugung Palace",
+            "Korean Empire",
+            "Gyeongungung Palace"
           ],
           "missingTokens": [],
           "ok": true
@@ -113,7 +202,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 373,
+          "durationMs": 523,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -133,13 +222,58 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 35329,
-          "durationMs": 177,
+          "durationMs": 97,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Gwangalli",
             "Drone Light Show",
             "Saturday"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "slug": "andong-maskdance-festival-2026",
+      "title": "2026 Andong Maskdance Festival",
+      "sourceName": "Andong Maskdance Festival",
+      "ok": true,
+      "liveVerified": true,
+      "checks": [
+        {
+          "sourceName": "Andong Maskdance Festival",
+          "url": "https://en.maskdance.com/2024/sub1/sub1.asp",
+          "finalUrl": "https://en.maskdance.com/2024/sub1/sub1.asp",
+          "status": 200,
+          "bytes": 23986,
+          "durationMs": 62,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Sep. 24",
+            "Oct. 4",
+            "Central Line 1942 Andong Station",
+            "Talchum Park"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "VISITKOREA",
+          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
+          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
+          "status": 200,
+          "bytes": 217044,
+          "durationMs": 346,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "2026-09-24",
+            "2026-10-04",
+            "10:00",
+            "Jungang Line 1942 Andong Station"
           ],
           "missingTokens": [],
           "ok": true
@@ -159,7 +293,7 @@
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
           "bytes": 182204,
-          "durationMs": 594,
+          "durationMs": 504,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -177,8 +311,8 @@
           "url": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "finalUrl": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "status": 200,
-          "bytes": 355656,
-          "durationMs": 201,
+          "bytes": 355658,
+          "durationMs": 221,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -203,8 +337,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 181222,
-          "durationMs": 635,
+          "bytes": 181230,
+          "durationMs": 652,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -221,8 +355,8 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 96408,
-          "durationMs": 960,
+          "bytes": 100722,
+          "durationMs": 1528,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -247,8 +381,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181417,
-          "durationMs": 688,
+          "bytes": 181425,
+          "durationMs": 681,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -266,7 +400,7 @@
           "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "status": 200,
           "bytes": 132913,
-          "durationMs": 3598,
+          "durationMs": 3352,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -274,6 +408,53 @@
             "2026.06.06",
             "2026.10.11",
             "충무아트센터"
+          ],
+          "missingTokens": [],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "slug": "louis-vuitton-visionary-journeys-seoul-2026",
+      "title": "Louis Vuitton Visionary Journeys Seoul",
+      "sourceName": "Visit Seoul",
+      "ok": true,
+      "liveVerified": true,
+      "checks": [
+        {
+          "sourceName": "Visit Seoul",
+          "url": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
+          "finalUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
+          "status": 200,
+          "bytes": 183550,
+          "durationMs": 650,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Nov 28, 2025",
+            "Dec 31, 2028",
+            "5th-4th Floors",
+            "10:30-20:00",
+            "Fee Free",
+            "advance reservation"
+          ],
+          "missingTokens": [],
+          "ok": true
+        },
+        {
+          "sourceName": "Louis Vuitton",
+          "url": "https://kr.louisvuitton.com/kor-kr/point-of-sale/korea/louis-vuitton-shinsegae-the-reserve-vjs",
+          "finalUrl": "https://kr.louisvuitton.com/kor-kr/point-of-sale/korea/louis-vuitton-shinsegae-the-reserve-vjs",
+          "status": 200,
+          "bytes": 791982,
+          "durationMs": 9886,
+          "mode": "live",
+          "freshnessAuthority": false,
+          "matchedTokens": [
+            "Book a visit",
+            "Shinsegae The Reserve 4F-5F",
+            "63 Sogong ro",
+            "10:30 - 20:00"
           ],
           "missingTokens": [],
           "ok": true

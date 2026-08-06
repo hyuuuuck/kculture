@@ -27,12 +27,21 @@
     "gwangalli-m-drone-light-show-2026",
     "seoul-international-garden-show-2026",
     "national-geographic-ocean-seoul-2026",
-    "fernando-botero-seoul-2026"
+    "fernando-botero-seoul-2026",
+    "deoksugung-royal-guard-changing-ceremony-2026",
+    "andong-maskdance-festival-2026",
+    "jinju-namgang-yudeung-festival-2026",
+    "louis-vuitton-visionary-journeys-seoul-2026"
   ],
   "indexableGuides": [
     "how-to-verify-korea-popups",
+    "korea-duty-free-before-flight",
     "korea-shopping-sale-calendar",
-    "kpop-ticket-merch-safety"
+    "weather-for-korea-events",
+    "olive-young-shopping-strategy",
+    "department-store-popup-planning",
+    "kpop-ticket-merch-safety",
+    "tax-refund-payments-korea-shopping"
   ],
   "indexableRoutes": [],
   "eventPublicationFacts": {
@@ -46,6 +55,50 @@
       "cancellation": "Recheck seat, pickup, and cancellation rules at checkout",
       "age": "Age 7+",
       "weather": "Indoor venue; check airport-area weather and transfer conditions"
+    },
+    "deoksugung-royal-guard-changing-ceremony-2026": {
+      "entry": "Free outdoor ceremony at Daehanmun; palace admission is a separate decision",
+      "reservation": "No reservation listed for the public ceremony",
+      "price": "Free ceremony; separate palace or program fees may differ",
+      "englishSupport": "English Seoul city and national heritage pages",
+      "address": "Daehanmun Gate, Deoksugung Palace, 99 Sejong-daero, Seoul",
+      "hours": "11:00 and 14:00, about 25 minutes; closed Mondays",
+      "cancellation": "Weather can cancel the ceremony; check the city notice before departure",
+      "age": "Open public ceremony; no separate age rule listed",
+      "weather": "Outdoor fixed-time performance with limited shelter at the gate"
+    },
+    "andong-maskdance-festival-2026": {
+      "entry": "Main festival entry is free; fees vary for selected programs",
+      "reservation": "No single reservation covers the multi-venue festival; program rules vary",
+      "price": "Free general festival access with program-specific fees",
+      "englishSupport": "Official English festival site and English VISITKOREA record",
+      "address": "Jungang Line 1942 Andong Station, Mask Dance Park, old downtown, and related venues",
+      "hours": "Sep 24-Oct 4; VISITKOREA lists a general 10:00-22:00 performance window",
+      "cancellation": "Recheck the venue schedule, paid programs, and weather-led changes before travel",
+      "age": "Public festival; age and participation rules can vary by program",
+      "weather": "Outdoor autumn festival spread across several walking and transfer zones"
+    },
+    "jinju-namgang-yudeung-festival-2026": {
+      "entry": "Free general festival admission; optional experiences can have separate terms",
+      "reservation": "No single reservation for the river festival; selected experiences can differ",
+      "price": "Free main festival according to VISITKOREA",
+      "englishSupport": "English VISITKOREA and official festival pages",
+      "address": "Jinjuseong Fortress and Namgang River areas, Jinju",
+      "hours": "Oct 3-18; lantern lighting 18:00-24:00 and bridge and booths 13:00-23:00",
+      "cancellation": "Recheck program, bridge, crowd-control, fireworks, and weather notices",
+      "age": "Open public festival; individual activities can use separate rules",
+      "weather": "Outdoor riverside night route with crowd, temperature, and late-return exposure"
+    },
+    "louis-vuitton-visionary-journeys-seoul-2026": {
+      "entry": "Free indoor exhibition; reservation required",
+      "reservation": "Book the cultural exhibition on the official Louis Vuitton page",
+      "price": "Free exhibition; café, restaurant, and retail are separate",
+      "englishSupport": "English Visit Seoul and Louis Vuitton reservation information",
+      "address": "LV The Place Seoul, Shinsegae The Reserve 4F-5F, 63 Sogong-ro, Seoul",
+      "hours": "Mon-Thu 10:30-20:00; Fri-Sun and holidays 10:30-20:30",
+      "cancellation": "Recheck reservation inventory, store hours, and closure notices",
+      "age": "No separate age rule listed for the exhibition; booking terms remain controlling",
+      "weather": "Indoor central-Seoul exhibition suitable for heat or rain"
     },
     "korea-beauty-festival-2026": {
       "entry": "Public festival and partner programs; class entry may require registration",
@@ -216,6 +269,134 @@
           "supports": "Confirms performance times, venue, price, age limit, and the separate global fanclub verification schedule.",
           "mustContain": ["THE SWEET DREAM HOTEL", "August 22, 2026", "INSPIRE ARENA", "KRW 121,000"]
         }
+      ]
+    },
+    "deoksugung-royal-guard-changing-ceremony-2026": {
+      "publishedAt": "2026-08-06",
+      "reviewedAt": "2026-08-06",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "updateSummary": "Separated the free outdoor changing ceremony from palace admission and added a fixed-time, Monday-closure, weather-cancellation, and arrival-buffer decision for a workable central-Seoul stop.",
+      "visitorDecision": "Use the ceremony as a short fixed-time anchor only when the group can reach Daehanmun before 11:00 or 14:00. Decide on palace admission and Jeong-dong walking separately rather than treating every activity at Deoksugung as one free program.",
+      "decisionFit": {
+        "availability": "The city lists two daily ceremonies except Monday, but weather cancellation can override the normal 11:00 and 14:00 schedule.",
+        "bestFor": "First-time Seoul visitors already moving through City Hall, Jeong-dong, Myeongdong, or Gwanghwamun who want a compact traditional performance without a ticket reservation.",
+        "poorFit": "A poor fit for a Monday, a weather-uncertain cross-city detour, or a group that cannot protect a ten-to-fifteen-minute arrival buffer at Daehanmun.",
+        "timeCost": "The performance is about twenty-five minutes, but crowd positioning, meeting at the correct gate, and any palace visit must be budgeted separately.",
+        "commitWhen": "Commit after confirming the city schedule, weather, Daehanmun meeting point, and whether the route ends after the ceremony or continues inside the palace."
+      },
+      "planningProfile": {
+        "commitment": "Short fixed-time anchor",
+        "routeRole": "A compact City Hall and Jeong-dong culture stop that should support an existing central-Seoul route, not justify a fragile long transfer by itself.",
+        "lockIn": "The selected 11:00 or 14:00 performance, Monday rule, weather status, and exact Daehanmun meeting point are confirmed.",
+        "keepFlexible": "Keep palace admission and the surrounding walk optional until weather, queue position, and the group's energy are clear after the ceremony.",
+        "weatherExposure": "The ceremony is outdoors and can be canceled for weather even though the palace and nearby indoor venues may remain open."
+      },
+      "sourceReconciliation": {
+        "agreement": "Seoul's city visitor page and the national heritage authority identify Deoksugung and Daehanmun as the relevant palace setting in central Seoul.",
+        "sourceRoles": "The city page controls ceremony time, Monday closure, duration, gate location, and weather condition; the heritage authority controls palace identity and historical context.",
+        "unresolved": "Same-day crowd position, weather cancellation, palace ticketing, and access to separate interior programs remain visit-time decisions outside the normal ceremony listing.",
+        "visitorMeaning": "Arrive for one named outdoor ceremony first, then make a second decision about paid palace entry or the Jeong-dong route instead of merging them."
+      },
+      "foreignerChecks": [
+        "Search 덕수궁 대한문 and meet at the main gate rather than using a broad City Hall or palace pin.",
+        "The city lists 11:00 and 14:00 with no Monday operation and possible weather cancellation.",
+        "Free ceremony access does not mean every palace interior, exhibition, or cultural program is also free."
+      ]
+    },
+    "andong-maskdance-festival-2026": {
+      "publishedAt": "2026-08-06",
+      "reviewedAt": "2026-08-06",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "updateSummary": "Rebuilt the festival as a multi-venue Andong decision, separating the central station-and-park program from Hahoe Village, program-specific fees, late transport, and overnight planning.",
+      "visitorDecision": "Treat this as a regional culture day with one central venue cluster, not as proof that Old Andong Station, Mask Dance Park, downtown, and Hahoe Village can all be covered casually. Choose the performances and transfer pattern before choosing accommodation or a return train.",
+      "decisionFit": {
+        "availability": "The official operator and VISITKOREA agree on September 24 through October 4, while the detailed venue timetable remains the controlling record for each performance day.",
+        "bestFor": "Visitors willing to build a full Andong day or overnight around traditional mask dance, international performances, parades, and a deliberate regional transport plan.",
+        "poorFit": "A weak fit for a rushed Seoul day trip that assumes Hahoe Village is beside the station festival zone or leaves the last return undecided.",
+        "timeCost": "The central festival can occupy most of a day; adding Hahoe Village creates a separate transfer and should usually push the plan toward an overnight stay.",
+        "commitWhen": "Commit after naming the must-see performance, checking its exact venue and fee, reserving the regional transport, and setting a realistic final departure or hotel plan."
+      },
+      "planningProfile": {
+        "commitment": "Full-day or overnight regional trip",
+        "routeRole": "The festival is the main purpose of an Andong trip, with the station, downtown, and Mask Dance Park acting as the central cluster.",
+        "lockIn": "The selected performance venue, program fee or reservation, Andong arrival, final departure, and any Hahoe transfer are settled together.",
+        "keepFlexible": "Keep secondary performances and food stops flexible until the final timetable and walking conditions are clear for the chosen date.",
+        "weatherExposure": "Much of the route is outdoors across multiple venues, so autumn temperature, rain, evening conditions, and waiting time materially affect the day."
+      },
+      "sourceReconciliation": {
+        "agreement": "The festival operator and VISITKOREA agree on the 2026 dates and the core Andong Station, downtown, and Mask Dance Park venue pattern.",
+        "sourceRoles": "The operator controls the festival identity, current schedule, and venue map; VISITKOREA independently frames event types, general hours, fee model, and visitor address.",
+        "unresolved": "Individual performance capacity, selected program fees, weather changes, and the practical transfer to Hahoe Village remain date-specific variables.",
+        "visitorMeaning": "Choose one central program plan first and add Hahoe only with explicit transport time; a list of all official venues is not a one-day route."
+      },
+      "foreignerChecks": [
+        "Search 안동탈춤공원 for the central cluster and do not use Hahoe Village as the default festival arrival point.",
+        "Free general access does not make every performance, activity, or heritage transfer free or reservation-free.",
+        "Compare the last train or bus with the selected evening program before committing to a same-day return."
+      ]
+    },
+    "jinju-namgang-yudeung-festival-2026": {
+      "publishedAt": "2026-08-06",
+      "reviewedAt": "2026-08-06",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "updateSummary": "Separated confirmed 2026 festival operations from program material still based on 2025 and added a lantern-lighting, river bottleneck, late-return, and overnight decision for Jinju.",
+      "visitorDecision": "Plan this as an evening river route whose value begins at lantern lighting, not as a daytime checklist of inherited program names. The date, location, and operating framework are confirmed, while fireworks, bridges, and detailed 2026 activities still require a current festival notice before travel.",
+      "decisionFit": {
+        "availability": "The official festival site confirms October 3 through 18 and the river operating framework, while VISITKOREA warns that some detailed program information still reflects 2025.",
+        "bestFor": "Visitors who want a dedicated autumn night in Jinju and can protect time for riverside walking, crowd movement, photography, and a late return or overnight stay.",
+        "poorFit": "A poor fit for a tight same-night regional return that depends on one firework, bridge, or inherited program detail not yet confirmed for 2026.",
+        "timeCost": "Use the afternoon for orientation and the evening for lanterns; adding intercity travel makes this a full-day commitment even when general admission is free.",
+        "commitWhen": "Commit after confirming the 2026 site map and must-see program, then choosing an entrance, crowd exit, and transport plan that remains workable after dark."
+      },
+      "planningProfile": {
+        "commitment": "Full-day regional night festival",
+        "routeRole": "The Namgang and Jinjuseong nightscape is the main destination, with afternoon orientation supporting rather than replacing the illuminated river route.",
+        "lockIn": "The current festival map, lantern period, selected river entrance, crowd exit, late transport, and optional paid experience terms are confirmed.",
+        "keepFlexible": "Keep fireworks, bridge crossings, and secondary performances provisional until the operator publishes date-specific 2026 details and weather notices.",
+        "weatherExposure": "The route is outdoors beside the river after dark, with temperature, rain, bottlenecks, walking distance, and late waiting all affecting value."
+      },
+      "sourceReconciliation": {
+        "agreement": "The festival operator and VISITKOREA agree on October 3-18, Jinjuseong and Namgang as the venue, and lanterns as the core night experience.",
+        "sourceRoles": "The operator controls the 2026 theme and current lighting, booth, and bridge framework; VISITKOREA provides an independent national listing and clearly labels inherited 2025 detail.",
+        "unresolved": "Specific fireworks, bridge access, experience fees, performance times, crowd-control routes, and the complete 2026 program can still change before October.",
+        "visitorMeaning": "Book the regional trip for the confirmed lantern-and-river experience, not for an unconfirmed single program, and retain an overnight or early-exit threshold."
+      },
+      "foreignerChecks": [
+        "Search 진주성 for the central area, then choose the specific river entrance from the current festival map.",
+        "The operator lists lantern lighting from 18:00 to 24:00, so late transport must be decided before photography time.",
+        "Treat fireworks, bridges, and detailed program descriptions as provisional until the official 2026 schedule replaces inherited material."
+      ]
+    },
+    "louis-vuitton-visionary-journeys-seoul-2026": {
+      "publishedAt": "2026-08-06",
+      "reviewedAt": "2026-08-06",
+      "reviewedBy": "K-Spot Now Editorial Desk",
+      "updateSummary": "Separated the free reservation-required exhibition from the building's café, restaurant, and retail offers and added an entry-slot, floor-route, and no-purchase-required decision for visitors.",
+      "visitorDecision": "Use this as a booked indoor design-and-craftsmanship exhibition, not as a vague luxury-shopping recommendation. The free cultural visit has its own reservation and fourth-to-fifth-floor route; dining and retail are separate choices that should not be treated as conditions of admission.",
+      "decisionFit": {
+        "availability": "The city and operator list a long run through 2028, but a usable visit still depends on current reservation inventory, opening hours, and any closure notice.",
+        "bestFor": "Visitors already near Myeongdong, Hoehyeon, Namdaemun, or City Hall who want a structured indoor design exhibition and can secure a specific entry slot.",
+        "poorFit": "A poor fit for a spontaneous visit when reservations are unavailable or for anyone expecting the free exhibition booking to include dining, products, or another building experience.",
+        "timeCost": "Protect the reservation time, internal department-store navigation, and the exhibition route before adding Myeongdong shopping or a separate restaurant booking.",
+        "commitWhen": "Commit after the exhibition reservation is confirmed and the visitor understands that café, restaurant, retail, and docent arrangements have separate availability and terms."
+      },
+      "planningProfile": {
+        "commitment": "Reservation-led indoor stop",
+        "routeRole": "A central-Seoul design exhibition that can anchor a Myeongdong or Namdaemun half-day without requiring a retail purchase or dining reservation.",
+        "lockIn": "The free exhibition slot, current hours, Shinsegae The Reserve entrance, fourth-and-fifth-floor route, and arrival margin are confirmed.",
+        "keepFlexible": "Keep café, restaurant, docent session, and shopping optional unless each has been checked or booked through its own controlling page.",
+        "weatherExposure": "The exhibition is indoors, but heat or rain can increase department-store entry and surrounding Myeongdong crowd time before the reserved slot."
+      },
+      "sourceReconciliation": {
+        "agreement": "Visit Seoul and Louis Vuitton agree on LV The Place Seoul at Shinsegae The Reserve, the exhibition concept, and the fourth-and-fifth-floor cultural route.",
+        "sourceRoles": "Visit Seoul provides the long public date window, free fee status, advance-reservation guidance, accessibility, and docent listing; Louis Vuitton controls the current booking route, address, floor location, hours, and venue contact information.",
+        "unresolved": "Reservation inventory, same-day closure, docent availability, queue time, and separate dining or retail capacity remain visit-time variables.",
+        "visitorMeaning": "Reserve the exhibition on its own merits and treat every commercial add-on as optional; a free cultural booking does not require a purchase."
+      },
+      "foreignerChecks": [
+        "Search 신세계백화점 본점 더 리저브 and allow internal navigation time before the reserved entry.",
+        "The official city listing states that the fee is free and advises advance reservation; complete the booking through the current Louis Vuitton venue page and save the record.",
+        "Exhibition, café, restaurant, docent, and retail access have different purposes and should be checked separately."
       ]
     },
     "korea-beauty-festival-2026": {

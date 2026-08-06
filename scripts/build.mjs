@@ -66,6 +66,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const historicalWeather = await fs.readFile(path.join(root, "data", "kma-historical-observations.json"), "utf8").then(JSON.parse).catch(() => null);
+const reviewedNearby = await fs.readFile(path.join(root, "data", "kto-nearby-reviewed.json"), "utf8").then(JSON.parse).catch(() => null);
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"))
   .filter((route) => approvedRouteSlugs.has(route.slug));
 const sourceRefreshSummary = await latestSourceRefreshSummary();
@@ -4430,8 +4431,7 @@ function isNationwideTravelBenefit(event) {
   return event.category === "travel-benefits" && event.city === "Nationwide";
 }
 
-function mapLinks(event, lang) {
-  const query = eventPlaceQuery(event);
+function mapLinksForQuery(query, lang) {
   const encoded = encodeURIComponent(query);
   return [
     {
@@ -4447,6 +4447,10 @@ function mapLinks(event, lang) {
       href: `https://map.kakao.com/?q=${encoded}`
     }
   ];
+}
+
+function mapLinks(event, lang) {
+  return mapLinksForQuery(eventPlaceQuery(event), lang);
 }
 
 function mapLinkSection(event, lang) {
@@ -8280,6 +8284,52 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
         </section>`;
 }
 
+function reviewedNearbyForEvent(event) {
+  const reviewedTime = Date.parse(reviewedNearby?.reviewedAt || "");
+  const buildTime = Date.parse(`${today}T00:00:00Z`);
+  const ageDays = Number.isFinite(reviewedTime) && Number.isFinite(buildTime)
+    ? Math.floor((buildTime - reviewedTime) / 86400000)
+    : Number.POSITIVE_INFINITY;
+  if (ageDays < 0 || ageDays > 90) return null;
+  const item = (reviewedNearby?.events || []).find((candidate) => candidate.eventSlug === event.slug);
+  return item?.options?.length ? item : null;
+}
+
+function eventNearbySection(event, lang) {
+  const reviewed = reviewedNearbyForEvent(event);
+  if (!reviewed) return "";
+  const source = reviewedNearby.source || {};
+  return `
+        <section class="detail-section official-nearby-section" aria-labelledby="official-nearby-title">
+          <div class="official-nearby-heading">
+            <div>
+              <p class="eyebrow">Reviewed public data</p>
+              <h2 id="official-nearby-title">Nearby options worth deciding on</h2>
+            </div>
+            <span>${esc(reviewed.anchorLabel)} anchor · reviewed ${esc(dateText(lang, reviewedNearby.reviewedAt))}</span>
+          </div>
+          <p class="official-nearby-intro">These are not automatic recommendations. KTO supplies the place record and straight-line distance; our desk review explains when each stop adds value and when to remove it.</p>
+          <div class="official-nearby-grid">
+            ${reviewed.options.map((option) => `
+              <article class="official-nearby-card">
+                <div class="official-nearby-card-head">
+                  <div><span>${Math.round(option.distanceMeters).toLocaleString("en-US")} m straight-line</span><h3>${esc(option.title)}</h3></div>
+                  <strong lang="ko">${esc(option.mapQueryKo)}</strong>
+                </div>
+                <p>${esc(option.visitorDecision)}</p>
+                <p class="official-nearby-stop"><strong>Stop rule</strong>${esc(option.stopRule)}</p>
+                <div class="official-nearby-map-links">
+                  ${mapLinksForQuery(option.mapQueryKo, lang).map((link) => `<a href="${esc(link.href)}" rel="nofollow noopener" target="_blank">${esc(link.label)}</a>`).join("")}
+                </div>
+              </article>`).join("")}
+          </div>
+          <div class="official-nearby-source">
+            <p>${esc(reviewedNearby.distanceMethod)}</p>
+            <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">Open official KTO API dataset</a>
+          </div>
+        </section>`;
+}
+
 function eventEvidenceSection(event, lang) {
   const evidence = eventSourceEvidence(event);
   const review = editorialReviewFor(event);
@@ -8375,6 +8425,7 @@ function renderEvent(event, lang) {
 
         ${eventReviewSection(event, lang)}
         ${eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas)}
+        ${eventNearbySection(event, lang)}
         ${eventEvidenceSection(event, lang)}
         ${adUnit("detail", status !== "ended" && isApprovedEvent(event))}
 

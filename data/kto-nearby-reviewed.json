@@ -1,0 +1,139 @@
+{
+  "reviewedAt": "2026-08-06",
+  "reviewedBy": "K-Spot Now editorial desk",
+  "source": {
+    "name": "Korea Tourism Organization TourAPI",
+    "url": "https://www.data.go.kr/en/data/15101753/openapi.do",
+    "endpoint": "https://apis.data.go.kr/B551011/EngService2/locationBasedList2"
+  },
+  "distanceMethod": "Straight-line distance returned by KTO from the verified event anchor; walking distance and entrance position can differ.",
+  "publicationPolicy": "Only manually selected records with original visitor-decision guidance are build-readable. API descriptions, hours, prices, and availability are not published automatically.",
+  "events": [
+    {
+      "eventSlug": "boryeong-mud-festival-2026",
+      "anchorLabel": "Daecheon Beach",
+      "options": [
+        {
+          "contentId": "3104036",
+          "contentTypeId": "76",
+          "title": "Daecheon Port",
+          "mapQueryKo": "대천항",
+          "distanceMeters": 1570,
+          "visitorDecision": "Use this as a separate harbor stop only when you still have time and dry clothes after the mud zone; it is not a shortcut between festival areas.",
+          "stopRule": "Drop it when heat, rain, cleanup time, or the return schedule makes another exposed waterfront leg a poor trade."
+        },
+        {
+          "contentId": "3403790",
+          "contentTypeId": "75",
+          "title": "Ziptrek Korea",
+          "mapQueryKo": "짚트랙코리아 대천",
+          "distanceMeters": 892,
+          "visitorDecision": "Treat this as an optional paid activity, not a default festival add-on; it only fits a visitor who has protected time outside the mud-program schedule.",
+          "stopRule": "Do not build the day around it until the operator confirms current hours, weather operation, price, and same-day capacity."
+        }
+      ]
+    },
+    {
+      "eventSlug": "gwangalli-m-drone-light-show-2026",
+      "anchorLabel": "Gwangalli Beach",
+      "options": [
+        {
+          "contentId": "3098933",
+          "contentTypeId": "76",
+          "title": "Gwangalli Beach Theme Street",
+          "mapQueryKo": "광안리해변 테마거리",
+          "distanceMeters": 353,
+          "visitorDecision": "This is the low-commitment extension: use it to wait near the viewing area without adding a cross-town transfer, while keeping the final beach position flexible.",
+          "stopRule": "Skip the extra walk when crowd controls, rain, or wind make securing the official viewing area more important."
+        },
+        {
+          "contentId": "3403110",
+          "contentTypeId": "76",
+          "title": "Millac The Market",
+          "mapQueryKo": "밀락더마켓",
+          "distanceMeters": 759,
+          "visitorDecision": "Use this as a meal or indoor waiting candidate before the show, then leave enough buffer to re-enter the beach crowd rather than assuming a quick door-to-viewing-spot transfer.",
+          "stopRule": "Remove it from the plan when venue hours, queues, or the official show notice leave less than a comfortable return buffer."
+        }
+      ]
+    },
+    {
+      "eventSlug": "fernando-botero-seoul-2026",
+      "anchorLabel": "Seoul Arts Center Hangaram Museum",
+      "options": [
+        {
+          "contentId": "268107",
+          "contentTypeId": "78",
+          "title": "National Gugak Museum",
+          "mapQueryKo": "국립국악박물관",
+          "distanceMeters": 546,
+          "visitorDecision": "This is the strongest culture-on-culture pairing because it stays inside the arts district; allow separate viewing time instead of treating it as a corridor on the way out.",
+          "stopRule": "Drop it if its current opening day or last admission does not leave a complete visit after the Botero exhibition."
+        },
+        {
+          "contentId": "2035459",
+          "contentTypeId": "76",
+          "title": "Montmartre Park",
+          "mapQueryKo": "몽마르뜨공원",
+          "distanceMeters": 1937,
+          "visitorDecision": "Choose this only as a weather-friendly outdoor decompression stop; the longer distance makes it a deliberate second leg, not an automatic museum-neighborhood walk.",
+          "stopRule": "Skip it in rain, high heat, poor air quality, or when the return journey matters more than adding another walking segment."
+        }
+      ]
+    },
+    {
+      "eventSlug": "seoul-international-garden-show-2026",
+      "anchorLabel": "Seoul Forest",
+      "options": [
+        {
+          "contentId": "2655852",
+          "contentTypeId": "76",
+          "title": "Waterworks Museum",
+          "mapQueryKo": "수도박물관 서울",
+          "distanceMeters": 357,
+          "visitorDecision": "Use this as the compact indoor counterweight to a long outdoor garden visit, especially when you want a defined stop rather than more open-ended walking.",
+          "stopRule": "Do not rely on it as a rain shelter until the museum confirms the current opening day, entry window, and any closure notice."
+        },
+        {
+          "contentId": "1887247",
+          "contentTypeId": "76",
+          "title": "Hangang River",
+          "mapQueryKo": "서울숲 한강",
+          "distanceMeters": 460,
+          "visitorDecision": "Add the river only when the garden route still leaves energy for another exposed walking segment; it works better as a scenic extension than as a must-see checkpoint.",
+          "stopRule": "End at the garden when heat, rain, air quality, darkness, or fatigue makes the waterfront extension lower value."
+        }
+      ]
+    },
+    {
+      "eventSlug": "national-geographic-ocean-seoul-2026",
+      "anchorLabel": "Chungmu Arts Center",
+      "options": [
+        {
+          "contentId": "1838143",
+          "contentTypeId": "76",
+          "title": "Sindang-dong Tteokbokki Town",
+          "mapQueryKo": "신당동 떡볶이타운",
+          "distanceMeters": 320,
+          "visitorDecision": "Use this as the nearby meal decision after the exhibition, not as a timed attraction; it minimizes transfer cost but can still add queue time at popular restaurants.",
+          "stopRule": "Choose another meal area when dietary needs, queues, or the exhibition exit time make the cluster a poor fit."
+        },
+        {
+          "contentId": "2475097",
+          "contentTypeId": "76",
+          "title": "Dongdaemun Design Plaza",
+          "mapQueryKo": "동대문디자인플라자 DDP",
+          "distanceMeters": 468,
+          "visitorDecision": "Pair DDP when you want a second design-focused district stop and have a specific exhibition, shop, or architecture goal; the building is too broad to count as one quick attraction.",
+          "stopRule": "Keep the route short when no current DDP program matches your interests or when another indoor venue would crowd the same day."
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "eventSlug": "nct-dream-sweet-dream-hotel-incheon-2026",
+      "reason": "No verified INSPIRE Arena coordinate was available through the authorized English KTO service at review time; no approximate airport coordinate is substituted."
+    }
+  ]
+}

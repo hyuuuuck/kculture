@@ -57,8 +57,10 @@
     "source:refresh": "npm run import:forecast && npm run import:public-data && npm run check:sources && npm run collect:official && npm run review:feed && npm run draft:events && npm run review:board && npm run source:summary && npm run source:issue && npm run stage:review-candidates",
     "import:public-data": "node --env-file-if-exists=.env scripts/import-public-data.mjs",
     "import:tourapi": "node --env-file-if-exists=.env scripts/import-tourapi.mjs",
+    "import:nearby": "node --env-file-if-exists=.env scripts/import-kto-nearby.mjs",
     "import:weather": "node --env-file-if-exists=.env scripts/import-kma-weather.mjs",
     "import:seoul": "node --env-file-if-exists=.env scripts/import-seoul-cultural-events.mjs",
+    "import:seoul-spaces": "node --env-file-if-exists=.env scripts/import-seoul-cultural-spaces.mjs",
     "preview": "npm run build && node scripts/preview.mjs",
     "preview:worker": "npm run build && wrangler dev",
     "deploy:cloudflare": "npm run build && wrangler deploy --assets=./dist"

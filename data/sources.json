@@ -20,6 +20,24 @@
     "notes": "Use EngService2/searchFestival2 for English event data. Add Kor/Jpn/Chs/Cht/Spn/Rus language services as needed."
   },
   {
+    "name": "Seoul Open Data Cultural Space Information",
+    "type": "official-api",
+    "owner": "Seoul Metropolitan Government",
+    "url": "https://data.seoul.go.kr/dataList/OA-15487/A/1/datasetView.do",
+    "alternateUrls": [
+      "http://openapi.seoul.go.kr:8088/sample/json/culturalSpaceInfo/1/5/"
+    ],
+    "coverage": [
+      "Seoul cultural venues",
+      "venue addresses",
+      "venue coordinates",
+      "anchor verification"
+    ],
+    "refreshCadence": "monthly and before reviewed nearby-data publication",
+    "automationStatus": "ready-with-api-key",
+    "notes": "Use culturalSpaceInfo to verify a reviewed Seoul venue anchor. X_COORD is latitude and Y_COORD is longitude in this dataset. Do not publish hours or closure text without editorial confirmation."
+  },
+  {
     "name": "VISITKOREA",
     "type": "official-page-monitor",
     "owner": "Korea Tourism Organization",

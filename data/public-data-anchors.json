@@ -1,0 +1,62 @@
+{
+  "reviewedAt": "2026-08-06",
+  "reviewedBy": "K-Spot Now editorial desk",
+  "policy": "Coordinates are used only to request nearby KTO records for already-approved event pages. An event without a verified official anchor is excluded rather than approximated.",
+  "anchors": [
+    {
+      "eventSlug": "nct-dream-sweet-dream-hotel-incheon-2026",
+      "status": "excluded",
+      "reason": "The authorized English KTO service does not expose a verified INSPIRE Arena anchor, so a nearby-distance claim would be misleading."
+    },
+    {
+      "eventSlug": "boryeong-mud-festival-2026",
+      "status": "verified",
+      "label": "Daecheon Beach",
+      "latitude": 36.3132018619,
+      "longitude": 126.5093475608,
+      "sourceName": "Korea Tourism Organization TourAPI",
+      "sourceUrl": "https://www.data.go.kr/en/data/15101753/openapi.do",
+      "sourceRecordId": "264510"
+    },
+    {
+      "eventSlug": "gwangalli-m-drone-light-show-2026",
+      "status": "verified",
+      "label": "Gwangalli Beach",
+      "latitude": 35.1538130576,
+      "longitude": 129.1185477876,
+      "sourceName": "Korea Tourism Organization TourAPI",
+      "sourceUrl": "https://www.data.go.kr/en/data/15101753/openapi.do",
+      "sourceRecordId": "264250"
+    },
+    {
+      "eventSlug": "fernando-botero-seoul-2026",
+      "status": "verified",
+      "label": "Seoul Arts Center Hangaram Museum",
+      "latitude": 37.4802401962069,
+      "longitude": 127.014215239186,
+      "sourceName": "Seoul Open Data Cultural Space Information",
+      "sourceUrl": "https://data.seoul.go.kr/dataList/OA-15487/A/1/datasetView.do",
+      "sourceRecordId": "예술의전당 한가람미술관"
+    },
+    {
+      "eventSlug": "seoul-international-garden-show-2026",
+      "status": "verified",
+      "label": "Seoul Forest",
+      "latitude": 37.543071581483325,
+      "longitude": 127.04179844597822,
+      "sourceName": "Korea Tourism Organization TourAPI",
+      "sourceUrl": "https://www.data.go.kr/en/data/15101753/openapi.do",
+      "sourceRecordId": "789696"
+    },
+    {
+      "eventSlug": "national-geographic-ocean-seoul-2026",
+      "status": "verified",
+      "label": "Chungmu Arts Center",
+      "latitude": 37.5659409687669,
+      "longitude": 127.014790889728,
+      "sourceName": "Seoul Open Data Cultural Space Information",
+      "sourceUrl": "https://data.seoul.go.kr/dataList/OA-15487/A/1/datasetView.do",
+      "sourceRecordId": "충무아트센터"
+    }
+  ]
+}

@@ -15,6 +15,11 @@ const tasks = [
     module: "./import-tourapi.mjs"
   },
   {
+    id: "kto-nearby",
+    configured: Boolean(process.env.KTO_SERVICE_KEY || process.env.DATA_GO_KR_SERVICE_KEY),
+    module: "./import-kto-nearby.mjs"
+  },
+  {
     id: "kma-asos",
     configured: Boolean(process.env.KMA_SERVICE_KEY || process.env.DATA_GO_KR_SERVICE_KEY),
     module: "./import-kma-weather.mjs"
@@ -23,6 +28,11 @@ const tasks = [
     id: "seoul-cultural-events",
     configured: Boolean(process.env.SEOUL_OPEN_DATA_KEY),
     module: "./import-seoul-cultural-events.mjs"
+  },
+  {
+    id: "seoul-cultural-spaces",
+    configured: Boolean(process.env.SEOUL_OPEN_DATA_KEY),
+    module: "./import-seoul-cultural-spaces.mjs"
   }
 ];
 
@@ -42,7 +52,7 @@ for (const task of tasks) {
 
 const summary = {
   generatedAt: new Date().toISOString(),
-  publicationPolicy: "Public-data imports are review inputs. Only the KMA numeric observation snapshot is build-readable, and every public page still requires an approved editorial record.",
+  publicationPolicy: "Public-data imports are review inputs. Only the credential-free KMA observation snapshot and manually reviewed KTO nearby selections are build-readable, and every public page still requires an approved editorial record.",
   passed: results.filter((result) => result.status === "passed").length,
   failed: results.filter((result) => result.status === "failed").length,
   skipped: results.filter((result) => result.status === "skipped").length,

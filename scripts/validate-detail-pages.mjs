@@ -6,10 +6,12 @@ const root = path.resolve(".");
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
+const reviewedNearby = JSON.parse(fs.readFileSync(path.join(root, "data", "kto-nearby-reviewed.json"), "utf8"));
 const languages = publicLanguageCodes();
 const approved = new Set(program.indexableEvents || []);
 const publicEvents = events.filter((event) => approved.has(event.slug));
 const errors = [];
+const nearbyBySlug = new Map((reviewedNearby.events || []).map((item) => [item.eventSlug, item]));
 
 function push(id, message) {
   errors.push({ id, message });
@@ -55,6 +57,19 @@ for (const lang of languages) {
     ];
     for (const marker of markers) {
       if (!html.includes(marker)) push(`dist/${relative}`, `required compact detail marker is missing: ${marker}`);
+    }
+    const nearby = nearbyBySlug.get(event.slug);
+    if (nearby) {
+      for (const marker of ['class="detail-section official-nearby-section"', "Nearby options worth deciding on", "Open official KTO API dataset"]) {
+        if (!html.includes(marker)) push(`dist/${relative}`, `required reviewed-nearby marker is missing: ${marker}`);
+      }
+      for (const option of nearby.options || []) {
+        if (!html.includes(escapeHtml(option.title))) push(`dist/${relative}`, `reviewed nearby title is missing: ${option.title}`);
+        if (!html.includes(escapeHtml(option.visitorDecision))) push(`dist/${relative}`, `reviewed nearby decision is missing: ${option.title}`);
+        if (!html.includes(encodeURIComponent(option.mapQueryKo))) push(`dist/${relative}`, `reviewed nearby map query is missing: ${option.mapQueryKo}`);
+      }
+    } else if (html.includes('class="detail-section official-nearby-section"')) {
+      push(`dist/${relative}`, "unreviewed nearby section must not be published.");
     }
     if (!html.includes(`href="${escapeHtml(event.sourceUrl)}"`)) push(`dist/${relative}`, "official source link is missing.");
     if (!html.includes(`href="/events/${event.slug}.ics"`)) push(`dist/${relative}`, "event calendar download is missing.");

@@ -36,6 +36,7 @@ const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-rout
 const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.json"), "utf8"));
 const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const searchConsoleAudit = JSON.parse(await fs.readFile(path.join(root, "data", "search-console-audit.json"), "utf8").catch(() => "{}"));
+const adsenseAccountAudit = JSON.parse(await fs.readFile(path.join(root, "data", "adsense-account-audit.json"), "utf8").catch(() => "{}"));
 const thumbnailSources = JSON.parse(await fs.readFile(path.join(root, "data", "thumbnail-sources.json"), "utf8"));
 const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
@@ -231,8 +232,8 @@ function runChecks() {
     warn(
       "Search",
       "Search Console index alignment",
-      `${searchConsoleAudit.coverage?.indexed ?? "?"} indexed vs ${searchConsoleAudit.coverage?.notIndexed ?? "?"} not indexed; legacy pages still dominate (${searchConsoleAudit.auditedAt || "audit missing"})`,
-      "Deploy the canonicalization and retirement fixes, wait for Google to recrawl them, then update the authenticated audit before requesting another AdSense review."
+      `Sitemap is ${searchConsoleAudit.sitemap?.status || "unknown"} with ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} approved URLs; coverage is still dated ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and predates cleanup (${searchConsoleAudit.auditedAt || "audit missing"})`,
+      "Wait until Search Console coverage and performance reports move past the cleanup deployment, then verify that legacy pages no longer dominate before requesting another AdSense review."
     );
   }
 
@@ -328,6 +329,20 @@ function runChecks() {
     pass("AdSense", "Publisher and ads.txt", `${publisherId} present`);
   } else {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
+  }
+
+  if (adsenseAccountAudit.publisherId === publisherId
+      && adsenseAccountAudit.site === "kspotnow.com"
+      && adsenseAccountAudit.siteReview?.statusDetail === "low-value-content"
+      && adsenseAccountAudit.siteReview?.adsTxtStatus === "approved"
+      && adsenseAccountAudit.siteReview?.reviewRequestAvailable === true
+      && adsenseAccountAudit.siteReview?.reviewRequestSubmitted === false
+      && adsenseAccountAudit.policyCenter?.issueCount === 0
+      && adsenseAccountAudit.cmp?.status === "published"
+      && adsenseAccountAudit.searchConsole?.sitemapDiscoveredPages === expectedSitemapPaths().size) {
+    pass("AdSense", "Authenticated account state", `Low-value-content re-review is available but not submitted; ads.txt is approved, Policy Center is clear, the European regulations message is published, and Search Console discovered ${adsenseAccountAudit.searchConsole.sitemapDiscoveredPages} approved URLs`);
+  } else {
+    fail("AdSense", "Authenticated account state", "Account evidence is missing or inconsistent", "Re-audit AdSense Sites, Policy Center, Privacy & messaging, and Search Console before re-review.");
   }
 
   if (cmpEvidence.ready) {

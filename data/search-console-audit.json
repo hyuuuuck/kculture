@@ -1,11 +1,11 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-04T21:31:58+09:00",
+  "auditedAt": "2026-08-06T10:33:29+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "hold",
   "deployFixesAllowed": true,
-  "reason": "Legacy, duplicate, and retired URLs still dominate Google's view of the site. Deploying canonicalization and retirement fixes is appropriate, but another AdSense review request is not.",
+  "reason": "The focused 13-URL sitemap was successfully re-read on August 6, but the page-indexing report is still dated July 24 and search performance ends August 2. Those reports predate the August 5 cleanup, so another AdSense review request remains premature.",
   "coverage": {
     "reportUpdatedAt": "2026-07-24",
     "indexed": 87,
@@ -27,15 +27,22 @@
     "legacyPagesDominateTopPages": true
   },
   "sitemap": {
-    "submittedAt": "2026-07-11",
-    "lastReadAt": "2026-08-01",
+    "submittedAt": "2026-08-06",
+    "lastReadAt": "2026-08-06",
     "status": "success",
-    "discoveredPages": 29
+    "discoveredPages": 13
+  },
+  "cleanup": {
+    "deployedAt": "2026-08-05",
+    "sitemapResubmittedAt": "2026-08-06T10:28:00+09:00",
+    "liveApprovedUrlCount": 13,
+    "coverageReportPredatesCleanup": true,
+    "performanceReportPredatesCleanup": true
   },
   "releaseCriteria": [
-    "Deploy the focused English review build with .html canonical redirects and 410 responses for withdrawn URLs.",
-    "Confirm the live sitemap contains only the current hubs, current events, and reviewed guides.",
-    "Recheck Search Console after Google recrawls the deployment and verify that legacy variants no longer dominate coverage and top-page reports.",
+    "Keep the focused English review build live with .html canonical redirects and 410 responses for withdrawn URLs.",
+    "Keep the successful 13-URL sitemap aligned with the current hubs, events, and reviewed guides.",
+    "Recheck Search Console after its coverage and performance dates move past the August 5 deployment and verify that legacy variants no longer dominate the updated reports.",
     "Run the AdSense re-review preflight only after this audit is updated to ready from authenticated evidence."
   ]
 }

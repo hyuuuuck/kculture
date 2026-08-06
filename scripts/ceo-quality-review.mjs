@@ -13,6 +13,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"));
 const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const publishedRecheck = JSON.parse(await fs.readFile(path.join(root, "data", "published-event-recheck.json"), "utf8").catch(() => "{}"));
+const searchConsoleAudit = JSON.parse(await fs.readFile(path.join(root, "data", "search-console-audit.json"), "utf8").catch(() => "{}"));
 const checks = [];
 
 function exists(relative) {
@@ -217,7 +218,7 @@ if (!adsense) {
   if (nonSearchWarnings.length) {
     fail("publisher", "AdSense", "Editorial gate report", `${nonSearchWarnings.length} non-search warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
   } else {
-    warn("publisher", "Search", "Post-deploy index hold", "Production cleanup may be deployed, but another AdSense review request remains blocked until Search Console is re-audited.", "Publisher: deploy only the verified cleanup, then wait for recrawl evidence before re-review.");
+    warn("publisher", "Search", "Post-deploy index hold", `The ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"}-URL sitemap is successful, but coverage (${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"}) and performance (${searchConsoleAudit.performance?.periodEnd || "unknown"}) still predate the August 5 cleanup.`, "Publisher: wait for updated post-cleanup Search Console reports, then verify that legacy pages no longer dominate before re-review.");
   }
 } else {
   pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);

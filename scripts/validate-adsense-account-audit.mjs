@@ -6,6 +6,7 @@ const auditPath = path.join(root, "data", "adsense-account-audit.json");
 const programPath = path.join(root, "data", "editorial-program.json");
 const requireCurrentReview = process.argv.includes("--require-current-review");
 const errors = [];
+const warnings = [];
 
 function readJson(file, label) {
   try {
@@ -56,7 +57,9 @@ const expectedSitemapUrls = new Set([
   ...(program.indexableRoutes || []).map((slug) => `/en/routes/${slug}`)
 ]);
 if (search.sitemapDiscoveredPages !== expectedSitemapUrls.size) {
-  errors.push(`Search Console discovered ${search.sitemapDiscoveredPages} sitemap pages; expected ${expectedSitemapUrls.size}.`);
+  const message = `Search Console discovered ${search.sitemapDiscoveredPages} sitemap pages; expected ${expectedSitemapUrls.size}.`;
+  if (requireCurrentReview) errors.push(message);
+  else warnings.push(`${message} This is allowed for deployment but must be refreshed before AdSense re-review.`);
 }
 
 if (requireCurrentReview) {
@@ -75,4 +78,9 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Authenticated AdSense account audit passed${requireCurrentReview ? " for re-review" : ""}: ads.txt is approved, Policy Center is clear, CMP is published, and Search Console discovered ${search.sitemapDiscoveredPages} approved URLs.`);
+if (warnings.length) {
+  console.warn("Authenticated AdSense account audit warnings:");
+  for (const warning of warnings) console.warn(`- ${warning}`);
+}
+
+console.log(`Authenticated AdSense account audit passed${requireCurrentReview ? " for re-review" : " for deployment"}: ads.txt is approved, Policy Center is clear, CMP is published, and Search Console currently reports ${search.sitemapDiscoveredPages} discovered URLs.`);

@@ -331,16 +331,28 @@ function runChecks() {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
   }
 
-  if (adsenseAccountAudit.publisherId === publisherId
+  const authenticatedAccountBaseIsValid = adsenseAccountAudit.publisherId === publisherId
       && adsenseAccountAudit.site === "kspotnow.com"
       && adsenseAccountAudit.siteReview?.statusDetail === "low-value-content"
       && adsenseAccountAudit.siteReview?.adsTxtStatus === "approved"
       && adsenseAccountAudit.siteReview?.reviewRequestAvailable === true
       && adsenseAccountAudit.siteReview?.reviewRequestSubmitted === false
       && adsenseAccountAudit.policyCenter?.issueCount === 0
-      && adsenseAccountAudit.cmp?.status === "published"
-      && adsenseAccountAudit.searchConsole?.sitemapDiscoveredPages === expectedSitemapPaths().size) {
-    pass("AdSense", "Authenticated account state", `Low-value-content re-review is available but not submitted; ads.txt is approved, Policy Center is clear, the European regulations message is published, and Search Console discovered ${adsenseAccountAudit.searchConsole.sitemapDiscoveredPages} approved URLs`);
+      && adsenseAccountAudit.cmp?.status === "published";
+  if (authenticatedAccountBaseIsValid) {
+    pass("AdSense", "Authenticated account state", "Low-value-content re-review is available but not submitted; ads.txt is approved, Policy Center is clear, and the European regulations message is published");
+    const discoveredPages = adsenseAccountAudit.searchConsole?.sitemapDiscoveredPages;
+    const expectedPages = expectedSitemapPaths().size;
+    if (discoveredPages === expectedPages) {
+      pass("Search", "Authenticated sitemap discovery", `Search Console discovered all ${expectedPages} approved URLs`);
+    } else {
+      warn(
+        "Search",
+        "Authenticated sitemap discovery",
+        `Search Console currently reports ${discoveredPages ?? "?"} discovered URLs; the deployment contains ${expectedPages}`,
+        "Deploy the approved sitemap, wait for Search Console to read it, and refresh the authenticated account audit before requesting AdSense re-review."
+      );
+    }
   } else {
     fail("AdSense", "Authenticated account state", "Account evidence is missing or inconsistent", "Re-audit AdSense Sites, Policy Center, Privacy & messaging, and Search Console before re-review.");
   }

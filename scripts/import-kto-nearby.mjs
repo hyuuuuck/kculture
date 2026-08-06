@@ -14,13 +14,66 @@ if (!serviceKey) {
   process.exit(1);
 }
 
-const [anchorData, events, program] = await Promise.all([
+const [anchorData, events, program, reviewedNearby] = await Promise.all([
   fs.readFile(path.join(root, "data", "public-data-anchors.json"), "utf8").then(JSON.parse),
   fs.readFile(path.join(root, "data", "events.json"), "utf8").then(JSON.parse),
-  fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8").then(JSON.parse)
+  fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8").then(JSON.parse),
+  fs.readFile(path.join(root, "data", "kto-nearby-reviewed.json"), "utf8").then(JSON.parse)
 ]);
 const approved = new Set(program.indexableEvents || []);
 const eventBySlug = new Map(events.filter((event) => approved.has(event.slug)).map((event) => [event.slug, event]));
+const reviewedBySlug = new Map((reviewedNearby.events || []).map((item) => [item.eventSlug, item]));
+
+function firstItem(payload) {
+  const raw = payload?.response?.body?.items?.item;
+  return Array.isArray(raw) ? (raw[0] || {}) : (raw || {});
+}
+
+function cleanApiText(value) {
+  return String(value || "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\r/g, "")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function detailUrl(endpoint, params) {
+  const url = new URL(`https://apis.data.go.kr/B551011/EngService2/${endpoint}`);
+  for (const [key, value] of Object.entries({
+    serviceKey,
+    MobileOS: "ETC",
+    MobileApp: "KSpotNowEditorialReview",
+    _type: "json",
+    ...params
+  })) url.searchParams.set(key, String(value));
+  return url;
+}
+
+async function fetchReviewedDetail(option) {
+  const [commonPayload, introPayload] = await Promise.all([
+    fetchPublicJson(detailUrl("detailCommon2", { contentId: option.contentId }), `KTO common detail for ${option.contentId}`),
+    fetchPublicJson(detailUrl("detailIntro2", { contentId: option.contentId, contentTypeId: option.contentTypeId }), `KTO intro detail for ${option.contentId}`)
+  ]);
+  assertDataGoSuccess(commonPayload, `KTO common detail for ${option.contentId}`);
+  assertDataGoSuccess(introPayload, `KTO intro detail for ${option.contentId}`);
+  const common = firstItem(commonPayload);
+  const intro = firstItem(introPayload);
+  return {
+    contentId: String(option.contentId),
+    contentTypeId: String(option.contentTypeId),
+    title: cleanApiText(common.title),
+    address: cleanApiText([common.addr1, common.addr2].filter(Boolean).join(" ")),
+    homepage: cleanApiText(common.homepage),
+    overview: cleanApiText(common.overview),
+    operatingFields: Object.fromEntries(Object.entries(intro)
+      .filter(([key, value]) => !["contentid", "contenttypeid"].includes(key) && cleanApiText(value))
+      .map(([key, value]) => [key, cleanApiText(value)]))
+  };
+}
 
 async function fetchNearby(anchor) {
   const url = new URL("https://apis.data.go.kr/B551011/EngService2/locationBasedList2");
@@ -61,6 +114,9 @@ for (const anchor of anchorData.anchors || []) {
   }
   const event = eventBySlug.get(anchor.eventSlug);
   const items = await fetchNearby(anchor);
+  const reviewedOptions = reviewedBySlug.get(anchor.eventSlug)?.options || [];
+  const reviewedDetailEvidence = [];
+  for (const option of reviewedOptions) reviewedDetailEvidence.push(await fetchReviewedDetail(option));
   results.push({
     eventSlug: anchor.eventSlug,
     eventTitle: event?.title?.en || anchor.eventSlug,
@@ -74,7 +130,8 @@ for (const anchor of anchorData.anchors || []) {
       sourceRecordId: anchor.sourceRecordId
     },
     count: items.length,
-    items
+    items,
+    reviewedDetailEvidence
   });
 }
 
@@ -83,11 +140,15 @@ const output = {
   source: {
     name: "Korea Tourism Organization TourAPI",
     url: "https://www.data.go.kr/en/data/15101753/openapi.do",
-    endpoint: "https://apis.data.go.kr/B551011/EngService2/locationBasedList2"
+    endpoint: "https://apis.data.go.kr/B551011/EngService2/locationBasedList2",
+    detailEndpoints: [
+      "https://apis.data.go.kr/B551011/EngService2/detailCommon2",
+      "https://apis.data.go.kr/B551011/EngService2/detailIntro2"
+    ]
   },
   radiusMeters,
   approvedOnly: true,
-  publicationPolicy: "Private review feed. Never publish raw nearby rows, API descriptions, or inferred recommendations. Only data/kto-nearby-reviewed.json is build-readable after manual review.",
+  publicationPolicy: "Private review feed. Common descriptions and operating fields are evidence for editorial review, never public copy. Only original, manually reviewed decisions in data/kto-nearby-reviewed.json are build-readable.",
   results
 };
 

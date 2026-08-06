@@ -60,11 +60,17 @@ for (const lang of languages) {
     }
     const nearby = nearbyBySlug.get(event.slug);
     if (nearby) {
-      for (const marker of ['class="detail-section official-nearby-section"', "Nearby options worth deciding on", "Open official KTO API dataset"]) {
+      for (const marker of ['class="detail-section official-nearby-section"', "Nearby options worth deciding on", "What the official record changes", "Our route read", "Open official KTO API dataset"]) {
         if (!html.includes(marker)) push(`dist/${relative}`, `required reviewed-nearby marker is missing: ${marker}`);
+      }
+      if (!html.includes(escapeHtml(nearby.routeQuestion))) push(`dist/${relative}`, "event-specific nearby route question is missing.");
+      for (const paragraph of nearby.routeEssay || []) {
+        if (!html.includes(escapeHtml(paragraph))) push(`dist/${relative}`, "event-specific nearby route essay is missing.");
       }
       for (const option of nearby.options || []) {
         if (!html.includes(escapeHtml(option.title))) push(`dist/${relative}`, `reviewed nearby title is missing: ${option.title}`);
+        if (!html.includes(escapeHtml(option.routeRole))) push(`dist/${relative}`, `reviewed nearby route role is missing: ${option.title}`);
+        if (!html.includes(escapeHtml(option.officialRecordNote))) push(`dist/${relative}`, `reviewed KTO record analysis is missing: ${option.title}`);
         if (!html.includes(escapeHtml(option.visitorDecision))) push(`dist/${relative}`, `reviewed nearby decision is missing: ${option.title}`);
         if (!html.includes(encodeURIComponent(option.mapQueryKo))) push(`dist/${relative}`, `reviewed nearby map query is missing: ${option.mapQueryKo}`);
       }

@@ -8308,7 +8308,10 @@ function eventNearbySection(event, lang) {
             </div>
             <span>${esc(reviewed.anchorLabel)} anchor · reviewed ${esc(dateText(lang, reviewedNearby.reviewedAt))}</span>
           </div>
-          <p class="official-nearby-intro">These are not automatic recommendations. KTO supplies the place record and straight-line distance; our desk review explains when each stop adds value and when to remove it.</p>
+          <div class="official-nearby-editorial">
+            <p class="official-nearby-question">${esc(reviewed.routeQuestion)}</p>
+            <div>${(reviewed.routeEssay || []).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}</div>
+          </div>
           <div class="official-nearby-grid">
             ${reviewed.options.map((option) => `
               <article class="official-nearby-card">
@@ -8316,7 +8319,9 @@ function eventNearbySection(event, lang) {
                   <div><span>${Math.round(option.distanceMeters).toLocaleString("en-US")} m straight-line</span><h3>${esc(option.title)}</h3></div>
                   <strong lang="ko">${esc(option.mapQueryKo)}</strong>
                 </div>
-                <p>${esc(option.visitorDecision)}</p>
+                <p class="official-nearby-role">${esc(option.routeRole)}</p>
+                <div class="official-nearby-record"><strong>What the official record changes</strong><p>${esc(option.officialRecordNote)}</p></div>
+                <div class="official-nearby-read"><strong>Our route read</strong><p>${esc(option.visitorDecision)}</p></div>
                 <p class="official-nearby-stop"><strong>Stop rule</strong>${esc(option.stopRule)}</p>
                 <div class="official-nearby-map-links">
                   ${mapLinksForQuery(option.mapQueryKo, lang).map((link) => `<a href="${esc(link.href)}" rel="nofollow noopener" target="_blank">${esc(link.label)}</a>`).join("")}
@@ -8324,7 +8329,7 @@ function eventNearbySection(event, lang) {
               </article>`).join("")}
           </div>
           <div class="official-nearby-source">
-            <p>${esc(reviewedNearby.distanceMethod)}</p>
+            <p>These are edited route decisions, not automatic recommendations. ${esc(reviewedNearby.distanceMethod)}</p>
             <a href="${esc(source.url)}" rel="nofollow noopener" target="_blank">Open official KTO API dataset</a>
           </div>
         </section>`;

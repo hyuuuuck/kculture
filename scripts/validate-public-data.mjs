@@ -78,6 +78,18 @@ function duplicates(values) {
   return values.filter((value) => seen.has(value) || !seen.add(value));
 }
 
+function narrativeTokens(value) {
+  return new Set(String(value || "").toLowerCase().match(/[a-z0-9]+/g) || []);
+}
+
+function narrativeSimilarity(left, right) {
+  const a = narrativeTokens(left);
+  const b = narrativeTokens(right);
+  const union = new Set([...a, ...b]);
+  if (!union.size) return 0;
+  return [...a].filter((token) => b.has(token)).length / union.size;
+}
+
 function latestFeed(pattern) {
   const feedDir = path.join(root, "data", "feeds");
   if (!fs.existsSync(feedDir)) return null;
@@ -158,6 +170,7 @@ if (nearbyDuplicates.length) errors.push(`reviewed nearby data contains duplicat
 if (duplicates(nearbyExclusions.map((item) => item.eventSlug)).length) errors.push("reviewed nearby exclusions contain duplicate event slugs.");
 
 const selectedContentIds = [];
+const narrativeSamples = [];
 for (const event of currentApproved) {
   const anchor = anchorBySlug.get(event.slug);
   const reviewed = nearbyBySlug.get(event.slug);
@@ -174,17 +187,33 @@ for (const item of nearbyEvents) {
     errors.push(`${item.eventSlug} needs one to three deliberately reviewed nearby options.`);
     continue;
   }
+  if (String(item.routeQuestion || "").length < 90) errors.push(`${item.eventSlug} needs a specific editorial route question.`);
+  if (!Array.isArray(item.routeEssay) || item.routeEssay.length !== 2 || item.routeEssay.some((paragraph) => String(paragraph).length < 220)) {
+    errors.push(`${item.eventSlug} needs two substantive, event-specific route paragraphs.`);
+  } else {
+    item.routeEssay.forEach((paragraph, index) => narrativeSamples.push({ id: `${item.eventSlug}:routeEssay:${index}`, text: paragraph }));
+  }
   for (const option of item.options) {
     selectedContentIds.push(option.contentId);
     if (!/^\d+$/.test(String(option.contentId || ""))) errors.push(`${item.eventSlug} has an invalid KTO contentId.`);
     if (["80", "85"].includes(String(option.contentTypeId))) errors.push(`${item.eventSlug}/${option.contentId} cannot publish accommodation or event-listing records as a nearby option.`);
     if (!Number.isFinite(option.distanceMeters) || option.distanceMeters <= 0 || option.distanceMeters > 3000) errors.push(`${item.eventSlug}/${option.contentId} has an invalid nearby distance.`);
     if (!/[가-힣]/.test(option.mapQueryKo || "")) errors.push(`${item.eventSlug}/${option.contentId} needs a Korean map query.`);
+    if (String(option.routeRole || "").length < 15) errors.push(`${item.eventSlug}/${option.contentId} needs a distinct route role.`);
+    if (String(option.officialRecordNote || "").length < 170) errors.push(`${item.eventSlug}/${option.contentId} needs an editorial explanation of what the KTO record changes.`);
     if (String(option.visitorDecision || "").length < 100) errors.push(`${item.eventSlug}/${option.contentId} needs substantive original visitor-decision guidance.`);
     if (String(option.stopRule || "").length < 70) errors.push(`${item.eventSlug}/${option.contentId} needs a specific stop rule.`);
+    narrativeSamples.push({ id: `${item.eventSlug}/${option.contentId}:officialRecordNote`, text: option.officialRecordNote });
   }
 }
 if (duplicates(selectedContentIds).length) errors.push("the same KTO contentId is selected more than once across reviewed event routes.");
+for (let left = 0; left < narrativeSamples.length; left += 1) {
+  for (let right = left + 1; right < narrativeSamples.length; right += 1) {
+    if (narrativeSimilarity(narrativeSamples[left].text, narrativeSamples[right].text) > 0.62) {
+      errors.push(`${narrativeSamples[left].id} and ${narrativeSamples[right].id} are too structurally similar; write distinct editorial analysis.`);
+    }
+  }
+}
 for (const exclusion of nearbyExclusions) {
   if (!approvedSlugs.has(exclusion.eventSlug) || String(exclusion.reason || "").length < 60) errors.push(`${exclusion.eventSlug || "unknown exclusion"} has an invalid nearby-data exclusion.`);
 }
@@ -202,6 +231,8 @@ if (rawNearby) {
       if (!String(raw.title || "").startsWith(option.title)) errors.push(`${item.eventSlug}/${option.contentId} title no longer matches the latest KTO record.`);
       if (String(raw.contentTypeId) !== String(option.contentTypeId)) errors.push(`${item.eventSlug}/${option.contentId} content type no longer matches the latest KTO record.`);
       if (Math.abs(Number(raw.distanceMeters) - Number(option.distanceMeters)) > 5) errors.push(`${item.eventSlug}/${option.contentId} distance changed by more than five metres from the reviewed value.`);
+      const detail = rawEvent?.reviewedDetailEvidence?.find((candidate) => String(candidate.contentId) === String(option.contentId));
+      if (!detail || String(detail.overview || "").length < 80) errors.push(`${item.eventSlug}/${option.contentId} is missing current private KTO detail evidence for the editorial note.`);
     }
   }
 }

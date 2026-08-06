@@ -12,13 +12,20 @@
     {
       "eventSlug": "boryeong-mud-festival-2026",
       "anchorLabel": "Daecheon Beach",
+      "routeQuestion": "After mud activities, rinsing off, changing clothes, and managing the summer heat, is another stop still worth the effort?",
+      "routeEssay": [
+        "A mud-festival day consumes more time than the map suggests. Entry queues, program times, cleanup, wet belongings, and the walk back to transport all compete with the same afternoon. The useful question is therefore not how many nearby places can fit, but whether one carefully chosen extension improves the day after the festival has taken its share of energy.",
+        "Daecheon Port and Ziptrek solve different problems. The port changes the scene and can support a harbor-focused ending; Ziptrek adds a separate paid activity with its own operating conditions. Choose at most one, and only after the festival timetable, cleanup plan, and return transport are fixed. Ending at the beach is a complete plan, not a failed itinerary."
+      ],
       "options": [
         {
           "contentId": "3104036",
           "contentTypeId": "76",
           "title": "Daecheon Port",
+          "routeRole": "Independent harbor extension",
           "mapQueryKo": "대천항",
           "distanceMeters": 1570,
+          "officialRecordNote": "KTO describes Daecheon Port as both a fishing base and a ferry gateway, with a seafood market and early-morning auctions. Those are different visit types: casual market browsing, watching an auction, and using an island ferry should not be collapsed into one vague port stop.",
           "visitorDecision": "Use this as a separate harbor stop only when you still have time and dry clothes after the mud zone; it is not a shortcut between festival areas.",
           "stopRule": "Drop it when heat, rain, cleanup time, or the return schedule makes another exposed waterfront leg a poor trade."
         },
@@ -26,8 +33,10 @@
           "contentId": "3403790",
           "contentTypeId": "75",
           "title": "Ziptrek Korea",
+          "routeRole": "High-commitment paid activity",
           "mapQueryKo": "짚트랙코리아 대천",
           "distanceMeters": 892,
+          "officialRecordNote": "The KTO record describes a tower-based coastal ride, a return cart, and separate fee fields. That confirms the stop behaves like an operated attraction with check-in, weather, and capacity constraints—not like a viewpoint that can be added whenever a spare thirty minutes appears.",
           "visitorDecision": "Treat this as an optional paid activity, not a default festival add-on; it only fits a visitor who has protected time outside the mud-program schedule.",
           "stopRule": "Do not build the day around it until the operator confirms current hours, weather operation, price, and same-day capacity."
         }
@@ -36,13 +45,20 @@
     {
       "eventSlug": "gwangalli-m-drone-light-show-2026",
       "anchorLabel": "Gwangalli Beach",
+      "routeQuestion": "For a fixed-time beach show, which nearby stop helps you wait comfortably without costing the viewing position you came for?",
+      "routeEssay": [
+        "Build this evening backwards from the drone-show time. The show is brief, but a clear viewing position, seasonal start time, weather notice, and post-show crowd make it the fixed point of the route. Nearby places are useful only when they absorb waiting time without turning the return to the beach into a second commute.",
+        "Theme Street keeps the route inside the same waterfront environment and is the lower-risk choice. Millac The Market offers food, seating, and some indoor cover, but it creates a door-to-beach transition that becomes slower when both venues are busy. Pick the street for continuity or the market for a defined break; trying to complete both adds little compared with arriving settled and early."
+      ],
       "options": [
         {
           "contentId": "3098933",
           "contentTypeId": "76",
           "title": "Gwangalli Beach Theme Street",
+          "routeRole": "Low-friction waterfront buffer",
           "mapQueryKo": "광안리해변 테마거리",
           "distanceMeters": 353,
+          "officialRecordNote": "KTO records a 1,250-metre waterfront street divided into themed sections, with Gwangandaegyo views and connections to the café and raw-fish areas. It extends the same coastal setting rather than asking the visitor to learn a new neighborhood before showtime.",
           "visitorDecision": "This is the low-commitment extension: use it to wait near the viewing area without adding a cross-town transfer, while keeping the final beach position flexible.",
           "stopRule": "Skip the extra walk when crowd controls, rain, or wind make securing the official viewing area more important."
         },
@@ -50,8 +66,10 @@
           "contentId": "3403110",
           "contentTypeId": "76",
           "title": "Millac The Market",
+          "routeRole": "Food and indoor waiting option",
           "mapQueryKo": "밀락더마켓",
           "distanceMeters": 759,
+          "officialRecordNote": "KTO identifies busking, ocean-view seating, food-and-beverage space, and frequently changing pop-ups inside the complex. The mix is useful for flexible waiting, but the changing program means a place listing alone cannot promise a particular shop, performance, or seat on the day.",
           "visitorDecision": "Use this as a meal or indoor waiting candidate before the show, then leave enough buffer to re-enter the beach crowd rather than assuming a quick door-to-viewing-spot transfer.",
           "stopRule": "Remove it from the plan when venue hours, queues, or the official show notice leave less than a comfortable return buffer."
         }
@@ -60,13 +78,20 @@
     {
       "eventSlug": "fernando-botero-seoul-2026",
       "anchorLabel": "Seoul Arts Center Hangaram Museum",
+      "routeQuestion": "After a major exhibition, do you want a second institution that deepens the cultural day or an outdoor walk that lets the first visit settle?",
+      "routeEssay": [
+        "The weak version of this route is a list of attractions around Seoul Arts Center. The stronger version starts with attention: a ticketed exhibition already asks for standing time, close looking, and mental energy. A second stop should either deepen that cultural focus or deliberately change the pace. It should not be added merely because its pin falls inside three kilometres.",
+        "The National Gugak Museum is the deeper but more demanding pairing; it works when opening days align and the visitor still wants another collection. Montmartre Park is the looser reset, but its longer walk and exposure to weather make it less convenient than the word ‘park’ suggests. Decide after estimating museum time, not before, and protect the journey home when the exhibition is the real priority."
+      ],
       "options": [
         {
           "contentId": "268107",
           "contentTypeId": "78",
           "title": "National Gugak Museum",
+          "routeRole": "Second full cultural visit",
           "mapQueryKo": "국립국악박물관",
           "distanceMeters": 546,
+          "officialRecordNote": "KTO presents this as a substantial museum with seven permanent halls, historic materials, and audio-visual interpretation rather than a small lobby display. Its record also carries a weekly closure and defined museum hours, so it deserves its own admission-time check even though it is close.",
           "visitorDecision": "This is the strongest culture-on-culture pairing because it stays inside the arts district; allow separate viewing time instead of treating it as a corridor on the way out.",
           "stopRule": "Drop it if its current opening day or last admission does not leave a complete visit after the Botero exhibition."
         },
@@ -74,8 +99,10 @@
           "contentId": "2035459",
           "contentTypeId": "76",
           "title": "Montmartre Park",
+          "routeRole": "Weather-dependent decompression walk",
           "mapQueryKo": "몽마르뜨공원",
           "distanceMeters": 1937,
+          "officialRecordNote": "The KTO record describes a small park above Seorae Village with poems, sculptures, and a bridge connection toward Seoripul Neighborhood Park; it also lists no dedicated parking. Its value is the walking atmosphere, which is exactly why poor weather or tired legs can erase the benefit.",
           "visitorDecision": "Choose this only as a weather-friendly outdoor decompression stop; the longer distance makes it a deliberate second leg, not an automatic museum-neighborhood walk.",
           "stopRule": "Skip it in rain, high heat, poor air quality, or when the return journey matters more than adding another walking segment."
         }
@@ -84,13 +111,20 @@
     {
       "eventSlug": "seoul-international-garden-show-2026",
       "anchorLabel": "Seoul Forest",
+      "routeQuestion": "Does the garden visit need a structured indoor pause, or would a further outdoor extension simply repeat the same kind of fatigue?",
+      "routeEssay": [
+        "Seoul Forest is already an open-ended destination: the visitor can spend more time than planned moving between gardens, shade, facilities, and event zones. A nearby stop earns its place only if it solves a problem. The Waterworks Museum creates a bounded indoor chapter; the Hangang adds scenery but keeps the day outside and makes the turnaround point less obvious.",
+        "Choose the museum when you want contrast, historical context, and a defined visit that can be checked against opening hours. Choose the river when the weather is comfortable and the group genuinely wants more walking. Do not treat both as default completions. On a hot or wet day, shortening the garden route and leaving with energy is better planning than collecting one more pin."
+      ],
       "options": [
         {
           "contentId": "2655852",
           "contentTypeId": "76",
           "title": "Waterworks Museum",
+          "routeRole": "Bounded indoor contrast",
           "mapQueryKo": "수도박물관 서울",
           "distanceMeters": 357,
+          "officialRecordNote": "KTO connects the museum to Korea's first water-purification plant and Seoul's modern waterworks history. The same record notes a Monday closure and reservation requirements for some experience programs, separating ordinary museum viewing from activities that cannot be assumed at the door.",
           "visitorDecision": "Use this as the compact indoor counterweight to a long outdoor garden visit, especially when you want a defined stop rather than more open-ended walking.",
           "stopRule": "Do not rely on it as a rain shelter until the museum confirms the current opening day, entry window, and any closure notice."
         },
@@ -98,8 +132,10 @@
           "contentId": "1887247",
           "contentTypeId": "76",
           "title": "Hangang River",
+          "routeRole": "Open-ended scenic extension",
           "mapQueryKo": "서울숲 한강",
           "distanceMeters": 460,
+          "officialRecordNote": "KTO describes the Hangang as a broad leisure corridor of parks, cultural facilities, walking, cycling, and water activities—not one attraction with one entrance. The short API distance reaches the river environment, but the chosen path and turnaround point still determine the real walking cost.",
           "visitorDecision": "Add the river only when the garden route still leaves energy for another exposed walking segment; it works better as a scenic extension than as a must-see checkpoint.",
           "stopRule": "End at the garden when heat, rain, air quality, darkness, or fatigue makes the waterfront extension lower value."
         }
@@ -108,13 +144,20 @@
     {
       "eventSlug": "national-geographic-ocean-seoul-2026",
       "anchorLabel": "Chungmu Arts Center",
+      "routeQuestion": "Should the exhibition end with a nearby meal and conversation, or continue into another large design-and-culture complex?",
+      "routeEssay": [
+        "Chungmu Art Center sits in a district dense enough that ‘nearby’ can become a trap: many pins look effortless, yet each brings a different decision. After the OCEAN exhibition, Sindang-dong Tteokbokki Town is primarily a meal choice, while DDP is a second cultural complex whose value depends on what is actually programmed that day.",
+        "The two options should not be ranked as if they were comparable attractions. Choose Sindang when the group wants food, informality, and minimal transfer, while checking dietary fit and queues. Choose DDP only with a named exhibition, shop, event, or architecture goal. If no current DDP program answers ‘why go today?’, the exhibition plus a meal is the more coherent route."
+      ],
       "options": [
         {
           "contentId": "1838143",
           "contentTypeId": "76",
           "title": "Sindang-dong Tteokbokki Town",
+          "routeRole": "Low-transfer meal ending",
           "mapQueryKo": "신당동 떡볶이타운",
           "distanceMeters": 320,
+          "officialRecordNote": "KTO treats this as a historic restaurant cluster rather than one standardized venue and explains how the dish developed into a fuller meal with noodles, fish cakes, eggs, and other additions. Restaurant choice, spice level, ingredients, queue, and price therefore remain individual decisions.",
           "visitorDecision": "Use this as the nearby meal decision after the exhibition, not as a timed attraction; it minimizes transfer cost but can still add queue time at popular restaurants.",
           "stopRule": "Choose another meal area when dietary needs, queues, or the exhibition exit time make the cluster a poor fit."
         },
@@ -122,8 +165,10 @@
           "contentId": "2475097",
           "contentTypeId": "76",
           "title": "Dongdaemun Design Plaza",
+          "routeRole": "Second destination with a named purpose",
           "mapQueryKo": "동대문디자인플라자 DDP",
           "distanceMeters": 468,
+          "officialRecordNote": "KTO describes DDP as a multi-zone complex for exhibitions, fashion, conferences, retail, public space, and architecture, with some operating times changing by program. The building can support several different visits, but its size is not evidence that every visitor has something specific to do there.",
           "visitorDecision": "Pair DDP when you want a second design-focused district stop and have a specific exhibition, shop, or architecture goal; the building is too broad to count as one quick attraction.",
           "stopRule": "Keep the route short when no current DDP program matches your interests or when another indoor venue would crowd the same day."
         }

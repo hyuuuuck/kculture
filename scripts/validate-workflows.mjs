@@ -45,6 +45,10 @@ const worker = read(workerFile);
 
 assertIncludes(sourceRefreshFile, sourceRefresh, "cron: \"20 */4 * * *\"", "source refresh should run every 4 hours.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "source refresh must import current KMA forecast before building review artifacts.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "npm run import:public-data", "source refresh must import public-data review inputs before building review artifacts.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "secrets.KTO_SERVICE_KEY", "source refresh must read the KTO key from GitHub Actions secrets.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "secrets.KMA_SERVICE_KEY", "source refresh must read the KMA key from GitHub Actions secrets.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "secrets.SEOUL_OPEN_DATA_KEY", "source refresh must read the Seoul key from GitHub Actions secrets.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run check:sources", "source refresh must audit official source availability.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run collect:official", "source refresh must collect official page candidates.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run source:summary", "source refresh must publish source summary artifacts.");
@@ -52,7 +56,7 @@ assertIncludes(sourceRefreshFile, sourceRefresh, "npm run source:issue", "source
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run stage:review-candidates", "source refresh must stage a PR-ready review candidate package.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "npm run verify", "source refresh must validate current site data after generating artifacts.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "Commit operational refresh snapshots", "source refresh must auto-commit weather and source summary snapshots after verification.");
-assertIncludes(sourceRefreshFile, sourceRefresh, "data/kma-forecast.json data/source-refresh-summary.json", "source refresh must limit direct auto-commits to operational snapshots.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "data/kma-forecast.json data/kma-historical-observations.json data/source-refresh-summary.json", "source refresh must limit direct auto-commits to operational snapshots.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "STASHED_REVIEW_CANDIDATES", "source refresh must keep review candidate files out of the operational snapshot commit.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "peter-evans/create-pull-request@v6", "source refresh must open or update a review PR instead of publishing draft events directly.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "continue-on-error: true", "source refresh PR creation should not break the operating refresh if repository PR permissions are disabled.");
@@ -64,6 +68,7 @@ assertIncludes(sourceRefreshFile, sourceRefresh, "issues: write", "source refres
 assertIncludes(sourceRefreshFile, sourceRefresh, "contents: write", "source refresh needs contents write permission to commit operational snapshots.");
 assertIncludes(sourceRefreshFile, sourceRefresh, "pull-requests: write", "source refresh needs pull request write permission for candidate review PRs.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run import:forecast", "npm run check:sources", "KMA forecast import should happen before source checks.");
+assertOrder(sourceRefreshFile, sourceRefresh, "npm run import:public-data", "npm run check:sources", "public-data review imports should happen before source checks.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:summary", "npm run source:issue", "source summary should be generated before the issue digest.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "npm run stage:review-candidates", "issue digest should be ready before staging the PR review package.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "gh issue", "issue body should be generated before updating GitHub issues.");
@@ -71,6 +76,10 @@ assertOrder(sourceRefreshFile, sourceRefresh, "npm run verify", "Commit operatio
 assertOrder(sourceRefreshFile, sourceRefresh, "Commit operational refresh snapshots", "Create or update source review PR", "operational snapshots should be committed before the candidate PR is created.");
 
 assertIncludes(deployFile, deploy, "npm run source:refresh", "manual Cloudflare deploy should be able to refresh official sources before build.");
+assertIncludes(deployFile, deploy, "npm run validate:public-data", "manual Cloudflare deploy must validate credential-free public-data evidence.");
+assertIncludes(deployFile, deploy, "secrets.KTO_SERVICE_KEY", "manual source refresh must read the KTO key from GitHub Actions secrets.");
+assertIncludes(deployFile, deploy, "secrets.KMA_SERVICE_KEY", "manual source refresh must read the KMA key from GitHub Actions secrets.");
+assertIncludes(deployFile, deploy, "secrets.SEOUL_OPEN_DATA_KEY", "manual source refresh must read the Seoul key from GitHub Actions secrets.");
 assertIncludes(deployFile, deploy, "npm run validate:event-audit", "manual Cloudflare deploy must run high-risk event audit.");
 assertIncludes(deployFile, deploy, "npm run validate:original-value", "manual Cloudflare deploy must enforce original visitor value.");
 assertIncludes(deployFile, deploy, "npm run validate:adsense-compliance", "manual Cloudflare deploy must enforce the versioned CMP and ad placement gate.");

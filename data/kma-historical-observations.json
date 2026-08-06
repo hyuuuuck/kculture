@@ -1,0 +1,195 @@
+{
+  "generatedAt": "2026-08-06T04:41:39.632Z",
+  "source": {
+    "name": "KMA ASOS Daily Weather API",
+    "url": "https://www.data.go.kr/en/data/15059093/openapi.do",
+    "endpoint": "https://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList"
+  },
+  "note": "Exact same-period previous-year observations are planning references, not forecasts. Current forecasts and organizer notices control visit-day decisions.",
+  "approvedOnly": true,
+  "observationDays": 7,
+  "count": 6,
+  "items": [
+    {
+      "eventSlug": "nct-dream-sweet-dream-hotel-incheon-2026",
+      "eventTitle": "NCT DREAM 10th Anniversary Party: The Sweet Dream Hotel",
+      "region": "Incheon",
+      "eventRange": {
+        "startDate": "2026-08-22",
+        "endDate": "2026-08-23"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-22",
+        "endDate": "2026-08-23"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-22",
+        "endDate": "2025-08-23"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "112",
+        "label": "Incheon ASOS"
+      },
+      "summary": {
+        "avgTempC": 28.5,
+        "avgMinTempC": 26.6,
+        "avgMaxTempC": 31.1,
+        "totalPrecipitationMm": 0,
+        "avgHumidityPct": 84.8,
+        "observedDays": 2
+      }
+    },
+    {
+      "eventSlug": "boryeong-mud-festival-2026",
+      "eventTitle": "29th Boryeong Mud Festival",
+      "region": "Boryeong",
+      "eventRange": {
+        "startDate": "2026-07-24",
+        "endDate": "2026-08-09"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-09"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-09"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "235",
+        "label": "Boryeong ASOS"
+      },
+      "summary": {
+        "avgTempC": 25.9,
+        "avgMinTempC": 23,
+        "avgMaxTempC": 29.4,
+        "totalPrecipitationMm": 4.8,
+        "avgHumidityPct": 86.7,
+        "observedDays": 4
+      }
+    },
+    {
+      "eventSlug": "gwangalli-m-drone-light-show-2026",
+      "eventTitle": "Gwangalli M Drone Light Show",
+      "region": "Busan",
+      "eventRange": {
+        "startDate": "2026-01-03",
+        "endDate": "2026-12-31"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "159",
+        "label": "Busan ASOS"
+      },
+      "summary": {
+        "avgTempC": 25.8,
+        "avgMinTempC": 23.5,
+        "avgMaxTempC": 29.4,
+        "totalPrecipitationMm": 132.2,
+        "avgHumidityPct": 83.4,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "fernando-botero-seoul-2026",
+      "eventTitle": "Fernando Botero: The Aesthetics of Form in Seoul",
+      "region": "Seoul",
+      "eventRange": {
+        "startDate": "2026-04-24",
+        "endDate": "2026-08-30"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "108",
+        "label": "Seoul ASOS"
+      },
+      "summary": {
+        "avgTempC": 27.1,
+        "avgMinTempC": 23.9,
+        "avgMaxTempC": 30.7,
+        "totalPrecipitationMm": 31.8,
+        "avgHumidityPct": 74.8,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "seoul-international-garden-show-2026",
+      "eventTitle": "2026 Seoul International Garden Show",
+      "region": "Seoul",
+      "eventRange": {
+        "startDate": "2026-05-01",
+        "endDate": "2026-10-27"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "108",
+        "label": "Seoul ASOS"
+      },
+      "summary": {
+        "avgTempC": 27.1,
+        "avgMinTempC": 23.9,
+        "avgMaxTempC": 30.7,
+        "totalPrecipitationMm": 31.8,
+        "avgHumidityPct": 74.8,
+        "observedDays": 7
+      }
+    },
+    {
+      "eventSlug": "national-geographic-ocean-seoul-2026",
+      "eventTitle": "National Geographic Special Exhibition: OCEAN in Seoul",
+      "region": "Seoul",
+      "eventRange": {
+        "startDate": "2026-06-06",
+        "endDate": "2026-10-11"
+      },
+      "referenceRange": {
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-12"
+      },
+      "previousYearRange": {
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-12"
+      },
+      "ok": true,
+      "station": {
+        "stnIds": "108",
+        "label": "Seoul ASOS"
+      },
+      "summary": {
+        "avgTempC": 27.1,
+        "avgMinTempC": 23.9,
+        "avgMaxTempC": 30.7,
+        "totalPrecipitationMm": 31.8,
+        "avgHumidityPct": 74.8,
+        "observedDays": 7
+      }
+    }
+  ],
+  "publicationPolicy": "Build-readable numeric summaries for approved event pages only. Raw API rows remain in the private review feed."
+}

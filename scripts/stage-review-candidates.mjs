@@ -125,8 +125,16 @@ This PR is an operating queue, not public site content. Do not merge draft text 
 | Discovered official links | ${payload.counts.discoveredLinks || 0} |
 | Draft candidates | ${payload.counts.draftCandidates || 0} |
 | Skipped leads | ${payload.counts.skippedCandidates || 0} |
+| Public-data imports passed | ${payload.counts.publicDataPassed || 0} |
+| Public-data imports failed | ${payload.counts.publicDataFailed || 0} |
+| KTO TourAPI review rows | ${payload.counts.tourApiRows || 0} |
+| KMA approved-event observations | ${payload.counts.kmaObservationRecords || 0} |
+| Seoul review rows | ${payload.counts.seoulEventRows || 0} |
+| Seoul potential matches | ${payload.counts.seoulPotentialMatches || 0} |
 
 ## Review Gate
+
+KTO and Seoul API rows are discovery evidence only. They must never be copied or published automatically. The KMA count refers only to numeric same-period observations already bound to approved events.
 
 1. Open the official source URL.
 2. Confirm event identity, date range, time zone, venue, visitor eligibility, ticket/reservation rules, and whether the offer can close early.

@@ -37,6 +37,13 @@ jobs:
       - name: Import current KMA forecast
         run: npm run import:forecast
 
+      - name: Import public data review inputs
+        run: npm run import:public-data
+        env:
+          KTO_SERVICE_KEY: ${{ secrets.KTO_SERVICE_KEY }}
+          KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
+          SEOUL_OPEN_DATA_KEY: ${{ secrets.SEOUL_OPEN_DATA_KEY }}
+
       - name: Recheck published live and upcoming events
         run: npm run recheck:published
         env:
@@ -95,7 +102,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/events.json data/kma-forecast.json data/source-refresh-summary.json data/published-event-recheck.json
+          git add data/events.json data/kma-forecast.json data/kma-historical-observations.json data/source-refresh-summary.json data/published-event-recheck.json
           if git diff --cached --quiet; then
             echo "No operational snapshot changes to commit."
           else

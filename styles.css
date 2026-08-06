@@ -8686,6 +8686,10 @@ img {
   background: #f8fafc;
 }
 
+.compact-weather-panel .event-weather-baseline {
+  margin-top: 12px;
+}
+
 .event-weather-baseline div {
   display: flex;
   flex-direction: column;
@@ -8708,6 +8712,10 @@ img {
   margin: 0;
   color: #52647a;
   line-height: 1.55;
+}
+
+.event-weather-baseline .event-weather-source {
+  font-size: 0.76rem;
 }
 
 .compact-weather-meta {

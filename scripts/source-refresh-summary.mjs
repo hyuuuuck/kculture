@@ -67,11 +67,19 @@ const candidatesFile = await latestFile(/^official-page-candidates-\d{4}-\d{2}-\
 const draftsFile = await latestFile(/^draft-events-\d{4}-\d{2}-\d{2}\.json$/);
 const reviewReportFile = await latestFile(/^review-report-\d{4}-\d{2}-\d{2}\.md$/);
 const reviewBoardFile = await latestFile(/^review-board-\d{4}-\d{2}-\d{2}\.html$/);
+const publicDataFile = await latestFile(/^public-data-import-\d{4}-\d{2}-\d{2}\.json$/);
+const tourApiFile = await latestFile(/^tourapi-\d{8}\.json$/);
+const kmaObservationFile = await latestFile(/^weather-previous-year-\d{4}-\d{2}-\d{2}\.json$/);
+const seoulEventsFile = await latestFile(/^seoul-cultural-events-\d{4}-\d{2}-\d{2}\.json$/);
 
-const [audit, candidateFeed, draftFeed] = await Promise.all([
+const [audit, candidateFeed, draftFeed, publicData, tourApi, kmaObservations, seoulEvents] = await Promise.all([
   readJson(auditFile),
   readJson(candidatesFile),
-  readJson(draftsFile)
+  readJson(draftsFile),
+  readJson(publicDataFile),
+  readJson(tourApiFile),
+  readJson(kmaObservationFile),
+  readJson(seoulEventsFile)
 ]);
 
 const auditResults = audit?.results || [];
@@ -107,7 +115,11 @@ const summary = {
     candidates: basename(candidatesFile),
     drafts: basename(draftsFile),
     reviewReport: basename(reviewReportFile),
-    reviewBoard: basename(reviewBoardFile)
+    reviewBoard: basename(reviewBoardFile),
+    publicData: basename(publicDataFile),
+    tourApi: basename(tourApiFile),
+    kmaObservations: basename(kmaObservationFile),
+    seoulEvents: basename(seoulEventsFile)
   },
   counts: {
     auditedSources: audit?.count || auditResults.length,
@@ -120,7 +132,14 @@ const summary = {
     discoveredLinks: candidateFeed?.summary?.totalDiscoveredLinks || candidates.reduce((sum, item) => sum + (item.discoveredLinks?.length || 0), 0),
     dateSignals: candidateFeed?.summary?.totalDateSignals || candidates.reduce((sum, item) => sum + (item.dateSignals?.length || 0), 0),
     draftCandidates: draftFeed?.count || drafts.length,
-    skippedCandidates: draftFeed?.skippedCount || skipped.length
+    skippedCandidates: draftFeed?.skippedCount || skipped.length,
+    publicDataPassed: publicData?.passed || 0,
+    publicDataFailed: publicData?.failed || 0,
+    publicDataSkipped: publicData?.skipped || 0,
+    tourApiRows: Array.isArray(tourApi) ? tourApi.length : 0,
+    kmaObservationRecords: kmaObservations?.items?.filter((item) => item.ok)?.length || 0,
+    seoulEventRows: seoulEvents?.count || 0,
+    seoulPotentialMatches: seoulEvents?.matchedCount || 0
   },
   failedSources: uniqueFailedSources,
   topDraftSources: top(countBy(drafts, (draft) => draft.sourceName)),
@@ -140,6 +159,10 @@ Generated: ${summary.generatedAt}
 - Draft candidates: \`${summary.files.drafts}\`
 - Review report: \`${summary.files.reviewReport}\`
 - Private review board: \`${summary.files.reviewBoard}\`
+- Public-data run: \`${summary.files.publicData}\`
+- KTO review feed: \`${summary.files.tourApi}\`
+- KMA observation feed: \`${summary.files.kmaObservations}\`
+- Seoul review feed: \`${summary.files.seoulEvents}\`
 
 ## Counts
 
@@ -156,6 +179,13 @@ Generated: ${summary.generatedAt}
 | Date signals | ${summary.counts.dateSignals} |
 | Draft candidates for review | ${summary.counts.draftCandidates} |
 | Skipped candidate leads | ${summary.counts.skippedCandidates} |
+| Public-data imports passed | ${summary.counts.publicDataPassed} |
+| Public-data imports failed | ${summary.counts.publicDataFailed} |
+| Public-data imports skipped | ${summary.counts.publicDataSkipped} |
+| KTO TourAPI review rows | ${summary.counts.tourApiRows} |
+| KMA approved-event observations | ${summary.counts.kmaObservationRecords} |
+| Seoul review rows | ${summary.counts.seoulEventRows} |
+| Seoul potential matches | ${summary.counts.seoulPotentialMatches} |
 
 ## Attention
 

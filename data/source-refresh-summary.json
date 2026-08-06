@@ -1,24 +1,35 @@
 {
-  "generatedAt": "2026-08-05T21:39:31.969Z",
+  "generatedAt": "2026-08-06T04:42:12.885Z",
   "files": {
     "audit": "source-audit-2026-08-06.json",
     "candidates": "official-page-candidates-2026-08-06.json",
     "drafts": "draft-events-2026-08-06.json",
     "reviewReport": "review-report-2026-08-06.md",
-    "reviewBoard": "review-board-2026-08-06.html"
+    "reviewBoard": "review-board-2026-08-06.html",
+    "publicData": "public-data-import-2026-08-06.json",
+    "tourApi": "tourapi-20260806.json",
+    "kmaObservations": "weather-previous-year-2026-08-06.json",
+    "seoulEvents": "seoul-cultural-events-2026-08-06.json"
   },
   "counts": {
     "auditedSources": 55,
-    "auditOk": 54,
-    "auditFailed": 1,
-    "fallbackSources": 4,
+    "auditOk": 55,
+    "auditFailed": 0,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 611,
-    "dateSignals": 271,
-    "draftCandidates": 70,
-    "skippedCandidates": 594
+    "candidateOk": 50,
+    "candidateFailed": 3,
+    "discoveredLinks": 532,
+    "dateSignals": 288,
+    "draftCandidates": 65,
+    "skippedCandidates": 520,
+    "publicDataPassed": 3,
+    "publicDataFailed": 0,
+    "publicDataSkipped": 0,
+    "tourApiRows": 30,
+    "kmaObservationRecords": 6,
+    "seoulEventRows": 18,
+    "seoulPotentialMatches": 0
   },
   "failedSources": [
     {
@@ -35,55 +46,50 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Galleria Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 21
-    },
-    {
-      "key": "NOL World Ticket",
-      "count": 16
-    },
-    {
-      "key": "Visit Seoul",
       "count": 14
     },
     {
+      "key": "NOL World Ticket",
+      "count": 14
+    },
+    {
+      "key": "Visit Seoul",
+      "count": 11
+    },
+    {
       "key": "NOL World Seoul Pop-ups",
-      "count": 12
+      "count": 10
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
       "key": "Andong Maskdance Festival",
-      "count": 1
-    },
-    {
-      "key": "Dongdaemun Design Plaza",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 49
-    },
-    {
-      "key": "shopping",
-      "count": 8
+      "count": 45
     },
     {
       "key": "kpop",
       "count": 7
     },
     {
+      "key": "shopping",
+      "count": 6
+    },
+    {
       "key": "department-store",
-      "count": 3
+      "count": 4
     },
     {
       "key": "beauty",
@@ -97,18 +103,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 558
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 5
+      "count": 484
     },
     {
       "key": "listing page is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {
@@ -116,74 +118,78 @@
       "count": 4
     },
     {
-      "key": "already published source URL",
+      "key": "duplicate draft source URL",
       "count": 4
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 3
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
-      "links": 24,
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 18,
       "dates": 18,
-      "keywords": 10,
-      "score": 147
+      "keywords": 2,
+      "score": 130
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
+      "links": 18,
       "dates": 18,
       "keywords": 7,
-      "score": 146
+      "score": 128
+    },
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 18,
+      "dates": 18,
+      "keywords": 9,
+      "score": 128
     },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
+      "links": 18,
       "dates": 18,
-      "keywords": 4,
-      "score": 141
+      "keywords": 5,
+      "score": 124
     },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
-      "links": 24,
+      "links": 18,
       "dates": 18,
       "keywords": 4,
-      "score": 141
+      "score": 123
     },
     {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
-      "links": 24,
+      "links": 18,
       "dates": 18,
       "keywords": 2,
-      "score": 137
+      "score": 119
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 24,
+      "links": 18,
       "dates": 18,
       "keywords": 3,
-      "score": 136
+      "score": 118
     },
     {
       "sourceName": "Seoul Grand Park",
       "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
+      "links": 18,
       "dates": 18,
       "keywords": 4,
-      "score": 134
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 4,
-      "score": 115
+      "score": 116
     }
   ]
 }

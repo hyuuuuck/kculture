@@ -2,10 +2,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { assertDataGoSuccess, fetchPublicJson, normalizeDataGoServiceKey } from "./lib/public-data.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const serviceKey = process.env.KTO_SERVICE_KEY;
+const serviceKey = normalizeDataGoServiceKey(process.env.KTO_SERVICE_KEY || process.env.DATA_GO_KR_SERVICE_KEY);
 const startDate = process.env.KTO_START_DATE || todayString().replaceAll("-", "");
 const rows = process.env.KTO_ROWS || "30";
 
@@ -25,14 +26,10 @@ url.searchParams.set("eventStartDate", startDate);
 url.searchParams.set("numOfRows", rows);
 url.searchParams.set("pageNo", "1");
 
-const response = await fetch(url);
-if (!response.ok) {
-  throw new Error(`TourAPI request failed: ${response.status} ${response.statusText}`);
-}
-
-const payload = await response.json();
+const payload = assertDataGoSuccess(await fetchPublicJson(url, "KTO TourAPI"), "KTO TourAPI");
 const items = payload?.response?.body?.items?.item || [];
-const normalized = items.map((item) => ({
+const rowsToReview = Array.isArray(items) ? items : [items];
+const normalized = rowsToReview.map((item) => ({
   externalId: item.contentid,
   contentTypeId: item.contenttypeid,
   title: item.title,

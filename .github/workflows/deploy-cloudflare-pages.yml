@@ -108,6 +108,9 @@ jobs:
           COLLECT_MAX_LINKS: "24"
           COLLECT_MIN_LINK_SCORE: "7"
           MONITOR_URLS: ${{ inputs.monitor_urls || '' }}
+          KTO_SERVICE_KEY: ${{ secrets.KTO_SERVICE_KEY }}
+          KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
+          SEOUL_OPEN_DATA_KEY: ${{ secrets.SEOUL_OPEN_DATA_KEY }}
 
       - name: Build production site
         run: npm run build
@@ -149,6 +152,7 @@ jobs:
           run_check "validate:original-value" npm run validate:original-value
           run_check "validate:adsense-compliance" npm run validate:adsense-compliance
           run_check "validate:adsense-account" npm run validate:adsense-account
+          run_check "validate:public-data" npm run validate:public-data
           run_check "validate:ux" npm run validate:ux
           run_check "validate:workflows" npm run validate:workflows
           run_check "validate:sitemap" npm run validate:sitemap

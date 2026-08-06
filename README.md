@@ -52,8 +52,10 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/source-refresh-issue-body.mjs`: builds the Markdown body used by GitHub Actions to keep a single source-review issue updated
 - `scripts/publish-reviewed-events.mjs`: validates and merges editor-reviewed events into public data
 - `scripts/queue-official-url.mjs`: registers official one-off URLs into the curation queue
-- `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates
-- `scripts/import-kma-weather.mjs`: imports exact same-period previous-year KMA ASOS weather observations when an API key is available
+- `scripts/import-public-data.mjs`: runs configured KTO, KMA, and Seoul public-data collectors without auto-publishing candidate content
+- `scripts/import-tourapi.mjs`: imports KTO TourAPI festival candidates into the private review feed
+- `scripts/import-kma-weather.mjs`: imports exact same-period previous-year KMA ASOS summaries for already-approved event pages
+- `scripts/import-seoul-cultural-events.mjs`: imports Seoul cultural-event facts into the private review feed for source comparison
 - `scripts/source-audit.mjs`: checks primary and fallback source URL availability and writes a private audit report
 - `monetization-plan.md`: traffic and AdSense operating plan
 - `launch-checklist.md`: Cloudflare/GitHub launch steps, required variables/secrets, and public email guidance
@@ -346,29 +348,34 @@ npm.cmd run source:refresh
 
 This also writes `data/review-candidates/latest.md` and `data/review-candidates/latest.json`, the same compact package used by the scheduled source-review PR.
 
-8. Import Korea Tourism Organization TourAPI candidates:
+8. Put local credentials in the ignored `.env` file. Both data.go.kr Encoding and Decoding keys are accepted:
 
-```powershell
-$env:KTO_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
-npm.cmd run import:tourapi
+```dotenv
+KTO_SERVICE_KEY=YOUR_DATA_GO_KR_KEY
+KMA_SERVICE_KEY=YOUR_DATA_GO_KR_KEY
+SEOUL_OPEN_DATA_KEY=YOUR_SEOUL_GENERAL_KEY
 ```
 
-9. Import exact same-period previous-year KMA weather observations when an API key is available. Until then, event detail pages use the relevant schedule month from `data/weather-baselines.json`:
+Run all configured collectors in strict mode:
 
 ```powershell
-$env:KMA_SERVICE_KEY="YOUR_DATA_GO_KR_KEY"
-npm.cmd run import:weather
+$env:PUBLIC_DATA_STRICT="1"
+npm.cmd run import:public-data
 ```
 
-10. Open the automated `Review official source candidates` PR or, locally, `data/review-candidates/latest.md`. Use it as the review inbox, then open the linked official source pages and the full artifact review board when needed.
+KTO and Seoul rows stay under the ignored `data/feeds/` review area and are never published automatically. KMA writes a credential-free numeric summary for events already approved in `data/editorial-program.json`; raw observation rows stay in the private feed. Until a current KMA summary exists, event pages fall back to `data/weather-baselines.json`.
 
-11. Save approved items into `data/feeds/reviewed-events.json` and run the guarded publisher as a dry run:
+For the scheduled GitHub Actions refresh, add the same three names as repository Actions secrets. A local `.env` file is intentionally unavailable to GitHub and must never be committed.
+
+9. Open the automated `Review official source candidates` PR or, locally, `data/review-candidates/latest.md`. Use it as the review inbox, then open the linked official source pages and the full artifact review board when needed.
+
+10. Save approved items into `data/feeds/reviewed-events.json` and run the guarded publisher as a dry run:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json
 ```
 
-12. If the dry run passes, write the reviewed events into public data:
+11. If the dry run passes, write the reviewed events into public data:
 
 ```powershell
 npm.cmd run publish:reviewed -- --file data/feeds/reviewed-events.json --write

@@ -65,6 +65,7 @@ const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json
   .filter((guide) => approvedGuideSlugs.has(guide.slug));
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
+const historicalWeather = await fs.readFile(path.join(root, "data", "kma-historical-observations.json"), "utf8").then(JSON.parse).catch(() => null);
 const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-routes.json"), "utf8"))
   .filter((route) => approvedRouteSlugs.has(route.slug));
 const sourceRefreshSummary = await latestSourceRefreshSummary();
@@ -5284,6 +5285,37 @@ function weatherBaseline(regionName, iso) {
   };
 }
 
+function historicalObservationForEvent(event) {
+  const generatedAt = Date.parse(historicalWeather?.generatedAt || "");
+  if (!Number.isFinite(generatedAt) || Date.now() - generatedAt > 14 * 86400000) return null;
+  const item = (historicalWeather?.items || []).find((candidate) => candidate.eventSlug === event.slug);
+  if (!item?.ok || !item.summary || item.summary.observedDays < 1) return null;
+  return item;
+}
+
+function historicalObservationBlock(item, lang) {
+  if (!item) return "";
+  const summary = item.summary;
+  const low = Number.isFinite(summary.avgMinTempC) ? `${Math.round(summary.avgMinTempC)}°C` : "-";
+  const high = Number.isFinite(summary.avgMaxTempC) ? `${Math.round(summary.avgMaxTempC)}°C` : "-";
+  const average = Number.isFinite(summary.avgTempC) ? `${summary.avgTempC}°C average` : "temperature recorded";
+  const rain = Number.isFinite(summary.totalPrecipitationMm) ? `${summary.totalPrecipitationMm} mm total rain` : "rain total unavailable";
+  const humidity = Number.isFinite(summary.avgHumidityPct) ? `${summary.avgHumidityPct}% average humidity` : "humidity unavailable";
+  const sourceUrl = historicalWeather?.source?.url || "https://www.data.go.kr/en/data/15059093/openapi.do";
+  const station = item.station?.label || item.region || "KMA ASOS";
+  const range = item.previousYearRange?.startDate === item.previousYearRange?.endDate
+    ? dateText(lang, item.previousYearRange.startDate)
+    : `${dateText(lang, item.previousYearRange?.startDate)} - ${dateText(lang, item.previousYearRange?.endDate)}`;
+  return `
+            <div class="event-weather-baseline" aria-label="KMA same-period previous-year observations">
+              <div><span>Same dates last year</span><strong>${esc(low)} to ${esc(high)}</strong></div>
+              <div class="event-weather-copy">
+                <p>${esc(`${range}: ${average}, ${rain}, ${humidity} across ${summary.observedDays} observed day${summary.observedDays === 1 ? "" : "s"}. This is one historical sample, not a forecast.`)}</p>
+                <p class="event-weather-source">Source: <a href="${esc(sourceUrl)}" rel="noopener" target="_blank">KMA ASOS daily observations</a> · ${esc(station)}</p>
+              </div>
+            </div>`;
+}
+
 function mode(values) {
   const counts = new Map();
   for (const value of values.filter(Boolean)) {
@@ -8182,7 +8214,7 @@ function compactEventMapPanel(event, lang) {
           </div>`;
 }
 
-function compactEventWeather(lang, forecast, weatherInfo) {
+function compactEventWeather(lang, forecast, weatherInfo, historicalObservation) {
   if (forecast) {
     const days = (forecast.days || []).filter((day) => day.date >= today).slice(0, 3);
     const packing = forecastPacking(forecast, lang).slice(0, 4);
@@ -8192,7 +8224,17 @@ function compactEventWeather(lang, forecast, weatherInfo) {
               <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</span>
             </div>
             <div class="forecast-strip compact-forecast-strip">${days.map((day) => forecastDayCard(day, lang)).join("")}</div>
-            <div class="compact-weather-meta">${weatherTags(packing)}<span>Updated ${esc(kmaBaseTimeText(forecast.baseTime))}</span></div>`;
+            ${historicalObservationBlock(historicalObservation, lang)}
+            <div class="compact-weather-meta">${weatherTags(packing)}<span>Forecast updated ${esc(kmaBaseTimeText(forecast.baseTime))}. Historical comparison: KMA ASOS.</span></div>`;
+  }
+  if (historicalObservation) {
+    return `
+            <div class="weather-section-head compact-weather-heading">
+              <div><p class="eyebrow">KMA observed planning reference</p><h3>Weather at the event area</h3></div>
+              <span>${esc(historicalObservation.station?.label || historicalObservation.region)}</span>
+            </div>
+            ${historicalObservationBlock(historicalObservation, lang)}
+            <div class="compact-weather-meta"><span>Exact same-period previous-year KMA ASOS observations. Check the short-range forecast and organizer notice before departure.</span></div>`;
   }
   const region = weatherInfo.baseline;
   const packing = baselinePackingItems(region.packing || [], lang).slice(0, 4);
@@ -8232,7 +8274,7 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
             ${compactEventMapPanel(event, lang)}
           </div>
           <div class="compact-weather-panel">
-            ${compactEventWeather(lang, forecastInfo, weatherInfo)}
+            ${compactEventWeather(lang, forecastInfo, weatherInfo, historicalObservationForEvent(event))}
           </div>
           ${routeIdeas.length ? `<div class="compact-route-links"><strong>Nearby route ideas</strong>${routeIdeas.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}">${esc(routeCopy(route, lang).title)}</a>`).join("")}</div>` : ""}
         </section>`;

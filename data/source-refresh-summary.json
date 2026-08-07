@@ -1,34 +1,34 @@
 {
-  "generatedAt": "2026-08-06T04:42:12.885Z",
+  "generatedAt": "2026-08-07T00:57:06.349Z",
   "files": {
-    "audit": "source-audit-2026-08-06.json",
-    "candidates": "official-page-candidates-2026-08-06.json",
-    "drafts": "draft-events-2026-08-06.json",
-    "reviewReport": "review-report-2026-08-06.md",
-    "reviewBoard": "review-board-2026-08-06.html",
-    "publicData": "public-data-import-2026-08-06.json",
-    "tourApi": "tourapi-20260806.json",
-    "kmaObservations": "weather-previous-year-2026-08-06.json",
-    "seoulEvents": "seoul-cultural-events-2026-08-06.json"
+    "audit": "source-audit-2026-08-07.json",
+    "candidates": "official-page-candidates-2026-08-07.json",
+    "drafts": "draft-events-2026-08-07.json",
+    "reviewReport": "review-report-2026-08-07.md",
+    "reviewBoard": "review-board-2026-08-07.html",
+    "publicData": "public-data-import-2026-08-07.json",
+    "tourApi": "missing",
+    "kmaObservations": "missing",
+    "seoulEvents": "missing"
   },
   "counts": {
-    "auditedSources": 55,
+    "auditedSources": 56,
     "auditOk": 55,
-    "auditFailed": 0,
-    "fallbackSources": 3,
+    "auditFailed": 1,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 50,
-    "candidateFailed": 3,
-    "discoveredLinks": 532,
-    "dateSignals": 288,
-    "draftCandidates": 65,
-    "skippedCandidates": 520,
-    "publicDataPassed": 3,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 561,
+    "dateSignals": 248,
+    "draftCandidates": 53,
+    "skippedCandidates": 561,
+    "publicDataPassed": 0,
     "publicDataFailed": 0,
-    "publicDataSkipped": 0,
-    "tourApiRows": 30,
-    "kmaObservationRecords": 6,
-    "seoulEventRows": 18,
+    "publicDataSkipped": 5,
+    "tourApiRows": 0,
+    "kmaObservationRecords": 0,
+    "seoulEventRows": 0,
     "seoulPotentialMatches": 0
   },
   "failedSources": [
@@ -46,71 +46,90 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 14
+      "key": "Visit Seoul",
+      "count": 16
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
       "count": 14
     },
     {
-      "key": "Visit Seoul",
-      "count": 11
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 10
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     },
     {
       "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Hyundai Department Store",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 45
-    },
-    {
-      "key": "kpop",
-      "count": 7
+      "count": 33
     },
     {
       "key": "shopping",
+      "count": 7
+    },
+    {
+      "key": "kpop",
       "count": 6
     },
     {
       "key": "department-store",
-      "count": 4
+      "count": 5
     },
     {
       "key": "beauty",
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 484
+      "count": 524
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "duplicate draft source URL",
+      "count": 7
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 6
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
@@ -118,78 +137,74 @@
       "count": 4
     },
     {
-      "key": "duplicate draft source URL",
+      "key": "curation root is not a specific event",
       "count": 4
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 3
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 18,
-      "dates": 18,
-      "keywords": 2,
-      "score": 130
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 18,
+      "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 128
+      "keywords": 8,
+      "score": 147
     },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 9,
-      "score": 128
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 18,
-      "dates": 18,
-      "keywords": 5,
-      "score": 124
+      "score": 146
     },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 123
+      "score": 141
     },
     {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 2,
-      "score": 119
+      "score": 137
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 3,
-      "score": 118
+      "score": 136
     },
     {
       "sourceName": "Seoul Grand Park",
       "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 18,
+      "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 116
+      "score": 134
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 22,
+      "dates": 4,
+      "keywords": 8,
+      "score": 118
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 9,
+      "keywords": 4,
+      "score": 115
     }
   ]
 }

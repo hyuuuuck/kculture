@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T00:57:06.349Z",
+  "generatedAt": "2026-08-07T13:44:10.134Z",
   "files": {
     "audit": "source-audit-2026-08-07.json",
     "candidates": "official-page-candidates-2026-08-07.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 55,
     "auditFailed": 1,
-    "fallbackSources": 4,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 561,
-    "dateSignals": 248,
-    "draftCandidates": 53,
-    "skippedCandidates": 561,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 591,
+    "dateSignals": 264,
+    "draftCandidates": 60,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,7 +48,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -56,11 +56,6 @@
       "sourceName": "Melon Ticket",
       "status": 423,
       "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -74,7 +69,11 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 14
+      "count": 13
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -83,27 +82,23 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
-    },
-    {
-      "key": "Hyundai Department Store",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 33
+      "count": 40
     },
     {
       "key": "shopping",
       "count": 7
     },
     {
-      "key": "kpop",
-      "count": 6
+      "key": "department-store",
+      "count": 5
     },
     {
-      "key": "department-store",
+      "key": "kpop",
       "count": 5
     },
     {
@@ -111,25 +106,25 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 524
+      "count": 546
     },
     {
       "key": "duplicate draft source URL",
-      "count": 7
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -143,6 +138,14 @@
   ],
   "highSignalCandidates": [
     {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -155,8 +158,8 @@
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 9,
-      "score": 146
+      "keywords": 8,
+      "score": 145
     },
     {
       "sourceName": "Visit Seoul",
@@ -197,14 +200,6 @@
       "dates": 4,
       "keywords": 8,
       "score": 118
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 4,
-      "score": 115
     }
   ]
 }

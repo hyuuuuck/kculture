@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { todayString } from "./lib/date.mjs";
 
 const root = process.cwd();
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
@@ -10,7 +11,9 @@ const eventBySlug = new Map(events.map((event) => [event.slug, event]));
 const guideBySlug = new Map(guides.map((guide) => [guide.slug, guide]));
 const routeBySlug = new Map(routes.map((route) => [route.slug, route]));
 const failures = [];
-const approvedEvents = [...new Set(program.indexableEvents || [])];
+const today = todayString();
+const approvedSet = new Set(program.indexableEvents || []);
+const approvedEvents = events.filter((event) => approvedSet.has(event.slug) && event.endDate >= today).map((event) => event.slug);
 const approvedGuides = [...new Set(program.indexableGuides || [])];
 const approvedRoutes = [...new Set(program.indexableRoutes || [])];
 const firstHandClaimRe = /\b(?:i|we)\s+(?:visited|attended|bought|tested|tried|stayed|experienced)\b/i;

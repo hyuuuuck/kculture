@@ -71,8 +71,8 @@ function distinctEvidenceHosts(evidence) {
   }).filter(Boolean)).size;
 }
 
-const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug));
-const currentEvents = approvedEvents.filter((event) => event.endDate >= today);
+const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
+const currentEvents = approvedEvents;
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
 const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
 
@@ -218,7 +218,7 @@ if (!adsense) {
   if (nonSearchWarnings.length) {
     fail("publisher", "AdSense", "Editorial gate report", `${nonSearchWarnings.length} non-search warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
   } else {
-    warn("publisher", "Search", "Post-deploy index hold", `The ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"}-URL sitemap is successful, but coverage (${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"}) and performance (${searchConsoleAudit.performance?.periodEnd || "unknown"}) still predate the August 5 cleanup.`, "Publisher: wait for updated post-cleanup Search Console reports, then verify that legacy pages no longer dominate before re-review.");
+    warn("publisher", "Search", "Post-deploy index hold", `Search Console reports ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} discovered URLs while the current deployment contains ${expectedSitemapUrls.size}; coverage is updated through ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and performance through ${searchConsoleAudit.performance?.periodEnd || "unknown"}.`, "Publisher: deploy the current sitemap, wait for Search Console to read it, then refresh authenticated discovery before re-review.");
   }
 } else {
   pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);

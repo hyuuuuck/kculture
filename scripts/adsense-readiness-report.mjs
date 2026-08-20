@@ -331,16 +331,23 @@ function runChecks() {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
   }
 
-  const authenticatedAccountBaseIsValid = adsenseAccountAudit.publisherId === publisherId
+  const authenticatedAccountFactsAreValid = adsenseAccountAudit.publisherId === publisherId
       && adsenseAccountAudit.site === "kspotnow.com"
       && adsenseAccountAudit.siteReview?.statusDetail === "low-value-content"
-      && adsenseAccountAudit.siteReview?.adsTxtStatus === "approved"
       && adsenseAccountAudit.siteReview?.reviewRequestAvailable === true
       && adsenseAccountAudit.siteReview?.reviewRequestSubmitted === false
       && adsenseAccountAudit.policyCenter?.issueCount === 0
       && adsenseAccountAudit.cmp?.status === "published";
-  if (authenticatedAccountBaseIsValid) {
-    pass("AdSense", "Authenticated account state", "Low-value-content re-review is available but not submitted; ads.txt is approved, Policy Center is clear, and the European regulations message is published");
+  const alternativeOwnershipReady = ["adsense-meta-tag", "adsense-code-snippet"].includes(adsenseAccountAudit.siteReview?.selectedOwnershipMethod)
+      && adsenseAccountAudit.siteReview?.selectedOwnershipMethodFoundOnLiveSite === true;
+  const ownershipRecognized = adsenseAccountAudit.siteReview?.adsTxtStatus === "approved" || alternativeOwnershipReady;
+  const accountMetaStaged = read("dist/en/index.html").includes(`<meta name="google-adsense-account" content="ca-${publisherId}">`);
+  if (authenticatedAccountFactsAreValid && (ownershipRecognized || accountMetaStaged)) {
+    if (ownershipRecognized) {
+      pass("AdSense", "Authenticated account state", "Low-value-content re-review is available but not submitted; a live ownership method is recorded, Policy Center is clear, and the European regulations message is published");
+    } else {
+      pass("AdSense", "Ownership deployment staged", "Authenticated account and policy facts are consistent, and the selected AdSense account meta tag is present in the production build; live verification remains mandatory before re-review");
+    }
     const discoveredPages = adsenseAccountAudit.searchConsole?.sitemapDiscoveredPages;
     const expectedPages = expectedSitemapPaths().size;
     if (discoveredPages === expectedPages) {

@@ -87,6 +87,11 @@ if (!adsTxt.includes(`google.com, ${publisherId}, DIRECT`)) {
   fail("dist/ads.txt does not match the configured publisher ID.");
 }
 
+const reviewHome = read(path.join(dist, "en", "index.html"));
+if (requireAdsenseReview && (!reviewHome.includes('name="google-adsense-account"') || !reviewHome.includes(`content="${clientId}"`))) {
+  fail("AdSense site-review mode requires the publisher account meta tag on the English home page.");
+}
+
 const privacy = read(path.join(dist, "en", "privacy", "index.html"));
 const cookiePolicy = read(path.join(dist, "en", "cookie-policy", "index.html"));
 const advertising = read(path.join(dist, "en", "advertising", "index.html"));

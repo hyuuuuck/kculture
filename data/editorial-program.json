@@ -553,6 +553,7 @@
           "url": "https://www.gwangallimdrone.co.kr/en/overview",
           "role": "Official show operator",
           "supports": "Confirms the recurring Saturday format and operating-time information controlled by the show organizer.",
+          "freshnessAuthority": true,
           "mustContain": ["Gwangalli", "Drone Light Show", "Saturday"]
         }
       ]

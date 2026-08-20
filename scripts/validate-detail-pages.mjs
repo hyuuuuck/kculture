@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
@@ -9,7 +10,8 @@ const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-pr
 const reviewedNearby = JSON.parse(fs.readFileSync(path.join(root, "data", "kto-nearby-reviewed.json"), "utf8"));
 const languages = publicLanguageCodes();
 const approved = new Set(program.indexableEvents || []);
-const publicEvents = events.filter((event) => approved.has(event.slug));
+const today = todayString();
+const publicEvents = events.filter((event) => approved.has(event.slug) && event.endDate >= today);
 const errors = [];
 const nearbyBySlug = new Map((reviewedNearby.events || []).map((item) => [item.eventSlug, item]));
 

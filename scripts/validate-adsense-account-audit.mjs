@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const auditPath = path.join(root, "data", "adsense-account-audit.json");
 const programPath = path.join(root, "data", "editorial-program.json");
+const eventsPath = path.join(root, "data", "events.json");
 const requireCurrentReview = process.argv.includes("--require-current-review");
 const errors = [];
 const warnings = [];
@@ -19,6 +20,7 @@ function readJson(file, label) {
 
 const audit = readJson(auditPath, "data/adsense-account-audit.json");
 const program = readJson(programPath, "data/editorial-program.json");
+const events = readJson(eventsPath, "data/events.json");
 const review = audit.siteReview || {};
 const policy = audit.policyCenter || {};
 const cmp = audit.cmp || {};
@@ -33,7 +35,16 @@ if (audit.site !== "kspotnow.com") errors.push("account audit must cover kspotno
 if (!["attention-required", "getting-ready", "ready"].includes(review.approvalStatus)) {
   errors.push("account audit must use a recognized AdSense site approval state.");
 }
-if (review.adsTxtStatus !== "approved") errors.push("AdSense must report ads.txt as approved before re-review.");
+const recognizedAdsTxtStatuses = new Set(["approved", "not-found", "unauthorized", "unknown"]);
+const alternativeOwnershipReady = ["adsense-meta-tag", "adsense-code-snippet"].includes(review.selectedOwnershipMethod)
+  && review.selectedOwnershipMethodFoundOnLiveSite === true;
+if (!recognizedAdsTxtStatuses.has(review.adsTxtStatus)) {
+  errors.push("account audit must use a recognized AdSense ads.txt state.");
+} else if (review.adsTxtStatus !== "approved") {
+  const message = `AdSense currently reports ads.txt as ${review.adsTxtStatus}.`;
+  if (requireCurrentReview && !alternativeOwnershipReady) errors.push(`${message} A live, selected alternative ownership method is required before re-review.`);
+  else warnings.push(`${message} ${alternativeOwnershipReady ? "A live alternative ownership method is recorded." : "This is allowed for deployment evidence but blocks AdSense re-review."}`);
+}
 if (typeof review.reviewRequestAvailable !== "boolean" || typeof review.reviewRequestSubmitted !== "boolean") {
   errors.push("account audit must record whether re-review is available and whether it was submitted.");
 }
@@ -50,9 +61,13 @@ if (!choices.consent || !choices.manageOptions || !choices.doNotConsent || choic
 if (search.property !== "sc-domain:kspotnow.com" || search.sitemapStatus !== "success") {
   errors.push("authenticated Search Console evidence must use the successful kspotnow.com domain sitemap.");
 }
+const today = new Date().toISOString().slice(0, 10);
+const currentEventSlugs = new Set((Array.isArray(events) ? events : [])
+  .filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today)
+  .map((event) => event.slug));
 const expectedSitemapUrls = new Set([
   ...(program.indexableHubs || []),
-  ...(program.indexableEvents || []).map((slug) => `/en/events/${slug}`),
+  ...[...currentEventSlugs].map((slug) => `/en/events/${slug}`),
   ...(program.indexableGuides || []).map((slug) => `/en/guides/${slug}`),
   ...(program.indexableRoutes || []).map((slug) => `/en/routes/${slug}`)
 ]);
@@ -70,6 +85,9 @@ if (requireCurrentReview) {
   if (review.reviewRequestAvailable !== true || review.reviewRequestSubmitted !== false) {
     errors.push("re-review requires confirmation that the request is available and has not already been submitted.");
   }
+  if (review.adsTxtStatus !== "approved" && !alternativeOwnershipReady) {
+    errors.push("re-review requires either approved ads.txt or a selected AdSense meta/code ownership method confirmed on the live site.");
+  }
 }
 
 if (errors.length) {
@@ -83,4 +101,4 @@ if (warnings.length) {
   for (const warning of warnings) console.warn(`- ${warning}`);
 }
 
-console.log(`Authenticated AdSense account audit passed${requireCurrentReview ? " for re-review" : " for deployment"}: ads.txt is approved, Policy Center is clear, CMP is published, and Search Console currently reports ${search.sitemapDiscoveredPages} discovered URLs.`);
+console.log(`Authenticated AdSense account audit passed${requireCurrentReview ? " for re-review" : " for deployment"}: ads.txt is ${review.adsTxtStatus}, Policy Center is clear, CMP is published, and Search Console currently reports ${search.sitemapDiscoveredPages} discovered URLs.`);

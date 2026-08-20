@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const today = todayString();
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
+const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const feedDir = path.join(root, "data", "feeds");
 const timeoutMs = Number(process.env.EVENT_AUDIT_TIMEOUT_MS || 12000);
 const offline = process.env.EVENT_AUDIT_OFFLINE === "1";
@@ -236,7 +237,8 @@ async function checkSourceEvidence(event) {
   }
 }
 
-const auditedEvents = events.filter((event) => event.audit);
+const approvedSlugs = new Set(program.indexableEvents || []);
+const auditedEvents = events.filter((event) => event.audit && approvedSlugs.has(event.slug) && String(event.endDate || "") >= today);
 if (!auditedEvents.length) {
   push(errors, "event-audit", "at least one high-risk event audit block is required.");
 }

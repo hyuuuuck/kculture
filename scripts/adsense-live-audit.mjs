@@ -14,6 +14,7 @@ const timeoutMs = Number(process.env.LIVE_AUDIT_TIMEOUT_MS || 12000);
 const reviewMode = process.env.ADSENSE_REVIEW_MODE !== "0";
 const adsenseCompliance = JSON.parse(await fs.readFile(path.join(root, "data", "adsense-compliance.json"), "utf8").catch(() => "null"));
 const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const publisherId = configuredAdSensePublisherId();
 const clientId = configuredAdSenseClientId();
 const cmpReady = configuredAdSenseCmpReady(process.env, adsenseCompliance, today);
@@ -24,7 +25,7 @@ const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "Decide what is worth the trip."] },
   { path: "/en/", label: "English home", needles: ["Source-checked Korea event briefs", "spotlight-carousel"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section", "event-decision-board", "decision-board-row"] },
-  { path: "/en/events/boryeong-mud-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation", "review-update-note", "First published"] },
+  { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation", "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides", "guide-scope-ledger", "guide-scope-row"] },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-decision-tool", "guide-worksheet", "guide-citations"] },
@@ -44,20 +45,16 @@ const retiredContentPaths = [
   "/en/events/red-velvet-day-in-red-velvet-seoul-2026",
   "/en/events/korea-beauty-festival-2026",
   "/en/events/namsangol-traditional-experience-2026",
-  "/en/guides/korea-duty-free-before-flight",
-  "/en/guides/weather-for-korea-events",
-  "/en/guides/olive-young-shopping-strategy",
-  "/en/guides/department-store-popup-planning",
-  "/en/guides/tax-refund-payments-korea-shopping"
+  "/en/events/boryeong-mud-festival-2026"
 ];
 const duplicateHtmlVariants = [
-  ["/en/events/boryeong-mud-festival-2026.html", "/en/events/boryeong-mud-festival-2026"],
+  ["/en/events/jinju-namgang-yudeung-festival-2026.html", "/en/events/jinju-namgang-yudeung-festival-2026"],
   ["/en/guides/how-to-verify-korea-popups.html", "/en/guides/how-to-verify-korea-popups"]
 ];
 const layoutPages = [
   { path: "/en/", label: "Home" },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Verification guide" },
-  { path: "/en/events/boryeong-mud-festival-2026", label: "Event detail" },
+  { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Event detail" },
   { path: "/en/calendar/", label: "Calendar" }
 ];
 const viewports = [
@@ -149,7 +146,9 @@ async function auditSitemapTargets() {
   const urls = [...sitemap.text.matchAll(/<loc>(https:\/\/kspotnow\.com[^<]+)<\/loc>/g)].map((match) => match[1]);
   const expectedUrls = new Set([
     ...(editorialProgram.indexableHubs || []).map((pathname) => new URL(pathname, siteUrl).href),
-    ...(editorialProgram.indexableEvents || []).map((slug) => new URL(`/en/events/${slug}`, siteUrl).href),
+    ...events
+      .filter((event) => (editorialProgram.indexableEvents || []).includes(event.slug) && event.endDate >= today)
+      .map((event) => new URL(`/en/events/${event.slug}`, siteUrl).href),
     ...(editorialProgram.indexableGuides || []).map((slug) => new URL(`/en/guides/${slug}`, siteUrl).href),
     ...(editorialProgram.indexableRoutes || []).map((slug) => new URL(`/en/routes/${slug}`, siteUrl).href)
   ]);
@@ -183,6 +182,14 @@ async function auditAdSenseHead() {
   const result = await fetchLive("/en/");
   const hasAdScript = result.text.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") || result.text.includes("adsbygoogle");
   const hasConfiguredClient = Boolean(clientId && result.text.includes(clientId));
+  const hasAccountMeta = Boolean(clientId
+    && result.text.includes('name="google-adsense-account"')
+    && result.text.includes(`content="${clientId}"`));
+  if (hasAccountMeta) {
+    pass("AdSense", "Account meta", `Live home includes the ${clientId} ownership meta tag.`);
+  } else {
+    fail("AdSense", "Account meta", "Live home is missing the AdSense account ownership meta tag.", "Deploy the review-safe account meta tag before requesting review.");
+  }
   if (cmpReady && clientId && hasConfiguredClient && hasAdScript) {
     pass("AdSense", "Auto ads script", `Live home includes ${clientId} after CMP confirmation.`);
   } else if (!cmpReady && !hasAdScript) {
@@ -204,7 +211,7 @@ async function auditAffiliatePause() {
 
   const samples = await Promise.all([
     fetchLive("/en/"),
-    fetchLive("/en/events/boryeong-mud-festival-2026"),
+    fetchLive("/en/events/jinju-namgang-yudeung-festival-2026"),
     fetchLive("/en/guides/how-to-verify-korea-popups")
   ]);
   const joined = samples.map((sample) => sample.text).join("\n");

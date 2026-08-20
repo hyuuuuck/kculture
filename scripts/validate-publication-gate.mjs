@@ -1,12 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
+import { todayString } from "./lib/date.mjs";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const failures = [];
-const approvedSlugs = [...new Set(program.indexableEvents || [])];
+const today = todayString();
+const approvedSet = new Set(program.indexableEvents || []);
+const approvedSlugs = events.filter((event) => approvedSet.has(event.slug) && event.endDate >= today).map((event) => event.slug);
 const eventBySlug = new Map(events.map((event) => [event.slug, event]));
 
 if (!approvedSlugs.length) {

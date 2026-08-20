@@ -291,6 +291,9 @@ if (publisherId) {
 
 if (clientId && fs.existsSync(editorialHome)) {
   const home = fs.readFileSync(editorialHome, "utf8");
+  if (requireAdsenseReview && (!home.includes('name="google-adsense-account"') || !home.includes(`content="${clientId}"`))) {
+    fail("AdSense site-review mode requires the publisher account meta tag in dist/en/index.html.");
+  }
   if (adsenseCmpReady && !home.includes(`client=${clientId}`)) fail("AdSense client script was not found in dist/en/index.html after CMP confirmation.");
   if (!adsenseCmpReady && home.includes("adsbygoogle")) fail("AdSense markup must remain disabled until the serving switch, CMP readiness, and human evidence flags are set.");
   if (adsenseCmpReady && slotId) {

@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -9,7 +10,8 @@ const dist = path.join(root, "dist");
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
-const approvedEvents = events.filter((event) => approvedSlugs.has(event.slug));
+const today = todayString();
+const approvedEvents = events.filter((event) => approvedSlugs.has(event.slug) && event.endDate >= today);
 const languages = publicLanguageCodes();
 const scriptRe = /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi;
 const dateRe = /^\d{4}-\d{2}-\d{2}$/;

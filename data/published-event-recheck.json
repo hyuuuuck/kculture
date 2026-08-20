@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-07T13:43:17.960Z",
-  "date": "2026-08-07",
-  "approvedActiveEvents": 10,
-  "passed": 10,
+  "generatedAt": "2026-08-20T02:23:35.405Z",
+  "date": "2026-08-20",
+  "approvedActiveEvents": 9,
+  "passed": 9,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 20,
+  "liveChecks": 18,
   "snapshotChecks": 0,
   "updated": 0,
-  "timeoutMs": 12000,
-  "concurrency": 5,
+  "timeoutMs": 15000,
+  "concurrency": 4,
   "results": [
     {
       "slug": "nct-dream-sweet-dream-hotel-incheon-2026",
@@ -24,8 +24,8 @@
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "finalUrl": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "status": 200,
-          "bytes": 106428,
-          "durationMs": 179,
+          "bytes": 106812,
+          "durationMs": 130,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -43,7 +43,7 @@
           "finalUrl": "https://weverse.io/nctdream/notice/36671",
           "status": 200,
           "bytes": 82319,
-          "durationMs": 1504,
+          "durationMs": 235,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -51,49 +51,6 @@
             "August 22, 2026",
             "INSPIRE ARENA",
             "KRW 121,000"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "boryeong-mud-festival-2026",
-      "title": "29th Boryeong Mud Festival",
-      "sourceName": "Boryeong Mud Festival",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Boryeong Mud Festival",
-          "url": "https://www.mudfestival.or.kr/en/festival/main.html",
-          "finalUrl": "https://www.mudfestival.or.kr/en/festival/main.html",
-          "status": 200,
-          "bytes": 19064,
-          "durationMs": 1710,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "29th Boryeong Mud Festival",
-            "2026.07.24.(Fri)~08.09(Sun)(17Days)/DaecheonBeach",
-            "paid entry bracelet"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Korea Tourism Organization",
-          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
-          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
-          "status": 200,
-          "bytes": 194549,
-          "durationMs": 474,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Boryeong Mud Festival",
-            "July 24",
-            "August 9"
           ],
           "missingTokens": [],
           "ok": true
@@ -113,7 +70,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
           "status": 200,
           "bytes": 209128,
-          "durationMs": 1427,
+          "durationMs": 678,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -131,7 +88,7 @@
           "finalUrl": "https://yudeung.com/?lang=en",
           "status": 200,
           "bytes": 58977,
-          "durationMs": 1417,
+          "durationMs": 398,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -157,8 +114,8 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 108375,
-          "durationMs": 3384,
+          "bytes": 103925,
+          "durationMs": 113,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -175,8 +132,8 @@
           "url": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
-          "bytes": 33824,
-          "durationMs": 1722,
+          "bytes": 33961,
+          "durationMs": 255,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -202,7 +159,7 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 2515,
+          "durationMs": 481,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -222,9 +179,9 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 35329,
-          "durationMs": 824,
+          "durationMs": 63,
           "mode": "live",
-          "freshnessAuthority": false,
+          "freshnessAuthority": true,
           "matchedTokens": [
             "Gwangalli",
             "Drone Light Show",
@@ -248,7 +205,7 @@
           "finalUrl": "https://en.maskdance.com/2024/sub1/sub1.asp",
           "status": 200,
           "bytes": 23986,
-          "durationMs": 1050,
+          "durationMs": 68,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -266,7 +223,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
           "status": 200,
           "bytes": 217044,
-          "durationMs": 473,
+          "durationMs": 393,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -292,8 +249,8 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "finalUrl": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "status": 200,
-          "bytes": 182210,
-          "durationMs": 1788,
+          "bytes": 181850,
+          "durationMs": 565,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -311,8 +268,8 @@
           "url": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "finalUrl": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "status": 200,
-          "bytes": 355643,
-          "durationMs": 2778,
+          "bytes": 357167,
+          "durationMs": 189,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -337,8 +294,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 181230,
-          "durationMs": 1989,
+          "bytes": 180864,
+          "durationMs": 616,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -355,8 +312,8 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 100784,
-          "durationMs": 1150,
+          "bytes": 96589,
+          "durationMs": 32,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -381,8 +338,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181431,
-          "durationMs": 1816,
+          "bytes": 181071,
+          "durationMs": 642,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -399,8 +356,8 @@
           "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "status": 200,
-          "bytes": 132961,
-          "durationMs": 2486,
+          "bytes": 133202,
+          "durationMs": 333,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -426,8 +383,8 @@
           "url": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
           "finalUrl": "https://english.visitseoul.net/exhibition/LouisVuitton-VisionaryJourneys/ENPi1u9ze",
           "status": 200,
-          "bytes": 183556,
-          "durationMs": 1609,
+          "bytes": 183436,
+          "durationMs": 566,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -446,8 +403,8 @@
           "url": "https://kr.louisvuitton.com/kor-kr/point-of-sale/korea/louis-vuitton-shinsegae-the-reserve-vjs",
           "finalUrl": "https://kr.louisvuitton.com/kor-kr/point-of-sale/korea/louis-vuitton-shinsegae-the-reserve-vjs",
           "status": 200,
-          "bytes": 792070,
-          "durationMs": 10977,
+          "bytes": 791272,
+          "durationMs": 11174,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [

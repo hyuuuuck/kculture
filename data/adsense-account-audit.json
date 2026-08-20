@@ -1,16 +1,25 @@
 {
   "version": 1,
-  "auditedAt": "2026-08-06T21:31:46+09:00",
+  "auditedAt": "2026-08-20T11:06:16+09:00",
   "source": "Authenticated Google AdSense and Google Search Console interfaces",
   "publisherId": "pub-4973303868067114",
   "site": "kspotnow.com",
   "siteReview": {
     "approvalStatus": "attention-required",
     "statusDetail": "low-value-content",
-    "adsTxtStatus": "approved",
+    "adsTxtStatus": "not-found",
     "lastUpdatedAt": "2026-08-02T01:04:00+09:00",
     "reviewRequestAvailable": true,
-    "reviewRequestSubmitted": false
+    "reviewRequestSubmitted": false,
+    "selectedOwnershipMethod": "adsense-code-snippet",
+    "selectedOwnershipMethodFoundOnLiveSite": false,
+    "adsTxtMethodSelectionPersistsWithoutReviewRequest": false,
+    "adsTxtManualRefreshControlObserved": false
+  },
+  "adsTxtPublic": {
+    "statusCode": 200,
+    "publisherRecordPresent": true,
+    "checkedAt": "2026-08-20T09:18:54+09:00"
   },
   "policyCenter": {
     "issueCount": 0,
@@ -38,9 +47,9 @@
     "property": "sc-domain:kspotnow.com",
     "sitemapStatus": "success",
     "sitemapSubmittedAt": "2026-08-06",
-    "sitemapLastReadAt": "2026-08-06",
+    "sitemapLastReadAt": "2026-08-18",
     "sitemapDiscoveredPages": 22,
-    "coverageReportUpdatedAt": "2026-07-24",
-    "performancePeriodEnd": "2026-08-02"
+    "coverageReportUpdatedAt": "2026-08-17",
+    "performancePeriodEnd": "2026-08-17"
   }
 }

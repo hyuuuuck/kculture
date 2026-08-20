@@ -6140,6 +6140,11 @@ function googleVerificationMeta() {
   return `<meta name="google-site-verification" content="${esc(googleSiteVerification)}">`;
 }
 
+function adsenseAccountMeta() {
+  if (!/^ca-pub-\d{16}$/.test(adsenseClientId)) return "";
+  return `<meta name="google-adsense-account" content="${esc(adsenseClientId)}">`;
+}
+
 function layout({ lang, title, description, body, currentPathBuilder, canonicalPath = `/${lang}/`, schemaData = null, imagePath = "/assets/hero.jpg", pageType = "website", noindex = false, adsEligible = false }) {
   const structuredData = schemaData || schema(lang, title, description, canonicalPath);
   const metaImage = /^https?:\/\//.test(imagePath) ? imagePath : absoluteUrl(imagePath);
@@ -6175,6 +6180,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <link rel="icon" href="/assets/brand/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
   ${googleVerificationMeta()}
+  ${adsenseAccountMeta()}
   <link rel="stylesheet" href="/styles.css?v=${assetVersion}">
   ${adsEligible ? adsenseHeadScript() : ""}
   ${structuredDataScript(structuredData)}

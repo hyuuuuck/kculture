@@ -1,11 +1,11 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-20T14:01:02+09:00",
+  "auditedAt": "2026-08-21T01:21:54+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "ready",
   "deployFixesAllowed": true,
-  "reason": "The August 20 recheck shows that Search Console reflects the focused August 6 content build: the page report is updated through August 17, recent page impressions are led by current sitemap URLs, and a representative guide and event are indexed. The August 20 deployment removed the ended Boryeong page and now serves 21 canonical sitemap URLs. The sitemap was successfully resubmitted on August 20, but Search Console still shows its August 18 read and 22 discovered pages until asynchronous reprocessing completes. Re-review remains on hold until that count aligns with the live 21-URL sitemap.",
+  "reason": "The August 21 recheck confirms that Search Console has processed the August 20 sitemap: it was last read on August 20 with success and exactly 21 discovered pages, matching the live canonical sitemap. Performance data is current through August 18, the recent seven-day page report is led by current sitemap pages and canonical redirect variants of current content, and the representative guide and event remain recorded as indexed. The Search Console re-review gate is ready.",
   "coverage": {
     "reportUpdatedAt": "2026-08-17",
     "indexed": 40,
@@ -19,34 +19,34 @@
   },
   "performance": {
     "window": "7-day",
-    "periodStart": "2026-08-11",
-    "periodEnd": "2026-08-17",
+    "periodStart": "2026-08-12",
+    "periodEnd": "2026-08-18",
     "clicks": 0,
-    "impressions": 64,
+    "impressions": 68,
     "ctrPercent": 0,
-    "averagePosition": 6.6,
+    "averagePosition": 8.4,
     "legacyPagesDominateTopPages": false,
-    "currentSitemapPagesVisible": 7,
+    "currentSitemapPagesVisible": 8,
     "historicalThreeMonth": {
       "periodStart": "2026-06-09",
-      "periodEnd": "2026-08-17",
+      "periodEnd": "2026-08-18",
       "clicks": 19,
-      "impressions": 871,
+      "impressions": 875,
       "ctrPercent": 2.2,
-      "averagePosition": 8.3,
+      "averagePosition": 8.4,
       "legacyQueriesRemainInAggregate": true
     }
   },
   "sitemap": {
     "submittedAt": "2026-08-20",
-    "lastReadAt": "2026-08-18",
+    "lastReadAt": "2026-08-20",
     "status": "success",
-    "discoveredPages": 22
+    "discoveredPages": 21
   },
   "cleanup": {
     "deployedAt": "2026-08-20",
     "sitemapResubmittedAt": "2026-08-20T14:01:02+09:00",
-    "sitemapRefreshPending": true,
+    "sitemapRefreshPending": false,
     "liveApprovedUrlCount": 21,
     "representativeIndexingRequests": [
       "https://kspotnow.com/en/guides/",

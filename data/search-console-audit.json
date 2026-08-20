@@ -1,11 +1,11 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-20T09:20:06+09:00",
+  "auditedAt": "2026-08-20T14:01:02+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "ready",
   "deployFixesAllowed": true,
-  "reason": "The August 20 recheck shows that Search Console now reflects the focused August 6 build. The page report is updated through August 17, the successful sitemap was read again on August 18 with all 22 URLs discovered, and the recent seven-day page report is led entirely by current sitemap URLs. A representative guide and event both report that they are indexed. The Search Console gate is ready, while the separate AdSense account gate remains blocked until AdSense recognizes an ownership method and stops reporting ads.txt as not found.",
+  "reason": "The August 20 recheck shows that Search Console reflects the focused August 6 content build: the page report is updated through August 17, recent page impressions are led by current sitemap URLs, and a representative guide and event are indexed. The August 20 deployment removed the ended Boryeong page and now serves 21 canonical sitemap URLs. The sitemap was successfully resubmitted on August 20, but Search Console still shows its August 18 read and 22 discovered pages until asynchronous reprocessing completes. Re-review remains on hold until that count aligns with the live 21-URL sitemap.",
   "coverage": {
     "reportUpdatedAt": "2026-08-17",
     "indexed": 40,
@@ -38,15 +38,16 @@
     }
   },
   "sitemap": {
-    "submittedAt": "2026-08-06",
+    "submittedAt": "2026-08-20",
     "lastReadAt": "2026-08-18",
     "status": "success",
     "discoveredPages": 22
   },
   "cleanup": {
-    "deployedAt": "2026-08-06",
-    "sitemapResubmittedAt": "2026-08-06T21:28:57+09:00",
-    "liveApprovedUrlCount": 22,
+    "deployedAt": "2026-08-20",
+    "sitemapResubmittedAt": "2026-08-20T14:01:02+09:00",
+    "sitemapRefreshPending": true,
+    "liveApprovedUrlCount": 21,
     "representativeIndexingRequests": [
       "https://kspotnow.com/en/guides/",
       "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
@@ -69,8 +70,8 @@
   },
   "releaseCriteria": [
     "Keep the focused English review build live with .html canonical redirects and 410 responses for withdrawn URLs.",
-    "Keep the successful 22-URL sitemap aligned with the current hubs, events, and reviewed guides.",
+    "Keep the successful 21-URL sitemap aligned with the current hubs, events, and reviewed guides.",
     "Keep monitoring the 506 retired 404 URLs, but do not republish them merely to reduce the historical coverage count.",
-    "Do not request AdSense re-review until the separate account audit confirms a recognized ownership method and an approved ads.txt state."
+    "Do not request AdSense re-review until Search Console rereads the August 20 sitemap as 21 URLs and the separate account audit confirms the live selected ownership method."
   ]
 }

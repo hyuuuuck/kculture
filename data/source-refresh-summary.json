@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T02:02:22.697Z",
+  "generatedAt": "2026-08-21T05:00:29.813Z",
   "files": {
     "audit": "source-audit-2026-08-21.json",
     "candidates": "official-page-candidates-2026-08-21.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
-    "fallbackSources": 5,
+    "auditOk": 53,
+    "auditFailed": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 607,
-    "dateSignals": 256,
-    "draftCandidates": 72,
-    "skippedCandidates": 588,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 572,
+    "dateSignals": 246,
+    "draftCandidates": 53,
+    "skippedCandidates": 572,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,11 +38,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Dongdaemun Design Plaza",
-      "status": "ERR",
-      "error": "timeout"
-    },
-    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -53,20 +48,25 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "AK Plaza Events",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 22
+      "key": "NOL World Ticket",
+      "count": 15
     },
     {
       "key": "Visit Seoul",
@@ -77,34 +77,38 @@
       "count": 13
     },
     {
-      "key": "NOL World Ticket",
-      "count": 12
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 5
+      "key": "Dongdaemun Design Plaza",
+      "count": 2
     },
     {
       "key": "Weverse Shop BTS Notices",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 53
-    },
-    {
-      "key": "kpop",
-      "count": 9
+      "count": 33
     },
     {
       "key": "shopping",
+      "count": 9
+    },
+    {
+      "key": "kpop",
       "count": 6
     },
     {
       "key": "department-store",
       "count": 3
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     },
     {
       "key": "travel-benefits",
@@ -114,11 +118,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 540
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -139,14 +143,6 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -161,14 +157,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 144
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
     },
     {
       "sourceName": "Visit Seoul",
@@ -201,6 +189,22 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 23,
+      "dates": 8,
+      "keywords": 4,
+      "score": 110
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "url": "https://ddp.or.kr/?menuno=228",
+      "links": 19,
+      "dates": 7,
+      "keywords": 6,
+      "score": 106
     }
   ]
 }

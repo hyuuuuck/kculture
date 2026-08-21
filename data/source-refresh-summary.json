@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T09:04:19.939Z",
+  "generatedAt": "2026-08-21T13:17:05.499Z",
   "files": {
     "audit": "source-audit-2026-08-21.json",
     "candidates": "official-page-candidates-2026-08-21.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 56,
+    "auditFailed": 0,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
+    "candidateOk": 48,
+    "candidateFailed": 5,
     "discoveredLinks": 608,
-    "dateSignals": 258,
-    "draftCandidates": 77,
-    "skippedCandidates": 584,
+    "dateSignals": 270,
+    "draftCandidates": 82,
+    "skippedCandidates": 579,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,7 +48,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -71,18 +71,18 @@
       "count": 13
     },
     {
-      "key": "Dongdaemun Design Plaza",
-      "count": 2
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 5
     },
     {
-      "key": "Weverse Shop BTS Notices",
+      "key": "Dongdaemun Design Plaza",
       "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 54
+      "count": 59
     },
     {
       "key": "kpop",
@@ -108,10 +108,10 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 554
+      "count": 545
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {
@@ -119,11 +119,11 @@
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "listing page is not a specific event",
       "count": 4
     },
     {
@@ -132,6 +132,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
@@ -187,14 +195,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 8,
-      "keywords": 4,
-      "score": 113
     }
   ]
 }

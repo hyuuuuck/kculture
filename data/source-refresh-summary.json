@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T05:00:29.813Z",
+  "generatedAt": "2026-08-21T09:04:19.939Z",
   "files": {
     "audit": "source-audit-2026-08-21.json",
     "candidates": "official-page-candidates-2026-08-21.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 55,
+    "auditFailed": 1,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 572,
-    "dateSignals": 246,
-    "draftCandidates": 53,
-    "skippedCandidates": 572,
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 608,
+    "dateSignals": 258,
+    "draftCandidates": 77,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -51,26 +51,20 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "AK Plaza Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "NOL World Ticket",
-      "count": 15
+      "key": "Melon Ticket",
+      "count": 22
     },
     {
       "key": "Visit Seoul",
-      "count": 14
+      "count": 16
+    },
+    {
+      "key": "NOL World Ticket",
+      "count": 15
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -83,24 +77,20 @@
     {
       "key": "Weverse Shop BTS Notices",
       "count": 2
-    },
-    {
-      "key": "Andong Maskdance Festival",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 33
+      "count": 54
+    },
+    {
+      "key": "kpop",
+      "count": 9
     },
     {
       "key": "shopping",
       "count": 9
-    },
-    {
-      "key": "kpop",
-      "count": 6
     },
     {
       "key": "department-store",
@@ -118,27 +108,27 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 540
+      "count": 554
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 6
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     },
     {
-      "key": "already published source URL",
-      "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
-    },
-    {
       "key": "listing page is not a specific event",
       "count": 4
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 4
+    },
+    {
+      "key": "already published source URL",
+      "count": 3
     }
   ],
   "highSignalCandidates": [
@@ -157,6 +147,14 @@
       "dates": 18,
       "keywords": 7,
       "score": 144
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "Visit Seoul",
@@ -193,18 +191,10 @@
     {
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
-      "links": 23,
+      "links": 24,
       "dates": 8,
       "keywords": 4,
-      "score": 110
-    },
-    {
-      "sourceName": "Dongdaemun Design Plaza",
-      "url": "https://ddp.or.kr/?menuno=228",
-      "links": 19,
-      "dates": 7,
-      "keywords": 6,
-      "score": 106
+      "score": 113
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T01:55:38.968Z",
+  "generatedAt": "2026-08-22T04:56:00.760Z",
   "files": {
     "audit": "source-audit-2026-08-22.json",
     "candidates": "official-page-candidates-2026-08-22.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
+    "auditOk": 55,
+    "auditFailed": 1,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 584,
-    "dateSignals": 240,
-    "draftCandidates": 54,
-    "skippedCandidates": 583,
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 608,
+    "dateSignals": 258,
+    "draftCandidates": 76,
+    "skippedCandidates": 585,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -51,14 +51,13 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -78,24 +77,20 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
-    },
-    {
-      "key": "Dongdaemun Design Plaza",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 35
+      "count": 54
+    },
+    {
+      "key": "kpop",
+      "count": 10
     },
     {
       "key": "shopping",
       "count": 8
-    },
-    {
-      "key": "kpop",
-      "count": 7
     },
     {
       "key": "department-store",
@@ -113,10 +108,10 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 553
+      "count": 555
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {
@@ -124,11 +119,11 @@
       "count": 4
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 4
     },
     {
@@ -162,6 +157,14 @@
       "score": 144
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
+    {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
@@ -192,14 +195,6 @@
       "dates": 8,
       "keywords": 4,
       "score": 113
-    },
-    {
-      "sourceName": "Dongdaemun Design Plaza",
-      "url": "https://ddp.or.kr/?menuno=228",
-      "links": 19,
-      "dates": 7,
-      "keywords": 6,
-      "score": 106
     }
   ]
 }

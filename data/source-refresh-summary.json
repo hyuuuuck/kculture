@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T16:48:16.517Z",
+  "generatedAt": "2026-08-23T20:44:54.717Z",
   "files": {
     "audit": "source-audit-2026-08-24.json",
     "candidates": "official-page-candidates-2026-08-24.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
-    "fallbackSources": 4,
+    "auditOk": 54,
+    "auditFailed": 2,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 631,
-    "dateSignals": 249,
-    "draftCandidates": 72,
-    "skippedCandidates": 612,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 579,
+    "dateSignals": 232,
+    "draftCandidates": 49,
+    "skippedCandidates": 583,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,6 +48,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -56,13 +61,14 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "NOL World Ticket",
       "count": 15
@@ -82,16 +88,20 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Dongdaemun Design Plaza",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 32
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 7
     },
     {
       "key": "shopping",
@@ -102,10 +112,6 @@
       "count": 2
     },
     {
-      "key": "duty-free",
-      "count": 1
-    },
-    {
       "key": "travel-benefits",
       "count": 1
     }
@@ -113,11 +119,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 582
+      "count": 551
     },
     {
       "key": "source fetch did not succeed",
-      "count": 5
+      "count": 7
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
@@ -152,14 +158,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 145
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 144
     },
     {
       "sourceName": "NOL World Ticket",
@@ -200,6 +198,14 @@
       "dates": 7,
       "keywords": 8,
       "score": 125
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 24,
+      "dates": 8,
+      "keywords": 4,
+      "score": 113
     }
   ]
 }

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-08-22T04:56:00.760Z",
+  "generatedAt": "2026-08-23T13:08:39.253Z",
   "files": {
-    "audit": "source-audit-2026-08-22.json",
-    "candidates": "official-page-candidates-2026-08-22.json",
-    "drafts": "draft-events-2026-08-22.json",
-    "reviewReport": "review-report-2026-08-22.md",
-    "reviewBoard": "review-board-2026-08-22.html",
-    "publicData": "public-data-import-2026-08-22.json",
+    "audit": "source-audit-2026-08-23.json",
+    "candidates": "official-page-candidates-2026-08-23.json",
+    "drafts": "draft-events-2026-08-23.json",
+    "reviewReport": "review-report-2026-08-23.md",
+    "reviewBoard": "review-board-2026-08-23.html",
+    "publicData": "public-data-import-2026-08-23.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 608,
-    "dateSignals": 258,
-    "draftCandidates": 76,
-    "skippedCandidates": 585,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 547,
+    "dateSignals": 233,
+    "draftCandidates": 53,
+    "skippedCandidates": 547,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,6 +38,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -51,13 +61,14 @@
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -77,20 +88,24 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 54
+      "count": 35
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 7
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
     },
     {
       "key": "department-store",
@@ -108,26 +123,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 555
+      "count": 516
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 4
-    },
-    {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
       "key": "already published source URL",
+      "count": 3
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 3
     }
   ],
@@ -155,14 +170,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 144
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
@@ -195,6 +202,14 @@
       "dates": 8,
       "keywords": 4,
       "score": 113
+    },
+    {
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
     }
   ]
 }

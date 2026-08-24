@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T09:09:37.799Z",
+  "generatedAt": "2026-08-24T13:26:08.525Z",
   "files": {
     "audit": "source-audit-2026-08-24.json",
     "candidates": "official-page-candidates-2026-08-24.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 56,
-    "auditFailed": 0,
-    "fallbackSources": 4,
+    "auditOk": 55,
+    "auditFailed": 1,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 50,
-    "candidateFailed": 3,
-    "discoveredLinks": 602,
-    "dateSignals": 261,
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 593,
+    "dateSignals": 262,
     "draftCandidates": 74,
-    "skippedCandidates": 581,
+    "skippedCandidates": 572,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -46,6 +46,11 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -103,7 +108,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 541
     },
     {
       "key": "curation root is not a specific event",
@@ -118,11 +123,11 @@
       "count": 4
     },
     {
-      "key": "already published source URL",
-      "count": 3
+      "key": "source fetch did not succeed",
+      "count": 4
     },
     {
-      "key": "duplicate draft source URL",
+      "key": "already published source URL",
       "count": 3
     }
   ],

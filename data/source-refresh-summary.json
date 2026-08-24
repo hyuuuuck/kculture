@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-08-24T13:26:08.525Z",
+  "generatedAt": "2026-08-24T17:00:53.606Z",
   "files": {
-    "audit": "source-audit-2026-08-24.json",
-    "candidates": "official-page-candidates-2026-08-24.json",
-    "drafts": "draft-events-2026-08-24.json",
-    "reviewReport": "review-report-2026-08-24.md",
-    "reviewBoard": "review-board-2026-08-24.html",
-    "publicData": "public-data-import-2026-08-24.json",
+    "audit": "source-audit-2026-08-25.json",
+    "candidates": "official-page-candidates-2026-08-25.json",
+    "drafts": "draft-events-2026-08-25.json",
+    "reviewReport": "review-report-2026-08-25.md",
+    "reviewBoard": "review-board-2026-08-25.html",
+    "publicData": "public-data-import-2026-08-25.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 56,
+    "auditFailed": 0,
     "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 49,
     "candidateFailed": 4,
-    "discoveredLinks": 593,
-    "dateSignals": 262,
-    "draftCandidates": 74,
-    "skippedCandidates": 572,
+    "discoveredLinks": 628,
+    "dateSignals": 253,
+    "draftCandidates": 71,
+    "skippedCandidates": 610,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,7 +48,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "AK Plaza Events",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -71,12 +71,12 @@
       "count": 13
     },
     {
-      "key": "Dongdaemun Design Plaza",
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     },
     {
-      "key": "Weverse Shop BTS Notices",
-      "count": 2
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
@@ -86,15 +86,15 @@
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 9
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -108,14 +108,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 541
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 580
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -141,20 +141,20 @@
       "score": 145
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 144
-    },
-    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
       "keywords": 7,
       "score": 144
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 142
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
@@ -189,12 +189,12 @@
       "score": 128
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 21,
-      "dates": 2,
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
       "keywords": 8,
-      "score": 115
+      "score": 125
     }
   ]
 }

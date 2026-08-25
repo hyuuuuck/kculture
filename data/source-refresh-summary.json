@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T17:00:53.606Z",
+  "generatedAt": "2026-08-25T04:59:06.702Z",
   "files": {
     "audit": "source-audit-2026-08-25.json",
     "candidates": "official-page-candidates-2026-08-25.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 56,
-    "auditFailed": 0,
+    "auditOk": 55,
+    "auditFailed": 1,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 628,
-    "dateSignals": 253,
-    "draftCandidates": 71,
-    "skippedCandidates": 610,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 597,
+    "dateSignals": 232,
+    "draftCandidates": 50,
+    "skippedCandidates": 600,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,16 +48,22 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "NOL World Ticket",
       "count": 15
@@ -77,16 +83,20 @@
     {
       "key": "Andong Maskdance Festival",
       "count": 1
+    },
+    {
+      "key": "Dongdaemun Design Plaza",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 32
     },
     {
       "key": "kpop",
-      "count": 9
+      "count": 7
     },
     {
       "key": "shopping",
@@ -94,11 +104,7 @@
     },
     {
       "key": "department-store",
-      "count": 2
-    },
-    {
-      "key": "duty-free",
-      "count": 1
+      "count": 3
     },
     {
       "key": "travel-benefits",
@@ -108,14 +114,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 580
+      "count": 569
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -123,11 +129,11 @@
       "count": 4
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 4
+      "key": "already published source URL",
+      "count": 3
     },
     {
-      "key": "already published source URL",
+      "key": "curation root is not a specific event",
       "count": 3
     }
   ],
@@ -147,14 +153,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 144
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 142
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
@@ -187,6 +185,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     },
     {
       "sourceName": "Korea Sale FESTA",

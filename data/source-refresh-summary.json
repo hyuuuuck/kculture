@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T09:04:34.482Z",
+  "generatedAt": "2026-08-25T13:17:34.595Z",
   "files": {
     "audit": "source-audit-2026-08-25.json",
     "candidates": "official-page-candidates-2026-08-25.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 56,
+    "auditFailed": 0,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 581,
-    "dateSignals": 245,
-    "draftCandidates": 71,
-    "skippedCandidates": 563,
+    "candidateOk": 49,
+    "candidateFailed": 4,
+    "discoveredLinks": 628,
+    "dateSignals": 270,
+    "draftCandidates": 78,
+    "skippedCandidates": 603,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -51,16 +51,6 @@
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Weverse Shop BTS Notices",
-      "status": "ERR",
-      "error": "timeout"
-    },
-    {
-      "sourceName": "Weverse Shop Notices",
-      "status": "ERR",
-      "error": "timeout"
     }
   ],
   "topDraftSources": [
@@ -81,22 +71,22 @@
       "count": 13
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 5
     },
     {
-      "key": "Dongdaemun Design Plaza",
-      "count": 1
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 52
+      "count": 57
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 10
     },
     {
       "key": "shopping",
@@ -118,22 +108,22 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 530
+      "count": 568
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 4
     },
     {
@@ -142,6 +132,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 148
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -197,14 +195,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
     }
   ]
 }

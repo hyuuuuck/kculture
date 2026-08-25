@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T04:59:06.702Z",
+  "generatedAt": "2026-08-25T09:04:34.482Z",
   "files": {
     "audit": "source-audit-2026-08-25.json",
     "candidates": "official-page-candidates-2026-08-25.json",
@@ -17,12 +17,12 @@
     "auditFailed": 1,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 597,
-    "dateSignals": 232,
-    "draftCandidates": 50,
-    "skippedCandidates": 600,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 581,
+    "dateSignals": 245,
+    "draftCandidates": 71,
+    "skippedCandidates": 563,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,22 +48,26 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Weverse Shop BTS Notices",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "Weverse Shop Notices",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "NOL World Ticket",
       "count": 15
@@ -77,10 +81,6 @@
       "count": 13
     },
     {
-      "key": "Weverse Shop BTS Notices",
-      "count": 2
-    },
-    {
       "key": "Andong Maskdance Festival",
       "count": 1
     },
@@ -92,19 +92,23 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 32
+      "count": 52
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 6
     },
     {
       "key": "department-store",
       "count": 3
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     },
     {
       "key": "travel-benefits",
@@ -114,14 +118,18 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 569
+      "count": 530
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -130,10 +138,6 @@
     },
     {
       "key": "already published source URL",
-      "count": 3
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 3
     }
   ],
@@ -155,12 +159,28 @@
       "score": 144
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 141
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 23,
       "dates": 18,
       "keywords": 7,
       "score": 140
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 138
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
@@ -171,28 +191,12 @@
       "score": 136
     },
     {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
-      "score": 134
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
       "dates": 18,
       "keywords": 1,
       "score": 128
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
     },
     {
       "sourceName": "Korea Sale FESTA",

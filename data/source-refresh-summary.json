@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-08-26T09:06:45.105Z",
+  "generatedAt": "2026-08-28T11:33:34.308Z",
   "files": {
-    "audit": "source-audit-2026-08-26.json",
-    "candidates": "official-page-candidates-2026-08-26.json",
-    "drafts": "draft-events-2026-08-26.json",
-    "reviewReport": "review-report-2026-08-26.md",
-    "reviewBoard": "review-board-2026-08-26.html",
-    "publicData": "public-data-import-2026-08-26.json",
+    "audit": "source-audit-2026-08-28.json",
+    "candidates": "official-page-candidates-2026-08-28.json",
+    "drafts": "draft-events-2026-08-28.json",
+    "reviewReport": "review-report-2026-08-28.md",
+    "reviewBoard": "review-board-2026-08-28.html",
+    "publicData": "public-data-import-2026-08-28.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 54,
+    "auditFailed": 2,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 598,
-    "dateSignals": 253,
-    "draftCandidates": 57,
-    "skippedCandidates": 594,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 595,
+    "dateSignals": 255,
+    "draftCandidates": 71,
+    "skippedCandidates": 577,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,63 +48,62 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
+      "sourceName": "AK Plaza Events",
+      "status": 400,
       "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "NOL World Ticket",
-      "count": 15
+      "key": "Melon Ticket",
+      "count": 20
     },
     {
-      "key": "Visit Seoul",
-      "count": 14
+      "key": "NOL World Ticket",
+      "count": 15
     },
     {
       "key": "NOL World Seoul Pop-ups",
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 5
-    },
-    {
-      "key": "Dongdaemun Design Plaza",
-      "count": 2
+      "key": "Visit Seoul",
+      "count": 13
     },
     {
       "key": "Shinsegae Group Newsroom",
+      "count": 2
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 37
-    },
-    {
-      "key": "shopping",
-      "count": 8
+      "count": 51
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 9
+    },
+    {
+      "key": "shopping",
+      "count": 5
     },
     {
       "key": "department-store",
       "count": 4
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     },
     {
       "key": "travel-benefits",
@@ -114,18 +113,18 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 558
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
+      "count": 545
     },
     {
       "key": "curation root is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 5
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     },
     {
@@ -139,14 +138,6 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 148
-    },
-    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
@@ -155,20 +146,28 @@
       "score": 144
     },
     {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 143
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 142
+    },
+    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
       "keywords": 4,
       "score": 141
-    },
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 23,
-      "dates": 18,
-      "keywords": 7,
-      "score": 140
     },
     {
       "sourceName": "Seoul Grand Park",
@@ -195,12 +194,12 @@
       "score": 128
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 21,
+      "dates": 3,
       "keywords": 8,
-      "score": 125
+      "score": 120
     }
   ]
 }

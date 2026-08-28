@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-28T11:33:34.308Z",
+  "generatedAt": "2026-08-28T22:29:51.306Z",
   "files": {
-    "audit": "source-audit-2026-08-28.json",
-    "candidates": "official-page-candidates-2026-08-28.json",
-    "drafts": "draft-events-2026-08-28.json",
-    "reviewReport": "review-report-2026-08-28.md",
-    "reviewBoard": "review-board-2026-08-28.html",
-    "publicData": "public-data-import-2026-08-28.json",
+    "audit": "source-audit-2026-08-29.json",
+    "candidates": "official-page-candidates-2026-08-29.json",
+    "drafts": "draft-events-2026-08-29.json",
+    "reviewReport": "review-report-2026-08-29.md",
+    "reviewBoard": "review-board-2026-08-29.html",
+    "publicData": "public-data-import-2026-08-29.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -17,12 +17,12 @@
     "auditFailed": 2,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 595,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 572,
     "dateSignals": 255,
-    "draftCandidates": 71,
-    "skippedCandidates": 577,
+    "draftCandidates": 73,
+    "skippedCandidates": 552,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,20 +48,25 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
       "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 20
+      "count": 21
     },
     {
       "key": "NOL World Ticket",
@@ -69,7 +74,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 13
+      "count": 14
     },
     {
       "key": "Visit Seoul",
@@ -87,11 +92,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 52
     },
     {
       "key": "kpop",
-      "count": 9
+      "count": 10
     },
     {
       "key": "shopping",
@@ -113,14 +118,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 545
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 521
     },
     {
       "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {

@@ -1,17 +1,17 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-21T16:24:50+09:00",
+  "auditedAt": "2026-08-31T02:33:32+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "ready",
   "deployFixesAllowed": true,
-  "reason": "The August 21 recheck confirms that Search Console has processed the August 20 sitemap: it was last read on August 20 with success and exactly 21 discovered pages, matching the live canonical sitemap. Performance data is current through August 18, the recent seven-day page report is led by current sitemap pages and canonical redirect variants of current content, and the representative guide and event remain recorded as indexed. The Search Console re-review gate is ready.",
+  "reason": "The August 31 recheck confirms that Search Console reread the sitemap on August 30 with success and exactly 20 discovered pages, matching the current live canonical sitemap after one event expired. Performance data is current through August 28. The recent seven-day page report includes six current canonical sitemap pages plus canonical redirect variants of current content; two retired pages remain visible but do not dominate the page report. The Search Console gate remains ready, while AdSense separately rejected the review for low-value content.",
   "coverage": {
-    "reportUpdatedAt": "2026-08-17",
-    "indexed": 40,
-    "notIndexed": 592,
-    "notFound404": 506,
-    "alternateWithCanonical": 24,
+    "reportUpdatedAt": "2026-08-21",
+    "indexed": 41,
+    "notIndexed": 591,
+    "notFound404": 509,
+    "alternateWithCanonical": 20,
     "excludedByNoindex": 28,
     "redirect": 7,
     "crawledNotIndexed": 21,
@@ -19,35 +19,35 @@
   },
   "performance": {
     "window": "7-day",
-    "periodStart": "2026-08-12",
-    "periodEnd": "2026-08-18",
+    "periodStart": "2026-08-22",
+    "periodEnd": "2026-08-28",
     "clicks": 0,
-    "impressions": 68,
+    "impressions": 7,
     "ctrPercent": 0,
-    "averagePosition": 8.4,
+    "averagePosition": 50.4,
     "legacyPagesDominateTopPages": false,
-    "currentSitemapPagesVisible": 8,
+    "currentSitemapPagesVisible": 6,
     "historicalThreeMonth": {
       "periodStart": "2026-06-09",
-      "periodEnd": "2026-08-18",
+      "periodEnd": "2026-08-28",
       "clicks": 19,
-      "impressions": 875,
-      "ctrPercent": 2.2,
-      "averagePosition": 8.4,
+      "impressions": 903,
+      "ctrPercent": 2.1,
+      "averagePosition": 8.7,
       "legacyQueriesRemainInAggregate": true
     }
   },
   "sitemap": {
     "submittedAt": "2026-08-20",
-    "lastReadAt": "2026-08-20",
+    "lastReadAt": "2026-08-30",
     "status": "success",
-    "discoveredPages": 21
+    "discoveredPages": 20
   },
   "cleanup": {
     "deployedAt": "2026-08-20",
     "sitemapResubmittedAt": "2026-08-20T14:01:02+09:00",
     "sitemapRefreshPending": false,
-    "liveApprovedUrlCount": 21,
+    "liveApprovedUrlCount": 20,
     "representativeIndexingRequests": [
       "https://kspotnow.com/en/guides/",
       "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
@@ -70,8 +70,8 @@
   },
   "releaseCriteria": [
     "Keep the focused English review build live with .html canonical redirects and 410 responses for withdrawn URLs.",
-    "Keep the successful 21-URL sitemap aligned with the current hubs, events, and reviewed guides.",
-    "Keep monitoring the 506 retired 404 URLs, but do not republish them merely to reduce the historical coverage count.",
-    "Do not request AdSense re-review until Search Console rereads the August 20 sitemap as 21 URLs and the separate account audit confirms the live selected ownership method."
+    "Keep the successful 20-URL sitemap aligned with the current hubs, events, and reviewed guides.",
+    "Keep monitoring the 509 retired 404 URLs, but do not republish them merely to reduce the historical coverage count.",
+    "Do not request AdSense re-review before September 6; first diagnose and materially improve the low-value-content signals, then reconfirm the live selected ownership method."
   ]
 }

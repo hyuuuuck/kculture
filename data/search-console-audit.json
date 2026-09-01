@@ -1,11 +1,11 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-31T17:38:24+09:00",
+  "auditedAt": "2026-09-01T17:32:59+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "ready",
   "deployFixesAllowed": true,
-  "reason": "The August 31 recheck confirms that Search Console reread the sitemap on August 30 with success and exactly 20 discovered pages, matching the current live canonical sitemap after one event expired. Performance data is current through August 29. The recent seven-day page report includes six current canonical sitemap pages; retired pages remain visible but do not dominate the report. The representative tax-refund guide and Jinju festival event are both indexed. The coverage report now shows 30 indexed and 601 not indexed, so the index trend remains a material risk even though the Search Console gate itself remains ready. AdSense separately rejected the review for low-value content.",
+  "reason": "The September 1 recheck confirms that Search Console still reports a successful August 30 sitemap read with exactly 20 discovered pages. Performance data remains current through August 29. Retired pages do not dominate the recent page report, and the representative tax-refund guide and Jinju festival event remain indexed. The coverage report remains at 30 indexed and 601 not indexed, so the index trend remains a material risk even though the Search Console gate itself remains ready. AdSense remains rejected for low-value content and review requests stay unavailable until September 6.",
   "coverage": {
     "reportUpdatedAt": "2026-08-28",
     "indexed": 30,
@@ -57,12 +57,12 @@
       {
         "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
         "result": "indexed",
-        "checkedAt": "2026-08-31"
+        "checkedAt": "2026-09-01"
       },
       {
         "url": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
         "result": "indexed",
-        "checkedAt": "2026-08-31"
+        "checkedAt": "2026-09-01"
       }
     ],
     "coverageReportPredatesCleanup": false,

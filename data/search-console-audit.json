@@ -1,39 +1,39 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-08-31T02:33:32+09:00",
+  "auditedAt": "2026-08-31T17:38:24+09:00",
   "source": "Authenticated Google Search Console domain property",
   "status": "ready",
   "deployFixesAllowed": true,
-  "reason": "The August 31 recheck confirms that Search Console reread the sitemap on August 30 with success and exactly 20 discovered pages, matching the current live canonical sitemap after one event expired. Performance data is current through August 28. The recent seven-day page report includes six current canonical sitemap pages plus canonical redirect variants of current content; two retired pages remain visible but do not dominate the page report. The Search Console gate remains ready, while AdSense separately rejected the review for low-value content.",
+  "reason": "The August 31 recheck confirms that Search Console reread the sitemap on August 30 with success and exactly 20 discovered pages, matching the current live canonical sitemap after one event expired. Performance data is current through August 29. The recent seven-day page report includes six current canonical sitemap pages; retired pages remain visible but do not dominate the report. The representative tax-refund guide and Jinju festival event are both indexed. The coverage report now shows 30 indexed and 601 not indexed, so the index trend remains a material risk even though the Search Console gate itself remains ready. AdSense separately rejected the review for low-value content.",
   "coverage": {
-    "reportUpdatedAt": "2026-08-21",
-    "indexed": 41,
-    "notIndexed": 591,
-    "notFound404": 509,
-    "alternateWithCanonical": 20,
+    "reportUpdatedAt": "2026-08-28",
+    "indexed": 30,
+    "notIndexed": 601,
+    "notFound404": 520,
+    "alternateWithCanonical": 16,
     "excludedByNoindex": 28,
-    "redirect": 7,
-    "crawledNotIndexed": 21,
-    "discoveredNotIndexed": 6
+    "redirect": 10,
+    "crawledNotIndexed": 22,
+    "discoveredNotIndexed": 5
   },
   "performance": {
     "window": "7-day",
-    "periodStart": "2026-08-22",
-    "periodEnd": "2026-08-28",
+    "periodStart": "2026-08-23",
+    "periodEnd": "2026-08-29",
     "clicks": 0,
-    "impressions": 7,
+    "impressions": 8,
     "ctrPercent": 0,
-    "averagePosition": 50.4,
+    "averagePosition": 46.1,
     "legacyPagesDominateTopPages": false,
     "currentSitemapPagesVisible": 6,
     "historicalThreeMonth": {
       "periodStart": "2026-06-09",
-      "periodEnd": "2026-08-28",
+      "periodEnd": "2026-08-29",
       "clicks": 19,
-      "impressions": 903,
+      "impressions": 906,
       "ctrPercent": 2.1,
-      "averagePosition": 8.7,
+      "averagePosition": 8.8,
       "legacyQueriesRemainInAggregate": true
     }
   },
@@ -55,14 +55,14 @@
     ],
     "representativeInspections": [
       {
-        "url": "https://kspotnow.com/en/guides/korea-shopping-sale-calendar.html",
+        "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
         "result": "indexed",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-08-31"
       },
       {
         "url": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
         "result": "indexed",
-        "checkedAt": "2026-08-20"
+        "checkedAt": "2026-08-31"
       }
     ],
     "coverageReportPredatesCleanup": false,
@@ -71,7 +71,7 @@
   "releaseCriteria": [
     "Keep the focused English review build live with .html canonical redirects and 410 responses for withdrawn URLs.",
     "Keep the successful 20-URL sitemap aligned with the current hubs, events, and reviewed guides.",
-    "Keep monitoring the 509 retired 404 URLs, but do not republish them merely to reduce the historical coverage count.",
+    "Keep monitoring the 520 retired 404 URLs and the 11-page indexed-count decline, but do not republish withdrawn URLs merely to reduce the historical coverage count.",
     "Do not request AdSense re-review before September 6; first diagnose and materially improve the low-value-content signals, then reconfirm the live selected ownership method."
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-09-01T17:32:59+09:00",
+  "auditedAt": "2026-09-02T08:49:50+09:00",
   "source": "Authenticated Google Search Console domain property",
-  "status": "ready",
+  "status": "hold",
   "deployFixesAllowed": true,
-  "reason": "The September 1 recheck confirms that Search Console still reports a successful August 30 sitemap read with exactly 20 discovered pages. Performance data remains current through August 29. Retired pages do not dominate the recent page report, and the representative tax-refund guide and Jinju festival event remain indexed. The coverage report remains at 30 indexed and 601 not indexed, so the index trend remains a material risk even though the Search Console gate itself remains ready. AdSense remains rejected for low-value content and review requests stay unavailable until September 6.",
+  "reason": "The September 2 recheck confirms that the public sitemap now contains 19 eligible URLs, while Search Console still reports its successful August 30 read of 20 URLs. Performance data is current through August 30, current pages lead the recent report, and the representative tax-refund guide and Jinju festival event remain indexed. The coverage report remains at 30 indexed and 601 not indexed. The Search Console gate is on hold until Google rereads the 19-URL sitemap; AdSense remains rejected for low-value content and review requests stay unavailable until September 6.",
   "coverage": {
     "reportUpdatedAt": "2026-08-28",
     "indexed": 30,
@@ -19,21 +19,21 @@
   },
   "performance": {
     "window": "7-day",
-    "periodStart": "2026-08-23",
-    "periodEnd": "2026-08-29",
+    "periodStart": "2026-08-24",
+    "periodEnd": "2026-08-30",
     "clicks": 0,
-    "impressions": 8,
+    "impressions": 11,
     "ctrPercent": 0,
-    "averagePosition": 46.1,
+    "averagePosition": 53.8,
     "legacyPagesDominateTopPages": false,
-    "currentSitemapPagesVisible": 6,
+    "currentSitemapPagesVisible": 7,
     "historicalThreeMonth": {
       "periodStart": "2026-06-09",
-      "periodEnd": "2026-08-29",
+      "periodEnd": "2026-08-30",
       "clicks": 19,
-      "impressions": 906,
+      "impressions": 909,
       "ctrPercent": 2.1,
-      "averagePosition": 8.8,
+      "averagePosition": 9,
       "legacyQueriesRemainInAggregate": true
     }
   },
@@ -46,8 +46,8 @@
   "cleanup": {
     "deployedAt": "2026-08-20",
     "sitemapResubmittedAt": "2026-08-20T14:01:02+09:00",
-    "sitemapRefreshPending": false,
-    "liveApprovedUrlCount": 20,
+    "sitemapRefreshPending": true,
+    "liveApprovedUrlCount": 19,
     "representativeIndexingRequests": [
       "https://kspotnow.com/en/guides/",
       "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
@@ -57,12 +57,12 @@
       {
         "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
         "result": "indexed",
-        "checkedAt": "2026-09-01"
+        "checkedAt": "2026-09-02"
       },
       {
         "url": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
         "result": "indexed",
-        "checkedAt": "2026-09-01"
+        "checkedAt": "2026-09-02"
       }
     ],
     "coverageReportPredatesCleanup": false,
@@ -70,7 +70,7 @@
   },
   "releaseCriteria": [
     "Keep the focused English review build live with .html canonical redirects and 410 responses for withdrawn URLs.",
-    "Keep the successful 20-URL sitemap aligned with the current hubs, events, and reviewed guides.",
+    "Keep the public 19-URL sitemap aligned with the current hubs, events, and reviewed guides, and wait for Search Console to reread it.",
     "Keep monitoring the 520 retired 404 URLs and the 11-page indexed-count decline, but do not republish withdrawn URLs merely to reduce the historical coverage count.",
     "Do not request AdSense re-review before September 6; first diagnose and materially improve the low-value-content signals, then reconfirm the live selected ownership method."
   ]

@@ -8793,17 +8793,17 @@ function renderGuides(lang) {
       </section>
       <section class="guide-scope-ledger" aria-labelledby="guide-scope-title">
         <div class="guide-scope-intro">
-          <p class="eyebrow">Decision scope</p>
-          <h2 id="guide-scope-title">Different trip decisions need different stop rules</h2>
-          <p>Each guide is kept public only when it closes a distinct visitor decision. The pass and stop rules below are the editorial boundary, not a promise of admission, inventory, price, or ticket validity.</p>
+          <p class="eyebrow">Research ledger</p>
+          <h2 id="guide-scope-title">Three guides, three different evidence jobs</h2>
+          <p>The reviewed edition no longer publishes a stack of interchangeable checklists. Each guide below is tied to a dated case record, public-data analysis, or official process comparison, with its limitation shown before you open the article.</p>
         </div>
         <div class="guide-scope-rows">
           ${guides.map((guide) => `
           <article class="guide-scope-row">
             <a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a>
             <p><span>Who it serves</span>${esc(guide.audience || "Independent Korea visitors using current official records.")}</p>
-            <p><span>Pass rule</span>${esc(guide.worksheet?.passRule || guide.decisionTool?.verdict || "Recheck the current official source.")}</p>
-            <p><span>Stop rule</span>${esc(guide.worksheet?.stopRule || guide.decisionTool?.limitations || "Do not proceed while a controlling detail remains unresolved.")}</p>
+            <p><span>Evidence</span>${esc(guide.originalEvidence?.label || guide.originalEvidence?.title || "Source-backed editorial analysis")}</p>
+            <p><span>Boundary</span>${esc(guide.originalEvidence?.limitations || "Recheck the controlling official source before acting.")}</p>
           </article>`).join("")}
         </div>
       </section>
@@ -8812,7 +8812,7 @@ function renderGuides(lang) {
     lang,
     title: `${tr(lang, "guidesTitle")} - K-Spot Now`,
     description: local({
-      en: "Original visitor guides for Korea events, K-pop pop-ups, shopping, duty-free, and weather planning.",
+      en: "Dated research guides for Korea event verification, weather planning, and tax-refund decisions.",
       fr: "Guides visiteurs originaux pour evenements en Coree, pop-ups K-pop, achats, offres hors taxes et planification meteo.",
       de: "Eigene Besucherguides fur Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufen, zollfreie Angebote und Wetterplanung."
     }, lang),
@@ -8822,7 +8822,7 @@ function renderGuides(lang) {
   });
 }
 
-function renderGuideSection(section, index) {
+function renderGuideSection(section, index, displayNumber = index + 1) {
   const sectionId = `guide-section-${index + 1}`;
   if (typeof section === "string") {
     return `<section class="guide-content-section" id="${sectionId}"><h2><span class="guide-section-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span><span>Planning note</span></h2><p>${esc(section)}</p></section>`;
@@ -8836,11 +8836,39 @@ function renderGuideSection(section, index) {
         </div>` : "";
   return `
         <section class="guide-content-section" id="${sectionId}">
-          <h2><span class="guide-section-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span><span>${esc(section.heading || "Planning note")}</span></h2>
+          <h2><span class="guide-section-number" aria-hidden="true">${String(displayNumber).padStart(2, "0")}</span><span>${esc(section.heading || "Planning note")}</span></h2>
           ${(section.paragraphs || []).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
           ${table}
           ${(section.checklist || []).length ? `<ul class="guide-checklist">${section.checklist.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}
         </section>`;
+}
+
+function renderGuideOriginalEvidence(guide, sectionNumber) {
+  const evidence = guide.originalEvidence;
+  if (!evidence || !Array.isArray(evidence.headers) || !Array.isArray(evidence.rows) || !evidence.rows.length) return "";
+  const kind = ["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind) ? evidence.kind : "research-record";
+  return `
+            <section class="guide-original-evidence ${esc(kind)}" id="guide-original-evidence" aria-labelledby="guide-original-evidence-title">
+              <div class="guide-original-evidence-head">
+                <div>
+                  <p class="eyebrow">${esc(evidence.eyebrow || "Original evidence")}</p>
+                  <h2 id="guide-original-evidence-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(evidence.title)}</span></h2>
+                </div>
+                <p class="guide-evidence-date"><span>Evidence checked</span><strong>${esc(dateText("en", evidence.checkedAt))}</strong></p>
+              </div>
+              <p class="guide-evidence-intro">${esc(evidence.intro)}</p>
+              <div class="guide-table-wrap" tabindex="0" aria-label="${esc(evidence.title)}">
+                <table class="guide-table guide-evidence-table">
+                  <thead><tr>${evidence.headers.map((header) => `<th scope="col">${esc(header)}</th>`).join("")}</tr></thead>
+                  <tbody>${evidence.rows.map((row) => `<tr>${row.map((cell, index) => index === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+                </table>
+              </div>
+              ${(evidence.findings || []).length ? `<div class="guide-evidence-findings">${evidence.findings.map((finding) => `<article><strong>${esc(finding.label)}</strong><p>${esc(finding.text)}</p></article>`).join("")}</div>` : ""}
+              <div class="guide-evidence-notes">
+                <p><span>Method</span>${esc(evidence.method)}</p>
+                <p><span>Limit</span>${esc(evidence.limitations)}</p>
+              </div>
+            </section>`;
 }
 
 function guideArticleSchema(guide, lang) {
@@ -8914,9 +8942,13 @@ function renderGuideWorksheet(guide, sectionNumber) {
 
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
-  const decisionToolNumber = sections.length + 1;
-  const worksheetNumber = decisionToolNumber + (guide.decisionTool ? 1 : 0);
-  const citationNumber = worksheetNumber + (guide.worksheet ? 1 : 0);
+  const hasOriginalEvidence = Boolean(guide.originalEvidence);
+  const sectionStartNumber = hasOriginalEvidence ? 2 : 1;
+  const showDecisionTool = guide.presentation?.decisionTool !== false && Boolean(guide.decisionTool);
+  const showWorksheet = guide.presentation?.worksheet !== false && Boolean(guide.worksheet);
+  const decisionToolNumber = sectionStartNumber + sections.length;
+  const worksheetNumber = decisionToolNumber + (showDecisionTool ? 1 : 0);
+  const citationNumber = worksheetNumber + (showWorksheet ? 1 : 0);
   const relatedEvents = relatedEventsForGuide(guide);
   const relatedRoutes = relatedRoutesForGuide(guide);
   const sourceExamples = guideSourceExamples(guide);
@@ -8939,17 +8971,19 @@ function renderGuide(guide, lang) {
           <nav class="guide-toc" aria-label="On this page">
             <p>On this page</p>
             <ol>
-              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
-              ${guide.decisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
-              ${guide.worksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
+              ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence"><span>01</span>${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
+              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(sectionStartNumber + index).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
+              ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
+              ${showWorksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
               <li><a href="#guide-citations-title"><span>${String(citationNumber).padStart(2, "0")}</span>Official sources used</a></li>
             </ol>
           </nav>
           <div class="guide-article-body">
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
-            ${sections.map((section, index) => renderGuideSection(section, index)).join("")}
-            ${renderGuideDecisionTool(guide, decisionToolNumber)}
-            ${renderGuideWorksheet(guide, worksheetNumber)}
+            ${renderGuideOriginalEvidence(guide, 1)}
+            ${sections.map((section, index) => renderGuideSection(section, index, sectionStartNumber + index)).join("")}
+            ${showDecisionTool ? renderGuideDecisionTool(guide, decisionToolNumber) : ""}
+            ${showWorksheet ? renderGuideWorksheet(guide, worksheetNumber) : ""}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
               <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(citationNumber).padStart(2, "0")}</span><span>Official sources used</span></h2>
               <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
@@ -10257,8 +10291,8 @@ const aboutIdentityCopy = {
       ["Final source", "Booking and last-minute rules stay official."]
     ],
     accountability: [
-      ["Who", "K-Spot Now Editorial Desk is the accountable publisher. Review dates, source roles, evidence links, and contact@kspotnow.com appear with the public research record."],
-      ["How", "Only pages that pass the current publication allowlist are built. Event pages require two official source hosts, a Korean map term, practical checks, and analysis clearly labeled as editorial judgment."],
+      ["Who", "K-Spot Now Editorial Desk is the organization author and accountable publisher. No unnamed contributor is presented as a field expert. Review dates, source roles, evidence links, and contact@kspotnow.com appear with the research record."],
+      ["How", "Only pages that pass the current publication allowlist are built. Guides must carry a dated case ledger, public-data analysis, or official process map; event pages require two source hosts, a Korean map term, and clearly labeled editorial judgment."],
       ["Why", "The site exists to answer a narrow trip question: is this event worth the visitor's time, transfer, reservation effort, and money before the final official action?"],
       ["Limits", "Desk research cannot guarantee inventory, queue length, weather operation, or admission. We do not claim a visit unless first-hand work is explicitly documented."]
     ],
@@ -10496,7 +10530,7 @@ function headers() {
 function sitemap() {
   const seoEvents = currentEvents();
   const lang = "en";
-  const latestEventReview = maxIso(seoEvents.map((event) => editorialReviewFor(event)?.reviewedAt || event.lastChecked));
+  const latestEventReview = maxIso(seoEvents.map((event) => eventPublicationDates(event).updatedAt));
   const entries = [...indexableHubPaths].map((url) => ({
     url,
     lastmod: editorialProgram.staticUpdatedAt?.[url] || latestEventReview
@@ -10512,7 +10546,7 @@ function sitemap() {
   for (const event of seoEvents) {
     entries.push({
       url: eventHref(lang, event),
-      lastmod: editorialReviewFor(event)?.reviewedAt || event.lastChecked,
+      lastmod: eventPublicationDates(event).updatedAt,
       image: {
         loc: absoluteUrl(`/${event.thumbnail}`),
         title: local(event.title, "en"),

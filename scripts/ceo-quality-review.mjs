@@ -145,26 +145,24 @@ if (!eventPageProblems.length) {
 
 const guideProblems = approvedGuides.filter((guide) => {
   const html = read(`dist/en/guides/${guide.slug}.html`);
-  const worksheet = guide.worksheet || {};
-  const decisionTool = guide.decisionTool || {};
+  const evidence = guide.originalEvidence || {};
   const combinedWords = [
     ...(guide.sections?.en || []).flatMap((section) => section.paragraphs || []),
-    decisionTool.scenario,
-    decisionTool.verdict,
-    decisionTool.limitations,
-    ...(decisionTool.rows || []).flatMap((row) => [row.signal, row.interpretation, row.action]),
-    worksheet.intro,
-    worksheet.passRule,
-    worksheet.stopRule,
-    ...(worksheet.checks || []).flatMap((item) => [item.label, item.prompt])
+    evidence.title,
+    evidence.intro,
+    evidence.method,
+    evidence.limitations,
+    ...(evidence.headers || []),
+    ...(evidence.rows || []).flat(),
+    ...(evidence.findings || []).flatMap((finding) => [finding.label, finding.text])
   ].join(" ");
-  return !html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-worksheet")
-    || (guide.sections?.en || []).length !== 4 || (guide.sources || []).length < 2
-    || htmlWordCount(combinedWords) < 650 || (worksheet.checks || []).length !== 5
-    || !worksheet.passRule || !worksheet.stopRule;
+  return !html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-original-evidence")
+    || (guide.sections?.en || []).length < 3 || (guide.sections?.en || []).length > 6 || (guide.sources || []).length < 2
+    || htmlWordCount(combinedWords) < 700 || !["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind)
+    || (evidence.rows || []).length < 3 || (evidence.findings || []).length < 2;
 });
 if (!guideProblems.length) {
-  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have four decision sections, source citations, a worked example, and a five-step pass/stop worksheet.`);
+  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have distinct dated evidence records, source citations, methods, and limitations.`);
 } else {
   fail("planner", "Guides", "Original editorial depth", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
 }
@@ -214,11 +212,13 @@ if (!adsense) {
 } else if (adsense.score.failed) {
   fail("publisher", "AdSense", "Editorial gate report", `${adsense.score.failed} blocking failures.`, "Publisher/CEO: clear every internal gate before release.");
 } else if (program.mode === "adsense-editorial-review" && adsense.score.warned) {
-  const nonSearchWarnings = (adsense.checks || []).filter((item) => item.status === "warn" && item.area !== "Search");
-  if (nonSearchWarnings.length) {
-    fail("publisher", "AdSense", "Editorial gate report", `${nonSearchWarnings.length} non-search warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
+  const blockingDeploymentWarnings = (adsense.checks || []).filter((item) => item.status === "warn"
+    && item.area !== "Search"
+    && item.item !== "Review request cooldown");
+  if (blockingDeploymentWarnings.length) {
+    fail("publisher", "AdSense", "Editorial gate report", `${blockingDeploymentWarnings.length} deployment-blocking warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
   } else {
-    warn("publisher", "Search", "Post-deploy index hold", `Search Console reports ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} discovered URLs while the current deployment contains ${expectedSitemapUrls.size}; coverage is updated through ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and performance through ${searchConsoleAudit.performance?.periodEnd || "unknown"}.`, "Publisher: deploy the current sitemap, wait for Search Console to read it, then refresh authenticated discovery before re-review.");
+    warn("publisher", "Search", "Post-deploy index hold", `Search Console reports ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} discovered URLs while the current build contains ${expectedSitemapUrls.size}; AdSense re-review is also under its recorded cooldown. Coverage is updated through ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and performance through ${searchConsoleAudit.performance?.periodEnd || "unknown"}.`, "Publisher: deploy the current sitemap, wait for Search Console to read it, then refresh authenticated discovery before re-review.");
   }
 } else {
   pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);

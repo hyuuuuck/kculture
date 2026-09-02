@@ -108,11 +108,12 @@ for (const lang of languages) {
     const id = `${lang}/guides/${guide.slug}.html`;
     const html = read(id);
     const guideSections = count(html, /class="guide-content-section"/g);
-    if (guideSections !== 4) push(id, `guide should render exactly 4 editorial sections; found ${guideSections}.`);
-    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-decision-tool", "guide-worksheet", "guide-citations", "guide-next-section"]) {
+    const expectedSections = (guide.sections?.en || []).length;
+    if (guideSections !== expectedSections) push(id, `guide should render ${expectedSections} topic-specific narrative sections; found ${guideSections}.`);
+    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-original-evidence", "guide-citations", "guide-next-section"]) {
       assertIncludes(html, marker, id, `guide trust or workflow marker is missing: ${marker}`);
     }
-    if (count(html, /<h2/g) < 5) push(id, "guide needs visible section headings and source heading.");
+    if (count(html, /<h2/g) < (guide.sections?.en || []).length + 2) push(id, "guide needs visible evidence, narrative, and source headings.");
   }
 }
 

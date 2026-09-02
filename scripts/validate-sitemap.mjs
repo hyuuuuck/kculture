@@ -73,9 +73,13 @@ if (!fs.existsSync(sitemapPath)) {
   if (imageCount !== approvedEvents.length) errors.push(`sitemap.xml should contain ${approvedEvents.length} approved event image entries; found ${imageCount}.`);
 
   for (const event of approvedEvents) {
-    const reviewDate = program.eventReviews?.[event.slug]?.reviewedAt || event.lastChecked;
+    const review = program.eventReviews?.[event.slug] || {};
+    const reviewDate = [review.publishedAt, review.updatedAt, event.updatedAt, review.reviewedAt, event.lastChecked]
+      .filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(String(value || "")))
+      .sort()
+      .at(-1);
     const pattern = new RegExp(`<loc>https://kspotnow\\.com/en/events/${event.slug}</loc><lastmod>${reviewDate}</lastmod>`);
-    if (!pattern.test(xml)) errors.push(`${event.slug} sitemap lastmod must match editorial review date ${reviewDate}.`);
+    if (!pattern.test(xml)) errors.push(`${event.slug} sitemap lastmod must match latest editorial or source-check date ${reviewDate}.`);
   }
   for (const guide of approvedGuides) {
     const expectedDate = guide.updatedAt || guide.publishedAt;

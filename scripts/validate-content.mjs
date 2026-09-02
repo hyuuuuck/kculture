@@ -517,7 +517,7 @@ for (const guide of guides) {
     });
   }
   const sections = guideSections(guide.sections, "en");
-  if (sections.length < 4) push(errors, id, "guide.sections.en needs at least four decision-focused sections.");
+  if (sections.length < 3 || sections.length > 6) push(errors, id, "guide.sections.en needs three to six topic-specific sections.");
   let totalParagraphText = "";
   for (const [index, section] of sections.entries()) {
     if (!section || typeof section !== "object" || Array.isArray(section)) {
@@ -538,6 +538,7 @@ for (const guide of guides) {
 
 const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
 const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
+const approvedGuideEvidenceKinds = new Set();
 for (const slug of approvedEventSlugs) {
   const event = events.find((item) => item.slug === slug);
   const review = editorialProgram.eventReviews?.[slug];
@@ -596,12 +597,29 @@ for (const slug of approvedGuideSlugs) {
     try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
   }).filter(Boolean));
   if (sourceHosts.size < 2) push(errors, slug, "approved guide needs authoritative sources on at least two distinct hosts.");
-  if (!nonEmptyString(guide.audience) || !guide.decisionTool || !Array.isArray(guide.decisionTool.rows) || guide.decisionTool.rows.length < 4) {
-    push(errors, slug, "approved guide needs an intended audience and a four-row worked decision example.");
+  if (!nonEmptyString(guide.audience)) push(errors, slug, "approved guide needs a specific intended audience.");
+  const evidence = guide.originalEvidence || {};
+  if (!new Set(["case-ledger", "weather-analysis", "process-map"]).has(evidence.kind)) {
+    push(errors, slug, "approved guide needs a recognized original-evidence format.");
+  } else if (approvedGuideEvidenceKinds.has(evidence.kind)) {
+    push(errors, slug, `original-evidence format is duplicated across approved guides: ${evidence.kind}.`);
+  } else {
+    approvedGuideEvidenceKinds.add(evidence.kind);
   }
-  if (!guide.worksheet || !Array.isArray(guide.worksheet.checks) || guide.worksheet.checks.length !== 5
-      || !nonEmptyString(guide.worksheet.passRule) || !nonEmptyString(guide.worksheet.stopRule)) {
-    push(errors, slug, "approved guide needs a five-check verification worksheet with pass and stop rules.");
+  if (!isDate(evidence.checkedAt) || evidence.checkedAt > today) push(errors, slug, "original evidence needs a valid non-future checkedAt date.");
+  if (!nonEmptyString(evidence.title) || !nonEmptyString(evidence.intro) || evidence.intro.length < 120) {
+    push(errors, slug, "original evidence needs a title and substantial scope explanation.");
+  }
+  if (!Array.isArray(evidence.headers) || evidence.headers.length < 3 || !Array.isArray(evidence.rows) || evidence.rows.length < 3
+      || evidence.rows.some((row) => !Array.isArray(row) || row.length !== evidence.headers.length || row.some((cell) => !nonEmptyString(cell)))) {
+    push(errors, slug, "original evidence needs at least three complete comparison rows with aligned columns.");
+  }
+  if (!Array.isArray(evidence.findings) || evidence.findings.length < 2
+      || evidence.findings.some((finding) => !nonEmptyString(finding.label) || !nonEmptyString(finding.text) || finding.text.length < 80)) {
+    push(errors, slug, "original evidence needs at least two substantial, labeled findings.");
+  }
+  if (!nonEmptyString(evidence.method) || evidence.method.length < 120 || !nonEmptyString(evidence.limitations) || evidence.limitations.length < 100) {
+    push(errors, slug, "original evidence needs a substantial method and limitation statement.");
   }
 }
 

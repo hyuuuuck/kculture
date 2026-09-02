@@ -28,7 +28,7 @@ const requiredPages = [
   { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation", "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["Guides", "guide-scope-ledger", "guide-scope-row"] },
-  { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-decision-tool", "guide-worksheet", "guide-citations"] },
+  { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-original-evidence", "case-ledger", "guide-citations"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
   { path: "/en/contact/", label: "Contact", needles: ["contact@kspotnow.com"] }
 ];

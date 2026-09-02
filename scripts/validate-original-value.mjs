@@ -141,6 +141,7 @@ for (const slug of approvedEvents) {
   }
 }
 
+const guideEvidenceKinds = new Set();
 for (const slug of approvedGuides) {
   const guide = guideBySlug.get(slug);
   if (!guide) {
@@ -150,52 +151,47 @@ for (const slug of approvedGuides) {
   const sections = guide.sections?.en || [];
   const paragraphs = sections.flatMap((section) => section.paragraphs || []);
   const body = paragraphs.join(" ");
-  const decisionTool = guide.decisionTool || {};
-  const decisionRows = Array.isArray(decisionTool.rows) ? decisionTool.rows : [];
-  const decisionToolText = [
-    decisionTool.title,
-    decisionTool.scenario,
-    decisionTool.verdict,
-    decisionTool.limitations,
-    ...decisionRows.flatMap((row) => [row.signal, row.interpretation, row.action])
-  ].join(" ");
-  const worksheet = guide.worksheet || {};
-  const worksheetChecks = Array.isArray(worksheet.checks) ? worksheet.checks : [];
-  const worksheetText = [
-    worksheet.title,
-    worksheet.intro,
-    worksheet.passRule,
-    worksheet.stopRule,
-    ...worksheetChecks.flatMap((item) => [item.label, item.prompt])
+  const evidence = guide.originalEvidence || {};
+  const evidenceText = [
+    evidence.title,
+    evidence.intro,
+    evidence.method,
+    evidence.limitations,
+    ...(evidence.headers || []),
+    ...(evidence.rows || []).flat(),
+    ...(evidence.findings || []).flatMap((finding) => [finding.label, finding.text])
   ].join(" ");
 
-  if (sections.length !== 4) fail(slug, "guide needs four deliberate editorial sections.");
+  if (sections.length < 3 || sections.length > 6) fail(slug, "guide needs three to six topic-specific editorial sections.");
   if (sections.some((section) => wordCount(section.heading) < 2 || (section.paragraphs || []).length < 2)) {
     fail(slug, "every guide section needs a specific heading and at least two explanatory paragraphs.");
   }
   if (wordCount(body) < 300) fail(slug, "guide body needs at least 300 substantive words.");
-  if (wordCount(`${body} ${decisionToolText} ${worksheetText}`) < 650) fail(slug, "guide, worked example, and worksheet need at least 650 substantive words of combined visitor value.");
+  if (wordCount(`${body} ${evidenceText}`) < 700) fail(slug, "guide and dated original-evidence record need at least 700 substantive words of combined visitor value.");
   if (wordCount(guide.method) < 15) fail(slug, "research method disclosure needs at least 15 substantive words.");
   if ((guide.sources || []).length < 2 || distinctEvidenceHosts(guide.sources || []) < 2 || (guide.sources || []).some((source) => !/^https?:\/\//.test(source.url || ""))) {
     fail(slug, "guide needs at least two valid research sources on distinct official hosts.");
   }
   if (wordCount(guide.audience) < 12) fail(slug, "guide needs a specific intended-audience statement.");
-  if (decisionRows.length < 4 || decisionRows.some((row) => wordCount(row.signal) < 5 || wordCount(row.interpretation) < 10 || wordCount(row.action) < 9)) {
-    fail(slug, "worked example needs four substantial signal, interpretation, and action rows.");
+  if (!["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind)) fail(slug, "needs a recognized, page-specific evidence format.");
+  else if (guideEvidenceKinds.has(evidence.kind)) fail(slug, `reuses the ${evidence.kind} evidence format from another approved guide.`);
+  else guideEvidenceKinds.add(evidence.kind);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(evidence.checkedAt || "") || evidence.checkedAt > today) fail(slug, "needs a valid non-future evidence date.");
+  if (wordCount(evidence.intro) < 30 || wordCount(evidence.method) < 22 || wordCount(evidence.limitations) < 20) {
+    fail(slug, "needs substantial evidence scope, method, and limitation text.");
   }
-  if (wordCount(decisionTool.scenario) < 45 || wordCount(decisionTool.verdict) < 35 || wordCount(decisionTool.limitations) < 15) {
-    fail(slug, "worked example needs a substantial scenario, verdict, and limitation disclosure.");
+  if (!Array.isArray(evidence.headers) || evidence.headers.length < 3 || !Array.isArray(evidence.rows) || evidence.rows.length < 3
+      || evidence.rows.some((row) => !Array.isArray(row) || row.length !== evidence.headers.length || row.some((cell) => wordCount(cell) < 3))) {
+    fail(slug, "needs at least three complete evidence rows aligned to the declared columns.");
   }
-  if (worksheetChecks.length !== 5 || worksheetChecks.some((item) => wordCount(item.label) < 1 || wordCount(item.prompt) < 12)) {
-    fail(slug, "verification worksheet needs exactly five substantial labeled checks.");
-  }
-  if (wordCount(worksheet.intro) < 25 || wordCount(worksheet.passRule) < 15 || wordCount(worksheet.stopRule) < 15) {
-    fail(slug, "verification worksheet needs a substantial introduction, pass rule, and stop rule.");
+  if (!Array.isArray(evidence.findings) || evidence.findings.length < 2
+      || evidence.findings.some((finding) => wordCount(finding.label) < 2 || wordCount(finding.text) < 15)) {
+    fail(slug, "needs at least two labeled findings derived from the evidence record.");
   }
   if (!guide.reviewedBy || !guide.publishedAt || !guide.updatedAt) {
     fail(slug, "reviewer, published date, and updated date are required.");
   }
-  if (firstHandClaimRe.test(`${body} ${decisionToolText} ${worksheetText}`)) fail(slug, "contains an unverified first-hand experience claim.");
+  if (firstHandClaimRe.test(`${body} ${evidenceText}`)) fail(slug, "contains an unverified first-hand experience claim.");
 }
 
 const builtGuideDir = path.join(root, "dist", "en", "guides");

@@ -1,5 +1,11 @@
 const canonicalHost = "kspotnow.com";
 
+const mergedGuidePaths = new Map([
+  ["/en/guides/korea-duty-free-before-flight", "/en/guides/tax-refund-payments-korea-shopping"],
+  ["/en/guides/department-store-popup-planning", "/en/guides/how-to-verify-korea-popups"],
+  ["/en/guides/kpop-ticket-merch-safety", "/en/guides/how-to-verify-korea-popups"]
+]);
+
 function retiredResponse(retiredLanguagePath = false) {
   const message = retiredLanguagePath
     ? "This translated page has been retired while it is re-edited. Use /en/ for the reviewed edition."
@@ -38,6 +44,13 @@ export default {
     }
     if (url.pathname.endsWith(".html")) {
       url.pathname = url.pathname.slice(0, -".html".length);
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const normalizedPath = url.pathname.length > 1 ? url.pathname.replace(/\/$/, "") : url.pathname;
+    const mergedGuideTarget = mergedGuidePaths.get(normalizedPath);
+    if (mergedGuideTarget) {
+      url.pathname = `${mergedGuideTarget}/`;
       return Response.redirect(url.toString(), 301);
     }
 

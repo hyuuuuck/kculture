@@ -157,36 +157,31 @@ function guidePageAudit() {
     const html = read(relative);
     const structuredSections = guide.sections?.en || [];
     const paragraphWords = structuredSections.flatMap((section) => section.paragraphs || []).join(" ");
-    const decisionTool = guide.decisionTool || {};
-    const decisionToolText = [
-      decisionTool.scenario,
-      decisionTool.verdict,
-      decisionTool.limitations,
-      ...(decisionTool.rows || []).flatMap((row) => [row.signal, row.interpretation, row.action])
-    ].join(" ");
-    const worksheet = guide.worksheet || {};
-    const worksheetText = [
-      worksheet.title,
-      worksheet.intro,
-      worksheet.passRule,
-      worksheet.stopRule,
-      ...(worksheet.checks || []).flatMap((item) => [item.label, item.prompt])
+    const evidence = guide.originalEvidence || {};
+    const evidenceText = [
+      evidence.title,
+      evidence.intro,
+      evidence.method,
+      evidence.limitations,
+      ...(evidence.headers || []),
+      ...(evidence.rows || []).flat(),
+      ...(evidence.findings || []).flatMap((finding) => [finding.label, finding.text])
     ].join(" ");
     const sourceHosts = new Set((guide.sources || []).map((source) => {
       try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
     }).filter(Boolean));
     if (!html) failures.push(`${guide.slug}:missing-page`);
-    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-decision-tool") || !html.includes("guide-worksheet")) failures.push(`${guide.slug}:missing-authorship-citations-worked-example-or-worksheet`);
-    if (structuredSections.length < 4) failures.push(`${guide.slug}:fewer-than-4-sections`);
+    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-original-evidence")) failures.push(`${guide.slug}:missing-authorship-citations-or-original-evidence`);
+    if (structuredSections.length < 3 || structuredSections.length > 6) failures.push(`${guide.slug}:invalid-section-range`);
     if (!Array.isArray(guide.sources) || guide.sources.length < 2 || sourceHosts.size < 2) failures.push(`${guide.slug}:fewer-than-2-distinct-source-hosts`);
-    if (wordCount(paragraphWords) < 280) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
-    if (wordCount(`${paragraphWords} ${decisionToolText} ${worksheetText}`) < 650 || (decisionTool.rows || []).length < 4) failures.push(`${guide.slug}:thin-or-incomplete-decision-workflow`);
-    if ((worksheet.checks || []).length !== 5
-        || String(worksheet.intro || "").length < 100
-        || String(worksheet.passRule || "").length < 70
-        || String(worksheet.stopRule || "").length < 70
-        || (worksheet.checks || []).some((item) => String(item.label || "").length < 3 || String(item.prompt || "").length < 70)) {
-      failures.push(`${guide.slug}:incomplete-five-step-worksheet`);
+    if (wordCount(paragraphWords) < 300) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
+    if (wordCount(`${paragraphWords} ${evidenceText}`) < 700) failures.push(`${guide.slug}:thin-or-incomplete-original-evidence`);
+    if (!["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind)
+        || !Array.isArray(evidence.rows) || evidence.rows.length < 3
+        || !Array.isArray(evidence.findings) || evidence.findings.length < 2
+        || String(evidence.method || "").length < 120
+        || String(evidence.limitations || "").length < 100) {
+      failures.push(`${guide.slug}:incomplete-original-evidence-record`);
     }
     if (!guide.audience) failures.push(`${guide.slug}:missing-intended-audience`);
     if (!guide.method || !guide.reviewedBy || !guide.updatedAt) failures.push(`${guide.slug}:missing-method-or-review`);
@@ -274,7 +269,7 @@ function runChecks() {
   else fail("Content", "Event page usefulness", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
 
   const guideFailures = guidePageAudit();
-  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides have four sections, distinct official source hosts, a worked example, and a five-step worksheet with pass and stop rules`);
+  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides use distinct evidence formats, dated records, explicit methods and limitations, and multiple source hosts`);
   else fail("Content", "Guide originality", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
 
   const now = read("dist/en/now/index.html");
@@ -331,22 +326,44 @@ function runChecks() {
     fail("AdSense", "Publisher and ads.txt", publisherId || "missing", "Build with the verified AdSense publisher ID.");
   }
 
+  const reviewState = adsenseAccountAudit.siteReview || {};
   const authenticatedAccountFactsAreValid = adsenseAccountAudit.publisherId === publisherId
       && adsenseAccountAudit.site === "kspotnow.com"
-      && adsenseAccountAudit.siteReview?.statusDetail === "low-value-content"
-      && adsenseAccountAudit.siteReview?.reviewRequestAvailable === true
-      && adsenseAccountAudit.siteReview?.reviewRequestSubmitted === false
+      && reviewState.approvalStatus === "attention-required"
+      && reviewState.statusDetail === "low-value-content"
+      && typeof reviewState.reviewRequestAvailable === "boolean"
+      && typeof reviewState.reviewRequestSubmitted === "boolean"
       && adsenseAccountAudit.policyCenter?.issueCount === 0
       && adsenseAccountAudit.cmp?.status === "published";
-  const alternativeOwnershipReady = ["adsense-meta-tag", "adsense-code-snippet"].includes(adsenseAccountAudit.siteReview?.selectedOwnershipMethod)
-      && adsenseAccountAudit.siteReview?.selectedOwnershipMethodFoundOnLiveSite === true;
-  const ownershipRecognized = adsenseAccountAudit.siteReview?.adsTxtStatus === "approved" || alternativeOwnershipReady;
+  const alternativeOwnershipReady = ["adsense-meta-tag", "adsense-code-snippet"].includes(reviewState.selectedOwnershipMethod)
+      && reviewState.selectedOwnershipMethodFoundOnLiveSite === true;
+  const ownershipRecognized = reviewState.adsTxtStatus === "approved" || alternativeOwnershipReady;
   const accountMetaStaged = read("dist/en/index.html").includes(`<meta name="google-adsense-account" content="ca-${publisherId}">`);
   if (authenticatedAccountFactsAreValid && (ownershipRecognized || accountMetaStaged)) {
-    if (ownershipRecognized) {
+    if (reviewState.reviewRequestSubmitted) {
+      warn(
+        "AdSense",
+        "Authenticated account state",
+        "A review request is already recorded as submitted",
+        "Do not submit another request; wait for the current AdSense decision and refresh the authenticated audit when it changes."
+      );
+    } else if (reviewState.reviewRequestAvailable) {
       pass("AdSense", "Authenticated account state", "Low-value-content re-review is available but not submitted; a live ownership method is recorded, Policy Center is clear, and the European regulations message is published");
+    } else if (reviewState.reviewRequestThrottled && reviewState.reviewRequestAvailableFrom) {
+      warn(
+        "AdSense",
+        "Review request cooldown",
+        `AdSense keeps re-review unavailable until ${reviewState.reviewRequestAvailableFrom}; the rejection, ownership method, clear Policy Center, and published European regulations message are verified`,
+        "Deploy and validate material content improvements, but do not treat the calendar date alone as permission to resubmit."
+      );
+      pass("AdSense", "Authenticated account evidence", "The current low-value-content rejection and cooldown are explicitly recorded rather than misclassified as missing evidence");
     } else {
-      pass("AdSense", "Ownership deployment staged", "Authenticated account and policy facts are consistent, and the selected AdSense account meta tag is present in the production build; live verification remains mandatory before re-review");
+      warn(
+        "AdSense",
+        "Review request availability",
+        "The authenticated account state is valid, but the reason re-review is unavailable is not recorded",
+        "Refresh the AdSense Sites detail before any review request."
+      );
     }
     const discoveredPages = adsenseAccountAudit.searchConsole?.sitemapDiscoveredPages;
     const expectedPages = expectedSitemapPaths().size;

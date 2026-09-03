@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T22:42:57.404Z",
+  "generatedAt": "2026-09-03T12:53:53.135Z",
   "files": {
     "audit": "source-audit-2026-09-03.json",
     "candidates": "official-page-candidates-2026-09-03.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 55,
     "auditFailed": 1,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 652,
-    "dateSignals": 253,
-    "draftCandidates": 75,
-    "skippedCandidates": 630,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 645,
+    "dateSignals": 276,
+    "draftCandidates": 82,
+    "skippedCandidates": 616,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,6 +48,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
@@ -71,8 +81,8 @@
       "count": 12
     },
     {
-      "key": "Shinsegae Group Newsroom",
-      "count": 3
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -82,11 +92,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 54
+      "count": 62
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 8
     },
     {
       "key": "shopping",
@@ -94,11 +104,7 @@
     },
     {
       "key": "department-store",
-      "count": 5
-    },
-    {
-      "key": "duty-free",
-      "count": 1
+      "count": 4
     },
     {
       "key": "travel-benefits",
@@ -108,7 +114,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 602
+      "count": 584
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
@@ -123,15 +133,19 @@
       "count": 4
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 4
-    },
-    {
       "key": "already published source URL",
       "count": 3
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 148
+    },
     {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
@@ -187,14 +201,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
     }
   ]
 }

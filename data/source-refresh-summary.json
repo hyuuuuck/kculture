@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-03T12:53:53.135Z",
+  "generatedAt": "2026-09-03T19:20:32.873Z",
   "files": {
-    "audit": "source-audit-2026-09-03.json",
-    "candidates": "official-page-candidates-2026-09-03.json",
-    "drafts": "draft-events-2026-09-03.json",
-    "reviewReport": "review-report-2026-09-03.md",
-    "reviewBoard": "review-board-2026-09-03.html",
-    "publicData": "public-data-import-2026-09-03.json",
+    "audit": "source-audit-2026-09-04.json",
+    "candidates": "official-page-candidates-2026-09-04.json",
+    "drafts": "draft-events-2026-09-04.json",
+    "reviewReport": "review-report-2026-09-04.md",
+    "reviewBoard": "review-board-2026-09-04.html",
+    "publicData": "public-data-import-2026-09-04.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -17,12 +17,12 @@
     "auditFailed": 1,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 645,
-    "dateSignals": 276,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 649,
+    "dateSignals": 280,
     "draftCandidates": 82,
-    "skippedCandidates": 616,
+    "skippedCandidates": 620,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,19 +48,14 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
     },
     {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
     }
   ],
   "topDraftSources": [
@@ -85,8 +80,8 @@
       "count": 8
     },
     {
-      "key": "Weverse Shop BTS Notices",
-      "count": 3
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     }
   ],
   "topDraftCategories": [
@@ -96,7 +91,7 @@
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 7
     },
     {
       "key": "shopping",
@@ -107,6 +102,10 @@
       "count": 4
     },
     {
+      "key": "duty-free",
+      "count": 1
+    },
+    {
       "key": "travel-benefits",
       "count": 1
     }
@@ -114,14 +113,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 584
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 6
+      "count": 589
     },
     {
       "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "source fetch did not succeed",
       "count": 5
     },
     {

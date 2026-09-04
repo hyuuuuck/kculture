@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-04T12:48:03.176Z",
+  "generatedAt": "2026-09-04T22:26:03.293Z",
   "files": {
-    "audit": "source-audit-2026-09-04.json",
-    "candidates": "official-page-candidates-2026-09-04.json",
-    "drafts": "draft-events-2026-09-04.json",
-    "reviewReport": "review-report-2026-09-04.md",
-    "reviewBoard": "review-board-2026-09-04.html",
-    "publicData": "public-data-import-2026-09-04.json",
+    "audit": "source-audit-2026-09-05.json",
+    "candidates": "official-page-candidates-2026-09-05.json",
+    "drafts": "draft-events-2026-09-05.json",
+    "reviewReport": "review-report-2026-09-05.md",
+    "reviewBoard": "review-board-2026-09-05.html",
+    "publicData": "public-data-import-2026-09-05.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 55,
-    "auditFailed": 1,
+    "auditOk": 54,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 49,
-    "candidateFailed": 4,
-    "discoveredLinks": 619,
-    "dateSignals": 275,
-    "draftCandidates": 88,
-    "skippedCandidates": 584,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 622,
+    "dateSignals": 259,
+    "draftCandidates": 81,
+    "skippedCandidates": 594,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,6 +38,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "CJ Olive Young Newsroom",
+      "status": 500,
+      "error": "all source URLs failed"
+    },
+    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -48,9 +53,24 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "AK Plaza Events",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
     }
   ],
   "topDraftSources": [
@@ -72,21 +92,21 @@
     },
     {
       "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "count": 7
     },
     {
-      "key": "Dongdaemun Design Plaza",
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 64
+      "count": 63
     },
     {
       "key": "shopping",
-      "count": 13
+      "count": 9
     },
     {
       "key": "kpop",
@@ -94,25 +114,25 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 2
     },
     {
       "key": "beauty",
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 553
+      "count": 559
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "key": "source fetch did not succeed",
+      "count": 8
     },
     {
       "key": "listing page is not a specific event",
@@ -123,11 +143,11 @@
       "count": 4
     },
     {
-      "key": "duplicate draft source URL",
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "duplicate draft source URL",
       "count": 4
     }
   ],

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-05T11:53:54.589Z",
+  "generatedAt": "2026-09-05T18:26:19.723Z",
   "files": {
-    "audit": "source-audit-2026-09-05.json",
-    "candidates": "official-page-candidates-2026-09-05.json",
-    "drafts": "draft-events-2026-09-05.json",
-    "reviewReport": "review-report-2026-09-05.md",
-    "reviewBoard": "review-board-2026-09-05.html",
-    "publicData": "public-data-import-2026-09-05.json",
+    "audit": "source-audit-2026-09-06.json",
+    "candidates": "official-page-candidates-2026-09-06.json",
+    "drafts": "draft-events-2026-09-06.json",
+    "reviewReport": "review-report-2026-09-06.md",
+    "reviewBoard": "review-board-2026-09-06.html",
+    "publicData": "public-data-import-2026-09-06.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -17,12 +17,12 @@
     "auditFailed": 2,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 621,
-    "dateSignals": 248,
-    "draftCandidates": 74,
-    "skippedCandidates": 600,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 592,
+    "dateSignals": 249,
+    "draftCandidates": 75,
+    "skippedCandidates": 570,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,6 +48,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -56,11 +66,6 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -70,7 +75,7 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 19
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -92,11 +97,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
+      "count": 58
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 8
     },
     {
       "key": "kpop",
@@ -111,18 +116,18 @@
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 539
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "listing page is not a specific event",

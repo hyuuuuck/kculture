@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T22:26:03.293Z",
+  "generatedAt": "2026-09-05T11:53:54.589Z",
   "files": {
     "audit": "source-audit-2026-09-05.json",
     "candidates": "official-page-candidates-2026-09-05.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 622,
-    "dateSignals": 259,
-    "draftCandidates": 81,
-    "skippedCandidates": 594,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 621,
+    "dateSignals": 248,
+    "draftCandidates": 74,
+    "skippedCandidates": 600,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,11 +38,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "CJ Olive Young Newsroom",
-      "status": 500,
-      "error": "all source URLs failed"
-    },
-    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -53,16 +48,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -71,6 +56,11 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -88,21 +78,21 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "count": 11
     },
     {
       "key": "Weverse Shop BTS Notices",
       "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 63
+      "count": 55
     },
     {
       "key": "shopping",
@@ -121,18 +111,18 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 559
+      "count": 568
     },
     {
       "key": "source fetch did not succeed",
-      "count": 8
+      "count": 6
     },
     {
       "key": "listing page is not a specific event",
@@ -152,14 +142,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 148
-    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -215,6 +197,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

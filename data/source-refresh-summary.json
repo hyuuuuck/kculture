@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-06T04:51:03.203Z",
+  "generatedAt": "2026-09-08T22:46:52.756Z",
   "files": {
-    "audit": "source-audit-2026-09-06.json",
-    "candidates": "official-page-candidates-2026-09-06.json",
-    "drafts": "draft-events-2026-09-06.json",
-    "reviewReport": "review-report-2026-09-06.md",
-    "reviewBoard": "review-board-2026-09-06.html",
-    "publicData": "public-data-import-2026-09-06.json",
+    "audit": "source-audit-2026-09-09.json",
+    "candidates": "official-page-candidates-2026-09-09.json",
+    "drafts": "draft-events-2026-09-09.json",
+    "reviewReport": "review-report-2026-09-09.md",
+    "reviewBoard": "review-board-2026-09-09.html",
+    "publicData": "public-data-import-2026-09-09.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 8,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 637,
-    "dateSignals": 264,
-    "draftCandidates": 81,
-    "skippedCandidates": 609,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 601,
+    "dateSignals": 284,
+    "draftCandidates": 78,
+    "skippedCandidates": 576,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,17 +48,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -66,6 +56,21 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "COEX Event Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -75,15 +80,15 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 19
+      "count": 18
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 17
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
-      "count": 11
+      "count": 9
     },
     {
       "key": "Busan Metropolitan City Events and English News",
@@ -97,15 +102,15 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 64
+      "count": 58
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
-      "count": 5
+      "count": 6
     },
     {
       "key": "department-store",
@@ -116,33 +121,33 @@
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 575
+      "count": 540
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "key": "duplicate draft source URL",
+      "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
       "count": 5
     },
     {
+      "key": "source fetch did not succeed",
+      "count": 5
+    },
+    {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
-    },
-    {
-      "key": "duplicate draft source URL",
       "count": 4
     }
   ],
@@ -161,14 +166,6 @@
       "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 143
-    },
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
       "score": 143
     },
     {
@@ -192,8 +189,8 @@
       "url": "https://grandpark.seoul.go.kr/main.do",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 139
+      "keywords": 4,
+      "score": 138
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",
@@ -202,6 +199,14 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 133
     },
     {
       "sourceName": "YES24 Ticket English",

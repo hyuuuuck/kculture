@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T22:46:52.756Z",
+  "generatedAt": "2026-09-09T04:53:59.128Z",
   "files": {
     "audit": "source-audit-2026-09-09.json",
     "candidates": "official-page-candidates-2026-09-09.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
-    "fallbackSources": 8,
+    "auditOk": 55,
+    "auditFailed": 1,
+    "fallbackSources": 5,
     "monitorSources": 53,
     "candidateOk": 48,
     "candidateFailed": 5,
-    "discoveredLinks": 601,
-    "dateSignals": 284,
-    "draftCandidates": 78,
-    "skippedCandidates": 576,
+    "discoveredLinks": 614,
+    "dateSignals": 279,
+    "draftCandidates": 77,
+    "skippedCandidates": 590,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,7 +48,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -56,21 +56,6 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "timeout"
-    },
-    {
-      "sourceName": "COEX Event Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Dongdaemun Design Plaza",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -121,14 +106,14 @@
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 540
+      "count": 552
     },
     {
       "key": "duplicate draft source URL",

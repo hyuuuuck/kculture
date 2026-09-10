@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-10T12:59:49.896Z",
+  "generatedAt": "2026-09-10T19:11:31.984Z",
   "files": {
-    "audit": "source-audit-2026-09-10.json",
-    "candidates": "official-page-candidates-2026-09-10.json",
-    "drafts": "draft-events-2026-09-10.json",
-    "reviewReport": "review-report-2026-09-10.md",
-    "reviewBoard": "review-board-2026-09-10.html",
-    "publicData": "public-data-import-2026-09-10.json",
+    "audit": "source-audit-2026-09-11.json",
+    "candidates": "official-page-candidates-2026-09-11.json",
+    "drafts": "draft-events-2026-09-11.json",
+    "reviewReport": "review-report-2026-09-11.md",
+    "reviewBoard": "review-board-2026-09-11.html",
+    "publicData": "public-data-import-2026-09-11.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 9,
+    "auditOk": 48,
+    "auditFailed": 8,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 531,
-    "dateSignals": 236,
-    "draftCandidates": 52,
-    "skippedCandidates": 532,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 579,
+    "dateSignals": 239,
+    "draftCandidates": 53,
+    "skippedCandidates": 579,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -48,14 +48,9 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "AK Plaza Events",
       "status": 400,
-      "error": ""
+      "error": "fetch failed"
     },
     {
       "sourceName": "Melon Ticket",
@@ -63,7 +58,32 @@
       "error": ""
     },
     {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Visit Jeju Festival Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Boryeong Mud Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
       "status": "ERR",
       "error": "timeout"
     }
@@ -71,7 +91,7 @@
   "topDraftSources": [
     {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 20
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -97,11 +117,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 32
+      "count": 34
     },
     {
       "key": "shopping",
-      "count": 10
+      "count": 9
     },
     {
       "key": "department-store",
@@ -123,26 +143,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 498
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "count": 547
     },
     {
       "key": "duplicate draft source URL",
       "count": 6
     },
     {
+      "key": "curation root is not a specific event",
+      "count": 5
+    },
+    {
       "key": "listing page is not a specific event",
       "count": 5
     },
     {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
+      "key": "source fetch did not succeed",
+      "count": 5
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     }
   ],
@@ -199,9 +219,9 @@
       "sourceName": "YG SELECT Notices",
       "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 8,
+      "dates": 9,
       "keywords": 3,
-      "score": 112
+      "score": 114
     },
     {
       "sourceName": "Shinsegae Group Newsroom",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T04:46:51.989Z",
+  "generatedAt": "2026-09-12T12:16:11.936Z",
   "files": {
     "audit": "source-audit-2026-09-12.json",
     "candidates": "official-page-candidates-2026-09-12.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 45,
-    "auditFailed": 11,
-    "fallbackSources": 5,
+    "auditOk": 47,
+    "auditFailed": 9,
+    "fallbackSources": 6,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 558,
-    "dateSignals": 246,
+    "discoveredLinks": 555,
+    "dateSignals": 245,
     "draftCandidates": 55,
-    "skippedCandidates": 556,
+    "skippedCandidates": 553,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -91,16 +91,6 @@
       "sourceName": "Daegu Chimac Festival",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "Boryeong Mud Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "COEX Event Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -158,7 +148,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 523
+      "count": 520
     },
     {
       "key": "source fetch did not succeed",
@@ -231,15 +221,15 @@
       "score": 128
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
       "links": 24,
-      "dates": 9,
-      "keywords": 3,
-      "score": 114
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
     },
     {
-      "sourceName": "Hyundai Department Store",
+      "sourceName": "Hyundai Department Store Events",
       "url": "https://www.ehyundai.com/newPortal/index.do",
       "links": 24,
       "dates": 4,

@@ -1,0 +1,2040 @@
+{
+  "generatedAt": "2026-09-12T12:16:12.204Z",
+  "policy": "Review candidates are not public content. Open the official source, verify facts, rewrite in original words, then publish through publish:reviewed.",
+  "files": {
+    "summary": "source-refresh-summary-2026-09-12.json",
+    "drafts": "draft-events-2026-09-12.json",
+    "issue": "source-refresh-issue.md"
+  },
+  "counts": {
+    "auditedSources": 56,
+    "auditOk": 47,
+    "auditFailed": 9,
+    "fallbackSources": 6,
+    "monitorSources": 53,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 555,
+    "dateSignals": 245,
+    "draftCandidates": 55,
+    "skippedCandidates": 553,
+    "publicDataPassed": 0,
+    "publicDataFailed": 0,
+    "publicDataSkipped": 5,
+    "tourApiRows": 0,
+    "kmaObservationRecords": 0,
+    "seoulEventRows": 0,
+    "seoulPotentialMatches": 0
+  },
+  "failedSources": [
+    {
+      "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Lotte Duty Free",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Duty Free Online Sale",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Visit Jeju Festival Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    }
+  ],
+  "highSignalCandidates": [
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 142
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 141
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 138
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 138
+    },
+    {
+      "sourceName": "SMTOWN andSTORE Notices",
+      "url": "https://www.smtownandstore.com/board/index.html",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 136
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 128
+    },
+    {
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
+    },
+    {
+      "sourceName": "Hyundai Department Store Events",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
+    }
+  ],
+  "topDraftSources": [
+    {
+      "key": "Visit Seoul",
+      "count": 20
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 17
+    },
+    {
+      "key": "NOL World Ticket",
+      "count": 10
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
+    }
+  ],
+  "topDraftCategories": [
+    {
+      "key": "festival",
+      "count": 34
+    },
+    {
+      "key": "shopping",
+      "count": 9
+    },
+    {
+      "key": "kpop",
+      "count": 5
+    },
+    {
+      "key": "department-store",
+      "count": 3
+    },
+    {
+      "key": "beauty",
+      "count": 2
+    },
+    {
+      "key": "duty-free",
+      "count": 1
+    }
+  ],
+  "topSkippedReasons": [
+    {
+      "key": "no current or upcoming date range",
+      "count": 520
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
+    }
+  ],
+  "drafts": [
+    {
+      "slug": "visit-seoul-banksy-still-here-2026-07-22-2026-11-03-alt-1-the-hyundai-se-2026-07",
+      "category": "department-store",
+      "priority": 95,
+      "startDate": "2026-07-22",
+      "endDate": "2026-11-03",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/BANKSY-still-here/ENPx0x7wx",
+      "title": {
+        "en": "Visit Seoul: BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity,..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential department store page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity, Banksy's unending message! Go to page",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-01",
+            "raw": "2026.07.01 "
+          },
+          {
+            "date": "2026-07-22",
+            "raw": "2026.07.22 "
+          },
+          {
+            "date": "2026-09-12",
+            "raw": "2026.09.12 "
+          },
+          {
+            "date": "2026-11-03",
+            "raw": "2026.11.03 "
+          }
+        ],
+        "snippets": [
+          "s=\"date\"> 2026.07.01 ~ 2026.09.12 KIT Gallery, 1st Floor, National Heritage Experience Center (47 Achasan-ro, Seongdong-gu) A special exhibition by six craft artists, BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity, Banksy's unending message! Kwon Byungjun",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity, Banksy's unending message! Go to page",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-lalarecipe-meme-happiness-recipe-for-every-skin-2026-08-01-2-2026-08",
+      "category": "beauty",
+      "priority": 95,
+      "startDate": "2026-08-01",
+      "endDate": "2026-09-30",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/LALARECIPE-%C3%97-MeME--Happiness-Recipe-for-Every-Skin/ENPqkbvqx",
+      "title": {
+        "en": "Visit Seoul: LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP,..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-01",
+            "raw": "2026.08.01 "
+          },
+          {
+            "date": "2026-08-27",
+            "raw": "2026.08.27 "
+          },
+          {
+            "date": "2026-09-19",
+            "raw": "2026.09.19 "
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "2026.09.30 "
+          }
+        ],
+        "snippets": [
+          "The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory device' in the age of AI and semiconductors. LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful recipe meets art. A collaboration between LALARECIPE and the artist MeME, bringing beauty and art together in one sensory exhibition Pa",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-olive-young-x-sanrio-pop-up-25-stores-nationwide-2026-09",
+      "category": "beauty",
+      "priority": 95,
+      "startDate": "2026-09-06",
+      "endDate": "2026-09-30",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a08356-1840-7c46-924e-ad05a11c03b2",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 12 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, olive young, k-pop, travel, benefit."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 12 )",
+        "checkedAt": "2026-09-12T12:15:13.348Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "olive young",
+          "k-pop",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-06",
+            "raw": "9.06 – 9.30"
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "9.06 – 9.30"
+          }
+        ],
+        "snippets": [
+          ":mbs_20 [&_>_li_+_li]:laptop:mbs_0 [&_>_li_+_li]:before:content_\"\" [&_>_li_+_li]:before:d_block [&_>_li_+_li]:before:mbe_20 [&_>_li_+_li]:before:w_100% [&_>_li_+_li]:before:h_1 [&_>_li_+_li]:before:bg-c_semantic.line.neutralWeak2 [&_>_li_+_li]:before:hide_laptop\"> Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 12 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          ". · Open Likes ( 196 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026-27 aespa LIVE TOUR SYNK : ____æ____ 8.07 – 2.02 Comments ( 1 ) · Likes ( 98 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> PHOTOISM with CORTIS REDRED Open Likes ( 620 ) _svg]:d_block pos_absolute z_1 top_4",
+          "n · Open Likes ( 233 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 LCK Ticketing Information Incheon · 4.01 – 9.13 Likes ( 385 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Seoul International Garden Expo Seoul Forest Seongsu · Open Likes ( 365 ) _svg]:d_block pos_ab"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 12 )",
+        "linkScore": 24,
+        "linkReason": "2 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "weverse-shop-bts-notices-bts-official-merch-and-pop-up-notice-list-2026-09",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-09-03",
+      "endDate": "2026-09-20",
+      "city": "Nationwide",
+      "venue": "Weverse Shop BTS Notices",
+      "sourceName": "Weverse Shop BTS Notices",
+      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+      "title": {
+        "en": "Weverse Shop BTS Notices: BTS official merch and pop-up notice list"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Weverse Shop BTS Notices. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: pop-up, event, sale, weverse, 할인."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "source-page",
+        "pageTitle": "BTS | Notices",
+        "checkedAt": "2026-09-12T12:15:21.038Z",
+        "keywordHits": [
+          "pop-up",
+          "event",
+          "sale",
+          "weverse",
+          "할인"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-03",
+            "raw": "September 3, 2026"
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "September 20"
+          }
+        ],
+        "snippets": [
+          "hop Weverse Shop x Kakaopay 9월 즉시할인 프로모션 안내 N Weverse Shop Weverse Shop&#x27;s New Feature: Auto Payment for Official Membership (September 3, 2026) Weverse Shop Weverse Shop X PAYCO 9월 포인트 적립 프로모션 안내 Weverse Shop Weverse Shop X NAVER Pay 9월 포인트 적립 프로모션 안내 BTS [Weverse Global] BT21 Merch Available for Purchase (August - 2nd r",
+          "t Purchase Notice BTS [Weverse Global] Pre-order BTS WORLD TOUR ‘ARIRANG’ Official Merch BTS [Weverse Global] Pre-order GQ KOREA (September 2026) BTS ・US [Weverse US] Pre-order BTS POP-UP: ARIRANG Merch Weverse Shop [Notice] August Weverse Shop Cash Reward Schedule Adjusted for Weverse Card BTS [Weverse Global] BT21 Merc"
+        ],
+        "queueId": "kpop-weverse-bts-notices",
+        "queueLabel": "BTS official merch and pop-up notice list",
+        "artistOrBrand": "BTS",
+        "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "weverse-shop-bts-notices-bts-pre-order-gq-korea-september-2026-2026-09",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-09-20",
+      "endDate": "2026-09-20",
+      "city": "Nationwide",
+      "venue": "Weverse Shop BTS Notices",
+      "sourceName": "Weverse Shop BTS Notices",
+      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices/14020",
+      "title": {
+        "en": "Weverse Shop BTS Notices: BTS Pre-order GQ KOREA (September 2026)"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Weverse Shop BTS Notices. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: pop-up, event, sale, weverse, 할인."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "BTS Pre-order GQ KOREA (September 2026)",
+        "checkedAt": "2026-09-12T12:15:21.038Z",
+        "keywordHits": [
+          "pop-up",
+          "event",
+          "sale",
+          "weverse",
+          "할인"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-20",
+            "raw": "September 20"
+          }
+        ],
+        "snippets": [
+          "17\" class=\"sc-5adaa537-5 gfDJLY\"> BTS [Weverse Global] Pre-order BTS WORLD TOUR ‘ARIRANG’ Official Merch BTS [Weverse Global] Pre-order GQ KOREA (September 2026) BTS ・US [Weverse US] Pre-order BTS POP-UP: ARIRANG Merch <li data-id=\"13944\"",
+          "hop Weverse Shop x Kakaopay 9월 즉시할인 프로모션 안내 N Weverse Shop Weverse Shop&#x27;s New Feature: Auto Payment for Official Membership (September 3, 2026) Weverse Shop Weverse Shop X PAYCO 9월 포인트 적립 프로모션 안내 Weverse Shop Weverse Shop X NAVER Pay 9월 포인트 적립 프로모션 안내 BTS [Weverse Global] BT21 Merch Available for Purchase (August - 2nd r",
+          "t Purchase Notice BTS [Weverse Global] Pre-order BTS WORLD TOUR ‘ARIRANG’ Official Merch BTS [Weverse Global] Pre-order GQ KOREA (September 2026) BTS ・US [Weverse US] Pre-order BTS POP-UP: ARIRANG Merch Weverse Shop [Notice] August Weverse Shop Cash Reward Schedule Adjusted for Weverse Card BTS [Weverse Global] BT21 Merc"
+        ],
+        "discoveredFrom": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+        "linkText": "BTS Pre-order GQ KOREA (September 2026)",
+        "linkScore": 24,
+        "linkReason": "2 keyword hits; 1 date signals; year signal",
+        "queueId": "kpop-weverse-bts-notices",
+        "queueLabel": "BTS official merch and pop-up notice list",
+        "artistOrBrand": "BTS",
+        "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "hyundai-department-store-2026-07-21-2026-11-01-2026-07",
+      "category": "department-store",
+      "priority": 93,
+      "startDate": "2026-07-21",
+      "endDate": "2026-11-01",
+      "city": "Nationwide",
+      "venue": "Hyundai Department Store",
+      "sourceName": "Hyundai Department Store",
+      "sourceUrl": "https://www.ehyundai.com/newCulture/EH/EH000001_V.do?seq=2092864&bbsCd=210&sitemapId=01020100000000",
+      "title": {
+        "en": "Hyundai Department Store: 전시 사진 세계 2026.07.21 ~ 2026.11.01"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Hyundai Department Store. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential department store page for foreign visitors searching current Korea information. Detected signals: department store, 혜택, 면세, 백화점, 팝업, 팝업스토어."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "전시 사진 세계 2026.07.21 ~ 2026.11.01",
+        "checkedAt": "2026-09-12T12:15:19.744Z",
+        "keywordHits": [
+          "department store",
+          "혜택",
+          "면세",
+          "백화점",
+          "팝업",
+          "팝업스토어"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-02",
+            "raw": "2026.07.02 "
+          },
+          {
+            "date": "2026-07-21",
+            "raw": "2026.07.21 "
+          },
+          {
+            "date": "2026-11-01",
+            "raw": "2026.11.01 "
+          },
+          {
+            "date": "2026-11-03",
+            "raw": "2026.11.03 "
+          }
+        ],
+        "snippets": [
+          "mg src=\"/attachfiles/portal/7e144b08fac745daa92c983115b4fd41.png\" alt=\"전시 뱅크시 특별전: BANKSY STILL HERE\"> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 </s",
+          "당 가 10:30 ~ 22:00 대표전화 1588-3650 층별안내 식당가 위치/주차 놓치면 안 되는 쇼핑 뉴스 더보기 영감을 채워주는, Culture 모든 전시 · 공연 전시 --> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 --> 모카플러스 9월 CLASS');\"> 전시 --> 문화센터 9월 CLASS 이전 다음 현대백화점 광고/홍보 배너 이전 다음 어디서나 즐기는, Online Shopping 더현대Hi 현대백화점 공식 온라인몰 현대홈쇼핑 Hma",
+          "식당가 위치/주차 놓치면 안 되는 쇼핑 뉴스 더보기 영감을 채워주는, Culture 모든 전시 · 공연 전시 --> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 --> 모카플러스 9월 CLASS');\"> 전시 --> 문화센터 9월 CLASS 이전 다음 현대백화점 광고/홍보 배너 이전 다음 어디서나 즐기는, Online Shopping 더현대Hi 현대백화점 공식 온라인몰 현대홈쇼핑 Hmall 백화점, 브랜드, 홈쇼핑을 한번에 이야기를 품은, Conten"
+        ],
+        "discoveredFrom": "https://www.ehyundai.com/newPortal/index.do",
+        "linkText": "전시 사진 세계 2026.07.21 ~ 2026.11.01",
+        "linkScore": 16,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-nct-10th-anniversary-everything-all-at-once-neo-9-01-10-2026-09",
+      "category": "kpop",
+      "priority": 92,
+      "startDate": "2026-09-01",
+      "endDate": "2026-10-18",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a05a2f-17ae-78df-9f43-a460dc8fb2d5",
+      "title": {
+        "en": "NOL World Ticket: NCT 10TH ANNIVERSARY EVERYTHING, ALL AT ONCE, NEO 9.01 – 10.18"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "NCT 10TH ANNIVERSARY EVERYTHING, ALL AT ONCE, NEO 9.01 – 10.18",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-01",
+            "raw": "9.01 – 10.18"
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "9.01 – 10.18"
+          },
+          {
+            "date": "2026-11-06",
+            "raw": "11.06 – 11.08"
+          },
+          {
+            "date": "2026-11-08",
+            "raw": "11.06 – 11.08"
+          }
+        ],
+        "snippets": [
+          "_4px\"> Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO 9.01 – 10.18 See more <a href=\"/en/tna/categories/all/produ",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "NCT 10TH ANNIVERSARY EVERYTHING, ALL AT ONCE, NEO 9.01 – 10.18",
+        "linkScore": 16,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-ata-festival-asia-top-artist-festival-sep-19-2026--2026-09",
+      "category": "festival",
+      "priority": 91,
+      "startDate": "2026-09-19",
+      "endDate": "2026-09-20",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/ticket/places/26000671/products/26009383",
+      "title": {
+        "en": "NOL World Ticket: 2026 ATA Festival (Asia Top Artist Festival) Sep 19, 2026 - Sep 20, 2026 Nanji Hangang Park"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 ATA Festival (Asia Top Artist Festival) Sep 19, 2026 - Sep 20, 2026 Nanji Hangang Park",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-12",
+            "raw": "Sep 12, 2026"
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "Sep 13, 2026"
+          },
+          {
+            "date": "2026-09-19",
+            "raw": "Sep 19, 2026"
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "Sep 20, 2026"
+          }
+        ],
+        "snippets": [
+          "ck textStyle_body.12.regular c_semantic.text.neutralSub mt_8px\"> Sep 12, 2026 - Sep 13, 2026 Incheon Munhak Main Stadium 2026 ATA Festival (Asia Top Artist Festival) Sep 19, 2026 - Sep 20, 2026 Nanji Hangang Park <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_0,_0.08) before:bdr_inherit befo",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 ATA Festival (Asia Top Artist Festival) Sep 19, 2026 - Sep 20, 2026 Nanji Hangang Park",
+        "linkScore": 29,
+        "linkReason": "1 keyword hits; 4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-kwon-byungjun-i-embrace-you-2026-06-11-2027-05-16-exhibition-2026-06",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-06-11",
+      "endDate": "2027-05-16",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/IEmbraceYou/ENPm8j6gm",
+      "title": {
+        "en": "Visit Seoul: Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-11",
+            "raw": "2026.06.11 "
+          },
+          {
+            "date": "2026-07-22",
+            "raw": "2026.07.22 "
+          },
+          {
+            "date": "2026-11-03",
+            "raw": "2026.11.03 "
+          },
+          {
+            "date": "2027-05-16",
+            "raw": "2027.05.16 "
+          }
+        ],
+        "snippets": [
+          "lass=\"text-cont\"> BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity, Banksy's unending message! Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who has long explored the intersection of technology and art, featured as part of the annual Children+ exhibition at the Seoul Museum of Art, Buk-Seoul Museu club Seolhwa",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-seoul-museum-of-photography-martin-parr-we-are-martin-parr-2-2026-07",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-07-16",
+      "endDate": "2026-10-18",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/We-Are-Martin-Parr/ENPgeb6on",
+      "title": {
+        "en": "Visit Seoul: Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-16",
+            "raw": "2026.07.16 "
+          },
+          {
+            "date": "2026-07-23",
+            "raw": "2026.07.23 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-12-27",
+            "raw": "2026.12.27 "
+          }
+        ],
+        "snippets": [
+          "KAWS: FRIENDS AND NEIGHBORS 2026.07.23 ~ 2026.12.27 Space K Seoul The first solo museum exhibition in Korea by Brooklyn-based artist KAWS (Brian Donnelly, b. 1974) Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since the passing of Martin Parr, a master of contemporary photography. From One",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-sook-jin-jo-that-s-how-the-light-gets-in-2026-07-29-2026-11--2026-07",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-07-29",
+      "endDate": "2026-11-15",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/ThatsHowtheLightGetsIn/ENPo2o028",
+      "title": {
+        "en": "Visit Seoul: Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-29",
+            "raw": "2026.07.29 "
+          },
+          {
+            "date": "2026-08-07",
+            "raw": "2026.08.07 "
+          },
+          {
+            "date": "2026-09-27",
+            "raw": "2026.09.27 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          }
+        ],
+        "snippets": [
+          "2026.08.07 ~ 2026.09.27 Exhibition Rooms 1 and 2, Arko Art Center Coteries, collectives, studios, art spaces, and schools gathered through common interests — an exhibition with 8 teams and 42 emerging artists. Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series at the Seoul Museum of Art (SeMA) Namseoul, introducing over 100 works including the artist's major works, new works, undisclosed",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-the-color-of-memory-2026-08-27-2026-09-19-k-o-n-g-gallery-re-2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-27",
+      "endDate": "2026-09-19",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/The-Color-of-Memory/ENPh6s7u3",
+      "title": {
+        "en": "Visit Seoul: The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory device' in the age of AI and semiconductors. Go to page",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-27",
+            "raw": "2026.08.27 "
+          },
+          {
+            "date": "2026-09-03",
+            "raw": "2026.09.03 "
+          },
+          {
+            "date": "2026-09-12",
+            "raw": "2026.09.12 "
+          },
+          {
+            "date": "2026-09-19",
+            "raw": "2026.09.19 "
+          }
+        ],
+        "snippets": [
+          "l class=\"text-cont\"> 2026 AECHAE Forest 2026.09.03 ~ 2026.09.12 ATELIER AECHAE A forest formed where different art forms meet in a single space The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory device' in the age of AI and semiconductors.",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory device' in the age of AI and semiconductors. Go to page",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-photographer-kang-jae-gu-solo-exhibition-2026-08-29-2026-09--2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-29",
+      "endDate": "2026-09-13",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/Soldier/ENP7hbgp3",
+      "title": {
+        "en": "Visit Seoul: Photographer Kang Jae-gu Solo Exhibition 2026.08.29 ~ 2026.09.13 KT&G Sangsangmadang Hongdae, Hongdae..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Photographer Kang Jae-gu Solo Exhibition 2026.08.29 ~ 2026.09.13 KT&G Sangsangmadang Hongdae, Hongdae Gallery 5-4F A solo exhibition and publication commemorative exhibition by pho",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-29",
+            "raw": "2026.08.29 "
+          },
+          {
+            "date": "2026-09-11",
+            "raw": "2026.09.11 "
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "2026.09.13 "
+          },
+          {
+            "date": "2026-09-16",
+            "raw": "2026.09.16 "
+          }
+        ],
+        "snippets": [
+          "estival 2026.09.11 ~ 2026.09.16 Ara Art Center Who are you? Who are we? A global literary festival continuing since 2006 for the exchange of Korean and world literature. Photographer Kang Jae-gu Solo Exhibition 2026.08.29 ~ 2026.09.13 KT&G Sangsangmadang Hongdae, Hongdae Gallery 5-4F A solo exhibition and publication commemorative exhibition by photographer Kang Jae-gu, who has been conducting a military series project for over 20 years. <strong",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Photographer Kang Jae-gu Solo Exhibition 2026.08.29 ~ 2026.09.13 KT&G Sangsangmadang Hongdae, Hongdae Gallery 5-4F A solo exhibition and publication commemorative exhibition by pho",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-k-local-brew-journey-2026-moving-brewery-by-tongyeong-ae-onn-2026-09",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-09-05",
+      "endDate": "2026-09-13",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/events/K-LOCAL-BREW-JOURNEY-2026/ENPnkdu41",
+      "title": {
+        "en": "Visit Seoul: K-LOCAL BREW JOURNEY 2026: Moving Brewery by Tongyeong-ae Onna 2026.09.05 ~ 2026.09.13 Outdoor Yard, HiKR..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "K-LOCAL BREW JOURNEY 2026: Moving Brewery by Tongyeong-ae Onna 2026.09.05 ~ 2026.09.13 Outdoor Yard, HiKR Ground, 1F, Korea Tourism Organization Seoul Center Introducing food trave",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-05",
+            "raw": "2026.09.05 "
+          },
+          {
+            "date": "2026-09-11",
+            "raw": "2026.09.11 "
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "2026.09.13 "
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "2026.09.20 "
+          }
+        ],
+        "snippets": [
+          "(The Hyundai Seoul Shopping Festa) 2026.09.11 ~ 2026.09.20 The Hyundai Seoul Ten days of K-culture programs and exclusive shopping offers found only at The Hyundai Seoul K-LOCAL BREW JOURNEY 2026: Moving Brewery by Tongyeong-ae Onna 2026.09.05 ~ 2026.09.13 Outdoor Yard, HiKR Ground, 1F, Korea Tourism Organization Seoul Center Introducing food travel across Busan, Ulsan and Gyeongnam to residents and visitors from home and abroad An event to taste K-craft beers brewed in regions across the country SEOUL LIGHT",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "K-LOCAL BREW JOURNEY 2026: Moving Brewery by Tongyeong-ae Onna 2026.09.05 ~ 2026.09.13 Outdoor Yard, HiKR Ground, 1F, Korea Tourism Organization Seoul Center Introducing food trave",
+        "linkScore": 29,
+        "linkReason": "2 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-exo-planet-6-exhorizon-kspo-dome-gangnam-11-06-11-08-2026-11",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-11-06",
+      "endDate": "2026-11-08",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a045bd-3643-73d0-a853-9e483c05655f",
+      "title": {
+        "en": "NOL World Ticket: EXO PLANET #6 - EXhOrizon KSPO DOME Gangnam 11.06 – 11.08"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "EXO PLANET #6 - EXhOrizon KSPO DOME Gangnam 11.06 – 11.08",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-08",
+            "raw": "9.08 – 9.13"
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "9.08 – 9.13"
+          },
+          {
+            "date": "2026-11-06",
+            "raw": "11.06 – 11.08"
+          },
+          {
+            "date": "2026-11-08",
+            "raw": "11.06 – 11.08"
+          }
+        ],
+        "snippets": [
+          "lc_2\">&TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "EXO PLANET #6 - EXhOrizon KSPO DOME Gangnam 11.06 – 11.08",
+        "linkScore": 22,
+        "linkReason": "1 keyword hits; 4 date signals",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-royal-guard-sumunjang-patrol-ceremony-9-05-11-29-2026-09",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-09-05",
+      "endDate": "2026-11-29",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a0125e-6a77-718c-99d8-bbe2d44631cb",
+      "title": {
+        "en": "NOL World Ticket: 2026 Royal Guard Sumunjang Patrol Ceremony 9.05 – 11.29"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 Royal Guard Sumunjang Patrol Ceremony 9.05 – 11.29",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-02",
+            "raw": "9.02 – 10.24"
+          },
+          {
+            "date": "2026-09-05",
+            "raw": "9.05 – 11.29"
+          },
+          {
+            "date": "2026-10-24",
+            "raw": "9.02 – 10.24"
+          },
+          {
+            "date": "2026-11-29",
+            "raw": "9.05 – 11.29"
+          }
+        ],
+        "snippets": [
+          "(--item-details-container-block-padding) px_12px bg-c_rgba(0,_0,_0,_0.20) bkdp_blur(50px)\"> 2026 Gyeongbokgung Palace Starlight Tour 9.02 – 10.24 2026 Royal Guard Sumunjang Patrol Ceremony 9.05 – 11.29 <a href=\"/en/content/festas/01a01200-d736-7c49-95fe-5a9a15b4b074\" class=\"laptopDown:--item-aspect-ratio_3_/_4 laptopDown:--item-width_150px laptop:--item-aspect-ratio_4_/_5 laptop:--item-width_184px [[data-region-home]_&]:desktop:--item-aspect-ratio_13_/_15 [[data-region-home]_&]:desktop:--item-width_234px laptopDown",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 Royal Guard Sumunjang Patrol Ceremony 9.05 – 11.29",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-plave-world-tour-keep-it-manic-in-incheon-sep-12-2-2026-09",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-09-12",
+      "endDate": "2026-09-13",
+      "city": "Incheon",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/ticket/places/26000643/products/26008189",
+      "title": {
+        "en": "NOL World Ticket: 2026 PLAVE World Tour ［KEEP IT MANIC］ in Incheon Sep 12, 2026 - Sep 13, 2026 Incheon Munhak Main Stadium"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 PLAVE World Tour ［KEEP IT MANIC］ in Incheon Sep 12, 2026 - Sep 13, 2026 Incheon Munhak Main Stadium",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-12",
+            "raw": "Sep 12, 2026"
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "Sep 13, 2026"
+          },
+          {
+            "date": "2026-12-05",
+            "raw": "Dec 05, 2026"
+          },
+          {
+            "date": "2026-12-06",
+            "raw": "Dec 06, 2026"
+          }
+        ],
+        "snippets": [
+          "n class=\"d_block textStyle_body.12.regular c_semantic.text.neutralSub mt_8px\"> Dec 05, 2026 - Dec 06, 2026 INSPIRE ARENA 2026 PLAVE World Tour ［KEEP IT MANIC］ in Incheon Sep 12, 2026 - Sep 13, 2026 Incheon Munhak Main Stadium <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_0,_0.08) before:bdr_inherit befo",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 PLAVE World Tour ［KEEP IT MANIC］ in Incheon Sep 12, 2026 - Sep 13, 2026 Incheon Munhak Main Stadium",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-hyundai-card-super-concert-28-the-weeknd-oct-07-2026-oc-2026-10",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-10-07",
+      "endDate": "2026-10-08",
+      "city": "Goyang",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/ticket/places/26000511/products/26006903",
+      "title": {
+        "en": "NOL World Ticket: Hyundai Card Super Concert 28 The Weeknd Oct 07, 2026 - Oct 08, 2026 GOYANG STADIUM"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Hyundai Card Super Concert 28 The Weeknd Oct 07, 2026 - Oct 08, 2026 GOYANG STADIUM",
+        "checkedAt": "2026-09-12T12:15:21.538Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-19",
+            "raw": "Sep 19, 2026"
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "Sep 20, 2026"
+          },
+          {
+            "date": "2026-10-07",
+            "raw": "Oct 07, 2026"
+          },
+          {
+            "date": "2026-10-08",
+            "raw": "Oct 08, 2026"
+          }
+        ],
+        "snippets": [
+          "ss=\"d_block textStyle_body.12.regular c_semantic.text.neutralSub mt_8px\"> Sep 19, 2026 - Sep 20, 2026 Nanji Hangang Park Hyundai Card Super Concert 28 The Weeknd Oct 07, 2026 - Oct 08, 2026 GOYANG STADIUM <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_0,_0.08) before:bdr_inherit befo",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO",
+          "ic.line.neutralWeak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> Bruno Mars Goyang Sports Complex 5.21 – 5.26 &TEAM KR 2nd Mini Album POP-UP Mark on Me 9.08 – 9.13 EXO PLANET #6 - EXhOrizon [dot] KSPO DOME Gangnam 11.06 – 11.08 NCT 10TH ANNIVERSARY [NCT 2026] EVERYTHING, ALL AT ONCE, NEO"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "Hyundai Card Super Concert 28 The Weeknd Oct 07, 2026 - Oct 08, 2026 GOYANG STADIUM",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-hanyang-adventure-begins-2026-03-27-2026-12-31-children-s-mu-2026-03",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-03-27",
+      "endDate": "2026-12-31",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/hanyang-adventure-begins/ENP1udvdv",
+      "title": {
+        "en": "Visit Seoul: Hanyang Adventure Begins! 2026.03.27 ~ 2026.12.31 Children's Museum, 1st Floor, Seoul Museum of History An..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Hanyang Adventure Begins! 2026.03.27 ~ 2026.12.31 Children's Museum, 1st Floor, Seoul Museum of History An interactive historical playground where children can embark on a time exp",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-03-27",
+            "raw": "2026.03.27 "
+          },
+          {
+            "date": "2026-06-26",
+            "raw": "2026.06.26 "
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "2026.09.30 "
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "2026.12.31 "
+          }
+        ],
+        "snippets": [
+          "hibition 2026.06.26 ~ 2026.09.30 Gallery 7, Hangaram Art Museum, Seoul Arts Center An exhibition dedicated solely to the life of the world-renowned master, Francisco Goya. Hanyang Adventure Begins! 2026.03.27 ~ 2026.12.31 Children's Museum, 1st Floor, Seoul Museum of History An interactive historical playground where children can embark on a time expedition to Hanyang, Seoul during the Joseon Dynasty. Yoo Youngkuk : A Moun",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Hanyang Adventure Begins! 2026.03.27 ~ 2026.12.31 Children's Museum, 1st Floor, Seoul Museum of History An interactive historical playground where children can embark on a time exp",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-2026-seongbuk-museum-of-art-special-exhibition-lee-jung-yoon-2026-04",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-04-17",
+      "endDate": "2026-11-21",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/Singing-ornaments-in-the-house/ENP9kal14",
+      "title": {
+        "en": "Visit Seoul: 2026 Seongbuk Museum of Art Special Exhibition 《Lee, Jung yoon: Singing ornaments in the house》 2026.04.17..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 Seongbuk Museum of Art Special Exhibition 《Lee, Jung yoon: Singing ornaments in the house》 2026.04.17 ~ 2026.11.21 Kim Chung-up Architecture Culture House The 2026 special exh",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-04-17",
+            "raw": "2026.04.17 "
+          },
+          {
+            "date": "2026-05-09",
+            "raw": "2026.05.09 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-11-21",
+            "raw": "2026.11.21 "
+          }
+        ],
+        "snippets": [
+          "2026 Seoul Taekwondo Performance 2026.05.09 ~ 2026.10.18 Namsangol Hanok Village and DDP A Taekwondo performance enjoyed in the center of Seoul! 2026 Seongbuk Museum of Art Special Exhibition 《Lee, Jung yoon: Singing ornaments in the house》 2026.04.17 ~ 2026.11.21 Kim Chung-up Architecture Culture House The 2026 special exhibition ≪Lee, Jung yoon: Singing ornaments in the house≫ held at the Kim Chung-up Architecture Culture House, a space containing Kim Chung-up's architectural philosophy <",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "2026 Seongbuk Museum of Art Special Exhibition 《Lee, Jung yoon: Singing ornaments in the house》 2026.04.17 ~ 2026.11.21 Kim Chung-up Architecture Culture House The 2026 special exh",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-goya-the-spanish-master-the-sleep-of-reason-produces-monster-2026-06",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-06-26",
+      "endDate": "2026-09-30",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/goya/ENPny8ty6",
+      "title": {
+        "en": "Visit Seoul: Goya, the Spanish Master : The Sleep of Reason Produces Monsters Exhibition 2026.06.26 ~ 2026.09.30..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Goya, the Spanish Master : The Sleep of Reason Produces Monsters Exhibition 2026.06.26 ~ 2026.09.30 Gallery 7, Hangaram Art Museum, Seoul Arts Center An exhibition dedicated solely",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-06",
+            "raw": "2026.06.06 "
+          },
+          {
+            "date": "2026-06-26",
+            "raw": "2026.06.26 "
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "2026.09.30 "
+          },
+          {
+            "date": "2026-10-11",
+            "raw": "2026.10.11 "
+          }
+        ],
+        "snippets": [
+          "ng> 2026.06.06 ~ 2026.10.11 Chungmu Art Center Gallery A special story born from the union of National Geographic's authentic ocean photography and Disney's emotional storytelling. Goya, the Spanish Master : The Sleep of Reason Produces Monsters Exhibition 2026.06.26 ~ 2026.09.30 Gallery 7, Hangaram Art Museum, Seoul Arts Center An exhibition dedicated solely to the life of the world-renowned master, Francisco Goya.",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Goya, the Spanish Master : The Sleep of Reason Produces Monsters Exhibition 2026.06.26 ~ 2026.09.30 Gallery 7, Hangaram Art Museum, Seoul Arts Center An exhibition dedicated solely",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-joseon-yangban-hospitality-culture-experience-performance-on-2026-07",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-07-02",
+      "endDate": "2026-12-10",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/OnggiConcert/ENPsj8gga",
+      "title": {
+        "en": "Visit Seoul: Joseon Yangban Hospitality Culture Experience Performance 'Onggi Concert' 2026.07.02 ~ 2026.12.10..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Joseon Yangban Hospitality Culture Experience Performance 'Onggi Concert' 2026.07.02 ~ 2026.12.10 Gwangmudae, Traditional Performance Art Creation Maru, 9th Floor, New Building (Do",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-05-14",
+            "raw": "2026.05.14 "
+          },
+          {
+            "date": "2026-07-02",
+            "raw": "2026.07.02 "
+          },
+          {
+            "date": "2026-11-29",
+            "raw": "2026.11.29 "
+          },
+          {
+            "date": "2026-12-10",
+            "raw": "2026.12.10 "
+          }
+        ],
+        "snippets": [
+          "date\"> 2026.05.14 ~ 2026.11.29 Theater on The unfair stories of villains and misunderstood beings in Korean folktales. A new form of audience-participatory performance combining musicals and club culture. Joseon Yangban Hospitality Culture Experience Performance 'Onggi Concert' 2026.07.02 ~ 2026.12.10 Gwangmudae, Traditional Performance Art Creation Maru, 9th Floor, New Building (Dong N), Dongdaemun Shopping Complex A two-hour curated journey to experience the one-table-per-person hospitality culture of Joseon Yang",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Joseon Yangban Hospitality Culture Experience Performance 'Onggi Concert' 2026.07.02 ~ 2026.12.10 Gwangmudae, Traditional Performance Art Creation Maru, 9th Floor, New Building (Do",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-fiber-art-special-exhibition-texture-of-rest-2026-07-24-2026-2026-07",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-07-24",
+      "endDate": "2026-10-02",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/%E3%80%8A--Texture-of-Rest%E3%80%8B/ENPii0mwl",
+      "title": {
+        "en": "Visit Seoul: Fiber Art Special Exhibition 《Texture of Rest》 2026.07.24 ~ 2026.10.02 Wooran 1, Wooran 2, Wooran Cultural..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Fiber Art Special Exhibition 《Texture of Rest》 2026.07.24 ~ 2026.10.02 Wooran 1, Wooran 2, Wooran Cultural Foundation A fiber art exhibition offering modern people the time to 'wea",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-24",
+            "raw": "2026.07.24 "
+          },
+          {
+            "date": "2026-08-28",
+            "raw": "2026.08.28 "
+          },
+          {
+            "date": "2026-09-17",
+            "raw": "2026.09.17 "
+          },
+          {
+            "date": "2026-10-02",
+            "raw": "2026.10.02 "
+          }
+        ],
+        "snippets": [
+          "ong>SKETCH 2026 : Aesthetics of Liquidity 2026.08.28 ~ 2026.09.17 Songwon Art Center A new meeting place where finance and art interact and share each other's languages. Fiber Art Special Exhibition 《Texture of Rest》 2026.07.24 ~ 2026.10.02 Wooran 1, Wooran 2, Wooran Cultural Foundation A fiber art exhibition offering modern people the time to 'weave' their scattered selves back together through 'connection' and 'patience', the inherent properties of fiber.",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Fiber Art Special Exhibition 《Texture of Rest》 2026.07.24 ~ 2026.10.02 Wooran 1, Wooran 2, Wooran Cultural Foundation A fiber art exhibition offering modern people the time to 'wea",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-from-one-book-to-the-world-k-content-k-book-to-the-world-202-2026-07",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-07-28",
+      "endDate": "2026-10-06",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/K-BOOKtotheWORLD/ENPz20943",
+      "title": {
+        "en": "Visit Seoul: From One Book to the World, K-Content: K-BOOK to the WORLD 2026.07.28 ~ 2026.10.06 Exhibition Hall, 1st..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "From One Book to the World, K-Content: K-BOOK to the WORLD 2026.07.28 ~ 2026.10.06 Exhibition Hall, 1st Floor, Main Building, National Library of Korea A record of the cycle where",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-16",
+            "raw": "2026.07.16 "
+          },
+          {
+            "date": "2026-07-28",
+            "raw": "2026.07.28 "
+          },
+          {
+            "date": "2026-10-06",
+            "raw": "2026.10.06 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          }
+        ],
+        "snippets": [
+          "2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since the passing of Martin Parr, a master of contemporary photography. From One Book to the World, K-Content: K-BOOK to the WORLD 2026.07.28 ~ 2026.10.06 Exhibition Hall, 1st Floor, Main Building, National Library of Korea A record of the cycle where globally loved K-content begins with 'books' in the library, expands worldwide, and is archived back into the library. BEAUTY,",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "From One Book to the World, K-Content: K-BOOK to the WORLD 2026.07.28 ~ 2026.10.06 Exhibition Hall, 1st Floor, Main Building, National Library of Korea A record of the cycle where ",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-seoul-light-ddp-2026-autumn-2026-09-03-2026-09-13-ddp-the-wo-2026-09",
+      "category": "festival",
+      "priority": 88,
+      "startDate": "2026-09-03",
+      "endDate": "2026-09-13",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/events/SeoulLightddp2026/ENP8m1ey6",
+      "title": {
+        "en": "Visit Seoul: SEOUL LIGHT DDP 2026 Autumn 2026.09.03 ~ 2026.09.13 DDP The world's largest free-form media facade..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "SEOUL LIGHT DDP 2026 Autumn 2026.09.03 ~ 2026.09.13 DDP The world's largest free-form media facade festival, stretching 222 meters Go to page",
+        "checkedAt": "2026-09-12T12:15:00.913Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-03",
+            "raw": "2026.09.03 "
+          },
+          {
+            "date": "2026-09-13",
+            "raw": "2026.09.13 "
+          }
+        ],
+        "snippets": [
+          "KR Ground, 1F, Korea Tourism Organization Seoul Center Introducing food travel across Busan, Ulsan and Gyeongnam to residents and visitors from home and abroad An event to taste K-craft beers brewed in regions across the country SEOUL LIGHT DDP 2026 Autumn 2026.09.03 ~ 2026.09.13 DDP The world's largest free-form media facade festival, stretching 222 meters 2026 AEC",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "SEOUL LIGHT DDP 2026 Autumn 2026.09.03 ~ 2026.09.13 DDP The world's largest free-form media facade festival, stretching 222 meters Go to page",
+        "linkScore": 27,
+        "linkReason": "3 keyword hits; 2 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    }
+  ]
+}

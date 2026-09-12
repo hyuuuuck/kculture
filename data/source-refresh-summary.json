@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-10T19:11:31.984Z",
+  "generatedAt": "2026-09-12T04:46:51.989Z",
   "files": {
-    "audit": "source-audit-2026-09-11.json",
-    "candidates": "official-page-candidates-2026-09-11.json",
-    "drafts": "draft-events-2026-09-11.json",
-    "reviewReport": "review-report-2026-09-11.md",
-    "reviewBoard": "review-board-2026-09-11.html",
-    "publicData": "public-data-import-2026-09-11.json",
+    "audit": "source-audit-2026-09-12.json",
+    "candidates": "official-page-candidates-2026-09-12.json",
+    "drafts": "draft-events-2026-09-12.json",
+    "reviewReport": "review-report-2026-09-12.md",
+    "reviewBoard": "review-board-2026-09-12.html",
+    "publicData": "public-data-import-2026-09-12.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 48,
-    "auditFailed": 8,
-    "fallbackSources": 6,
+    "auditOk": 45,
+    "auditFailed": 11,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 579,
-    "dateSignals": 239,
-    "draftCandidates": 53,
-    "skippedCandidates": 579,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 558,
+    "dateSignals": 246,
+    "draftCandidates": 55,
+    "skippedCandidates": 556,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,6 +38,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -48,9 +53,14 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
-      "error": "fetch failed"
+      "error": ""
     },
     {
       "sourceName": "Melon Ticket",
@@ -73,6 +83,11 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Daegu Chimac Festival",
       "status": "ERR",
       "error": "fetch failed"
@@ -83,9 +98,9 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "Dongdaemun Design Plaza",
+      "sourceName": "COEX Event Calendar",
       "status": "ERR",
-      "error": "timeout"
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -95,11 +110,11 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 16
+      "count": 17
     },
     {
       "key": "NOL World Ticket",
-      "count": 9
+      "count": 10
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -124,11 +139,11 @@
       "count": 9
     },
     {
-      "key": "department-store",
-      "count": 3
+      "key": "kpop",
+      "count": 5
     },
     {
-      "key": "kpop",
+      "key": "department-store",
       "count": 3
     },
     {
@@ -143,22 +158,22 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 547
+      "count": 523
     },
     {
-      "key": "duplicate draft source URL",
-      "count": 6
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
       "count": 5
     },
     {
-      "key": "listing page is not a specific event",
+      "key": "duplicate draft source URL",
       "count": 5
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
@@ -224,12 +239,12 @@
       "score": 114
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 21,
-      "dates": 2,
-      "keywords": 8,
-      "score": 107
+      "sourceName": "Hyundai Department Store",
+      "url": "https://www.ehyundai.com/newPortal/index.do",
+      "links": 24,
+      "dates": 4,
+      "keywords": 6,
+      "score": 104
     }
   ]
 }

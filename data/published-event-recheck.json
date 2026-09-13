@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T22:23:49.308Z",
+  "generatedAt": "2026-09-13T13:21:29.717Z",
   "date": "2026-09-13",
   "approvedActiveEvents": 6,
   "passed": 6,
@@ -8,7 +8,7 @@
   "manualReviewRequired": 0,
   "liveChecks": 11,
   "snapshotChecks": 1,
-  "updated": 6,
+  "updated": 0,
   "timeoutMs": 12000,
   "concurrency": 5,
   "results": [
@@ -25,7 +25,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
           "status": 200,
           "bytes": 209087,
-          "durationMs": 1357,
+          "durationMs": 1426,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -43,7 +43,7 @@
           "finalUrl": "https://yudeung.com/?lang=en",
           "status": 200,
           "bytes": 56955,
-          "durationMs": 2106,
+          "durationMs": 1308,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -69,8 +69,8 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 109148,
-          "durationMs": 3055,
+          "bytes": 109149,
+          "durationMs": 2502,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -88,7 +88,7 @@
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
           "bytes": 33961,
-          "durationMs": 1326,
+          "durationMs": 1586,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -113,7 +113,7 @@
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": "ERROR",
           "bytes": 0,
-          "durationMs": 10491,
+          "durationMs": 10494,
           "mode": "audited-snapshot",
           "freshnessAuthority": false,
           "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
@@ -142,7 +142,7 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 35329,
-          "durationMs": 695,
+          "durationMs": 385,
           "mode": "live",
           "freshnessAuthority": true,
           "matchedTokens": [
@@ -168,7 +168,7 @@
           "finalUrl": "https://en.maskdance.com/2024/sub1/sub1.asp",
           "status": 200,
           "bytes": 27030,
-          "durationMs": 1648,
+          "durationMs": 1729,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -186,7 +186,7 @@
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
           "status": 200,
           "bytes": 217005,
-          "durationMs": 617,
+          "durationMs": 555,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -212,8 +212,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 180577,
-          "durationMs": 2445,
+          "bytes": 180601,
+          "durationMs": 2703,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -230,8 +230,8 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 101676,
-          "durationMs": 1682,
+          "bytes": 101511,
+          "durationMs": 905,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -256,8 +256,8 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "status": 200,
-          "bytes": 181046,
-          "durationMs": 1461,
+          "bytes": 181070,
+          "durationMs": 1600,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [
@@ -275,7 +275,7 @@
           "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "status": 200,
           "bytes": 133197,
-          "durationMs": 5014,
+          "durationMs": 6772,
           "mode": "live",
           "freshnessAuthority": false,
           "matchedTokens": [

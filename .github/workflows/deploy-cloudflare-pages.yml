@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/deploy-cloudflare-pages.yml"
       - "app.js"
+      - "planning.js"
       - "assets/**"
       - "data/**"
       - "package-lock.json"
@@ -115,6 +116,9 @@ jobs:
       - name: Build production site
         run: npm run build
 
+      - name: Run editorial and planning regression tests
+        run: npm run test:editorial
+
       - name: Validate production build
         env:
           REQUIRE_ADSENSE_REVIEW: ${{ github.event_name == 'workflow_dispatch' && inputs.require_adsense && '1' || '0' }}
@@ -147,6 +151,7 @@ jobs:
           run_check "validate:images" npm run validate:images
           run_check "validate:thumbnail-audit" npm run validate:thumbnail-audit
           run_check "validate:calendar" npm run validate:calendar
+          run_check "validate:planning" npm run validate:planning
           run_check "validate:details" npm run validate:details
           run_check "validate:publication" npm run validate:publication
           run_check "validate:original-value" npm run validate:original-value
@@ -158,7 +163,8 @@ jobs:
           run_check "validate:sitemap" npm run validate:sitemap
           run_check "validate:structured" npm run validate:structured
           run_check "validate:event-audit" npm run validate:event-audit
-          run_check "report:adsense" npm run report:adsense
+          # Pre-deploy content evidence is distinct from post-deploy AdSense submission.
+          run_check "report:content-release" npm run report:content-release
           run_check "quality:ceo" npm run quality:ceo
 
       - name: Check Cloudflare deploy secret

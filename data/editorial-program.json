@@ -2,7 +2,6 @@
   "version": 1,
   "mode": "adsense-editorial-review",
   "canonicalHome": "/en/",
-  "minimumEventScore": 85,
   "editorialTeam": {
     "name": "K-Spot Now Editorial Desk",
     "role": "Dated source comparison and visitor-decision research",
@@ -16,26 +15,25 @@
     "/en/about/"
   ],
   "staticUpdatedAt": {
-    "/en/": "2026-09-02",
-    "/en/now/": "2026-09-02",
-    "/en/guides/": "2026-09-02",
-    "/en/about/": "2026-09-02"
+    "/en/": "2026-09-18",
+    "/en/now/": "2026-09-18",
+    "/en/guides/": "2026-09-18",
+    "/en/about/": "2026-09-10"
   },
   "indexableEvents": [
     "nct-dream-sweet-dream-hotel-incheon-2026",
     "boryeong-mud-festival-2026",
     "gwangalli-m-drone-light-show-2026",
     "seoul-international-garden-show-2026",
-    "national-geographic-ocean-seoul-2026",
     "fernando-botero-seoul-2026",
     "deoksugung-royal-guard-changing-ceremony-2026",
     "andong-maskdance-festival-2026",
     "jinju-namgang-yudeung-festival-2026"
   ],
   "indexableGuides": [
+    "seoul-culture-first-visit",
     "how-to-verify-korea-popups",
-    "weather-for-korea-events",
-    "tax-refund-payments-korea-shopping"
+    "weather-for-korea-events"
   ],
   "indexableRoutes": [],
   "eventPublicationFacts": {
@@ -54,7 +52,7 @@
       "entry": "Free outdoor ceremony at Daehanmun; palace admission is a separate decision",
       "reservation": "No reservation listed for the public ceremony",
       "price": "Free ceremony; separate palace or program fees may differ",
-      "englishSupport": "English Seoul city and national heritage pages",
+      "englishSupport": "Published English palace and Seokjojeon tours; English narration of the outdoor ceremony itself is not confirmed",
       "address": "Daehanmun Gate, Deoksugung Palace, 99 Sejong-daero, Seoul",
       "hours": "11:00 and 14:00, about 25 minutes; closed Mondays",
       "cancellation": "Weather can cancel the ceremony; check the city notice before departure",
@@ -65,7 +63,7 @@
       "entry": "Main festival entry is free; fees vary for selected programs",
       "reservation": "No single reservation covers the multi-venue festival; program rules vary",
       "price": "Free general festival access with program-specific fees",
-      "englishSupport": "Official English festival site and English VISITKOREA record",
+      "englishSupport": "English program synopses; Gwanno is described as dialogue-free, while live English interpretation varies and is unconfirmed",
       "address": "Jungang Line 1942 Andong Station, Mask Dance Park, old downtown, and related venues",
       "hours": "Sep 24-Oct 4; VISITKOREA lists a general 10:00-22:00 performance window",
       "cancellation": "Recheck the venue schedule, paid programs, and weather-led changes before travel",
@@ -73,12 +71,12 @@
       "weather": "Outdoor autumn festival spread across several walking and transfer zones"
     },
     "jinju-namgang-yudeung-festival-2026": {
-      "entry": "Free general festival admission; optional experiences can have separate terms",
+      "entry": "General access is listed as free; the operator separately advertises bridge tickets and optional programs",
       "reservation": "No single reservation for the river festival; selected experiences can differ",
-      "price": "Free main festival according to VISITKOREA",
+      "price": "General viewing listed free; organizer-linked bridge tickets: KRW 2,000 one-way or KRW 6,000 day pass (checked Sep 18)",
       "englishSupport": "English VISITKOREA and official festival pages",
       "address": "Jinjuseong Fortress and Namgang River areas, Jinju",
-      "hours": "Oct 3-18; lantern lighting 18:00-24:00 and bridge and booths 13:00-23:00",
+      "hours": "Oct 3-18; general lighting 18:00-24:00, bridges/booths 13:00-23:00, bridge ticketing cutoff 22:50; Oct 3 opening lighting ceremony at 19:30",
       "cancellation": "Recheck program, bridge, crowd-control, fireworks, and weather notices",
       "age": "Open public festival; individual activities can use separate rules",
       "weather": "Outdoor riverside night route with crowd, temperature, and late-return exposure"
@@ -155,8 +153,8 @@
       "price": "Free",
       "englishSupport": "English Busan city source page",
       "address": "Gwangalli Beach, Busan",
-      "hours": "Every Saturday; seasonal showtimes are 20:00/22:00 or 19:00/21:00",
-      "cancellation": "Wind, rain, and official cancellation notices can change operations",
+      "hours": "Regular Saturdays: March-September 20:00/22:00; October-February 19:00/21:00. September 26, 2026: 20:00 only, one special show",
+      "cancellation": "Weather and communications can change operations; dated special-show notices override the regular pattern",
       "age": "Public beach event; no separate age rule listed",
       "weather": "Outdoor beach show; wind, rain, and crowd conditions matter"
     },
@@ -176,8 +174,8 @@
       "reservation": "No single reservation for the garden show; partner programs may vary",
       "price": "Public show admission is not separately listed; partner program prices may vary",
       "englishSupport": "English Visit Seoul source with multilingual smart guide support",
-      "address": "Seoul Forest, 273 Ttukseom-ro, Seoul; October special at Maeheon Citizen's Forest",
-      "hours": "May 1-Oct 27, 2026; visitor listing 12:00-19:00",
+      "address": "Seoul Forest, 273 Ttukseom-ro; separate Oct 1–27 venue: Maeheon Citizen's Forest, 99 Maeheon-ro, Seocho-gu",
+      "hours": "Garden access and programs differ: city announcement lists participation programs 12:00-20:00; earlier tourism listing gives 12:00-19:00. Use the selected program time.",
       "cancellation": "Bloom timing, maintenance, and outdoor notices can change the plan",
       "age": "Public garden route; program-specific age rules vary",
       "weather": "Outdoor garden event; heat and rain materially affect the visit"
@@ -185,8 +183,8 @@
     "national-geographic-ocean-seoul-2026": {
       "entry": "Ticketed indoor exhibition",
       "reservation": "Admission and last-entry rules are controlled by the venue listing",
-      "price": "Current ticket price is listed on the official Visit Seoul page",
-      "englishSupport": "English Visit Seoul source page",
+      "price": "Listed Sep 10: adult (18+) KRW 25,000; age 13+ KRW 19,000; age 7+ KRW 16,000. Discount eligibility and fees vary.",
+      "englishSupport": "English tourism information; gallery interpretation and overseas checkout not confirmed",
       "address": "Chungmu Art Center Gallery, 387 Toegye-ro, Seoul",
       "hours": "Daily 10:00-19:00, last admission 18:00; closed Mondays and Sep 24-25",
       "cancellation": "Recheck holiday closure and last-entry notices before departure",
@@ -634,7 +632,7 @@
         "availability": "Open within the listed season except Mondays and specified holiday closures; the venue controls last admission and ticket availability.",
         "bestFor": "Visitors needing an indoor Sindang or Dongdaemun-area plan that can replace an outdoor stop in heat or rain.",
         "poorFit": "A weak choice for a Monday, a late arrival near last admission, or a visitor who has not confirmed the exact gallery inside the arts center.",
-        "timeCost": "Reserve about ninety minutes for the exhibition plus transfer and floor-finding time inside Chungmu Art Center.",
+        "timeCost": "No tested visit duration is available; allow for the transfer, gallery entrance and the time you want for reading before last admission.",
         "commitWhen": "Use it as a fixed backup only after confirming the selected date is open, the final entry time works, and tickets remain available."
       },
       "planningProfile": {

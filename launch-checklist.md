@@ -1,5 +1,18 @@
 ﻿# Cloudflare/GitHub Launch Checklist
 
+## 2026-09-10 개편의 단계별 기준
+
+아래 기존 인프라 설명과 별개로, 이번 콘텐츠 개편에는 다음 순서를 적용한다.
+
+1. 로컬 구현 검사: `npm run verify`. 합격은 코드·데이터 무결성의 의미이며 Google 콘텐츠 평가가 아니다.
+2. 실제 편집·독자 검토를 `data/editorial-release.json`에 근거 파일과 함께 기록한다. `npm run preflight:launch`의 콘텐츠 검사는 아직 배포되지 않은 상태에서도 완료 가능하다.
+3. 사용자가 배포를 명시적으로 요청한 뒤 운영에 반영한다. Cloudflare Git-connected 직접 빌드 설정이 이 저장소의 배포 검사를 우회하는지는 별도로 확인해야 한다.
+4. 같은 개편본의 운영 링크·콘텐츠·소유권 수단·ads.txt·광고/동의 동작을 검증하고 productionVerification에 기록한다.
+5. `npm run preflight:adsense-review`는 이 운영 증빙과 현재 계정 조건까지 검사한다. 검사 명령 자체는 재심사를 제출하지 않는다.
+
+Search Console 색인 URL 수, 클릭 수, 예전 검색어 비율은 진단 자료다. 이를 Google이 정한 재심사 대기 조건으로 사용하지 않는다. 실제 콘텐츠 가치와 계정의 제출 제한은 별개로 확인한다.
+
+
 Use this checklist when moving K-Spot Now from local build to a real AdSense review candidate.
 
 ## 1. Domain and Email

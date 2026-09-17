@@ -10,6 +10,10 @@ import {
 } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 import { todayString } from "./lib/date.mjs";
+import { briefIssues, guideIssues } from "./lib/article-integrity.mjs";
+import { searchObservation } from "./lib/editorial.mjs";
+import { releaseFingerprint, releaseIssues } from "./lib/editorial-release.mjs";
+import { experienceIndexIssues, guideIndexIssues } from "./lib/publication-surfaces.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -26,6 +30,7 @@ const reportMode = process.argv.includes("--ad-serving") || process.env.ADSENSE_
   ? "ad-serving"
   : "site-review";
 const adServingMode = reportMode === "ad-serving";
+const contentRelease = process.argv.includes("--content-release");
 const strict = !/^(0|false|no)$/i.test(String(process.env.ADSENSE_REPORT_STRICT || "1"));
 const languages = publicLanguageCodes();
 const affiliateEnabled = affiliatePublishingEnabled();
@@ -41,6 +46,7 @@ const thumbnailSources = JSON.parse(await fs.readFile(path.join(root, "data", "t
 const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
 const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
 const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
+const briefs = JSON.parse(read("data/visitor-briefs.json"));
 const checks = [];
 
 function exists(relativePath) {
@@ -131,11 +137,11 @@ function eventPageAudit() {
       "event-review-section",
       "event-visit-section",
       "event-evidence-section",
-      "source-reconciliation",
+      "source-record",
       "review-update-note",
       "review-byline",
-      "What matters before you go",
-      "What we checked"
+      "Taking part as an international visitor",
+      "Sources and verification limits"
     ];
     if (!html) {
       failures.push(`${event.slug}:missing-page`);
@@ -145,48 +151,12 @@ function eventPageAudit() {
       if (!html.includes(marker)) failures.push(`${event.slug}:missing-${marker}`);
     }
     if (/<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html)) failures.push(`${event.slug}:noindex`);
-    if (wordCount(html) < 350) failures.push(`${event.slug}:thin-${wordCount(html)}-words`);
   }
   return failures;
 }
 
 function guidePageAudit() {
-  const failures = [];
-  for (const guide of approvedGuides) {
-    const relative = `dist/en/guides/${guide.slug}.html`;
-    const html = read(relative);
-    const structuredSections = guide.sections?.en || [];
-    const paragraphWords = structuredSections.flatMap((section) => section.paragraphs || []).join(" ");
-    const evidence = guide.originalEvidence || {};
-    const evidenceText = [
-      evidence.title,
-      evidence.intro,
-      evidence.method,
-      evidence.limitations,
-      ...(evidence.headers || []),
-      ...(evidence.rows || []).flat(),
-      ...(evidence.findings || []).flatMap((finding) => [finding.label, finding.text])
-    ].join(" ");
-    const sourceHosts = new Set((guide.sources || []).map((source) => {
-      try { return new URL(source.url).hostname.replace(/^www\./, ""); } catch { return ""; }
-    }).filter(Boolean));
-    if (!html) failures.push(`${guide.slug}:missing-page`);
-    if (!html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-original-evidence")) failures.push(`${guide.slug}:missing-authorship-citations-or-original-evidence`);
-    if (structuredSections.length < 3 || structuredSections.length > 6) failures.push(`${guide.slug}:invalid-section-range`);
-    if (!Array.isArray(guide.sources) || guide.sources.length < 2 || sourceHosts.size < 2) failures.push(`${guide.slug}:fewer-than-2-distinct-source-hosts`);
-    if (wordCount(paragraphWords) < 300) failures.push(`${guide.slug}:thin-${wordCount(paragraphWords)}-words`);
-    if (wordCount(`${paragraphWords} ${evidenceText}`) < 700) failures.push(`${guide.slug}:thin-or-incomplete-original-evidence`);
-    if (!["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind)
-        || !Array.isArray(evidence.rows) || evidence.rows.length < 3
-        || !Array.isArray(evidence.findings) || evidence.findings.length < 2
-        || String(evidence.method || "").length < 120
-        || String(evidence.limitations || "").length < 100) {
-      failures.push(`${guide.slug}:incomplete-original-evidence-record`);
-    }
-    if (!guide.audience) failures.push(`${guide.slug}:missing-intended-audience`);
-    if (!guide.method || !guide.reviewedBy || !guide.updatedAt) failures.push(`${guide.slug}:missing-method-or-review`);
-  }
-  return failures;
+  return approvedGuides.flatMap(guide => guideIssues(guide, today).map(issue => guide.slug + ":" + issue));
 }
 
 function imageAudit() {
@@ -204,6 +174,10 @@ function imageAudit() {
 }
 
 function runChecks() {
+  const release = JSON.parse(read("data/editorial-release.json"));
+  const editorialIssues = releaseIssues(release, releaseFingerprint(root), today, exists, { productionRequired: !contentRelease });
+  if (editorialIssues.length) fail("Editorial", "Human, reader and live-release evidence", editorialIssues.join("; "), "Complete real review and deployment verification; do not substitute word, traffic or page-count thresholds.");
+  else pass("Editorial", "Release evidence recorded", "Traceable evidence for this revision exists; Google alone decides approval.");
   try {
     const parsed = new URL(siteUrl);
     if (parsed.protocol === "https:" && parsed.hostname === "kspotnow.com") pass("Production", "Canonical domain", siteUrl);
@@ -221,16 +195,7 @@ function runChecks() {
     fail("Content", "Public language scope", languages.join(", "), "Publish only languages that have completed human editorial review.");
   }
 
-  if (searchConsoleAudit.status === "ready" && searchConsoleAudit.performance?.legacyPagesDominateTopPages === false) {
-    pass("Search", "Search Console index alignment", `Authenticated audit is ready (${searchConsoleAudit.auditedAt})`);
-  } else {
-    warn(
-      "Search",
-      "Search Console index alignment",
-      `Sitemap is ${searchConsoleAudit.sitemap?.status || "unknown"} with ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} approved URLs; coverage is still dated ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and predates cleanup (${searchConsoleAudit.auditedAt || "audit missing"})`,
-      "Wait until Search Console coverage and performance reports move past the cleanup deployment, then verify that legacy pages no longer dominate before requesting another AdSense review."
-    );
-  }
+  warn("Search", "Search observations (not an approval gate)", searchObservation(searchConsoleAudit), "Investigate actual crawl errors separately. Use the editorial release evidence, not a click or index quota, to assess submission readiness.");
 
   if (approvedEvents.length) {
     pass("Content", "Curated event catalog", `${approvedEvents.length} current, explicitly reviewed events selected from ${events.length} records`);
@@ -244,46 +209,30 @@ function runChecks() {
   if (approvedRoutes.length) pass("Content", "Useful route pages", `${approvedRoutes.length} routes passed the explicit editorial allowlist`);
   else pass("Content", "Thin route retirement", `${routes.length} draft route records are withheld from HTML, navigation, ads, and the sitemap until they gain source-backed visitor decisions`);
 
-  const evidenceFailures = approvedEvents.filter((event) => {
-    const review = program.eventReviews?.[event.slug];
-    const evidence = eventEvidence(event);
-    const fit = review?.decisionFit || {};
-    const profile = review?.planningProfile || {};
-    const reconciliation = review?.sourceReconciliation || {};
-    return !review?.reviewedAt || !review?.reviewedBy || !/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "")
-      || review.publishedAt > review.reviewedAt || String(review?.updateSummary || "").length < 100
-      || String(review?.visitorDecision || "").length < 120
-      || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
-      || ["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
-      || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
-      || ["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
-      || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
-      || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2
-        || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
-  });
-  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have immutable publication history, latest-change notes, two distinct official source hosts, source reconciliation, and day-planning analysis`);
+  const evidenceFailures = approvedEvents.filter(event => briefIssues(briefs.events[event.slug], today).length);
+  if (!evidenceFailures.length) pass("Trust", "Event evidence coverage", `${approvedEvents.length}/${approvedEvents.length} events have claim-scoped sources and visitor narratives; human review is not certified by this check`);
   else fail("Trust", "Event evidence coverage", `${approvedEvents.length - evidenceFailures.length}/${approvedEvents.length} complete`, evidenceFailures.map((event) => event.slug).join(", "));
 
   const eventFailures = eventPageAudit();
-  if (!eventFailures.length) pass("Content", "Event page usefulness", `${approvedEvents.length}/${approvedEvents.length} pages include decision, practical plan, evidence, and authorship`);
-  else fail("Content", "Event page usefulness", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
+  if (!eventFailures.length) pass("Content", "Event page structure", `${approvedEvents.length}/${approvedEvents.length} pages include decision, practical plan, evidence, and authorship`);
+  else fail("Content", "Event page structure", `${eventFailures.length} page issues`, eventFailures.slice(0, 6).join(", "));
 
   const guideFailures = guidePageAudit();
-  if (!guideFailures.length) pass("Content", "Guide originality", `${approvedGuides.length}/${approvedGuides.length} guides use distinct evidence formats, dated records, explicit methods and limitations, and multiple source hosts`);
-  else fail("Content", "Guide originality", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
+  if (!guideFailures.length) pass("Content", "Guide data integrity", `${approvedGuides.length}/${approvedGuides.length} guides include dated records, explicit methods and limitations`);
+  else fail("Content", "Guide data integrity", `${guideFailures.length} guide issues`, guideFailures.slice(0, 6).join(", "));
 
   const now = read("dist/en/now/index.html");
-  const decisionRows = (now.match(/class="decision-board-row"/g) || []).length;
-  if (now.includes("event-decision-board") && decisionRows === approvedEvents.length) {
-    pass("UX", "Cross-event decision board", `${decisionRows} reviewed events compared by commitment, route role, lock-in, and flexible variables`);
+  const experienceIssues = experienceIndexIssues(now, approvedEvents);
+  if (!experienceIssues.length && now.includes("data-visit-filter") && now.includes("data-interest-filter")) {
+    pass("UX", "Experience navigation", `${approvedEvents.length} current articles with context, save actions, date and interest filters`);
   } else {
-    fail("UX", "Cross-event decision board", `${decisionRows}/${approvedEvents.length} comparison rows`, "Render every approved event in the decision board on /en/now/.");
+    fail("UX", "Experience navigation", experienceIssues.join("; ") || "Missing planning filters", "Restore the current publication's article links, context and planning controls.");
   }
 
   const guideHub = read("dist/en/guides/index.html");
-  const guideScopeRows = (guideHub.match(/class="guide-scope-row"/g) || []).length;
-  if (guideHub.includes("guide-scope-ledger") && guideScopeRows === approvedGuides.length) pass("UX", "Guide scope ledger", `${guideScopeRows} guide audiences, pass rules, and stop rules are visible before article entry`);
-  else fail("UX", "Guide scope ledger", `${guideScopeRows}/${approvedGuides.length} guide rows`, "Render every approved guide in the scope ledger before AdSense re-review.");
+  const guideIssues = guideIndexIssues(guideHub, approvedGuides);
+  if (!guideIssues.length) pass("UX", "Guide navigation", `${approvedGuides.length} guides with reading context and article links`);
+  else fail("UX", "Guide navigation", guideIssues.join("; "), "Restore each current guide and its context on the guide index.");
 
   const expected = expectedSitemapPaths();
   const actual = sitemapPaths();
@@ -308,9 +257,9 @@ function runChecks() {
   else fail("UX", "Approved event visuals", `${imageFailures.length} visual issues`, imageFailures.slice(0, 5).join(", "));
 
   const home = read("dist/en/index.html");
-  const homeCards = (home.match(/class="event-card/g) || []).length;
-  if (homeCards === 5 && home.includes("home-guide-band")) pass("UX", "Compact home", "5 representative event cards plus reviewed guide entry points");
-  else fail("UX", "Compact home", `${homeCards} event cards`, "Keep the home scan short and link to the full reviewed list.");
+  const homeIssues = experienceIndexIssues(home, approvedEvents);
+  if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-guide-band")) pass("UX", "Publication home", `${approvedEvents.length} experiences plus cultural reading entry points`);
+  else fail("UX", "Publication home", homeIssues.join("; ") || "Missing publication sections", "Restore the cultural introduction and current experience links.");
 
   const prohibitedCopy = ["For AdSense-safe content", "AdSense-safe", "260+ word", "low-value content fix"];
   const generatedHtml = fssync.readdirSync(path.join(root, "dist", "en"), { recursive: true })
@@ -339,7 +288,14 @@ function runChecks() {
       && reviewState.selectedOwnershipMethodFoundOnLiveSite === true;
   const ownershipRecognized = reviewState.adsTxtStatus === "approved" || alternativeOwnershipReady;
   const accountMetaStaged = read("dist/en/index.html").includes(`<meta name="google-adsense-account" content="ca-${publisherId}">`);
-  if (authenticatedAccountFactsAreValid && (ownershipRecognized || accountMetaStaged)) {
+  if (authenticatedAccountFactsAreValid) {
+    if (ownershipRecognized) {
+      pass("AdSense", "Selected live ownership method", "Approved ads.txt or the selected alternative method is recorded on the live site");
+    } else if (contentRelease && accountMetaStaged) {
+      warn("AdSense", "Ownership verification pending", "Correct account meta tag is staged, but the currently selected live verification method is not confirmed", "Deploy the verified build and confirm the selected method before requesting review. A local tag does not prove account recognition.");
+    } else {
+      fail("AdSense", "Selected live ownership method", "Account recognition or the selected live alternative remains unconfirmed", "Confirm the actual AdSense ownership method on the deployed site before requesting review.");
+    }
     if (reviewState.reviewRequestSubmitted) {
       warn(
         "AdSense",
@@ -348,7 +304,7 @@ function runChecks() {
         "Do not submit another request; wait for the current AdSense decision and refresh the authenticated audit when it changes."
       );
     } else if (reviewState.reviewRequestAvailable) {
-      pass("AdSense", "Authenticated account state", "Low-value-content re-review is available but not submitted; a live ownership method is recorded, Policy Center is clear, and the European regulations message is published");
+      pass("AdSense", "Authenticated account state", "Recorded low-value-content re-review is available but not submitted; Policy Center is clear and a published European regulations message is recorded. Ownership is checked separately.");
     } else if (reviewState.reviewRequestThrottled && reviewState.reviewRequestAvailableFrom) {
       warn(
         "AdSense",
@@ -374,7 +330,7 @@ function runChecks() {
         "Search",
         "Authenticated sitemap discovery",
         `Search Console currently reports ${discoveredPages ?? "?"} discovered URLs; the deployment contains ${expectedPages}`,
-        "Deploy the approved sitemap, wait for Search Console to read it, and refresh the authenticated account audit before requesting AdSense re-review."
+        "Validate the public sitemap directly and track Google's discovery separately; a count mismatch alone is not a content-quality verdict."
       );
     }
   } else {
@@ -440,14 +396,15 @@ runChecks();
 const passed = checks.filter((item) => item.status === "pass").length;
 const warned = checks.filter((item) => item.status === "warn").length;
 const failed = checks.filter((item) => item.status === "fail").length;
-const reviewSubmissionReady = failed === 0 && warned === 0;
+// Informational search warnings are not a Google AdSense submission requirement.
+const reviewSubmissionReady = !contentRelease && failed === 0;
 const result = {
   generatedAt: new Date().toISOString(),
   siteUrl,
-  mode: reportMode,
-  scope: adServingMode
+  mode: contentRelease ? "content-release" : reportMode,
+  scope: contentRelease ? "Pre-deployment content evidence only. Live production verification is a later, separate submission requirement." : adServingMode
     ? "Ad-serving release gates; not a Google approval prediction"
-    : "AdSense site-review gates using ads.txt ownership while ads remain disabled; not a Google approval prediction",
+    : "Internal release evidence and selected ownership checks while ads remain disabled; not a Google approval prediction",
   stats: {
     totalEventRecords: events.length,
     approvedCurrentEvents: approvedEvents.length,
@@ -459,8 +416,7 @@ const result = {
   score: {
     passed,
     warned,
-    failed,
-    percent: Math.round((passed / Math.max(checks.length, 1)) * 100)
+    failed
   },
   reviewSubmissionReady,
   adServing: {

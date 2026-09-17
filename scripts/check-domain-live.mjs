@@ -135,7 +135,7 @@ async function expectRepresentativeEvent() {
     fail("Representative event detail", "No approved event URL was found in the live sitemap.", "Publish at least one reviewed event and rebuild the focused sitemap.");
     return;
   }
-  await expectPage(new URL(eventUrl).pathname, "Representative event detail", ["Open Official source", "Place, timing, weather", "What we checked", "First published"]);
+  await expectPage(new URL(eventUrl).pathname, "Representative event detail", ["Open Official source", "Place, timing, weather", 'id="event-evidence-title"', 'class="evidence-list"', "First published"]);
 }
 
 async function expectCanonicalRedirect(fromUrl, label) {
@@ -149,7 +149,7 @@ async function expectCanonicalRedirect(fromUrl, label) {
 }
 
 if (siteUrl) {
-  await expectPage("/", "Home page", ["K-Spot Now", "Source-checked Korea event briefs", "Decide what is worth the trip."]);
+  await expectPage("/", "Home page", ["K-Spot Now", "programme-cover", "Make a culture", "home-guide-band"]);
   await expectPage("/robots.txt", "robots.txt", ["Sitemap:"]);
   await expectPage("/sitemap.xml", "sitemap.xml", ["<urlset", "/en/"]);
   await expectPage("/en/privacy/", "Privacy policy", ["Privacy"]);

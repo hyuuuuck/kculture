@@ -1,79 +1,218 @@
-# Monetization Plan
+# K-Spot Now 전략 재정의
 
-## Revenue Reality
+검토일: 2026-09-10 KST. 종전의 콘텐츠 개수·수집량 중심 수익화 계획을 대체한다.
 
-AdSense approval and USD 300/month revenue cannot be guaranteed. Revenue depends on traffic volume, country mix, page RPM, search rankings, seasonality, ad layout, and content quality.
+범위: 사업·콘텐츠·검증 전략 수정. 이 문서는 사이트 구현, 배포, 계정 설정 변경, 재심사 제출 완료를 뜻하지 않는다. 자동화 설정도 이 문서만으로 바뀌지 않는다.
 
-This project is structured to increase the chance of useful traffic:
+## 1. 결론과 초기 포지셔닝
 
-- Repeat planning behavior: event dates, reservations, weather, transport, stock, and official rule checks
-- High-intent search topics: Korea shopping sale, Olive Young sale Korea, Korea duty free deal, K-pop pop-up Seoul, Korea festival calendar
-- Multilingual long-tail traffic: English, Spanish, Chinese, Portuguese, Russian, and Japanese visitor queries
-- Seasonal archives: ended events stay useful as next-season planning pages
-- Trust signals: official sources, last-checked dates, privacy/contact/about/terms pages
+K-Spot Now는 외국인이 한국의 문화 경험을 이해하고 선택하고 실제로 참여하도록 돕는 서비스여야 한다. AdSense는 그 서비스에 이용이 생겼을 때 붙이는 수익 채널이다.
 
-## Rough Traffic Needed for USD 300/month
+현재 가장 중요한 결함은 출처 확인·주의사항에 비해 독자의 질문을 끝까지 해결하는 내용이 부족하다는 점이다. 문장 수, API 연동, 검사 통과, 사이트맵 갱신은 그 결함을 대신 해결하지 못한다. 이미 만든 출처 대조·사례 분석·한국어 장소명 등은 살리고, 독자가 얻는 결과를 중심으로 재편한다.
 
-These are planning estimates, not guarantees.
+권고 방향:
 
-- Page RPM USD 3: about 100,000 pageviews/month
-- Page RPM USD 6: about 50,000 pageviews/month
-- Page RPM USD 10: about 30,000 pageviews/month
+- 초기 독자: 서울을 개별 여행하는 영어 사용자. 3–7일 체류는 검증할 초기 가설이며 실제 조사 결과가 아니다.
+- 서비스 약속: 한국 문화의 볼거리를 이해하고, 내 조건에서 참여 가능한지 판단하고, 현장에서 실행할 수 있게 한다.
+- 초기 편집 범위: 궁궐·전통문화, 전시·공연, 계절 문화행사. K-pop 팝업은 예약·입장 정보를 확인할 수 있는 경우 선별한다.
+- 서울에서 먼저 약속을 입증한다. 기존 부산·안동·진주 글은 지역 범위만을 이유로 일괄 삭제하지 않는다.
+- 영어판을 완성한 뒤 수요와 검토 인력에 따라 언어·지역을 확장한다. 쇼핑 할인과 일반 뉴스로 무작정 범위를 넓히지 않는다.
+- 기존 정적 사이트와 데이터 파이프라인을 유지한다. 새 프레임워크·CMS·모바일 앱 도입은 현재 우선순위가 아니다.
 
-Travel, shopping, and beauty pages can vary widely by country and season.
+‘외국인’ 전체는 하나의 독자가 아니다. 장기 거주자의 주말 계획, 첫 방문 여행자의 관광, 특정 아티스트 팬의 예약은 요구가 다르다. 독자 인터뷰에서 초기 가설이 틀리면 세분 시장을 바꾸되, 동시에 모두 해결한다는 약속은 하지 않는다.
 
-## Pre-Approval Content Target
+## 2. 반려 원인: 확인된 사실과 추론
 
-- 30+ verified event, deal, pop-up, guide, or archive pages
-- 10+ original evergreen guide pages
-- Working source, privacy, contact, terms, and about pages
-- Thumbnail, date range, city, official source, and last-checked date on every event card
-- Clear separation between live, upcoming, and ended events
-- No copied official text beyond short factual labels
+### 시간순 사실
 
-## Automation Priority
+| 항목 | 확인 결과 | 근거와 한계 |
+| --- | --- | --- |
+| 계정 반려 사유 | 주의 필요 / 가치가 별로 없는 콘텐츠 | data/adsense-account-audit.json의 9월 9일 인증된 계정 확인 기록. 오늘 새로 확인한 계정 값은 아니다. |
+| 마지막 상태 변경 | 8월 30일 22:41 KST | 같은 기록. 과거 모든 반려의 개별 원인을 입증하지 않는다. |
+| 최근 본문 개편 | 9월 3일 | 커밋 5ce7db4, 운영 반영 기록 e9e7751. 마지막 확인된 반려보다 나중이다. |
+| 개편 후 재심사 | 최신 기록상 미제출 | reviewRequestSubmitted는 false. 8월 22일 제출 시각은 과거 이력이다. |
+| 공개 범위 | 이벤트 6개 + 가이드 3개 + 허브 4개 = 사이트맵 13 URL | 9월 10일 운영 홈·공개 허용 목록·운영 검증 기록. 13개 기사라는 뜻이 아니다. |
+| 사이트맵 | 9월 4일 읽기 성공, 13 URL 발견 | 9월 9일 Search Console 확인 기록. |
+| 최근 검색 실적 | 8월 31일–9월 6일: 클릭 0, 노출 13 | Google 검색 실적. 사이트 전체 방문·PV가 0이라는 뜻은 아니다. |
+| 3개월 검색 실적 | 6월 9일–9월 6일: 클릭 19, 노출 922 | 전환 전 콘텐츠 포함. 현 전략만의 성과가 아니다. |
+| 기술 검사 | 9월 10일 저장된 운영 검사: 34 통과, 1 경고, 0 실패 | HTTP·사이트맵·소유권 메타 태그·공개 ads.txt 등. 브라우저 레이아웃 검사는 환경 부재로 미확인. |
 
-1. Korea Tourism Organization TourAPI: festival and tourism event candidates
-2. VISITKOREA: official articles, travel calendar, benefits, and K-pop travel guides
-3. OLIVE YOUNG Global: event and sale pages
-4. Duty-free stores: Lotte, Shilla, Shinsegae, Hyundai official events
-5. Department stores: Hyundai, Lotte, Shinsegae branch and event pages
-6. K-pop: Weverse, official artist channels, official agency notices, and venue pages, always with manual review
-7. KMA ASOS: previous-year same-period weather observations
+현재 개편본이 다시 반려됐다고 단정할 수 없다. 개편했으므로 승인 준비가 끝났다고도 볼 수 없다. 아래는 관찰한 결함과 공식 기준의 대조이며, 공개되지 않은 Google 내부 심사 사유를 재현한 것이 아니다.
 
-## Freshness Operating Model
+### 원인 우선순위
 
-- GitHub Actions should refresh official page candidates three times per day by default.
-- During major K-pop comeback, concert, Korea Grand Sale, or seasonal department-store sale periods, run the source refresh workflow manually with extra official notice URLs.
-- Treat OLIVE YOUNG, duty-free, department-store, and K-pop pop-up pages as fast-changing offers. Public pages need `lastChecked`, an official source link, and a clear warning that inventory, coupon eligibility, and reservation slots can change.
-- Never publish directly from scraped text. Convert the candidate into an original visitor-focused summary after checking the official page.
-- Use `npm run draft:events` to create non-public event drafts from the latest official-source feed. These drafts speed up writing, but they must be verified, rewritten, and manually merged into `data/events.json` before becoming public.
-- Use `npm run review:board` to inspect draft candidates as a private gallery with thumbnails, dates, official links, evidence snippets, and copyable JSON.
-- Use `npm run publish:reviewed -- --file ...` as a guarded dry run before writing reviewed events into public data. This keeps unedited machine drafts out of the live site.
-- Use `npm run queue:source -- --url ...` when a K-pop pop-up, ticketing page, fanclub notice, or official SNS link appears outside the regular source list. This keeps scattered official notices in the same review flow without treating fan reposts as sources.
+| 우선순위 | 관찰한 문제 | 독자 피해와 승인에 미칠 예상 영향 |
+| --- | --- | --- |
+| P0 | 출처 역할·위험·다시 확인할 사항이 여러 구역에 반복된다. | 긴 글을 읽은 뒤에도 선택과 참여 방법을 다시 조사해야 한다. 낮은 콘텐츠 가치 사유와 가장 직접적으로 맞닿는 편집 결함이다. |
+| P0 | 서로 다른 질문에 동일한 분석 칸과 최소 분량을 강제한다. | 길이는 늘지만 추가 정보 밀도는 낮아진다. 형식 검사를 고유가치 검증으로 오인한 운영 문제다. |
+| P1 | 네 도시의 행사 6개와 날씨·쇼핑·팝업 가이드가 분산되어 있다. | 특정 지역의 문화 일정을 이어서 계획하기 어렵다. 기사 수보다 주제 완결성과 탐색의 문제다. |
+| P1 | 자동 출처 확인으로 lastChecked가 갱신되고 수동 검토일은 별도다. | ‘오늘 확인’을 본문 전체·현장 조건 재검증으로 오인할 수 있다. 신뢰 위험이며 확인 범위를 분리해야 한다. |
+| P1 | 문서 조사에 비해 실제 예약 과정·현장 관찰·독립 독자 검증의 증거가 제한적이다. | 공식 안내나 일반 요약보다 여기서 얻는 이점이 약하다. 직접 취재는 개선 방법이지 모든 글의 필수 승인 조건은 아니다. |
+| P2 | 검색 유입이 작고 일부 현재 URL은 미색인이다. | 유입과 사업성 검증 문제다. 이를 콘텐츠 반려의 직접 원인으로 확정하지 않는다. |
 
-## Suggested Ad Layout After Approval
+Google의 AdSense 안내는 다른 사이트와 비교한 고유 가치, 충분한 내용, 중복 최소화, 명확한 탐색을 요구한다. 확인한 안내에는 종전 계획의 ‘30개 글·10개 가이드’라는 합격선이 없다. [공식 콘텐츠·사용자 경험 안내](https://support.google.com/adsense/answer/10015918?hl=en)
 
-- Homepage: one display ad after the first event grid
-- Event detail page: one in-content ad after facts, one lower-page ad after travel tips
-- Guide page: one mid-article ad, one lower-page ad
-- Avoid intrusive ads above the core event facts
+### 이전 대응에서 바로잡을 사항
 
-Never use text that encourages ad clicks.
+1. ads.txt를 콘텐츠 반려 원인처럼 다룬 것: 공개 파일과 계정 상태의 불일치는 따로 조사한다. Google은 ads.txt를 권장하지만 필수로 규정하지 않는다. 이 표시만으로 낮은 콘텐츠 가치 문제를 설명하거나 무기한 대기시키지 않는다. [ads.txt 공식 안내](https://support.google.com/adsense/answer/12171612?hl=en-EN)
+2. 소유권 확인과 ads.txt 상태를 혼동한 것: 코드·ads.txt·메타 태그는 소유권 확인의 선택 수단이다. 현재 메타 태그의 운영 존재와 계정에서의 소유권 확인은 구분하여 검사한다. [사이트 관리 공식 안내](https://support.google.com/adsense/answer/12131223?hl=en)
+3. Search Console 전체 반영을 승인 조건으로 만든 것: 모든 URL 색인, 과거 검색어의 완전 소멸, 고정 노출 수를 공식 제출 요건으로 취급하지 않는다. 13 URL 사이트맵을 읽었는데 예전 21/19개 기준을 계속 적용해서도 안 된다.
+4. 내부 검사 통과를 고유가치 입증으로 다룬 것: scripts/validate-original-value.mjs는 단어 수·필드 수·출처 호스트·일부 내부 유사도를 검사한다. 외부 콘텐츠 대비 고유성이나 독자의 문제 해결은 입증하지 않는다.
+5. 잘못된 대기 경고: scripts/adsense-readiness-report.mjs는 ready가 아닌 경우 실제 날짜 비교 없이 ‘coverage predates cleanup’을 출력한다. 현재 coverage는 9월 4일, 배포는 9월 3일이다. 이 경고에 따른 대기 판단은 잘못이다. 코드 수정은 별도 구현 항목이다.
+6. 정책 센터 0건을 사이트 품질 통과로 확대 해석한 것: 광고 제한 정책 문제와 콘텐츠 심사는 구분한다.
+7. 과거 URL 404 수를 현재 깨진 링크 수로 읽는 것: Search Console의 531개 404는 역사적 URL 보고다. 실제 운영 링크 오류인지 의도적 철수인지 구분한다. 숫자를 줄이려고 얇은 콘텐츠를 복원하지 않는다.
 
-## Weekly Growth Routine
+## 3. 외국인이 이 사이트를 써야 할 이유
 
-1. Add 10 to 20 verified new event candidates.
-2. Convert the strongest candidates into polished detail pages.
-3. Add one evergreen guide based on repeated visitor questions.
-4. Archive ended offers instead of deleting them.
-5. Submit updated sitemap in Search Console after major content batches.
-6. Review Search Console queries and create pages that answer real search intent.
+핵심 독자 질문은 다음과 같다.
 
-## Safety Rules
+- 무엇을 보는 경험이며, 한국 문화에서 왜 흥미로운가?
+- 한국어를 몰라도 이해하거나 참여할 수 있는가?
+- 한국 전화번호 없이 예약 가능한가? 해외 카드·여권 조건은 무엇인가?
+- 내 날짜·예산·이동 범위에서 A와 B 중 무엇이 맞는가?
+- 정확히 어디로 가고, 닫히거나 비가 오면 무엇으로 바꿀 수 있는가?
 
-- Do not pretend to be an official brand, government site, venue, or artist channel.
-- Do not publish unverified K-pop pop-up rumors.
-- Do not scrape or republish full articles, images, or sale pages without rights.
-- Do not show expired discounts as active.
-- Do not publish pages with only machine-translated duplicate text and no added travel value.
+차별화 가설은 ‘현지 정보를 외국인의 실행 가능한 선택으로 바꾸는 편집’이다. 영어 공식 안내가 있는 행사의 날짜·장소를 다시 쓰는 것만으로 차별화됐다고 평가하지 않는다.
+
+문화 해설도 필요하다. 전통 의식이 무엇을 재현하는지, 관람할 때 무엇을 보면 좋은지, 역사적 원형과 현대 재현은 어떻게 다른지 근거를 갖춰 설명한다. 실용 정보만 늘려 문화 콘텐츠라는 목적을 잃지 않는다. 출처 없는 역사·상징 해석은 만들지 않는다.
+
+사이트 탐색은 문화 경험 선택 → 대상별 상세 판단 → 참여 방법·같은 지역 대안으로 이어지게 한다. 현재 내용이 없는 메뉴·분류는 노출하지 않고, 기존 캘린더·플래너는 실제 과제에 도움이 되는 범위에서 유지한다.
+
+## 4. 기존 콘텐츠별 편집 조치
+
+현재 글을 모두 폐기하거나 다시 늘리지 않는다. 살릴 근거와 부족한 답을 분리한다.
+
+| 콘텐츠 | 보존할 가치 | 보강 목표 |
+| --- | --- | --- |
+| 덕수궁 수문장 교대식 | 공식 일정·한국어 장소명·휴무 조건 | 의식의 문화적 맥락, 관람 위치, 궁 입장과 의식 관람의 관계, 짧은 도심 일정에 넣는 방법을 확인한다. |
+| 광안리 드론쇼 | 시청·운영자 대조, 계절별 시간, 주변 장소 해석 | 도착·관람·취소 확인을 한 흐름으로 정리한다. 직선거리와 도보 동선을 구분하고 부산 안의 대안을 제시한다. 반복되는 날씨·재확인 문단을 합친다. |
+| 서울국제정원박람회 | 장소와 운영 기간 구분 | 시기·구역별 볼거리, 동선, 문화적 특징을 설명한다. 전체 기간을 모든 구역의 동일 운영으로 읽히게 하지 않는다. |
+| OCEAN 전시 | 공식 전시·휴관 정보 | 언어 지원, 입장·예약, 관람 대상, 전시 내용의 특징과 다른 선택지 대비 차이를 검증한다. |
+| 안동·진주 축제 | 주최자 자료·관광 맥락 | 공개된 프로그램 범위에서 날짜별 차이와 이동 부담을 비교한다. 핵심 프로그램·입장 조건 미확인 시 예약을 권하는 상위 추천에 올리지 않는다. |
+| 팝업 검증 가이드 | 과거 3개 실제 사례의 일정·예약·재고 표현 분석 | 과거 사례 분석이라는 성격은 유지한다. 현행 예약 화면의 해외 이용자 분기를 검증할 수 있을 때 실행 가이드로 확장한다. 현재 팝업 목록을 제공하는 것처럼 약속하지 않는다. |
+| 날씨 가이드 | 원시자료·관측소·기간·한계 공개 | 전년도 일주일 자료는 그 주의 사례다. 계절 질문에는 적절한 다년 자료, 당일 결정에는 현행 예보·취소 공지를 쓴다. 2025년 표를 2026년 예보로 쓰지 않는다. |
+| 세금 환급 가이드 | 즉시환급·출국환급·면세 인도의 과정 구분 | 핵심 문화 범위에서는 보조 문서다. 유지한다면 현행 공식 기준·확인일·상황별 절차를 확인한다. ‘공식 기준 확인’만으로 끝내거나 근거 없이 숫자를 채우지 않는다. |
+
+운영 확인 사례: [광안리](https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026), [팝업 사례](https://kspotnow.com/en/guides/how-to-verify-korea-popups), [날씨](https://kspotnow.com/en/guides/weather-for-korea-events), [환급](https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping). 원문·구조는 data/events.json, data/guides.json, data/editorial-program.json과 대조했다.
+
+## 5. 작성·검증 운영
+
+기사마다 독자 질문 하나와 성공 조건을 먼저 쓴다. 예: ‘예약 없이 전통 의식을 보고 싶은 사람이 관람 가능 여부와 도착 장소를 판단할 수 있다.’ 소개·문화 해설·예약 절차·비교 기사는 필요한 형식이 다르다. 동일한 소제목·문장 수·표 수를 강제하지 않는다.
+
+외부 공식 예약 페이지로 보내는 것 자체는 문제가 아니다. 예약·결제·당일 취소 확인은 공식 서비스에서 한다. 우리 글은 그 전에 필요한 판단과 한국어 장벽을 얼마나 해소했는지로 평가한다.
+
+근거를 세 단계로 구분한다.
+
+1. 공식 확인: 날짜·가격·입장·언어·접근성의 각 주장에 정확한 출처와 확인일을 연결한다.
+2. 편집 분석: 선택지 비교·문화 해석·이동 계획의 자료와 가정을 공개한다. 지도상 시간 추정을 실제 걸어본 시간처럼 쓰지 않는다.
+3. 직접 확인: 현장 방문·예약 화면 점검·운영자 답변·독자 테스트의 수행자·날짜·범위를 기록한다. 실제 문의·구매·예약 완료에는 별도 권한과 수행이 필요하다.
+
+현장 취재가 불가능하면 문서 조사로 공개할 수 있다. 가짜 체험담·저자 경력·AI 현장 사진으로 근거를 대체하지 않는다. 사진·지도·화면 자료는 사용 권한과 개인정보를 점검한다.
+
+### 날짜의 의미를 분리한다
+
+현재 scripts/recheck-published-events.mjs는 공식 페이지에서 설정 토큰이 확인되면 event.lastChecked를 오늘로 바꾼다. 해당 출처 확인과 본문 전체 재검토는 다르다.
+
+구현 시 sourceCheckedAt(자동 확인 항목), editorReviewedAt(수동 검토 범위), fieldVerifiedAt(실제 현장 확인이 있는 경우), materialUpdatedAt(판단에 영향을 주는 내용 변경)을 구분한다. 자동 검사 성공만으로 본문 전체가 새로 검토된 것처럼 표시하지 않는다.
+
+Search Central도 독자 질문 해결, 저자·제작 방법의 투명성, 실질 변경 없는 날짜 갱신을 자가 점검하도록 안내한다. 이는 검색 품질 지침이며 AdSense 합격 점수표가 아니다. [도움이 되는 콘텐츠 공식 안내](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+### 공공데이터와 AI의 역할
+
+| 도구 | 활용 | 금지·한계 |
+| --- | --- | --- |
+| TourAPI·서울 열린데이터 | 후보 발견, 주소·좌표 대조, 운영 변경 감지 | API 설명을 번역해 기사로 자동 공개하지 않는다. |
+| 기상청 | 위치·시간이 맞는 예보와 관측, 발표 시각 표시 | 짧은 과거 표본을 미래 확률이나 전형적 계절로 일반화하지 않는다. |
+| 주최자·예약 서비스 | 일정·입장·언어·예약 과정 확인 | 200 응답·키워드 존재는 모든 조건이 동일하다는 보증이 아니다. |
+| AI | 초안·대조·번역 보조·중복 탐지 | 체험·문의 답변·재고·접근성·운영 시간을 만들어내지 않는다. |
+| 자동 테스트 | 링크·날짜·공개 상태·구조화 데이터·회귀 | 점수로 콘텐츠 가치나 승인을 인증하지 않는다. |
+
+후보 수집 → 변경·불확실성 분류 → 수동 검증 → 편집 → 검사 → 명시적 배포 순서로 운영한다. 공개량이 검토 역량을 넘으면 범위를 줄인다. 당일 취소·예약과 장기 문화 해설의 갱신 주기는 다르게 잡는다. API 키는 공개 데이터·브라우저 번들에 넣지 않는다.
+
+## 6. 유입·수익 전략
+
+### 콘텐츠와 유입
+
+장기 가이드와 현재 선별 행사를 연결한다. 초기 편집 시간은 지속형 가이드 약 60%, 현행 행사 확인 약 30%, 독자 검증 약 10%를 가설로 배분하고 실제 유지 비용으로 조정한다. 기사 개수 할당량이 아니다.
+
+검색 주제는 예약 없이 가능한 문화 경험, 영어 이해 여부, 한국 전화번호 없는 예약, 우천 문화 일정처럼 제약에서 찾는다. 검색량·경쟁도는 아직 검증하지 않았으므로 고수익 키워드라고 단정하지 않는다.
+
+1. 인터뷰·실제 문의·Search Console에서 반복 질문을 모은다.
+2. 한 질문에 대표 페이지 하나를 만들고 같은 지역의 행사·대안과 연결한다. 날짜·도시 이름만 바꾼 중복 페이지는 만들지 않는다.
+3. 실제 취재 자료가 있으면 짧은 이미지·영상으로 핵심 답을 소개하고 근거 페이지로 연결한다. 커뮤니티 도배나 방문 구매는 하지 않는다.
+4. 여행 전·체류 중의 다음 일정 탐색·저장·공유를 먼저 측정한다. 뉴스레터는 반복 수요가 확인될 때 검토한다.
+5. 반응이 있는 주제에 보강 시간을 배정한다. 검색을 위해 무관한 쇼핑·뉴스를 확장하지 않는다.
+
+### 광고 수익의 현실
+
+승인과 수익은 다른 단계다. 월수익은 대략 ‘월 PV ÷ 1,000 × 페이지 RPM’으로 계산한다. [Google의 RPM 정의](https://support.google.com/adsense/answer/190515?hl=en)
+
+아래는 시장 예측이 아닌 가정별 계산이다. 실제 RPM·전체 PV·국가 구성·운영비는 미확인이다.
+
+| 가정한 페이지 RPM | 월 USD 300에 필요한 PV |
+| --- | --- |
+| USD 2 | 150,000 |
+| USD 5 | 60,000 |
+| USD 10 | 30,000 |
+
+검색 노출과 PV를 혼용하지 않는다. 확인된 검색 유입만으로는 이 규모의 사업성을 입증할 수 없다. 승인 후 국가·기기·주제별 RPM과 콘텐츠 유지 비용을 함께 측정한다.
+
+현장 취재·상시 갱신에는 비용이 든다. 충분한 독자가 없으면 광고만으로 운영비를 충당하기 어렵다. 초기에는 작은 범위에서 유지 비용과 재사용 가능한 취재 자산을 검증한다. 독자가 부족한 문제를 광고 수로 해결하지 않는다.
+
+승인 후 본문·지도·예약 안내를 방해하지 않는 배치부터 검증한다. 광고 클릭 유도·오인 버튼은 금지한다. 적용 지역의 Google 인증 CMP와 실제 동의 흐름은 광고 활성화 전에 재확인한다. 제휴·협찬은 장래 선택지이며 이번 전략 수정으로 활성화하지 않는다.
+
+## 7. 실행 순서와 완료 조건
+
+기간은 착수 후 작업 묶음이며 승인 예정일·자동 제출일이 아니다. 취재·외국인 테스트에는 실제 사람과 시간이 필요하다.
+
+| 단계 | 작업 | 완료 조건 |
+| --- | --- | --- |
+| 1. 약 1–2 작업일 | 공개 기사 9개를 독자 질문·고유 답·출처·중복·누락 조건으로 평가. 잘못된 대기 경고와 날짜 의미 수정 설계. | URL별 유지/보강/통합 판단. 과거 계정 사실 기록은 보존하고 해석을 분리한다. |
+| 2. 약 3–7 작업일 | 덕수궁·서울 정원·OCEAN 등 서로 다른 문화 경험, 연계 참여 가이드, 광안리 비교 사례 보강. | 우선 4–6개 대표 결과물. 품질 검증 표본이지 승인용 최소 기사 수가 아니다. 일정에 맞춰 증거를 꾸미지 않는다. |
+| 3. 병행 | 영어 사용자 5–8명의 선택·예약 조건 파악·지도 이동·대체 일정 과제. | 과제별 성공/실패/오해 기록. 초기 탐색 표본이며 통계적 대표성을 주장하지 않는다. |
+| 4. 수정 후 | 남은 공개 기사 검토, 지역·주제별 연결, 날짜·이미지 권리·링크·메타데이터·사이트맵 검사. | 대표 글만으로 전체를 통과시키지 않는다. 브라우저에서 읽기·지도·공식 예약 이동 확인. |
+| 5. 별도 배포 승인 후 | 운영 반영과 실제 렌더링·날짜·경로·소유권 확인 수단 점검. | 로컬과 운영 결과를 분리한 기록. 계정·광고 설정은 변경하지 않는다. |
+| 6. 재심사 결정 | 편집 개선 근거·남은 위험·계정 요청 가능 여부 검토. | 사용자의 명시적 제출 요청이 있을 때 1회 제출하고 완료 상태를 확인한다. |
+
+초기 내부 사용성 목표: 핵심 과제를 5명 중 4명이 도움 없이 완료하고, 입장·예약 가능성에 대한 치명적 오해가 없을 것. 미달이면 수정한다. 이는 Google 요건이나 승인 보증이 아니다.
+
+데스크톱 작업을 우선할 수 있지만 현장에서는 휴대전화로 지도·예약을 확인한다는 제품 가설을 무시하지 않는다. 모바일 전용 기능을 늘릴 필요는 없으나 기본 읽기·메뉴·지도·예약 링크는 검증한다. 현재 모바일 결함을 직접 확인했다는 주장은 아니다.
+
+## 8. 재심사 판단과 지표를 분리한다
+
+- 기술: 페이지·링크·구조화 데이터·사이트맵·선택한 소유권 수단. 통과/실패/미확인 보고.
+- 편집: 질문 해결, 출처 대비 추가 가치, 문화 설명·참여 조건, 반복 제거, 신뢰 가능한 날짜·작성 주체.
+- 사용성: 독립 과제와 실제 브라우저 검증. 단어 수 검사로 대체하지 않는다.
+- 사업: 유입·PV·재방문·지도 및 공식 안내 이동·유지 시간. 승인 자격과 분리해 추세를 본다.
+- 계정: 최근 반려 사유, 요청 가능 여부, 현재 심사 중 여부, 소유권 확인. 제출 일시·결과는 계정 증거로 남긴다.
+
+재심사 권고 조건은 실질적 편집 개선이 운영에 반영되고, 치명적 기술·정책·사용성 문제가 없으며, 계정에서 요청 가능하고 기존 요청이 진행 중이 아닌 것이다. 제출에는 사용자의 명시적 요청이 필요하다.
+
+특정 클릭 수, 모든 페이지 색인, 과거 URL 보고의 완전 소멸, 임의의 대기 일수를 합격선으로 추가하지 않는다. 색인 문제가 실제 robots·서버·canonical 오류를 드러내면 해당 장애는 해결한다. 공개 ads.txt는 유지·점검하되 다른 선택 소유권 수단이 검증된 경우 계정 표시 지연만으로 콘텐츠 개선을 중단하지 않는다.
+
+공개 범위를 최소로 줄이는 것이 목표가 아니다. 범위 전체에서 약속한 일을 충분히 해내는 것이 목표다. Google 내부 판단은 공개되지 않으므로 조건 충족도 승인 보증은 아니다.
+
+## 9. 중단·유지할 일
+
+중단 권고:
+
+- ‘승인까지 몇 개 더’라는 양적 증설과 칸 채우기.
+- 사이트맵 수·ads.txt 표시 대기로 콘텐츠 문제를 보류하는 대응.
+- 실질 검토 없이 날짜만 새로 보이게 하는 표현.
+- 무관한 다국어·도시·쇼핑 확장과 전면 UI 재개발.
+- 이유 없는 대량 삭제·복원, 매번 하는 사이트맵 수동 재제출.
+
+유지·보강:
+
+- 출처 추적, 후보/공개 분리, 만료 처리, 보안·정책 기본 장치.
+- 문서 조사/직접 경험 구분, 한국어 장소명, 실제 사례 분석.
+- 안정된 URL, 같은 지역·독자 의도에 맞는 내부 연결.
+- 실제 변경·문제를 알리는 모니터링. 이전 19/21 URL 기준과 무기한 대기 판단은 후속 구현에서 별도 정리한다.
+
+## 10. 이번 검토 결과
+
+- 통과: 기본 접근·메타 태그·공개 ads.txt·13 URL 일치의 저장된 기술 증거가 있다. 영어 공개 범위와 문서 조사 한계를 명시하는 방향은 유지한다.
+- 실패: 종전의 개수·자동 수집 목표와 내부 검사 중심 품질 판단은 사업 목적을 충분히 뒷받침하지 못한다. 이 문서의 독자 문제 해결 중심 계획으로 대체했다.
+- 미확인: Google의 개별 페이지 판단, 개편본 후속 심사 결과, 실제 전체 PV·RPM·전환율, 독립 외국인 사용성, 최신 브라우저 레이아웃·광고 활성화용 CMP 검증.
+
+이번 작업에서는 monetization-plan.md만 수정한다. 계정 감사 기록의 기존 변경, 사이트 코드, 공개 데이터, 자동화, 프로덕션 및 재심사 상태는 변경하지 않는다.

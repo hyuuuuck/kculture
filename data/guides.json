@@ -1,59 +1,282 @@
 [
   {
-    "slug": "how-to-verify-korea-popups",
-    "category": "kpop",
-    "title": { "en": "Korea pop-ups and fan events: three real source-check case files" },
-    "summary": { "en": "A dated comparison of three real Korea event records showing how reservations, branch schedules, and sold-out wording change a visitor's decision." },
-    "publishedAt": "2026-07-10",
-    "updatedAt": "2026-09-02",
+    "slug": "seoul-culture-first-visit",
+    "category": "festival",
+    "title": {
+      "en": "Your first Seoul culture day: palace, gardens or Korean ceramics?"
+    },
+    "summary": {
+      "en": "Choose imperial history at Deoksugung, public design at Seoul Forest, or an indoor comparison of Korean ceramics. Specific tours, gardens and open museum rooms give each choice a purpose."
+    },
+    "publishedAt": "2026-09-10",
+    "updatedAt": "2026-09-18",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "We compared three archived 2026 event records against the most authoritative source captured for each case. This is documentary research, not a first-hand visit, inventory check, or claim that a past event is still open.",
-    "audience": "Independent Korea visitors deciding whether a pop-up, merchandise store, or fan event is reliable enough to reserve a time slot or cross the city.",
-    "presentation": { "decisionTool": false, "worksheet": false },
-    "originalEvidence": {
-      "kind": "case-ledger",
-      "label": "Three archived case files",
-      "eyebrow": "Dated source comparison",
-      "title": "What changed the decision in three actual 2026 records",
-      "checkedAt": "2026-07-10",
-      "intro": "These are not invented examples. They are three records previously reviewed for K-Spot Now's event database. The comparison preserves the date, controlling source, missing variable, and resulting travel decision so readers can see why the same-looking poster can require a different commitment.",
-      "headers": ["Case record", "Controlling evidence", "Uncertainty that remained", "Travel decision"],
-      "rows": [
-        ["BTS POP-UP: ARIRANG, Busan — Jun 5–14", "The BTS Weverse notice tied entry to a reservation flow and QR presentation at Shinsegae Centum City.", "A real event and a real venue did not prove that a visitor could enter without a usable reservation.", "Treat it as a fixed stop only after the reservation and identity flow works on the traveler's device."],
-        ["Toy Story 5 relay pop-up — Apr 30–Jul 12", "The reviewed NOL listing described seven Hyundai Department Store locations with a relay schedule.", "The campaign-wide end date did not establish that every branch operated for the whole period.", "Save one branch and its own date before routing; never map the campaign title alone."],
-        ["Weverse Lucky Store, Yongsan — from Dec 8, until sold out", "The Weverse Shop notice supplied the location, operating information, reservation notes, and inventory-dependent wording.", "An open date range could not guarantee that a product, queue slot, or same-day reservation remained.", "Keep it optional and pair it with another Yongsan purpose that still has value if stock is gone."]
-      ],
-      "findings": [
-        { "label": "Reservation is a separate fact", "text": "A confirmed title, date, and venue still do not establish admission. The BTS record only became actionable when the reservation and QR requirements were included." },
-        { "label": "Campaign dates can hide branch dates", "text": "The relay case shows why a broad promotional period cannot be copied into a branch itinerary. One exact branch record is more useful than seven unverified pins." },
-        { "label": "Open does not mean available", "text": "The Lucky Store record separates store operation from product inventory. A visitor should protect the journey with a second reason to be in the same district." }
-      ],
-      "method": "Fields were normalized from the stored event records: date range, venue, Korean map query, entry rule, inventory wording, and last-check date. No current availability is inferred from an archived record.",
-      "limitations": "Two cases have ended and one is inventory-dependent. Use them as transparent verification examples, then open the current organizer or ticket notice for any live event."
+    "audience": "English-speaking independent visitors choosing one cultural anchor for a Seoul day.",
+    "method": "AI-assisted documentary comparison of linked city and heritage records, with explicit editorial judgments. This is not a walked itinerary, a completed reservation or a review based on attendance.",
+    "quickAnswer": "Choose Deoksugung for imperial history with an English guide, Seoul Forest for contemporary garden design, or the National Museum of Korea for a self-paced comparison of Korean ceramics indoors. These are three alternative anchors, not one cross-city itinerary.",
+    "relatedEventSlugs": [
+      "deoksugung-royal-guard-changing-ceremony-2026",
+      "seoul-international-garden-show-2026"
+    ],
+    "presentation": {
+      "decisionTool": false,
+      "worksheet": false
     },
     "sources": [
-      { "name": "BTS Weverse notice — ARIRANG Busan", "url": "https://weverse.io/bts/notice/36056", "note": "Artist-platform notice used for the reservation, QR-entry, venue, and operating-date case record." },
-      { "name": "NOL World — Toy Story 5 relay pop-up", "url": "https://world.nol.com/en/content/festas/019df18a-5ab9-7611-9d57-36f2a90d8ce9", "note": "Reviewed event listing used to show why a multi-branch relay period must be separated into branch-specific dates." },
-      { "name": "Weverse Shop notice — Lucky Store Yongsan", "url": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864", "note": "Store notice used for the location, reservation, purchase, tax-refund, and sold-out case record." }
+      {
+        "name": "Seoul city — Deoksugung ceremony and Jeong-dong",
+        "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
+        "note": "Distinguishes the short gate performance from the wider heritage visit and guided walk.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Royal Palaces and Tombs Center — Deoksugung history",
+        "url": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
+        "note": "Historical context for the imperial palace, not an event ticket or live booking service.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Seoul city — 2026 garden show",
+        "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
+        "note": "Source for the distinction between independent garden interpretation and hosted programs.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Heritage authority — separate English tour services",
+        "url": "https://royal.khs.go.kr/ROYAL/contents/R706040000.do",
+        "note": "Palace interpretation and Seokjojeon interior access are separate services. The linked event article explains their distinct arrangements.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Garden show — woodland design",
+        "url": "https://www.seoul.go.kr/festa/garden/y2026/created-garden/artist-garden/invitation-garden?article=41848",
+        "note": "Planting and circulation concept used in our cross-garden comparison.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Garden show — public furniture design",
+        "url": "https://www.seoul.go.kr/festa/garden/y2026/created-garden/participation-garden/local-garden?article=44096",
+        "note": "Horizon of 30.5 Meters, used as a contrasting form of public space rather than a generic garden recommendation.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "National Museum of Korea — visiting hours",
+        "url": "https://www.museum.go.kr/ENG/main/index.do",
+        "note": "Regular opening hours and admission distinction; special exhibitions can charge separately.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Museum — gallery renovation notice",
+        "url": "https://www.museum.go.kr/ENG/contents/E0606010000.do?arcId=23711&catCustomType=united&schM=view",
+        "note": "Rooms 303 and 304 remain open during the listed renovations. A general museum opening does not mean all galleries are accessible.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Museum — Celadon Gallery",
+        "url": "https://www.museum.go.kr/ENG/contents/E0201080200.do?schM=list&showHallId=757&showroomCode=DM0049",
+        "note": "Goryeo glaze and inlay context, plus the gallery's named ceramic forms.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Museum — Buncheong and White Porcelain Gallery",
+        "url": "https://www.museum.go.kr/ENG/contents/E0201080100.do?showHallId=757&showroomCode=DM0074",
+        "note": "White-slip buncheong, white porcelain and the gallery's listed objects.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Museum — directions from Ichon",
+        "url": "https://www.museum.go.kr/ENG/contents/E0105010000.do",
+        "note": "Line 4/Gyeongui–Jungang, Exit 2 and the station's elevator information.",
+        "checkedAt": "2026-09-18"
+      }
+    ],
+    "originalEvidence": {
+      "kind": "decision-comparison",
+      "label": "Three ways to choose",
+      "title": "Which question do you want the visit to answer?",
+      "checkedAt": "2026-09-18",
+      "intro": "Our selection joins a cultural question to a practical constraint. A palace tour, a designed landscape and a ceramic gallery teach different things; none is a substitute merely because it is in Seoul.",
+      "headers": [
+        "Visit format",
+        "What you gain",
+        "What fixes the plan"
+      ],
+      "rows": [
+        [
+          "Deoksugung: why does an imperial palace mix architectural traditions?",
+          "Historical interpretation, with a separate choice between a palace tour and the outdoor guard ceremony",
+          "The English palace tour begins before the morning ceremony; choose which appointment matters"
+        ],
+        [
+          "Seoul Forest: how can a garden organize movement or a place to stop?",
+          "A comparison of named designs, supported by English QR audio/text",
+          "Outdoor conditions and the correct park; Maeheon is a separate October venue"
+        ],
+        [
+          "National Museum of Korea: what makes Korean ceramic surfaces different?",
+          "Compare celadon in Room 303 with buncheong and white porcelain in Room 304",
+          "Free permanent galleries; selected other rooms are under renovation. Regular last admission is 30 minutes before closing."
+        ]
+      ],
+      "findings": [
+        {
+          "label": "Language is a service, not a website label",
+          "text": "An English description of an event does not establish English narration, gallery captions or overseas checkout. Check the particular service you need."
+        },
+        {
+          "label": "One anchor is easier to rescue",
+          "text": "A day organized around one meaningful stop can tolerate a closure more easily than a list of distant pins that all have to work. This is our planning judgment."
+        }
+      ],
+      "method": "Compared heritage services, named garden designs, museum collection explanations and the current gallery closure notice. Recommendations are documentary editorial judgments, not reports of attendance.",
+      "limitations": "Museum objects may rotate. Hours and closures can change; this is not a walked route or a confirmed booking. Special-exhibition tickets and guided services are separate."
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Choose a question, not a collection of pins",
+          "paragraphs": [
+            "If you want to understand Korea's imperial transition, choose Deoksugung. If you are interested in how a contemporary city makes public space, choose the Seoul Forest gardens. If you want to learn how Korean craftspeople made an object look and feel different, choose the National Museum of Korea. Naming the question makes it easier to leave out a famous stop that does not serve your day.",
+            "We would not put all three on a first-day checklist. The purpose is to spend attention, not just travel time. Choose one anchor below; a second visit is optional, only after its location and hours fit. This is an editorial comparison researched from official records, not an itinerary we have walked."
+          ]
+        },
+        {
+          "heading": "Imperial history: choose the tour before the ceremony",
+          "paragraphs": [
+            "Deoksugung is the strongest choice here if you want an English explanation of an imperial palace whose Korean and Western-style buildings do not tell a single timeless story. Look at the contrast between the ceremonial palace setting and Seokjojeon rather than assuming every Korean palace has the same historical purpose.",
+            "The 10:45 English palace tour and the 11:00 guard ceremony overlap as appointments. A history-first visitor should not be promised both. The palace tour and the separately managed Seokjojeon interior tour also have different entry arrangements; our Deoksugung article gives the times, meeting conditions and first-come limit for the latter.",
+            "For a shorter visual encounter, choose the gate ceremony and make palace entry a separate decision. For explanation and questions, choose the guided service. An English-language website does not itself establish English narration during the outdoor ceremony."
+          ]
+        },
+        {
+          "heading": "Contemporary design: compare two gardens with different jobs",
+          "paragraphs": [
+            "At Seoul Forest, pair Bava's Fluid Woodland Understory Garden with Horizon of 30.5 Meters. The first uses planting and circulation to draw attention to a woodland understory; the second treats useful public furniture as part of the garden. Our suggested comparison is simple: where does the design ask you to move, and where does it invite you to stay?",
+            "For a more urban question, substitute Lee Nam-jin's Garden of Waiting and compare waiting with walking. These named projects give you something to examine beyond taking the same wide photograph of each planted area. Seoul's English QR audio and text offer interpretation at your own pace; a hosted program is a different service.",
+            "Use 서울숲 for the main venue. Maeheon Citizens' Forest is a separate October site, not another entrance to Seoul Forest. The garden article explains the project names and venue distinction so that a season-wide advertisement does not become a wrong-park journey."
+          ]
+        },
+        {
+          "heading": "Indoors: read a ceramic surface in Rooms 303 and 304",
+          "paragraphs": [
+            "At the National Museum of Korea, start with celadon in Room 303. The museum connects Goryeo ceramic achievement with jade-toned glaze and inlaid decoration. Its display list includes animal-shaped ewers and vessels with cranes and clouds. Choose a form first—something for pouring, holding or burning incense—then look at how the decoration works with that form. A sculptural spout and a pattern on the body solve different visual problems.",
+            "Continue to buncheong and white porcelain in Room 304. Buncheong uses white slip over a grey body; the museum distinguishes that from white porcelain made from a different ceramic body. Look for the listed stamped chrysanthemum bowls and compare their repeated marks with a white porcelain jar. Do not use 'white' as though it named one technique.",
+            "Our proposed looking exercise is to compare one vessel's silhouette, one surface pattern and one implied use across the two rooms. That turns a large museum into a focused introduction to Korean making. The online gallery lists are preparation, not a promise that a particular object cannot rotate; the comparison still works with another labelled example of the same technique."
+          ]
+        },
+        {
+          "heading": "The museum is an alternative—not a promise that every room is open",
+          "paragraphs": [
+            "The renovation notice specifically keeps Rooms 303 and 304 open while other galleries, including Buddhist Sculpture and Metal Crafts, are closed through January 28, 2027. Do not copy an older 'museum highlights' route through those closed rooms. Our ceramic choice is deliberate, not a claim that the whole collection is currently accessible.",
+            "Regular museum hours are 09:30–17:30 on Monday, Tuesday, Thursday, Friday and Sunday, and 09:30–21:00 on Wednesday and Saturday; last admission is 30 minutes before closing. Permanent galleries are free, while special exhibitions can charge. Check a dated closure notice for a holiday or maintenance day rather than assuming the regular timetable has no exceptions.",
+            "Save 국립중앙박물관, not a generic 'national museum' pin. The museum directs subway visitors to Ichon Station on Line 4 or the Gyeongui–Jungang Line and Exit 2; it notes elevators toward Exits 1 and 2. Its English collection pages can support a self-guided visit. We have not verified the availability of an English guided slot or surveyed the complete step-free journey."
+          ]
+        },
+        {
+          "heading": "Turn your choice into a plan you can change",
+          "paragraphs": [
+            "Keep the anchor, its Korean place name and the reason you chose it together. For Deoksugung that may be a guided history appointment; for Seoul Forest, two named designs; for the museum, a two-room ceramic comparison. If the appointment or room closes, you can tell whether a substitute still answers the same question.",
+            "Make an indoor switch before crossing the city, not after last admission. A wet garden afternoon can become a museum afternoon only if the remaining journey and opening hours fit. Keep 입장 (entry), 예약 (reservation), 휴관 (closed) and 취소 (cancelled) with your notes, but read the full dated notice before interpreting a familiar word as permission."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "slug": "how-to-verify-korea-popups",
+    "category": "kpop",
+    "title": {
+      "en": "K-pop pop-ups: choose the experience before the merchandise"
+    },
+    "summary": {
+      "en": "A showroom visit and a merchandise purchase can have different entry rules. Two dated Weverse cases explain how to choose the purpose, prepare admission and avoid making stock the whole trip."
+    },
+    "publishedAt": "2026-07-10",
+    "updatedAt": "2026-09-18",
+    "reviewedBy": "K-Spot Now Editorial Desk",
+    "method": "AI-assisted documentary revision for K-Spot Now Editorial Desk. Source dates and unresolved conditions are shown separately. No field visit, completed purchase or independent reader test is claimed.",
+    "audience": "International K-pop fans deciding whether a showroom, pop-up installation or merchandise shop is worth a journey.",
+    "presentation": {
+      "decisionTool": false,
+      "worksheet": false
+    },
+    "originalEvidence": {
+      "kind": "case-ledger",
+      "label": "Two dated fan-space cases",
+      "eyebrow": "Dated source comparison",
+      "title": "A showroom visit and a purchase are different plans",
+      "checkedAt": "2026-09-17",
+      "intro": "The June BTS event is over; the older Lucky Store notice is not evidence of current opening or stock. We use both as named examples of reading fan-space rules, not as places to visit now.",
+      "headers": [
+        "Case record",
+        "Controlling evidence",
+        "Uncertainty that remained",
+        "Travel decision"
+      ],
+      "rows": [
+        [
+          "BTS POP-UP: ARIRANG, Busan — Jun 5–14",
+          "The BTS Weverse notice distinguishes the B1 merchandise shop, which required a reservation and live QR, from the B2 showroom, which allowed entry without a reservation.",
+          "A blanket 'reservation required' label hid a different rule for the showroom.",
+          "Name the room and purpose first. A usable reservation was essential for shopping, not a universal condition for seeing the showroom."
+        ],
+        [
+          "Weverse Lucky Store, Yongsan — from Dec 8, 2025, until sold out",
+          "The Weverse Shop notice supplied the location, operating information, reservation notes, and inventory-dependent wording.",
+          "An open date range could not guarantee that a product, queue slot, or same-day reservation remained.",
+          "Keep it optional and pair it with another Yongsan purpose that still has value if stock is gone."
+        ]
+      ],
+      "findings": [
+        {
+          "label": "Admission belongs to a specific space",
+          "text": "The BTS notice distinguishes merchandise shopping from showroom access. One rule applied to the whole building would mislead both kinds of visitor."
+        },
+        {
+          "label": "Open does not mean available",
+          "text": "The Lucky Store record separates store operation from product inventory. A visitor should protect the journey with a second reason to be in the same district."
+        }
+      ],
+      "method": "Compared two artist-platform notices by purpose, room, admission method and inventory scope. These are documentary case studies, not attendance reviews or tested overseas purchases.",
+      "limitations": "BTS ARIRANG Busan ended June 14; the Lucky Store record is inventory-dependent and current availability is unverified. Neither is in the live event selection."
+    },
+    "sources": [
+      {
+        "name": "BTS Weverse notice — ARIRANG Busan",
+        "url": "https://weverse.io/bts/notice/36056",
+        "note": "Rechecked September 17: B1 merchandise shop required reservation and live QR; B2 showroom did not require reservation. The event ended June 14."
+      },
+      {
+        "name": "Weverse Shop notice — Lucky Store Yongsan",
+        "url": "https://shop.weverse.io/en/shop/USD/artists/242/notices/11864",
+        "note": "Rechecked September 17: starts December 8, 2025 for the 2026 Season's Greetings release; inventory-dependent end, not confirmation of current operation or stock."
+      }
     ],
     "sections": {
       "en": [
         {
-          "heading": "Case one: a reservation requirement changes the whole trip",
+          "heading": "Choose between taking part and taking something home",
           "paragraphs": [
-            "The archived BTS ARIRANG record contained enough information to prove that the event existed: an official artist-platform notice, a Busan venue, operating dates, and named floors. That still was not enough to promise a visit. Reservation-only entry and QR presentation turned account access, device battery, and the traveler's usable booking into part of the admission decision.",
-            "This distinction matters because a reposted poster usually preserves the exciting facts and drops the operational dependency. A visitor who crosses Busan with only the title and venue has verified discovery, not entry. For any similar event, follow the reservation link from the organizer record and stop if it cannot be traced back to that authority."
+            "A fan-space visit can be about sharing an album's visual world, meeting friends or buying a specific release. Those purposes do not require the same commitment. If you want a showroom, the questions are which space you may enter and what is actually shown. If you want one item, admission is only the first step: the relevant stock can disappear while the space remains open.",
+            "Treat these as preferences, not a hierarchy of 'real' fandom. Our planning recommendation is to name the part you would still value without a purchase. If there is none, make current stock and a usable buying process decisive before travelling. If the installation is enough, do not rule it out solely because the merchandise shop uses a reservation system."
           ]
         },
         {
-          "heading": "Case two: a relay schedule is not one long event",
+          "heading": "A useful question to send the organizer",
           "paragraphs": [
-            "The Toy Story 5 record described a campaign moving through seven Hyundai Department Store locations. A single April-to-July range was useful as campaign context but dangerous as a branch promise. The correct unit for itinerary planning was one branch, one date window, one building, and one floor—not the overall marketing period.",
-            "This is the failure mode behind many title-only travel plans. Search results keep the longest date and the most famous branch, then silently join them. The safer method is to write the Korean branch name beside the branch-specific date and discard the stop when those two fields cannot be supported together."
+            "When a current notice is unclear, ask a narrow question that can receive a concrete answer: 'For [program] at [branch] on [date], can I enter with an overseas phone number? Is a live QR required, and which identity document must match the booking?' Replace the brackets with your actual plan; do not send passport numbers or an image of your identity document merely to ask about the rule.",
+            "For a purchase-led visit, ask about admission and stock separately. 'Can I enter?' and 'Is the item available?' are different questions. If you only want to see an installation or showroom, name that space so you do not receive the shop's rule by default. Save the reply with its date; a response about one session is not permission for all sessions."
           ]
         },
         {
-          "heading": "Case three: until sold out is a route warning",
+          "heading": "Case one: the same pop-up had two entry rules",
+          "paragraphs": [
+            "The BTS ARIRANG notice separates the B1 merchandise shop from the B2 showroom. Shopping required a reservation and a QR displayed from the app or reservation page; a saved screenshot was not accepted. The showroom, however, could be visited without a reservation, subject to a possible wait. Our earlier article generalized the shopping rule to the whole event; that was wrong.",
+            "For an international visitor, the first question is therefore 'What do I want to do inside?' A person seeking merchandise and a person seeking the showroom needed different preparation. Neither rule established that a product remained in stock. This June 5–14 event has ended, but the distinction is reusable: label the specific room or activity before evaluating the account requirement."
+          ]
+        },
+        {
+          "heading": "Case two: an inventory notice is not an exhibition promise",
           "paragraphs": [
             "The Lucky Store record used inventory-dependent language. That wording does not make the notice unreliable; it changes what can be promised. The location and operating process may remain useful while the desired item, same-day slot, or queue condition stays unknown.",
             "The rational response is not to add generic advice such as arrive early. It is to reduce the cost of failure. In Yongsan, the pop-up should be attached to a museum, mall, station, or neighborhood purpose the visitor already values. If the merchandise disappears, the travel time has not been spent on a single uncertain outcome."
@@ -66,188 +289,331 @@
             "When two records conflict, keep the conflict visible and compare the field, scope, and update time. Do not create a cleaner answer by taking the date from one page, floor from another, and admission rule from an older screenshot unless the records clearly describe the same edition."
           ],
           "table": {
-            "headers": ["Question", "Record that should control", "Stop condition"],
+            "headers": [
+              "Question",
+              "Record that should control",
+              "Stop condition"
+            ],
             "rows": [
-              ["Is this edition real?", "Current organizer or artist notice", "Only reposts or an untraceable image remain"],
-              ["Which building and floor?", "Current venue or branch record", "Campaign title resolves to several branches"],
-              ["Can this traveler enter?", "Organizer-linked reservation or ticket page", "Identity or account rule is unresolved"],
-              ["Is the product available?", "Current store inventory notice", "Only launch-day stock language remains"]
+              [
+                "Is this edition real?",
+                "Current organizer or artist notice",
+                "Only reposts or an untraceable image remain"
+              ],
+              [
+                "Which building and floor?",
+                "Current venue or branch record",
+                "Campaign title resolves to several branches"
+              ],
+              [
+                "Can this traveler enter?",
+                "Organizer-linked reservation or ticket page",
+                "Identity or account rule is unresolved"
+              ],
+              [
+                "Is the product available?",
+                "Current store inventory notice",
+                "Only launch-day stock language remains"
+              ]
             ]
           }
         },
         {
-          "heading": "A commitment rule built from the three records",
+          "heading": "Turn the two cases into one clear commitment",
           "paragraphs": [
-            "Make the event a fixed itinerary stop only when the same edition has a supported date, exact venue, and workable entry path. Keep it flexible when the event and entry are confirmed but inventory is not. Remove it when the date and branch cannot be proven together or when payment or reservation leaves the organizer's authorized path.",
-            "This rule is deliberately narrower than a five-item checklist. The three case files show that the decisive variable changes by event: reservation for one, branch schedule for another, inventory for the third. Verification should preserve that difference instead of forcing every event into the same template."
+            "Make a pop-up a fixed stop when the current edition has a supported date, exact room and admission method you can use. Keep a purchase-led stop optional when the desired stock is unknown. The Korean venue name and floor matter more than a campaign-wide map pin.",
+            "The BTS case is useful because it separates shopping from showroom access; the Lucky Store case separates an operating notice from availability. Neither proves that the visitor will find the experience meaningful. Your reason for going—seeing the space, sharing it with someone, or obtaining a specific item—must remain part of the decision."
           ]
         }
       ]
-    }
+    },
+    "quickAnswer": "Decide whether you want to see the exhibition space or buy a particular item. Check the rule for that exact room, then the account and identity requirement. Access to a pop-up does not promise stock, and a shop reservation rule may not apply to its showroom."
   },
   {
     "slug": "weather-for-korea-events",
     "category": "travel-benefits",
-    "title": { "en": "Korea event weather: what four KMA observation windows actually change" },
-    "summary": { "en": "A public-data analysis of Seoul, Busan, Andong, and Jinju observation windows, with event-specific decisions and a strict boundary between history and forecast." },
+    "title": {
+      "en": "Rain or heat on your Korea event day: what to change"
+    },
+    "summary": {
+      "en": "A cancelled drone show, an exposed garden and a late river crossing require different changes. Use current conditions and the operator's notice to decide what to keep, shorten or drop."
+    },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-09-02",
+    "updatedAt": "2026-09-18",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "We queried the Korea Meteorological Administration ASOS daily-observation API for the same calendar window in the previous year, then mapped each sample to one reviewed event decision. Historical observations are never presented as a forecast.",
+    "method": "AI-assisted documentary revision for K-Spot Now Editorial Desk. Source dates and unresolved conditions are shown separately. No field visit, completed purchase or independent reader test is claimed.",
     "audience": "Visitors planning an exposed waterfront show, regional night festival, palace ceremony, or long outdoor route who need to turn weather data into a specific fallback decision.",
-    "presentation": { "decisionTool": false, "worksheet": false },
+    "presentation": {
+      "decisionTool": false,
+      "worksheet": false
+    },
     "originalEvidence": {
-      "kind": "weather-analysis",
-      "label": "Four KMA observation windows",
-      "eyebrow": "Public-data analysis",
-      "title": "Four event windows, four different planning risks",
-      "checkedAt": "2026-08-06",
-      "intro": "K-Spot Now requested seven-day same-period 2025 observations from the KMA ASOS daily API for four reviewed 2026 event contexts. The values below are preserved as planning references. They show which failure mode deserves a backup; they do not predict the weather for the 2026 visit.",
-      "headers": ["Event context and reference window", "Observed temperature", "Rain / humidity", "Decision the sample changes"],
+      "kind": "decision-comparison",
+      "label": "Three decisions, not a weather score",
+      "title": "What actually changes the outing?",
+      "checkedAt": "2026-09-18",
+      "intro": "This is our planning comparison, grounded in the linked operating notices. It is not a forecast, a safety threshold or a climate ranking.",
+      "headers": [
+        "Situation",
+        "Deciding information",
+        "Useful change"
+      ],
       "rows": [
-        ["Seoul outdoor stop — Aug 6–12, 2025", "27.1°C average; 23.9–30.7°C average daily minimum/maximum", "31.8 mm total; 74.8% average humidity", "Protect queue and walking time from heat; do not treat an indoor venue as proof that the approach and wait are comfortable."],
-        ["Gwangalli waterfront show — Aug 6–12, 2025", "25.8°C average; 23.5–29.4°C average daily minimum/maximum", "132.2 mm total; 83.4% average humidity", "Keep a same-district indoor wait and recheck the organizer because rain and coastal exposure can threaten the viewing plan."],
-        ["Andong festival window — Sep 24–30, 2025", "20.9°C average; 17.4–25.5°C average daily minimum/maximum", "30.5 mm total; 84.1% average humidity", "Carry a layer for the day-to-night range and verify which outdoor venue is used before assigning one forecast point."],
-        ["Jinju riverside window — Oct 3–9, 2025", "19.8°C average; 17.6–22.8°C average daily minimum/maximum", "106.2 mm total; 91.9% average humidity", "Build a shorter riverside loop and a dry exit; the walking surface and return route matter as much as the lantern program."]
+        [
+          "Gwangalli: the forecast looks acceptable but the operator cancels",
+          "The operator also considers wind and communications; weather icons do not confirm a flight",
+          "Remove the show from the plan. Keep the Gwangalli trip only if another purpose still makes it worthwhile."
+        ],
+        [
+          "Seoul Forest: an outdoor visit no longer suits the day's conditions",
+          "Remaining travel time, museum last admission and the specific gallery closure notice",
+          "Choose the ceramic comparison in the Seoul guide before travelling, or shorten the outing. A roof alone does not make a usable replacement."
+        ],
+        [
+          "Jinju: lanterns remain lit after bridge service ends",
+          "Bridge/booth operation ends at 23:00; the ticket page lists 22:50 ticketing cutoff",
+          "Finish any bridge-dependent part first and return to the departure bank. Lighting until midnight does not extend transport or crossing service."
+        ]
       ],
       "findings": [
-        { "label": "The largest number is not a forecast", "text": "Busan and Jinju had wet reference windows, but the dates and places differ. The valid conclusion is to design a rain failure plan, not to predict that the 2026 event will be wet." },
-        { "label": "One city can require several decisions", "text": "A Seoul museum visit, palace queue, and garden route share a station record but not the same exposure. Event format must sit beside the weather number." },
-        { "label": "Regional festivals cannot use one convenient pin", "text": "Andong and Jinju span multiple outdoor areas. A single city forecast is a planning layer, while the organizer's venue map controls the actual route." }
+        {
+          "label": "A different failure needs a different answer",
+          "text": "An operational cancellation removes the event; uncomfortable exposure changes your personal plan; a closing crossing changes the route. One generic 'bring an umbrella' instruction cannot solve all three."
+        }
       ],
-      "method": "The stored dataset records station 108 for Seoul, 159 for Busan, 136 for Andong, and 192 for Jinju. Averages and totals are published exactly as returned by the reviewed import, without filling missing days or extrapolating to 2026.",
-      "limitations": "Different date windows cannot be ranked as a climate study, and one previous-year week cannot predict an event day. Use current KMA forecasts and organizer notices before travel."
+      "method": "Compared operator cancellation rules, museum opening/renovation notices and Jinju crossing hours. The actions are editorial judgments, not tested itineraries.",
+      "limitations": "No live forecast or walking-time estimate is supplied. Follow current local safety instructions. Historical 2025 weekly samples are retained in the research data, not used as predictions or public risk scores."
     },
     "sources": [
-      { "name": "KMA ASOS Daily Weather API", "url": "https://www.data.go.kr/en/data/15059093/openapi.do", "note": "Official dataset used for the four dated previous-year observation windows and station identifiers." },
-      { "name": "KMA short-range forecast", "url": "https://www.weather.go.kr/neng/forecast/short-term.do", "note": "Official forecast that replaces the historical reference when the visit enters the short-range window." },
-      { "name": "Safe Korea English alerts", "url": "https://eng.safekorea.go.kr/", "note": "Official public-safety alerts checked separately from an organizer's cancellation decision." }
+      {
+        "name": "KMA short-range forecast",
+        "url": "https://www.weather.go.kr/neng/forecast/short-term.do",
+        "note": "Official forecast that replaces the historical reference when the visit enters the short-range window."
+      },
+      {
+        "name": "Safe Korea English alerts",
+        "url": "https://eng.safekorea.go.kr/",
+        "note": "Official public-safety alerts checked separately from an organizer's cancellation decision."
+      },
+      {
+        "name": "Gwangalli operator — delay and cancellation conditions",
+        "url": "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-gisangaghwa-tongsinsanghwang-aghwa-cwiso-annae",
+        "note": "Weather and communications can cause advance or same-day cancellation.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "National Museum of Korea — regular hours",
+        "url": "https://www.museum.go.kr/ENG/main/index.do",
+        "note": "Last admission and normal opening hours; check separate closure notices.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Museum — galleries remaining open",
+        "url": "https://www.museum.go.kr/ENG/contents/E0606010000.do?arcId=23711&catCustomType=united&schM=view",
+        "note": "Rooms 303 and 304 are the specific indoor alternative, not the temporarily closed galleries.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Jinju festival — bridge service hours",
+        "url": "https://yudeung.com/?lang=en",
+        "note": "Bridges/booths and lantern lighting have different closing times.",
+        "checkedAt": "2026-09-18"
+      },
+      {
+        "name": "Organizer-linked Jinju bridge ticket guide",
+        "url": "https://reserv.tfunkorea.co.kr/sale/siteDetail/JINJUYUDEUNG?indivimall=jinjuyudeung",
+        "note": "Product guide before personal-data consent: ticketing closes 22:50. No purchase was made.",
+        "checkedAt": "2026-09-18"
+      }
     ],
     "sections": {
       "en": [
         {
-          "heading": "Read the sample as a failure-mode test",
+          "heading": "Choose the forecast point before choosing your clothes",
           "paragraphs": [
-            "The purpose of a historical observation is not to tell a traveler what the sky will do. It tests whether the itinerary survives a plausible combination of heat, rain, humidity, and exposure. The Gwangalli sample makes an indoor waiting option valuable; the Jinju sample makes a shorter walking loop and dry return more important; the Andong temperature range makes a day-to-night layer rational.",
-            "Because the four samples use different event windows, comparing their rainfall as a league table would be misleading. Each row belongs only to the event decision beside it. Current forecasts replace the historical reference as the date approaches, while the organizer remains the authority for cancellation, delay, and entry."
+            "Find the venue on a map and identify when you expect to be outside. A city name alone can hide a different waterfront, district or hillside from the place you will actually wait. On KMA's English forecast page, select the relevant location and look at the issued time as well as the period covered. If the event is beyond that period, the forecast has not yet answered your question.",
+            "Build the exposed part of the itinerary separately: approach from transit, queue, viewing, any outdoor meal and the return. An indoor exhibition still has an approach; a short beach show can involve much more standing than performance. Your own waiting tolerance is more useful here than an invented universal arrival buffer."
           ]
         },
         {
-          "heading": "Match the weather point to the exposed part of the visit",
+          "heading": "Weather and permission to operate are two different answers",
           "paragraphs": [
-            "A hotel forecast is not automatically the right forecast. For Gwangalli, the exposed decision happens at the beach and during the wait for a fixed-time show. For Jinju, it happens across a riverside walking route and bridge crossings. For Andong, several venues mean the traveler must first know which program and location they are attending.",
-            "Separate event duration from exposure duration. Add the walk from transit, admission queue, time needed to secure a viewing position, outdoor meal or merchandise queue, and the return to a station. A 12-minute show can create a two-hour weather commitment; a long indoor exhibition can still include a hot or wet approach."
-          ],
-          "table": {
-            "headers": ["Event format", "Weather variable to elevate", "Useful backup"],
-            "rows": [
-              ["Waterfront drone show", "Rain, wind, exposed wait, crowd return", "Indoor meal or market in the same district"],
-              ["Riverside night festival", "Rain surface, humidity, route length, last transport", "Short loop with a defined dry exit"],
-              ["Multi-venue regional festival", "Venue-specific timing and day/night range", "One confirmed program instead of an all-day sweep"],
-              ["Palace or garden stop", "Shade, standing time, heat, closure notice", "Nearby indoor visit with checked opening day"]
-            ]
-          }
+            "A forecast describes expected weather. It does not authorize a drone flight, keep a bridge open or establish whether an organizer has cancelled a ceremony. Find the organizer's notice for your selected date before making a non-refundable decision or setting off for a weather-sensitive program.",
+            "If the forecast looks acceptable but the organizer cancels, follow the cancellation. If the program remains listed but you cannot comfortably make the exposed journey, change your personal plan. Neither a calendar entry nor a green weather icon should overrule an official safety alert. Use Safe Korea's English service when alerts affect the area."
+          ]
         },
         {
-          "heading": "Use a 72-hour, 24-hour, departure sequence",
+          "heading": "A backup must share a usable place and time",
           "paragraphs": [
-            "Around 72 hours before the visit, choose the outdoor/indoor order and decide what would trigger a fallback. Around 24 hours before, move to the venue-level KMA forecast and record the issue time, event hours, temperature, precipitation, and relevant wind or alert signal. At departure, reopen both the forecast and the organizer notice rather than relying on a saved icon.",
-            "Change the plan when an official safety alert applies, the organizer cancels or modifies operation, or the full exposure exceeds the group's stated tolerance. Otherwise adjust arrival time, equipment, or route length. This sequence produces a decision that can be audited; generic seasonal language does not."
-          ],
-          "checklist": [
-            "72 hours: define the exact weather condition that activates the indoor fallback.",
-            "24 hours: record the venue district, forecast issue time, event hours, and exposure duration.",
-            "Departure: reopen KMA, safety alerts, and the organizer notice on the same device.",
-            "After a change: shorten the route before adding another cross-city reservation."
+            "Write down the failure you are solving. Rain during a garden walk calls for shelter and a different activity; a cancelled fixed-time show may simply call for a different evening. An indoor place across the country is not a backup. Even one in the same city can be impractical after its last admission.",
+            "For a Seoul gallery alternative, check the chosen day and admission cost before relying on it. For a waterfront evening, a nearby food or waiting option may preserve the outing without pretending to replace the show. Choose a point at which you will switch plans, and share that decision with anyone meeting you there."
+          ]
+        },
+        {
+          "heading": "A cancelled performance is not a bad-weather prediction",
+          "paragraphs": [
+            "Gwangalli's operator explicitly allows cancellation or delay for communications problems as well as rain, strong wind and typhoons. A dry forecast therefore does not answer whether the show will run. The correct switch is to remove the performance, then ask whether the rest of your beach evening still has a purpose. Do not keep an expensive transfer merely because a weather app looks reassuring.",
+            "Keep 취소 (cancelled) separate from 지연 (delayed) when reading the notice. A delay still needs a stated new arrangement; it is not permission to invent a replacement start time. For a recurring show, also check whether the notice applies to one session or the whole day. Our Gwangalli article separates its special September 26 performance from the regular two-show schedule."
+          ]
+        },
+        {
+          "heading": "An indoor replacement needs a room and a latest arrival",
+          "paragraphs": [
+            "For a Seoul Forest plan that no longer suits the weather, the National Museum of Korea's ceramic rooms offer a different cultural purpose: compare celadon with buncheong and white porcelain. The first-visit Seoul guide explains what to look for. This is not a nearby shelter recommendation or a promise of a quick transfer between the two places.",
+            "The museum's normal last admission is 17:00 on Monday, Tuesday, Thursday, Friday and Sunday, or 20:30 on Wednesday and Saturday. Its closure notice preserves Rooms 303 and 304 while closing other named galleries. If you cannot arrive in time or a dated closure affects your day, drop that fallback instead of treating 'museum open' as a universal answer."
+          ]
+        },
+        {
+          "heading": "At Jinju, make the return route survive the closing clock",
+          "paragraphs": [
+            "An evening can fail even without rain. Jinju's bridge and booth hours end at 23:00, and the ticket guide lists ticketing cutoff at 22:50, while lantern lighting continues to midnight. Choose the bank you need for departure before committing to a temporary bridge. A still-lit river is not evidence of a still-running crossing.",
+            "When conditions or crowd management change, shorten the part of the outing that depends on crossing. Our preference is to protect a usable exit rather than maximize the number of lantern areas visited. This is route-planning advice, not a claim to have measured the paths or verified wheelchair access. Read on-site restrictions ahead of any saved plan."
           ]
         }
       ]
-    }
+    },
+    "quickAnswer": "Use the current forecast for your event's location and time, then check the organizer's operating notice. Count the queue and return walk as outdoor exposure. A past year's observation cannot tell you whether today's event will run.",
+    "relatedEventSlugs": [
+      "deoksugung-royal-guard-changing-ceremony-2026",
+      "gwangalli-m-drone-light-show-2026",
+      "seoul-international-garden-show-2026",
+      "andong-maskdance-festival-2026",
+      "jinju-namgang-yudeung-festival-2026"
+    ]
   },
   {
     "slug": "tax-refund-payments-korea-shopping",
     "category": "shopping",
-    "title": { "en": "Korea tax refund or duty-free: identify the process before the airport" },
-    "summary": { "en": "An official-source process map that separates immediate refund, departure refund, and duty-free pickup without relying on remembered thresholds." },
+    "title": {
+      "en": "Korea tax refunds: your receipt, eligibility and airport steps"
+    },
+    "summary": {
+      "en": "Identify whether tax was already deducted, prepare the goods and documents for export checks, and find the relevant Incheon refund counter. Rules and location discrepancies are dated."
+    },
     "publishedAt": "2026-07-10",
-    "updatedAt": "2026-09-02",
+    "updatedAt": "2026-09-17",
     "reviewedBy": "K-Spot Now Editorial Desk",
-    "method": "We separated the transaction paths described by VISITKOREA, Korea Customs Service, and Incheon Airport, then converted them into a receipt-level status and total-cost comparison. Live retailer and official rules control eligibility.",
+    "method": "AI-assisted documentary revision for K-Spot Now Editorial Desk. Source dates and unresolved conditions are shown separately. No field visit, completed purchase or independent reader test is claimed.",
     "audience": "Foreign visitors comparing tax-refund shopping and duty-free purchases who need to protect documents, goods access, airport time, and the final legal cost.",
-    "presentation": { "decisionTool": false, "worksheet": false },
+    "presentation": {
+      "decisionTool": false,
+      "worksheet": false
+    },
     "originalEvidence": {
       "kind": "process-map",
       "label": "Refund-path process map",
       "eyebrow": "Official process comparison",
       "title": "Three similar discounts create three different jobs",
-      "checkedAt": "2026-08-06",
+      "checkedAt": "2026-09-17",
       "intro": "The table does not quote a permanent purchase threshold because eligibility can change. Its purpose is to identify who still owes an action after payment and what can go wrong before baggage is handed over.",
-      "headers": ["Purchase path", "What the receipt should tell you", "Remaining visitor job", "Do not count the saving when"],
+      "headers": [
+        "Purchase path",
+        "What the receipt should tell you",
+        "Remaining visitor job",
+        "Do not count the saving when"
+      ],
       "rows": [
-        ["Immediate tax refund at an eligible store", "Tax adjustment or refund completion should be visible for that transaction.", "Keep the receipt and preserve return evidence; confirm whether any export condition still applies.", "The branch did not process it, the traveler or goods are ineligible, or a later return changes the record."],
-        ["Departure tax refund", "The store should issue the documents needed for the applicable kiosk, customs, counter, or settlement path.", "Keep goods and documents accessible and follow the current airport sequence before baggage handoff when inspection may be required.", "The terminal, document, goods-access, or settlement step is unresolved."],
-        ["Duty-free purchase or airport pickup", "The order should identify the duty-free channel, traveler details, departure information, and pickup or handoff condition.", "Verify the correct terminal and pickup window, then apply destination-country declaration and allowance rules separately.", "The order cannot be collected, traveler details conflict, or destination obligations erase the expected advantage."]
+        [
+          "Immediate tax refund at an eligible store",
+          "Tax adjustment or refund completion should be visible for that transaction.",
+          "Keep the receipt and preserve return evidence; confirm whether any export condition still applies.",
+          "The branch did not process it, the traveler or goods are ineligible, or a later return changes the record."
+        ],
+        [
+          "Departure tax refund",
+          "The store should issue the documents needed for the applicable kiosk, customs, counter, or settlement path.",
+          "Keep goods and documents accessible and follow the current airport sequence before baggage handoff when inspection may be required.",
+          "The terminal, document, goods-access, or settlement step is unresolved."
+        ],
+        [
+          "Duty-free purchase or airport pickup",
+          "The order should identify the duty-free channel, traveler details, departure information, and pickup or handoff condition.",
+          "Verify the correct terminal and pickup window, then apply destination-country declaration and allowance rules separately.",
+          "The order cannot be collected, traveler details conflict, or destination obligations erase the expected advantage."
+        ]
       ],
       "findings": [
-        { "label": "One trip can contain all three paths", "text": "Do not put every receipt into one 'tax free' envelope. Each purchase needs a status: completed in store, action required at departure, duty-free pickup, or ordinary purchase." },
-        { "label": "Airport sequence is part of the price", "text": "A theoretical refund is not usable value when goods are inaccessible, the desk is in another terminal, or processing time threatens the flight." },
-        { "label": "Korean tax treatment is not destination clearance", "text": "A refund or duty-free sale in Korea does not settle the import and declaration rules of the country where the traveler arrives." }
+        {
+          "label": "One trip can contain all three paths",
+          "text": "Do not put every receipt into one 'tax free' envelope. Each purchase needs a status: completed in store, action required at departure, duty-free pickup, or ordinary purchase."
+        },
+        {
+          "label": "Airport sequence is part of the price",
+          "text": "A theoretical refund is not usable value when goods are inaccessible, the desk is in another terminal, or processing time threatens the flight."
+        },
+        {
+          "label": "Korean tax treatment is not destination clearance",
+          "text": "A refund or duty-free sale in Korea does not settle the import and declaration rules of the country where the traveler arrives."
+        }
       ],
       "method": "We assigned each official source one role: VISITKOREA for visitor-facing definitions, Korea Customs Service for customs procedure, and Incheon Airport for terminal execution. Conflicting or transaction-specific details are not filled from memory.",
-      "limitations": "This is a process classifier, not tax, customs, airline, or legal advice. It does not calculate eligibility, quote a permanent threshold, promise a refund, or replace the current retailer and official instructions."
+      "limitations": "The process comparison uses official guidance read on September 10, 2026. We have not completed a refund transaction. Personal eligibility, provider fees and terminal operations must be resolved for the actual purchase and flight."
     },
     "sources": [
-      { "name": "VISITKOREA tax-refund guide", "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=248765", "note": "Visitor-facing official guidance used to identify tax-refund eligibility and process categories." },
-      { "name": "VISITKOREA duty-free and tax-refund overview", "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=140736", "note": "Official comparison used to keep duty-free purchasing separate from tax-refund shopping." },
-      { "name": "Korea Customs Service tax-refund procedure", "url": "https://www.customs.go.kr/english/cm/cntnts/cntntsView.do?cntntsId=5504&mi=10803", "note": "Customs authority guidance used for export confirmation, goods access, documents, and departure processing." },
-      { "name": "Incheon Airport tax-refund procedure", "url": "https://airinfo.airport.kr/ap_en/1425/subview.do", "note": "Airport reference used for terminal execution, kiosks, counters, and baggage-order planning." }
+      {
+        "name": "VISITKOREA tax-refund guide",
+        "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=248765",
+        "note": "Visitor-facing official guidance used to identify tax-refund eligibility and process categories.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "VISITKOREA duty-free and tax-refund overview",
+        "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=140736",
+        "note": "Retained official comparison used to keep duty-free purchasing separate from tax-refund shopping. The current revision rechecked the comprehensive guide, Customs and airport pages instead."
+      },
+      {
+        "name": "Korea Customs Service tax-refund procedure",
+        "url": "https://www.customs.go.kr/english/cm/cntnts/cntntsView.do?cntntsId=5504&mi=10803",
+        "note": "Customs authority guidance used for export confirmation, goods access, documents, and departure processing.",
+        "checkedAt": "2026-09-17"
+      },
+      {
+        "name": "Incheon Airport tax-refund procedure",
+        "url": "https://airinfo.airport.kr/ap_en/1425/subview.do",
+        "note": "Airport reference used for terminal execution, kiosks, counters, and baggage-order planning.",
+        "checkedAt": "2026-09-17"
+      }
     ],
     "sections": {
       "en": [
         {
-          "heading": "Classify each receipt before leaving the store",
+          "heading": "Check eligibility before planning a saving",
           "paragraphs": [
-            "Ask the cashier which process was applied to that transaction and mark the answer on the receipt: immediate refund completed, departure action required, duty-free pickup, or ordinary purchase. Brand familiarity is not evidence that every branch or transaction uses the same path. A return, exchange, split payment, or changed purchase total can also change the record.",
-            "Preserve the passport name, original payment method, receipt, refund form, and any correction together. If the cashier cannot explain the remaining action, treat the expected refund as uncertain rather than as money already saved."
+            "VISITKOREA's current guide sets a KRW 15,000 minimum purchase for eligible goods and describes eligible visitors as non-residents without income in Korea. It lists a stay of up to six months for foreign visitors and export within three months of purchase. Opened or used goods are excluded. These conditions are not a blanket entitlement for everyone with a foreign passport.",
+            "For an immediate refund, the guide lists a transaction below KRW 1 million and a combined purchase total no greater than KRW 5 million, with passport verification. Other refund channels have different limits. If your residence, employment or purchase circumstances are unusual, obtain a decision from the refund provider or Customs before budgeting the saving; this guide is not personal tax advice."
           ]
         },
         {
-          "heading": "Price the process, not the discount headline",
+          "heading": "Let the receipt decide the next step",
           "paragraphs": [
-            "For an immediate refund, compare the amount actually charged plus card conversion or payment fees. For a departure refund, subtract only the amount actually received and add the cost of airport time, settlement fees, and any terminal detour. For duty-free pickup, add collection risk, baggage handling, and destination declaration consequences to the paid amount.",
-            "This formula avoids invented exchange rates and permanent tax assumptions: final trip cost equals the charged amount, minus money actually returned, plus payment fees, extra baggage, required airport time, and any lawful destination charge. If one component is unknown, show it as unknown instead of turning a headline percentage into guaranteed savings."
-          ],
-          "table": {
-            "headers": ["Cost component", "Evidence to keep", "Common mistake"],
-            "rows": [
-              ["Charged amount", "Card slip and itemized receipt", "Comparing only the shelf or campaign price"],
-              ["Refund received", "Completed receipt, kiosk, counter, or settlement record", "Subtracting an expected refund before it arrives"],
-              ["Airport time", "Terminal, zone, hours, and sequence", "Assuming every desk sits after security"],
-              ["Destination obligation", "Arrival-country customs guidance", "Treating Korean tax treatment as import clearance"]
-            ]
-          }
-        },
-        {
-          "heading": "Protect access to goods before baggage handoff",
-          "paragraphs": [
-            "When the current process may require goods verification, keep the relevant products and documents accessible until the official sequence says they can be packed away or checked. Liquids, batteries, fragile goods, airline restrictions, and terminal layout can change what is practical even when the purchase itself qualifies.",
-            "Identify the departure airport and terminal before the shopping day ends. Then check whether the relevant kiosk, customs point, or counter is in the public or secure area and how that step relates to airline check-in. A refund path that cannot fit the flight sequence should not drive the purchase."
+            "Ask the store whether tax has already been deducted or whether it is issuing a voucher for a later refund. Keep that answer with the receipt. A retail discount, a tax-refund voucher and a duty-free collection document are not interchangeable. Do not calculate a second refund just because a receipt also shows a tax line.",
+            "A simple personal ledger can prevent duplicate expectations: shop, purchase date, amount paid, tax already deducted, voucher provider and remaining action. For example, mark an immediate-refund purchase as already deducted; mark a departure-refund purchase as pending export processing. This is a proposed record-keeping method, not an example of a transaction we completed."
           ]
         },
         {
-          "heading": "Keep destination customs as a separate decision",
+          "heading": "Read two receipts without counting the same saving twice",
           "paragraphs": [
-            "Korean tax refund and duty-free rules describe the purchase or export side. The destination country controls what the traveler may import, declare, or pay on arrival. Product restrictions and allowances can differ for alcohol, tobacco, food, cosmetics, medicines, luxury goods, and high-value items.",
-            "Before a large purchase, open the destination customs authority and record the rule that applies to the actual traveler and item. When that answer is unknown, compare the product at its ordinary final cost and postpone the purchase rather than using a Korean refund estimate as the conclusion."
-          ],
-          "checklist": [
-            "Write one process status on every receipt before leaving the branch.",
-            "Keep goods accessible until the applicable airport step is complete.",
-            "Count only money actually returned when comparing final cost.",
-            "Check arrival-country declaration rules as a separate official-source task."
+            "Illustrative case A: the store confirms that an immediate refund has already been deducted. Record the amount actually paid and mark that purchase 'tax already deducted'. Do not put the same tax into an expected airport-refund total. Keep the receipt in case you need to resolve what the store processed.",
+            "Illustrative case B: the store charges the tax-inclusive price and issues a refund voucher. Record the provider and mark the purchase 'export processing still required'. A retail card receipt alone is not the same document as the provider's refund voucher. Check the next step while you are still able to ask the store.",
+            "Neither example predicts a refund amount or promises a percentage of your spending. Eligibility, the goods, the provider and any applicable deductions matter. This is particularly useful after a pop-up purchase: buying branded merchandise does not by itself establish that the seller operates a tourist tax-refund service."
+          ]
+        },
+        {
+          "heading": "Keep the goods available until Customs is finished",
+          "paragraphs": [
+            "Korea Customs identifies the passport, sales confirmation and unopened, unused goods as the export-check materials. At a kiosk-equipped airport, a selection for inspection means you must go to the Customs inspection team. A kiosk interaction and receipt of the money are separate stages.",
+            "Incheon Airport gives different instructions for carry-on and checked goods. Tell airline staff at check-in if refund items are in checked baggage; follow the baggage-tag and Customs route before releasing the bag. Do not send the goods away first and assume a photograph will substitute for inspection. Confirm the order with staff when the airline's process differs."
+          ]
+        },
+        {
+          "heading": "At Incheon, use the airport's terminal information",
+          "paragraphs": [
+            "The airport page lists the Terminal 1 staffed refund desk near Gate 28 on the third floor after immigration, open 07:00–22:00. For Terminal 2 it lists the desk near Gate 253, opposite Gate 250, open 07:00–21:30. These are the airport's displayed details checked on September 17, not a guarantee of today's staffing or every provider's service.",
+            "VISITKOREA's overview lists different Terminal 2 gate locations and a different opening time. We use the airport's own page for terminal execution and preserve the discrepancy rather than combining both into one route. Check your terminal, voucher provider and departure time, then use the airport map or staff if signs differ. Do not confuse a refund desk after immigration with the Customs check before it."
           ]
         }
       ]
-    }
+    },
+    "quickAnswer": "For a departure refund, keep your passport, refund voucher and unused goods accessible until the export check is resolved. If tax was deducted at purchase, do not claim the same tax again. Duty-free pickup is a different process."
   }
 ]

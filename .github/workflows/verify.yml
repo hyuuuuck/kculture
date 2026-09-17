@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run editorial and planning regression tests
+        run: npm run test:editorial
+
       - name: Run launch preflight
         run: npm run preflight:launch
         env:

@@ -1,6 +1,6 @@
-﻿const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
+﻿const visitCatalog = JSON.parse(document.getElementById("visit-catalog")?.textContent || "[]");
+const galleryScopes = [...document.querySelectorAll("[data-gallery-scope]")];
 
-const spotlightCarousels = [...document.querySelectorAll("[data-spotlight-carousel]")];
 const mobileEventListQuery = window.matchMedia("(max-width: 680px)");
 const mobileEventBatchSize = 18;
 const mobileMoreLabels = {
@@ -24,236 +24,6 @@ function mobileMoreText(hiddenCount) {
   return `${label} (${hiddenCount})`;
 }
 
-for (const carousel of spotlightCarousels) {
-  const slides = [...carousel.querySelectorAll("[data-spotlight-slide]")];
-  const track = carousel.querySelector(".spotlight-track");
-  const dots = [...carousel.querySelectorAll("[data-spotlight-dot]")];
-  const prevButton = carousel.querySelector("[data-spotlight-prev]");
-  const nextButton = carousel.querySelector("[data-spotlight-next]");
-  if (slides.length <= 1) continue;
-
-  let currentIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
-  let dragPointerId = null;
-  let dragStartX = 0;
-  let dragStartY = 0;
-  let dragDeltaX = 0;
-  let dragDeltaY = 0;
-  let suppressClickUntil = 0;
-  let suppressClickX = 0;
-  let suppressClickY = 0;
-  let wheelLockUntil = 0;
-
-  function beginDrag(clientX, clientY, pointerId) {
-    dragPointerId = pointerId;
-    dragStartX = clientX;
-    dragStartY = clientY;
-    dragDeltaX = 0;
-    dragDeltaY = 0;
-    carousel.classList.add("is-dragging");
-  }
-
-  function updateDrag(clientX, clientY, event) {
-    dragDeltaX = clientX - dragStartX;
-    dragDeltaY = clientY - dragStartY;
-    if (Math.abs(dragDeltaX) > 8 && Math.abs(dragDeltaX) > Math.abs(dragDeltaY) * 1.2) {
-      event?.preventDefault?.();
-    }
-  }
-
-  function finishDrag(clientX, clientY) {
-    const deltaX = dragDeltaX || clientX - dragStartX;
-    const deltaY = dragDeltaY || clientY - dragStartY;
-    dragPointerId = null;
-    carousel.classList.remove("is-dragging");
-
-    if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-      suppressClickUntil = Date.now() + 120;
-      suppressClickX = clientX;
-      suppressClickY = clientY;
-      showSlide(deltaX < 0 ? currentIndex + 1 : currentIndex - 1);
-    }
-  }
-
-  function shouldSuppressCarouselClick(event) {
-    if (Date.now() > suppressClickUntil) return false;
-    const distance = Math.hypot(event.clientX - suppressClickX, event.clientY - suppressClickY);
-    if (distance > 28) return false;
-    suppressClickUntil = 0;
-    return true;
-  }
-
-  function isCarouselControl(event) {
-    return Boolean(event.target.closest?.("[data-spotlight-prev], [data-spotlight-next], [data-spotlight-dot]"));
-  }
-
-  function showSlide(index) {
-    const previousIndex = currentIndex;
-    currentIndex = (index + slides.length) % slides.length;
-    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
-    const nextIndex = (currentIndex + 1) % slides.length;
-    const direction = currentIndex === previousIndex
-      ? "still"
-      : (currentIndex > previousIndex || (previousIndex === slides.length - 1 && currentIndex === 0)) ? "forward" : "back";
-
-    carousel.classList.toggle("is-moving-back", direction === "back");
-    carousel.classList.toggle("is-moving-forward", direction === "forward");
-
-    slides.forEach((slide, slideIndex) => {
-      const active = slideIndex === currentIndex;
-      slide.classList.toggle("is-active", active);
-      slide.classList.toggle("is-prev", slideIndex === prevIndex && !active);
-      slide.classList.toggle("is-next", slideIndex === nextIndex && !active);
-      slide.setAttribute("aria-hidden", String(!active));
-      slide.tabIndex = active ? 0 : -1;
-    });
-
-    dots.forEach((dot, dotIndex) => {
-      if (dotIndex === currentIndex) dot.setAttribute("aria-current", "true");
-      else dot.removeAttribute("aria-current");
-    });
-
-  }
-
-  dots.forEach((dot, dotIndex) => {
-    dot.addEventListener("click", () => showSlide(dotIndex));
-  });
-
-  prevButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    showSlide(currentIndex - 1);
-  });
-
-  nextButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    showSlide(currentIndex + 1);
-  });
-
-  function startDrag(event) {
-    if (isCarouselControl(event)) return;
-    if (!event.isPrimary || (event.button !== undefined && event.button !== 0)) return;
-    beginDrag(event.clientX, event.clientY, event.pointerId);
-    try {
-      event.currentTarget.setPointerCapture?.(event.pointerId);
-    } catch {
-      // Pointer capture is an enhancement; dragging still works without it.
-    }
-  }
-
-  function moveDrag(event) {
-    if (dragPointerId !== event.pointerId) return;
-    updateDrag(event.clientX, event.clientY, event);
-  }
-
-  function endDrag(event) {
-    if (dragPointerId !== event.pointerId) return;
-    try {
-      event.currentTarget.releasePointerCapture?.(event.pointerId);
-    } catch {
-      // The pointer may have been released outside the track.
-    }
-    finishDrag(event.clientX, event.clientY);
-  }
-
-  function startMouseDrag(event) {
-    if (isCarouselControl(event)) return;
-    if (event.button !== 0 || dragPointerId !== null) return;
-    beginDrag(event.clientX, event.clientY, "mouse");
-  }
-
-  function moveMouseDrag(event) {
-    if (dragPointerId !== "mouse") return;
-    updateDrag(event.clientX, event.clientY, event);
-  }
-
-  function endMouseDrag(event) {
-    if (dragPointerId !== "mouse") return;
-    finishDrag(event.clientX, event.clientY);
-  }
-
-  function startTouchDrag(event) {
-    if (isCarouselControl(event)) return;
-    const touch = event.changedTouches?.[0];
-    if (!touch || dragPointerId !== null) return;
-    beginDrag(touch.clientX, touch.clientY, "touch");
-  }
-
-  function moveTouchDrag(event) {
-    const touch = event.changedTouches?.[0];
-    if (!touch || dragPointerId !== "touch") return;
-    updateDrag(touch.clientX, touch.clientY, event);
-  }
-
-  function endTouchDrag(event) {
-    const touch = event.changedTouches?.[0];
-    if (!touch || dragPointerId !== "touch") return;
-    finishDrag(touch.clientX, touch.clientY);
-  }
-
-  function handleWheel(event) {
-    const absX = Math.abs(event.deltaX);
-    const absY = Math.abs(event.deltaY);
-    if (absX < 18 || absX < absY * 1.15) return;
-
-    event.preventDefault();
-    const now = Date.now();
-    if (now < wheelLockUntil) return;
-    wheelLockUntil = now + 420;
-    showSlide(event.deltaX > 0 ? currentIndex + 1 : currentIndex - 1);
-  }
-
-  track?.addEventListener("pointerdown", startDrag);
-  track?.addEventListener("pointermove", moveDrag);
-  track?.addEventListener("pointerup", endDrag);
-  track?.addEventListener("pointercancel", endDrag);
-  track?.addEventListener("mousedown", startMouseDrag);
-  window.addEventListener("mousemove", moveMouseDrag);
-  window.addEventListener("mouseup", endMouseDrag);
-  track?.addEventListener("touchstart", startTouchDrag, { passive: true });
-  track?.addEventListener("touchmove", moveTouchDrag, { passive: false });
-  track?.addEventListener("touchend", endTouchDrag);
-  track?.addEventListener("touchcancel", endTouchDrag);
-  track?.addEventListener("wheel", handleWheel, { passive: false });
-  slides.forEach((slide) => {
-    slide.addEventListener("dragstart", (event) => event.preventDefault());
-  });
-
-  carousel.addEventListener("click", (event) => {
-    const slideLink = event.target.closest?.("[data-spotlight-slide]");
-    if (!slideLink) return;
-    if (shouldSuppressCarouselClick(event)) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      return;
-    }
-    if (
-      event.defaultPrevented ||
-      event.button > 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) return;
-
-    event.preventDefault();
-    window.location.assign(slideLink.href);
-  }, true);
-
-  carousel.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      showSlide(currentIndex - 1);
-    }
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      showSlide(currentIndex + 1);
-    }
-  });
-
-  showSlide(currentIndex);
-}
-
 for (const scope of galleryScopes) {
   const cards = [...scope.querySelectorAll("[data-card]")];
   if (!cards.length) continue;
@@ -262,6 +32,10 @@ for (const scope of galleryScopes) {
   const searchInput = scope.querySelector("[data-gallery-search]");
   const statusSelect = scope.querySelector("[data-status-filter]");
   const citySelect = scope.querySelector("[data-city-filter]");
+  const visitInput = scope.querySelector("[data-visit-filter]");
+  const interestSelect = scope.querySelector("[data-interest-filter]");
+  const visitStatus = scope.querySelector("[data-visit-filter-status]");
+  if (visitInput) visitInput.min = KSpotPlanning.koreaToday();
   const clearButton = scope.querySelector("[data-clear-filters]");
   const resultCount = scope.querySelector("[data-result-count]");
   const noResults = scope.querySelector("[data-no-results]");
@@ -331,7 +105,9 @@ for (const scope of galleryScopes) {
     const query = (searchInput?.value || "").trim().toLowerCase();
     const selectedStatus = statusSelect?.value || "all";
     const selectedCity = citySelect?.value || "all";
-    const filtersActive = selectedCategory !== "all" || selectedStatus !== "all" || selectedCity !== "all" || Boolean(query);
+    const visitDate = visitInput?.value || "";
+    const interest = interestSelect?.value || "all";
+    const filtersActive = selectedCategory !== "all" || selectedStatus !== "all" || selectedCity !== "all" || Boolean(query) || Boolean(visitDate) || interest !== "all";
     const categoryHits = new Map();
     const cityHits = new Map();
     let visibleCount = 0;
@@ -345,7 +121,19 @@ for (const scope of galleryScopes) {
       const cityMatch = selectedCity === "all" || card.dataset.city === selectedCity;
       const searchText = (card.dataset.search || card.textContent || "").toLowerCase();
       const queryMatch = !query || searchText.includes(query);
-      const visible = categoryMatch && statusMatch && cityMatch && queryMatch;
+      const item = visitCatalog.find(item => item.slug === card.dataset.visitSlug);
+      const decision = item && visitDate ? KSpotPlanning.visitDecision(item, visitDate) : null;
+      const dateMatch = !visitDate || decision?.state === "candidate";
+      const interestMatch = interest === "all" || item?.schedule?.interests?.includes(interest);
+      const visible = categoryMatch && statusMatch && cityMatch && queryMatch && dateMatch && interestMatch;
+      let visitNote = card.querySelector("[data-card-visit-note]");
+      if (visitInput && !visitNote) {
+        visitNote = document.createElement("p");
+        visitNote.dataset.cardVisitNote = "";
+        visitNote.className = "visit-date-note";
+        card.querySelector(".experience-bottom")?.before(visitNote);
+      }
+      if (visitNote) { visitNote.hidden = !visitDate; visitNote.textContent = decision?.message || ""; }
       card.classList.toggle("is-hidden", !visible);
       card.classList.remove("is-gallery-limited");
       if (visible) visibleCount += 1;
@@ -359,10 +147,10 @@ for (const scope of galleryScopes) {
 
       // Facet tallies ignore their own dimension so each pill shows what
       // selecting it would yield under the other active filters.
-      if (statusMatch && cityMatch && queryMatch) {
+      if (statusMatch && cityMatch && queryMatch && dateMatch && interestMatch) {
         categoryHits.set(card.dataset.category, (categoryHits.get(card.dataset.category) || 0) + 1);
       }
-      if (categoryMatch && statusMatch && queryMatch) {
+      if (categoryMatch && statusMatch && queryMatch && dateMatch && interestMatch) {
         cityHits.set(card.dataset.city, (cityHits.get(card.dataset.city) || 0) + 1);
       }
     }
@@ -383,6 +171,12 @@ for (const scope of galleryScopes) {
           : countTemplate.replace("{count}", String(visibleCount));
     }
     if (noResults) noResults.hidden = visibleCount !== 0;
+    if (visitStatus) {
+      visitStatus.hidden = !visitDate;
+      visitStatus.textContent = visitDate && visitDate < KSpotPlanning.koreaToday()
+        ? "That date has passed. Choose today or a future date."
+        : `${visitDate}: ${visibleCount} possible ${visibleCount === 1 ? "experience" : "experiences"}. Check each notice before committing. Saving carries this date into your plan.`;
+    }
     if (moreButton) {
       moreButton.hidden = !canLimit || hiddenCount === 0;
       moreButton.textContent = mobileMoreText(hiddenCount);
@@ -404,11 +198,15 @@ for (const scope of galleryScopes) {
   searchInput?.addEventListener("input", applyFilters);
   statusSelect?.addEventListener("change", applyFilters);
   citySelect?.addEventListener("change", applyFilters);
+  visitInput?.addEventListener("change", applyFilters);
+  interestSelect?.addEventListener("change", applyFilters);
   clearButton?.addEventListener("click", () => {
     selectedCategory = "all";
     if (searchInput) searchInput.value = "";
     if (statusSelect) statusSelect.value = "all";
     if (citySelect) citySelect.value = "all";
+    if (visitInput) visitInput.value = "";
+    if (interestSelect) interestSelect.value = "all";
     visibleLimit = initialLimit();
     for (const item of filterRoot?.querySelectorAll("[data-filter]") || []) {
       item.setAttribute("aria-pressed", String(item.dataset.filter === "all"));
@@ -430,7 +228,18 @@ const plannerGrid = plannerPage?.querySelector("[data-planner-grid]");
 const plannerEmpty = plannerPage?.querySelector("[data-planner-empty]");
 const clearSavedButtons = [...document.querySelectorAll("[data-clear-saved]")];
 const downloadSavedButtons = [...document.querySelectorAll("[data-download-saved-calendar]")];
-let volatileSavedEvents = [];
+let volatileSavedEvents = null;
+let storageUnavailable = false;
+let undoSaved = null;
+const planSummary = document.querySelector("[data-plan-summary]");
+const planFeedback = document.querySelector("[data-plan-feedback]");
+const undoSavedButton = document.querySelector("[data-undo-saved]");
+const printPlanButton = document.querySelector("[data-print-plan]");
+let savedSummaryDismissed = true;
+document.querySelector("[data-dismiss-saved]")?.addEventListener("click", () => {
+  savedSummaryDismissed = true;
+  if (planner) planner.hidden = true;
+});
 
 function normalizeSavedEvent(item) {
   return {
@@ -445,27 +254,30 @@ function normalizeSavedEvent(item) {
     sourceUrl: String(item?.sourceUrl || ""),
     sourceName: String(item?.sourceName || ""),
     mapQuery: String(item?.mapQuery || ""),
-    venue: String(item?.venue || "")
+    venue: String(item?.venue || ""),
+    visitDate: KSpotPlanning.validDate(item?.visitDate) ? item.visitDate : ""
   };
 }
 
 function readSavedEvents() {
+  if (volatileSavedEvents !== null) return KSpotPlanning.reconcileSaved(volatileSavedEvents, visitCatalog);
   try {
     const parsed = JSON.parse(localStorage.getItem(savedKey) || "[]");
-    return Array.isArray(parsed)
-      ? parsed.map(normalizeSavedEvent).filter((item) => item.slug && item.title && item.url)
-      : [];
+    return KSpotPlanning.reconcileSaved(parsed, visitCatalog);
   } catch {
-    return volatileSavedEvents;
+    storageUnavailable = true;
+    return [];
   }
 }
 
 function writeSavedEvents(items) {
-  volatileSavedEvents = items.map(normalizeSavedEvent).filter((item) => item.slug && item.title && item.url).slice(0, 24);
+  volatileSavedEvents = items.map(normalizeSavedEvent).filter((item) => item.slug && item.title).slice(0, 24);
   try {
     localStorage.setItem(savedKey, JSON.stringify(volatileSavedEvents));
+    storageUnavailable = false;
+    volatileSavedEvents = null;
   } catch {
-    // Keep the in-memory planner working when storage is unavailable.
+    storageUnavailable = true;
   }
 }
 
@@ -502,12 +314,21 @@ function renderSavedPlanner() {
     setButtonState(button, savedSlugs.has(button.dataset.eventSlug));
   }
 
-  for (const button of downloadSavedButtons) {
+  for (const button of clearSavedButtons) {
     button.disabled = saved.length === 0;
+  }
+  const exportable = saved.filter(item => KSpotPlanning.visitDecision(item, item.visitDate).exportable);
+  for (const button of downloadSavedButtons) button.disabled = exportable.length === 0;
+  if (printPlanButton) printPlanButton.disabled = saved.length === 0;
+  if (planSummary) planSummary.textContent = `${exportable.length} of ${saved.length} saved places have a usable visit date. Downloads include only these chosen days as tentative, all-day reminders—not confirmed sessions. Undated or blocked visits stay in your list.`;
+  const storageWarning = document.querySelector("[data-storage-warning]");
+  if (storageWarning) {
+    storageWarning.hidden = !storageUnavailable;
+    storageWarning.textContent = "Browser storage is unavailable or unreadable. Changes work on this page only and may be lost when you leave. Print or download your dated plan before leaving.";
   }
 
   if (planner && savedCount && savedList) {
-    planner.hidden = saved.length === 0;
+    planner.hidden = saved.length === 0 || savedSummaryDismissed;
     const oneTemplate = savedCount.dataset.countOneTemplate || "1 saved event";
     const countTemplate = savedCount.dataset.countTemplate || "{count} saved events";
     savedCount.textContent = saved.length === 1 ? oneTemplate : countTemplate.replace("{count}", String(saved.length));
@@ -538,7 +359,7 @@ function renderPlannerPage(saved = readSavedEvents()) {
   const googleLabel = plannerPage.dataset.googleLabel || "Google Maps";
   const naverLabel = plannerPage.dataset.naverLabel || "Naver Map";
   const kakaoLabel = plannerPage.dataset.kakaoLabel || "Kakao Map";
-  const sorted = [...saved].sort((a, b) => (a.start || a.date || a.title).localeCompare(b.start || b.date || b.title));
+  const sorted = [...saved].sort((a, b) => (a.visitDate || "9999").localeCompare(b.visitDate || "9999") || a.title.localeCompare(b.title));
 
   plannerEmpty.hidden = sorted.length > 0;
   plannerGrid.replaceChildren(...sorted.map((item) => {
@@ -549,18 +370,40 @@ function renderPlannerPage(saved = readSavedEvents()) {
     meta.className = "planner-card-meta";
     meta.textContent = [item.category, item.city].filter(Boolean).join(" - ");
 
-    const title = document.createElement("strong");
+    const title = document.createElement("h2");
     title.textContent = item.title;
 
     const date = document.createElement("span");
     date.textContent = item.date || [item.start, item.end].filter(Boolean).join(" - ");
+
+    const visit = document.createElement("label");
+    visit.className = "planner-visit-field";
+    const visitLabel = document.createElement("span");
+    visitLabel.textContent = "Your visit date (Korea)";
+    const visitInput = document.createElement("input");
+    visitInput.type = "date";
+    visitInput.dataset.savedVisitDate = item.slug;
+    visitInput.value = item.visitDate || "";
+    visitInput.min = KSpotPlanning.koreaToday() > item.start ? KSpotPlanning.koreaToday() : item.start;
+    if (item.end) visitInput.max = item.end;
+    visitInput.disabled = item.retired;
+    visitInput.setAttribute("aria-describedby", `visit-note-${item.slug}`);
+    visit.append(visitLabel, visitInput);
+    const note = document.createElement("p");
+    note.id = `visit-note-${item.slug}`;
+    note.className = "visit-date-note";
+    note.setAttribute("role", "status");
+    note.textContent = item.retired ? "This place is no longer in the current selection. Check its organizer; calendar export is unavailable." : KSpotPlanning.visitDecision(item, item.visitDate).message;
+    const check = document.createElement("p");
+    check.className = "planner-source-note";
+    check.textContent = item.schedule?.checkedAt ? `Schedule checked ${item.schedule.checkedAt}. Cancellations and sold-out sessions are not live-tracked.` : "No current schedule check is available.";
 
     const mapQuery = item.mapQuery || item.venue || item.city;
     const mapBlock = document.createElement("div");
     mapBlock.className = "planner-card-map";
 
     const mapText = document.createElement("span");
-    mapText.textContent = `${mapLabel}: ${mapQuery}`;
+    mapText.textContent = mapQuery ? `${mapLabel}: ${mapQuery}` : "";
     mapBlock.append(mapText);
 
     if (mapQuery) {
@@ -582,6 +425,10 @@ function renderPlannerPage(saved = readSavedEvents()) {
       }
 
       mapBlock.append(mapLinks);
+      const copy = document.createElement("button");
+      copy.type = "button"; copy.className = "copy-map-name";
+      copy.dataset.copyMap = mapQuery; copy.textContent = "Copy map name";
+      mapBlock.append(copy);
     }
 
     const actions = document.createElement("div");
@@ -590,14 +437,15 @@ function renderPlannerPage(saved = readSavedEvents()) {
     const open = document.createElement("a");
     open.href = item.url;
     open.textContent = openLabel;
-    actions.append(open);
+    if (KSpotPlanning.safeLink(item.url, { local: true })) actions.append(open);
 
-    if (item.sourceUrl) {
+    const operatingNotice = KSpotPlanning.operatingNotice(item);
+    if (operatingNotice) {
       const official = document.createElement("a");
-      official.href = item.sourceUrl;
+      official.href = operatingNotice;
       official.rel = "nofollow noopener";
       official.target = "_blank";
-      official.textContent = item.sourceName || officialLabel;
+      official.textContent = "Check operating notice";
       actions.append(official);
     }
 
@@ -607,70 +455,33 @@ function renderPlannerPage(saved = readSavedEvents()) {
     remove.textContent = removeLabel;
     actions.append(remove);
 
-    card.append(meta, title, date, mapBlock, actions);
+    card.append(title, meta, date, visit, note, check, mapBlock, actions);
     return card;
   }));
 }
 
-function icsEscape(value) {
-  return String(value || "")
-    .replaceAll("\\", "\\\\")
-    .replaceAll("\n", "\\n")
-    .replaceAll(",", "\\,")
-    .replaceAll(";", "\\;");
-}
-
-function icsDate(value, addDay = false) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return "";
-  const date = new Date(`${value}T00:00:00Z`);
-  if (addDay) date.setUTCDate(date.getUTCDate() + 1);
-  return date.toISOString().slice(0, 10).replaceAll("-", "");
-}
-
 function downloadSavedCalendar() {
-  const saved = readSavedEvents().filter((item) => item.start);
-  if (!saved.length) return;
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//K-Spot Now//Saved Planner//EN",
-    "CALSCALE:GREGORIAN",
-    "X-WR-CALNAME:K-Spot Now Saved Events"
-  ];
-
-  for (const item of saved) {
-    const start = icsDate(item.start);
-    const end = icsDate(item.end || item.start, true);
-    if (!start || !end) continue;
-    lines.push(
-      "BEGIN:VEVENT",
-      `UID:${icsEscape(item.slug)}@kspotnow`,
-      `SUMMARY:${icsEscape(item.title)}`,
-      `DTSTART;VALUE=DATE:${start}`,
-      `DTEND;VALUE=DATE:${end}`,
-      `LOCATION:${icsEscape(item.city)}`,
-      `DESCRIPTION:${icsEscape([item.date, item.sourceUrl].filter(Boolean).join(" Official source: "))}`,
-      `URL:${icsEscape(item.sourceUrl || item.url)}`,
-      "END:VEVENT"
-    );
-  }
-  lines.push("END:VCALENDAR");
-
-  const blob = new Blob([`${lines.join("\r\n")}\r\n`], { type: "text/calendar;charset=utf-8" });
+  const text = KSpotPlanning.calendarText(readSavedEvents());
+  if (!text) return;
+  const blob = new Blob([text], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "kspotnow-saved-events.ics";
+  link.download = "kspotnow-planned-visits.ics";
   document.body.append(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 for (const button of saveButtons) {
   button.addEventListener("click", () => {
+    savedSummaryDismissed = false;
     const event = savedEventFromButton(button);
     if (!event.slug) return;
+    const selectedDate = button.closest("[data-gallery-scope]")?.querySelector("[data-visit-filter]")?.value;
+    const current = visitCatalog.find(item => item.slug === event.slug);
+    if (current && KSpotPlanning.visitDecision(current, selectedDate).exportable) event.visitDate = selectedDate;
     const saved = readSavedEvents();
     const exists = saved.some((item) => item.slug === event.slug);
     writeSavedEvents(exists ? saved.filter((item) => item.slug !== event.slug) : [event, ...saved.filter((item) => item.slug !== event.slug)]);
@@ -680,8 +491,11 @@ for (const button of saveButtons) {
 
 for (const button of clearSavedButtons) {
   button.addEventListener("click", () => {
+    undoSaved = readSavedEvents();
     writeSavedEvents([]);
     renderSavedPlanner();
+    if (undoSavedButton) undoSavedButton.hidden = false;
+    if (planFeedback) planFeedback.textContent = "Saved list cleared. You can undo this while this page stays open.";
   });
 }
 
@@ -693,7 +507,44 @@ plannerGrid?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-remove-saved]");
   if (!button) return;
   const slug = button.dataset.removeSaved;
+  undoSaved = readSavedEvents();
   writeSavedEvents(readSavedEvents().filter((item) => item.slug !== slug));
+  renderSavedPlanner();
+  if (undoSavedButton) { undoSavedButton.hidden = false; undoSavedButton.focus(); }
+  if (planFeedback) planFeedback.textContent = "Place removed. Undo restores the list before this removal.";
+});
+
+undoSavedButton?.addEventListener("click", () => {
+  if (!undoSaved) return;
+  writeSavedEvents(undoSaved); undoSaved = null;
+  undoSavedButton.hidden = true; renderSavedPlanner();
+  if (planFeedback) planFeedback.textContent = "Saved list restored.";
+  plannerGrid?.querySelector("input")?.focus();
+});
+plannerGrid?.addEventListener("change", (event) => {
+  const input = event.target.closest("[data-saved-visit-date]");
+  if (!input) return;
+  const slug = input.dataset.savedVisitDate;
+  const saved = readSavedEvents().map(item => item.slug === slug ? { ...item, visitDate: input.value } : item);
+  writeSavedEvents(saved);
+  renderSavedPlanner();
+  const restored = [...plannerGrid.querySelectorAll("[data-saved-visit-date]")].find(node => node.dataset.savedVisitDate === slug);
+  restored?.focus();
+});
+plannerGrid?.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-copy-map]");
+  if (!button) return;
+  try {
+    await navigator.clipboard.writeText(button.dataset.copyMap);
+    if (planFeedback) planFeedback.textContent = `Copied map name: ${button.dataset.copyMap}`;
+  } catch {
+    if (planFeedback) planFeedback.textContent = "Clipboard access is unavailable. Select and copy the map name displayed in the saved place.";
+  }
+});
+printPlanButton?.addEventListener("click", () => window.print());
+window.addEventListener("storage", event => {
+  if (event.key !== savedKey && event.key !== null) return;
+  volatileSavedEvents = null;
   renderSavedPlanner();
 });
 

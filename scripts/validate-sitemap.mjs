@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { publicationDates } from "./lib/editorial.mjs";
 import { todayString } from "./lib/date.mjs";
 
 const root = process.cwd();
@@ -8,6 +9,7 @@ const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json")
 const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
 const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
+const briefs = JSON.parse(fs.readFileSync(path.join(root, "data/visitor-briefs.json"), "utf8"));
 const today = todayString();
 const errors = [];
 const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
@@ -74,12 +76,9 @@ if (!fs.existsSync(sitemapPath)) {
 
   for (const event of approvedEvents) {
     const review = program.eventReviews?.[event.slug] || {};
-    const reviewDate = [review.publishedAt, review.updatedAt, event.updatedAt, review.reviewedAt, event.lastChecked]
-      .filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(String(value || "")))
-      .sort()
-      .at(-1);
+    const reviewDate = publicationDates(event, review, briefs.events[event.slug]).updatedAt;
     const pattern = new RegExp(`<loc>https://kspotnow\\.com/en/events/${event.slug}</loc><lastmod>${reviewDate}</lastmod>`);
-    if (!pattern.test(xml)) errors.push(`${event.slug} sitemap lastmod must match latest editorial or source-check date ${reviewDate}.`);
+    if (!pattern.test(xml)) errors.push(`${event.slug} sitemap lastmod must match latest editorial revision date ${reviewDate}.`);
   }
   for (const guide of approvedGuides) {
     const expectedDate = guide.updatedAt || guide.publishedAt;

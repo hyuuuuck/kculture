@@ -8,6 +8,7 @@ const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
 const reviewedNearby = JSON.parse(fs.readFileSync(path.join(root, "data", "kto-nearby-reviewed.json"), "utf8"));
+const briefs = JSON.parse(fs.readFileSync(path.join(root, "data/visitor-briefs.json"), "utf8"));
 const languages = publicLanguageCodes();
 const approved = new Set(program.indexableEvents || []);
 const today = todayString();
@@ -49,13 +50,13 @@ for (const lang of languages) {
       'class="detail-layout compact-event-detail"',
       'class="detail-hero compact-detail-hero"',
       'class="event-fact-bar"',
-      'class="detail-section event-review-section"',
+      'class="detail-section event-review-section visitor-brief"',
       'class="detail-section event-visit-section"',
       'class="detail-section event-evidence-section"',
       'class="review-byline"',
       'class="compact-weather-panel"',
-      "What matters before you go",
-      "What we checked"
+      "Taking part as an international visitor",
+      "Sources and verification limits"
     ];
     for (const marker of markers) {
       if (!html.includes(marker)) push(`dist/${relative}`, `required compact detail marker is missing: ${marker}`);
@@ -85,17 +86,16 @@ for (const lang of languages) {
     for (const value of [event.startDate, event.endDate, event.venue, event.city]) {
       if (value && !html.includes(escapeHtml(value))) push(`dist/${relative}`, `essential event fact is missing: ${value}`);
     }
-    if (!review || !html.includes(escapeHtml(review.visitorDecision))) push(`dist/${relative}`, "editorial visitor decision is missing.");
-    for (const item of review?.foreignerChecks || []) {
-      if (!html.includes(escapeHtml(item))) push(`dist/${relative}`, `foreign-visitor check is missing: ${item.slice(0, 60)}`);
+    const brief = briefs.events[event.slug];
+    if (!brief || !html.includes(escapeHtml(brief.answer))) push(relative, "article answer is missing.");
+    for (const paragraph of (brief?.sections || []).flatMap(section => section.paragraphs)) {
+      if (!html.includes(escapeHtml(paragraph))) push(relative, "article narrative is missing.");
     }
     const evidence = evidenceFor(event);
     if (!evidence.length) push(`dist/${relative}`, "structured source evidence is missing.");
     for (const item of evidence) {
       if (!html.includes(`href="${escapeHtml(item.url)}"`)) push(`dist/${relative}`, `evidence source link is missing: ${item.url}`);
-      for (const token of (item.mustContain || []).slice(0, 5)) {
-        if (!html.includes(escapeHtml(token))) push(`dist/${relative}`, `visible evidence token is missing: ${token}`);
-      }
+
     }
     if (event.category !== "travel-benefits" || event.city !== "Nationwide") {
       const encoded = encodeURIComponent(event.mapQueryKo || event.venue || event.city);

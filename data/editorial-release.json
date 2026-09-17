@@ -1,0 +1,35 @@
+{
+  "revisionDate": "2026-09-18",
+  "revisionFingerprint": "991a7329e8b1e739be0244e2d2cd6eac3e4c52b0632c02a52bf04a11446b9f9f",
+  "status": "deployed-awaiting-editorial-review",
+  "assistedDeskReview": {
+    "status": "completed",
+    "by": "Codex, AI-assisted documentary review; not an independent human or reader review",
+    "date": "2026-09-18",
+    "evidencePath": "docs/content-resolution-2026-09-18.md",
+    "readerReviewKit": "docs/reader-review-kit-2026-09-17.md",
+    "planningImplementationReview": "docs/visit-planning-2026-09-17.md",
+    "contentSpecificityReview": "docs/content-specificity-2026-09-17.md"
+  },
+  "humanEditorialReview": {
+    "status": "pending",
+    "by": null,
+    "date": null,
+    "evidencePath": null,
+    "scope": "A responsible human checks English clarity, cultural interpretation and claim-to-source accuracy for the changed articles. AI-assisted drafting is not recorded as this review."
+  },
+  "readerTaskCheck": {
+    "status": "pending",
+    "by": null,
+    "date": null,
+    "evidencePath": null,
+    "scope": "An actual target reader attempts to choose a culture activity, identify participation/language limits and form a practical plan; record confusion and resolve material issues. No invented participants, results or Google minimum traffic quota."
+  },
+  "productionVerification": {
+    "status": "passed",
+    "by": "Codex: public HTTP, browser and Safari checks; not a human reader study",
+    "date": "2026-09-18",
+    "evidencePath": "docs/production-verification-2026-09-18.md",
+    "scope": "After explicit deployment authorization, verify the same revision on the live domain, current event facts, links, images, selected ownership method, ads.txt and privacy/ad behavior."
+  }
+}

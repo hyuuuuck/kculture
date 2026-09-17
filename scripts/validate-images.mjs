@@ -97,7 +97,7 @@ function imageInfo(file) {
   return info;
 }
 
-function requireImage(relativeUrl, context, { eventThumbnail = false } = {}) {
+function requireImage(relativeUrl, context, { eventThumbnail = false, built = false } = {}) {
   const clean = cleanLocalUrl(relativeUrl);
   if (!clean) {
     push(errors, context, "image must use a local project asset");
@@ -113,9 +113,9 @@ function requireImage(relativeUrl, context, { eventThumbnail = false } = {}) {
     push(errors, context, `unsupported image extension: ${relativeUrl}`);
   }
 
-  const baseDir = clean.startsWith("__design-harness/") ? dist : root;
+  const baseDir = built || clean.startsWith("__design-harness/") ? dist : root;
   const file = path.resolve(baseDir, clean);
-  if (!file.startsWith(baseDir)) {
+  if (!file.startsWith(baseDir + path.sep)) {
     push(errors, context, `image escapes expected asset root: ${relativeUrl}`);
     return null;
   }
@@ -181,11 +181,10 @@ if (!fs.existsSync(dist)) {
       continue;
     }
     const homeHtml = fs.readFileSync(home, "utf8");
-    const overlayCount = (homeHtml.match(/class="thumb-overlay"/g) || []).length;
-    const brandCount = (homeHtml.match(/class="thumb-brand"/g) || []).length;
-    const expectedHomeCards = Math.min(5, currentEvents.length);
-    if (overlayCount < expectedHomeCards || brandCount < expectedHomeCards) {
-      push(errors, `gallery:${lang}`, `compact home gallery should show brand/source overlays on every visible thumbnail; found ${overlayCount} overlays and ${brandCount} brand labels for ${expectedHomeCards} visible events.`);
+    for (const event of currentEvents) {
+      if (!homeHtml.includes(`src="/${event.thumbnail}"`) || !homeHtml.includes(`href="/${lang}/events/${event.slug}"`)) {
+        push(errors, `gallery:${lang}`, `current event must have its own linked image: ${event.slug}`);
+      }
     }
   }
   for (const file of htmlFiles) {
@@ -199,7 +198,7 @@ if (!fs.existsSync(dist)) {
         continue;
       }
       if (cleanLocalUrl(attrs.src)) {
-        requireImage(attrs.src, context);
+        requireImage(attrs.src, context, { built: true });
       }
       const decorative = attrs["aria-hidden"] === "true" || attrs.role === "presentation";
       if (!decorative && !String(attrs.alt || "").trim()) {
@@ -221,4 +220,4 @@ if (warnings.length) {
 }
 
 const uniqueImages = checkedImages.size;
-console.log(`Image validation passed: ${events.length} event thumbnails, ${uniqueImages} unique local image assets.`);
+console.log(`Image validation passed: ${events.length} stored event thumbnails; ${uniqueImages} source/build image paths checked.`);

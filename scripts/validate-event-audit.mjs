@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { structuredEvidenceText } from "./lib/source-evidence.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -146,7 +147,8 @@ async function fetchSource(url) {
     result.status = response.status;
     result.finalUrl = response.url;
     result.ok = response.ok;
-    result.text = htmlToText(await response.text());
+    result.html = await response.text();
+    result.text = htmlToText(result.html);
   } catch (error) {
     result.error = error.name === "AbortError" ? "timeout" : error.message;
   } finally {
@@ -206,7 +208,9 @@ async function checkSourceEvidence(event) {
       continue;
     }
 
-    const missingTokens = missingEvidenceTokens(source.text, evidence.mustContain || []);
+    const evidenceText = evidence.structuredDataType
+      ? structuredEvidenceText(source.html, evidence) : source.text;
+    const missingTokens = missingEvidenceTokens(evidenceText, evidence.mustContain || []);
     if (!missingTokens.length) continue;
 
     if (evidence.snapshotPath) {

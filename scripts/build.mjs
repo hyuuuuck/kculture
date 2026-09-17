@@ -3,6 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
+import { publicationDates, sourceCheckDate, nearbyAlternatives } from "./lib/editorial.mjs";
+import { renderVisitorBrief, renderVisitorEvidence } from "./lib/visitor-render.mjs";
 import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
 
@@ -11,7 +13,7 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const today = todayString();
 const siteName = "K-Spot Now";
-const siteTagline = "Korea events for visitors.";
+const siteTagline = "Understand Korean culture. Plan your visit.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
 const contactEmail = process.env.CONTACT_EMAIL || `contact@${siteDomain}`;
@@ -54,6 +56,8 @@ const affiliateIds = {
 const affiliateEnabled = affiliatePublishingEnabled() && Boolean(affiliateIds.agodaCid || (affiliateIds.tripAllianceId && affiliateIds.tripSid) || affiliateIds.klookAid || affiliateIds.trazyId || affiliateIds.coupangDisplayAdUrl);
 
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
+const visitorBriefs = JSON.parse(await fs.readFile(path.join(root, "data", "visitor-briefs.json"), "utf8"));
+const visitPlanning = JSON.parse(await fs.readFile(path.join(root, "data", "visit-planning.json"), "utf8"));
 const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const approvedEventSlugs = new Set(editorialProgram.indexableEvents || []);
 const approvedGuideSlugs = new Set(editorialProgram.indexableGuides || []);
@@ -73,12 +77,14 @@ const sourceRefreshSummary = await latestSourceRefreshSummary();
 
 async function sourceAssetVersion() {
   const hash = createHash("sha256");
-  const [css, js] = await Promise.all([
+  const [css, js, planningJs] = await Promise.all([
     fs.readFile(path.join(root, "styles.css")),
-    fs.readFile(path.join(root, "app.js"))
+    fs.readFile(path.join(root, "app.js")),
+    fs.readFile(path.join(root, "planning.js"))
   ]);
   hash.update(css);
   hash.update(js);
+  hash.update(planningJs);
   return hash.digest("hex").slice(0, 12);
 }
 
@@ -3063,12 +3069,7 @@ function eventPublicationFacts(event) {
 }
 
 function eventPublicationDates(event) {
-  const review = editorialReviewFor(event);
-  const publishedAt = review?.publishedAt || event.publishedAt || review?.reviewedAt || event.lastChecked;
-  return {
-    publishedAt,
-    updatedAt: maxIso([publishedAt, review?.updatedAt, event.updatedAt, review?.reviewedAt, event.lastChecked], publishedAt)
-  };
+  return publicationDates(event, editorialReviewFor(event) || {}, visitorBriefs.events[event.slug]);
 }
 
 function eventPublicationBlockers(event) {
@@ -3082,50 +3083,10 @@ function eventPublicationBlockers(event) {
   return blockers;
 }
 
-function eventEditorialScore(event) {
-  const review = editorialReviewFor(event);
-  const evidence = eventSourceEvidence(event);
-  const facts = eventPublicationFacts(event);
-  const checks = Array.isArray(review?.foreignerChecks) ? review.foreignerChecks.filter(Boolean) : [];
-  const evidenceHosts = new Set(evidence.map((item) => {
-    try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
-  }).filter(Boolean));
-  const sourceEvidence = evidence.length >= 2
-    && evidenceHosts.size >= 2
-    && evidence.every((item) => Array.isArray(item.mustContain) && item.mustContain.length >= 2)
-    ? 25
-    : 0;
-  const visitorUtility = (facts.entry && !/not confirmed/i.test(facts.entry) ? 5 : 0)
-    + (facts.reservation && !/not confirmed/i.test(facts.reservation) ? 5 : 0)
-    + (facts.price && !/not listed|not confirmed/i.test(facts.price) ? 5 : 0)
-    + (facts.englishSupport && !/not confirmed/i.test(facts.englishSupport) ? 5 : 0)
-    + (/^[\uac00-\uD7A3]/u.test(facts.mapQuery || "") ? 5 : 0);
-  const originalAnalysis = String(review?.visitorDecision || "").trim().length >= 120 && String(event.whyGo?.en || "").trim().length >= 80 ? 10 : 0;
-  const originalChecks = checks.length >= 3 && (event.travelTips || []).length >= 3 ? 10 : 0;
-  const completeness = [facts.address, facts.hours, facts.cancellation, facts.age, facts.weather]
-    .filter((value) => value && !/not listed|not confirmed|schedule details are on/i.test(value)).length * 3;
-  const visual = /^assets\/event-thumbnails\/official\//.test(event.thumbnail || "") ? 10 : 0;
-  const accountability = review?.reviewedAt && review?.reviewedBy ? 5 : 0;
-  const breakdown = {
-    sourceEvidence,
-    visitorUtility,
-    originalAnalysis: originalAnalysis + originalChecks,
-    completeness,
-    visual,
-    accountability
-  };
-  return {
-    total: Object.values(breakdown).reduce((sum, value) => sum + value, 0),
-    breakdown,
-    blockers: eventPublicationBlockers(event)
-  };
-}
-
 function isApprovedEvent(event) {
   if (!approvedEventSlugs.has(event.slug)) return false;
   if (!editorialReviewFor(event)) return false;
-  const score = eventEditorialScore(event);
-  return !score.blockers.length && score.total >= Number(editorialProgram.minimumEventScore || 85);
+  return !eventPublicationBlockers(event).length && Boolean(visitorBriefs.events[event.slug]);
 }
 
 function publicEvents() {
@@ -3158,7 +3119,7 @@ function freshnessAgeText(lang, days) {
 }
 
 function freshnessInfo(event, lang) {
-  const ageDays = daysSince(event.lastChecked);
+  const ageDays = daysSince(sourceCheckDate(event));
   const limitDays = freshnessLimitDays(event);
   const status = statusOf(event);
   let tone = "fresh";
@@ -3186,14 +3147,14 @@ function freshnessInfo(event, lang) {
     limitDays,
     label,
     tone,
-    text: Number.isNaN(ageDays) ? label : `${label} · ${freshnessAgeText(lang, ageDays)}`
+    text: Number.isNaN(ageDays) ? "Source check unavailable" : `${ageDays > limitDays ? "Source check due" : "Source monitored"} · ${freshnessAgeText(lang, ageDays)}`
   };
 }
 
 function recheckQueueItems(limit = 8) {
   return publicEvents()
     .map((event) => {
-      const ageDays = daysSince(event.lastChecked);
+      const ageDays = daysSince(sourceCheckDate(event));
       const limitDays = freshnessLimitDays(event);
       return {
         event,
@@ -3252,7 +3213,7 @@ function nowGroups() {
     .sort((a, b) => a.endDate.localeCompare(b.endDate) || b.priority - a.priority)
     .slice(0, 6);
   const newlyChecked = currentEvents()
-    .filter((event) => event.lastChecked === today)
+    .filter((event) => sourceCheckDate(event) === today)
     .sort(statusSort)
     .slice(0, 6);
   const thisWeek = publicEvents()
@@ -3266,7 +3227,7 @@ function nowGroups() {
 function nowDashboard(lang) {
   const liveCount = currentEvents().filter((event) => statusOf(event) === "live").length;
   const endingSoonCount = currentEvents().filter((event) => statusOf(event) === "live" && daysFromToday(event.endDate) <= 7).length;
-  const checkedTodayCount = currentEvents().filter((event) => event.lastChecked === today).length;
+  const checkedTodayCount = currentEvents().filter((event) => sourceCheckDate(event) === today).length;
   const thisWeekCount = currentEvents().filter((event) => statusOf(event) === "upcoming" && daysFromToday(event.startDate) <= 7).length;
   const fastMovingCount = currentEvents().filter((event) => fastMovingCategories.has(event.category)).length;
   const checkedDate = dateText(lang, today);
@@ -3457,10 +3418,10 @@ function rssFeed(lang, feedPath = `/${lang}/feed.xml`) {
   const items = feedEvents();
   const feedUrl = absoluteUrl(feedPath);
   const homeUrl = absoluteUrl(`/${lang}/`);
-  const lastBuildDate = rfc2822Date(maxIso(items.map((event) => event.lastChecked)));
+  const lastBuildDate = rfc2822Date(maxIso(items.map((event) => eventPublicationDates(event).updatedAt)));
   return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(`${siteName} - ${languages[lang].name}`)}</title>\n    <link>${xmlEsc(homeUrl)}</link>\n    <description>${xmlEsc(tr(lang, "nowText"))}</description>\n    <language>${xmlEsc(languages[lang].locale)}</language>\n    <lastBuildDate>${xmlEsc(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${xmlEsc(feedUrl)}" rel="self" type="application/rss+xml"/>\n${items.map((event) => {
     const url = eventPublicUrl(event, lang);
-    return `    <item>\n      <title>${xmlEsc(local(event.title, lang))}</title>\n      <link>${xmlEsc(url)}</link>\n      <guid isPermaLink="true">${xmlEsc(url)}</guid>\n      <pubDate>${xmlEsc(rfc2822Date(event.lastChecked))}</pubDate>\n      <category>${xmlEsc(categoryLabel(lang, event.category))}</category>\n      <description>${xmlEsc(eventFeedSummary(event, lang))}</description>\n      <source url="${xmlEsc(event.sourceUrl)}">${xmlEsc(event.sourceName)}</source>\n    </item>`;
+    return `    <item>\n      <title>${xmlEsc(local(event.title, lang))}</title>\n      <link>${xmlEsc(url)}</link>\n      <guid isPermaLink="true">${xmlEsc(url)}</guid>\n      <pubDate>${xmlEsc(rfc2822Date(eventPublicationDates(event).publishedAt))}</pubDate>\n      <category>${xmlEsc(categoryLabel(lang, event.category))}</category>\n      <description>${xmlEsc(eventFeedSummary(event, lang))}</description>\n      <source url="${xmlEsc(event.sourceUrl)}">${xmlEsc(event.sourceName)}</source>\n    </item>`;
   }).join("\n")}\n  </channel>\n</rss>\n`;
 }
 
@@ -3482,8 +3443,8 @@ function jsonFeed(lang, feedPath = `/${lang}/latest.json`) {
       summary: eventSummaryText(event, lang),
       content_text: eventFeedSummary(event, lang),
       image: absoluteUrl(`/${event.thumbnail}`),
-      date_published: kstDateTime(event.lastChecked),
-      date_modified: kstDateTime(event.lastChecked),
+      date_published: kstDateTime(eventPublicationDates(event).publishedAt),
+      date_modified: kstDateTime(eventPublicationDates(event).updatedAt),
       tags: [categoryLabel(lang, event.category), event.city, statusLabel(lang, statusOf(event))],
       _korea_now_guide: {
         category: event.category,
@@ -3670,8 +3631,7 @@ function eventDateDistanceDays(a, b) {
 }
 
 function relatedEventsForEvent(event) {
-  return publicEvents()
-    .filter((candidate) => candidate.slug !== event.slug)
+  return nearbyAlternatives(event, publicEvents())
     .map((candidate) => {
       const score =
         (candidate.city === event.city ? 50 : 0) +
@@ -3690,7 +3650,7 @@ function relatedEventsForEvent(event) {
 function relatedEventsForGuide(guide) {
   const statusWeight = { live: 0, upcoming: 1, ended: 2 };
   return publicEvents()
-    .filter((event) => event.category === guide.category)
+    .filter((event) => Array.isArray(guide.relatedEventSlugs) ? guide.relatedEventSlugs.includes(event.slug) : event.category === guide.category)
     .sort((a, b) => {
       const statusDiff = statusWeight[statusOf(a)] - statusWeight[statusOf(b)];
       if (statusDiff) return statusDiff;
@@ -4712,7 +4672,7 @@ function coupangShoppingWidget(event, lang) {
   return `
         <section class="detail-section coupang-affiliate-widget" aria-label="${esc(copy.aria)}">
           <div class="coupang-affiliate-copy">
-            <p class="eyebrow">${esc(copy.label)}</p>
+
             <h2>${esc(copy.title)}</h2>
             <p>${esc(copy.text)}</p>
             <small>${esc(copy.disclosure)}</small>
@@ -4909,7 +4869,7 @@ function affiliatePlanningRail(event, lang) {
   return `
         <section class="detail-quick-plan affiliate-section" aria-label="${esc(copy.title)}">
           <div class="quick-plan-copy">
-            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+
             <h2>${esc(copy.title)}</h2>
           </div>
           <div class="quick-plan-actions">
@@ -5194,7 +5154,7 @@ function visitorInfoSection(event, lang) {
         <section class="detail-section visitor-info-section">
           <div class="detail-section-head">
             <div>
-              <p class="eyebrow">${esc(event.sourceName)}</p>
+
               <h2>${tr(lang, "officialVisitorInfo")}</h2>
             </div>
             <p>${tr(lang, "verifyBefore")}</p>
@@ -5863,7 +5823,7 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
     return `
           <div class="weather-section-head">
             <div>
-              <p class="eyebrow">${esc(tr(lang, "weatherLiveForecast"))}</p>
+
               <h2>${tr(lang, "weatherPlan")}</h2>
             </div>
             <span>${esc(forecast.locationLabel)} · ${esc(forecastRangeText(lang, forecast))}</span>
@@ -5878,7 +5838,7 @@ function weatherPlanInner(lang, forecast, weatherInfo) {
   return `
           <div class="weather-section-head">
             <div>
-              <p class="eyebrow">${esc(tr(lang, "weatherSeasonalBaseline"))}</p>
+
               <h2>${tr(lang, "weatherPlan")}</h2>
             </div>
             <span>${esc(weatherInfo.regionKey)} · ${esc(weatherInfo.monthName)}</span>
@@ -5951,27 +5911,23 @@ function languageMenu(lang, currentPathBuilder) {
     </details>`;
 }
 
-function nav(lang) {
-  const routeShort = local({
-    en: "Routes",
-    es: "Rutas",
-    zh: "路线",
-    pt: "Rotas",
-    ru: "Маршруты",
-    ja: "ルート",
-    fr: "Itineraires",
-    de: "Routen"
-  }, lang);
-  return `
-    <nav class="top-nav" aria-label="Primary">
-      <a href="/${lang}/#events">${tr(lang, "navEvents")}</a>
-      <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
-      <a href="/${lang}/calendar/">${tr(lang, "navCalendar")}</a>
-      <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
-      <a href="/${lang}/guides/">${tr(lang, "navGuides")}</a>
-      ${routes.length ? `<a href="/${lang}/routes/"><span class="nav-full">${tr(lang, "routePages")}</span><span class="nav-short">${esc(routeShort)}</span></a>` : ""}
-      <a href="/${lang}/about/">${tr(lang, "navAbout")}</a>
-    </nav>`;
+function uiIcon(name, className = "") {
+  const paths = {
+    arrow: '<path d="M4 12h15M13 5l7 7-7 7"/>',
+    bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+    weather: '<path d="M7 17h11a4 4 0 0 0 0-8 6 6 0 0 0-11-2 5 5 0 0 0 0 10z"/>',
+    map: '<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2zM9 3v16M15 5v16"/>',
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 11h18"/>'
+  };
+  return `<svg class="ui-icon ${className}" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.arrow}</svg>`;
+}
+
+function nav(lang, canonicalPath = "") {
+  const items = [["now", "Experiences"], ["guides", "Culture guides"], ["calendar", "Calendar"], ["planner", "Saved places"], ["about", "About"]];
+  return `<nav class="top-nav" aria-label="Primary">${items.map(([path, label]) => {
+    const current = canonicalPath.startsWith(`/${lang}/${path}/`) || (path === "now" && canonicalPath.includes("/events/"));
+    return `<a href="/${lang}/${path}/"${current ? ' aria-current="page"' : ""}>${label}</a>`;
+  }).join("")}</nav>`;
 }
 
 function absoluteUrl(urlPath) {
@@ -6162,9 +6118,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${alternateLinks(currentPathBuilder, canonicalPath)}
   <link rel="alternate" type="application/rss+xml" title="${siteName} RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
   <link rel="alternate" type="application/feed+json" title="${siteName} JSON Feed" href="${absoluteUrl(`/${lang}/latest.json`)}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/roboto-condensed-800.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/assets/fonts/public-sans-400.ttf" as="font" type="font/ttf" crossorigin>
   <meta property="og:type" content="${esc(pageType)}">
   <meta property="og:url" content="${esc(pageUrl)}">
   <meta property="og:title" content="${esc(title)}">
@@ -6174,8 +6129,8 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(description)}">
   <meta name="twitter:image" content="${esc(metaImage)}">
-  <meta name="theme-color" content="#246beb">
-  <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#251d48">
+<link rel="icon" href="/assets/brand/programme-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/assets/brand/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
@@ -6186,32 +6141,33 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${structuredDataScript(structuredData)}
 </head>
 <body>
+  <!--
+  THESIS: Read Korean culture, then choose a visit; replace the inventory-led carousel.
+  OWN-WORLD: Violet programme cover, amber action, white reading surfaces, condensed display and quiet sans prose.
+  STORY: Understand a real experience, compare participation, save a place without implying a booking.
+  FIRST VIEWPORT: White masthead; violet 37/63 text/photo cover with large left title and amber guide link.
+  FORM: Independent cultural programme publication, assigned direction 4, seed 5b81c184. Approved comp A.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
   <a class="skip-link" href="#main-content">${tr(lang, "skipToMain")}</a>
   <header class="site-header">
-    <a class="brand" href="/${lang}/" aria-label="${siteName} home">
-      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34" xmlns="http://www.w3.org/2000/svg"><path d="M32 5 C19.8 5 10 14.6 10 26.4 c0 13.4 17.3 29.6 20.5 32.5 a2.2 2.2 0 0 0 3 0 C36.7 56 54 39.8 54 26.4 54 14.6 44.2 5 32 5 Z" fill="#246beb"/><path d="M25.5 16.5 V36.5 M38.5 17 L27 26.3 M30 24 L39 36" stroke="#ffffff" stroke-width="5.6" stroke-linecap="round" fill="none"/><circle cx="49.5" cy="10.5" r="7.2" fill="#e85d3f" stroke="#ffffff" stroke-width="2.6"/></svg></span>
-      <span class="brand-name">K-Spot <em>Now</em></span>
-    </a>
-    ${nav(lang)}
-    ${languageMenu(lang, currentPathBuilder)}
+    <a class="brand" href="/${lang}/" aria-label="${siteName} home">K-Spot Now</a>
+    <p class="brand-note">Korean culture.<br>In context.</p>
+    ${nav(lang, canonicalPath)}
   </header>
   ${pageBody}
   <footer class="site-footer">
-    <div>
-      <strong>${siteName}</strong>
-      <p>${esc(tr(lang, "sourceWarning"))}</p>
+    <div class="footer-publication">
+      <a class="footer-brand" href="/${lang}/">${siteName}</a>
+      <p>Korean culture, in context.<br>For independent English-speaking visitors.</p>
+      <a href="/${lang}/about/">Meet the publication ${uiIcon("arrow")}</a>
     </div>
-    <div class="footer-links">
-      <a href="/${lang}/now/">${tr(lang, "navNow")}</a>
-      <a href="/${lang}/planner/">${tr(lang, "navPlanner")}</a>
-      <a href="/${lang}/privacy/">${tr(lang, "privacyTitle")}</a>
-      <a href="/${lang}/cookie-policy/">${tr(lang, "cookieTitle")}</a>
-      <a href="/${lang}/advertising/">${tr(lang, "advertisingTitle")}</a>
-      <a href="/${lang}/terms/">${tr(lang, "termsTitle")}</a>
-      <a href="/${lang}/contact/">${tr(lang, "contactTitle")}</a>
-      <a href="/${lang}/corrections/">${tr(lang, "correctionsTitle")}</a>
-      <a href="/${lang}/editorial-policy/">${tr(lang, "editorialTitle")}</a>
+    <div class="footer-links" aria-label="Publication information">
+      <a href="/${lang}/now/">Experiences</a><a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/planner/">Saved places</a>
+      <a href="/${lang}/editorial-policy/">Editorial Policy</a><a href="/${lang}/corrections/">Corrections and Updates</a><a href="/${lang}/contact/">Contact</a>
+      <a href="/${lang}/privacy/">Privacy Policy</a><a href="/${lang}/cookie-policy/">Cookie Policy</a><a href="/${lang}/advertising/">Advertising Policy</a><a href="/${lang}/terms/">Terms</a>
     </div>
+    <p class="footer-note">Documentary research, clearly dated. Official details can change; check the organizer before you travel.</p>
   </footer>
   <aside class="saved-planner" data-saved-planner hidden aria-live="polite">
     <div>
@@ -6222,8 +6178,12 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
     <div class="saved-planner-actions">
       <a class="saved-open" href="/${lang}/planner/">${tr(lang, "openPlanner")}</a>
       <button type="button" class="saved-clear" data-clear-saved>${tr(lang, "clearSaved")}</button>
+      <button type="button" class="saved-clear" data-dismiss-saved aria-label="Hide saved plan summary">Hide</button>
     </div>
   </aside>
+  <p class="storage-warning" data-storage-warning role="status" hidden></p>
+  <script type="application/json" id="visit-catalog">${JSON.stringify(currentEvents().map(event => ({ slug: event.slug, title: local(event.title, lang), date: eventDateLabel(event, lang, false), start: event.startDate, end: event.endDate, city: event.city, category: categoryLabel(lang, event.category), url: eventHref(lang, event), sourceUrl: event.sourceUrl, sourceName: event.sourceName, mapQuery: eventPlaceQuery(event), venue: event.venue, schedule: visitPlanning[event.slug] || {} }))).replaceAll("<", "\\u003c")}</script>
+  <script src="/planning.js?v=${assetVersion}" defer></script>
   <script src="/app.js?v=${assetVersion}" defer></script>
 </body>
 </html>`;
@@ -6274,7 +6234,7 @@ function eventSearchText(event, lang) {
   ].filter(Boolean).join(" ");
 }
 
-function galleryControls(lang, { categories = false, cities = false } = {}) {
+function galleryControls(lang, { categories = false, cities = false, visits = false } = {}) {
   return `
         <div class="gallery-tools${cities ? " has-city-filter" : ""}" data-gallery-controls data-count-template="${esc(tr(lang, "resultCountTemplate"))}" data-count-one-template="${esc(tr(lang, "resultCountOneTemplate"))}">
           <label class="search-field">
@@ -6282,7 +6242,7 @@ function galleryControls(lang, { categories = false, cities = false } = {}) {
             <input type="search" data-gallery-search placeholder="${esc(tr(lang, "searchPlaceholder"))}">
           </label>
           <label class="select-field">
-            <span>${tr(lang, "statusFilter")}</span>
+            <span>${visits ? "Status today" : tr(lang, "statusFilter")}</span>
             <select data-status-filter>
               <option value="all">${tr(lang, "allStatuses")}</option>
               <option value="live">${tr(lang, "statusLive")}</option>
@@ -6309,8 +6269,11 @@ function galleryControls(lang, { categories = false, cities = false } = {}) {
             ${filterButton(lang, "shopping", "shopping")}
             ${filterButton(lang, "travel-benefits", "benefits")}
           </div>` : ""}
+          ${visits ? `<label class="select-field visit-date-field"><span>Visit date (Korea)</span><input type="date" data-visit-filter aria-describedby="visit-filter-help"></label>
+          <label class="select-field interest-field"><span>Interested in</span><select data-interest-filter><option value="all">Any interest</option><option value="history">History &amp; heritage</option><option value="performance">Performance</option><option value="design">Garden design</option><option value="photography">Photography</option><option value="outdoors">Outdoors</option></select></label>` : ""}
           <button type="button" class="clear-filters" data-clear-filters>${tr(lang, "clearFilters")}</button>
           <span class="result-count" data-result-count aria-live="polite"></span>
+          ${visits ? `<p class="visit-filter-help" id="visit-filter-help">A date check excludes known closures, not sold-out sessions or last-minute cancellations. Results are possibilities to investigate, not confirmed availability.</p><p class="visit-filter-help" data-visit-filter-status role="status" hidden></p>` : ""}
         </div>`;
 }
 
@@ -6343,13 +6306,31 @@ function eventCard(event, lang) {
         <p>${esc(eventSummaryText(event, lang))}</p>
         <dl class="compact-facts">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div>
-          <div><dt>${tr(lang, "lastChecked")}</dt><dd>${dateText(lang, event.lastChecked)}</dd></div>
+          <div><dt>Source monitoring</dt><dd>${dateText(lang, sourceCheckDate(event))}</dd></div>
           <div><dt>${tr(lang, "freshness")}</dt><dd><span class="freshness-chip ${freshness.tone}">${esc(freshness.text)}</span></dd></div>
         </dl>
         ${eventPlanTools(lang)}
         ${saveEventButton(event, lang)}
       </div>
     </article>`;
+}
+
+function homeEventCard(event, lang) {
+  const brief = visitorBriefs.events[event.slug];
+  const status = statusOf(event);
+  return `<article class="event-card">
+    <a class="event-thumb" href="${eventHref(lang, event)}">
+      <img src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))}" loading="lazy">
+      <span class="badge ${status}">${statusLabel(lang, status)}</span>
+    </a>
+    <div class="event-body">
+      <div class="event-meta"><span>${esc(cityLabel(lang, event.city))}</span><span>${esc(eventKindLabel(event, lang) || categoryLabel(lang, event.category))}</span></div>
+      <h3><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></h3>
+      <p>${esc(brief.answer)}</p>
+      <dl class="compact-facts"><div><dt>When</dt><dd>${esc(eventDateLabel(event, lang))}</dd></div></dl>
+      ${saveEventButton(event, lang)}
+    </div>
+  </article>`;
 }
 
 function eventPlanTools(lang) {
@@ -6593,7 +6574,7 @@ function planningLayerSection(lang) {
       <section class="planning-layer" aria-labelledby="planning-layer-title">
         <div class="planning-layer-inner">
           <div class="planning-layer-lede">
-            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+
             <h2 id="planning-layer-title">${esc(copy.title)}</h2>
             <p>${esc(copy.text)}</p>
           </div>
@@ -6810,7 +6791,7 @@ function serviceDifferenceSection(lang) {
       <section class="service-difference" aria-labelledby="service-difference-title">
         <div class="service-difference-inner">
           <div class="service-difference-head">
-            <p class="eyebrow">${esc(copy.eyebrow)}</p>
+
             <h2 id="service-difference-title">${esc(copy.title)}</h2>
             <p>${esc(copy.text)}</p>
           </div>
@@ -7059,7 +7040,7 @@ function sourceTransparencySection(event, lang) {
         <section class="detail-section source-transparency-section" aria-labelledby="source-transparency-title">
           <div class="detail-section-head">
             <div>
-              <p class="eyebrow">${esc(sourceRoleLabel(event, lang))}</p>
+
               <h2 id="source-transparency-title">${esc(copy.title)}</h2>
             </div>
           </div>
@@ -7127,7 +7108,7 @@ function localizedVisitorBriefSection(event, lang) {
         <section class="detail-section localized-visitor-brief" aria-labelledby="localized-visitor-brief-title">
           <div class="detail-section-head">
             <div>
-              <p class="eyebrow">${esc(copy.eyebrow)}</p>
+
               <h2 id="localized-visitor-brief-title">${esc(copy.title)}</h2>
             </div>
           </div>
@@ -7225,7 +7206,7 @@ function visitorActionChecklist(event, lang) {
         <section class="detail-section visitor-action-section" aria-labelledby="visitor-action-title">
           <div class="detail-section-head">
             <div>
-              <p class="eyebrow">${tr(lang, "plannerTitle")}</p>
+
               <h2 id="visitor-action-title">${esc(copy.title)}</h2>
             </div>
           </div>
@@ -7347,7 +7328,7 @@ function eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, rout
         <section class="detail-section editorial-brief-section" aria-labelledby="editorial-brief-title">
           <div class="detail-section-head">
             <div>
-              <p class="eyebrow">Original visitor brief</p>
+
               <h2 id="editorial-brief-title">Use this before you commit to the visit</h2>
             </div>
             <p>${esc(status)} / ${esc(category)} / ${esc(city)}</p>
@@ -7381,168 +7362,77 @@ function eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, rout
         </section>`;
 }
 
-function renderHome(lang, canonicalPath = `/${lang}/`) {
-  const sorted = currentEvents().sort((a, b) => {
-    const statusWeight = { live: 0, upcoming: 1, ended: 2 };
-    return statusWeight[statusOf(a)] - statusWeight[statusOf(b)] || b.priority - a.priority;
-  });
-  const liveCount = currentEvents().filter((event) => statusOf(event) === "live").length;
-  const upcomingCount = currentEvents().filter((event) => statusOf(event) === "upcoming").length;
-  const spotlights = spotlightEvents(sorted);
-  const homePageTitle = local({
-    en: `${siteName} - Source-checked Korea event briefs`,
-    fr: `${siteName} - Evenements, pop-ups K-pop et offres d'achats`,
-    de: `${siteName} - Veranstaltungen, K-Pop-Pop-ups und Einkaufsangebote`
-  }, lang);
-  const eventsHeading = local({
-    en: "Current event decisions, not an unfiltered listing feed.",
-    fr: "Evenements, pop-ups et offres en Coree pour les visiteurs.",
-    de: "Korea-Veranstaltungen, Pop-ups und Angebote fur Besucher."
-  }, lang);
-  const description = local({
-    en: "Source-checked Korea event briefs for international visitors, with entry conditions, Korean map queries, weather and transport risks, and clear links for the final official check.",
-    es: "Eventos de Corea, K-pop pop-ups, ofertas, duty free, calendarios, fuentes oficiales y planificación de viaje.",
-    fr: "Evenements de Coree, pop-ups K-pop, offres d'achats, offres hors taxes, calendriers, sources officielles et notes de planification.",
-    de: "Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufsangebote, zollfreie Kampagnen, Kalender, offizielle Quellen und Reiseplanung.",
-    zh: "韩国活动、K-pop 快闪、购物优惠、免税活动、日历、官方来源和旅行准备。",
-    pt: "Eventos da Coreia, K-pop pop-ups, ofertas, duty free, calendários, fontes oficiais e planejamento.",
-    ru: "События Кореи, K-pop pop-up, shopping deals, duty free, календари, источники и планирование."
-  }, lang);
+function experienceVisual(event) {
+  if (event.slug === "deoksugung-royal-guard-changing-ceremony-2026") return { src: event.thumbnail, caption: "Official visual · " + event.sourceName, fit: "cover" };
+  if (event.slug === "seoul-international-garden-show-2026") return { src: event.thumbnail, caption: "Visit Seoul · 2025 reference image, not the 2026 layout", fit: "cover" };
+  if (event.slug === "andong-maskdance-festival-2026") return { src: event.thumbnail, caption: "Official venue illustration · not a performance photograph", fit: "contain" };
+  return { src: event.thumbnail, caption: "Official visual · " + event.sourceName, fit: "contain" };
+}
+function experienceCard(event, lang, headingLevel = 3) {
+  const status = statusOf(event), visual = experienceVisual(event);
+  const answer = visitorBriefs.events[event.slug]?.answer || eventSummaryText(event, lang);
+  return `<article class="experience-card event-card" data-card data-visit-slug="${esc(event.slug)}" data-category="${esc(event.category)}" data-city="${esc(event.city)}" data-status="${status}" data-search="${esc(eventSearchText(event, lang))}">
+    <a class="experience-image image-${visual.fit}" href="${eventHref(lang, event)}"><img src="/${esc(visual.src)}" alt="${esc(local(event.title, lang))}" loading="lazy"></a><p class="image-caption">${esc(visual.caption)}</p>
+    <h${headingLevel}><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></h${headingLevel}>
+    <div class="experience-meta"><span>${esc(cityLabel(lang, event.city))}</span><span class="status ${status}">${esc(statusLabel(lang, status))}</span></div><p>${esc(answer)}</p><p class="experience-date">${esc(eventDateLabel(event, lang, false))}</p>
+    <div class="experience-bottom"><a class="text-link" href="${eventHref(lang, event)}">Read the story ${uiIcon("arrow")}</a>${saveEventButton(event, lang)}</div></article>`;
+}
 
+function renderHome(lang, canonicalPath = `/${lang}/`) {
+  const sorted = currentEvents().sort((a, b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a, b));
+  const seoul = sorted.filter((event) => event.city === "Seoul");
+  const elsewhere = sorted.filter((event) => event.city !== "Seoul");
+  const title = "K-Spot Now — Korean culture for your Seoul visit";
+  const description = "Understand the experience, compare entry and language conditions, and plan a cultural visit in Seoul. Selected festivals and waterfront events elsewhere in Korea.";
   const body = `
     <main>
-      <section class="service-hero" aria-labelledby="home-title">
-        <div class="service-hero-inner">
-          <div class="service-copy">
-            <p class="eyebrow">${tr(lang, "heroEyebrow")}</p>
-            <h1 id="home-title">${tr(lang, "heroTitle")}</h1>
-            <p>${tr(lang, "heroText")}</p>
-            <div class="service-actions">
-              <a class="button primary" href="#events">${tr(lang, "ctaEvents")}</a>
-              <a class="button secondary" href="/${lang}/now/">${tr(lang, "navNow")}</a>
-              <a class="button light" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
-            </div>
-          </div>
-          <div class="service-visual">
-            ${spotlightCarousel(spotlights, lang)}
-            <dl class="service-summary" aria-label="Event status summary">
-              <div><dt>${tr(lang, "liveNow")}</dt><dd>${liveCount}</dd></div>
-              <div><dt>${tr(lang, "upcoming")}</dt><dd>${upcomingCount}</dd></div>
-              <div><dt>${tr(lang, "navGuides")}</dt><dd>${guides.length}</dd></div>
-              <div><dt>Reviewed briefs</dt><dd>${sorted.length}</dd></div>
-            </dl>
-          </div>
+      <section class="programme-cover" aria-labelledby="home-title">
+        <div class="cover-copy">
+          <h1 id="home-title">Make a culture<br class="desktop-break"> day in Seoul.</h1>
+          <p>Understand an imperial palace, compare two designed gardens, or explore Korean ceramics. Choose a cultural question, then build your day around it.</p>
+          <a class="button primary cover-cta" href="/${lang}/guides/seoul-culture-first-visit">Start with the Seoul guide ${uiIcon("arrow")}</a>
         </div>
+        <figure class="cover-figure">
+          <a href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026" aria-label="Read about the Deoksugung guard ceremony"><img src="/assets/editorial/deoksugung-guards-smg-2020.jpg" alt="Guards in ceremonial dress at Deoksugung, in a 2020 Seoul Metropolitan Government archive photograph" width="1000" height="658" fetchpriority="high"></a>
+          <figcaption><a href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026">Deoksugung: ceremony or palace visit? ${uiIcon("arrow")}</a><span>Seoul Metropolitan Government · archive, 2020</span></figcaption>
+        </figure>
       </section>
       ${adUnit("home", canonicalPath === editorialProgram.canonicalHome)}
-
-      <section class="content-shell home-event-section" id="events">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">${tr(lang, "navEvents")}</p>
-            <h2>${esc(eventsHeading)}</h2>
-          </div>
-          <a class="text-link" href="/${lang}/now/">See all ${sorted.length} reviewed events</a>
+      <section class="home-introduction" aria-labelledby="before-you-choose">
+        <div class="intro-essay"><h2 id="before-you-choose">Before you choose</h2><h3>A guard ceremony — or a palace visit?</h3>
+          <p>A ceremony offers a concentrated visual encounter: dress, movement and the changing of the guard. A palace visit asks you to look at buildings and their history at your own pace. They share a setting, but they are not the same experience.</p>
+          <p>At Deoksugung, decide which interests you first. Then check the ceremony session separately from palace admission.</p>
+          <a class="text-link" href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026">Choose your Deoksugung visit ${uiIcon("arrow")}</a>
         </div>
-        <div class="gallery-grid">
-          ${sorted.slice(0, 5).map((event) => eventCard(event, lang)).join("")}
-        </div>
+        <div class="home-features">${[
+          { slug: "seoul-international-garden-show-2026", title: "Read a garden, not just a map", text: "Compare Bava's woodland planting with Horizon of 30.5 Meters: one shapes movement, the other a place to stop." },
+          { slug: "andong-maskdance-festival-2026", title: "Mask dance, beyond Seoul", text: "Gwanno's physical story or Bongsan's spoken satire? Choose the performance that fits how you want to understand it." }
+        ].map((feature) => {
+          const event = sorted.find((item) => item.slug === feature.slug);
+          if (!event) return "";
+          const visual = experienceVisual(event);
+          return `<article class="feature-row"><figure><a href="${eventHref(lang, event)}"><img class="image-${visual.fit}" src="/${esc(visual.src)}" alt="${esc(visual.caption)}" loading="lazy"></a><figcaption class="image-caption">${esc(event.slug === "seoul-international-garden-show-2026" ? "Visit Seoul · 2025 reference photo" : "Official venue illustration")}</figcaption></figure><div><h3>${esc(feature.title)}</h3><p>${esc(feature.text)}</p><a class="text-link" href="${eventHref(lang, event)}">Read the experience ${uiIcon("arrow")}</a></div></article>`;
+        }).join("")}</div>
       </section>
-
+      <nav class="utility-strip" aria-label="Practical planning">
+        <a href="/${lang}/guides/weather-for-korea-events">${uiIcon("weather")}<span><strong>What if the weather changes? ${uiIcon("arrow")}</strong><span>Separate a forecast from a cancellation.</span></span></a>
+        <a href="/${lang}/guides/how-to-verify-korea-popups">${uiIcon("map")}<span><strong>Questions about entry? ${uiIcon("arrow")}</strong><span>Check your account, reservation and branch.</span></span></a>
+        <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>View your saved places ${uiIcon("arrow")}</strong><span>Keep the stops you are considering together.</span></span></a>
+      </nav>
+      <section class="programme-section" id="events">
+        <div class="section-head"><div><h2>Make room for a cultural stop</h2><p>Current experiences in Seoul. Read the context, then check the conditions.</p></div><a class="text-link" href="/${lang}/now/">All experiences ${uiIcon("arrow")}</a></div>
+        <div class="experience-list">${seoul.map((event) => experienceCard(event, lang)).join("")}</div>
+        ${elsewhere.length ? `<div class="section-head elsewhere-heading"><div><h2>Beyond Seoul</h2><p>Separate destinations to consider if your trip already takes you further.</p></div></div><div class="experience-list">${elsewhere.map((event) => experienceCard(event, lang)).join("")}</div>` : ""}
+      </section>
       <section class="home-guide-band">
-        <div class="section-head">
-          <div><p class="eyebrow">Visitor guides</p><h2>Plan with current rules, not old screenshots</h2></div>
-          <a class="text-link" href="/${lang}/guides/">All guides</a>
-        </div>
-        <div class="guide-grid">${guides.slice(0, 3).map((guide) => guideCard(guide, lang)).join("")}</div>
-      </section>
-
-      <section class="split-band">
-        <article class="split-feature-card split-feature-calendar">
-          <div class="split-feature-visual calendar-preview" aria-hidden="true">
-            <div class="calendar-preview-panel">
-              <div class="calendar-preview-head">
-                <span>Jun</span>
-                <strong>2026</strong>
-              </div>
-              <div class="calendar-preview-grid">
-                <span></span><span></span><span></span><span class="is-live">12</span><span class="is-live">13</span><span></span><span></span>
-                <span></span><span class="is-upcoming">24</span><span class="is-upcoming">25</span><span class="is-upcoming">26</span><span></span><span></span><span></span>
-              </div>
-              <div class="calendar-preview-note">
-                <span>Live</span>
-                <span>Upcoming</span>
-              </div>
-            </div>
-          </div>
-          <div class="split-feature-copy">
-            <p class="eyebrow">${tr(lang, "navCalendar")}</p>
-            <h2>${tr(lang, "calendarTitle")}</h2>
-            <p>${tr(lang, "calendarText")}</p>
-            <a class="text-link" href="/${lang}/calendar/">${tr(lang, "ctaCalendar")}</a>
-          </div>
-        </article>
-        ${routes.length ? `<article class="split-feature-card split-feature-routes">
-          <div class="split-feature-visual route-preview" aria-hidden="true">
-            <div class="route-preview-map">
-              <span class="route-line"></span>
-              <span class="route-pin pin-start"></span>
-              <span class="route-pin pin-mid"></span>
-              <span class="route-pin pin-end"></span>
-              <span class="route-label label-one">Event</span>
-              <span class="route-label label-two">Shop</span>
-              <span class="route-label label-three">Hotel</span>
-            </div>
-          </div>
-          <div class="split-feature-copy">
-            <p class="eyebrow">${tr(lang, "routePages")}</p>
-            <h2>${tr(lang, "routePages")}</h2>
-          <p>${esc(local({
-            en: "Pair saved events with nearby shopping, transit, weather, and short route ideas before leaving.",
-            es: "Combina eventos guardados con compras, transporte, clima y rutas cortas antes de salir.",
-            fr: "Associez les evenements enregistres avec achats, transport, meteo et courts itineraires avant de partir.",
-            de: "Kombinieren Sie gespeicherte Veranstaltungen vor der Abfahrt mit Einkaufen, Verkehr, Wetter und kurzen Routenideen.",
-            zh: "出发前把保存的活动与附近购物、交通、天气和短路线一起比较。",
-            pt: "Combine eventos salvos com compras, transporte, clima e roteiros curtos antes de sair.",
-            ru: "Перед выходом сопоставьте сохраненные события с ближайшим шопингом, транспортом, погодой и короткими маршрутами.",
-            ja: "保存したイベントを周辺の買い物、移動、天気、短いモデルルートと一緒に確認できます。"
-          }, lang))}</p>
-            <a class="text-link" href="/${lang}/routes/">${tr(lang, "routePages")}</a>
-          </div>
-        </article>` : `<article class="split-feature-card split-feature-routes">
-          <div class="split-feature-visual route-preview" aria-hidden="true">
-            <div class="route-preview-map">
-              <span class="route-line"></span>
-              <span class="route-pin pin-start"></span>
-              <span class="route-pin pin-mid"></span>
-              <span class="route-pin pin-end"></span>
-              <span class="route-label label-one">Source</span>
-              <span class="route-label label-two">Risk</span>
-              <span class="route-label label-three">Decision</span>
-            </div>
-          </div>
-          <div class="split-feature-copy">
-            <p class="eyebrow">Verification method</p>
-            <h2>Check the claim before the commute</h2>
-            <p>See how we separate organizer, ticketing, and listing roles, then verify dates, entry rules, inventory signals, and the Korean place name.</p>
-            <a class="text-link" href="/${lang}/guides/how-to-verify-korea-popups">Read the verification guide</a>
-          </div>
-        </article>`}
+        <div class="section-head"><div><h2>A little context goes a long way.</h2><p>Practical reading for the decisions around your visit.</p></div><a class="text-link" href="/${lang}/guides/">All culture guides ${uiIcon("arrow")}</a></div>
+        <div class="reading-links">${guides.filter((guide) => guide.slug !== "seoul-culture-first-visit").slice(0, 3).map((guide) => `<a href="${guideHref(lang, guide)}"><h3>${esc(guideTitleText(guide, lang))}</h3><p>${esc(guideSummaryText(guide, lang))}</p>${uiIcon("arrow")}</a>`).join("")}</div>
       </section>
     </main>`;
-
-  return layout({
-    lang,
-    title: homePageTitle,
-    description,
-    body,
-    canonicalPath,
+  return layout({ lang, title, description, body, canonicalPath,
     currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
     adsEligible: canonicalPath === editorialProgram.canonicalHome,
-    schemaData: [
-      schema(lang, homePageTitle, description, canonicalPath),
-      itemListSchema(lang, `${siteName} latest events`, sorted.slice(0, 12), canonicalPath)
-    ]
+    schemaData: [schema(lang, title, description, canonicalPath), itemListSchema(lang, "Korea cultural experiences", sorted, canonicalPath)]
   });
 }
 
@@ -7592,7 +7482,7 @@ function recheckQueuePanel(lang) {
     <section class="recheck-panel" id="recheck-queue" aria-label="${esc(title)}">
       <div class="section-head">
         <div>
-          <p class="eyebrow">${tr(lang, "freshness")}</p>
+
           <h2>${esc(title)}</h2>
           <p>${esc(text)}</p>
         </div>
@@ -7652,7 +7542,7 @@ function eventDecisionBoard(eventsForBoard, lang) {
     <section class="event-decision-board" aria-labelledby="event-decision-board-title">
       <div class="decision-board-intro">
         <div>
-          <p class="eyebrow">Editorial comparison</p>
+
           <h2 id="event-decision-board-title">Choose by commitment, not just category</h2>
         </div>
         <p>These are K-Spot Now planning judgments derived from the source records on each event page. They compare how an event fits a travel day; they do not replace the organizer's current operating notice.</p>
@@ -7678,58 +7568,11 @@ function eventDecisionBoard(eventsForBoard, lang) {
 }
 
 function renderNow(lang) {
-  const groups = nowGroups();
-  const combined = [];
-  const seen = new Set();
-  for (const event of [...groups.live, ...groups.endingSoon, ...groups.newlyChecked, ...groups.thisWeek]) {
-    if (!seen.has(event.slug)) {
-      seen.add(event.slug);
-      combined.push(event);
-    }
-  }
-  const body = `
-    <main class="page">
-      <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navNow")}</p>
-        <h1>${tr(lang, "nowTitle")}</h1>
-        <p>${tr(lang, "nowText")}</p>
-      </section>
-      ${nowDashboard(lang)}
-      ${eventDecisionBoard(currentEvents(), lang)}
-      ${recheckQueuePanel(lang)}
-      <section class="now-grid">
-        ${nowPanel(tr(lang, "livePanel"), groups.live, lang)}
-        ${nowPanel(tr(lang, "endingSoon"), groups.endingSoon, lang)}
-        ${nowPanel(tr(lang, "newlyChecked"), groups.newlyChecked, lang)}
-        ${nowPanel(tr(lang, "thisWeek"), groups.thisWeek, lang, "starts")}
-      </section>
-      <section class="latest-checked-section" data-gallery-scope data-gallery-limit="6" data-gallery-mobile-limit="4" data-gallery-step="6">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">${tr(lang, "lastChecked")}</p>
-            <h2>${tr(lang, "latestCheckedGallery")}</h2>
-            <p>${tr(lang, "latestCheckedText")}</p>
-          </div>
-          <a class="text-link" href="/${lang}/editorial-policy/">How reviews work</a>
-        </div>
-        <div class="gallery-grid">
-          ${feedEvents().map((event) => eventCard(event, lang)).join("")}
-        </div>
-      </section>
-    </main>`;
-
-  return layout({
-    lang,
-    title: `${tr(lang, "nowTitle")} - K-Spot Now`,
-    description: tr(lang, "nowText"),
-    body,
-    canonicalPath: `/${lang}/now/`,
-    currentPathBuilder: (code) => `/${code}/now/`,
-    schemaData: [
-      schema(lang, `${tr(lang, "nowTitle")} - K-Spot Now`, tr(lang, "nowText"), `/${lang}/now/`),
-      itemListSchema(lang, tr(lang, "nowTitle"), combined, `/${lang}/now/`)
-    ]
-  });
+  const listed = currentEvents().sort((a, b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a, b));
+  const body = `<main class="page">
+    <section class="page-hero"><h1>Find your next cultural stop.</h1><p>Choose the experience, not just a date. These articles explain what you can see, how to take part, and what still needs a check with the organizer.</p></section>
+    <section data-gallery-scope aria-label="Current cultural experiences">${galleryControls(lang, { cities: true, visits: true })}<div class="experience-list">${listed.map((event) => experienceCard(event, lang, 2)).join("")}</div><p class="empty-state gallery-empty" data-no-results hidden>No experiences match these choices. Try another date or interest, or clear the filters. Our selection is not a complete city calendar.</p></section></main>`;
+  return layout({ lang, title: "Cultural experiences in Korea — K-Spot Now", description: "Source-backed cultural experiences for independent visitors: context, participation and practical choices.", body, canonicalPath: `/${lang}/now/`, currentPathBuilder: (code) => `/${code}/now/`, schemaData: [itemListSchema(lang, "Korea cultural experiences", listed, `/${lang}/now/`)] });
 }
 
 function renderCategory(lang, category) {
@@ -7745,7 +7588,7 @@ function renderCategory(lang, category) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "category")}</p>
+
         <h1>${esc(title)}</h1>
         <p>${esc(description)}</p>
       </section>
@@ -7807,7 +7650,7 @@ function renderCity(lang, city) {
     <main class="page city-page">
       <section class="city-hero">
         <div class="city-hero-copy">
-          <p class="eyebrow">${tr(lang, "cityPages")}</p>
+
           <h1>${esc(cityName)}</h1>
           <p>${esc(meta.description)}</p>
           <div class="city-hero-tags" aria-label="${esc(categoryLabel(lang, "shopping"))}">
@@ -7889,7 +7732,7 @@ function renderRoutes(lang) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "routePages")}</p>
+
         <h1>${tr(lang, "routePages")}</h1>
         <p>${esc(description)}</p>
       </section>
@@ -7936,7 +7779,7 @@ function renderRoute(route, lang) {
     <main class="page">
       <article class="detail-layout">
         <section class="page-hero compact">
-          <p class="eyebrow">${tr(lang, "routePages")}</p>
+
           <h1>${esc(copy.title)}</h1>
           <p>${esc(copy.bestFor)}</p>
         </section>
@@ -8004,13 +7847,13 @@ function renderCalendar(lang) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navCalendar")}</p>
+
         <h1>${tr(lang, "calendarTitle")}</h1>
         <p>${tr(lang, "calendarText")}</p>
         <a class="button primary" href="/events.ics">${tr(lang, "downloadCalendar")}</a>
       </section>
       <section class="calendar-list calendar-filterable" data-gallery-scope>
-        ${galleryControls(lang, { categories: true, cities: true })}
+        ${galleryControls(lang, { cities: true })}
         ${[...groups.entries()].map(([key, items]) => `
           <div class="month-block" data-filter-group data-calendar-month="${esc(key)}">
             ${calendarMonthHeading(lang, key)}
@@ -8054,120 +7897,27 @@ function calendarItem(event, lang) {
 }
 
 function renderPlanner(lang) {
-  const copy = {
-    en: {
-      title: "Your Korea trip board",
-      text: "Save dates, maps, and official links together.",
-      cta: "Browse live events",
-      starter: "Start with these",
-      starterText: "Pick one to start.",
-      boardTitle: "Your saved board",
-      utilityTitle: "Korean map handoff",
-      utilityText: "Saved cards keep the Korean place name and open Google, Naver, and Kakao from the planner.",
-      utilityMeta: "Useful before leaving"
-    },
-    fr: {
-      title: "Votre tableau de voyage Coree",
-      text: "Gardez dates, cartes et liens officiels ensemble.",
-      cta: "Voir les evenements",
-      starter: "Commencer ici",
-      starterText: "Choisissez un evenement.",
-      boardTitle: "Votre tableau",
-      utilityTitle: "Carte coreenne",
-      utilityText: "Les cartes sauvegardees gardent le nom coreen et ouvrent Google, Naver et Kakao depuis le planner.",
-      utilityMeta: "Avant de partir"
-    },
-    de: {
-      title: "Dein Korea-Tripboard",
-      text: "Speichere Events. Daten, Karten und offizielle Links bleiben hier.",
-      cta: "Events ansehen",
-      starter: "Hier starten",
-      starterText: "Wahle ein Event.",
-      boardTitle: "Dein Board",
-      utilityTitle: "Koreanische Karte",
-      utilityText: "Gespeicherte Karten behalten den koreanischen Ortsnamen und offnen Google, Naver und Kakao im Planner.",
-      utilityMeta: "Vor dem Start"
-    }
-  }[lang] || {
-    title: tr(lang, "plannerTitle"),
-    text: tr(lang, "plannerText"),
-    cta: tr(lang, "ctaEvents"),
-    starter: tr(lang, "ctaEvents"),
-    starterText: tr(lang, "plannerEmptyText"),
-    boardTitle: tr(lang, "plannerTitle"),
-    utilityTitle: tr(lang, "cardPlanMap"),
-    utilityText: `${tr(lang, "googleMap")} / ${tr(lang, "naverMap")} / ${tr(lang, "kakaoMap")}`,
-    utilityMeta: tr(lang, "plannerText")
-  };
-  const starterEvents = publicEvents()
-    .filter((event) => statusOf(event) !== "ended")
-    .sort((a, b) => b.priority - a.priority || a.startDate.localeCompare(b.startDate))
-    .slice(0, 3);
-  const body = `
-    <main class="page planner-page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
-      <section class="page-hero compact planner-page-hero">
-        <p class="eyebrow">${tr(lang, "navPlanner")}</p>
-        <h1>${esc(copy.title)}</h1>
-        <p>${esc(copy.text)}</p>
-        <div class="hero-actions planner-page-actions">
-          <a class="button primary" href="/${lang}/#events">${esc(copy.cta)}</a>
-          <button type="button" class="button light" data-download-saved-calendar>${tr(lang, "downloadSavedCalendar")}</button>
-          <button type="button" class="button light" data-clear-saved>${tr(lang, "clearSaved")}</button>
-        </div>
-      </section>
-      <section class="planner-starter" aria-label="${esc(copy.starter)}">
-        <div>
-          <p class="eyebrow">${esc(copy.starter)}</p>
-          <h2>${esc(copy.starterText)}</h2>
-        </div>
-        <div class="planner-starter-grid">
-          ${starterEvents.map((event) => `
-          <article class="planner-starter-card">
-            <img src="/${esc(event.thumbnail)}" alt="" aria-hidden="true">
-            <div>
-              <span>${esc(cityLabel(lang, event.city))} / ${esc(statusLabel(lang, statusOf(event)))}</span>
-              <strong>${esc(local(event.title, lang))}</strong>
-              ${saveEventButton(event, lang)}
-            </div>
-          </article>`).join("")}
-        </div>
-      </section>
-      <section class="planner-utility" data-map-label="${esc(tr(lang, "cardPlanMap"))}">
-        <div>
-          <p class="eyebrow">${esc(copy.utilityMeta)}</p>
-          <h2>${esc(copy.utilityTitle)}</h2>
-          <p>${esc(copy.utilityText)}</p>
-        </div>
-        <div class="planner-utility-links" aria-hidden="true">
-          <span>${esc(tr(lang, "googleMap"))}</span>
-          <span>${esc(tr(lang, "naverMap"))}</span>
-          <span>${esc(tr(lang, "kakaoMap"))}</span>
-        </div>
-      </section>
-      <section class="planner-board">
-        <div class="planner-board-head">
-          <p class="eyebrow">${esc(copy.boardTitle)}</p>
-        </div>
-        <div class="planner-empty" data-planner-empty>
-          <strong>${tr(lang, "plannerEmptyTitle")}</strong>
-          <span>${tr(lang, "plannerEmptyText")}</span>
-        </div>
-        <div class="planner-grid" data-planner-grid></div>
-      </section>
-    </main>`;
-
-  return layout({
-    lang,
-    title: `${tr(lang, "plannerTitle")} - K-Spot Now`,
-    description: tr(lang, "plannerText"),
-    body,
-    canonicalPath: `/${lang}/planner/`,
-    currentPathBuilder: (code) => `/${code}/planner/`,
-    noindex: true
-  });
+  const starterEvents = currentEvents().sort((a,b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a,b)).slice(0,3);
+  const body = `<main class="page planner-page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
+    <section class="page-hero planner-page-hero"><h1>Your saved places.</h1><p>Keep the experiences you are considering, their Korean map names and official links in one place. Saving a place is not a reservation.</p>
+      <div class="detail-actions"><a class="button primary" href="/${lang}/now/">Find an experience ${uiIcon("arrow")}</a><button type="button" class="button light" data-download-saved-calendar disabled>Download planned days</button><button type="button" class="button light" data-print-plan disabled>Print plan</button><button type="button" class="button light" data-clear-saved disabled>${tr(lang, "clearSaved")}</button></div>
+      <p class="planner-export-help" data-plan-summary aria-live="polite">Choose a date for each saved place. Calendar downloads include only usable selected dates as tentative, all-day reminders—not event-duration blocks or confirmed sessions.</p>
+      <p class="planner-feedback" data-plan-feedback role="status"></p><button type="button" class="button light" data-undo-saved hidden>Undo removal</button>
+    </section>
+    <section class="planner-board" aria-label="Saved experiences">
+      <div class="planner-empty" data-planner-empty><strong>No places saved yet.</strong><span>Read an experience and choose “Save to plan”. Your shortlist will appear here.</span><a class="text-link" href="/${lang}/now/">Explore cultural experiences ${uiIcon("arrow")}</a></div>
+      <div class="planner-grid" data-planner-grid></div>
+      <p class="planner-storage-note">Saved only in this browser, without an account: your places and chosen visit dates. Clearing browser data removes your list. Current article details replace old saved details when available; withdrawn articles cannot be exported. Maps and official sites open separately.</p>
+      <noscript><p>Saving requires JavaScript. You can still read every <a href="/${lang}/now/">experience article</a> and download the <a href="/events.ics">event calendar</a>.</p></noscript>
+    </section>
+    <section class="planner-starter"><h2>Something to start with</h2><div class="planner-starter-grid">${starterEvents.map((event) => `<article class="planner-starter-card"><img src="/${esc(experienceVisual(event).src)}" alt="" aria-hidden="true" loading="lazy"><div><strong><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></strong><span>${esc(cityLabel(lang, event.city))}</span>${saveEventButton(event, lang)}</div></article>`).join("")}</div></section>
+  </main>`;
+  return layout({ lang, title: "Your saved places — K-Spot Now", description: "Your private browser shortlist, with dates, maps and official links.", body, canonicalPath: `/${lang}/planner/`, currentPathBuilder: (code) => `/${code}/planner/`, noindex: true });
 }
 
 function eventReviewSection(event, lang) {
+  const brief = visitorBriefs.events[event.slug];
+  if (brief) return renderVisitorBrief(brief, { esc, publishedAt: eventPublicationDates(event).publishedAt, method: visitorBriefs.method });
   const review = editorialReviewFor(event);
   if (!review) return "";
   const fit = review.decisionFit;
@@ -8175,7 +7925,7 @@ function eventReviewSection(event, lang) {
         <section class="detail-section event-review-section" aria-labelledby="event-review-title">
           <div class="event-review-heading">
             <div>
-              <p class="eyebrow">Editorial review</p>
+
               <h2 id="event-review-title">What matters before you go</h2>
             </div>
             <span class="review-state">Source-checked desk review</span>
@@ -8207,7 +7957,7 @@ function compactEventMapPanel(event, lang) {
   if (isNationwideTravelBenefit(event)) {
     return `
           <div class="event-map-panel">
-            <p class="eyebrow">Campaign access</p>
+
             <h3>No single venue</h3>
             <p>Open the campaign source and select the participating place or offer before building a route.</p>
             <a class="button light" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">Open campaign source</a>
@@ -8215,7 +7965,7 @@ function compactEventMapPanel(event, lang) {
   }
   return `
           <div class="event-map-panel">
-            <p class="eyebrow">Korean map query</p>
+
             <h3 lang="ko">${esc(eventPlaceQuery(event))}</h3>
             <p>${esc([event.district, cityLabel(lang, event.city)].filter(Boolean).join(", "))}</p>
             <div class="compact-map-links">
@@ -8230,7 +7980,7 @@ function compactEventWeather(lang, forecast, weatherInfo, historicalObservation)
     const packing = forecastPacking(forecast, lang).slice(0, 4);
     return `
             <div class="weather-section-head compact-weather-heading">
-              <div><p class="eyebrow">KMA short-range forecast</p><h3>Weather at the event area</h3></div>
+              <div><h3>Weather at the event area</h3></div>
               <span>${esc(forecast.locationLabel)} / ${esc(forecastRangeText(lang, forecast))}</span>
             </div>
             <div class="forecast-strip compact-forecast-strip">${days.map((day) => forecastDayCard(day, lang)).join("")}</div>
@@ -8240,7 +7990,7 @@ function compactEventWeather(lang, forecast, weatherInfo, historicalObservation)
   if (historicalObservation) {
     return `
             <div class="weather-section-head compact-weather-heading">
-              <div><p class="eyebrow">KMA observed planning reference</p><h3>Weather at the event area</h3></div>
+              <div><h3>Weather at the event area</h3></div>
               <span>${esc(historicalObservation.station?.label || historicalObservation.region)}</span>
             </div>
             ${historicalObservationBlock(historicalObservation, lang)}
@@ -8250,7 +8000,7 @@ function compactEventWeather(lang, forecast, weatherInfo, historicalObservation)
   const packing = baselinePackingItems(region.packing || [], lang).slice(0, 4);
   return `
             <div class="weather-section-head compact-weather-heading">
-              <div><p class="eyebrow">Seasonal planning baseline</p><h3>Weather at the event area</h3></div>
+              <div><h3>Weather at the event area</h3></div>
               <span>${esc(weatherInfo.regionKey)} / ${esc(weatherInfo.monthName)}</span>
             </div>
             <div class="event-weather-baseline">
@@ -8264,12 +8014,11 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
   const allInfo = localizedVisitorInfoItems(event, lang);
   const preferredInfoKeys = ["hours", "programHours", "address", "transportation", "websiteLanguages", "parking", "smartGuide"];
   const info = preferredInfoKeys.map((key) => allInfo.find((item) => item.key === key)).filter(Boolean).slice(0, 4);
-  const tips = eventTravelTips(event, lang).slice(0, 4);
+  const tips = visitorBriefs.events[event.slug] ? [] : eventTravelTips(event, lang).slice(0, 4);
   return `
         <section class="detail-section event-visit-section" aria-labelledby="visit-plan-title">
           <div class="event-visit-heading">
             <div>
-              <p class="eyebrow">Practical plan</p>
               <h2 id="visit-plan-title">Place, timing, weather</h2>
             </div>
             <a class="text-link" href="/events/${esc(event.slug)}.ics">Add to calendar</a>
@@ -8283,9 +8032,9 @@ function eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdea
             </div>
             ${compactEventMapPanel(event, lang)}
           </div>
-          <div class="compact-weather-panel">
-            ${compactEventWeather(lang, forecastInfo, weatherInfo, historicalObservationForEvent(event))}
-          </div>
+          <details class="compact-weather-panel"><summary>Weather for your visit</summary>
+            ${forecastInfo ? compactEventWeather(lang, forecastInfo, weatherInfo, null) : `<p>No current forecast is available in this build. Historical observations are not a forecast for your visit.</p><a class="text-link" href="https://www.weather.go.kr/neng/forecast/short-term.do" target="_blank" rel="noopener">Open the KMA forecast</a><p>Use the event's location and your arrival time. An organizer's operating notice is separate from the forecast.</p>`}
+          </details>
           ${routeIdeas.length ? `<div class="compact-route-links"><strong>Nearby route ideas</strong>${routeIdeas.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}">${esc(routeCopy(route, lang).title)}</a>`).join("")}</div>` : ""}
         </section>`;
 }
@@ -8309,7 +8058,7 @@ function eventNearbySection(event, lang) {
         <section class="detail-section official-nearby-section" aria-labelledby="official-nearby-title">
           <div class="official-nearby-heading">
             <div>
-              <p class="eyebrow">Reviewed public data</p>
+
               <h2 id="official-nearby-title">Nearby options worth deciding on</h2>
             </div>
             <span>${esc(reviewed.anchorLabel)} anchor · reviewed ${esc(dateText(lang, reviewedNearby.reviewedAt))}</span>
@@ -8343,6 +8092,8 @@ function eventNearbySection(event, lang) {
 
 function eventEvidenceSection(event, lang) {
   const evidence = eventSourceEvidence(event);
+  const brief = visitorBriefs.events[event.slug];
+  if (brief) return renderVisitorEvidence(brief, evidence, { esc, dates: eventPublicationDates(event), monitoredAt: sourceCheckDate(event) });
   const review = editorialReviewFor(event);
   const reconciliation = review?.sourceReconciliation;
   const dates = eventPublicationDates(event);
@@ -8350,7 +8101,7 @@ function eventEvidenceSection(event, lang) {
         <section class="detail-section event-evidence-section" aria-labelledby="event-evidence-title">
           <div class="event-evidence-heading">
             <div>
-              <p class="eyebrow">Source record</p>
+
               <h2 id="event-evidence-title">What we checked</h2>
             </div>
             <span>Published ${esc(dateText(lang, dates.publishedAt))} · Updated ${esc(dateText(lang, dates.updatedAt))}</span>
@@ -8358,7 +8109,7 @@ function eventEvidenceSection(event, lang) {
           ${reconciliation ? `
           <div class="source-reconciliation" aria-label="Official source reconciliation">
             <div class="source-reconciliation-head">
-              <p class="eyebrow">Record reconciliation</p>
+
               <h3>How the official records combine</h3>
               <p>This is the editorial bridge between the cited records and the visitor decision above.</p>
             </div>
@@ -8389,7 +8140,7 @@ function eventEvidenceSection(event, lang) {
 function renderEvent(event, lang) {
   const status = statusOf(event);
   const freshness = freshnessInfo(event, lang);
-  const relatedGuides = guides.filter((guide) => guide.category === event.category).slice(0, 3);
+  const relatedGuides = guides.filter((guide) => visitorBriefs.events[event.slug]?.guideSlugs.includes(guide.slug));
   const routeIdeas = routesForEvent(event);
   const relatedEvents = relatedEventsForEvent(event);
   const weatherInfo = weatherBaseline(event.weatherRegion, weatherIsoForEvent(event));
@@ -8402,17 +8153,17 @@ function renderEvent(event, lang) {
   const body = `
     <main class="page">
       <article class="detail-layout compact-event-detail">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/${lang}/">Home</a> / <a href="/${lang}/now/">Experiences</a> / ${esc(cityLabel(lang, event.city))}</nav>
         <header class="detail-hero compact-detail-hero">
           <div class="detail-hero-media">
             <div class="detail-media-stage">
-              <img class="detail-media-backdrop" src="/${esc(event.thumbnail)}" alt="" aria-hidden="true">
               <img class="detail-media-primary" src="/${esc(event.thumbnail)}" alt="${esc(local(event.title, lang))} event visual">
             </div>
-            <a class="detail-media-credit" href="${esc(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">Official visual: ${esc(event.sourceName)}</a>
+            <a class="detail-media-credit" href="${esc(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(event.slug === "deoksugung-royal-guard-changing-ceremony-2026" ? "Official visual: " + event.sourceName : experienceVisual(event).caption)}</a>
           </div>
           <div class="detail-hero-copy">
-            <p class="eyebrow">${esc(statusLabel(lang, status))} / ${esc(eventDisplayType(event, lang))}</p>
             <h1>${esc(local(event.title, lang))}</h1>
+            <div class="experience-meta"><span>${esc(cityLabel(lang, event.city))}</span><span>${esc(eventDisplayType(event, lang))}</span><span class="status ${status}">${esc(statusLabel(lang, status))}</span></div>
             <p>${esc(description)}</p>
             <div class="detail-actions">
               <a class="button primary" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">Open ${esc(sourceRoleLabel(event, lang))}</a>
@@ -8423,6 +8174,17 @@ function renderEvent(event, lang) {
           </div>
         </header>
 
+
+
+        <nav class="article-jump-links" aria-label="Article sections"><a href="#event-review-title">The experience</a><a href="#visit-plan-title">Plan your visit</a><a href="#event-evidence-title">Sources &amp; limits</a></nav>
+        <div class="event-reading-layout">
+          <div class="event-article-body">
+        ${eventReviewSection(event, lang)}
+        ${eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas)}
+        ${eventNearbySection(event, lang)}
+        ${eventEvidenceSection(event, lang)}
+        ${adUnit("detail", status !== "ended" && isApprovedEvent(event))}
+          </div>
         <dl class="event-fact-bar" aria-label="Event essentials">
           <div><dt>${tr(lang, "period")}</dt><dd>${esc(periodText)}</dd></div>
           <div><dt>${tr(lang, "venue")}</dt><dd>${esc(venueText)}</dd></div>
@@ -8431,22 +8193,17 @@ function renderEvent(event, lang) {
           <div><dt>Reservation</dt><dd>${esc(publicationFacts.reservation)}</dd></div>
           <div><dt>Korean map</dt><dd lang="ko">${esc(publicationFacts.mapQuery)}</dd></div>
           <div><dt>Official source</dt><dd><a class="fact-source-link" href="${esc(event.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(sourceRoleLabel(event, lang))}</a></dd></div>
-          <div><dt>${tr(lang, "lastChecked")}</dt><dd>${esc(dateText(lang, event.lastChecked))} <span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span></dd></div>
+          <div><dt>Source monitoring</dt><dd>${esc(dateText(lang, sourceCheckDate(event)))} <span class="freshness-chip ${esc(freshness.tone)}">${esc(freshness.text)}</span></dd></div>
         </dl>
-
-        ${eventReviewSection(event, lang)}
-        ${eventVisitPlanSection(event, lang, forecastInfo, weatherInfo, routeIdeas)}
-        ${eventNearbySection(event, lang)}
-        ${eventEvidenceSection(event, lang)}
-        ${adUnit("detail", status !== "ended" && isApprovedEvent(event))}
+        </div>
 
         <section class="detail-section compact-related-section">
           <div>
-            <p class="eyebrow">Continue planning</p>
+
             <h2>Useful next pages</h2>
           </div>
           <div class="compact-related-links">
-            ${(relatedGuides.length ? relatedGuides : guides.slice(0, 2)).slice(0, 2).map((guide) => `<a href="${guideHref(lang, guide)}"><strong>${esc(guideTitleText(guide, lang))}</strong><span>${esc(guideSummaryText(guide, lang))}</span></a>`).join("")}
+            ${relatedGuides.slice(0, 2).map((guide) => `<a href="${guideHref(lang, guide)}"><strong>${esc(guideTitleText(guide, lang))}</strong><span>${esc(guideSummaryText(guide, lang))}</span></a>`).join("")}
             ${relatedEvents.slice(0, 2).map((item) => `<a href="${eventHref(lang, item)}"><strong>${esc(local(item.title, lang))}</strong><span>${esc(eventDateLabel(item, lang, false))} / ${esc(cityLabel(lang, item.city))}</span></a>`).join("")}
           </div>
         </section>
@@ -8708,7 +8465,7 @@ function guideDecisionPanel(guide, lang, relatedEvents, relatedRoutes, sourceExa
   return `
       <section class="guide-decision-panel" aria-labelledby="guide-decision-title">
         <div class="guide-decision-head">
-          <p class="eyebrow">${esc(copy.eyebrow)}</p>
+
           <h2 id="guide-decision-title">${esc(copy.title)}</h2>
           <p>${esc(copy.text)}</p>
         </div>
@@ -8730,7 +8487,7 @@ function guideRelatedEventsSection(guide, lang, relatedEvents) {
       <section class="guide-related-section" aria-labelledby="guide-related-events-title">
         <div class="section-head">
           <div>
-            <p class="eyebrow">${esc(categoryLabel(lang, guide.category))}</p>
+
             <h2 id="guide-related-events-title">${esc(copy.relatedTitle)}</h2>
             <p>${esc(copy.relatedText)}</p>
           </div>
@@ -8749,7 +8506,7 @@ function guideRoutesSection(guide, lang, relatedRoutes) {
       <section class="guide-related-section" aria-labelledby="guide-routes-title">
         <div class="section-head">
           <div>
-            <p class="eyebrow">${esc(tr(lang, "routePages"))}</p>
+
             <h2 id="guide-routes-title">${esc(copy.routesTitle)}</h2>
             <p>${esc(copy.routesText)}</p>
           </div>
@@ -8766,7 +8523,7 @@ function guideSourceSection(guide, lang, sourceExamples) {
   return `
       <section class="guide-source-strip" aria-labelledby="guide-sources-title">
         <div>
-          <p class="eyebrow">${esc(tr(lang, "official"))}</p>
+
           <h2 id="guide-sources-title">${esc(copy.sourcesTitle)}</h2>
           <p>${esc(copy.sourcesText)}</p>
         </div>
@@ -8781,45 +8538,17 @@ function guideSourceSection(guide, lang, sourceExamples) {
 }
 
 function renderGuides(lang) {
-  const body = `
-    <main class="page">
-      <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navGuides")}</p>
-        <h1>${tr(lang, "guidesTitle")}</h1>
-        <p>${tr(lang, "sourceWarning")}</p>
-      </section>
-      <section class="guide-grid wide">
-        ${guides.map((guide) => guideCard(guide, lang)).join("")}
-      </section>
-      <section class="guide-scope-ledger" aria-labelledby="guide-scope-title">
-        <div class="guide-scope-intro">
-          <p class="eyebrow">Research ledger</p>
-          <h2 id="guide-scope-title">Three guides, three different evidence jobs</h2>
-          <p>The reviewed edition no longer publishes a stack of interchangeable checklists. Each guide below is tied to a dated case record, public-data analysis, or official process comparison, with its limitation shown before you open the article.</p>
-        </div>
-        <div class="guide-scope-rows">
-          ${guides.map((guide) => `
-          <article class="guide-scope-row">
-            <a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a>
-            <p><span>Who it serves</span>${esc(guide.audience || "Independent Korea visitors using current official records.")}</p>
-            <p><span>Evidence</span>${esc(guide.originalEvidence?.label || guide.originalEvidence?.title || "Source-backed editorial analysis")}</p>
-            <p><span>Boundary</span>${esc(guide.originalEvidence?.limitations || "Recheck the controlling official source before acting.")}</p>
-          </article>`).join("")}
-        </div>
-      </section>
-    </main>`;
-  return layout({
-    lang,
-    title: `${tr(lang, "guidesTitle")} - K-Spot Now`,
-    description: local({
-      en: "Dated research guides for Korea event verification, weather planning, and tax-refund decisions.",
-      fr: "Guides visiteurs originaux pour evenements en Coree, pop-ups K-pop, achats, offres hors taxes et planification meteo.",
-      de: "Eigene Besucherguides fur Korea-Veranstaltungen, K-Pop-Pop-ups, Einkaufen, zollfreie Angebote und Wetterplanung."
-    }, lang),
-    body,
-    canonicalPath: `/${lang}/guides/`,
-    currentPathBuilder: (code) => `/${code}/guides/`
-  });
+  const lead = guides.find((guide) => guide.slug === "seoul-culture-first-visit") || guides[0];
+  const rest = guides.filter((guide) => guide !== lead);
+  const body = `<main class="page">
+    <section class="page-hero"><h1>Culture, with context.</h1><p>Make sense of the experience before making the plan. Start with what interests you, then work through the practical decisions.</p></section>
+    <section class="guide-index" aria-label="Culture guides">
+      ${lead ? `<article class="guide-lead"><h2>${esc(guideTitleText(lead, lang))}</h2><p>${esc(guideSummaryText(lead, lang))}</p><a class="button primary" href="${guideHref(lang, lead)}">Start with the Seoul guide ${uiIcon("arrow")}</a></article>` : ""}
+      <div class="guide-list">${rest.map((guide) => `<article><h2><a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a></h2><p>${esc(guideSummaryText(guide, lang))}</p><a class="text-link" href="${guideHref(lang, guide)}">Read the guide ${uiIcon("arrow")}</a></article>`).join("")}</div>
+    </section>
+    <div class="guide-reading-note"><h2>Know what the evidence can tell you.</h2><p>These are documentary research guides, not reports of first-hand visits. Each article identifies its sources, research date and limits. Current admission and booking decisions stay with the organizer.</p><a class="text-link" href="/${lang}/editorial-policy/">How we research and revise ${uiIcon("arrow")}</a></div>
+  </main>`;
+  return layout({ lang, title: "Culture guides for independent Korea visitors — K-Spot Now", description: "Understand Korean cultural experiences and the practical decisions around visiting them.", body, canonicalPath: `/${lang}/guides/`, currentPathBuilder: (code) => `/${code}/guides/` });
 }
 
 function renderGuideSection(section, index, displayNumber = index + 1) {
@@ -8836,7 +8565,7 @@ function renderGuideSection(section, index, displayNumber = index + 1) {
         </div>` : "";
   return `
         <section class="guide-content-section" id="${sectionId}">
-          <h2><span class="guide-section-number" aria-hidden="true">${String(displayNumber).padStart(2, "0")}</span><span>${esc(section.heading || "Planning note")}</span></h2>
+          <h2>${esc(section.heading || "Planning note")}</h2>
           ${(section.paragraphs || []).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
           ${table}
           ${(section.checklist || []).length ? `<ul class="guide-checklist">${section.checklist.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}
@@ -8846,13 +8575,12 @@ function renderGuideSection(section, index, displayNumber = index + 1) {
 function renderGuideOriginalEvidence(guide, sectionNumber) {
   const evidence = guide.originalEvidence;
   if (!evidence || !Array.isArray(evidence.headers) || !Array.isArray(evidence.rows) || !evidence.rows.length) return "";
-  const kind = ["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind) ? evidence.kind : "research-record";
+  const kind = ["case-ledger", "weather-analysis", "process-map", "decision-comparison"].includes(evidence.kind) ? evidence.kind : "research-record";
   return `
             <section class="guide-original-evidence ${esc(kind)}" id="guide-original-evidence" aria-labelledby="guide-original-evidence-title">
               <div class="guide-original-evidence-head">
                 <div>
-                  <p class="eyebrow">${esc(evidence.eyebrow || "Original evidence")}</p>
-                  <h2 id="guide-original-evidence-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(evidence.title)}</span></h2>
+                  <h2 id="guide-original-evidence-title">${esc(evidence.title)}</h2>
                 </div>
                 <p class="guide-evidence-date"><span>Evidence checked</span><strong>${esc(dateText("en", evidence.checkedAt))}</strong></p>
               </div>
@@ -8901,7 +8629,7 @@ function renderGuideDecisionTool(guide, sectionNumber) {
   return `
             <section class="guide-decision-tool" id="guide-decision-tool" aria-labelledby="guide-decision-tool-title">
               <div class="guide-decision-tool-head">
-                <p class="eyebrow">Worked decision example</p>
+
                 <h2 id="guide-decision-tool-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(tool.title)}</span></h2>
                 <p>${esc(tool.scenario)}</p>
               </div>
@@ -8926,7 +8654,7 @@ function renderGuideWorksheet(guide, sectionNumber) {
   return `
             <section class="guide-worksheet" id="guide-worksheet" aria-labelledby="guide-worksheet-title">
               <div class="guide-worksheet-head">
-                <p class="eyebrow">Use before committing</p>
+
                 <h2 id="guide-worksheet-title"><span class="guide-section-number" aria-hidden="true">${String(sectionNumber).padStart(2, "0")}</span><span>${esc(worksheet.title)}</span></h2>
                 <p>${esc(worksheet.intro)}</p>
               </div>
@@ -8943,10 +8671,11 @@ function renderGuideWorksheet(guide, sectionNumber) {
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
   const hasOriginalEvidence = Boolean(guide.originalEvidence);
-  const sectionStartNumber = hasOriginalEvidence ? 2 : 1;
+  const sectionStartNumber = 1;
   const showDecisionTool = guide.presentation?.decisionTool !== false && Boolean(guide.decisionTool);
   const showWorksheet = guide.presentation?.worksheet !== false && Boolean(guide.worksheet);
-  const decisionToolNumber = sectionStartNumber + sections.length;
+  const evidenceNumber = sections.length + 1;
+  const decisionToolNumber = sectionStartNumber + sections.length + (hasOriginalEvidence ? 1 : 0);
   const worksheetNumber = decisionToolNumber + (showDecisionTool ? 1 : 0);
   const citationNumber = worksheetNumber + (showWorksheet ? 1 : 0);
   const relatedEvents = relatedEventsForGuide(guide);
@@ -8955,50 +8684,54 @@ function renderGuide(guide, lang) {
   const body = `
     <main class="page guide-detail-page">
       <article class="article-page editorial-guide">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/${lang}/">Home</a> / <a href="/${lang}/guides/">Culture guides</a></nav>
         <header class="guide-article-header">
-          <p class="eyebrow">${categoryLabel(lang, guide.category)} guide</p>
           <h1>${esc(guideTitleText(guide, lang))}</h1>
           <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
-          ${guide.audience ? `<p class="guide-audience"><strong>Best for:</strong> ${esc(guide.audience)}</p>` : ""}
+
+
           <div class="guide-byline">
             <a href="/${lang}/about/">${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</a>
             <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
             <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
           </div>
-          <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
+
         </header>
         <div class="guide-reading-layout">
           <nav class="guide-toc" aria-label="On this page">
             <p>On this page</p>
             <ol>
-              ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence"><span>01</span>${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
-              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}"><span>${String(sectionStartNumber + index).padStart(2, "0")}</span>${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
+              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}">${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
+              ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence">${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
               ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
               ${showWorksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
-              <li><a href="#guide-citations-title"><span>${String(citationNumber).padStart(2, "0")}</span>Official sources used</a></li>
+              <li><a href="#guide-citations-title">Sources used</a></li>
             </ol>
           </nav>
           <div class="guide-article-body">
+          ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>Start here</strong>${esc(guide.quickAnswer)}</p>` : ""}
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
-            ${renderGuideOriginalEvidence(guide, 1)}
             ${sections.map((section, index) => renderGuideSection(section, index, sectionStartNumber + index)).join("")}
+            ${renderGuideOriginalEvidence(guide, evidenceNumber)}
             ${showDecisionTool ? renderGuideDecisionTool(guide, decisionToolNumber) : ""}
             ${showWorksheet ? renderGuideWorksheet(guide, worksheetNumber) : ""}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
-              <h2 id="guide-citations-title"><span class="guide-section-number" aria-hidden="true">${String(citationNumber).padStart(2, "0")}</span><span>Official sources used</span></h2>
-              <p>These pages are the starting point for current rules. Open the relevant source again before payment, reservation, or departure.</p>
+              <h2 id="guide-citations-title">Sources used</h2>
+          ${guide.audience ? `<p class="guide-audience"><strong>Best for:</strong> ${esc(guide.audience)}</p>` : ""}
+          <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
+              <p>These records support the article. Evidence dates and the limits of the comparison are stated above; booking and same-day operations remain with the organizer.</p>
               <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
             </section>
           </div>
         </div>
       </article>
-      <section class="guide-next-section" aria-labelledby="guide-next-title">
-        <div class="section-head"><div><p class="eyebrow">Apply the guide</p><h2 id="guide-next-title">Current pages to compare</h2></div></div>
+      ${relatedEvents.length || relatedRoutes.length ? `<section class="guide-next-section" aria-labelledby="guide-next-title">
+        <div class="section-head"><div><h2 id="guide-next-title">Current pages to compare</h2></div></div>
         <div class="guide-next-grid">
           ${relatedEvents.slice(0, 3).map((event) => `<a href="${eventHref(lang, event)}"><strong>${esc(local(event.title, lang))}</strong><span>${esc(eventDateLabel(event, lang, false))} / ${esc(cityLabel(lang, event.city))}</span></a>`).join("")}
           ${relatedRoutes.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}"><strong>${esc(routeCopy(route, lang).title)}</strong><span>${esc(routeCopy(route, lang).summary || "Route planning page")}</span></a>`).join("")}
         </div>
-      </section>
+      </section>` : `<div class="guide-next-section guide-next-empty"><p>No matching current event is published for this guide. The case studies above are not live listings.</p><a class="text-link" href="/${lang}/guides/">Choose another guide</a></div>`}
     </main>`;
   return layout({
     lang,
@@ -9024,7 +8757,7 @@ function renderSources(lang) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navSources")}</p>
+
         <h1>${tr(lang, "sourcesTitle")}</h1>
         <p>${tr(lang, "sourcesText")}</p>
       </section>
@@ -9582,7 +9315,7 @@ function sourceRefreshPanel(lang) {
     return `
       <section class="source-refresh-panel">
         <div>
-          <p class="eyebrow">${tr(lang, "sourceRefreshTitle")}</p>
+
           <h2>${tr(lang, "sourceRefreshTitle")}</h2>
           <p>${tr(lang, "sourceRefreshNoData")}</p>
         </div>
@@ -9607,7 +9340,7 @@ function sourceRefreshPanel(lang) {
     <section class="source-refresh-panel" aria-label="${esc(tr(lang, "sourceRefreshTitle"))}">
       <div class="source-refresh-head">
         <div>
-          <p class="eyebrow">${tr(lang, "sourceRefreshTitle")}</p>
+
           <h2>${tr(lang, "sourceRefreshTitle")}</h2>
           <p>${tr(lang, "sourceRefreshText")}</p>
           <small>${esc(opsText(lang, "generated"))}: ${esc(generatedText)} UTC</small>
@@ -9667,7 +9400,7 @@ function renderWatchlist(lang) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "navWatchlist")}</p>
+
         <h1>${tr(lang, "watchlistTitle")}</h1>
         <p>${tr(lang, "watchlistText")}</p>
       </section>
@@ -9740,7 +9473,7 @@ function renderFreshness(lang) {
   const body = `
     <main class="page">
       <section class="page-hero compact">
-        <p class="eyebrow">${tr(lang, "lastChecked")}</p>
+
         <h1>${tr(lang, "freshnessTitle")}</h1>
         <p>${tr(lang, "freshnessText")}</p>
       </section>
@@ -9811,9 +9544,9 @@ function policySections(lang, kind) {
     editorial: {
       en: [
         ["Source priority", "Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints."],
-        ["Automation and review", "Official monitors collect candidate dates and keywords, but candidates are not auto-published. A human review step must confirm the date range, venue, eligibility, inventory or reservation rules, and source link before an event appears publicly."],
+        ["Automation, writing and review", "Public-data APIs and official monitors find candidates and detect changes; they do not automatically publish articles. The September 2026 text revision uses AI-assisted documentary research. That is not a field visit, completed booking or independent reader test. A source-monitoring date records a narrower check than an editorial revision."],
         ["K-pop and pop-up policy", "K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed."],
-        ["Original summaries", "Summaries, travel tips, weather notes, and route ideas are written for visitor planning. We do not copy full event pages, and every listing links back to the official source for the latest rules."],
+        ["What an article should do", "Each article should explain the cultural experience, who it suits, what an international visitor can do and which decision remains unresolved. A translated official description or a longer list is not enough. We separate sourced facts from proposed ways to plan, and never invent attendance or booking experience."],
         ["Ads and affiliate integrity", "Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans."]
       ],
       es: [
@@ -9857,7 +9590,7 @@ function policySections(lang, kind) {
         ["What to send", `Email ${contactEmail} with the official URL, event or offer name, date range, venue or branch, language, and the exact detail that looks outdated or incorrect.`],
         ["Official-source checks", "Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed."],
         ["Fast-moving categories", "Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly."],
-        ["Update labels", "Public event pages show last-checked dates and freshness labels. When a correction changes visitor decisions, the page is updated with a new check date and the official source remains linked."],
+        ["Update labels", "Published is the original article date. Updated changes for substantive text revisions; automated source monitoring is shown separately and does not renew the article date. The evidence record states which claims were checked and which remain uncertain."],
         ["Editorial independence", "Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation."],
         ["Image and takedown policy", `Event thumbnails use official promotional images at reduced size with a source link, and K-pop listings use text-based source identity cards instead of artist photography. If you are a rights holder for an image, artist, or brand shown here, email ${contactEmail} with the page URL and your request: disputed images are taken down during review and removed or replaced within two business days.`]
       ],
@@ -9909,7 +9642,7 @@ function policySections(lang, kind) {
 function numberedSections(sections) {
   return sections.map(([heading, paragraph], index) => `
         <section>
-          <h2>${index + 1}. ${esc(heading)}</h2>
+          <h2>${esc(heading)}</h2>
           <p>${esc(paragraph)}</p>
         </section>`).join("");
 }
@@ -9917,9 +9650,10 @@ function numberedSections(sections) {
 function renderEditorialPolicy(lang) {
   const sections = policySections(lang, "editorial");
   const body = `
-    <main class="page">
+    <main class="page policy-layout">
+      ${policyNavigation(lang, "editorial-policy")}
       <article class="article-page">
-        <p class="eyebrow">${tr(lang, "editorialTitle")}</p>
+
         <h1>${tr(lang, "editorialTitle")}</h1>
         <p class="lede">${tr(lang, "editorialText")}</p>
 ${numberedSections(sections)}
@@ -9939,9 +9673,10 @@ ${numberedSections(sections)}
 function renderCorrections(lang) {
   const sections = policySections(lang, "corrections");
   const body = `
-    <main class="page">
+    <main class="page policy-layout">
+      ${policyNavigation(lang, "corrections")}
       <article class="article-page">
-        <p class="eyebrow">${tr(lang, "correctionsTitle")}</p>
+
         <h1>${tr(lang, "correctionsTitle")}</h1>
         <p class="lede">${tr(lang, "correctionsText")}</p>
 ${numberedSections(sections)}
@@ -10103,6 +9838,7 @@ function staticPageParagraphs(lang, kind) {
     privacy: {
       en: [
         "This static site does not require user accounts, payments, or login profiles. Basic hosting logs may be processed by the hosting provider for security, abuse prevention, and delivery.",
+        "Cloudflare hosts this site. Cloudflare Web Analytics runs a browser beacon to measure page visits and loading performance and sends those measurements to Cloudflare. This is separate from AdSense advertising and does not send your saved-plan list.",
         "Saved event planning uses browser storage on your own device so you can keep a shortlist of events. K-Spot Now does not receive that saved list unless you email it to us.",
         "If Google AdSense is enabled, Google and its advertising partners may use cookies, local storage, or similar technologies to serve, personalize, limit, and measure ads.",
         "Third-party vendors, including Google, may use advertising cookies based on a visitor's prior visits to this site or other websites. Visitors can manage personalized advertising through Google Ads Settings and browser controls.",
@@ -10155,8 +9891,9 @@ function staticPageParagraphs(lang, kind) {
     "cookie-policy": {
       en: [
         "K-Spot Now uses a small amount of browser-side storage to make the site useful and to prepare for advertising compliance.",
-        "Saved planner storage: when you save an event, the shortlist is stored locally in your browser. It is used only to reopen your own saved event list and calendar download on this device.",
+        "Saved planner storage: saved places and your chosen visit dates are stored locally in your browser, without an account or upload to K-Spot Now. They support your shortlist, tentative calendar reminders and printing. Clearing browser data removes them. Map-name copying uses the clipboard only when you choose Copy; map and official links open third-party services.",
         "Operational data: the hosting and security layer may process basic technical data such as IP address, request path, user agent, and timestamps to deliver pages and prevent abuse.",
+        "Performance analytics: Cloudflare Web Analytics uses a browser beacon for page-visit and loading-performance measurements. Cloudflare describes this analytics service as cookieless; it is separate from the saved planner storage and from advertising cookies.",
         "Advertising cookies: if Google AdSense is enabled, Google and third-party advertising vendors may use cookies or similar technologies to serve ads, personalize ads where allowed, measure ad performance, limit ad frequency, and fight fraud.",
         "Personalized advertising choices: visitors can manage Google personalized ads in Google Ads Settings, use browser cookie controls, or use industry opt-out tools where available.",
         adsenseCmpReady
@@ -10277,7 +10014,7 @@ const aboutIdentityCopy = {
     eyebrow: "About",
     lockup: "Independent visitor research",
     hero: "Compare / Decide / Verify",
-    lede: "Source roles, visitor trade-offs, and a final official check.",
+    lede: "Understand the experience and plan how to take part.",
     chips: ["Two-source review", "Korean map terms", "Change warnings"],
     flow: [
       ["Compare", "Separate organizer rules from tourism context"],
@@ -10291,9 +10028,9 @@ const aboutIdentityCopy = {
       ["Final source", "Booking and last-minute rules stay official."]
     ],
     accountability: [
-      ["Who", "K-Spot Now Editorial Desk is the organization author and accountable publisher. No unnamed contributor is presented as a field expert. Review dates, source roles, evidence links, and contact@kspotnow.com appear with the research record."],
-      ["How", "Only pages that pass the current publication allowlist are built. Guides must carry a dated case ledger, public-data analysis, or official process map; event pages require two source hosts, a Korean map term, and clearly labeled editorial judgment."],
-      ["Why", "The site exists to answer a narrow trip question: is this event worth the visitor's time, transfer, reservation effort, and money before the final official action?"],
+      ["Who", "K-Spot Now Editorial Desk is the publishing identity, not a claim of a large reporting team. Contact contact@kspotnow.com for corrections. The September 2026 revision uses AI-assisted documentary research; no fictional expert or field reviewer is credited."],
+      ["How", "We compare official records, distinguish reported facts from planning judgments, and label what has not been verified. Automated source monitoring, text revision and a human or field review are different activities. Internal tests check structure and consistency; they do not certify content quality."],
+      ["Why", "We help independent English-speaking visitors choose and understand cultural experiences, starting in Seoul, with selected events elsewhere in Korea. The first question is what the visitor can understand and do after reading."],
       ["Limits", "Desk research cannot guarantee inventory, queue length, weather operation, or admission. We do not claim a visit unless first-hand work is explicitly documented."]
     ],
     boundaryTitle: "How it works"
@@ -10302,52 +10039,16 @@ const aboutIdentityCopy = {
 
 function aboutPage(lang, title, paragraphs) {
   const copy = aboutIdentityCopy[lang] || aboutIdentityCopy.en;
-  const [lede = "", ...rest] = paragraphs;
-  const bodyParagraphs = copy.lede ? paragraphs : rest;
-  const principleIcons = ["icon-kspot", "icon-source", "icon-map", "icon-calendar"];
-  const titleHtml = esc(siteName);
-  const body = `
-    <main class="page about-page">
-      <section class="about-identity-hero" aria-labelledby="about-title">
-        <div class="about-brand-block">
-          <div class="about-brand-lockup" aria-label="K-Spot Now">
-            <span class="about-brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="82" height="82" xmlns="http://www.w3.org/2000/svg"><path d="M32 5 C19.8 5 10 14.6 10 26.4 c0 13.4 17.3 29.6 20.5 32.5 a2.2 2.2 0 0 0 3 0 C36.7 56 54 39.8 54 26.4 54 14.6 44.2 5 32 5 Z" fill="#246beb"/><path d="M25.5 16.5 V36.5 M38.5 17 L27 26.3 M30 24 L39 36" stroke="#ffffff" stroke-width="5.6" stroke-linecap="round" fill="none"/><circle cx="49.5" cy="10.5" r="7.2" fill="#e85d3f" stroke="#ffffff" stroke-width="2.6"/></svg></span>
-            <span><small>${esc(copy.lockup)}</small><strong>K-Spot <em>Now</em></strong></span>
-          </div>
-          <p class="eyebrow">${esc(copy.eyebrow)}</p>
-          <h1 id="about-title">${titleHtml}</h1>
-          <p class="about-lede">${esc(copy.lede || lede)}</p>
-          <div class="about-chip-row">${copy.chips.map((chip) => `<span>${esc(chip)}</span>`).join("")}</div>
-        </div>
-      </section>
-      <section class="about-principles" aria-label="${esc(copy.lockup)}">
-        ${copy.principles.map(([label, text], index) => `
-        <article>
-          <span class="about-icon ${principleIcons[index] || "icon-check"}" aria-hidden="true"></span>
-          <strong>${esc(label)}</strong>
-          <span>${esc(text)}</span>
-        </article>`).join("")}
-      </section>
-      <section class="about-accountability" aria-labelledby="about-accountability-title">
-        <div class="about-accountability-head">
-          <p class="eyebrow">Editorial accountability</p>
-          <h2 id="about-accountability-title">Who, how, why, and limits</h2>
-        </div>
-        <div class="about-accountability-grid">
-          ${(copy.accountability || []).map(([label, text]) => `<article><strong>${esc(label)}</strong><p>${esc(text)}</p></article>`).join("")}
-        </div>
-      </section>
-      <section class="about-copy-section">
-        <div>
-          <p class="eyebrow">${esc(copy.lockup)}</p>
-          <h2>${esc(copy.boundaryTitle)}</h2>
-        </div>
-        <div class="about-copy-text">
-          ${bodyParagraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
-        </div>
-      </section>
-    </main>`;
-  return body;
+  return `<main class="about-page">
+    <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>We help independent English-speaking visitors choose and understand cultural experiences, starting in Seoul, with selected events elsewhere in Korea.</p><p>A useful article should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/seoul-culture-first-visit">Start with a cultural choice ${uiIcon("arrow")}</a></div></section>
+    <div class="content-shell"><section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
+      <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and the official record that should be checked. We distinguish a source update from a new editorial review.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>
+    </div></main>`;
+}
+
+function policyNavigation(lang, active) {
+  const links = [["about","About"],["editorial-policy","Editorial policy"],["corrections","Corrections"],["contact","Contact"],["privacy","Privacy"],["cookie-policy","Cookies"],["advertising","Advertising"],["terms","Terms"]];
+  return `<nav class="policy-nav" aria-label="Publication policies">${links.map(([slug,label]) => `<a href="/${lang}/${slug}/"${active === slug ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>`;
 }
 
 function staticPage(lang, kind) {
@@ -10355,10 +10056,12 @@ function staticPage(lang, kind) {
   const title = tr(lang, titleKey);
   const paragraphs = staticPageParagraphs(lang, kind);
   const body = kind === "about" ? aboutPage(lang, title, paragraphs) : `
-    <main class="page">
+    <main class="page policy-layout">
+      ${policyNavigation(lang, kind)}
       <article class="article-page">
         <h1>${esc(title)}</h1>
-        ${paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}
+        ${paragraphs.map((paragraph) => `<p>${esc(paragraph).replaceAll(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p>`).join("")}
+        ${lang === "en" && ["privacy", "cookie-policy"].includes(kind) ? `<p>Provider information: <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare analytics data collection</a> and <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>.</p>` : ""}
       </article>
     </main>`;
   return layout({
@@ -10376,6 +10079,8 @@ async function copyDir(src, dest) {
   await fs.mkdir(dest, { recursive: true });
   const entries = await fs.readdir(src, { withFileTypes: true });
   for (const entry of entries) {
+    // Finder metadata and other hidden local files are not publication assets.
+    if (entry.name.startsWith(".") || entry.name === "Thumbs.db") continue;
     const from = path.join(src, entry.name);
     const to = path.join(dest, entry.name);
     if (entry.isDirectory()) await copyDir(from, to);
@@ -10398,9 +10103,12 @@ async function writeText(relativePath, text) {
 async function build() {
   await fs.rm(dist, { recursive: true, force: true });
   await fs.mkdir(dist, { recursive: true });
+  // Also exclude metadata Finder may create in dist after the build.
+  await writeText(".assetsignore", "**/.DS_Store\n**/._*\n**/Thumbs.db\n**/.env*\n**/.git/**\n");
   await copyDir(path.join(root, "assets"), path.join(dist, "assets"));
   await fs.copyFile(path.join(root, "styles.css"), path.join(dist, "styles.css"));
   await fs.copyFile(path.join(root, "app.js"), path.join(dist, "app.js"));
+  await fs.copyFile(path.join(root, "planning.js"), path.join(dist, "planning.js"));
 
   await writeHtml("index.html", renderHome("en", "/"));
   await writeText("feed.xml", rssFeed("en", "/feed.xml"));
@@ -10502,10 +10210,6 @@ function headers() {
   Cache-Control: public, max-age=1800
 
 /*.ics
-  Content-Type: text/calendar; charset=utf-8
-  Cache-Control: public, max-age=1800
-
-/events/*.ics
   Content-Type: text/calendar; charset=utf-8
   Cache-Control: public, max-age=1800
 

@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { todayString } from "./lib/date.mjs";
+import { structuredEvidenceText } from "./lib/source-evidence.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -133,7 +134,9 @@ async function readSnapshot(evidence) {
 
 async function checkEvidence(evidence) {
   const source = await fetchSource(evidence.url);
-  const liveMissingTokens = source.transportOk ? missingTokens(source.text, evidence.mustContain || []) : [...(evidence.mustContain || [])];
+  const evidenceText = evidence.structuredDataType
+    ? structuredEvidenceText(source.body, evidence) : source.text;
+  const liveMissingTokens = source.transportOk ? missingTokens(evidenceText, evidence.mustContain || []) : [...(evidence.mustContain || [])];
   if (source.transportOk && !liveMissingTokens.length) {
     return {
       sourceName: evidence.sourceName || "Official source",
@@ -143,6 +146,7 @@ async function checkEvidence(evidence) {
       bytes: source.bytes,
       durationMs: source.durationMs,
       mode: "live",
+      format: evidence.structuredDataType ? "json-ld" : "html-text",
       freshnessAuthority: evidence.freshnessAuthority === true,
       matchedTokens: evidence.mustContain || [],
       missingTokens: [],
@@ -238,8 +242,8 @@ const results = await mapLimit(activeEvents, concurrency, checkEvent);
 const liveVerifiedSlugs = new Set(results.filter((result) => result.liveVerified).map((result) => result.slug));
 let updated = 0;
 for (const event of events) {
-  if (liveVerifiedSlugs.has(event.slug) && event.lastChecked !== today) {
-    event.lastChecked = today;
+  if (liveVerifiedSlugs.has(event.slug) && event.sourceCheckedAt !== today) {
+    event.sourceCheckedAt = today;
     updated += 1;
   }
 }
@@ -291,7 +295,7 @@ Live evidence checks: ${summary.liveChecks}
 
 Audited snapshot fallbacks: ${summary.snapshotChecks}
 
-Updated lastChecked: ${summary.updated}
+Updated sourceCheckedAt (automated monitoring only): ${summary.updated}
 
 | Result | Event | Evidence mode | Missing official tokens |
 | --- | --- | --- | --- |
@@ -305,7 +309,7 @@ console.table(results.map((result) => ({
   snapshot: result.checks.filter((check) => check.mode === "audited-snapshot").length,
   slug: result.slug
 })));
-console.log(`Published event evidence recheck: ${summary.passed}/${summary.approvedActiveEvents} passed; ${summary.updated} lastChecked fields updated.`);
+console.log(`Published event evidence recheck: ${summary.passed}/${summary.approvedActiveEvents} passed; ${summary.updated} sourceCheckedAt fields updated (article dates unchanged).`);
 if (summary.manualReviewRequired) console.log(`${summary.manualReviewRequired} event(s) require manual live verification because only audited snapshots matched.`);
 console.log(`Saved evidence report: ${jsonOut}`);
 

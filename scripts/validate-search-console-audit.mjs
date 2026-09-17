@@ -22,7 +22,7 @@ if (audit) {
   }
   if (!Array.isArray(audit.releaseCriteria) || audit.releaseCriteria.length < 3) errors.push("releaseCriteria must document the cleanup and recheck sequence.");
   if (requireReady && (audit.status !== "ready" || audit.performance?.legacyPagesDominateTopPages !== false)) {
-    errors.push("AdSense re-review is blocked until an authenticated Search Console audit is marked ready and legacy pages no longer dominate top-page signals.");
+    console.warn("Legacy --require-ready search flag is advisory only. Search traffic and legacy ranking proportions do not certify AdSense readiness; use preflight:adsense-review for the actual release evidence checks.");
   }
 }
 

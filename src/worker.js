@@ -1,7 +1,6 @@
 const canonicalHost = "kspotnow.com";
 
 const mergedGuidePaths = new Map([
-  ["/en/guides/korea-duty-free-before-flight", "/en/guides/tax-refund-payments-korea-shopping"],
   ["/en/guides/department-store-popup-planning", "/en/guides/how-to-verify-korea-popups"],
   ["/en/guides/kpop-ticket-merch-safety", "/en/guides/how-to-verify-korea-popups"]
 ]);
@@ -22,6 +21,20 @@ function retiredResponse(retiredLanguagePath = false) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Never serve hidden workspace metadata, even if an older asset manifest
+    // contains it. Preserve the public security.txt well-known endpoint.
+    const hiddenSegment = url.pathname.split("/").some((segment) => {
+      try { segment = decodeURIComponent(segment); } catch { return true; }
+      return segment.startsWith(".") && segment !== ".well-known";
+    });
+    if (hiddenSegment) {
+      return new Response("Not found", { status: 404, headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff"
+      } });
+    }
 
     // Canonicalize scheme and host before serving assets: plain HTTP and the
     // www subdomain both 301 to the canonical HTTPS apex.

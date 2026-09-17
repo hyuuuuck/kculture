@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-02T15:40:39.596Z",
-  "date": "2026-09-03",
-  "approvedActiveEvents": 6,
-  "passed": 6,
+  "generatedAt": "2026-09-17T15:41:01.983Z",
+  "date": "2026-09-18",
+  "approvedActiveEvents": 5,
+  "passed": 5,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 12,
+  "liveChecks": 10,
   "snapshotChecks": 0,
-  "updated": 6,
+  "updated": 5,
   "timeoutMs": 15000,
   "concurrency": 4,
   "results": [
@@ -24,9 +24,10 @@
           "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
           "finalUrl": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
           "status": 200,
-          "bytes": 209088,
-          "durationMs": 742,
+          "bytes": 209087,
+          "durationMs": 686,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "2026-10-03",
@@ -42,15 +43,15 @@
           "url": "https://yudeung.com/?lang=en",
           "finalUrl": "https://yudeung.com/?lang=en",
           "status": 200,
-          "bytes": 58977,
-          "durationMs": 349,
+          "bytes": 4003,
+          "durationMs": 147,
           "mode": "live",
+          "format": "json-ld",
           "freshnessAuthority": false,
           "matchedTokens": [
-            "10월 03일",
-            "10월 18일",
-            "18:00",
-            "Jinju Fortress"
+            "2026-10-03",
+            "2026-10-18",
+            "진주성 · 남강 일원"
           ],
           "missingTokens": [],
           "ok": true
@@ -69,9 +70,10 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 108663,
-          "durationMs": 1466,
+          "bytes": 109151,
+          "durationMs": 1449,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "11:00 AM",
@@ -88,8 +90,9 @@
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
           "bytes": 33961,
-          "durationMs": 249,
+          "durationMs": 327,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Deoksugung Palace",
@@ -114,8 +117,9 @@
           "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": 200,
           "bytes": 60805,
-          "durationMs": 364,
+          "durationMs": 613,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Gwangalli M Drone Light Show",
@@ -134,8 +138,9 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 35329,
-          "durationMs": 189,
+          "durationMs": 252,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": true,
           "matchedTokens": [
             "Gwangalli",
@@ -159,9 +164,10 @@
           "url": "https://en.maskdance.com/2024/sub1/sub1.asp",
           "finalUrl": "https://en.maskdance.com/2024/sub1/sub1.asp",
           "status": 200,
-          "bytes": 24455,
-          "durationMs": 66,
+          "bytes": 27370,
+          "durationMs": 162,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Sep. 24",
@@ -177,9 +183,10 @@
           "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
           "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
           "status": 200,
-          "bytes": 217004,
-          "durationMs": 299,
+          "bytes": 216736,
+          "durationMs": 264,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "2026-09-24",
@@ -204,9 +211,10 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 180831,
-          "durationMs": 681,
+          "bytes": 181668,
+          "durationMs": 735,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "2026 Seoul International Garden Show",
@@ -222,59 +230,15 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 101189,
-          "durationMs": 1135,
+          "bytes": 101652,
+          "durationMs": 1349,
           "mode": "live",
+          "format": "html-text",
           "freshnessAuthority": false,
           "matchedTokens": [
             "Seoul International Garden Show",
             "Seoul Forest",
             "October 27"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "national-geographic-ocean-seoul-2026",
-      "title": "National Geographic Special Exhibition: OCEAN in Seoul",
-      "sourceName": "Visit Seoul",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Visit Seoul",
-          "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
-          "finalUrl": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
-          "status": 200,
-          "bytes": 181073,
-          "durationMs": 684,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "National Geographic",
-            "Jun 06, 2026",
-            "Oct 11, 2026",
-            "Chungmu Art Center"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Ministry of Culture, Sports and Tourism",
-          "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
-          "finalUrl": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
-          "status": 200,
-          "bytes": 132924,
-          "durationMs": 4955,
-          "mode": "live",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "OCEAN",
-            "2026.06.06",
-            "2026.10.11",
-            "충무아트센터"
           ],
           "missingTokens": [],
           "ok": true

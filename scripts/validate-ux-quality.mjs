@@ -5,164 +5,78 @@ import { todayString } from "./lib/date.mjs";
 
 const root = path.resolve(".");
 const dist = path.join(root, "dist");
+const readData = (file) => JSON.parse(fs.readFileSync(path.join(root, "data", file), "utf8"));
+const program = readData("editorial-program.json");
+const events = readData("events.json").filter((event) => program.indexableEvents.includes(event.slug) && event.endDate >= todayString());
+const guides = readData("guides.json").filter((guide) => program.indexableGuides.includes(guide.slug));
 const styles = fs.readFileSync(path.join(root, "styles.css"), "utf8");
-const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
-const guides = JSON.parse(fs.readFileSync(path.join(root, "data", "guides.json"), "utf8"));
-const routes = JSON.parse(fs.readFileSync(path.join(root, "data", "travel-routes.json"), "utf8"));
-const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
-const today = todayString();
-const languages = publicLanguageCodes();
-const approvedEvents = events.filter((event) => (program.indexableEvents || []).includes(event.slug) && event.endDate >= today);
-const approvedGuides = guides.filter((guide) => (program.indexableGuides || []).includes(guide.slug));
-const approvedRoutes = routes.filter((route) => (program.indexableRoutes || []).includes(route.slug));
+const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
 const errors = [];
-
-function push(id, message) {
-  errors.push({ id, message });
+const check = (condition, file, message) => { if (!condition) errors.push({ file, message }); };
+function read(file) {
+  const full = path.join(dist, file);
+  if (!fs.existsSync(full)) { check(false, file, "Generated page missing"); return ""; }
+  return fs.readFileSync(full, "utf8");
 }
+function needs(html, markers, file) { for (const marker of markers) check(html.includes(marker), file, "Missing " + marker); }
+function occurrences(text, literal) { return text.split(literal).length - 1; }
 
-function read(relative) {
-  const file = path.join(dist, relative);
-  if (!fs.existsSync(file)) {
-    push(relative, "generated file is missing.");
-    return "";
-  }
-  return fs.readFileSync(file, "utf8");
-}
-
-function count(html, pattern) {
-  return (html.match(pattern) || []).length;
-}
-
-function assertIncludes(html, marker, id, message) {
-  if (!html.includes(marker)) push(id, message);
-}
-
-for (const lang of languages) {
-  const homeId = `${lang}/index.html`;
-  const home = read(homeId);
-  const spotlightSlides = count(home, /data-spotlight-slide/g);
-  const eventCards = count(home, /class="event-card/g);
-  if (spotlightSlides < 3 || spotlightSlides > 5) push(homeId, `home should expose 3-5 spotlight slides; found ${spotlightSlides}.`);
-  if (eventCards !== 5) push(homeId, `home should show exactly 5 representative reviewed event cards; found ${eventCards}.`);
-  assertIncludes(home, "home-guide-band", homeId, "home should connect events to original visitor guides.");
-  assertIncludes(home, `See all ${approvedEvents.length} reviewed events`, homeId, "home should link to the full reviewed event list.");
-  assertIncludes(home, "spotlight-arrow", homeId, "spotlight needs visible previous/next controls.");
-  assertIncludes(home, "data-spotlight-dot", homeId, "spotlight needs position controls.");
-  assertIncludes(home, 'data-spotlight-prev aria-label="Previous featured event"', homeId, "previous spotlight icon needs an accessible label.");
-  assertIncludes(home, 'data-spotlight-next aria-label="Next featured event"', homeId, "next spotlight icon needs an accessible label.");
-
-  const now = read(`${lang}/now/index.html`);
-  assertIncludes(now, "event-decision-board", `${lang}/now/index.html`, "current-event page needs a cross-event decision board.");
-  if (count(now, /class="decision-board-row"/g) !== approvedEvents.length) {
-    push(`${lang}/now/index.html`, `decision board should compare exactly ${approvedEvents.length} reviewed events.`);
-  }
-  for (const event of approvedEvents) {
-    const href = `/${lang}/events/${event.slug}`;
-    if (!now.includes(href)) push(`${lang}/now/index.html`, `reviewed event is missing from the current-event page: ${event.slug}`);
-  }
-
-  if (approvedRoutes.length) {
-    const routeIndex = read(`${lang}/routes/index.html`);
-    for (const route of approvedRoutes) {
-      if (!routeIndex.includes(`/${lang}/routes/${route.slug}`)) push(`${lang}/routes/index.html`, `approved route is missing: ${route.slug}`);
-    }
-  } else {
-    if (fs.existsSync(path.join(dist, lang, "routes", "index.html"))) push(`${lang}/routes/index.html`, "unreviewed route hub must not be generated.");
-    if (home.includes(`/${lang}/routes/`)) push(homeId, "home must not link to the retired route surface.");
-  }
-
-  const guideIndex = read(`${lang}/guides/index.html`);
-  assertIncludes(guideIndex, "guide-scope-ledger", `${lang}/guides/index.html`, "guide hub needs an audience and stop-rule ledger.");
-  if (count(guideIndex, /class="guide-scope-row"/g) !== approvedGuides.length) {
-    push(`${lang}/guides/index.html`, `guide scope ledger should contain exactly ${approvedGuides.length} reviewed guides.`);
-  }
-  for (const guide of approvedGuides) {
-    if (!guideIndex.includes(`/${lang}/guides/${guide.slug}`)) push(`${lang}/guides/index.html`, `approved guide is missing: ${guide.slug}`);
-  }
-
-  for (const event of approvedEvents) {
-    const id = `${lang}/events/${event.slug}.html`;
+// This validates the approved programme redesign, not the removed carousel.
+// Browser evidence separately covers visual fidelity, viewport overflow and interaction.
+for (const lang of publicLanguageCodes()) {
+  const homeId = lang + "/index.html", home = read(homeId);
+  needs(home, ["programme-cover", "home-introduction", "utility-strip", "home-guide-band", "5b81c184", "/guides/seoul-culture-first-visit", "archive, 2020"], homeId);
+  check(!home.includes("data-spotlight-carousel"), homeId, "Retired carousel must not return");
+  check(!/Fresh checked today|verified today/i.test(home), homeId, "Do not relabel dated evidence as checked today");
+  for (const id of [homeId, lang + "/now/index.html"]) {
     const html = read(id);
-    const sectionCount = count(html, /<section\b/g);
-    if (sectionCount < 4 || sectionCount > 6) push(id, `compact event detail should contain 4-6 sections; found ${sectionCount}.`);
-    for (const marker of [
-      "compact-detail-hero",
-      "detail-hero-media",
-      "event-fact-bar",
-      "event-review-section",
-      "event-decision-fit",
-      "review-update-note",
-      "source-reconciliation",
-      "event-visit-section",
-      "event-evidence-section",
-      "compact-related-section",
-      "save-event-label"
-    ]) assertIncludes(html, marker, id, `compact event detail marker is missing: ${marker}`);
-    if (html.includes("source-transparency-section") || html.includes("editorial-brief-section") || html.includes("affiliate-planning-rail")) {
-      push(id, "retired verbose or monetization-first detail section is still rendered.");
+    check(occurrences(html, 'class="experience-card event-card"') === events.length, id, "Exactly one current experience card per event is required");
+    for (const event of events) {
+      check(occurrences(html, 'data-event-slug="' + event.slug + '"') === 1, id, "Missing or duplicate save action: " + event.slug);
+      needs(html, ['href="/' + lang + "/events/" + event.slug + '"'], id);
     }
   }
+  const now = read(lang + "/now/index.html");
+  needs(now, ["data-gallery-scope", "data-gallery-search", "data-city-filter", "data-status-filter", "data-clear-filters", "data-no-results"], "experiences");
+  check(!now.includes("event-decision-board"), "experiences", "Duplicate decision-board inventory must not return");
 
-  for (const guide of approvedGuides) {
-    const id = `${lang}/guides/${guide.slug}.html`;
-    const html = read(id);
-    const guideSections = count(html, /class="guide-content-section"/g);
-    const expectedSections = (guide.sections?.en || []).length;
-    if (guideSections !== expectedSections) push(id, `guide should render ${expectedSections} topic-specific narrative sections; found ${guideSections}.`);
-    for (const marker of ["guide-article-header", "guide-audience", "guide-byline", "guide-method", "guide-original-evidence", "guide-citations", "guide-next-section"]) {
-      assertIncludes(html, marker, id, `guide trust or workflow marker is missing: ${marker}`);
-    }
-    if (count(html, /<h2/g) < (guide.sections?.en || []).length + 2) push(id, "guide needs visible evidence, narrative, and source headings.");
+  const index = read(lang + "/guides/index.html");
+  needs(index, ["guide-index", "guide-lead", "guide-list", "documentary research"], "guide index");
+  check(!index.includes("guide-scope-ledger"), "guide index", "Duplicate guide ledger must not return");
+  for (const guide of guides) {
+    needs(index, ['href="/' + lang + "/guides/" + guide.slug + '"'], "guide index");
+    const id = lang + "/guides/" + guide.slug + ".html", html = read(id);
+    needs(html, ["guide-article-header", "guide-reading-layout", "guide-audience", "guide-byline", "guide-method", "guide-original-evidence", "guide-citations", "guide-next-section"], id);
+    const expected = guide.sections?.en?.length || 0;
+    check(occurrences(html, 'class="guide-content-section"') === expected, id, "Every original narrative section must remain");
+  }
+  for (const event of events) {
+    const id = lang + "/events/" + event.slug + ".html", html = read(id);
+    needs(html, ["compact-detail-hero", "detail-hero-media", "event-reading-layout", "event-fact-bar", "visitor-narrative", "participation-facts", "review-update-note", "source-record", "event-visit-section", "event-evidence-section", "compact-related-section", "save-event-label"], id);
+    check(html.indexOf("visitor-narrative") < html.indexOf('class="event-fact-bar"'), id, "Narrative must precede the supporting facts in reading order");
+    check(!/source-transparency-section|editorial-brief-section|affiliate-planning-rail/.test(html), id, "Retired repetitive or monetization-first panels must not return");
+  }
+  const planner = read(lang + "/planner/index.html");
+  needs(planner, ["data-planner-grid", "data-planner-empty", "data-download-saved-calendar", "data-clear-saved", "Saved only in this browser", "<noscript>"], "planner");
+  const calendar = read(lang + "/calendar/index.html");
+  needs(calendar, ['href="/events.ics"', "data-gallery-scope", "calendar-month-heading"], "calendar");
+  for (const kind of ["privacy","contact","cookie-policy","advertising","terms","editorial-policy","corrections"]) {
+    needs(read(lang + "/" + kind + "/index.html"), ["policy-layout", "policy-nav", "article-page"], kind);
   }
 }
 
-for (const marker of [
-  ".compact-detail-hero {",
-  ".event-fact-bar {",
-  ".event-check-list {",
-  ".event-visit-grid {",
-  ".evidence-list article {",
-  ".editorial-guide {",
-  ".guide-table-wrap {",
-  "@media (max-width: 680px)",
-  ".compact-detail-hero .detail-actions {",
-  ".compact-weather-panel .forecast-strip {"
-]) {
-  if (!styles.includes(marker)) push("styles.css", `required responsive editorial style is missing: ${marker}`);
+function walk(directory) {
+  return fs.readdirSync(directory, {withFileTypes:true}).flatMap((item) => item.isDirectory() ? walk(path.join(directory,item.name)) : item.name.endsWith(".html") ? [path.join(directory,item.name)] : []);
 }
-
-const desktopHeroHeight = styles.match(/\.compact-detail-hero \{[\s\S]*?height:\s*clamp\((\d+)px,\s*(\d+(?:\.\d+)?)vh,\s*(\d+)px\)/);
-const desktopHeroHeightIsStable = desktopHeroHeight
-  && Number(desktopHeroHeight[1]) >= 460
-  && Number(desktopHeroHeight[2]) >= 45
-  && Number(desktopHeroHeight[2]) <= 70
-  && Number(desktopHeroHeight[3]) <= 650
-  && Number(desktopHeroHeight[1]) <= Number(desktopHeroHeight[3]);
-if (!desktopHeroHeightIsStable
-    || !/\.compact-detail-hero \.detail-hero-media \{[\s\S]*?overflow:\s*hidden/.test(styles)) {
-  push("styles.css", "desktop event visual needs a stable hero height and constrained media track.");
+for (const file of walk(dist)) {
+  const html = fs.readFileSync(file, "utf8");
+  if (!html.includes('class="site-header"')) continue; // Legacy redirects have no reader-facing shell.
+  needs(html, ['class="skip-link"', 'id="main-content"', "Primary", "/assets/fonts/roboto-condensed-800.ttf"], file);
+  check(occurrences(html, "<h1") === 1, file, "Exactly one page heading");
+  check(!html.includes('class="eyebrow"'), file, "Eyebrow scaffolding is retired");
+  check(!html.includes("fonts.googleapis.com"), file, "Fonts must remain self-hosted");
 }
-if (!/\.compact-detail-hero \.detail-hero-media \{[\s\S]*?aspect-ratio:\s*4\s*\/\s*3/.test(styles)) {
-  push("styles.css", "mobile event visual needs a stable 4:3 ratio.");
-}
-if (!/\.compact-detail-hero \.detail-actions \{[\s\S]*?grid-template-columns:\s*repeat\(2/.test(styles)) {
-  push("styles.css", "mobile hero actions must use a stable two-column grid.");
-}
-if (!/\.event-fact-bar \{[\s\S]*?grid-template-columns:\s*1fr/.test(styles)) {
-  push("styles.css", "mobile essential facts must collapse to one column.");
-}
-if (/\.service-hero h1 \{[^}]*white-space:\s*nowrap/s.test(styles)) {
-  push("styles.css", "mobile home title must wrap instead of forcing horizontal overflow.");
-}
-if (!/\.compact-detail-hero h1 \{[^}]*overflow-wrap:\s*anywhere\s*!important[^}]*white-space:\s*normal\s*!important/s.test(styles)) {
-  push("styles.css", "mobile event title needs a specific wrapping guard for Safari.");
-}
-
-if (errors.length) {
-  console.error("UX quality validation failed:");
-  console.error(JSON.stringify(errors, null, 2));
-  process.exit(1);
-}
-
-console.log(`UX quality validation passed: compact home, ${approvedEvents.length} event pages, ${approvedGuides.length} guides, and responsive editorial layouts.`);
+needs(styles, ["--violet:#251d48", "--amber:#f4c95d", ".programme-cover", ".event-reading-layout", ".guide-reading-layout", ".guide-table-wrap", ":focus-visible", "@media (max-width: 680px)", "prefers-reduced-motion", "[hidden]", "font-display:swap"], "styles.css");
+needs(app, ["koreaNowGuide.savedEvents.v1", "data-city-filter", "data-status-filter", "renderSavedPlanner", "downloadSavedCalendar"], "app.js");
+if (errors.length) { console.error("Programme UX validation failed:"); console.error(JSON.stringify(errors,null,2)); process.exit(1); }
+console.log("Programme UX validation passed: complete public templates, " + events.length + " experiences, " + guides.length + " guides, preserved planning controls and accessible reading structure.");

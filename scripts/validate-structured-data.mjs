@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { publicationDates } from "./lib/editorial.mjs";
 import { todayString } from "./lib/date.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -9,6 +10,7 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const events = JSON.parse(await fs.readFile(path.join(root, "data", "events.json"), "utf8"));
 const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
+const briefs = JSON.parse(await fs.readFile(path.join(root, "data/visitor-briefs.json"), "utf8"));
 const approvedSlugs = new Set(editorialProgram.indexableEvents || []);
 const today = todayString();
 const approvedEvents = events.filter((event) => approvedSlugs.has(event.slug) && event.endDate >= today);
@@ -122,13 +124,9 @@ function validateWebPageNode(node, sourceEvent, file, lang) {
   assertDate(node.datePublished, file, "WebPage.datePublished");
   assertDate(node.dateModified, file, "WebPage.dateModified");
   const review = editorialProgram.eventReviews?.[sourceEvent.slug] || {};
-  const expectedPublished = review.publishedAt || sourceEvent.publishedAt || review.reviewedAt || sourceEvent.lastChecked;
-  const expectedModified = [expectedPublished, review.updatedAt, sourceEvent.updatedAt, review.reviewedAt, sourceEvent.lastChecked]
-    .filter((value) => dateRe.test(String(value || "")))
-    .sort()
-    .at(-1);
+  const { publishedAt: expectedPublished, updatedAt: expectedModified } = publicationDates(sourceEvent, review, briefs.events[sourceEvent.slug]);
   assert(node.datePublished === expectedPublished, file, "WebPage.datePublished must match the first editorial publication date.");
-  assert(node.dateModified === expectedModified, file, "WebPage.dateModified must match the latest editorial or source-check date.");
+  assert(node.dateModified === expectedModified, file, "WebPage.dateModified must match the latest editorial revision date.");
   assert(node.datePublished <= node.dateModified, file, "WebPage.datePublished cannot be later than WebPage.dateModified.");
   assert(hasType(node.primaryImageOfPage, "ImageObject"), file, "WebPage.primaryImageOfPage must be an ImageObject.");
   assertUrl(node.primaryImageOfPage?.url, file, "WebPage.primaryImageOfPage.url");

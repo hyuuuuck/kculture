@@ -73,8 +73,7 @@ const expectedSitemapUrls = new Set([
 ]);
 if (search.sitemapDiscoveredPages !== expectedSitemapUrls.size) {
   const message = `Search Console discovered ${search.sitemapDiscoveredPages} sitemap pages; expected ${expectedSitemapUrls.size}.`;
-  if (requireCurrentReview) errors.push(message);
-  else warnings.push(`${message} This is allowed for deployment but must be refreshed before AdSense re-review.`);
+  warnings.push(`${message} This is a search observation, not an AdSense review prerequisite.`);
 }
 
 if (requireCurrentReview) {

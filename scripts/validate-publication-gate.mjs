@@ -6,6 +6,7 @@ const root = process.cwd();
 const dist = path.join(root, "dist");
 const events = JSON.parse(fs.readFileSync(path.join(root, "data", "events.json"), "utf8"));
 const program = JSON.parse(fs.readFileSync(path.join(root, "data", "editorial-program.json"), "utf8"));
+const briefs = JSON.parse(fs.readFileSync(path.join(root, "data/visitor-briefs.json"), "utf8"));
 const failures = [];
 const today = todayString();
 const approvedSet = new Set(program.indexableEvents || []);
@@ -33,7 +34,7 @@ for (const slug of approvedSlugs) {
     continue;
   }
   const html = fs.readFileSync(htmlPath, "utf8");
-  if (!html.includes("Source-checked desk review") || /\d+\/100 reviewed/.test(html)) {
+  if (!html.includes("Text revised") || /\d+\/100 reviewed/.test(html)) {
     failures.push(`${slug}: public review state must be non-numeric and source-accountable.`);
   }
   if (!html.includes('class="event-fact-bar"')) failures.push(`${slug}: first-screen fact bar is missing.`);
@@ -65,27 +66,19 @@ for (const slug of approvedSlugs) {
     try { return new URL(item.url).hostname.replace(/^www\./, ""); } catch { return ""; }
   }).filter(Boolean));
   if (!review?.reviewedAt || !review?.reviewedBy || evidence.length < 2 || evidenceHosts.size < 2 || evidence.some((item) => !item.url || (item.mustContain || []).length < 2)) {
-    failures.push(`${slug}: manual review record or original-source evidence is incomplete.`);
+    failures.push(`${slug}: dated source provenance is incomplete.`);
   }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "") || review.publishedAt > review.reviewedAt
       || String(review?.updateSummary || "").length < 100 || !html.includes('class="review-update-note"')
       || !html.includes("First published") || !html.includes(`"datePublished":"${review.publishedAt}"`)) {
     failures.push(`${slug}: immutable publication history or the latest editorial change is incomplete or not rendered.`);
   }
-  if (["availability", "bestFor", "poorFit", "timeCost", "commitWhen"].some((field) => String(fit[field] || "").length < 60)
-      || !html.includes('class="event-decision-fit"')) {
-    failures.push(`${slug}: visitor decision-fit analysis is incomplete or not rendered.`);
+  const brief = briefs.events[slug];
+  if (!brief || !html.includes('class="participation-facts"') || !html.includes('class="source-record"')
+      || !html.includes('class="visitor-narrative"')) {
+    failures.push(slug + ": visitor narrative, participation facts or source record is missing.");
   }
-  if (["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))) {
-    failures.push(`${slug}: day-planning profile is incomplete.`);
-  }
-  if (["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
-      || !html.includes('class="source-reconciliation"')) {
-    failures.push(`${slug}: source reconciliation is incomplete or not rendered.`);
-  }
-  if (evidence.some((item) => String(item.role || "").length < 8 || String(item.supports || "").length < 60)) {
-    failures.push(`${slug}: evidence role or claim coverage is incomplete.`);
-  }
+
 }
 
 const generatedHtml = [];
@@ -108,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Publication gate passed: ${approvedSlugs.length} reviewed events with two-source evidence, source reconciliation, planning profiles, first-screen facts, dates, and no affiliate content.`);
+console.log(`Publication gate passed: ${approvedSlugs.length} event pages with traceable sources, visitor narratives, first-screen facts, dates, and no affiliate content. Structural integrity only; not an editorial quality certification.`);

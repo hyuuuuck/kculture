@@ -1,25 +1,40 @@
 ﻿# K-Spot Now
 
-K-Spot Now is a static, multilingual Korea event and shopping radar for foreign visitors.
+K-Spot Now is an English-language culture guide for independent visitors to Korea, starting with Seoul. Its job is to explain an experience and help the reader decide how to take part, not to reproduce an event directory.
 
-It is designed for AdSense readiness, but AdSense approval and monthly revenue are never guaranteed. The structure focuses on official sources, original summaries, clear date ranges, trust pages, calendar browsing, source freshness labels, and review-first automation.
+AdSense is the intended revenue model, not the editorial audience. Approval and revenue are not guaranteed. See [PRODUCT.md](PRODUCT.md), [monetization-plan.md](monetization-plan.md) and the [September revision record](docs/revision-2026-09-10.md).
+
+## September 2026 release process
+
+The September 18 local revision contains five current event articles, three guides and four indexable hubs (12 sitemap URLs). These are not 12 articles. OCEAN and shopping-refund research is preserved but withheld from this cultural edition. Production deployment is separate; see `docs/deployment-preflight-2026-09-18.md` for the latest attempt and remaining requirements.
+
+- `npm run verify`: repeatable code/data integrity, not a content-quality verdict.
+- `npm run validate:editorial-release`: show actual human/reader/deployment evidence that is still missing.
+- `npm run preflight:launch`: pre-deployment technical checks and human/reader evidence. Does not require an already-completed deployment.
+- After explicit deployment authorization, verify the same revision on the live domain and record it.
+- `npm run preflight:adsense-review`: includes live-release evidence and account/ownership/privacy checks. Does not submit anything.
+- Search Console reports remain diagnostic. No page-count, click-count, index-share or word-count quota is treated as Google's approval rule.
+
+Source-monitoring dates (`sourceCheckedAt`) never renew an article's editorial date. `data/editorial-release.json` must cite real dated evidence tied to the current revision fingerprint; do not mark AI drafting, code tests or imaginary readers as human validation.
 
 ## What It Builds
 
 - Gallery-style event homepage with thumbnails, dates, categories, and status labels
-- Event detail pages with official source links, last-checked date, schedule-month previous-year weather planning notes, and nearby travel ideas
+- Event detail pages with official source links, last-checked date, cultural interpretation, language/participation conditions, and same-city alternatives
 - A `/now/` page for live, ending-soon, newly checked, and this-week events
 - Event calendar page plus `/events.ics`
 - A saved-event planner page where visitors can compare saved events on the same device and export a saved calendar file
 - RSS and JSON Feed output at `/feed.xml`, `/latest.json`, and each language folder for recrawl signals, subscriptions, newsletters, and future automation
 - A `/recheck.json` operations feed and `/now/` panel for live or upcoming listings that need official-source rechecks soon
-- Guide pages for K-pop pop-ups, duty-free shopping, seasonal sales, and weather planning
+- Guides for choosing a first Seoul cultural visit, pop-up admission, weather decisions and tax-refund procedures
 - Language versions for English, Spanish, Chinese, Portuguese, Russian, Japanese, French, and German; AdSense review mode publishes English only until localized pages pass translation QA
 - Static output in `dist/` for Cloudflare Pages
 
 ## Project Files
 
-- `data/events.json`: approved public events and deals
+- `data/events.json`: event records, including unpublished candidates and archived items; the editorial allowlist controls publication
+- `data/visitor-briefs.json`: current cultural narratives, participation facts, uncertainties and claim-scoped sources
+- `data/editorial-release.json`: real release evidence; pending means pending
 - `data/sources.json`: official APIs, official page monitors, and K-pop curation queues
 - `data/curation-queue.json`: official one-off URLs and K-pop/social/ticketing links waiting for manual review
 - `data/official-thumbnail-overrides.json`: audited official-image downloads and official source identity-card overrides for pages that do not expose reusable event images
@@ -34,15 +49,15 @@ It is designed for AdSense readiness, but AdSense approval and monthly revenue a
 - `scripts/validate-images.mjs`: checks event thumbnails, generated image assets, image signatures, minimum dimensions, and non-decorative image alt text
 - `scripts/validate-calendar.mjs`: checks that all events appear in the calendar page and downloadable `events.ics` with correct date ranges
 - `scripts/validate-detail-pages.mjs`: checks generated event detail pages for official source links, calendar downloads, saved-planner metadata, previous-year weather, map shortcuts, travel routes, and related guides
-- `scripts/validate-original-value.mjs`: blocks thin, duplicated, unaccountable, or source-rewritten public content by requiring distinct visitor analysis, practical checks, research methods, and traceable evidence
+- `scripts/validate-original-value.mjs`: legacy command name for article data integrity; checks references, non-empty narratives, dates and method disclosure. It cannot certify originality or visitor usefulness
 - `data/adsense-compliance.json`: versioned manual evidence record for the selected Google-certified CMP, TCF coverage, review date, and accountable verifier
 - `scripts/validate-adsense-compliance.mjs`: lets site review use `ads.txt` ownership with ads disabled, requires verified CMP evidence only for ad serving, and blocks ads from noindex or policy pages
 - `scripts/validate-structured-data.mjs`: checks generated detail pages for category-appropriate JSON-LD, using `Event` for festivals and K-pop pages and `WebPage` for shopping/deal information pages
 - `scripts/validate-event-audit.mjs`: checks high-risk event audit blocks against official evidence pages so concert dates, city-project dates, and shopping campaign windows do not get merged by mistake
 - `scripts/validate-production.mjs`: checks production domain, contact email, and optional AdSense settings
-- `scripts/adsense-readiness-report.mjs`: writes separate site-review and ad-serving readiness scorecards so pending CMP evidence does not falsely block a review-safe build
+- `scripts/adsense-readiness-report.mjs`: separates pre-deployment content evidence, post-deployment submission checks and ad-serving checks; no synthetic approval percentage
 - `data/quality-system.json`: defines the CEO, planner, designer, publisher, audit institution, benchmark websites, and release policy
-- `scripts/ceo-quality-review.mjs`: writes the CEO quality review and task dispatch after the audit institution checks design, planning, publishing, source trust, and benchmark parity
+- `scripts/ceo-quality-review.mjs`: legacy-named automated summary, not a real CEO, team or independent review institution
 - `scripts/apply-official-thumbnail-overrides.mjs`: applies audited official-image or official source identity-card replacements so event thumbnails do not fall back to generic generated art
 - `scripts/collect-official-pages.mjs`: collects official page candidates and same-site event/deal links for review
 - `scripts/review-feed-report.mjs`: turns the latest candidate feed and discovered links into a human review report
@@ -67,7 +82,7 @@ Source review artifact filenames use the Asia/Seoul date by default. Set `SITE_T
 
 ## Local Build
 
-On this Windows machine, use `npm.cmd` because PowerShell script execution is restricted.
+Use `npm run build` on macOS/Linux. On Windows PowerShell, `npm.cmd` avoids execution-policy conflicts.
 
 ```powershell
 npm.cmd run build
@@ -166,8 +181,45 @@ http://127.0.0.1:8766/en/
 
 The preview server resolves the same clean internal URLs used by the site, so
 event, guide, route, and policy links work in Safari without adding `.html`.
+`npm run preview` builds and starts (or reuses) a background server, printing
+its PID and temporary log path. It survives the command/session finishing;
+after a computer restart, run the command again. It does not install a login
+service. Use `npm run preview:serve` for a foreground server instead. The
+launcher refuses to replace a different service using the same port.
+
+`npm run validate:images` checks both source images and the built assets, then
+serves `dist` on an ephemeral local port to verify each referenced image's HTTP
+status, MIME type and exact bytes. To check the running preview as well:
+
+```text
+PREVIEW_BASE_URL=http://127.0.0.1:8766 node scripts/validate-image-delivery.mjs
+```
+
+Browser decoding and lazy loading still require scrolling the actual page;
+file existence alone is not proof that a visitor can see an image.
 Use `npm run preview:worker` only when the Cloudflare Worker runtime itself
 needs local testing.
+
+### Date-aware visits and saved plans
+
+The Experiences page supports a Korea visit date and cultural-interest filter.
+`data/visit-planning.json` contains dated, source-linked operating constraints,
+not live inventory. Known closure dates and weekdays are excluded; remaining
+results are explicitly tentative. Add an edition-specific source and tests
+before changing these rules. The shared browser logic is `planning.js`.
+
+Saving from a dated search carries that date into Saved places. Visitors can
+change individual visit days, copy Korean map names, undo a removal while the
+page remains open, print a plan, or download usable dated visits as tentative
+one-day ICS reminders. Undated, past, closed and retired items are not exported.
+The separate public `events.ics` remains an edition-range reference calendar,
+not a personal visit schedule.
+
+The existing browser storage key is preserved. Current publication metadata
+replaces old saved facts; withdrawn items remain visible as unverified rather
+than disappearing silently. Storage failures keep edits in memory and display
+a warning. Nothing is uploaded to K-Spot Now. Run `npm run validate:planning`
+and `npm run test:editorial`; both are included in `npm run verify`.
 
 ## Cloudflare Workers/Pages
 

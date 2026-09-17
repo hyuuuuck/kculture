@@ -2,7 +2,9 @@ import fs from "node:fs/promises";
 import fssync from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { briefIssues, guideIssues } from "./lib/article-integrity.mjs";
 import { todayString } from "./lib/date.mjs";
+import { experienceIndexIssues, guideIndexIssues } from "./lib/publication-surfaces.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -14,6 +16,7 @@ const routes = JSON.parse(await fs.readFile(path.join(root, "data", "travel-rout
 const program = JSON.parse(await fs.readFile(path.join(root, "data", "editorial-program.json"), "utf8"));
 const publishedRecheck = JSON.parse(await fs.readFile(path.join(root, "data", "published-event-recheck.json"), "utf8").catch(() => "{}"));
 const searchConsoleAudit = JSON.parse(await fs.readFile(path.join(root, "data", "search-console-audit.json"), "utf8").catch(() => "{}"));
+const briefs = JSON.parse(await fs.readFile(path.join(root, "data/visitor-briefs.json"), "utf8"));
 const checks = [];
 
 function exists(relative) {
@@ -85,23 +88,9 @@ if (program.mode === "adsense-editorial-review" && approvedEvents.length && curr
   fail("planner", "Scope", "Editorial review set", `${approvedEvents.length} published events, ${currentEvents.length} current events, ${approvedGuides.length} guides.`, "Planner: restore a non-empty, explicitly reviewed event and guide surface before release.");
 }
 
-const missingReviews = approvedEvents.filter((event) => {
-  const review = program.eventReviews?.[event.slug];
-  const profile = review?.planningProfile || {};
-  const reconciliation = review?.sourceReconciliation || {};
-  const evidence = [...(event.audit?.sourceEvidence || []), ...(review?.sourceEvidence || [])];
-  return !review?.reviewedAt || !review?.reviewedBy || !/^\d{4}-\d{2}-\d{2}$/.test(review?.publishedAt || "")
-    || review.publishedAt > review.reviewedAt || String(review?.updateSummary || "").length < 100
-    || String(review?.visitorDecision || "").length < 120
-    || !Array.isArray(review?.foreignerChecks) || review.foreignerChecks.length < 3
-    || ["commitment", "routeRole", "lockIn", "keepFlexible", "weatherExposure"].some((field) => String(profile[field] || "").length < (field === "commitment" ? 8 : 60))
-    || ["agreement", "sourceRoles", "unresolved", "visitorMeaning"].some((field) => String(reconciliation[field] || "").length < 60)
-    || evidence.length < 2 || distinctEvidenceHosts(evidence) < 2
-    || evidence.some((item) => !item.url || !Array.isArray(item.mustContain) || item.mustContain.length < 2
-      || String(item.role || "").length < 8 || String(item.supports || "").length < 60);
-});
+const missingReviews = approvedEvents.filter(event => briefIssues(briefs.events[event.slug], today).length);
 if (!missingReviews.length) {
-  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have immutable publication history, latest-change notes, ownership, source reconciliation, day-planning analysis, and two distinct official source hosts.`);
+  pass("auditor", "Evidence", "Structured event review", `${approvedEvents.length}/${approvedEvents.length} approved events have structured visitor narratives and claim-scoped source records; human review remains a separate release requirement.`);
 } else {
   fail("auditor", "Evidence", "Structured event review", `${missingReviews.length} events incomplete.`, `Auditor: block ${missingReviews.map((event) => event.slug).join(", ")}.`);
 }
@@ -113,12 +102,11 @@ if (publishedRecheck.date === today && publishedRecheck.passed === currentEvents
 }
 
 const home = read("dist/en/index.html");
-const homeCards = (home.match(/class="event-card/g) || []).length;
-const spotlightSlides = (home.match(/data-spotlight-slide/g) || []).length;
-if (homeCards === 5 && spotlightSlides >= 3 && spotlightSlides <= 5 && home.includes("home-guide-band")) {
-  pass("designer", "Home", "Scan density", `${homeCards} event cards, ${spotlightSlides} feature slides, and guide entry points.`);
+const homeIssues = experienceIndexIssues(home, currentEvents);
+if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-introduction") && home.includes("home-guide-band")) {
+  pass("designer", "Home", "Publication structure", `${currentEvents.length} current experiences, cultural introduction and guide entry points.`);
 } else {
-  fail("designer", "Home", "Scan density", `${homeCards} event cards and ${spotlightSlides} slides.`, "Designer: restore the compact home hierarchy.");
+  fail("designer", "Home", "Publication structure", homeIssues.join("; ") || "Missing publication sections", "Restore the current edition's introduction and article navigation.");
 }
 
 const eventPageProblems = [];
@@ -129,11 +117,10 @@ for (const event of approvedEvents) {
       || !html.includes("event-review-section")
       || !html.includes("event-visit-section")
       || !html.includes("event-evidence-section")
-      || !html.includes("source-reconciliation")
+      || !html.includes("source-record")
       || !html.includes("review-update-note")
       || !html.includes("First published")
-      || !html.includes("review-byline")
-      || htmlWordCount(html) < 350) {
+      || !html.includes("review-byline")) {
     eventPageProblems.push(event.slug);
   }
 }
@@ -143,38 +130,20 @@ if (!eventPageProblems.length) {
   fail("designer", "Detail", "Compact decision pages", `${eventPageProblems.length} pages failed.`, `Designer/Publisher: fix ${eventPageProblems.slice(0, 5).join(", ")}.`);
 }
 
-const guideProblems = approvedGuides.filter((guide) => {
-  const html = read(`dist/en/guides/${guide.slug}.html`);
-  const evidence = guide.originalEvidence || {};
-  const combinedWords = [
-    ...(guide.sections?.en || []).flatMap((section) => section.paragraphs || []),
-    evidence.title,
-    evidence.intro,
-    evidence.method,
-    evidence.limitations,
-    ...(evidence.headers || []),
-    ...(evidence.rows || []).flat(),
-    ...(evidence.findings || []).flatMap((finding) => [finding.label, finding.text])
-  ].join(" ");
-  return !html.includes("guide-byline") || !html.includes("guide-citations") || !html.includes("guide-original-evidence")
-    || (guide.sections?.en || []).length < 3 || (guide.sections?.en || []).length > 6 || (guide.sources || []).length < 2
-    || htmlWordCount(combinedWords) < 700 || !["case-ledger", "weather-analysis", "process-map"].includes(evidence.kind)
-    || (evidence.rows || []).length < 3 || (evidence.findings || []).length < 2;
-});
+const guideProblems = approvedGuides.filter(guide => guideIssues(guide, today).length);
 if (!guideProblems.length) {
-  pass("planner", "Guides", "Original editorial depth", `${approvedGuides.length}/${approvedGuides.length} guides have distinct dated evidence records, source citations, methods, and limitations.`);
+  pass("planner", "Guides", "Article data integrity (not reader validation)", `${approvedGuides.length}/${approvedGuides.length} guides have dated evidence records, source citations, methods, and limitations.`);
 } else {
-  fail("planner", "Guides", "Original editorial depth", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
+  fail("planner", "Guides", "Article data integrity (not reader validation)", `${guideProblems.length} guides failed.`, `Planner: rewrite ${guideProblems.map((guide) => guide.slug).join(", ")}.`);
 }
 
 const now = read("dist/en/now/index.html");
-const decisionRows = (now.match(/class="decision-board-row"/g) || []).length;
 const guideHub = read("dist/en/guides/index.html");
-const guideScopeRows = (guideHub.match(/class="guide-scope-row"/g) || []).length;
-if (now.includes("event-decision-board") && decisionRows === approvedEvents.length && guideHub.includes("guide-scope-ledger") && guideScopeRows === approvedGuides.length) {
-  pass("designer", "Hubs", "Decision-led navigation", `${decisionRows} events are compared on the Now board and guide scope is visible before article entry.`);
+const hubIssues = [...experienceIndexIssues(now, approvedEvents), ...guideIndexIssues(guideHub, approvedGuides)];
+if (!hubIssues.length && now.includes("data-visit-filter") && now.includes("data-interest-filter")) {
+  pass("designer", "Hubs", "Decision-led navigation", `${approvedEvents.length} current experiences and ${approvedGuides.length} contextual guide links; planning filters remain available.`);
 } else {
-  fail("designer", "Hubs", "Decision-led navigation", `${decisionRows}/${approvedEvents.length} event rows; ${guideScopeRows}/${approvedGuides.length} guide rows.`, "Designer: restore the Now decision board and guide scope ledger.");
+  fail("designer", "Hubs", "Decision-led navigation", hubIssues.join("; ") || "Missing planning filters", "Restore all current article links and planning controls.");
 }
 
 const sitemap = read("dist/sitemap.xml");
@@ -218,7 +187,7 @@ if (!adsense) {
   if (blockingDeploymentWarnings.length) {
     fail("publisher", "AdSense", "Editorial gate report", `${blockingDeploymentWarnings.length} deployment-blocking warning(s) remain during the AdSense review lock.`, "Publisher/CEO: resolve operational review warnings before release.");
   } else {
-    warn("publisher", "Search", "Post-deploy index hold", `Search Console reports ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} discovered URLs while the current build contains ${expectedSitemapUrls.size}; AdSense re-review is also under its recorded cooldown. Coverage is updated through ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"} and performance through ${searchConsoleAudit.performance?.periodEnd || "unknown"}.`, "Publisher: deploy the current sitemap, wait for Search Console to read it, then refresh authenticated discovery before re-review.");
+    warn("publisher", "Search", "Recorded search observations", `Search Console reports ${searchConsoleAudit.sitemap?.discoveredPages ?? "?"} discovered URLs; current local build has ${expectedSitemapUrls.size}. Coverage date: ${searchConsoleAudit.coverage?.reportUpdatedAt || "unknown"}.`, "Investigate crawl failures if present; discovery counts and search traffic are not AdSense submission quotas.");
   }
 } else {
   pass("publisher", "AdSense", "Editorial gate report", `${adsense.score.passed} pass, ${adsense.score.warned} warning, 0 fail.`);
@@ -236,7 +205,7 @@ const passes = checks.filter((item) => item.status === "pass").length;
 const blockingWarnings = checks.filter((item) => item.status === "warn" && item.area !== "Search").length;
 const reviewLocked = program.mode === "adsense-editorial-review" && blockingWarnings > 0;
 const searchHold = checks.some((item) => item.status === "warn" && item.area === "Search");
-const decision = fails || reviewLocked ? "REWORK_REQUIRED" : searchHold ? "DEPLOY_FIXES_ONLY" : warns ? "APPROVED_WITH_WARNINGS" : "RELEASE_APPROVED";
+const decision = fails || reviewLocked ? "REWORK_REQUIRED" : "AUTOMATED_CHECKS_COMPLETE";
 const tasks = checks.filter((item) => item.status !== "pass" && item.task);
 const result = {
   generatedAt: new Date().toISOString(),
@@ -252,7 +221,7 @@ await fs.mkdir(feedDir, { recursive: true });
 const jsonOut = path.join(feedDir, `ceo-quality-review-${today}.json`);
 const mdOut = path.join(feedDir, `ceo-quality-review-${today}.md`);
 await fs.writeFile(jsonOut, `${JSON.stringify(result, null, 2)}\n`, "utf8");
-await fs.writeFile(mdOut, `# CEO Quality Review
+await fs.writeFile(mdOut, `# Automated Release Check Summary
 
 Generated: ${result.generatedAt}
 
@@ -266,12 +235,12 @@ Objective: ${result.objective}
 | --- | --- | --- | --- | --- |
 ${checks.map((item) => `| ${item.status} | ${item.owner} | ${item.area} | ${item.item} | ${String(item.detail).replaceAll("|", "\\|")} |`).join("\n")}
 
-## CEO Tasks
+## Outstanding Work
 
-${tasks.map((item, index) => `${index + 1}. ${item.task}`).join("\n") || "No blocking task. Preserve the review lock and monitor Search Console after deployment."}
+${tasks.map((item, index) => `${index + 1}. ${item.task}`).join("\n") || "No automated blocker. This does not replace human review or authorize deployment or submission."}
 `, "utf8");
 
 console.table([{ decision, pass: passes, warn: warns, fail: fails, tasks: tasks.length }]);
-console.log(`CEO quality review saved: ${path.relative(root, mdOut)}`);
+console.log(`Automated release summary saved: ${path.relative(root, mdOut)}`);
 
 if (fails || reviewLocked) process.exitCode = 1;

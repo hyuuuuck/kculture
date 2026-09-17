@@ -22,12 +22,12 @@ const checks = [];
 const layoutResults = [];
 
 const requiredPages = [
-  { path: "/", label: "Root home", needles: ["K-Spot Now", "Decide what is worth the trip."] },
-  { path: "/en/", label: "English home", needles: ["Source-checked Korea event briefs", "spotlight-carousel"] },
-  { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-limit=\"6\"", "latest-checked-section", "event-decision-board", "decision-board-row"] },
-  { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", "What we checked", "source-reconciliation", "review-update-note", "First published"] },
+  { path: "/", label: "Root home", needles: ["K-Spot Now", "programme-cover", "Make a culture"] },
+  { path: "/en/", label: "English home", needles: ["home-introduction", "home-guide-band", "experience-card"] },
+  { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-scope", "data-visit-filter", "data-interest-filter", "experience-card"] },
+  { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", 'id="event-evidence-title"', 'class="evidence-list"', "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
-  { path: "/en/guides/", label: "Guides", needles: ["Guides", "guide-scope-ledger", "guide-scope-row"] },
+  { path: "/en/guides/", label: "Guides", needles: ["guide-index", "guide-lead", "guide-list"] },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-original-evidence", "case-ledger", "guide-citations"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
   { path: "/en/contact/", label: "Contact", needles: ["contact@kspotnow.com"] }
@@ -35,6 +35,9 @@ const requiredPages = [
 
 const hiddenLanguageRoots = ["/de/", "/fr/", "/ja/", "/es/", "/zh/", "/pt/", "/ru/"];
 const retiredContentPaths = [
+  "/en/events/national-geographic-ocean-seoul-2026",
+  "/en/guides/tax-refund-payments-korea-shopping",
+  "/en/guides/korea-duty-free-before-flight",
   "/en/routes/",
   "/en/routes/central-seoul-shopping-route",
   "/en/categories/festival/",

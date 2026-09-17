@@ -2258,16 +2258,16 @@
       "ja": "城郭の景色、灯籠写真、川沿いの散策、ゆったりした地方旅行を求める秋の夜イベントとして価値があります。"
     },
     "travelTips": [
-      "Cross-check the official Yudeung site and VISITKOREA page before visiting because fireworks, bridges, and crowd-control routes can change.",
-      "Stay overnight in Jinju if planning late lantern photos or riverside programs; same-night intercity returns can be tight.",
-      "Bring a light jacket and choose photo spots away from the busiest bridge bottlenecks.",
-      "Treat the 18:00 lantern lighting as the main visual anchor and use the earlier booth period for orientation rather than arriving at the river at the busiest moment."
+      "Use the operator's current 2026 timetable for individual events; VISITKOREA still labels its detailed program as based on 2025.",
+      "Choose your actual return departure before planning the viewing window. Compare an overnight stay only if the desired program does not fit that return.",
+      "Select a river bank and exit first; verify any temporary bridge's ticket and access conditions before adding a crossing.",
+      "The general lighting window starts at 18:00, but the October 3 opening lighting ceremony is separately listed at 19:30. Do not merge the two."
     ],
     "weatherRegion": "Nationwide",
     "mapQueryKo": "진주성",
     "visitorInfo": {
       "theme": "Night lantern festival rooted in the history of Jinjuseong Fortress and the Namgang River",
-      "hours": "Official 2026 festival site lists lantern lighting 18:00-24:00 and bridge and booth operation 13:00-23:00; individual programs can differ.",
+      "hours": "Operator checked September 17: general lighting 18:00-24:00 and bridges/booths 13:00-23:00. October 3 opening lighting ceremony is separately listed at 19:30; date-specific notices control changes.",
       "address": "Jinjuseong Fortress and Namgang River areas, centered around 626 Namgang-ro, Jinju-si",
       "transportation": "Choose intercity arrival and the late return or overnight plan before selecting a river entrance; use 진주성 for the central Korean map search.",
       "websiteLanguages": [
@@ -2305,16 +2305,18 @@
           "sourceName": "Jinju Namgang Yudeung Festival Committee",
           "url": "https://yudeung.com/?lang=en",
           "role": "Official festival operator",
-          "supports": "Controls the current theme, river-area operating framework, lantern lighting hours, bridge and booth hours, and festival-site notices.",
+          "supports": "The named 2026 Festival JSON-LD confirms dates and the fortress/river location after the operator rebuilt its site as a JS application. Rendered operating times were separately read on September 17; this automated check does not validate the timetable.",
+          "structuredDataType": "Festival",
+          "structuredDataName": "2026 진주남강유등축제",
           "mustContain": [
-            "10월 03일",
-            "10월 18일",
-            "18:00",
-            "Jinju Fortress"
+            "2026-10-03",
+            "2026-10-18",
+            "진주성 · 남강 일원"
           ]
         }
       ]
-    }
+    },
+    "sourceCheckedAt": "2026-09-18"
   },
   {
     "slug": "deoksugung-royal-guard-changing-ceremony-2026",
@@ -2417,7 +2419,8 @@
           ]
         }
       ]
-    }
+    },
+    "sourceCheckedAt": "2026-09-18"
   },
   {
     "slug": "gwangalli-m-drone-light-show-2026",
@@ -2426,7 +2429,7 @@
     "priority": 91,
     "startDate": "2026-01-03",
     "endDate": "2026-12-31",
-    "dateLabel": "Every Saturday in 2026: 2026-01-03 - 2026-12-31; Mar-Sep 20:00/22:00, Oct-Feb 19:00/21:00",
+    "dateLabel": "Regular schedule: Every Saturday in 2026; Mar-Sep 20:00/22:00, Oct-Feb 19:00/21:00. September 26 exception: 20:00 only",
     "city": "Busan",
     "district": "Suyeong-gu",
     "venue": "Gwangalli Beach",
@@ -2455,7 +2458,7 @@
       "ja": "釜山公式イベントカレンダーは、2026年の Gwangalli M Drone Light Show を Gwangalli Beach で掲載しています。公式情報では土曜夜の公演、季節別の時間帯、約12分のテーマ型ドローン演出、無料入場が案内されています。"
     },
     "whyGo": {
-      "en": "A reliable night-plan anchor for Busan visitors who want a free Gwangalli Beach stop, bridge views, photo time, and an easy pairing with Millak waterfront dining or Centum City.",
+      "en": "Contemporary visual storytelling on Busan's waterfront. Choose the dated theme and performance; cancellations and special schedules make it a conditional part of a Gwangalli evening, not a guaranteed night-plan anchor.",
       "es": "Un punto nocturno fiable para visitantes de Busan que quieren una parada gratuita en Gwangalli Beach, vistas del puente, fotos y combinacion con comida en Millak o Centum City.",
       "zh": "适合釜山游客安排夜间路线：免费广安里海边停留、广安大桥夜景、拍照时间，并可顺路安排民乐海边餐饮或 Centum City。",
       "pt": "Um ponto noturno confiavel para visitantes de Busan que querem uma parada gratuita em Gwangalli Beach, vistas da ponte, fotos e combinacao com Millak ou Centum City.",
@@ -2463,10 +2466,10 @@
       "ja": "無料で広安里ビーチ、橋の夜景、写真撮影を楽しみたい釜山旅行者向けの夜ルートです。民楽ウォーターフロントや Centum City と組み合わせやすいです。"
     },
     "travelTips": [
-      "Use 광안리해수욕장 as the Korean map query and arrive early for the clearest bridge-facing view.",
-      "Busan's official listing says March to September shows are at 20:00 and 22:00, while October to February shows are at 19:00 and 21:00.",
+      "Use 광안리해수욕장 as the Korean map query. A standing wheelchair/stroller viewing notice identifies the area opposite 광안해변로 247; special-day arrangements can differ.",
+      "Regular shows are at 20:00 and 22:00 from March to September, and 19:00 and 21:00 from October to February. September 26, 2026 is one special show at 20:00 only.",
       "The show is free and runs for about 12 minutes, but weather, wind, or crowd-control notices can change operations; check the official website before leaving.",
-      "Pair it with Millak The Market, Gwangalli cafes, or Centum City, and save your return route before the beach gets crowded after the show."
+      "Keep another reason to spend the evening in Gwangalli. A separate district is not automatically a convenient fallback, and the show finish does not establish your final transport connection."
     ],
     "audit": {
       "risk": "medium",
@@ -2501,7 +2504,8 @@
       ]
     },
     "weatherRegion": "Busan",
-    "mapQueryKo": "광안리해수욕장"
+    "mapQueryKo": "광안리해수욕장",
+    "sourceCheckedAt": "2026-09-18"
   },
   {
     "slug": "hyundai-toledo-masterpieces-2026",
@@ -2921,7 +2925,8 @@
           ]
         }
       ]
-    }
+    },
+    "sourceCheckedAt": "2026-09-18"
   },
   {
     "slug": "namsangol-traditional-experience-2026",
@@ -3285,7 +3290,8 @@
       "Summer heat and rain matter for this long outdoor event, so use the current KMA weather note before making it the center of a day."
     ],
     "weatherRegion": "Seoul",
-    "mapQueryKo": "서울숲"
+    "mapQueryKo": "서울숲",
+    "sourceCheckedAt": "2026-09-18"
   },
   {
     "slug": "maple-attack-seokchon-lake-2026",
@@ -3521,7 +3527,8 @@
         "19:00",
         "limited parking"
       ]
-    }
+    },
+    "sourceCheckedAt": "2026-09-17"
   },
   {
     "slug": "busan-port-festival-2026",

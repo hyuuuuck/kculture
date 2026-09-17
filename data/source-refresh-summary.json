@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-13T13:23:38.910Z",
+  "generatedAt": "2026-09-17T22:55:52.771Z",
   "files": {
-    "audit": "source-audit-2026-09-13.json",
-    "candidates": "official-page-candidates-2026-09-13.json",
-    "drafts": "draft-events-2026-09-13.json",
-    "reviewReport": "review-report-2026-09-13.md",
-    "reviewBoard": "review-board-2026-09-13.html",
-    "publicData": "public-data-import-2026-09-13.json",
+    "audit": "source-audit-2026-09-18.json",
+    "candidates": "official-page-candidates-2026-09-18.json",
+    "drafts": "draft-events-2026-09-18.json",
+    "reviewReport": "review-report-2026-09-18.md",
+    "reviewBoard": "review-board-2026-09-18.html",
+    "publicData": "public-data-import-2026-09-18.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 8,
+    "auditOk": 49,
+    "auditFailed": 7,
+    "fallbackSources": 7,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 583,
-    "dateSignals": 264,
-    "draftCandidates": 75,
-    "skippedCandidates": 561,
+    "discoveredLinks": 570,
+    "dateSignals": 257,
+    "draftCandidates": 77,
+    "skippedCandidates": 546,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -34,8 +34,13 @@
   "failedSources": [
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
-      "status": "ROBOTS",
-      "error": "blocked by robots.txt"
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Dongdaemun Design Plaza",
@@ -53,14 +58,24 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
+    },
+    {
+      "sourceName": "Seoul Open Data Cultural Space Information",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
@@ -70,33 +85,33 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 19
+      "count": 17
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 17
+      "count": 14
     },
     {
       "key": "NOL World Ticket",
       "count": 10
     },
     {
-      "key": "Weverse Shop BTS Notices",
-      "count": 2
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 56
+      "count": 57
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
@@ -118,10 +133,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 529
+      "count": 510
     },
     {
       "key": "curation root is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "listing page is not a specific event",
       "count": 6
     },
     {
@@ -135,13 +154,17 @@
     {
       "key": "duplicate draft source URL",
       "count": 4
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 4
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 148
+    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -175,14 +198,6 @@
       "score": 138
     },
     {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
-      "score": 138
-    },
-    {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
@@ -199,12 +214,12 @@
       "score": 128
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 24,
-      "dates": 9,
-      "keywords": 3,
-      "score": 114
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 4,
+      "keywords": 7,
+      "score": 128
     }
   ]
 }

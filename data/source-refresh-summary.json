@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T22:55:52.771Z",
+  "generatedAt": "2026-09-18T04:54:34.329Z",
   "files": {
     "audit": "source-audit-2026-09-18.json",
     "candidates": "official-page-candidates-2026-09-18.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 49,
-    "auditFailed": 7,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 7,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 570,
-    "dateSignals": 257,
-    "draftCandidates": 77,
-    "skippedCandidates": 546,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 562,
+    "dateSignals": 269,
+    "draftCandidates": 75,
+    "skippedCandidates": 540,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -34,13 +34,8 @@
   "failedSources": [
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
-      "status": "ERR",
-      "error": "timeout"
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "status": "ERR",
-      "error": "fetch failed"
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
     },
     {
       "sourceName": "Dongdaemun Design Plaza",
@@ -58,22 +53,27 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
     },
     {
-      "sourceName": "Seoul Open Data Cultural Space Information",
+      "sourceName": "COEX Event Calendar",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceName": "SHOWALA exhibition listing",
       "status": "ERR",
       "error": "timeout"
     }
@@ -100,7 +100,7 @@
       "count": 7
     },
     {
-      "key": "Weverse Shop BTS Notices",
+      "key": "Korea Policy Briefing",
       "count": 2
     }
   ],
@@ -111,11 +111,11 @@
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 10
     },
     {
       "key": "kpop",
-      "count": 5
+      "count": 3
     },
     {
       "key": "beauty",
@@ -126,14 +126,18 @@
       "count": 2
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 510
+      "count": 503
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
@@ -141,10 +145,6 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "source fetch did not succeed",
       "count": 6
     },
     {
@@ -198,6 +198,14 @@
       "score": 138
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 138
+    },
+    {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
@@ -206,20 +214,12 @@
       "score": 136
     },
     {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 128
-    },
-    {
       "sourceName": "Shinsegae Group Newsroom",
       "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 23,
+      "links": 24,
       "dates": 4,
       "keywords": 7,
-      "score": 128
+      "score": 131
     }
   ]
 }

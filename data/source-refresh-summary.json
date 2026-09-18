@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-18T04:54:34.329Z",
+  "generatedAt": "2026-09-18T19:06:47.211Z",
   "files": {
-    "audit": "source-audit-2026-09-18.json",
-    "candidates": "official-page-candidates-2026-09-18.json",
-    "drafts": "draft-events-2026-09-18.json",
-    "reviewReport": "review-report-2026-09-18.md",
-    "reviewBoard": "review-board-2026-09-18.html",
-    "publicData": "public-data-import-2026-09-18.json",
+    "audit": "source-audit-2026-09-19.json",
+    "candidates": "official-page-candidates-2026-09-19.json",
+    "drafts": "draft-events-2026-09-19.json",
+    "reviewReport": "review-report-2026-09-19.md",
+    "reviewBoard": "review-board-2026-09-19.html",
+    "publicData": "public-data-import-2026-09-19.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
-    "fallbackSources": 7,
+    "auditOk": 50,
+    "auditFailed": 6,
+    "fallbackSources": 8,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 562,
-    "dateSignals": 269,
-    "draftCandidates": 75,
-    "skippedCandidates": 540,
+    "discoveredLinks": 567,
+    "dateSignals": 258,
+    "draftCandidates": 53,
+    "skippedCandidates": 567,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,69 +53,65 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
       "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
-    },
-    {
-      "sourceName": "COEX Event Calendar",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "SHOWALA exhibition listing",
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
       "status": "ERR",
       "error": "timeout"
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 21
+      "key": "NOL World Seoul Pop-ups",
+      "count": 16
     },
     {
       "key": "Visit Seoul",
-      "count": 17
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 14
+      "count": 16
     },
     {
       "key": "NOL World Ticket",
-      "count": 10
+      "count": 8
     },
     {
       "key": "Busan Metropolitan City Events and English News",
       "count": 7
     },
     {
-      "key": "Korea Policy Briefing",
-      "count": 2
+      "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
+      "count": 36
     },
     {
       "key": "shopping",
-      "count": 10
-    },
-    {
-      "key": "kpop",
-      "count": 3
+      "count": 9
     },
     {
       "key": "beauty",
@@ -126,14 +122,18 @@
       "count": 2
     },
     {
-      "key": "travel-benefits",
+      "key": "kpop",
+      "count": 2
+    },
+    {
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 503
+      "count": 530
     },
     {
       "key": "source fetch did not succeed",
@@ -141,18 +141,18 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "listing page is not a specific event",
-      "count": 6
-    },
-    {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
+      "count": 5
     },
     {
       "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
     }
   ],
@@ -166,22 +166,6 @@
       "score": 148
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
-    },
-    {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 142
-    },
-    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
@@ -190,19 +174,19 @@
       "score": 141
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 139
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
       "dates": 18,
       "keywords": 6,
-      "score": 138
-    },
-    {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
       "score": 138
     },
     {
@@ -214,12 +198,28 @@
       "score": 136
     },
     {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 135
+    },
+    {
       "sourceName": "Shinsegae Group Newsroom",
       "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
       "links": 24,
       "dates": 4,
       "keywords": 7,
       "score": 131
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 128
     }
   ]
 }

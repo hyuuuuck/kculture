@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T22:41:55.360Z",
+  "generatedAt": "2026-09-19T12:36:16.164Z",
   "files": {
     "audit": "source-audit-2026-09-19.json",
     "candidates": "official-page-candidates-2026-09-19.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 51,
-    "auditFailed": 5,
-    "fallbackSources": 7,
+    "auditOk": 45,
+    "auditFailed": 11,
+    "fallbackSources": 6,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 540,
-    "dateSignals": 240,
-    "draftCandidates": 46,
-    "skippedCandidates": 547,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 592,
+    "dateSignals": 277,
+    "draftCandidates": 74,
+    "skippedCandidates": 571,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -63,9 +63,39 @@
       "error": ""
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Visit Jeju Festival Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Incheon Tourism Organization Festival Programs",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Incheon Pentaport Music Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "COEX Event Calendar",
@@ -74,6 +104,10 @@
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 21
+    },
     {
       "key": "NOL World Seoul Pop-ups",
       "count": 16
@@ -87,26 +121,26 @@
       "count": 8
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
+    },
+    {
       "key": "Andong Maskdance Festival",
-      "count": 1
-    },
-    {
-      "key": "Hyundai Department Store",
-      "count": 1
-    },
-    {
-      "key": "Korea Policy Briefing",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 29
+      "count": 55
     },
     {
       "key": "shopping",
       "count": 9
+    },
+    {
+      "key": "kpop",
+      "count": 4
     },
     {
       "key": "beauty",
@@ -117,10 +151,6 @@
       "count": 2
     },
     {
-      "key": "kpop",
-      "count": 2
-    },
-    {
       "key": "duty-free",
       "count": 1
     }
@@ -128,15 +158,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 512
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "count": 533
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "duplicate draft source URL",
@@ -152,6 +182,22 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 148
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -199,22 +245,6 @@
       "dates": 4,
       "keywords": 7,
       "score": 131
-    },
-    {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 128
-    },
-    {
-      "sourceName": "Hyundai Department Store",
-      "url": "https://www.ehyundai.com/newPortal/index.do",
-      "links": 24,
-      "dates": 4,
-      "keywords": 6,
-      "score": 104
     }
   ]
 }

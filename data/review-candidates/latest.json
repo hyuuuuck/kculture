@@ -1,0 +1,2128 @@
+{
+  "generatedAt": "2026-09-19T12:36:16.447Z",
+  "policy": "Review candidates are not public content. Open the official source, verify facts, rewrite in original words, then publish through publish:reviewed.",
+  "files": {
+    "summary": "source-refresh-summary-2026-09-19.json",
+    "drafts": "draft-events-2026-09-19.json",
+    "issue": "source-refresh-issue.md"
+  },
+  "counts": {
+    "auditedSources": 56,
+    "auditOk": 45,
+    "auditFailed": 11,
+    "fallbackSources": 6,
+    "monitorSources": 53,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 592,
+    "dateSignals": 277,
+    "draftCandidates": 74,
+    "skippedCandidates": 571,
+    "publicDataPassed": 0,
+    "publicDataFailed": 0,
+    "publicDataSkipped": 5,
+    "tourApiRows": 0,
+    "kmaObservationRecords": 0,
+    "seoulEventRows": 0,
+    "seoulPotentialMatches": 0
+  },
+  "failedSources": [
+    {
+      "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Lotte Duty Free",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Duty Free Online Sale",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
+    },
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Visit Jeju Festival Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Incheon Tourism Organization Festival Programs",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Incheon Pentaport Music Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "COEX Event Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    }
+  ],
+  "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 148
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 141
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 139
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 138
+    },
+    {
+      "sourceName": "SMTOWN andSTORE Notices",
+      "url": "https://www.smtownandstore.com/board/index.html",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 136
+    },
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 135
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 24,
+      "dates": 4,
+      "keywords": 7,
+      "score": 131
+    }
+  ],
+  "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 21
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 16
+    },
+    {
+      "key": "Visit Seoul",
+      "count": 16
+    },
+    {
+      "key": "NOL World Ticket",
+      "count": 8
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
+    },
+    {
+      "key": "Andong Maskdance Festival",
+      "count": 1
+    }
+  ],
+  "topDraftCategories": [
+    {
+      "key": "festival",
+      "count": 55
+    },
+    {
+      "key": "shopping",
+      "count": 9
+    },
+    {
+      "key": "kpop",
+      "count": 4
+    },
+    {
+      "key": "beauty",
+      "count": 2
+    },
+    {
+      "key": "department-store",
+      "count": 2
+    },
+    {
+      "key": "duty-free",
+      "count": 1
+    }
+  ],
+  "topSkippedReasons": [
+    {
+      "key": "no current or upcoming date range",
+      "count": 533
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 5
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 4
+    }
+  ],
+  "drafts": [
+    {
+      "slug": "melon-ticket-xmf-xnterstellar-music-festival-2026-ado-day6-xmf-xnterstel-2026-10",
+      "category": "kpop",
+      "priority": 97,
+      "startDate": "2026-10-03",
+      "endDate": "2026-10-04",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213766",
+      "title": {
+        "en": "Melon Ticket: XMF(Xnterstellar Music Festival) 2026 Ado, DAY6, 원오크락 등 XMF(Xnterstellar Music Festival) 2026 2026.10.03 -..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "XMF(Xnterstellar Music Festival) 2026 Ado, DAY6, 원오크락 등 XMF(Xnterstellar Music Festival) 2026 2026.10.03 - 2026.10.04",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-03",
+            "raw": "2026.10.03 "
+          },
+          {
+            "date": "2026-10-04",
+            "raw": "2026.10.04 "
+          },
+          {
+            "date": "2026-11-20",
+            "raw": "2026.11.20 "
+          },
+          {
+            "date": "2026-11-22",
+            "raw": "2026.11.22 "
+          }
+        ],
+        "snippets": [
+          "(원더리벳 2026) 2026.11.20 - 2026.11.22 XMF(Xnterstellar Music Festival) 2026 Ado, DAY6, 원오크락 등 XMF(Xnterstellar Music Festival) 2026 2026.10.03 - 2026.10.04 <img src=\"https://cdnticket.melon.co.kr/resource/i",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "XMF(Xnterstellar Music Festival) 2026 Ado, DAY6, 원오크락 등 XMF(Xnterstellar Music Festival) 2026 2026.10.03 - 2026.10.04",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-lalarecipe-meme-happiness-recipe-for-every-skin-2026-08-01-2-2026-08",
+      "category": "beauty",
+      "priority": 95,
+      "startDate": "2026-08-01",
+      "endDate": "2026-09-30",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/LALARECIPE-%C3%97-MeME--Happiness-Recipe-for-Every-Skin/ENPqkbvqx",
+      "title": {
+        "en": "Visit Seoul: LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP,..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful",
+        "checkedAt": "2026-09-19T12:35:12.338Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-01",
+            "raw": "2026.08.01 "
+          },
+          {
+            "date": "2026-08-27",
+            "raw": "2026.08.27 "
+          },
+          {
+            "date": "2026-09-19",
+            "raw": "2026.09.19 "
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "2026.09.30 "
+          }
+        ],
+        "snippets": [
+          "The Color of Memory 2026.08.27 ~ 2026.09.19 K.O.N.G. GALLERY Redefining painting as an 'artistic memory device' in the age of AI and semiconductors. LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful recipe meets art. A collaboration between LALARECIPE and the artist MeME, bringing beauty and art together in one sensory exhibition Fiber",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "LALARECIPE × MeME : Happiness Recipe for Every Skin 2026.08.01 ~ 2026.09.30 B the B, B2, DDP Market, DDP, 281, Euljiro, Jung-gu, Seoul A new K-Beauty experience made where a joyful",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-olive-young-x-sanrio-pop-up-25-stores-nationwide-2026-09",
+      "category": "beauty",
+      "priority": 95,
+      "startDate": "2026-09-06",
+      "endDate": "2026-09-30",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a08356-1840-7c46-924e-ad05a11c03b2",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 18 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, olive young, k-pop, travel, benefit."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 18 )",
+        "checkedAt": "2026-09-19T12:35:22.168Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "olive young",
+          "k-pop",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-06",
+            "raw": "9.06 – 9.30"
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "9.06 – 9.30"
+          }
+        ],
+        "snippets": [
+          ":mbs_20 [&_>_li_+_li]:laptop:mbs_0 [&_>_li_+_li]:before:content_\"\" [&_>_li_+_li]:before:d_block [&_>_li_+_li]:before:mbe_20 [&_>_li_+_li]:before:w_100% [&_>_li_+_li]:before:h_1 [&_>_li_+_li]:before:bg-c_semantic.line.neutralWeak2 [&_>_li_+_li]:before:hide_laptop\"> Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 18 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          ". · Open Likes ( 201 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026-27 aespa LIVE TOUR SYNK : ____æ____ 8.07 – 2.02 Comments ( 1 ) · Likes ( 101 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> PHOTOISM with CORTIS REDRED Open Likes ( 633 ) _svg]:d_block pos_absolute z_1 top_",
+          "_-_104px)\"> 40th Anniv. POP-UP\" loading=\"lazy\" fetchPriority=\"low\"/> K-Noodles 40th Anniv. POP-UP Shin Ramyun Snack Bar Seongsu · 6.16 – 11.30 Likes ( 265 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ZO&FRIENDS K-EDITION Trendpot by Olive Young Hongdae Hongik Univ. · Open Likes ( 201 ) _svg]:d_bloc"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "Olive Young X Sanrio POP-UP 25 stores nationwide Myeongdong · 9.06 – 9.30 Likes ( 18 )",
+        "linkScore": 24,
+        "linkReason": "2 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-exhibition-neo-dimension-nct-10th-anniversary-exhibition-ne-2026-09",
+      "category": "kpop",
+      "priority": 95,
+      "startDate": "2026-09-18",
+      "endDate": "2026-10-18",
+      "city": "Seoul",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213828",
+      "title": {
+        "en": "Melon Ticket: EXHIBITION NEO DIMENSION NCT 10TH ANNIVERSARY EXHIBITION : NEO DIMENSION 2026.09.18 - 2026.10.18"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "EXHIBITION NEO DIMENSION NCT 10TH ANNIVERSARY EXHIBITION : NEO DIMENSION 2026.09.18 - 2026.10.18",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-18",
+            "raw": "2026.09.18 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-11-07",
+            "raw": "2026.11.07 "
+          },
+          {
+            "date": "2026-11-08",
+            "raw": "2026.11.08 "
+          }
+        ],
+        "snippets": [
+          "IN SEOUL 2026.11.07 - 2026.11.08 [NCT 2026] EXHIBITION NEO DIMENSION NCT 10TH ANNIVERSARY [NCT 2026] EXHIBITION : NEO DIMENSION 2026.09.18 - 2026.10.18 <img src=\"https://cdnticket.melon.co.kr/re",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "EXHIBITION NEO DIMENSION NCT 10TH ANNIVERSARY EXHIBITION : NEO DIMENSION 2026.09.18 - 2026.10.18",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-day6-5th-fanmeeting-every-day6-every-my-day-incheon-10--2026-10",
+      "category": "kpop",
+      "priority": 95,
+      "startDate": "2026-10-23",
+      "endDate": "2026-10-25",
+      "city": "Incheon",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a08367-99ab-7455-b0df-43dfe7e7d6e0",
+      "title": {
+        "en": "NOL World Ticket: DAY6 5TH FANMEETING EVERY DAY6, EVERY My Day Incheon 10.23 – 10.25"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, duty free, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "DAY6 5TH FANMEETING EVERY DAY6, EVERY My Day Incheon 10.23 – 10.25",
+        "checkedAt": "2026-09-19T12:35:25.145Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "duty free",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-19",
+            "raw": "9.19 – 9.20"
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "9.19 – 9.20"
+          },
+          {
+            "date": "2026-10-23",
+            "raw": "10.23 – 10.25"
+          },
+          {
+            "date": "2026-10-25",
+            "raw": "10.23 – 10.25"
+          }
+        ],
+        "snippets": [
+          "h Anniversary Solo Concert JT2DE: Welcome to My HOME 9.19 – 9.20 DAY6 5TH FANMEETING EVERY DAY6, EVERY My Day Incheon 10.23 – 10.25 <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_",
+          "VERY My Day Incheon 10.23 – 10.25 ILLIT LIVE ENCORE in KOREA PRESS START♥︎ Incheon 10.17 – 10.18 Bruno Mars Goyang Sports Complex 5.21 – 5.26 See more Popular Tours & Activities _li]:flex_0_0_var(--item-width,_auto) [&_>_li]:w_var(--item-width,_0) [&_>_li]:min-w_0\"> [Seoul] MBC K Drama Studio One Day Tour Gyeonggi _*]:w",
+          "VERY My Day Incheon 10.23 – 10.25 ILLIT LIVE ENCORE in KOREA PRESS START♥︎ Incheon 10.17 – 10.18 Bruno Mars Goyang Sports Complex 5.21 – 5.26 See more Popular Tours & Activities _li]:flex_0_0_var(--item-width,_auto) [&_>_li]:w_var(--item-width,_0) [&_>_li]:min-w_0\"> [Seoul] MBC K Drama Studio One Day Tour Gyeonggi _*]:w"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "DAY6 5TH FANMEETING EVERY DAY6, EVERY My Day Incheon 10.23 – 10.25",
+        "linkScore": 22,
+        "linkReason": "4 date signals",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "hyundai-department-store-2026-07-21-2026-11-01-2026-07",
+      "category": "department-store",
+      "priority": 93,
+      "startDate": "2026-07-21",
+      "endDate": "2026-11-01",
+      "city": "Nationwide",
+      "venue": "Hyundai Department Store",
+      "sourceName": "Hyundai Department Store",
+      "sourceUrl": "https://www.ehyundai.com/newCulture/EH/EH000001_V.do?seq=2092864&bbsCd=210&sitemapId=01020100000000",
+      "title": {
+        "en": "Hyundai Department Store: 전시 사진 세계 2026.07.21 ~ 2026.11.01"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Hyundai Department Store. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential department store page for foreign visitors searching current Korea information. Detected signals: department store, 혜택, 면세, 백화점, 팝업, 팝업스토어."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "전시 사진 세계 2026.07.21 ~ 2026.11.01",
+        "checkedAt": "2026-09-19T12:35:24.047Z",
+        "keywordHits": [
+          "department store",
+          "혜택",
+          "면세",
+          "백화점",
+          "팝업",
+          "팝업스토어"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-02",
+            "raw": "2026.07.02 "
+          },
+          {
+            "date": "2026-07-21",
+            "raw": "2026.07.21 "
+          },
+          {
+            "date": "2026-11-01",
+            "raw": "2026.11.01 "
+          },
+          {
+            "date": "2026-11-03",
+            "raw": "2026.11.03 "
+          }
+        ],
+        "snippets": [
+          "mg src=\"/attachfiles/portal/7e144b08fac745daa92c983115b4fd41.png\" alt=\"전시 뱅크시 특별전: BANKSY STILL HERE\"> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 </s",
+          "당 가 10:30 ~ 22:00 대표전화 1588-3650 층별안내 식당가 위치/주차 놓치면 안 되는 쇼핑 뉴스 더보기 영감을 채워주는, Culture 모든 전시 · 공연 전시 --> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 --> 모카플러스 9월 CLASS');\"> 전시 --> 문화센터 9월 CLASS 이전 다음 현대백화점 광고/홍보 배너 이전 다음 어디서나 즐기는, Online Shopping 더현대Hi 현대백화점 공식 온라인몰 현대홈쇼핑 Hma",
+          "식당가 위치/주차 놓치면 안 되는 쇼핑 뉴스 더보기 영감을 채워주는, Culture 모든 전시 · 공연 전시 --> 뱅크시 특별전: BANKSY STILL HERE 2026.07.02 ~ 2026.11.03 전시 --> 사진 세계 2026.07.21 ~ 2026.11.01 전시 --> 모카플러스 9월 CLASS');\"> 전시 --> 문화센터 9월 CLASS 이전 다음 현대백화점 광고/홍보 배너 이전 다음 어디서나 즐기는, Online Shopping 더현대Hi 현대백화점 공식 온라인몰 현대홈쇼핑 Hmall 백화점, 브랜드, 홈쇼핑을 한번에 이야기를 품은, Conten"
+        ],
+        "discoveredFrom": "https://www.ehyundai.com/newPortal/index.do",
+        "linkText": "전시 사진 세계 2026.07.21 ~ 2026.11.01",
+        "linkScore": 16,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-07-17-2026-11-01-p-ark-2-3f-2026-07",
+      "category": "festival",
+      "priority": 92,
+      "startDate": "2026-07-17",
+      "endDate": "2026-11-01",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213503",
+      "title": {
+        "en": "Melon Ticket: 울트라백화점 부산 : 텍스트 쇼핑 클럽 2026.07.17 - 2026.11.01 P.ARK 2-3F"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "울트라백화점 부산 : 텍스트 쇼핑 클럽 2026.07.17 - 2026.11.01 P.ARK 2-3F",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-17",
+            "raw": "2026.07.17 "
+          },
+          {
+            "date": "2026-09-19",
+            "raw": "2026.09.19 "
+          },
+          {
+            "date": "2026-09-20",
+            "raw": "2026.09.20 "
+          },
+          {
+            "date": "2026-11-01",
+            "raw": "2026.11.01 "
+          }
+        ],
+        "snippets": [
+          "2026 ONEWE 6th Live Concert ‘O! NEW E!volution Ⅵ’ 2026.09.19 - 2026.09.20 KBS아레나 (구88체육관) 울트라백화점 부산 : 텍스트 쇼핑 클럽 2026.07.17 - 2026.11.01 P.ARK 2-3F",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "울트라백화점 부산 : 텍스트 쇼핑 클럽 2026.07.17 - 2026.11.01 P.ARK 2-3F",
+        "linkScore": 29,
+        "linkReason": "1 keyword hits; 4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-09-23-2027-03-01-2026-09",
+      "category": "festival",
+      "priority": 92,
+      "startDate": "2026-09-23",
+      "endDate": "2027-03-01",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213780",
+      "title": {
+        "en": "Melon Ticket: 표기식 사진전 2026.09.23 - 2027.03.01 그라운드시소 센트럴"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "표기식 사진전 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-17",
+            "raw": "2026.07.17 "
+          },
+          {
+            "date": "2026-09-23",
+            "raw": "2026.09.23 "
+          },
+          {
+            "date": "2026-11-01",
+            "raw": "2026.11.01 "
+          },
+          {
+            "date": "2027-03-01",
+            "raw": "2027.03.01 "
+          }
+        ],
+        "snippets": [
+          "pan> 울트라백화점 부산 : 텍스트 쇼핑 클럽 2026.07.17 - 2026.11.01 P.ARK 2-3F [얼리버드] 표기식 사진전 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "표기식 사진전 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+        "linkScore": 29,
+        "linkReason": "1 keyword hits; 4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-kwon-byungjun-i-embrace-you-2026-06-11-2027-05-16-exhibition-2026-06",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-06-11",
+      "endDate": "2027-05-16",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/IEmbraceYou/ENPm8j6gm",
+      "title": {
+        "en": "Visit Seoul: Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who",
+        "checkedAt": "2026-09-19T12:35:12.338Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-11",
+            "raw": "2026.06.11 "
+          },
+          {
+            "date": "2026-07-22",
+            "raw": "2026.07.22 "
+          },
+          {
+            "date": "2026-11-03",
+            "raw": "2026.11.03 "
+          },
+          {
+            "date": "2027-05-16",
+            "raw": "2027.05.16 "
+          }
+        ],
+        "snippets": [
+          "lass=\"text-cont\"> BANKSY: Still Here 2026.07.22 ~ 2026.11.03 ALT.1, The Hyundai Seoul A symbol stronger than identity, Banksy's unending message! Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who has long explored the intersection of technology and art, featured as part of the annual Children+ exhibition at the Seoul Museum of Art, Buk-Seoul Museu club Seolhwa",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Kwon Byungjun: I Embrace You 2026.06.11 ~ 2027.05.16 Exhibition Halls 5 and 6, B1 Floor, Seoul Museum of Art, Buk-Seoul Museum of Art A solo exhibition by artist Kwon Byungjun, who",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-final-2026-06-22-2026-11-01-duex-1-2026-06",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-06-22",
+      "endDate": "2026-11-01",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213335",
+      "title": {
+        "en": "Melon Ticket: 진격의 거인展 FINAL 2026.06.22 - 2026.11.01 덕스(DUEX) 홍대 1관"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "진격의 거인展 FINAL 2026.06.22 - 2026.11.01 덕스(DUEX) 홍대 1관",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-22",
+            "raw": "2026.06.22 "
+          },
+          {
+            "date": "2026-08-13",
+            "raw": "2026.08.13 "
+          },
+          {
+            "date": "2026-09-27",
+            "raw": "2026.09.27 "
+          },
+          {
+            "date": "2026-11-01",
+            "raw": "2026.11.01 "
+          }
+        ],
+        "snippets": [
+          "n> ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F [상시관람] 진격의 거인展 FINAL 2026.06.22 - 2026.11.01 덕스(DUEX) 홍대 1관",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "진격의 거인展 FINAL 2026.06.22 - 2026.11.01 덕스(DUEX) 홍대 1관",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-seoul-museum-of-photography-martin-parr-we-are-martin-parr-2-2026-07",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-07-16",
+      "endDate": "2026-10-18",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/We-Are-Martin-Parr/ENPgeb6on",
+      "title": {
+        "en": "Visit Seoul: Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since",
+        "checkedAt": "2026-09-19T12:35:12.338Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-16",
+            "raw": "2026.07.16 "
+          },
+          {
+            "date": "2026-07-23",
+            "raw": "2026.07.23 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-12-27",
+            "raw": "2026.12.27 "
+          }
+        ],
+        "snippets": [
+          "KAWS: FRIENDS AND NEIGHBORS 2026.07.23 ~ 2026.12.27 Space K Seoul The first solo museum exhibition in Korea by Brooklyn-based artist KAWS (Brian Donnelly, b. 1974) Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since the passing of Martin Parr, a master of contemporary photography. From One",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Seoul Museum of Photography 《Martin Parr : We Are Martin Parr》 2026.07.16 ~ 2026.10.18 Seoul Museum of Photography A large-scale retrospective held in Asia for the first time since",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-sook-jin-jo-that-s-how-the-light-gets-in-2026-07-29-2026-11--2026-07",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-07-29",
+      "endDate": "2026-11-15",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/ThatsHowtheLightGetsIn/ENPo2o028",
+      "title": {
+        "en": "Visit Seoul: Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series",
+        "checkedAt": "2026-09-19T12:35:12.338Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-07-29",
+            "raw": "2026.07.29 "
+          },
+          {
+            "date": "2026-08-07",
+            "raw": "2026.08.07 "
+          },
+          {
+            "date": "2026-09-27",
+            "raw": "2026.09.27 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          }
+        ],
+        "snippets": [
+          "2026.08.07 ~ 2026.09.27 Exhibition Rooms 1 and 2, Arko Art Center Coteries, collectives, studios, art spaces, and schools gathered through common interests — an exhibition with 8 teams and 42 emerging artists. Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series at the Seoul Museum of Art (SeMA) Namseoul, introducing over 100 works including the artist's major works, new works, undisclosed",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "based experiential exhibition aimed at children aged 7 to 13 to easily understand records A Stroll Through Records: Seoul’s Parks 2023.12.01 ~ 2026.09.29 2nd Exhibition Hall, 2nd Floor, Seoul Archives An exhibition exploring the history and transformation of Seoul's parks through records There are no registered events o"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Sook Jin Jo : That's How the Light Gets In 2026.07.29 ~ 2026.11.15 2nd Floor and Outdoor Garden, SeMA Namseoul The second exhibition of the 'Representative Korean Sculptors' series",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-08-16-2026-11-15-2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-16",
+      "endDate": "2026-11-15",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/bridge.htm?brgId=100512",
+      "title": {
+        "en": "Melon Ticket: 뮤지컬 〈엘리자벳〉 죽음마저 사랑에 빠지게 한 아름다운 황후 뮤지컬 〈엘리자벳〉 2026.08.16 - 2026.11.15"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "뮤지컬 〈엘리자벳〉 죽음마저 사랑에 빠지게 한 아름다운 황후 뮤지컬 〈엘리자벳〉 2026.08.16 - 2026.11.15",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-16",
+            "raw": "2026.08.16 "
+          },
+          {
+            "date": "2026-11-11",
+            "raw": "2026.11.11 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          },
+          {
+            "date": "2027-02-08",
+            "raw": "2027.02.08 "
+          }
+        ],
+        "snippets": [
+          "〈두 도시 이야기〉 2026.11.11 - 2027.02.08 뮤지컬 〈엘리자벳〉 죽음마저 사랑에 빠지게 한 아름다운 황후 뮤지컬 〈엘리자벳〉 2026.08.16 - 2026.11.15 <img src=\"https://cdnticket.melon.co.kr/r",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "뮤지컬 〈엘리자벳〉 죽음마저 사랑에 빠지게 한 아름다운 황후 뮤지컬 〈엘리자벳〉 2026.08.16 - 2026.11.15",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "busan-metropolitan-city-events-and-english-news-events-2026-busan-dwaeji-2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-26",
+      "endDate": "2026-10-18",
+      "city": "Busan",
+      "venue": "Busan Metropolitan City Events and English News",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1751134?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+      "title": {
+        "en": "Busan Metropolitan City Events and English News: Events 2026 Busan Dwaeji Gukbap Grand Fair 2026-08-26 - 2026-10-18 2026 Busan Dwaeji Gukbap Grand Fair ○..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Busan Metropolitan City Events and English News. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Events 2026 Busan Dwaeji Gukbap Grand Fair 2026-08-26 - 2026-10-18 2026 Busan Dwaeji Gukbap Grand Fair ○ Period: August - October, 2026 ○ Hosted by: Busan Metropolitan City, Busan",
+        "checkedAt": "2026-09-19T12:35:17.767Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-26",
+            "raw": "2026-08-26 "
+          },
+          {
+            "date": "2026-09-27",
+            "raw": "September 27-October 14, 2026"
+          },
+          {
+            "date": "2026-10-14",
+            "raw": "September 27-October 14, 2026"
+          },
+          {
+            "date": "2026-10-16",
+            "raw": "October 16-18, 2026"
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "October 16-18, 2026"
+          }
+        ],
+        "snippets": [
+          ";progCode=20260801001\"> http://www.dureraum.org , fileCo=0, place=, beginAditCn=, endAditCn=, timeGap=1112, siteNtceNo=0, nttDeptNm=홍보담당관, telno=051-888-1398, etcData2=, etcData3=Busan Cinema Center, etcData4=, etcData5=} --> Events 2026 Busan Dwaeji Gukbap Grand Fair 2026-08-26 - 2026-10-18 2026 Busan Dwaeji Gukbap Grand Fair ○ Period: August - October, 2026 ○ Hosted by: Busan Metropolitan City, Busan Tourism Organization Gukbap Week September 27-October 14, 2026 Gukbap Showcase October 16-18, 2026 Related article",
+          "of its kind to be set up in Busan, displays a choreographed show of water dancing along with background music. It first opened on March 27, 2010 and has since been operating from April to October every year. The fountain, which is 60m in circular diameter, 180m in circumference, and has 2,519㎡ of fountain floor area and a",
+          "lli M Drone Light Show 2026-01-03 - 2026-12-31 Gwangalli Beach Gwangalli Marvelous Drone Light Show ○ Period: Year-round starting April 2, 2022 Every Saturday, at 20:00, 22:00 ○ Hours: March to September 20:00, 22:00/ October to February 19:00, 21:00 ○ Venue: Gwangalli Beach ○ Length: Runs for about 12 minutes under vario"
+        ],
+        "discoveredFrom": "https://www.busan.go.kr/eng/bsevents",
+        "linkText": "Events 2026 Busan Dwaeji Gukbap Grand Fair 2026-08-26 - 2026-10-18 2026 Busan Dwaeji Gukbap Grand Fair ○ Period: August - October, 2026 ○ Hosted by: Busan Metropolitan City, Busan ",
+        "linkScore": 32,
+        "linkReason": "2 keyword hits; 5 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-tak-show5-2026-10-03-2026-10-05-2026-10",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-10-03",
+      "endDate": "2026-10-05",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213729",
+      "title": {
+        "en": "Melon Ticket: 2026 영탁 단독 콘서트 “TAK SHOW5” 2026.10.03 - 2026.10.05 고려대학교 화정체육관"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 영탁 단독 콘서트 “TAK SHOW5” 2026.10.03 - 2026.10.05 고려대학교 화정체육관",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-11",
+            "raw": "2026.09.11 "
+          },
+          {
+            "date": "2026-10-03",
+            "raw": "2026.10.03 "
+          },
+          {
+            "date": "2026-10-05",
+            "raw": "2026.10.05 "
+          },
+          {
+            "date": "2027-03-01",
+            "raw": "2027.03.01 "
+          }
+        ],
+        "snippets": [
+          "> 브래드 월스 사진전 2026.09.11 - 2027.03.01 그라운드시소 용산 2026 영탁 단독 콘서트 “TAK SHOW5” 2026.10.03 - 2026.10.05 고려대학교 화정체육관",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "2026 영탁 단독 콘서트 “TAK SHOW5” 2026.10.03 - 2026.10.05 고려대학교 화정체육관",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-ghost-2026-10-09-2026-10-11-2026-10",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-10-09",
+      "endDate": "2026-10-11",
+      "city": "Seoul",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213569",
+      "title": {
+        "en": "Melon Ticket: 2026 GHOST 페스티벌 2026.10.09 - 2026.10.11 임진각평화누리"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 GHOST 페스티벌 2026.10.09 - 2026.10.11 임진각평화누리",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-12",
+            "raw": "2026.08.12 "
+          },
+          {
+            "date": "2026-10-09",
+            "raw": "2026.10.09 "
+          },
+          {
+            "date": "2026-10-11",
+            "raw": "2026.10.11 "
+          },
+          {
+            "date": "2026-11-29",
+            "raw": "2026.11.29 "
+          }
+        ],
+        "snippets": [
+          "[티켓] 명탐정 코난전 -TV 애니메이션 방송 30주년 기념- 2026.08.12 - 2026.11.29 AK PLAZA HONGDAE 4F 오뮤지엄 2026 GHOST 페스티벌 2026.10.09 - 2026.10.11 임진각평화누리",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "2026 GHOST 페스티벌 2026.10.09 - 2026.10.11 임진각평화누리",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-heartbeat-by-dududo-2026-heartbeat-by-dududo-2026-2026-10-1-2026-10",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-10-17",
+      "endDate": "2026-10-18",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213848",
+      "title": {
+        "en": "Melon Ticket: HEARTBEAT BY DUDUDO 2026 당신의 심장을 뛰게 하는 비트 HEARTBEAT BY DUDUDO 2026 2026.10.17 - 2026.10.18"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "HEARTBEAT BY DUDUDO 2026 당신의 심장을 뛰게 하는 비트 HEARTBEAT BY DUDUDO 2026 2026.10.17 - 2026.10.18",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-16",
+            "raw": "2026.08.16 "
+          },
+          {
+            "date": "2026-10-17",
+            "raw": "2026.10.17 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          }
+        ],
+        "snippets": [
+          "〈엘리자벳〉 2026.08.16 - 2026.11.15 HEARTBEAT BY DUDUDO 2026 당신의 심장을 뛰게 하는 비트 HEARTBEAT BY DUDUDO 2026 2026.10.17 - 2026.10.18 <img src=\"https://cdnticket",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "HEARTBEAT BY DUDUDO 2026 당신의 심장을 뛰게 하는 비트 HEARTBEAT BY DUDUDO 2026 2026.10.17 - 2026.10.18",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-10-17-2026-10-18-2026-10",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-10-17",
+      "endDate": "2026-10-18",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213849",
+      "title": {
+        "en": "Melon Ticket: 김결 단독콘서트 〈술래잡기〉 2026.10.17 - 2026.10.18 롤링홀"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "김결 단독콘서트 〈술래잡기〉 2026.10.17 - 2026.10.18 롤링홀",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-05-02",
+            "raw": "may 2"
+          },
+          {
+            "date": "2026-10-16",
+            "raw": "2026.10.16 "
+          },
+          {
+            "date": "2026-10-17",
+            "raw": "2026.10.17 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          }
+        ],
+        "snippets": [
+          "Re.may 2nd Solo Concert : Road to Rockstar Vol.2 2026.10.16 - 2026.10.16 롤링홀 김결 단독콘서트 〈술래잡기〉 2026.10.17 - 2026.10.18 롤링홀",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "김결 단독콘서트 〈술래잡기〉 2026.10.17 - 2026.10.18 롤링홀",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-11-11-2027-02-08-2026-11",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-11-11",
+      "endDate": "2027-02-08",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213865",
+      "title": {
+        "en": "Melon Ticket: 뮤지컬 〈두 도시 이야기〉 카이 ・ 신성록 ・ 고은성! 뮤지컬 〈두 도시 이야기〉 2026.11.11 - 2027.02.08"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "뮤지컬 〈두 도시 이야기〉 카이 ・ 신성록 ・ 고은성! 뮤지컬 〈두 도시 이야기〉 2026.11.11 - 2027.02.08",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-18",
+            "raw": "2026.09.18 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-11-11",
+            "raw": "2026.11.11 "
+          },
+          {
+            "date": "2027-02-08",
+            "raw": "2027.02.08 "
+          }
+        ],
+        "snippets": [
+          "MENSION 2026.09.18 - 2026.10.18 뮤지컬 〈두 도시 이야기〉 카이 ・ 신성록 ・ 고은성! 뮤지컬 〈두 도시 이야기〉 2026.11.11 - 2027.02.08 <img src=\"https://cdnticket.melon.co.kr/resour",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "뮤지컬 〈두 도시 이야기〉 카이 ・ 신성록 ・ 고은성! 뮤지컬 〈두 도시 이야기〉 2026.11.11 - 2027.02.08",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-sjf-at-the-theater-2026-sjf-at-the-theater-2026-2026-11-18--2026-11",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-11-18",
+      "endDate": "2026-11-22",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/bridge.htm?brgId=100518",
+      "title": {
+        "en": "Melon Ticket: SJF at the Theater 2026 킹오컨, 다이애나 크롤, 크리스토퍼! SJF at the Theater 2026 2026.11.18 - 2026.11.22"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "SJF at the Theater 2026 킹오컨, 다이애나 크롤, 크리스토퍼! SJF at the Theater 2026 2026.11.18 - 2026.11.22",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-17",
+            "raw": "2026.10.17 "
+          },
+          {
+            "date": "2026-10-18",
+            "raw": "2026.10.18 "
+          },
+          {
+            "date": "2026-11-18",
+            "raw": "2026.11.18 "
+          },
+          {
+            "date": "2026-11-22",
+            "raw": "2026.11.22 "
+          }
+        ],
+        "snippets": [
+          "2026.10.17 - 2026.10.18 SJF at the Theater 2026 킹오컨, 다이애나 크롤, 크리스토퍼! SJF at the Theater 2026 2026.11.18 - 2026.11.22 <img src=\"https://cdnticket.melon.co.kr/",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "SJF at the Theater 2026 킹오컨, 다이애나 크롤, 크리스토퍼! SJF at the Theater 2026 2026.11.18 - 2026.11.22",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-you-are-you-even-if-no-one-fill-in-about-you-2026-12-13-202-2026-12",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-12-13",
+      "endDate": "2026-12-13",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213806",
+      "title": {
+        "en": "Melon Ticket: 홈커밍스 내한 공연 “You are you, even if no one fill in about you.” 2026.12.13 - 2026.12.13 무신사 개러지"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "홈커밍스 내한 공연 “You are you, even if no one fill in about you.” 2026.12.13 - 2026.12.13 무신사 개러지",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-03",
+            "raw": "2026.10.03 "
+          },
+          {
+            "date": "2026-10-04",
+            "raw": "2026.10.04 "
+          },
+          {
+            "date": "2026-12-13",
+            "raw": "2026.12.13 "
+          }
+        ],
+        "snippets": [
+          "XMF(Xnterstellar Music Festival) 2026 2026.10.03 - 2026.10.04 파라다이스시티 컬처파크 홈커밍스 내한 공연 “You are you, even if no one fill in about you.” 2026.12.13 - 2026.12.13 무신사 개러지",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "홈커밍스 내한 공연 “You are you, even if no one fill in about you.” 2026.12.13 - 2026.12.13 무신사 개러지",
+        "linkScore": 22,
+        "linkReason": "1 keyword hits; 3 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-rollinghall-2021-07-19-2026-12-31-2026-12",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-12-31",
+      "endDate": "2026-12-31",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/plan/index.htm?planId=100058",
+      "title": {
+        "en": "Melon Ticket: ROLLINGHALL 홍대 뮤직 메카, 롤링홀 롤링홀 상시 기획전 2021-07-19 - 2026-12-31"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 할인, 쿠폰, 백화점, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "ROLLINGHALL 홍대 뮤직 메카, 롤링홀 롤링홀 상시 기획전 2021-07-19 - 2026-12-31",
+        "checkedAt": "2026-09-19T12:35:26.636Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "할인",
+          "쿠폰",
+          "백화점",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2021-07-19",
+            "raw": "2021-07-19 "
+          },
+          {
+            "date": "2025-03-17",
+            "raw": "2025-03-17 "
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "2026-12-31 "
+          },
+          {
+            "date": "2099-12-31",
+            "raw": "2099-12-31 "
+          }
+        ],
+        "snippets": [
+          "an> 2025-03-17 - 2099-12-31 ROLLINGHALL 홍대 뮤직 메카, 롤링홀 롤링홀 상시 기획전 2021-07-19 - 2026-12-31 <img src=\"https://cdnticket.melon.co.kr/reso",
+          "ENHYPEN House of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX H",
+          "of Vampire 2026.08.13 - 2026.09.27 아라아트센터 B1F 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 SJF at the Theater 2026 - Christopher 2026.11.19 - 2026.11.20 세종문화회관 대극장 WONDERLIVET 2026 (원더리벳 2026) 2026.11.20 - 2026.11.22 KINTEX HALL 7/8/9/10"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "ROLLINGHALL 홍대 뮤직 메카, 롤링홀 롤링홀 상시 기획전 2021-07-19 - 2026-12-31",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "busan-metropolitan-city-events-and-english-news-events-dadaepo-sunset-fo-2026-04",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-04-24",
+      "endDate": "2026-09-30",
+      "city": "Busan",
+      "venue": "Busan Metropolitan City Events and English News",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1728763?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+      "title": {
+        "en": "Busan Metropolitan City Events and English News: Events 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026-04-24 - 2026-09-30 Near Dadaepo Beach 'Dadaepo..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Busan Metropolitan City Events and English News. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Events 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026-04-24 - 2026-09-30 Near Dadaepo Beach 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026 Fountain Show Schedule ○ Period",
+        "checkedAt": "2026-09-19T12:35:17.767Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-04-24",
+            "raw": "April 24 "
+          },
+          {
+            "date": "2026-08-08",
+            "raw": "August 8"
+          },
+          {
+            "date": "2026-09-07",
+            "raw": "September 7"
+          },
+          {
+            "date": "2026-09-30",
+            "raw": "September 30, 2026"
+          }
+        ],
+        "snippets": [
+          "ght=\"842\"> , fileCo=0, place=, beginAditCn=, endAditCn=, timeGap=6246, siteNtceNo=0, nttDeptNm=홍보담당관, telno=051-888-1398, etcData1=N, etcData2=Every Saturday, at 20:00, 22:00, etcData3=Gwangalli Beach, etcData4=202603, etcData5=3} --> Events 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026-04-24 - 2026-09-30 Near Dadaepo Beach 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026 Fountain Show Schedule ○ Period: Friday, April 24 – Wednesday, September 30, 2026 ○ Venue: Near Dadaepo Beach Night Musical Fountain Sho",
+          "of its kind to be set up in Busan, displays a choreographed show of water dancing along with background music. It first opened on March 27, 2010 and has since been operating from April to October every year. The fountain, which is 60m in circular diameter, 180m in circumference, and has 2,519㎡ of fountain floor area and a",
+          "lli M Drone Light Show 2026-01-03 - 2026-12-31 Gwangalli Beach Gwangalli Marvelous Drone Light Show ○ Period: Year-round starting April 2, 2022 Every Saturday, at 20:00, 22:00 ○ Hours: March to September 20:00, 22:00/ October to February 19:00, 21:00 ○ Venue: Gwangalli Beach ○ Length: Runs for about 12 minutes under vario"
+        ],
+        "discoveredFrom": "https://www.busan.go.kr/eng/bsevents",
+        "linkText": "Events 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026-04-24 - 2026-09-30 Near Dadaepo Beach 'Dadaepo Sunset Fountain of Dreams’ Music Show 2026 Fountain Show Schedule ○ Period",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "busan-metropolitan-city-events-and-english-news-exhibitions-and-conferen-2026-06",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-06-25",
+      "endDate": "2026-09-27",
+      "city": "Busan",
+      "venue": "Busan Metropolitan City Events and English News",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1735737?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+      "title": {
+        "en": "Busan Metropolitan City Events and English News: Exhibitions & Conferences Heritage of Busan as the Wartime Capital 2026-06-25 - 2026-09-27 Busan Modern..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Busan Metropolitan City Events and English News. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Exhibitions & Conferences Heritage of Busan as the Wartime Capital 2026-06-25 - 2026-09-27 Busan Modern and Contemporary History Museum Heritage of Busan as the Wartime Capital ○ P",
+        "checkedAt": "2026-09-19T12:35:17.767Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2010-03-27",
+            "raw": "March 27, 2010"
+          },
+          {
+            "date": "2026-01-01",
+            "raw": "January 1"
+          },
+          {
+            "date": "2026-06-25",
+            "raw": "June 25-September 27, 2026"
+          },
+          {
+            "date": "2026-09-27",
+            "raw": "June 25-September 27, 2026"
+          }
+        ],
+        "snippets": [
+          "in the Guinness Book of World Records on March 27, 2010. , fileCo=0, place=, beginAditCn=, endAditCn=, timeGap=3563, siteNtceNo=0, nttDeptNm=홍보담당관, telno=051-888-1398, etcData2=, etcData3=Near Dadaepo Beach, etcData4=, etcData5=} --> Exhibitions & Conferences Heritage of Busan as the Wartime Capital 2026-06-25 - 2026-09-27 Busan Modern and Contemporary History Museum Heritage of Busan as the Wartime Capital ○ Period: Period: June 25-September 27, 2026 ○ Venue: Busan Modern and Contemporary History Museum ○ Opening",
+          "of its kind to be set up in Busan, displays a choreographed show of water dancing along with background music. It first opened on March 27, 2010 and has since been operating from April to October every year. The fountain, which is 60m in circular diameter, 180m in circumference, and has 2,519㎡ of fountain floor area and a",
+          "lli M Drone Light Show 2026-01-03 - 2026-12-31 Gwangalli Beach Gwangalli Marvelous Drone Light Show ○ Period: Year-round starting April 2, 2022 Every Saturday, at 20:00, 22:00 ○ Hours: March to September 20:00, 22:00/ October to February 19:00, 21:00 ○ Venue: Gwangalli Beach ○ Length: Runs for about 12 minutes under vario"
+        ],
+        "discoveredFrom": "https://www.busan.go.kr/eng/bsevents",
+        "linkText": "Exhibitions & Conferences Heritage of Busan as the Wartime Capital 2026-06-25 - 2026-09-27 Busan Modern and Contemporary History Museum Heritage of Busan as the Wartime Capital ○ P",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "busan-metropolitan-city-events-and-english-news-exhibitions-and-conferen-2026-07",
+      "category": "festival",
+      "priority": 89,
+      "startDate": "2026-07-03",
+      "endDate": "2026-10-25",
+      "city": "Busan",
+      "venue": "Busan Metropolitan City Events and English News",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "sourceUrl": "https://www.busan.go.kr/eng/bsevents/1734245?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
+      "title": {
+        "en": "Busan Metropolitan City Events and English News: Exhibitions & Conferences The Greatest Colorist Michel-Henry 2026-07-03 - 2026-10-25 Busan Cultural Center..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Busan Metropolitan City Events and English News. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Exhibitions & Conferences The Greatest Colorist Michel-Henry 2026-07-03 - 2026-10-25 Busan Cultural Center The Greatest Colorist Michel-Henry ○ Period: Friday, July 3 – Sunday, Oct",
+        "checkedAt": "2026-09-19T12:35:17.767Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-26",
+            "raw": "June 26-October 17, 2026"
+          },
+          {
+            "date": "2026-07-03",
+            "raw": "July 3 "
+          },
+          {
+            "date": "2026-10-17",
+            "raw": "June 26-October 17, 2026"
+          },
+          {
+            "date": "2026-10-25",
+            "raw": "October 25, 2026"
+          }
+        ],
+        "snippets": [
+          "br> , fileCo=0, place=, beginAditCn=, endAditCn=, timeGap=1567, siteNtceNo=0, nttDeptNm=홍보담당관, telno=051-888-1398, etcData2=June 26-October 17, 2026 / Every Friday & Saturday, 20:00, etcData3=Millak Waterfront Park, etcData4=, etcData5=} --> Exhibitions & Conferences The Greatest Colorist Michel-Henry 2026-07-03 - 2026-10-25 Busan Cultural Center The Greatest Colorist Michel-Henry ○ Period: Friday, July 3 – Sunday, October 25, 2026 Tuesday–Sunday (*closed on Mondays) ○ Venue: Exhibition Hall, Busan Cultural Center",
+          "of its kind to be set up in Busan, displays a choreographed show of water dancing along with background music. It first opened on March 27, 2010 and has since been operating from April to October every year. The fountain, which is 60m in circular diameter, 180m in circumference, and has 2,519㎡ of fountain floor area and a",
+          "lli M Drone Light Show 2026-01-03 - 2026-12-31 Gwangalli Beach Gwangalli Marvelous Drone Light Show ○ Period: Year-round starting April 2, 2022 Every Saturday, at 20:00, 22:00 ○ Hours: March to September 20:00, 22:00/ October to February 19:00, 21:00 ○ Venue: Gwangalli Beach ○ Length: Runs for about 12 minutes under vario"
+        ],
+        "discoveredFrom": "https://www.busan.go.kr/eng/bsevents",
+        "linkText": "Exhibitions & Conferences The Greatest Colorist Michel-Henry 2026-07-03 - 2026-10-25 Busan Cultural Center The Greatest Colorist Michel-Henry ○ Period: Friday, July 3 – Sunday, Oct",
+        "linkScore": 29,
+        "linkReason": "1 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    }
+  ]
+}

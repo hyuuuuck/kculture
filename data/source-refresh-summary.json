@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-21T05:09:29.045Z",
+  "generatedAt": "2026-09-21T20:29:47.437Z",
   "files": {
-    "audit": "source-audit-2026-09-21.json",
-    "candidates": "official-page-candidates-2026-09-21.json",
-    "drafts": "draft-events-2026-09-21.json",
-    "reviewReport": "review-report-2026-09-21.md",
-    "reviewBoard": "review-board-2026-09-21.html",
-    "publicData": "public-data-import-2026-09-21.json",
+    "audit": "source-audit-2026-09-22.json",
+    "candidates": "official-page-candidates-2026-09-22.json",
+    "drafts": "draft-events-2026-09-22.json",
+    "reviewReport": "review-report-2026-09-22.md",
+    "reviewBoard": "review-board-2026-09-22.html",
+    "publicData": "public-data-import-2026-09-22.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 46,
-    "auditFailed": 10,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 9,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 598,
-    "dateSignals": 257,
-    "draftCandidates": 65,
-    "skippedCandidates": 586,
+    "discoveredLinks": 616,
+    "dateSignals": 253,
+    "draftCandidates": 50,
+    "skippedCandidates": 619,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -32,11 +32,6 @@
     "seoulPotentialMatches": 0
   },
   "failedSources": [
-    {
-      "sourceName": "Ministry of Culture, Sports and Tourism",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
@@ -63,57 +58,32 @@
       "error": ""
     },
     {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
+    },
+    {
       "sourceName": "Busan Metropolitan City Events and English News",
       "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Visit Jeju Festival Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Boryeong Mud Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Jinju Namgang Yudeung Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "COEX Event Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "SHOWALA exhibition listing",
-      "status": "ERR",
-      "error": "fetch failed"
+      "error": "timeout"
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
-    {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 14
-    },
     {
       "key": "Visit Seoul",
       "count": 14
     },
     {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 13
+    },
+    {
       "key": "NOL World Ticket",
-      "count": 9
+      "count": 10
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -127,18 +97,18 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 34
     },
     {
       "key": "shopping",
       "count": 7
     },
     {
-      "key": "kpop",
-      "count": 6
+      "key": "department-store",
+      "count": 3
     },
     {
-      "key": "department-store",
+      "key": "kpop",
       "count": 3
     },
     {
@@ -153,14 +123,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 584
     },
     {
       "key": "source fetch did not succeed",
       "count": 6
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "listing page is not a specific event",
       "count": 5
     },
     {
@@ -168,22 +138,22 @@
       "count": 4
     },
     {
-      "key": "duplicate draft source URL",
+      "key": "curation root is not a specific event",
       "count": 4
     },
     {
-      "key": "listing page is not a specific event",
-      "count": 4
+      "key": "already published source URL",
+      "count": 3
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
       "links": 24,
       "dates": 18,
-      "keywords": 6,
-      "score": 143
+      "keywords": 3,
+      "score": 148
     },
     {
       "sourceName": "Visit Seoul",
@@ -234,12 +204,12 @@
       "score": 128
     },
     {
-      "sourceName": "Daegu Tourist Information Festival Schedule",
-      "url": "https://www.daegu.go.kr/cts/index.do",
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "links": 24,
-      "dates": 8,
-      "keywords": 6,
-      "score": 116
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

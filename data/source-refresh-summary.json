@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-20T13:08:02.826Z",
+  "generatedAt": "2026-09-21T05:09:29.045Z",
   "files": {
-    "audit": "source-audit-2026-09-20.json",
-    "candidates": "official-page-candidates-2026-09-20.json",
-    "drafts": "draft-events-2026-09-20.json",
-    "reviewReport": "review-report-2026-09-20.md",
-    "reviewBoard": "review-board-2026-09-20.html",
-    "publicData": "public-data-import-2026-09-20.json",
+    "audit": "source-audit-2026-09-21.json",
+    "candidates": "official-page-candidates-2026-09-21.json",
+    "drafts": "draft-events-2026-09-21.json",
+    "reviewReport": "review-report-2026-09-21.md",
+    "reviewBoard": "review-board-2026-09-21.html",
+    "publicData": "public-data-import-2026-09-21.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 51,
-    "auditFailed": 5,
-    "fallbackSources": 8,
+    "auditOk": 46,
+    "auditFailed": 10,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 596,
-    "dateSignals": 277,
-    "draftCandidates": 75,
-    "skippedCandidates": 574,
+    "discoveredLinks": 598,
+    "dateSignals": 257,
+    "draftCandidates": 65,
+    "skippedCandidates": 586,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -32,6 +32,11 @@
     "seoulPotentialMatches": 0
   },
   "failedSources": [
+    {
+      "sourceName": "Ministry of Culture, Sports and Tourism",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
@@ -53,14 +58,34 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
+      "sourceName": "Visit Jeju Festival Calendar",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Boryeong Mud Festival",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Jinju Namgang Yudeung Festival",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "COEX Event Calendar",
@@ -80,19 +105,19 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 17
+      "count": 14
     },
     {
       "key": "Visit Seoul",
-      "count": 16
+      "count": 14
     },
     {
       "key": "NOL World Ticket",
-      "count": 8
+      "count": 9
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     },
     {
       "key": "Andong Maskdance Festival",
@@ -102,23 +127,23 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 56
+      "count": 46
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 7
     },
     {
       "key": "kpop",
-      "count": 4
-    },
-    {
-      "key": "beauty",
-      "count": 2
+      "count": 6
     },
     {
       "key": "department-store",
-      "count": 2
+      "count": 3
+    },
+    {
+      "key": "beauty",
+      "count": 1
     },
     {
       "key": "duty-free",
@@ -128,38 +153,30 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 535
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 6
+      "count": 551
     },
     {
       "key": "source fetch did not succeed",
       "count": 6
     },
     {
-      "key": "duplicate draft source URL",
-      "count": 5
-    },
-    {
-      "key": "listing page is not a specific event",
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
       "count": 4
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 4
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 148
-    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -205,16 +222,24 @@
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
+      "keywords": 6,
       "score": 135
     },
     {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
       "links": 24,
-      "dates": 4,
-      "keywords": 7,
-      "score": 131
+      "dates": 18,
+      "keywords": 1,
+      "score": 128
+    },
+    {
+      "sourceName": "Daegu Tourist Information Festival Schedule",
+      "url": "https://www.daegu.go.kr/cts/index.do",
+      "links": 24,
+      "dates": 8,
+      "keywords": 6,
+      "score": 116
     }
   ]
 }

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-22T05:10:03.596Z",
+  "generatedAt": "2026-09-22T19:48:16.734Z",
   "files": {
-    "audit": "source-audit-2026-09-22.json",
-    "candidates": "official-page-candidates-2026-09-22.json",
-    "drafts": "draft-events-2026-09-22.json",
-    "reviewReport": "review-report-2026-09-22.md",
-    "reviewBoard": "review-board-2026-09-22.html",
-    "publicData": "public-data-import-2026-09-22.json",
+    "audit": "source-audit-2026-09-23.json",
+    "candidates": "official-page-candidates-2026-09-23.json",
+    "drafts": "draft-events-2026-09-23.json",
+    "reviewReport": "review-report-2026-09-23.md",
+    "reviewBoard": "review-board-2026-09-23.html",
+    "publicData": "public-data-import-2026-09-23.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
-    "fallbackSources": 4,
+    "auditOk": 53,
+    "auditFailed": 3,
+    "fallbackSources": 10,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 592,
-    "dateSignals": 273,
-    "draftCandidates": 70,
-    "skippedCandidates": 575,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 524,
+    "dateSignals": 244,
+    "draftCandidates": 44,
+    "skippedCandidates": 533,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,53 +61,58 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 21
+      "key": "NOL World Seoul Pop-ups",
+      "count": 16
     },
     {
       "key": "Visit Seoul",
       "count": 14
     },
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 13
-    },
-    {
       "key": "NOL World Ticket",
-      "count": 10
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "count": 9
     },
     {
       "key": "Andong Maskdance Festival",
+      "count": 1
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
+    },
+    {
+      "key": "Korea Sale FESTA",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
+      "count": 27
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 10
     },
     {
       "key": "kpop",
-      "count": 4
-    },
-    {
-      "key": "department-store",
-      "count": 2
+      "count": 3
     },
     {
       "key": "beauty",
+      "count": 1
+    },
+    {
+      "key": "department-store",
       "count": 1
     },
     {
@@ -118,18 +123,14 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 538
+      "count": 496
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 8
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "listing page is not a specific event",
+      "key": "duplicate draft source URL",
       "count": 5
     },
     {
@@ -137,27 +138,15 @@
       "count": 4
     },
     {
-      "key": "already published source URL",
-      "count": 3
+      "key": "curation root is not a specific event",
+      "count": 4
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 4
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 148
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -205,6 +194,22 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 23,
+      "dates": 9,
+      "keywords": 3,
+      "score": 111
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "url": "https://www.chimacfestival.com/",
+      "links": 24,
+      "dates": 2,
+      "keywords": 6,
+      "score": 107
     }
   ]
 }

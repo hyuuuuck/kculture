@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T20:29:47.437Z",
+  "generatedAt": "2026-09-22T05:10:03.596Z",
   "files": {
     "audit": "source-audit-2026-09-22.json",
     "candidates": "official-page-candidates-2026-09-22.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
-    "fallbackSources": 9,
+    "auditOk": 54,
+    "auditFailed": 2,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 616,
-    "dateSignals": 253,
-    "draftCandidates": 50,
-    "skippedCandidates": 619,
+    "discoveredLinks": 592,
+    "dateSignals": 273,
+    "draftCandidates": 70,
+    "skippedCandidates": 575,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,22 +53,21 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "status": "ERR",
-      "error": "timeout"
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 21
+    },
     {
       "key": "Visit Seoul",
       "count": 14
@@ -86,10 +85,6 @@
       "count": 7
     },
     {
-      "key": "Shinsegae Group Newsroom",
-      "count": 2
-    },
-    {
       "key": "Andong Maskdance Festival",
       "count": 1
     }
@@ -97,19 +92,19 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 34
+      "count": 55
     },
     {
       "key": "shopping",
-      "count": 7
-    },
-    {
-      "key": "department-store",
-      "count": 3
+      "count": 6
     },
     {
       "key": "kpop",
-      "count": 3
+      "count": 4
+    },
+    {
+      "key": "department-store",
+      "count": 2
     },
     {
       "key": "beauty",
@@ -123,11 +118,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 584
+      "count": 538
     },
     {
       "key": "source fetch did not succeed",
       "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "listing page is not a specific event",
@@ -135,10 +134,6 @@
     },
     {
       "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 4
     },
     {
@@ -154,6 +149,14 @@
       "dates": 18,
       "keywords": 3,
       "score": 148
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "Visit Seoul",
@@ -202,14 +205,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 128
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
     }
   ]
 }

@@ -1,63 +1,17 @@
 {
-  "generatedAt": "2026-09-22T23:02:05.894Z",
-  "date": "2026-09-23",
-  "approvedActiveEvents": 5,
-  "passed": 5,
+  "generatedAt": "2026-10-18T18:42:30.322Z",
+  "date": "2026-10-19",
+  "approvedActiveEvents": 3,
+  "passed": 3,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 10,
-  "snapshotChecks": 0,
-  "updated": 0,
+  "liveChecks": 5,
+  "snapshotChecks": 1,
+  "updated": 3,
   "timeoutMs": 12000,
   "concurrency": 5,
   "results": [
-    {
-      "slug": "jinju-namgang-yudeung-festival-2026",
-      "title": "2026 Jinju Namgang Yudeung Festival",
-      "sourceName": "VISITKOREA",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "VISITKOREA",
-          "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
-          "finalUrl": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
-          "status": 200,
-          "bytes": 209087,
-          "durationMs": 1391,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026-10-03",
-            "2026-10-18",
-            "Jinjuseong Fortress",
-            "information below is based on the 2025 festivals"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Jinju Namgang Yudeung Festival Committee",
-          "url": "https://yudeung.com/?lang=en",
-          "finalUrl": "https://yudeung.com/?lang=en",
-          "status": 200,
-          "bytes": 4003,
-          "durationMs": 994,
-          "mode": "live",
-          "format": "json-ld",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026-10-03",
-            "2026-10-18",
-            "진주성 · 남강 일원"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
     {
       "slug": "deoksugung-royal-guard-changing-ceremony-2026",
       "title": "Deoksugung Royal Guard Changing Ceremony 2026",
@@ -70,8 +24,8 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 109150,
-          "durationMs": 3125,
+          "bytes": 121528,
+          "durationMs": 2903,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -90,7 +44,7 @@
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
           "bytes": 33961,
-          "durationMs": 1576,
+          "durationMs": 1624,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -114,13 +68,12 @@
         {
           "sourceName": "Busan Metropolitan City",
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-          "finalUrl": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-          "status": 200,
-          "bytes": 60805,
-          "durationMs": 2390,
-          "mode": "live",
-          "format": "html-text",
+          "status": "ERROR",
+          "bytes": 0,
+          "durationMs": 782,
+          "mode": "audited-snapshot",
           "freshnessAuthority": false,
+          "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
           "matchedTokens": [
             "Gwangalli M Drone Light Show",
             "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
@@ -130,6 +83,14 @@
             "Free admission"
           ],
           "missingTokens": [],
+          "liveMissingTokens": [
+            "Gwangalli M Drone Light Show",
+            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
+            "Gwangalli Marvelous Drone Light Show",
+            "Every Saturday, at 20:00, 22:00",
+            "Gwangalli Beach",
+            "Free admission"
+          ],
           "ok": true
         },
         {
@@ -137,8 +98,8 @@
           "url": "https://www.gwangallimdrone.co.kr/en/overview",
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
-          "bytes": 35329,
-          "durationMs": 441,
+          "bytes": 36937,
+          "durationMs": 422,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": true,
@@ -146,53 +107,6 @@
             "Gwangalli",
             "Drone Light Show",
             "Saturday"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "andong-maskdance-festival-2026",
-      "title": "2026 Andong Maskdance Festival",
-      "sourceName": "Andong Maskdance Festival",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Andong Maskdance Festival",
-          "url": "https://en.maskdance.com/2024/sub1/sub1.asp",
-          "finalUrl": "https://en.maskdance.com/2024/sub1/sub1.asp",
-          "status": 200,
-          "bytes": 27370,
-          "durationMs": 2038,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Sep. 24",
-            "Oct. 4",
-            "Central Line 1942 Andong Station",
-            "Talchum Park"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "VISITKOREA",
-          "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
-          "finalUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96388",
-          "status": 200,
-          "bytes": 216779,
-          "durationMs": 436,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026-09-24",
-            "2026-10-04",
-            "10:00",
-            "Jungang Line 1942 Andong Station"
           ],
           "missingTokens": [],
           "ok": true
@@ -211,8 +125,8 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "status": 200,
-          "bytes": 181576,
-          "durationMs": 3164,
+          "bytes": 201898,
+          "durationMs": 2140,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -230,8 +144,8 @@
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "status": 200,
-          "bytes": 101782,
-          "durationMs": 1409,
+          "bytes": 114098,
+          "durationMs": 1482,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,

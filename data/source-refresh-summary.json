@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-22T23:03:36.775Z",
+  "generatedAt": "2026-10-18T18:44:15.068Z",
   "files": {
-    "audit": "source-audit-2026-09-23.json",
-    "candidates": "official-page-candidates-2026-09-23.json",
-    "drafts": "draft-events-2026-09-23.json",
-    "reviewReport": "review-report-2026-09-23.md",
-    "reviewBoard": "review-board-2026-09-23.html",
-    "publicData": "public-data-import-2026-09-23.json",
+    "audit": "source-audit-2026-10-19.json",
+    "candidates": "official-page-candidates-2026-10-19.json",
+    "drafts": "draft-events-2026-10-19.json",
+    "reviewReport": "review-report-2026-10-19.md",
+    "reviewBoard": "review-board-2026-10-19.html",
+    "publicData": "public-data-import-2026-10-19.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 49,
-    "auditFailed": 7,
-    "fallbackSources": 6,
+    "auditOk": 53,
+    "auditFailed": 3,
+    "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 620,
-    "dateSignals": 236,
-    "draftCandidates": 43,
-    "skippedCandidates": 630,
+    "discoveredLinks": 589,
+    "dateSignals": 257,
+    "draftCandidates": 66,
+    "skippedCandidates": 576,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,81 +53,61 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
-    },
-    {
-      "sourceName": "Boryeong Mud Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Jinju Namgang Yudeung Festival",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "COEX Event Calendar",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "SHOWALA exhibition listing",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 16
+      "key": "Melon Ticket",
+      "count": 20
     },
     {
       "key": "Visit Seoul",
-      "count": 14
+      "count": 15
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 12
     },
     {
       "key": "NOL World Ticket",
-      "count": 9
+      "count": 11
     },
     {
-      "key": "Andong Maskdance Festival",
-      "count": 1
+      "key": "Shinsegae Group Newsroom",
+      "count": 3
     },
     {
-      "key": "Hyundai Department Store",
-      "count": 1
-    },
-    {
-      "key": "NOL World Busan Pop-ups",
-      "count": 1
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 26
+      "count": 47
     },
     {
       "key": "shopping",
-      "count": 10
-    },
-    {
-      "key": "kpop",
-      "count": 3
-    },
-    {
-      "key": "beauty",
-      "count": 1
+      "count": 6
     },
     {
       "key": "department-store",
+      "count": 5
+    },
+    {
+      "key": "kpop",
+      "count": 5
+    },
+    {
+      "key": "beauty",
       "count": 1
     },
     {
@@ -138,19 +118,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 596
+      "count": 546
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 6
     },
     {
       "key": "source fetch did not succeed",
       "count": 6
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 5
-    },
-    {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
-      "count": 4
     },
     {
       "key": "listing page is not a specific event",
@@ -159,9 +135,21 @@
     {
       "key": "already published source URL",
       "count": 3
+    },
+    {
+      "key": "duplicate draft source URL",
+      "count": 3
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -171,8 +159,8 @@
       "score": 141
     },
     {
-      "sourceName": "Seoul Grand Park",
-      "url": "https://grandpark.seoul.go.kr/main.do",
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
       "keywords": 5,
@@ -187,6 +175,14 @@
       "score": 138
     },
     {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 138
+    },
+    {
       "sourceName": "SMTOWN andSTORE Notices",
       "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
@@ -195,36 +191,20 @@
       "score": 136
     },
     {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 135
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
       "dates": 18,
       "keywords": 1,
-      "score": 128
+      "score": 129
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
-    },
-    {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
-      "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 21,
+      "dates": 5,
+      "keywords": 6,
+      "score": 115
     }
   ]
 }

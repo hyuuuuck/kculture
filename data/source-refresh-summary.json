@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-19T04:54:45.408Z",
+  "generatedAt": "2026-10-19T15:45:24.106Z",
   "files": {
-    "audit": "source-audit-2026-10-19.json",
-    "candidates": "official-page-candidates-2026-10-19.json",
-    "drafts": "draft-events-2026-10-19.json",
-    "reviewReport": "review-report-2026-10-19.md",
-    "reviewBoard": "review-board-2026-10-19.html",
-    "publicData": "public-data-import-2026-10-19.json",
+    "audit": "source-audit-2026-10-20.json",
+    "candidates": "official-page-candidates-2026-10-20.json",
+    "drafts": "draft-events-2026-10-20.json",
+    "reviewReport": "review-report-2026-10-20.md",
+    "reviewBoard": "review-board-2026-10-20.html",
+    "publicData": "public-data-import-2026-10-20.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 604,
-    "dateSignals": 245,
-    "draftCandidates": 75,
-    "skippedCandidates": 582,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 602,
+    "dateSignals": 262,
+    "draftCandidates": 67,
+    "skippedCandidates": 588,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,7 +38,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "COEX Event Calendar",
+      "sourceName": "Busan Metropolitan City Events and English News",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -58,7 +58,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -78,38 +78,38 @@
       "count": 15
     },
     {
-      "key": "NOL World Ticket",
-      "count": 13
-    },
-    {
       "key": "NOL World Seoul Pop-ups",
       "count": 12
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "key": "NOL World Ticket",
+      "count": 12
     },
     {
       "key": "Shinsegae Group Newsroom",
+      "count": 2
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
-    },
-    {
-      "key": "shopping",
-      "count": 7
+      "count": 48
     },
     {
       "key": "kpop",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "shopping",
+      "count": 6
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
     },
     {
       "key": "beauty",
@@ -123,38 +123,30 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 550
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 8
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "count": 544
     },
     {
       "key": "listing page is not a specific event",
+      "count": 15
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "duplicate draft source URL",
       "count": 4
     },
     {
       "key": "already published source URL",
       "count": 3
-    },
-    {
-      "key": "duplicate draft source URL",
-      "count": 3
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -202,6 +194,14 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
+    },
+    {
+      "sourceName": "COEX Event Calendar",
+      "url": "https://www.coex.co.kr/en/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 135
     },
     {
       "sourceName": "YES24 Ticket English",

@@ -1,0 +1,242 @@
+{
+  "korean-table-manners": {
+    "title": "How well would you do at a Korean dinner table?",
+    "intro": "Seven everyday moments at a Korean restaurant, from the side dishes to the bill, to see how you would handle them.",
+    "questions": [
+      {
+        "q": "You've finished the kimchi from the shared side dishes and would like more. What do you do?",
+        "options": [
+          "Order another portion from the menu and expect it on the bill",
+          "Point at the empty dish and say 이거 좀 더 주세요 (igeo jom deo juseyo)",
+          "Go without, since asking for more is seen as greedy"
+        ],
+        "answer": 1,
+        "explain": "Banchan refills are free, and pointing while asking for 'a little more of this' is the normal way to get them. What draws looks is asking for refills and then leaving them untouched."
+      },
+      {
+        "q": "You're ready to order, but no server is coming over and there's no call bell on the table. What's the polite move?",
+        "options": [
+          "Raise a hand and call 저기요 (jeogiyo) or 여기요 (yeogiyo)",
+          "Wait silently until someone catches your eye, since calling out is rude",
+          "Wait for staff to stop by each table and check on you"
+        ],
+        "answer": 0,
+        "explain": "Korean restaurant staff don't hover, and calling 'jeogiyo' ('excuse me') or 'yeogiyo' ('over here') is normal, even in a quiet room. Waiting silently usually means waiting a long time."
+      },
+      {
+        "q": "Mid-meal, you want to put your chopsticks down for a moment. Where should they go?",
+        "options": [
+          "Standing upright in your rice, where they stay off the table",
+          "Resting inside an empty bowl",
+          "Flat on the table, on a napkin or across a side plate"
+        ],
+        "answer": 2,
+        "explain": "Chopsticks or a spoon standing in rice look like sapsi jeongjeo, the step in ancestral rites where a spoon is planted in rice offered to the dead. Rest them flat instead, and if you slip, simply lay them down."
+      },
+      {
+        "q": "Your rice arrives in a lidded stainless-steel bowl. How do you eat it?",
+        "options": [
+          "Lift the bowl toward your mouth and eat with chopsticks",
+          "Keep the bowl on the table and eat the rice with your spoon",
+          "Use chopsticks only, since the spoon is just for soup"
+        ],
+        "answer": 1,
+        "explain": "In Korea the long-handled spoon carries rice, soup and stew, so there's no need to lift the bowl, and Korea.net lists lifting it among the things to avoid. Restaurant steel bowls are usually too hot to hold anyway."
+      },
+      {
+        "q": "You're having dinner with a Korean friend's grandparents, and the food has just been served. When do you start eating?",
+        "options": [
+          "Right away, so the food doesn't get cold",
+          "As soon as you've served yourself some banchan",
+          "Once the eldest at the table has picked up a spoon or begun eating"
+        ],
+        "answer": 2,
+        "explain": "Younger diners wait for the eldest to begin, often cued by a lifted spoon or 많이 드세요 (mani deuseyo, 'eat plenty'). It also helps to roughly match their pace and not get up while seniors are still eating."
+      },
+      {
+        "q": "Eating alone, you spot 2인분 이상 on a barbecue restaurant's door. What does it tell you?",
+        "options": [
+          "Orders start at two portions, so you'd order two or find a place that serves one",
+          "Two free side dishes come with every order",
+          "The restaurant turns away solo diners on weekends only"
+        ],
+        "answer": 0,
+        "explain": "Many barbecue and stew restaurants require at least two portions per order, since one diner still takes up a table and a grill. Ordering two is acceptable, or look for 1인분 or 혼밥 on the menu and avoid the lunch and dinner peaks."
+      },
+      {
+        "q": "The meal was great and the staff were lovely. How do you pay and say thanks?",
+        "options": [
+          "Hand your card to the server at the table and add a 10 to 15 percent tip",
+          "Pay at the counter and leave some cash on the table for the staff",
+          "Take the bill to the counter, pay, and say 잘 먹었습니다 (jal meogeotseumnida) with no tip"
+        ],
+        "answer": 2,
+        "explain": "Most Korean restaurants take payment at the counter on the way out, and tipping isn't customary because menu prices already include VAT and service. Cash left on the table is more likely to confuse staff than please them."
+      }
+    ],
+    "results": {
+      "low": "You'd get by on goodwill, but a second look at the guide will sort out spoons, refills and the bill before your first Korean meal.",
+      "mid": "You've got the basics down, and brushing up on the one or two moments that tripped you will have you eating like a regular.",
+      "high": "You could sit down at a Seoul table tomorrow and handle everything from the first banchan refill to paying at the counter."
+    }
+  },
+  "seoul-five-grand-palaces-compared": {
+    "title": "Seoul palace quiz",
+    "intro": "Six real planning decisions, from closing days to the palace pass, to test whether you'd ever arrive at a locked gate.",
+    "questions": [
+      {
+        "q": "Your only free day for palaces is an ordinary Monday. Which plan works?",
+        "options": [
+          "Changdeokgung and the Secret Garden, then Changgyeonggung",
+          "Gyeongbokgung in the morning, then a timed guided visit to Jongmyo Shrine",
+          "Deoksugung after dinner, while it's open until 21:00",
+          "Gyeonghuigung and the Seoul Museum of History next door"
+        ],
+        "answer": 1,
+        "explain": "Changdeokgung, Changgyeonggung, Deoksugung and Gyeonghuigung all close on Mondays, while Gyeongbokgung and Jongmyo close on Tuesdays. That makes Monday a Gyeongbokgung day, best paired with Jongmyo, which runs timed guided tours that day."
+      },
+      {
+        "q": "You'll have a free evening after dinner on a Thursday. Which palace can you count on being open until 21:00?",
+        "options": [
+          "Gyeongbokgung, which keeps night hours all year",
+          "Changdeokgung, as long as you book the Secret Garden",
+          "Deoksugung, opposite Seoul City Hall",
+          "Gyeonghuigung, which is free and stays open late"
+        ],
+        "answer": 2,
+        "explain": "Deoksugung and Changgyeonggung keep 09:00 to 21:00 hours all year, with last entry at 20:00 and Monday closures. Gyeongbokgung opens at night only during announced seasonal runs with separate tickets."
+      },
+      {
+        "q": "You can fit in only one palace, and you care more about architecture and landscape than about ceremony. Which do you choose?",
+        "options": [
+          "Changdeokgung, booking a Secret Garden session before anything else",
+          "Gyeongbokgung, for its straight ceremonial axis and guard ceremony",
+          "Deoksugung, for its Western-style stone halls",
+          "Gyeonghuigung, for its rebuilt throne hall"
+        ],
+        "answer": 0,
+        "explain": "Changdeokgung is the only one of the five on the UNESCO World Heritage List, and its halls follow the hills instead of a straight axis. Its Secret Garden can be seen only on timed guided sessions, which sell out quickly in spring and autumn."
+      },
+      {
+        "q": "It's an ordinary Wednesday, which is Culture Day, and you're a paying adult. Where do you still need to buy a ticket?",
+        "options": [
+          "Deoksugung and Changgyeonggung",
+          "Jongmyo Shrine only",
+          "Gyeongbokgung and the Changdeokgung Secret Garden",
+          "Nowhere, since every palace site is free that day"
+        ],
+        "answer": 2,
+        "explain": "Every Wednesday brings free entry to the palaces and Jongmyo, except Gyeongbokgung and the Secret Garden, which charge as usual. Gyeonghuigung is free on any day it is open."
+      },
+      {
+        "q": "You've rented a hanbok skirt but kept your own T-shirt on top. Does that count as qualifying hanbok for free entry to Gyeongbokgung?",
+        "options": [
+          "Yes, any visible piece of hanbok counts",
+          "No, you need a proper jeogori top as well",
+          "Yes, as long as you also show your passport"
+        ],
+        "answer": 1,
+        "explain": "Hanbok wearers enter free, foreigners included, but staff check for a jeogori top with the wrap-over collar plus a traditional-shaped skirt or trousers. A hanbok skirt with a T-shirt does not count."
+      },
+      {
+        "q": "As a paying adult, you buy the 6,000-won integrated palace pass. What does it cover?",
+        "options": [
+          "All five palaces, Jongmyo and the Secret Garden",
+          "Unlimited entry to every palace for six months",
+          "Gyeongbokgung and Changdeokgung only, Secret Garden included",
+          "One entry each to the four royal palaces and Jongmyo, but not the Secret Garden"
+        ],
+        "answer": 3,
+        "explain": "The pass, valid for six months, gives one entry each to Gyeongbokgung, Changdeokgung, Changgyeonggung, Deoksugung and Jongmyo, and the Secret Garden needs its own ticket. It pays off only if you visit at least Gyeongbokgung and Changdeokgung on days other than Wednesday."
+      }
+    ],
+    "results": {
+      "low": "A few palace rules caught you out, so check the Monday and Tuesday closing split and the free-entry list before you pick a day.",
+      "mid": "You'd plan a solid palace day, though one closing day or ticket rule could still send you to a locked gate or a paid counter.",
+      "high": "You could plan a whole palace week with no wasted trips, from the Monday and Tuesday closures to the pass that skips the Secret Garden."
+    }
+  },
+  "korean-etiquette-for-visitors": {
+    "title": "Would you pass as a polite visitor in Seoul?",
+    "intro": "Seven everyday situations, from a stranger asking your age to an empty seat on a crowded train.",
+    "questions": [
+      {
+        "q": "Five minutes after meeting you, a new Korean acquaintance asks how old you are. What's the best response?",
+        "options": [
+          "Change the subject politely, since the question is too personal",
+          "Give your age or birth year, which helps them choose how to address you",
+          "Ask why they need to know before you answer"
+        ],
+        "answer": 1,
+        "explain": "Relative age decides the speech level, who pours and pays, and which kinship word fits, so asking is a shortcut, not prying. Many Koreans simply give their birth year."
+      },
+      {
+        "q": "You need help from a shop clerk who looks younger than you. How should you speak in Korean?",
+        "options": [
+          "Use the polite -yo ending, as with anyone you don't know well",
+          "Use casual banmal, since they're younger",
+          "Copy the casual speech from K-dramas, since it sounds friendlier"
+        ],
+        "answer": 0,
+        "explain": "Polite forms are for everyone you don't know well, including younger people, shop staff and taxi drivers. Casual speech between strangers comes across as rude, and Koreans switch to it only once they become close."
+      },
+      {
+        "q": "Your guesthouse host, who is older than you, hands you the room key. How do you take it?",
+        "options": [
+          "With one hand, since two hands are only for business cards",
+          "With whichever hand is free, followed by a deep bow from the waist",
+          "With both hands, or your right hand with your left touching your right wrist"
+        ],
+        "answer": 2,
+        "explain": "Giving and receiving with two hands shows the exchange has your full attention, and it matters most with older people and hosts. A small bow is plenty, since deep bows belong to ceremonies."
+      },
+      {
+        "q": "Just inside the guesthouse door there's a raised wooden step and a shelf of slippers. What do you do?",
+        "options": [
+          "Keep your shoes on unless the host asks you to take them off",
+          "Take your shoes off and step straight from them onto the raised floor",
+          "Take your shoes off and wait on the lower entry area in your socks"
+        ],
+        "answer": 1,
+        "explain": "A raised step, a row of shoes or a shelf of slippers means shoes off, because with ondol floor heating the floor was where people sat, ate and slept. Step from your shoe straight onto the raised floor instead of standing on the entry area in socks."
+      },
+      {
+        "q": "The subway is crowded, and a pink seat in the middle of the car is empty. Nobody nearby looks pregnant. What do you do?",
+        "options": [
+          "Sit down, and stand up if a pregnant passenger boards",
+          "Sit down, since it's reserved only during rush hour",
+          "Put your backpack on it so it stays clear",
+          "Leave it empty and keep standing"
+        ],
+        "answer": 3,
+        "explain": "Pink seats are for pregnant passengers, and because early pregnancy is invisible, the convention is to leave them free rather than wait to see who needs one. Standing beside an empty pink seat is completely normal in Seoul."
+      },
+      {
+        "q": "Your taxi driver was friendly and helped with your bags. How do you thank them?",
+        "options": [
+          "Pay the meter fare and say 감사합니다 (gamsahamnida)",
+          "Add about 10 percent to the meter fare",
+          "Round up generously and tell them to keep the change"
+        ],
+        "answer": 0,
+        "explain": "Tipping isn't customary in Korean taxis, restaurants, cafés or salons, and the meter price is what you pay. A smile and a sincere 'gamsahamnida' are the thanks people expect."
+      },
+      {
+        "q": "You're invited to dinner at a Korean home. Which gift works best?",
+        "options": [
+          "A set of four matching mugs from your home country",
+          "A box of fruit or good pastries, handed over with both hands",
+          "A card with your host's name written in red ink",
+          "Nothing, since guests aren't expected to bring anything"
+        ],
+        "answer": 1,
+        "explain": "Fruit, pastries, a bottle or a specialty from home all work, presented with both hands. Avoid sets of four, since the word for four sounds like the word for death, and never write a living person's name in red."
+      }
+    ],
+    "results": {
+      "low": "Koreans give visitors plenty of slack, but a quick reread on polite speech, two-handed giving and subway seats will smooth your trip.",
+      "mid": "You'd come across as a considerate guest most of the time, with just a habit or two left to polish before you land.",
+      "high": "You'd pass as a polite visitor anywhere in Seoul, from a host's doorstep to a packed subway car."
+    }
+  }
+}

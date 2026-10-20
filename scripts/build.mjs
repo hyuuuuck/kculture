@@ -67,6 +67,11 @@ const sources = JSON.parse(await fs.readFile(path.join(root, "data", "sources.js
 const curationQueue = JSON.parse(await fs.readFile(path.join(root, "data", "curation-queue.json"), "utf8"));
 const guides = JSON.parse(await fs.readFile(path.join(root, "data", "guides.json"), "utf8"))
   .filter((guide) => approvedGuideSlugs.has(guide.slug));
+// Optional reader-engagement data: search titles, end-of-guide quizzes and in-article photos.
+const readOptionalJson = (name) => fs.readFile(path.join(root, "data", name), "utf8").then(JSON.parse).catch(() => ({}));
+const seoOverrides = await readOptionalJson("seo-overrides.json");
+const guideQuizzes = await readOptionalJson("guide-quizzes.json");
+const guideInlineImages = await readOptionalJson("guide-inline-images.json");
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const historicalWeather = await fs.readFile(path.join(root, "data", "kma-historical-observations.json"), "utf8").then(JSON.parse).catch(() => null);
@@ -6124,7 +6129,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
-  ${noindex ? '<meta name="robots" content="noindex,follow">' : ""}
+  ${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="max-image-preview:large">'}
   <link rel="canonical" href="${siteUrl}${canonicalPath}">
   ${alternateLinks(currentPathBuilder, canonicalPath)}
   <link rel="alternate" type="application/rss+xml" title="${siteName} RSS" href="${absoluteUrl(`/${lang}/feed.xml`)}">
@@ -8639,6 +8644,60 @@ function imageCredit(image) {
   return `Photo: <a href="${esc(image.page)}" rel="nofollow noopener" target="_blank">${esc(image.artist)}</a> / Wikimedia Commons, ${license}`;
 }
 
+function shareBar(guide, lang, position = "top") {
+  const url = absoluteUrl(guideHref(lang, guide));
+  const title = guideTitleText(guide, lang);
+  const enc = encodeURIComponent;
+  const media = guide.image?.src ? absoluteUrl(guide.image.src) : absoluteUrl("/assets/guides/home.jpg");
+  const links = [
+    ["X", `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(title)}`],
+    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`],
+    ["Pinterest", `https://www.pinterest.com/pin/create/button/?url=${enc(url)}&media=${enc(media)}&description=${enc(title)}`],
+    ["Reddit", `https://www.reddit.com/submit?url=${enc(url)}&title=${enc(title)}`],
+    ["WhatsApp", `https://wa.me/?text=${enc(`${title} ${url}`)}`],
+    ["Email", `mailto:?subject=${enc(title)}&body=${enc(url)}`]
+  ];
+  return `<div class="share-bar share-bar-${position}" data-share data-share-url="${esc(url)}" data-share-title="${esc(title)}">
+          <span class="share-label">${position === "end" ? "Planning with friends? Send them this guide." : "Share"}</span>
+          <button type="button" class="share-native" data-share-native hidden>Share</button>
+          <button type="button" class="share-copy" data-share-copy>Copy link</button>
+          ${links.map(([label, href]) => `<a href="${esc(href)}" target="_blank" rel="noopener nofollow">${label}</a>`).join("")}
+        </div>`;
+}
+
+function koreanTools(text, { map = false } = {}) {
+  const match = String(text || "").match(/[\uAC00-\uD7A3][\uAC00-\uD7A3\d ]*[\uAC00-\uD7A3\d]|[\uAC00-\uD7A3]/);
+  if (!match) return "";
+  const ko = match[0].trim();
+  return `<span class="ko-tools" data-ko="${esc(ko)}"><button type="button" data-ko-listen hidden aria-label="Listen to ${esc(ko)}">Listen</button><button type="button" data-ko-copy aria-label="Copy ${esc(ko)}">Copy</button>${map ? `<a href="https://map.naver.com/p/search/${encodeURIComponent(ko)}" target="_blank" rel="noopener nofollow">Naver Map</a>` : ""}</span>`;
+}
+
+function inlineRelatedCard(guide, lang) {
+  const image = guideCardImage(guide);
+  return `<aside class="inline-related" aria-label="Related guide"><a href="${guideHref(lang, guide)}"><img src="${esc(image.src)}" alt="${esc(guide.image?.alt || guideTitleText(guide, lang))}" width="${image.width}" height="${image.height}" loading="lazy"><span><em>Related guide</em><strong>${esc(guideTitleText(guide, lang))}</strong><small>${guideReadingMinutes(guide)} min read</small></span></a></aside>`;
+}
+
+function inlineFigure(image) {
+  return `<figure class="guide-inline-figure"><img src="${esc(image.src)}" alt="${esc(image.alt || image.caption)}" width="${esc(image.width)}" height="${esc(image.height)}" loading="lazy"><figcaption>${esc(image.caption)}<span>${imageCredit(image)}</span></figcaption></figure>`;
+}
+
+function renderGuideQuiz(guide) {
+  const quiz = guideQuizzes[guide.slug];
+  if (!quiz?.questions?.length) return "";
+  return `<section class="guide-content-section guide-quiz" id="guide-quiz" data-quiz data-quiz-title="${esc(quiz.title)}" data-result-low="${esc(quiz.results?.low || "")}" data-result-mid="${esc(quiz.results?.mid || "")}" data-result-high="${esc(quiz.results?.high || "")}">
+              <h2>${esc(quiz.title)}</h2>
+              <p class="quiz-intro">${esc(quiz.intro)}</p>
+              <ol class="quiz-questions">${quiz.questions.map((question) => `
+                <li class="quiz-question" data-answer="${esc(question.answer)}">
+                  <p class="quiz-q">${esc(question.q)}</p>
+                  <div class="quiz-options">${question.options.map((option, index) => `<button type="button" data-option="${index}" disabled>${esc(option)}</button>`).join("")}</div>
+                  <details class="quiz-explain"><summary>Show the answer</summary><p><strong>${esc(question.options[question.answer])}.</strong> ${esc(question.explain)}</p></details>
+                </li>`).join("")}
+              </ol>
+              <div class="quiz-result" data-quiz-result hidden aria-live="polite"></div>
+            </section>`;
+}
+
 function renderGuides(lang) {
   const total = guides.length;
   const body = `<main class="page library-page">
@@ -8815,7 +8874,7 @@ function renderGuideKeyFacts(guide) {
   if (!facts.length) return "";
   return `<section class="guide-key-facts" id="guide-key-facts" aria-labelledby="guide-key-facts-title">
               <h2 id="guide-key-facts-title">Key facts</h2>
-              <dl>${facts.map((fact) => `<div><dt>${esc(fact.label)}</dt><dd>${esc(fact.value)}</dd></div>`).join("")}</dl>
+              <dl>${facts.map((fact) => `<div><dt>${esc(fact.label)}</dt><dd>${esc(fact.value)}${koreanTools(fact.value, { map: /korean name|map|search|address/i.test(fact.label) })}</dd></div>`).join("")}</dl>
               <p class="guide-key-facts-note">Checked ${esc(dateText("en", guide.updatedAt))} against the official sources listed at the end of this guide.</p>
             </section>`;
 }
@@ -8841,13 +8900,16 @@ function renderGuide(guide, lang) {
   const relatedEvents = relatedEventsForGuide(guide);
   const relatedRoutes = relatedRoutesForGuide(guide);
   const sourceExamples = guideSourceExamples(guide);
-  const relatedGuides = relatedGuidesFor(guide);
+  const relatedPool = relatedGuidesFor(guide);
+  const inlineGuide = relatedPool[0];
+  const relatedGuides = [...relatedPool.slice(1), ...guidesInCategory(guideLibraryCategory(guide)).filter((item) => item !== guide && !relatedPool.includes(item))].slice(0, 3);
   const category = libraryCategoryById.get(guideLibraryCategory(guide));
   const hasKeyFacts = Boolean(guide.keyFacts?.length);
   const hasFaq = Boolean(guide.faq?.length);
   const author = guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName;
   const body = `
     <main class="page guide-detail-page">
+      <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
       <article class="article-page editorial-guide">
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/${lang}/">Home</a> / <a href="/${lang}/guides/">Culture guides</a> / <a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></nav>
         <header class="guide-article-header">
@@ -8859,6 +8921,7 @@ function renderGuide(guide, lang) {
             <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
             <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
           </div>
+          ${shareBar(guide, lang, "top")}
         </header>
         ${guide.image?.src ? `<figure class="guide-hero-figure">
           <img src="${esc(guide.image.src)}" alt="${esc(guide.image.alt || guideTitleText(guide, lang))}" width="${esc(guide.image.width)}" height="${esc(guide.image.height)}" fetchpriority="high">
@@ -8873,6 +8936,7 @@ function renderGuide(guide, lang) {
               ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence">${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
               ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
               ${showWorksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
+              ${guideQuizzes[guide.slug]?.questions?.length ? `<li><a href="#guide-quiz">Quick quiz</a></li>` : ""}
               ${hasFaq ? `<li><a href="#guide-faq">Questions visitors ask</a></li>` : ""}
               <li><a href="#guide-citations-title">Sources and method</a></li>
             </ol>
@@ -8881,11 +8945,18 @@ function renderGuide(guide, lang) {
           ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>In short</strong>${esc(guide.quickAnswer)}</p>` : ""}
           ${renderGuideKeyFacts(guide)}
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
-            ${sections.map((section, index) => renderGuideSection(section, index, sectionStartNumber + index)).join("")}
+            ${sections.map((section, index) => {
+              const heading = typeof section === "string" ? "" : section.heading;
+              const figures = (guideInlineImages[guide.slug] || []).filter((image) => image.afterSectionHeading === heading).map(inlineFigure).join("");
+              const midCard = index === Math.floor(sections.length / 2) - 1 && inlineGuide ? inlineRelatedCard(inlineGuide, lang) : "";
+              return renderGuideSection(section, index, sectionStartNumber + index) + figures + midCard;
+            }).join("")}
             ${renderGuideOriginalEvidence(guide, evidenceNumber)}
             ${showDecisionTool ? renderGuideDecisionTool(guide, decisionToolNumber) : ""}
             ${showWorksheet ? renderGuideWorksheet(guide, worksheetNumber) : ""}
+            ${renderGuideQuiz(guide)}
             ${renderGuideFaq(guide)}
+            ${shareBar(guide, lang, "end")}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
               <h2 id="guide-citations-title">Sources and method</h2>
           ${guide.audience ? `<p class="guide-audience"><strong>Written for:</strong> ${esc(guide.audience)}</p>` : ""}
@@ -8909,8 +8980,8 @@ function renderGuide(guide, lang) {
     </main>`;
   return layout({
     lang,
-    title: `${guideTitleText(guide, lang)} - K-Spot Now`,
-    description: guideSummaryText(guide, lang),
+    title: `${seoOverrides[guide.slug]?.seoTitle || guideTitleText(guide, lang)} - K-Spot Now`,
+    description: seoOverrides[guide.slug]?.seoDescription || guideSummaryText(guide, lang),
     body,
     canonicalPath: guideHref(lang, guide),
     currentPathBuilder: (code) => guideHref(code, guide),

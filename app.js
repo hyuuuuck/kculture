@@ -631,3 +631,164 @@ document.addEventListener("keydown", (event) => {
     menu.querySelector("summary")?.focus();
   });
 });
+
+// Reader tools on guide pages: share, Korean copy/listen, reading progress and quizzes.
+function flashButton(button, text) {
+  const original = button.dataset.label || button.textContent;
+  button.dataset.label = original;
+  button.textContent = text;
+  window.setTimeout(() => { button.textContent = original; }, 1600);
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    area.remove();
+    return ok;
+  }
+}
+
+for (const bar of document.querySelectorAll("[data-share]")) {
+  const url = bar.dataset.shareUrl;
+  const title = bar.dataset.shareTitle;
+  const nativeButton = bar.querySelector("[data-share-native]");
+  if (nativeButton && navigator.share) {
+    nativeButton.hidden = false;
+    nativeButton.addEventListener("click", () => navigator.share({ title, url }).catch(() => {}));
+  }
+  bar.querySelector("[data-share-copy]")?.addEventListener("click", async (event) => {
+    flashButton(event.currentTarget, (await copyText(url)) ? "Link copied" : "Copy failed");
+  });
+}
+
+let koreanVoice = null;
+function speakKorean(text) {
+  if (!koreanVoice) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "ko-KR";
+  utterance.voice = koreanVoice;
+  utterance.rate = 0.85;
+  window.speechSynthesis.speak(utterance);
+}
+
+function addTableListenButtons() {
+  for (const cell of document.querySelectorAll(".guide-table td, .guide-table th[scope='row']")) {
+    const text = cell.textContent.trim();
+    const match = text.match(/[가-힣][가-힣\d ?.,!~]*/);
+    if (!match || match[0].length > 40 || cell.querySelector("[data-ko-listen]")) continue;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "ko-cell-listen";
+    button.dataset.koListen = "";
+    button.dataset.ko = match[0].trim();
+    button.setAttribute("aria-label", `Listen to ${match[0].trim()}`);
+    button.textContent = "▶";
+    cell.append(" ", button);
+  }
+}
+
+function enableKoreanListening() {
+  if (!("speechSynthesis" in window)) return;
+  const pick = () => {
+    const voices = window.speechSynthesis.getVoices().filter((voice) => /^ko/i.test(voice.lang));
+    // Prefer standard narration voices over novelty voices some systems list first.
+    koreanVoice = voices.find((voice) => /yuna|sora|google|microsoft|heami|sunhi|injoon|samantha/i.test(voice.name))
+      || voices.find((voice) => !/grandma|grandpa|rocko|eddy|flo|reed|sandy|shelley/i.test(voice.name))
+      || voices[0] || null;
+    if (!koreanVoice) return;
+    addTableListenButtons();
+    document.querySelectorAll("[data-ko-listen]").forEach((button) => { button.hidden = false; });
+  };
+  pick();
+  window.speechSynthesis.addEventListener?.("voiceschanged", pick);
+}
+
+document.addEventListener("click", async (event) => {
+  const listen = event.target.closest("[data-ko-listen]");
+  if (listen) {
+    speakKorean(listen.dataset.ko || listen.closest("[data-ko]")?.dataset.ko || "");
+    return;
+  }
+  const copy = event.target.closest("[data-ko-copy]");
+  if (copy) {
+    const text = copy.closest("[data-ko]")?.dataset.ko || "";
+    flashButton(copy, (await copyText(text)) ? "Copied" : "Copy failed");
+  }
+});
+enableKoreanListening();
+
+const progressBar = document.querySelector("[data-reading-progress]");
+const articleBody = document.querySelector(".guide-article-body");
+if (progressBar && articleBody) {
+  const updateProgress = () => {
+    const rect = articleBody.getBoundingClientRect();
+    const total = rect.height - window.innerHeight * 0.6;
+    const done = Math.min(1, Math.max(0, -rect.top / Math.max(total, 1)));
+    progressBar.style.transform = `scaleX(${done})`;
+  };
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+  updateProgress();
+}
+
+for (const quiz of document.querySelectorAll("[data-quiz]")) {
+  const questions = [...quiz.querySelectorAll(".quiz-question")];
+  const resultBox = quiz.querySelector("[data-quiz-result]");
+  let answered = 0;
+  let score = 0;
+  quiz.classList.add("is-interactive");
+  for (const question of questions) {
+    const answer = Number(question.dataset.answer);
+    const buttons = [...question.querySelectorAll("[data-option]")];
+    const explain = question.querySelector(".quiz-explain");
+    buttons.forEach((button) => { button.disabled = false; });
+    buttons.forEach((button) => button.addEventListener("click", () => {
+      const chosen = Number(button.dataset.option);
+      buttons.forEach((item) => {
+        item.disabled = true;
+        if (Number(item.dataset.option) === answer) item.classList.add("is-correct");
+      });
+      if (chosen !== answer) button.classList.add("is-wrong");
+      else score += 1;
+      question.classList.add(chosen === answer ? "answered-right" : "answered-wrong");
+      if (explain) explain.open = true;
+      answered += 1;
+      if (answered === questions.length && resultBox) {
+        const ratio = score / questions.length;
+        const message = ratio >= 0.8 ? quiz.dataset.resultHigh : ratio >= 0.5 ? quiz.dataset.resultMid : quiz.dataset.resultLow;
+        resultBox.innerHTML = "";
+        const heading = document.createElement("p");
+        heading.className = "quiz-score";
+        heading.textContent = `You scored ${score} out of ${questions.length}.`;
+        const note = document.createElement("p");
+        note.textContent = message || "";
+        const shareButton = document.createElement("button");
+        shareButton.type = "button";
+        shareButton.className = "button primary";
+        shareButton.textContent = "Share your score";
+        const shareText = `I scored ${score}/${questions.length} on "${quiz.dataset.quizTitle}" from K-Spot Now.`;
+        shareButton.addEventListener("click", async () => {
+          const url = location.href.split("#")[0];
+          if (navigator.share) {
+            navigator.share({ title: quiz.dataset.quizTitle, text: shareText, url }).catch(() => {});
+          } else {
+            flashButton(shareButton, (await copyText(`${shareText} ${url}`)) ? "Copied to share" : "Copy failed");
+          }
+        });
+        resultBox.append(heading, note, shareButton);
+        resultBox.hidden = false;
+      }
+    }));
+  }
+}

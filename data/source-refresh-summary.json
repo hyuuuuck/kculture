@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T21:09:57.855Z",
+  "generatedAt": "2026-10-20T05:02:30.503Z",
   "files": {
     "audit": "source-audit-2026-10-20.json",
     "candidates": "official-page-candidates-2026-10-20.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 3,
+    "auditOk": 54,
+    "auditFailed": 2,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 558,
-    "dateSignals": 239,
-    "draftCandidates": 45,
-    "skippedCandidates": 566,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 578,
+    "dateSignals": 258,
+    "draftCandidates": 67,
+    "skippedCandidates": 564,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,47 +61,42 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 20
+    },
     {
       "key": "Visit Seoul",
       "count": 15
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 12
+      "count": 13
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
-    },
-    {
-      "key": "Shinsegae Group Newsroom",
-      "count": 2
+      "count": 13
     },
     {
       "key": "Weverse Shop BTS Notices",
       "count": 2
     },
     {
-      "key": "Korea Sale FESTA",
+      "key": "Korea Policy Briefing",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 28
+      "count": 49
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 8
     },
     {
       "key": "kpop",
@@ -109,7 +104,7 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 2
     },
     {
       "key": "beauty",
@@ -123,22 +118,22 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 523
+      "count": 520
     },
     {
       "key": "listing page is not a specific event",
-      "count": 15
+      "count": 16
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 6
     },
     {
       "key": "source fetch did not succeed",
-      "count": 8
+      "count": 6
     },
     {
       "key": "duplicate draft source URL",
-      "count": 4
-    },
-    {
-      "key": "mojibake text detected",
       "count": 4
     },
     {
@@ -147,6 +142,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -202,14 +205,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
-    },
-    {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 23,
-      "dates": 5,
-      "keywords": 9,
-      "score": 126
     }
   ]
 }

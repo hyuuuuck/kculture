@@ -28,7 +28,7 @@ const requiredPages = [
   { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", 'id="event-evidence-title"', 'class="evidence-list"', "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
   { path: "/en/guides/", label: "Guides", needles: ["library-hero", "library-section", "lib-card"] },
-  { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-original-evidence", "case-ledger", "guide-citations"] },
+  { path: "/en/guides/gyeongbokgung-palace-guide", label: "Representative guide", needles: ["guide-key-facts", "guide-faq", "guide-citations"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
   { path: "/en/contact/", label: "Contact", needles: ["contact@kspotnow.com"] }
 ];
@@ -52,11 +52,11 @@ const retiredContentPaths = [
 ];
 const duplicateHtmlVariants = [
   ["/en/events/jinju-namgang-yudeung-festival-2026.html", "/en/events/jinju-namgang-yudeung-festival-2026"],
-  ["/en/guides/how-to-verify-korea-popups.html", "/en/guides/how-to-verify-korea-popups"]
+  ["/en/guides/gyeongbokgung-palace-guide.html", "/en/guides/gyeongbokgung-palace-guide"]
 ];
 const layoutPages = [
   { path: "/en/", label: "Home" },
-  { path: "/en/guides/how-to-verify-korea-popups", label: "Verification guide" },
+  { path: "/en/guides/seoul-five-grand-palaces-compared", label: "Comparison guide" },
   { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Event detail" },
   { path: "/en/calendar/", label: "Calendar" }
 ];
@@ -214,8 +214,8 @@ async function auditAffiliatePause() {
 
   const samples = await Promise.all([
     fetchLive("/en/"),
-    fetchLive("/en/events/jinju-namgang-yudeung-festival-2026"),
-    fetchLive("/en/guides/how-to-verify-korea-popups")
+    fetchLive("/en/events/deoksugung-royal-guard-changing-ceremony-2026"),
+    fetchLive("/en/guides/gyeongbokgung-palace-guide")
   ]);
   const joined = samples.map((sample) => sample.text).join("\n");
   const blockedSignals = ["Allianceid=8627235", "coupa.ng", "coupang-affiliate-widget", "trip.com/partners/ad"];

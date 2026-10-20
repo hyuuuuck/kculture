@@ -20,7 +20,7 @@ export function renderVisitorBrief(brief, { esc, publishedAt, method }) {
     </div>`).join("")}</div>
     <h3>Taking part as an international visitor</h3>
     <dl class="participation-facts">${brief.participation.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join("")}</dl>
-    <div class="visitor-boundary"><h3>What is still unconfirmed</h3><ul>${brief.unresolved.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+    <div class="visitor-boundary"><h3>Check before you go</h3><ul>${brief.unresolved.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     <p class="review-update-note"><strong>Revision scope</strong> Cultural context, participation conditions and a practical choice. Source checks below identify which claims were rechecked; other facts retain their earlier evidence date.</p>
     <p class="review-byline">First published ${esc(publishedAt)}. Text revised ${esc(brief.updatedAt)} with AI assistance for <a href="/en/about/">K-Spot Now Editorial Desk</a>. ${esc(method)}</p>
   </section>`;

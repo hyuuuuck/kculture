@@ -1,8 +1,12 @@
 const canonicalHost = "kspotnow.com";
 
+// Withdrawn guides point to the closest current reading: the rainy-day guide replaces the
+// weather-process essay, and the dated pop-up case study returns readers to the guide index.
 const mergedGuidePaths = new Map([
-  ["/en/guides/department-store-popup-planning", "/en/guides/how-to-verify-korea-popups"],
-  ["/en/guides/kpop-ticket-merch-safety", "/en/guides/how-to-verify-korea-popups"]
+  ["/en/guides/department-store-popup-planning", "/en/guides"],
+  ["/en/guides/kpop-ticket-merch-safety", "/en/guides"],
+  ["/en/guides/how-to-verify-korea-popups", "/en/guides"],
+  ["/en/guides/weather-for-korea-events", "/en/guides/seoul-indoor-culture-rainy-day"]
 ]);
 
 function retiredResponse(retiredLanguagePath = false) {

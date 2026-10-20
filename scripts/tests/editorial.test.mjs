@@ -73,7 +73,7 @@ test("article text is escaped and source uncertainty remains visible", () => {
   const html = renderVisitorBrief(brief, {esc, publishedAt:"2026-08-06", method:"No field visit."});
   assert.ok(!html.includes("<script>"));
   assert.match(html,/&lt;script>/);
-  assert.match(html,/What is still unconfirmed/);
+  assert.match(html,/Check before you go/);
   assert.match(html,/AI assistance/);
 });
 test("section citations resolve to dated source records and escape labels", () => {
@@ -101,7 +101,7 @@ test("named garden comparisons retain project-specific evidence and separate ven
 test("English palace services stay distinct from ceremony narration and confirmed booking", () => {
   const brief = briefs.events["deoksugung-royal-guard-changing-ceremony-2026"];
   const text = JSON.stringify(brief);
-  for (const marker of ["10:45", "13:30", "11:50", "14:50", "first-come", "passport", "not a reserved place", "outdoor guard ceremony itself remains unconfirmed"]) assert.ok(text.includes(marker), marker);
+  for (const marker of ["10:45", "13:30", "11:50", "14:50", "first-come", "passport", "not a reserved place", "whether the outdoor ceremony itself has English narration"]) assert.ok(text.includes(marker), marker);
 });
 test("mask-drama recommendations distinguish non-verbal plot from spoken satire", () => {
   const text = JSON.stringify(briefs.events["andong-maskdance-festival-2026"]);

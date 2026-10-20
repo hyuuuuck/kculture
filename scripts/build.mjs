@@ -5923,11 +5923,22 @@ function uiIcon(name, className = "") {
 }
 
 function nav(lang, canonicalPath = "") {
-  const items = [["guides", "Culture guides"], ["now", "What's on"], ["calendar", "Calendar"], ["planner", "Saved places"], ["about", "About"]];
-  return `<nav class="top-nav" aria-label="Primary">${items.map(([path, label]) => {
-    const current = canonicalPath.startsWith(`/${lang}/${path}/`) || (path === "now" && canonicalPath.includes("/events/"));
-    return `<a href="/${lang}/${path}/"${current ? ' aria-current="page"' : ""}>${label}</a>`;
-  }).join("")}</nav>`;
+  const inGuides = canonicalPath.startsWith(`/${lang}/guides/`);
+  const items = [["now", "What's on"], ["about", "About"]];
+  return `<nav class="top-nav" aria-label="Primary">
+      <details class="nav-menu">
+        <summary${inGuides ? ' aria-current="page"' : ""}>Culture guides<span class="nav-caret" aria-hidden="true"></span></summary>
+        <div class="nav-menu-panel">
+          <a class="nav-menu-all" href="/${lang}/guides/">All ${guides.length} guides</a>
+          ${libraryCategories.map((category) => `<a href="/${lang}/guides/#${category.id}">${esc(category.label)}<span>${guidesInCategory(category.id).length}</span></a>`).join("")}
+        </div>
+      </details>
+      <a href="/${lang}/guides/seoul-culture-itinerary-3-days">Plan your trip</a>
+      ${items.map(([path, label]) => {
+        const current = canonicalPath.startsWith(`/${lang}/${path}/`) || (path === "now" && canonicalPath.includes("/events/"));
+        return `<a href="/${lang}/${path}/"${current ? ' aria-current="page"' : ""}>${label}</a>`;
+      }).join("")}
+    </nav>`;
 }
 
 function absoluteUrl(urlPath) {
@@ -6163,7 +6174,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/about/">Meet the publication ${uiIcon("arrow")}</a>
     </div>
     <div class="footer-links" aria-label="Publication information">
-      <a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/planner/">Saved places</a>
+      <a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/calendar/">Calendar</a><a href="/${lang}/planner/">Saved places</a>
       <a href="/${lang}/editorial-policy/">Editorial Policy</a><a href="/${lang}/corrections/">Corrections and Updates</a><a href="/${lang}/contact/">Contact</a>
       <a href="/${lang}/privacy/">Privacy Policy</a><a href="/${lang}/cookie-policy/">Cookie Policy</a><a href="/${lang}/advertising/">Advertising Policy</a><a href="/${lang}/terms/">Terms</a>
     </div>
@@ -7386,8 +7397,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
     .sort((a, b) => visitorBriefs.events[b.slug].decisionUpdate.date.localeCompare(visitorBriefs.events[a.slug].decisionUpdate.date));
   const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
   const pick = (slugs) => slugs.map((slug) => bySlug.get(slug)).filter(Boolean);
-  const startHere = pick(["gyeongbokgung-palace-guide", "korean-table-manners", "seoul-subway-tmoney-guide"]);
-  const firstTrip = pick(["seoul-five-grand-palaces-compared", "korean-etiquette-for-visitors", "bukchon-hanok-village-guide", "naver-map-kakao-map-korea", "gwangjang-market-food-guide", "national-museum-of-korea-guide"]);
+  const startHere = pick(["seoul-culture-itinerary-3-days", "gyeongbokgung-palace-guide", "korean-table-manners"]);
+  const firstTrip = pick(["seoul-five-grand-palaces-compared", "free-korean-culture-seoul", "korean-etiquette-for-visitors", "korean-menu-decoder", "seoul-culture-by-season", "seoul-subway-tmoney-guide"]);
   const homeImage = { src: "/assets/guides/home.jpg", width: 1400, height: 932, artist: "Kim Dae Jeung", page: "https://commons.wikimedia.org/wiki/File:Gyeonghoeru_1.jpg", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" };
   const title = "K-Spot Now — Korean culture guides for your Seoul visit";
   const description = `${guides.length} in-depth guides to Korean palaces, temples, food, etiquette, museums and neighborhoods, researched from official sources for independent visitors to Seoul.`;
@@ -7409,7 +7420,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
       ${adUnit("home", canonicalPath === editorialProgram.canonicalHome)}
       <section class="home-start" aria-labelledby="home-start-title">
-        <div class="library-section-head"><h2 id="home-start-title">Start here</h2><p>Three guides that make the rest of a first trip easier: the main palace, the dinner table and the subway.</p></div>
+        <div class="library-section-head"><h2 id="home-start-title">Start here</h2><p>A three-day plan that strings the guides together, then the main palace and the dinner table.</p></div>
         <div class="lib-grid lib-grid-three lib-grid-feature">${startHere.map((guide) => libraryCard(guide, lang)).join("")}</div>
       </section>
       <section class="home-themes" aria-labelledby="home-themes-title">
@@ -7425,11 +7436,11 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         }).join("")}</div>
       </section>
       <section class="home-first-trip" aria-labelledby="home-first-trip-title">
-        <div class="library-section-head"><h2 id="home-first-trip-title">Before a first trip</h2><p>The guides readers need most often when Seoul is new: which palace, which manners, which map.</p></div>
+        <div class="library-section-head"><h2 id="home-first-trip-title">Before a first trip</h2><p>The guides that save the most time and money when Seoul is new: which palace, what is free, how to read a menu and when to go.</p></div>
         <div class="lib-grid">${firstTrip.map((guide) => libraryCard(guide, lang)).join("")}</div>
       </section>
       <nav class="utility-strip" aria-label="Practical planning">
-        <a href="/${lang}/guides/weather-for-korea-events">${uiIcon("weather")}<span><strong>What if the weather changes? ${uiIcon("arrow")}</strong><span>Separate a forecast from a cancellation.</span></span></a>
+        <a href="/${lang}/guides/seoul-indoor-culture-rainy-day">${uiIcon("weather")}<span><strong>Rain, cold or heat? ${uiIcon("arrow")}</strong><span>Indoor culture worth the trip, and how to rearrange a palace day.</span></span></a>
         <a href="/${lang}/guides/korean-holidays-seollal-chuseok-travel">${uiIcon("map")}<span><strong>Travelling over a holiday? ${uiIcon("arrow")}</strong><span>What closes for Seollal and Chuseok, and what opens free.</span></span></a>
         <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>Recheck your saved places ${uiIcon("arrow")}</strong><span>See whether our published visit facts changed.</span></span></a>
       </nav>
@@ -8570,7 +8581,7 @@ const libraryCategories = [
   { id: "food-drink", label: "Food & drink", blurb: "How Koreans eat and drink together, from shared side dishes to pouring for an elder." },
   { id: "museums-arts", label: "Museums & performing arts", blurb: "Where to see Korea's art, objects and living performance traditions, and how to read them." },
   { id: "neighborhoods", label: "Neighborhoods", blurb: "Hanok lanes, markets and hills to walk with context rather than a checklist." },
-  { id: "practical", label: "Practical Seoul", blurb: "Transit, maps, holidays, phrases and weather: the logistics behind a good culture day." }
+  { id: "practical", label: "Plan your trip", blurb: "Itineraries, seasons, transit, maps, holidays and phrases: the planning behind a good culture day." }
 ];
 const libraryCategoryById = new Map(libraryCategories.map((category) => [category.id, category]));
 const legacyGuideImages = {

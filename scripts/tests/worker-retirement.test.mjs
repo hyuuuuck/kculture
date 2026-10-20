@@ -27,8 +27,11 @@ test("retired shopping URLs do not redirect readers into another retired guide",
   }
 });
 
-test("merged cultural guides still redirect to the current pop-up guide", async () => {
-  const response = await worker.fetch(new Request("https://kspotnow.com/en/guides/kpop-ticket-merch-safety/"), missingAssets);
-  assert.equal(response.status, 301);
-  assert.equal(response.headers.get("location"), "https://kspotnow.com/en/guides/how-to-verify-korea-popups/");
+test("merged and withdrawn guides redirect to the closest current reading", async () => {
+  const merged = await worker.fetch(new Request("https://kspotnow.com/en/guides/kpop-ticket-merch-safety/"), missingAssets);
+  assert.equal(merged.status, 301);
+  assert.equal(merged.headers.get("location"), "https://kspotnow.com/en/guides/");
+  const weather = await worker.fetch(new Request("https://kspotnow.com/en/guides/weather-for-korea-events"), missingAssets);
+  assert.equal(weather.status, 301);
+  assert.equal(weather.headers.get("location"), "https://kspotnow.com/en/guides/seoul-indoor-culture-rainy-day/");
 });

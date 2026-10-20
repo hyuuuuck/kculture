@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T20:02:33.347Z",
+  "generatedAt": "2026-10-20T23:15:13.715Z",
   "files": {
     "audit": "source-audit-2026-10-21.json",
     "candidates": "official-page-candidates-2026-10-21.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 617,
-    "dateSignals": 262,
-    "draftCandidates": 71,
-    "skippedCandidates": 599,
+    "discoveredLinks": 574,
+    "dateSignals": 248,
+    "draftCandidates": 63,
+    "skippedCandidates": 564,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -60,7 +60,7 @@
     {
       "sourceName": "AK Plaza Events",
       "status": 400,
-      "error": ""
+      "error": "fetch failed"
     },
     {
       "sourceName": "Shinsegae Department Store Events",
@@ -86,10 +86,6 @@
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Korea Sale FESTA",
       "count": 1
     }
@@ -97,7 +93,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 56
+      "count": 48
     },
     {
       "key": "shopping",
@@ -123,7 +119,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 556
+      "count": 521
     },
     {
       "key": "listing page is not a specific event",
@@ -135,7 +131,7 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
       "key": "duplicate draft source URL",
@@ -147,14 +143,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -210,6 +198,14 @@
       "dates": 18,
       "keywords": 2,
       "score": 135
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
     }
   ]
 }

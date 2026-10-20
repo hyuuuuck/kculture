@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T05:02:30.503Z",
+  "generatedAt": "2026-10-20T13:41:02.949Z",
   "files": {
     "audit": "source-audit-2026-10-20.json",
     "candidates": "official-page-candidates-2026-10-20.json",
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 578,
-    "dateSignals": 258,
+    "discoveredLinks": 577,
+    "dateSignals": 251,
     "draftCandidates": 67,
-    "skippedCandidates": 564,
+    "skippedCandidates": 563,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 520
+      "count": 519
     },
     {
       "key": "listing page is not a specific event",

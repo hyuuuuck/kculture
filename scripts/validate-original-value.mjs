@@ -27,7 +27,7 @@ const expected = new Set(program.indexableGuides);
 const built = fs.readdirSync(path.join(root, "dist/en/guides")).filter(name => name.endsWith(".html") && name !== "index.html").map(name => name.slice(0, -5));
 if (built.length !== expected.size || built.some(slug => !expected.has(slug))) failures.push("built guides differ from the explicit publication set");
 const about = fs.readFileSync(path.join(root, "dist/en/about/index.html"), "utf8");
-for (const marker of ["about-accountability", ">Who<", ">How<", ">Why<", ">Limits<", "contact@kspotnow.com", "AI"]) {
+for (const marker of ["about-accountability", ">Who we are<", ">How we research<", ">Why we exist<", ">How we stay accurate<", "contact@kspotnow.com", "AI"]) {
   if (!about.includes(marker)) failures.push("about: missing disclosure " + marker);
 }
 if (failures.length) {

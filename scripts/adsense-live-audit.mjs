@@ -23,11 +23,11 @@ const layoutResults = [];
 
 const requiredPages = [
   { path: "/", label: "Root home", needles: ["K-Spot Now", "programme-cover", "Make a culture"] },
-  { path: "/en/", label: "English home", needles: ["home-introduction", "home-guide-band", "experience-card"] },
+  { path: "/en/", label: "English home", needles: ["home-start", "home-themes", "experience-card"] },
   { path: "/en/now/", label: "Reviewed event feed", needles: ["data-gallery-scope", "data-visit-filter", "data-interest-filter", "experience-card"] },
   { path: "/en/events/jinju-namgang-yudeung-festival-2026", label: "Representative event", needles: ["Open Official source", "Place, timing, weather", 'id="event-evidence-title"', 'class="evidence-list"', "review-update-note", "First published"] },
   { path: "/en/calendar/", label: "Calendar", needles: ["Calendar", "month-block"] },
-  { path: "/en/guides/", label: "Guides", needles: ["guide-index", "guide-lead", "guide-list"] },
+  { path: "/en/guides/", label: "Guides", needles: ["library-hero", "library-section", "lib-card"] },
   { path: "/en/guides/how-to-verify-korea-popups", label: "Representative guide", needles: ["guide-original-evidence", "case-ledger", "guide-citations"] },
   { path: "/en/privacy/", label: "Privacy", needles: ["Privacy"] },
   { path: "/en/contact/", label: "Contact", needles: ["contact@kspotnow.com"] }

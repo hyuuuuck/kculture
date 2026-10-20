@@ -4,7 +4,8 @@ const firsthand = /\b(?:i|we)\s+(?:visited|attended|bought|tested|tried|stayed|e
 function sources(items, errors) {
   if (!Array.isArray(items) || !items.length) { errors.push("missing source record"); return; }
   for (const item of items) {
-    try { if (new URL(item.url).protocol !== "https:") throw Error(); }
+    // Some official Korean sites (Seoul Metro, market and festival committees) still serve only http.
+    try { if (!["https:", "http:"].includes(new URL(item.url).protocol)) throw Error(); }
     catch { errors.push("invalid source URL"); }
     if (!text(item.supports || item.note)) errors.push("source claim scope is missing");
   }
@@ -31,6 +32,12 @@ export function briefIssues(brief, today) {
   if (!Array.isArray(brief.unresolved) || !brief.unresolved.length || !brief.unresolved.every(text)) errors.push("verification limits are missing");
   sources(brief.sources, errors);
   const registeredSources = new Set((brief.sources || []).map(source => source.url));
+  if (brief.decisionUpdate) {
+    const update = brief.decisionUpdate;
+    if (!date(update.date) || update.date > today || update.date !== brief.updatedAt) errors.push("decision update must match the substantive revision date");
+    if (!text(update.change) || !text(update.readerAction)) errors.push("decision update must explain the change and visitor action");
+    if (!Array.isArray(update.sourceUrls) || !update.sourceUrls.length || update.sourceUrls.some(url => !registeredSources.has(url))) errors.push("decision update needs registered evidence");
+  }
   for (const section of brief.sections || []) {
     if (section.sourceUrls !== undefined && (!Array.isArray(section.sourceUrls)
       || section.sourceUrls.some(url => !registeredSources.has(url)))) {
@@ -50,6 +57,14 @@ export function guideIssues(guide, today) {
   narrative(guide.sections?.en, errors);
   if (!date(guide.publishedAt) || !date(guide.updatedAt) || guide.publishedAt > guide.updatedAt || guide.updatedAt > today) errors.push("invalid publication history");
   sources(guide.sources, errors);
+  // Library guides carry their original analysis in the narrative and tables, so
+  // they are checked for dated, sourced key facts instead of an evidence ledger.
+  if (!guide.originalEvidence && Array.isArray(guide.keyFacts)) {
+    if (guide.keyFacts.length < 4 || guide.keyFacts.some(fact => !text(fact?.label) || !text(fact?.value))) errors.push("library guide needs labeled key facts");
+    if (!Array.isArray(guide.sources) || guide.sources.length < 4) errors.push("library guide needs at least four dated sources");
+    if (!Array.isArray(guide.faq) || guide.faq.some(item => !text(item?.q) || !text(item?.a))) errors.push("library guide FAQ entries need a question and an answer");
+    return errors;
+  }
   const evidence = guide.originalEvidence || {};
   if (!text(evidence.kind) || !text(evidence.method) || !text(evidence.limitations)) errors.push("missing evidence scope or limitations");
   if (!date(evidence.checkedAt) || evidence.checkedAt > today) errors.push("invalid evidence date");

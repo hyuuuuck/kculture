@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "method": "AI-assisted documentary revision using the linked official records. No field visit, completed booking, or independent reader test is claimed.",
+  "method": "Researched from the linked official records. Planning recommendations are our editorial judgment, and we do not describe visits we have not made.",
   "events": {
     "deoksugung-royal-guard-changing-ceremony-2026": {
       "updatedAt": "2026-09-17",
@@ -98,7 +98,16 @@
       ]
     },
     "seoul-international-garden-show-2026": {
-      "updatedAt": "2026-09-17",
+      "updatedAt": "2026-10-01",
+      "decisionUpdate": {
+        "date": "2026-10-01",
+        "change": "The organizer's separate Maeheon Citizen's Forest program is scheduled for October 1–27. The three named gardens compared in this article are at Seoul Forest, not Maeheon.",
+        "readerAction": "Choose the park before opening a map: use 서울숲 for the three gardens discussed here, or read Maeheon's own program if that is the October venue you want.",
+        "sourceUrls": [
+          "https://www.seoul.go.kr/festa/garden/y2026/maeheon-forest/maeheon-intro/maeheon-overview",
+          "https://www.seoul.go.kr/festa/garden/y2026/introduce/location"
+        ]
+      },
       "question": "Which gardens should I choose for a first visit to Seoul Forest?",
       "answer": "Compare three different ideas of a public garden: Henri Bava's planting-led woodland, Lee Nam-jin's Garden of Waiting, and the usable furniture of Horizon of 30.5 Meters. Choose two for their contrast, then use the English QR guide on site. This is a researched selection, not a ranking based on attendance.",
       "sections": [
@@ -143,7 +152,7 @@
           "heading": "Arrive at Seoul Forest, not the October satellite venue",
           "paragraphs": [
             "The organizer's directions identify Seoul Forest Station exits 3, 4 and 5 on the Suin–Bundang Line, or Ttukseom Station exits 7 and 8 on Line 2. Its estimates are two and eleven minutes on foot respectively; those are organizer estimates to the park, not measured times to an individual garden. Search 서울숲, 273 Ttukseom-ro, then use the garden names and the on-site map.",
-            "Maeheon Citizen's Forest is a separate October 1–27 venue at 99 Maeheon-ro in Seocho-gu. A September visitor following this article should go to Seoul Forest. An October visitor should choose the venue before routing; the shared festival name does not mean the two parks contain the same installations.",
+            "Maeheon Citizen's Forest is a separate October 1–27 venue at 99 Maeheon-ro in Seocho-gu. The three named gardens compared above are in Seoul Forest, so an October visitor seeking those works should still route to 서울숲. If Maeheon's separate program is the attraction, read its own venue page before routing; the shared festival name does not mean the two parks contain the same installations.",
             "The city separates open garden access from participation programs advertised for 12:00–20:00. An older tourism listing gives 12:00–19:00. Use the selected program's current timetable rather than assigning either range to every garden, shop and guided activity."
           ],
           "sourceUrls": [
@@ -200,13 +209,13 @@
         {
           "url": "https://www.seoul.go.kr/festa/garden/y2026/introduce/location",
           "sourceName": "Garden show — Seoul Forest directions",
-          "checkedAt": "2026-09-17",
+          "checkedAt": "2026-10-01",
           "supports": "Station exits, park address and organizer-labelled walking estimates."
         },
         {
           "url": "https://www.seoul.go.kr/festa/garden/y2026/maeheon-forest/maeheon-intro/maeheon-overview",
           "sourceName": "Garden show — separate Maeheon edition",
-          "checkedAt": "2026-09-17",
+          "checkedAt": "2026-10-01",
           "supports": "October dates and address of the separate satellite venue, not its program availability."
         }
       ]
@@ -280,9 +289,18 @@
       ]
     },
     "gwangalli-m-drone-light-show-2026": {
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-10-01",
+      "decisionUpdate": {
+        "date": "2026-10-01",
+        "change": "October's regular Saturday schedule is 19:00/21:00 rather than September's 20:00/22:00. The September holiday one-show notice is archived evidence, not current travel advice.",
+        "readerAction": "Choose an October slot using 19:00 or 21:00, then check the operator's notice for your exact Saturday before crossing Busan.",
+        "sourceUrls": [
+          "https://www.gwangallimdrone.co.kr/notice-en/notice-of-winter-season-showtime-change-for-gwangalli-m-drone-light-show",
+          "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-cuseog-teugbyeolgongyeon-annae-2"
+        ]
+      },
       "question": "Should I cross Busan just for the drone show?",
-      "answer": "Make it the highlight of a Gwangalli evening, not the only reason for a long transfer. September 26 is a single 20:00 Chuseok drone-and-laser performance—there is no regular 22:00 second chance that night.",
+      "answer": "Make it the highlight of a Gwangalli evening, not the only reason for a long transfer. From October, the regular Saturday slots move to 19:00 and 21:00; a dated operator notice can still change a particular night.",
       "sections": [
         {
           "heading": "A contemporary waterfront experience",
@@ -294,11 +312,11 @@
         {
           "heading": "Choose the week's story, not just the biggest drone count",
           "paragraphs": [
-            "September's operator program puts an esports-themed week beside a youth-themed show and a Chuseok celebration. The September 19 title is 빛나는 청춘을 위해, which we translate as 'For a shining youth'; September 26 combines a Hangawi moonlit-banquet theme with lasers. Hangawi is another name for Chuseok. This is contemporary programming using a holiday reference, not a reenactment of one fixed traditional ritual.",
-            "For someone interested in current Korean popular culture, that changing program is the reason to read the date rather than call every week the same attraction. Our suggested way to watch is to follow transitions between shapes before concentrating on a souvenir photograph. We have not attended these performances or verified which spoken explanations accompany them."
+            "The operator's English program list checked September 29 names A Glorious Heritage for October 3, October in Busan for October 10, Station Between Dimensions for October 17, Melody of the Forest for October 24 and The Legend of Troy for October 31. The titles let you choose a night that interests you; they are not evidence of a particular narrative, language service or fixed drone count.",
+            "The changing program is the reason to read the date rather than call every week the same attraction. Our suggested way to watch is to follow transitions between shapes before concentrating on a souvenir photograph. We have not attended these performances or verified which spoken explanations accompany them."
           ],
           "sourceUrls": [
-            "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-9weol-gongyeon-peurogeuraem-annae-2"
+            "https://www.gwangallimdrone.co.kr/en/information"
           ]
         },
         {
@@ -306,11 +324,11 @@
           "paragraphs": [
             "The operator lists Saturday performances at 20:00 and 22:00 from March through September, and 19:00 and 21:00 from October through February. It describes performances as over twelve minutes and the viewing area as Gwangalli Beach.",
             "Our planning preference is the earlier performance when your return journey is uncertain: it leaves more room to adjust the evening. The later show may fit a dinner-first plan, but do not infer a guaranteed train or bus connection from the show's finish. Compare your own destination with a current route before choosing.",
-            "The September 26, 2026 special notice overrides the regular pattern: 3,000 drones with lasers, once at 20:00. It also lists traffic restrictions from 19:00–21:00 between the intersection in front of the Gwangalli SUP zone and Millak Raw Fish Town. Our practical consequence: do not schedule a 22:00 arrival or assume a car can use the usual beachfront approach. October returns to the published winter pattern unless a new dated notice overrides it."
+            "October's standing pattern is 19:00 and 21:00. An earlier one-show holiday exception has passed; do not reuse that date's timing or traffic controls for an October visit. Check the current notice before crossing Busan, particularly if your plan depends on the second show or a wheelchair/stroller viewing area."
           ],
           "sourceUrls": [
             "https://www.gwangallimdrone.co.kr/en/overview",
-            "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-cuseog-teugbyeolgongyeon-annae-2"
+            "https://www.gwangallimdrone.co.kr/notice-en/notice-of-winter-season-showtime-change-for-gwangalli-m-drone-light-show"
           ]
         },
         {
@@ -338,7 +356,7 @@
         },
         {
           "label": "Seasonal time",
-          "value": "Regular Saturdays: March–September 20:00/22:00; October–February 19:00/21:00. September 26, 2026 exception: one show at 20:00 only."
+          "value": "Regular Saturdays: March–September 20:00/22:00; October–February 19:00/21:00. Dated operator notices override the standing schedule."
         },
         {
           "label": "Location",
@@ -346,7 +364,7 @@
         }
       ],
       "unresolved": [
-        "Same-day operation, special-show accessible-area availability, actual crowds and your return transport remain unconfirmed. The September 26 single-show exception is confirmed in the linked notice, not an unresolved regular-schedule assumption."
+        "Same-day operation, accessible-area availability, actual crowds and your return transport remain unconfirmed. The October titles are a dated September 29 listing, not a guarantee that every session will proceed."
       ],
       "guideSlugs": [
         "weather-for-korea-events"
@@ -354,18 +372,23 @@
       "sources": [
         {
           "url": "https://www.gwangallimdrone.co.kr/en/overview",
-          "checkedAt": "2026-09-17",
+          "checkedAt": "2026-09-29",
           "supports": "Seasonal performance times, duration wording, beach viewing area and weekly themed format."
         },
         {
-          "url": "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-9weol-gongyeon-peurogeuraem-annae-2",
-          "checkedAt": "2026-09-18",
-          "supports": "Dated September themes. English theme phrasing in this article is our translation, not an official English show title."
+          "url": "https://www.gwangallimdrone.co.kr/en/information",
+          "checkedAt": "2026-09-29",
+          "supports": "Operator's English listing of the five October 2026 Saturday show titles; titles do not prove same-day operation or language support."
+        },
+        {
+          "url": "https://www.gwangallimdrone.co.kr/notice-en/notice-of-winter-season-showtime-change-for-gwangalli-m-drone-light-show",
+          "checkedAt": "2026-09-29",
+          "supports": "October-February regular showtimes of 19:00 and 21:00. Dated exceptions remain possible."
         },
         {
           "url": "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-cuseog-teugbyeolgongyeon-annae-2",
           "checkedAt": "2026-09-18",
-          "supports": "2026-09-26 once at 20:00, 3,000 drones with lasers and the listed beachfront traffic restriction."
+          "supports": "Archived September 26 one-show exception, now past. Retained only to explain the correction; do not use its time or traffic restrictions for October."
         },
         {
           "url": "https://www.gwangallimdrone.co.kr/notice/gwanganri-m-deuronraiteusyo-hwilceeo-yuaca-gwanramguyeog-annae",
@@ -375,9 +398,17 @@
       ]
     },
     "andong-maskdance-festival-2026": {
-      "updatedAt": "2026-09-17",
+      "updatedAt": "2026-09-30",
+      "decisionUpdate": {
+        "date": "2026-09-30",
+        "change": "A September 27 pairing was removed from the visit advice because both performances are over. The October 1 Bongsan and October 3 Gwanno entries are dated examples, not an all-festival schedule.",
+        "readerAction": "Choose an operator-listed performance for your actual day and route to its named venue. Use a past example only to understand the difference between spoken satire and physical drama.",
+        "sourceUrls": [
+          "https://en.maskdance.com/2024/sub2/sub1.asp"
+        ]
+      },
       "question": "How do I choose an Andong performance—and understand more than the masks?",
-      "answer": "For a first mask drama without Korean dialogue, consider Gangneung Gwanno on October 3. For verbal satire and expansive sleeve movement, compare Bongsan Talchum on October 1 and read its synopsis first. Both are listed at the performance hall; Hahoe Village is a separate destination.",
+      "answer": "Choose a named performance for your visit day, not the festival dates alone. Gwanno's physical drama and Bongsan's spoken satire show how different the experience can be; their listed October 3 and October 1 slots are date-specific, and Hahoe Village is a separate destination.",
       "sections": [
         {
           "heading": "Choose a performance rather than an entire festival",
@@ -405,7 +436,7 @@
           "heading": "Without Korean: start with Gangneung Gwanno's physical story",
           "paragraphs": [
             "The operator lists Gangneung Gwanno Mask Drama for October 3 at 13:00 in the mask-dance performance hall. Its description identifies a drama without spoken dialogue: Yangban and Somaegaksi form a couple, while Sisitttakttaki characters disrupt their relationship. The Jangjamari figures open the action with comic movement. Knowing these roles gives you a specific story to follow instead of trying to decode every mask unaided.",
-            "This is our first choice for someone who wants a narrative carried by movement rather than spoken wordplay. It is not necessarily the right family choice: the published synopsis includes a staged suicide attempt before reconciliation. A dialogue-free format removes one language barrier; it does not remove emotionally difficult themes or make all cultural references self-explanatory."
+            "For a visitor who wants a narrative carried by movement rather than spoken wordplay, this is the stronger of these two documented examples while its October 3 slot remains ahead. It is not necessarily the right family choice: the published synopsis includes a staged suicide attempt before reconciliation. A dialogue-free format removes one language barrier; it does not remove emotionally difficult themes or make all cultural references self-explanatory."
           ],
           "sourceUrls": [
             "https://en.maskdance.com/2024/sub2/sub1.asp?page=1&search=&seq=4330&yflag=2026"
@@ -415,18 +446,22 @@
           "heading": "For satire: Bongsan needs more than recognizing a mask",
           "paragraphs": [
             "Bongsan Talchum is listed for October 1 at 15:30 at the same performance hall. The program description highlights animated sleeve movement and scenes involving monks, a lion and aristocrats. In the noblemen's scene, the servant Marddugi ridicules his social superiors through language and double meanings.",
-            "The contrast with Gwanno is useful when choosing a date. Bongsan offers movement you can follow visually, but an important part of its social criticism depends on what is said and who is entitled to say it. Read the English synopsis before the performance and watch the servant's relationship to the noblemen; do not mistake a visually comic scene for proof that no translation is needed. Festival staging may select or shorten material, so the full synopsis is context rather than a promise that every act will appear."
+            "The contrast with Gwanno is useful even after a named performance date passes. Bongsan offers movement you can follow visually, but an important part of its social criticism depends on what is said and who is entitled to say it. If choosing a still-available performance, read its English synopsis before attending; do not mistake a visually comic scene for proof that no translation is needed. Festival staging may select or shorten material, so the full synopsis is context rather than a promise that every act will appear."
           ],
           "sourceUrls": [
             "https://en.maskdance.com/2024/sub2/sub1.asp?page=1&search=&seq=4328&yflag=2026"
           ]
         },
         {
-          "heading": "Two programs at the same time are a choice, not a route",
+          "heading": "A festival date is not a performance booking",
           "paragraphs": [
-            "The operator's Korean mask-dance listing, checked on September 17, places Dongnae Yaryu at the mask-dance performance hall on September 27 at 13:00. It also lists Sokcho Saja Nori at Hahoe Village Mansongjeong at 13:00 that day. Their shared festival date does not make them consecutive stops: choose which venue and performance matters to you.",
-            "For a different date, the listing gives Bongsan Talchum at the performance hall on October 1 at 15:30. These examples show how to build around a specific production; they are not guaranteed seats. Check the detail page and the day's operating notice before committing to transport.",
+            "The operator's listings identify individual productions, times and venues. October 1 Bongsan and October 3 Gwanno are examples from the program checked September 17, not recurring performances or guaranteed seats. Once either date has passed, use its description only as a cultural comparison and choose another still-available entry for your visit.",
+            "Match the production to the named site before arranging transport. A performance hall slot and a Hahoe Village program are not interchangeable just because both appear under the festival title. Check the selected detail page and day's operating notice before committing to a route.",
             "The English ticket page displays adult KRW 8,000 and student KRW 6,000, a KRW 2,000 festival coupon, advance-ticket exchange and a one-performance-per-ticket rule. The displayed ticket block does not explicitly identify its edition, so these amounts are a dated reference, not a confirmed 2026 checkout quote. Ask whether the selected performance uses that ticket, and do not subtract the coupon from cash you need to pay."
+          ],
+          "sourceUrls": [
+            "https://en.maskdance.com/2024/sub2/sub1.asp",
+            "https://en.maskdance.com/2024/sub7/sub2.asp"
           ]
         }
       ],
@@ -486,9 +521,17 @@
       ]
     },
     "jinju-namgang-yudeung-festival-2026": {
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-30",
+      "decisionUpdate": {
+        "date": "2026-09-30",
+        "change": "The lead now treats opening night and fireworks as date-specific choices rather than a standing recommendation. VISITKOREA confirms the 2026 range, but the operator's detailed program and ticket claims were not freshly verified in the September 29 source review.",
+        "readerAction": "Choose a festival evening you can actually attend, then check its operator notice and your return bank. Do not buy a crossing ticket solely from this article's older price record.",
+        "sourceUrls": [
+          "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362"
+        ]
+      },
       "question": "Which Jinju evening should I choose: lantern viewing or opening-night events?",
-      "answer": "Choose October 3 for the opening sequence, October 9 or 17 if the listed fireworks matter, or another festival evening for lanterns without building the trip around those special events. Decide your return bank before adding paid pontoon crossings.",
+      "answer": "Make the river lanterns the base of the visit. The opening sequence is listed only for October 3 and fireworks for October 3, 9 and 17; add one only if your actual date matches. Choose your return bank before buying a pontoon crossing.",
       "sections": [
         {
           "heading": "Why lanterns belong on this river",
@@ -502,7 +545,7 @@
           "paragraphs": [
             "On September 17, the official homepage labels the festival October 3–18, 2026 and gives a general lantern-lighting window of 18:00–24:00. Separately, it schedules the opening lantern-lighting ceremony for October 3 at 19:30 at the Mangyeong-dong special stage. For that ceremony, plan around 19:30 rather than treating the general 18:00 lighting time as its start.",
             "The same page lists fireworks on October 3, 9 and 17 at 20:00 between Jinju Bridge and Cheonsu Bridge. Those are selected dates, not a nightly inclusion. If fireworks determine your trip, recheck the operator's notice for that date; a scheduled program is not a guarantee against a weather or operational change.",
-            "VISITKOREA confirms the 2026 festival dates but still labels its detailed program as based on 2025. Use that page for historical context and the date cross-check, and the operator's current program for specific evening events. A previous edition's attraction list is not a timetable for the night you choose."
+            "VISITKOREA now lists the 2026 dates and broad lantern, drone and fireworks activities, but does not give each show's date. Use the operator's dated program for a specific evening. The official desktop site failed a certificate check during our September 29 monitoring; its earlier timetable and ticket details have not been renewed by that check."
           ]
         },
         {
@@ -535,7 +578,7 @@
             "If your usable departure leaves no workable margin after an opening event or fireworks, choose an overnight visit or omit that program. The less ambitious plan can preserve the experience you actually came for. We do not give a universal walking buffer because queues, access controls and individual mobility can change it."
           ],
           "sourceUrls": [
-            "https://yudeung.com/?lang=en"
+            "https://reserv.tfunkorea.co.kr/sale/siteDetail/JINJUYUDEUNG?indivimall=jinjuyudeung"
           ]
         }
       ],
@@ -567,8 +610,13 @@
         },
         {
           "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
-          "checkedAt": "2026-09-17",
-          "supports": "2026 date range and fortress/river setting; history of the lantern practice and explicit 2025 detailed-program warning. Not used to override the current operator timetable."
+          "checkedAt": "2026-09-29",
+          "supports": "2026 date range and fortress/river setting; history of the lantern practice and broad 2026 lantern, drone and fireworks categories. No date-specific show timetable."
+        },
+        {
+          "url": "https://m.yudeung.com/",
+          "checkedAt": "2026-09-29",
+          "supports": "Official mobile portal with 2026 dates and the Jinju riverside/fortress setting in English when requested. It is a fallback for the desktop organizer site, which failed a certificate check in our September 29 automated attempt; it is not proof that all desktop ticket terms remain unchanged."
         },
         {
           "url": "https://yudeung.com/events/course?lang=en",

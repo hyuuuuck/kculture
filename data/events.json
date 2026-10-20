@@ -2228,7 +2228,7 @@
     "sourceName": "VISITKOREA",
     "sourceUrl": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=96362",
     "officialWebsiteName": "Jinju Namgang Yudeung Festival official site",
-    "officialWebsiteUrl": "https://yudeung.com/?lang=en",
+    "officialWebsiteUrl": "https://m.yudeung.com/",
     "lastChecked": "2026-09-13",
     "collectionMode": "manual-reviewed-official-page",
     "verification": "official",
@@ -2258,7 +2258,7 @@
       "ja": "城郭の景色、灯籠写真、川沿いの散策、ゆったりした地方旅行を求める秋の夜イベントとして価値があります。"
     },
     "travelTips": [
-      "Use the operator's current 2026 timetable for individual events; VISITKOREA still labels its detailed program as based on 2025.",
+      "Use the operator's current 2026 timetable for individual events. VISITKOREA lists broad 2026 activities but is not the date-specific operating notice.",
       "Choose your actual return departure before planning the viewing window. Compare an overnight stay only if the desired program does not fit that return.",
       "Select a river bank and exit first; verify any temporary bridge's ticket and access conditions before adding a crossing.",
       "The general lighting window starts at 18:00, but the October 3 opening lighting ceremony is separately listed at 19:30. Do not merge the two."
@@ -2293,30 +2293,29 @@
           "sourceName": "VISITKOREA",
           "url": "https://english.visitkorea.or.kr/svc/sp/festivals/contentsView.do?dataSetId=297&menuSn=1040&vcontsId=96362",
           "role": "National tourism festival record",
-          "supports": "Confirms the 2026 date range, fortress-and-river venue, free festival context, and that detailed program material is still being updated from the prior edition.",
+          "supports": "Confirms the 2026 date range, fortress-and-river venue, free festival context, and broad 2026 lantern, drone and fireworks activities. The operator controls date-specific operations.",
           "mustContain": [
             "2026-10-03",
             "2026-10-18",
             "Jinjuseong Fortress",
-            "information below is based on the 2025 festivals"
+            "Drone Light Show"
           ]
         },
         {
-          "sourceName": "Jinju Namgang Yudeung Festival Committee",
-          "url": "https://yudeung.com/?lang=en",
-          "role": "Official festival operator",
-          "supports": "The named 2026 Festival JSON-LD confirms dates and the fortress/river location after the operator rebuilt its site as a JS application. Rendered operating times were separately read on September 17; this automated check does not validate the timetable.",
-          "structuredDataType": "Festival",
-          "structuredDataName": "2026 진주남강유등축제",
+          "sourceName": "Jinju Namgang Yudeung Festival Committee mobile portal",
+          "url": "https://m.yudeung.com/",
+          "role": "Official festival operator's mobile portal; English when requested",
+          "supports": "The official mobile portal identifies the 2026 festival dates and Jinju river/fortress setting in English. It does not independently verify the desktop site's bridge prices or the complete date-specific timetable.",
           "mustContain": [
-            "2026-10-03",
-            "2026-10-18",
-            "진주성 · 남강 일원"
+            "2026 Jinju Namgang Yudeung Festival",
+            "Oct 3 (Sat)",
+            "Oct 18 (Sun)",
+            "Jinjuseong"
           ]
         }
       ]
     },
-    "sourceCheckedAt": "2026-09-23"
+    "sourceCheckedAt": "2026-09-30"
   },
   {
     "slug": "deoksugung-royal-guard-changing-ceremony-2026",
@@ -2429,7 +2428,7 @@
     "priority": 91,
     "startDate": "2026-01-03",
     "endDate": "2026-12-31",
-    "dateLabel": "Regular schedule: Every Saturday in 2026; Mar-Sep 20:00/22:00, Oct-Feb 19:00/21:00. September 26 exception: 20:00 only",
+    "dateLabel": "Every Saturday in 2026; March-September 20:00/22:00, October-February 19:00/21:00. Check dated notices for exceptions",
     "city": "Busan",
     "district": "Suyeong-gu",
     "venue": "Gwangalli Beach",
@@ -2467,7 +2466,7 @@
     },
     "travelTips": [
       "Use 광안리해수욕장 as the Korean map query. A standing wheelchair/stroller viewing notice identifies the area opposite 광안해변로 247; special-day arrangements can differ.",
-      "Regular shows are at 20:00 and 22:00 from March to September, and 19:00 and 21:00 from October to February. September 26, 2026 is one special show at 20:00 only.",
+      "Regular shows are at 20:00 and 22:00 from March to September, and 19:00 and 21:00 from October to February. Check the operator's dated notices for exceptions.",
       "The show is free and runs for about 12 minutes, but weather, wind, or crowd-control notices can change operations; check the official website before leaving.",
       "Keep another reason to spend the evening in Gwangalli. A separate district is not automatically a convenient fallback, and the show finish does not establish your final transport connection."
     ],
@@ -2926,7 +2925,7 @@
         }
       ]
     },
-    "sourceCheckedAt": "2026-09-23"
+    "sourceCheckedAt": "2026-09-30"
   },
   {
     "slug": "namsangol-traditional-experience-2026",

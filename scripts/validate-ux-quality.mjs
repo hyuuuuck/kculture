@@ -25,7 +25,7 @@ function occurrences(text, literal) { return text.split(literal).length - 1; }
 // Browser evidence separately covers visual fidelity, viewport overflow and interaction.
 for (const lang of publicLanguageCodes()) {
   const homeId = lang + "/index.html", home = read(homeId);
-  needs(home, ["programme-cover", "home-introduction", "utility-strip", "home-guide-band", "5b81c184", "/guides/seoul-culture-first-visit", "archive, 2020"], homeId);
+  needs(home, ["programme-cover", "home-start", "home-themes", "home-first-trip", "utility-strip", "home-method", "5b81c184", "/guides/gyeongbokgung-palace-guide", "Wikimedia Commons"], homeId);
   check(!home.includes("data-spotlight-carousel"), homeId, "Retired carousel must not return");
   check(!/Fresh checked today|verified today/i.test(home), homeId, "Do not relabel dated evidence as checked today");
   for (const id of [homeId, lang + "/now/index.html"]) {
@@ -41,12 +41,14 @@ for (const lang of publicLanguageCodes()) {
   check(!now.includes("event-decision-board"), "experiences", "Duplicate decision-board inventory must not return");
 
   const index = read(lang + "/guides/index.html");
-  needs(index, ["guide-index", "guide-lead", "guide-list", "documentary research"], "guide index");
+  needs(index, ["library-hero", "library-section", "lib-grid", "How these guides are made"], "guide index");
   check(!index.includes("guide-scope-ledger"), "guide index", "Duplicate guide ledger must not return");
   for (const guide of guides) {
     needs(index, ['href="/' + lang + "/guides/" + guide.slug + '"'], "guide index");
     const id = lang + "/guides/" + guide.slug + ".html", html = read(id);
-    needs(html, ["guide-article-header", "guide-reading-layout", "guide-audience", "guide-byline", "guide-method", "guide-original-evidence", "guide-citations", "guide-next-section"], id);
+    needs(html, ["guide-article-header", "guide-reading-layout", "guide-audience", "guide-byline", "guide-method", "guide-citations"], id);
+    needs(html, [guide.originalEvidence ? "guide-original-evidence" : "guide-key-facts"], id);
+    check(html.includes("guide-next-section") || html.includes("guide-related-guides"), id, "Article needs a next step: related guides or current pages");
     const expected = guide.sections?.en?.length || 0;
     check(occurrences(html, 'class="guide-content-section"') === expected, id, "Every original narrative section must remain");
   }

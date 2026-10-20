@@ -38,6 +38,67 @@ const KSpotPlanning = (() => {
     if (local) return /^\/en\/(?:events|guides)\/[a-z0-9-]+\/?$/.test(text) ? text : "";
     try { const url = new URL(text); return url.protocol === "https:" && !url.username && !url.password ? url.href : ""; } catch { return ""; }
   }
+  const snapshotFields = ["editorialUpdatedAt", "start", "end", "venue", "sourceUrl", "admission", "price", "reservation", "hours", "scheduleKey"];
+  function shortText(value, limit = 600) {
+    return String(value ?? "").trim().slice(0, limit);
+  }
+  function snapshotFor(item) {
+    const facts = item?.publicationFacts || {};
+    const schedule = item?.schedule || {};
+    return {
+      editorialUpdatedAt: validDate(item?.editorialUpdatedAt) ? item.editorialUpdatedAt : "",
+      start: validDate(item?.start) ? item.start : "",
+      end: validDate(item?.end) ? item.end : "",
+      venue: shortText(item?.venue),
+      sourceUrl: safeLink(schedule.sourceUrl || item?.sourceUrl),
+      admission: shortText(facts.entry),
+      price: shortText(facts.price),
+      reservation: shortText(facts.reservation),
+      hours: shortText(facts.hours),
+      scheduleKey: JSON.stringify({
+        note: schedule.note || "",
+        weekdays: schedule.weekdays || [],
+        closedWeekdays: schedule.closedWeekdays || [],
+        closedDates: schedule.closedDates || [],
+        seasonalTimes: schedule.seasonalTimes || {},
+        dateTimes: schedule.dateTimes || {},
+        dateNotes: schedule.dateNotes || {}
+      }).slice(0, 4000)
+    };
+  }
+  function savedSnapshot(raw) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+    if (!snapshotFields.some(field => Object.hasOwn(raw, field))) return null;
+    const clean = {};
+    for (const field of snapshotFields) clean[field] = shortText(raw[field], field === "scheduleKey" ? 4000 : 600);
+    clean.start = validDate(clean.start) ? clean.start : "";
+    clean.end = validDate(clean.end) ? clean.end : "";
+    clean.editorialUpdatedAt = validDate(clean.editorialUpdatedAt) ? clean.editorialUpdatedAt : "";
+    clean.sourceUrl = safeLink(clean.sourceUrl);
+    return clean;
+  }
+  function publicationChanges(item) {
+    if (item.retired) return { state: "withdrawn", changes: [] };
+    const before = savedSnapshot(item.savedSnapshot);
+    if (!before) return { state: "no-baseline", changes: [] };
+    const now = snapshotFor(item);
+    const changes = [];
+    function add(label, oldValue, newValue) {
+      if (oldValue !== newValue) changes.push({ label, before: oldValue, after: newValue });
+    }
+    add("Listed dates", [before.start, before.end].filter(Boolean).join(" to "), [now.start, now.end].filter(Boolean).join(" to "));
+    add("Venue", before.venue, now.venue);
+    add("Admission", before.admission, now.admission);
+    add("Price", before.price, now.price);
+    add("Reservation", before.reservation, now.reservation);
+    add("Published hours", before.hours, now.hours);
+    if (before.sourceUrl !== now.sourceUrl) changes.push({ label: "Official notice link", before: "", after: "Updated" });
+    if (before.scheduleKey !== now.scheduleKey) changes.push({ label: "Schedule guidance", before: "", after: "Revised; read the current date note below" });
+    if (before.editorialUpdatedAt !== now.editorialUpdatedAt) {
+      changes.push({ label: "Article revision", before: before.editorialUpdatedAt, after: now.editorialUpdatedAt });
+    }
+    return { state: changes.length ? "changed" : "unchanged", changes };
+  }
   function operatingNotice(item) {
     return safeLink(item.schedule?.dateSources?.[item.visitDate] || item.schedule?.sourceUrl || item.sourceUrl);
   }
@@ -50,7 +111,7 @@ const KSpotPlanning = (() => {
       seen.add(slug);
       const live = catalog.find(item => item.slug === slug);
       const visitDate = validDate(old.visitDate) ? old.visitDate : "";
-      if (live) return [{ ...live, visitDate, retired: false }];
+      if (live) return [{ ...live, visitDate, retired: false, savedSnapshot: savedSnapshot(old.savedSnapshot) }];
       return [{ slug, title: String(old.title || "Previously saved place").slice(0, 240), city: String(old.city || "").slice(0, 80), start: "", end: "", date: "No longer in the current selection", url: "", sourceUrl: safeLink(old.sourceUrl), mapQuery: "", visitDate, retired: true }];
     }).slice(0, 24);
   }
@@ -82,5 +143,5 @@ const KSpotPlanning = (() => {
     lines.push("END:VCALENDAR");
     return lines.map(foldLine).join("\r\n") + "\r\n";
   }
-  return { validDate, koreaToday, visitDecision, reconcileSaved, safeLink, operatingNotice, calendarText, icsEscape };
+  return { validDate, koreaToday, visitDecision, reconcileSaved, safeLink, snapshotFor, savedSnapshot, publicationChanges, operatingNotice, calendarText, icsEscape };
 })();

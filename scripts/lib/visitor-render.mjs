@@ -3,6 +3,12 @@ export function renderVisitorBrief(brief, { esc, publishedAt, method }) {
   return `<section class="detail-section event-review-section visitor-brief" aria-labelledby="event-review-title">
     <h2 id="event-review-title">${esc(brief.question)}</h2>
     <p class="event-decision">${esc(brief.answer)}</p>
+    ${brief.decisionUpdate ? `<aside class="visitor-decision-update" aria-label="Decision-changing article update">
+      <span>Decision update · ${esc(brief.decisionUpdate.date)}</span>
+      <p>${esc(brief.decisionUpdate.change)}</p>
+      <p><strong>What to do now:</strong> ${esc(brief.decisionUpdate.readerAction)}</p>
+      <div>Evidence: ${brief.decisionUpdate.sourceUrls.map(url => `<a href="${esc(url)}" rel="nofollow noopener" target="_blank">${esc(sources.get(url)?.sourceName || new URL(url).hostname)}</a>`).join(" · ")}</div>
+    </aside>` : ""}
     <div class="visitor-narrative">${brief.sections.map((section) => `<div>
       <h3>${esc(section.heading)}</h3>
       ${section.paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}

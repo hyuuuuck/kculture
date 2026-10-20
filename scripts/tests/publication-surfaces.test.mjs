@@ -19,3 +19,11 @@ test("guide index needs each real article link and explanatory context", () => {
   assert.ok(guideIndexIssues(guide.replace(/<p>.*?<\/p>/,''),[event]).length);
   assert.ok(guideIndexIssues(guide,[event,{slug:"missing"}]).length);
 });
+test("library guide index counts themed lib-card articles", () => {
+  const card='<article class="lib-card"><a href="/en/guides/culture"><img alt="x"></a><div><h3><a href="/en/guides/culture">Culture</a></h3><p>Compare a palace, gardens and Korean ceramics.</p></div></article>';
+  const page=`<section class="library-section">${card}</section>`;
+  assert.deepEqual(guideIndexIssues(page,[event]),[]);
+  assert.ok(guideIndexIssues(page.replace(/<p>.*?<\/p>/,''),[event]).length);
+  assert.ok(guideIndexIssues(page+page,[event]).length);
+  assert.ok(guideIndexIssues('',[event]).length);
+});

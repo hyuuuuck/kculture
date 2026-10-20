@@ -82,6 +82,40 @@ test("saved links reject executable, protocol-relative and credential-bearing UR
   assert.equal(P.safeLink("/en/events/a", { local: true }), "/en/events/a");
   assert.equal(P.safeLink("//evil.test", { local: true }), "");
 });
+test("returning readers see material publication changes, not monitoring churn", () => {
+  const original = {
+    ...item("drone"),
+    venue: "Gwangalli Beach",
+    sourceUrl: "https://www.gwangallimdrone.co.kr/en/overview",
+    editorialUpdatedAt: "2026-09-18",
+    sourceMonitoredAt: "2026-09-23",
+    publicationFacts: { entry: "Open beach", price: "Free", reservation: "None", hours: "Saturdays at 19:00 and 21:00" }
+  };
+  const snapshot = P.snapshotFor(original);
+  const [saved] = P.reconcileSaved([{ slug: original.slug, savedSnapshot: snapshot }], [original]);
+  assert.equal(P.publicationChanges(saved).state, "unchanged");
+  assert.equal(P.publicationChanges({ ...saved, sourceMonitoredAt: "2026-09-29" }).state, "unchanged");
+
+  const revised = {
+    ...original,
+    publicationFacts: { ...original.publicationFacts, price: "Ticket required" },
+    schedule: { ...original.schedule, sourceUrl: "https://www.gwangallimdrone.co.kr/en/information", note: "Revised evening guidance" },
+    editorialUpdatedAt: "2026-09-29",
+    sourceUrl: "https://www.gwangallimdrone.co.kr/en/information"
+  };
+  const [changed] = P.reconcileSaved([{ slug: original.slug, savedSnapshot: snapshot }], [revised]);
+  const result = P.publicationChanges(changed);
+  assert.equal(result.state, "changed");
+  assert.deepEqual(Array.from(result.changes, change => change.label), ["Price", "Official notice link", "Schedule guidance", "Article revision"]);
+  assert.equal(P.publicationChanges({ ...changed, savedSnapshot: P.snapshotFor(revised) }).state, "unchanged");
+});
+test("legacy and withdrawn saves never invent a comparison history", () => {
+  const current = item("drone");
+  assert.equal(P.publicationChanges({ ...current, savedSnapshot: null }).state, "no-baseline");
+  assert.equal(P.savedSnapshot({}), null);
+  const [withdrawn] = P.reconcileSaved([{ slug: "retired", savedSnapshot: P.snapshotFor(current) }], catalog);
+  assert.equal(P.publicationChanges(withdrawn).state, "withdrawn");
+});
 test("only dated, usable visits export as one tentative day, with UTF-8 line folding", () => {
   const visit = { ...item("ocean"), visitDate: "2026-09-26", city: "Seoul", venue: "충무아트센터".repeat(12), title: "Culture, gardens; Seoul" };
   const text = P.calendarText([visit, { ...visit, visitDate: "" }, { ...visit, visitDate: "2026-09-24" }], "2026-09-17", new Date("2026-09-17T00:00:00Z"));

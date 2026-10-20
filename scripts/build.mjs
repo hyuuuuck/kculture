@@ -2542,7 +2542,7 @@ function tr(lang, key) {
 }
 
 function hasMojibake(value) {
-  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}|[A-Za-zÀ-ÿ]\?[A-Za-zÀ-ÿ]/.test(String(value ?? ""));
+  return /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908]|\?{4,}|[A-Za-zÀ-ÿ]\?[A-Za-zÀ-ÿ]/.test(String(value ?? ""));
 }
 
 function local(value, lang) {
@@ -5923,7 +5923,7 @@ function uiIcon(name, className = "") {
 }
 
 function nav(lang, canonicalPath = "") {
-  const items = [["now", "Experiences"], ["guides", "Culture guides"], ["calendar", "Calendar"], ["planner", "Saved places"], ["about", "About"]];
+  const items = [["guides", "Culture guides"], ["now", "What's on"], ["calendar", "Calendar"], ["planner", "Saved places"], ["about", "About"]];
   return `<nav class="top-nav" aria-label="Primary">${items.map(([path, label]) => {
     const current = canonicalPath.startsWith(`/${lang}/${path}/`) || (path === "now" && canonicalPath.includes("/events/"));
     return `<a href="/${lang}/${path}/"${current ? ' aria-current="page"' : ""}>${label}</a>`;
@@ -6163,11 +6163,11 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <a href="/${lang}/about/">Meet the publication ${uiIcon("arrow")}</a>
     </div>
     <div class="footer-links" aria-label="Publication information">
-      <a href="/${lang}/now/">Experiences</a><a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/planner/">Saved places</a>
+      <a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/planner/">Saved places</a>
       <a href="/${lang}/editorial-policy/">Editorial Policy</a><a href="/${lang}/corrections/">Corrections and Updates</a><a href="/${lang}/contact/">Contact</a>
       <a href="/${lang}/privacy/">Privacy Policy</a><a href="/${lang}/cookie-policy/">Cookie Policy</a><a href="/${lang}/advertising/">Advertising Policy</a><a href="/${lang}/terms/">Terms</a>
     </div>
-    <p class="footer-note">Documentary research, clearly dated. Official details can change; check the organizer before you travel.</p>
+    <p class="footer-note">Researched from official sources and clearly dated. Hours, fees and rules can change; check the linked official page before you travel.</p>
   </footer>
   <aside class="saved-planner" data-saved-planner hidden aria-live="polite">
     <div>
@@ -6182,7 +6182,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
     </div>
   </aside>
   <p class="storage-warning" data-storage-warning role="status" hidden></p>
-  <script type="application/json" id="visit-catalog">${JSON.stringify(currentEvents().map(event => ({ slug: event.slug, title: local(event.title, lang), date: eventDateLabel(event, lang, false), start: event.startDate, end: event.endDate, city: event.city, category: categoryLabel(lang, event.category), url: eventHref(lang, event), sourceUrl: event.sourceUrl, sourceName: event.sourceName, mapQuery: eventPlaceQuery(event), venue: event.venue, schedule: visitPlanning[event.slug] || {} }))).replaceAll("<", "\\u003c")}</script>
+  <script type="application/json" id="visit-catalog">${JSON.stringify(currentEvents().map(event => ({ slug: event.slug, title: local(event.title, lang), date: eventDateLabel(event, lang, false), start: event.startDate, end: event.endDate, city: event.city, category: categoryLabel(lang, event.category), url: eventHref(lang, event), sourceUrl: event.sourceUrl, sourceName: event.sourceName, mapQuery: eventPlaceQuery(event), venue: event.venue, editorialUpdatedAt: eventPublicationDates(event).updatedAt, sourceMonitoredAt: sourceCheckDate(event), publicationFacts: eventPublicationFacts(event), schedule: visitPlanning[event.slug] || {} }))).replaceAll("<", "\\u003c")}</script>
   <script src="/planning.js?v=${assetVersion}" defer></script>
   <script src="/app.js?v=${assetVersion}" defer></script>
 </body>
@@ -7382,56 +7382,82 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const sorted = currentEvents().sort((a, b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a, b));
   const seoul = sorted.filter((event) => event.city === "Seoul");
   const elsewhere = sorted.filter((event) => event.city !== "Seoul");
-  const title = "K-Spot Now — Korean culture for your Seoul visit";
-  const description = "Understand the experience, compare entry and language conditions, and plan a cultural visit in Seoul. Selected festivals and waterfront events elsewhere in Korea.";
+  const changedDecisions = sorted.filter((event) => visitorBriefs.events[event.slug]?.decisionUpdate)
+    .sort((a, b) => visitorBriefs.events[b.slug].decisionUpdate.date.localeCompare(visitorBriefs.events[a.slug].decisionUpdate.date));
+  const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
+  const pick = (slugs) => slugs.map((slug) => bySlug.get(slug)).filter(Boolean);
+  const startHere = pick(["gyeongbokgung-palace-guide", "korean-table-manners", "seoul-subway-tmoney-guide"]);
+  const firstTrip = pick(["seoul-five-grand-palaces-compared", "korean-etiquette-for-visitors", "bukchon-hanok-village-guide", "naver-map-kakao-map-korea", "gwangjang-market-food-guide", "national-museum-of-korea-guide"]);
+  const homeImage = { src: "/assets/guides/home.jpg", width: 1400, height: 932, artist: "Kim Dae Jeung", page: "https://commons.wikimedia.org/wiki/File:Gyeonghoeru_1.jpg", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" };
+  const title = "K-Spot Now — Korean culture guides for your Seoul visit";
+  const description = `${guides.length} in-depth guides to Korean palaces, temples, food, etiquette, museums and neighborhoods, researched from official sources for independent visitors to Seoul.`;
   const body = `
     <main>
-      <section class="programme-cover" aria-labelledby="home-title">
+      <section class="programme-cover home-cover" aria-labelledby="home-title">
         <div class="cover-copy">
-          <h1 id="home-title">Make a culture<br class="desktop-break"> day in Seoul.</h1>
-          <p>Understand an imperial palace, compare two designed gardens, or explore Korean ceramics. Choose a cultural question, then build your day around it.</p>
-          <a class="button primary cover-cta" href="/${lang}/guides/seoul-culture-first-visit">Start with the Seoul guide ${uiIcon("arrow")}</a>
+          <h1 id="home-title">Korean culture, explained for your Seoul visit.</h1>
+          <p>In-depth guides to palaces, temples, food, etiquette and neighborhoods for independent travelers who want to understand what they are seeing, then do it properly.</p>
+          <div class="cover-actions">
+            <a class="button primary cover-cta" href="/${lang}/guides/">Browse all ${guides.length} guides ${uiIcon("arrow")}</a>
+            <a class="cover-secondary" href="/${lang}/guides/seoul-five-grand-palaces-compared">New to Seoul? Choose your first palace ${uiIcon("arrow")}</a>
+          </div>
         </div>
         <figure class="cover-figure">
-          <a href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026" aria-label="Read about the Deoksugung guard ceremony"><img src="/assets/editorial/deoksugung-guards-smg-2020.jpg" alt="Guards in ceremonial dress at Deoksugung, in a 2020 Seoul Metropolitan Government archive photograph" width="1000" height="658" fetchpriority="high"></a>
-          <figcaption><a href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026">Deoksugung: ceremony or palace visit? ${uiIcon("arrow")}</a><span>Seoul Metropolitan Government · archive, 2020</span></figcaption>
+          <a href="/${lang}/guides/gyeongbokgung-palace-guide" aria-label="Read the Gyeongbokgung Palace guide"><img src="${homeImage.src}" alt="Gyeonghoeru pavilion at Gyeongbokgung Palace reflected in its pond" width="${homeImage.width}" height="${homeImage.height}" fetchpriority="high"></a>
+          <figcaption><a href="/${lang}/guides/gyeongbokgung-palace-guide">Gyeonghoeru, Gyeongbokgung: where the Joseon court held its banquets ${uiIcon("arrow")}</a><span>${imageCredit(homeImage)}</span></figcaption>
         </figure>
       </section>
       ${adUnit("home", canonicalPath === editorialProgram.canonicalHome)}
-      <section class="home-introduction" aria-labelledby="before-you-choose">
-        <div class="intro-essay"><h2 id="before-you-choose">Before you choose</h2><h3>A guard ceremony — or a palace visit?</h3>
-          <p>A ceremony offers a concentrated visual encounter: dress, movement and the changing of the guard. A palace visit asks you to look at buildings and their history at your own pace. They share a setting, but they are not the same experience.</p>
-          <p>At Deoksugung, decide which interests you first. Then check the ceremony session separately from palace admission.</p>
-          <a class="text-link" href="/${lang}/events/deoksugung-royal-guard-changing-ceremony-2026">Choose your Deoksugung visit ${uiIcon("arrow")}</a>
-        </div>
-        <div class="home-features">${[
-          { slug: "seoul-international-garden-show-2026", title: "Read a garden, not just a map", text: "Compare Bava's woodland planting with Horizon of 30.5 Meters: one shapes movement, the other a place to stop." },
-          { slug: "andong-maskdance-festival-2026", title: "Mask dance, beyond Seoul", text: "Gwanno's physical story or Bongsan's spoken satire? Choose the performance that fits how you want to understand it." }
-        ].map((feature) => {
-          const event = sorted.find((item) => item.slug === feature.slug);
-          if (!event) return "";
-          const visual = experienceVisual(event);
-          return `<article class="feature-row"><figure><a href="${eventHref(lang, event)}"><img class="image-${visual.fit}" src="/${esc(visual.src)}" alt="${esc(visual.caption)}" loading="lazy"></a><figcaption class="image-caption">${esc(event.slug === "seoul-international-garden-show-2026" ? "Visit Seoul · 2025 reference photo" : "Official venue illustration")}</figcaption></figure><div><h3>${esc(feature.title)}</h3><p>${esc(feature.text)}</p><a class="text-link" href="${eventHref(lang, event)}">Read the experience ${uiIcon("arrow")}</a></div></article>`;
+      <section class="home-start" aria-labelledby="home-start-title">
+        <div class="library-section-head"><h2 id="home-start-title">Start here</h2><p>Three guides that make the rest of a first trip easier: the main palace, the dinner table and the subway.</p></div>
+        <div class="lib-grid lib-grid-three lib-grid-feature">${startHere.map((guide) => libraryCard(guide, lang)).join("")}</div>
+      </section>
+      <section class="home-themes" aria-labelledby="home-themes-title">
+        <div class="library-section-head"><h2 id="home-themes-title">Explore by theme</h2><p>Every guide explains the meaning first, then the practical detail: Korean names to search, opening days, booking rules and etiquette.</p></div>
+        <div class="theme-grid">${libraryCategories.map((category) => {
+          const items = guidesInCategory(category.id);
+          return `<article class="theme-tile">
+            <h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3>
+            <p>${esc(category.blurb)}</p>
+            <ul>${items.slice(0, 4).map((guide) => `<li><a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a></li>`).join("")}</ul>
+            <a class="text-link" href="/${lang}/guides/#${category.id}">All ${items.length} ${esc(category.label.toLowerCase())} guides ${uiIcon("arrow")}</a>
+          </article>`;
         }).join("")}</div>
+      </section>
+      <section class="home-first-trip" aria-labelledby="home-first-trip-title">
+        <div class="library-section-head"><h2 id="home-first-trip-title">Before a first trip</h2><p>The guides readers need most often when Seoul is new: which palace, which manners, which map.</p></div>
+        <div class="lib-grid">${firstTrip.map((guide) => libraryCard(guide, lang)).join("")}</div>
       </section>
       <nav class="utility-strip" aria-label="Practical planning">
         <a href="/${lang}/guides/weather-for-korea-events">${uiIcon("weather")}<span><strong>What if the weather changes? ${uiIcon("arrow")}</strong><span>Separate a forecast from a cancellation.</span></span></a>
-        <a href="/${lang}/guides/how-to-verify-korea-popups">${uiIcon("map")}<span><strong>Questions about entry? ${uiIcon("arrow")}</strong><span>Check your account, reservation and branch.</span></span></a>
-        <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>View your saved places ${uiIcon("arrow")}</strong><span>Keep the stops you are considering together.</span></span></a>
+        <a href="/${lang}/guides/korean-holidays-seollal-chuseok-travel">${uiIcon("map")}<span><strong>Travelling over a holiday? ${uiIcon("arrow")}</strong><span>What closes for Seollal and Chuseok, and what opens free.</span></span></a>
+        <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>Recheck your saved places ${uiIcon("arrow")}</strong><span>See whether our published visit facts changed.</span></span></a>
       </nav>
       <section class="programme-section" id="events">
-        <div class="section-head"><div><h2>Make room for a cultural stop</h2><p>Current experiences in Seoul. Read the context, then check the conditions.</p></div><a class="text-link" href="/${lang}/now/">All experiences ${uiIcon("arrow")}</a></div>
+        <div class="section-head"><div><h2>What's on in Seoul now</h2><p>Current, dated experiences that fit around the guides above. Read the context, then check the conditions.</p></div><a class="text-link" href="/${lang}/now/">All current experiences ${uiIcon("arrow")}</a></div>
         <div class="experience-list">${seoul.map((event) => experienceCard(event, lang)).join("")}</div>
         ${elsewhere.length ? `<div class="section-head elsewhere-heading"><div><h2>Beyond Seoul</h2><p>Separate destinations to consider if your trip already takes you further.</p></div></div><div class="experience-list">${elsewhere.map((event) => experienceCard(event, lang)).join("")}</div>` : ""}
       </section>
-      <section class="home-guide-band">
-        <div class="section-head"><div><h2>A little context goes a long way.</h2><p>Practical reading for the decisions around your visit.</p></div><a class="text-link" href="/${lang}/guides/">All culture guides ${uiIcon("arrow")}</a></div>
-        <div class="reading-links">${guides.filter((guide) => guide.slug !== "seoul-culture-first-visit").slice(0, 3).map((guide) => `<a href="${guideHref(lang, guide)}"><h3>${esc(guideTitleText(guide, lang))}</h3><p>${esc(guideSummaryText(guide, lang))}</p>${uiIcon("arrow")}</a>`).join("")}</div>
+      ${changedDecisions.length ? `<section class="home-decision-updates" aria-labelledby="home-decision-updates-title">
+        <div><h2 id="home-decision-updates-title">What changed for your visit</h2><p>Substantive article revisions, not automated source-check timestamps. Recheck the operator before travelling.</p></div>
+        <div class="home-decision-update-list">${changedDecisions.map((event) => {
+          const update = visitorBriefs.events[event.slug].decisionUpdate;
+          return `<article><span>${esc(update.date)} · ${esc(cityLabel(lang, event.city))}</span><h3><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></h3><p>${esc(update.readerAction)}</p></article>`;
+        }).join("")}</div>
+      </section>` : ""}
+      <section class="home-method" aria-labelledby="home-method-title">
+        <h2 id="home-method-title">How K-Spot Now works</h2>
+        <div>
+          <article><h3>Sourced</h3><p>Facts that can change, such as hours, fees, closing days and booking rules, come from the palace, museum, city or heritage-agency page linked in each guide.</p></article>
+          <article><h3>Dated</h3><p>Every guide shows when it was published and last checked. Seasonal details are written as seasonal, with the official page to confirm them.</p></article>
+          <article><h3>Correctable</h3><p>Our recommendations are labeled as judgment, not fact. If something has changed on the ground, <a href="/${lang}/contact/">tell us</a> and we will fix it.</p></article>
+        </div>
       </section>
     </main>`;
   return layout({ lang, title, description, body, canonicalPath,
     currentPathBuilder: (code) => code === "en" && canonicalPath === "/" ? "/" : `/${code}/`,
     adsEligible: canonicalPath === editorialProgram.canonicalHome,
+    imagePath: homeImage.src,
     schemaData: [schema(lang, title, description, canonicalPath), itemListSchema(lang, "Korea cultural experiences", sorted, canonicalPath)]
   });
 }
@@ -7899,15 +7925,16 @@ function calendarItem(event, lang) {
 function renderPlanner(lang) {
   const starterEvents = currentEvents().sort((a,b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a,b)).slice(0,3);
   const body = `<main class="page planner-page" data-planner-page data-open-label="${esc(tr(lang, "openSavedEvent"))}" data-official-label="${esc(tr(lang, "officialLabel"))}" data-remove-label="${esc(tr(lang, "removeSaved"))}" data-map-label="${esc(tr(lang, "cardPlanMap"))}" data-google-label="${esc(tr(lang, "googleMap"))}" data-naver-label="${esc(tr(lang, "naverMap"))}" data-kakao-label="${esc(tr(lang, "kakaoMap"))}">
-    <section class="page-hero planner-page-hero"><h1>Your saved places.</h1><p>Keep the experiences you are considering, their Korean map names and official links in one place. Saving a place is not a reservation.</p>
+    <section class="page-hero planner-page-hero"><h1>Your saved places.</h1><p>Return before travelling to compare our current dates, entry and schedule guidance with the version you saved. This is a browser-local publication check, not a live ticket or cancellation alert.</p>
       <div class="detail-actions"><a class="button primary" href="/${lang}/now/">Find an experience ${uiIcon("arrow")}</a><button type="button" class="button light" data-download-saved-calendar disabled>Download planned days</button><button type="button" class="button light" data-print-plan disabled>Print plan</button><button type="button" class="button light" data-clear-saved disabled>${tr(lang, "clearSaved")}</button></div>
       <p class="planner-export-help" data-plan-summary aria-live="polite">Choose a date for each saved place. Calendar downloads include only usable selected dates as tentative, all-day reminders—not event-duration blocks or confirmed sessions.</p>
+      <p class="planner-change-summary" data-plan-change-summary role="status" hidden></p>
       <p class="planner-feedback" data-plan-feedback role="status"></p><button type="button" class="button light" data-undo-saved hidden>Undo removal</button>
     </section>
     <section class="planner-board" aria-label="Saved experiences">
       <div class="planner-empty" data-planner-empty><strong>No places saved yet.</strong><span>Read an experience and choose “Save to plan”. Your shortlist will appear here.</span><a class="text-link" href="/${lang}/now/">Explore cultural experiences ${uiIcon("arrow")}</a></div>
       <div class="planner-grid" data-planner-grid></div>
-      <p class="planner-storage-note">Saved only in this browser, without an account: your places and chosen visit dates. Clearing browser data removes your list. Current article details replace old saved details when available; withdrawn articles cannot be exported. Maps and official sites open separately.</p>
+      <p class="planner-storage-note">Saved only in this browser, without an account: your places, chosen dates and the published-fact baseline needed for comparisons. Clearing browser data removes your list. Older saves have no baseline; the site will say so rather than invent changes. Withdrawn articles cannot be exported. Maps and official sites open separately.</p>
       <noscript><p>Saving requires JavaScript. You can still read every <a href="/${lang}/now/">experience article</a> and download the <a href="/events.ics">event calendar</a>.</p></noscript>
     </section>
     <section class="planner-starter"><h2>Something to start with</h2><div class="planner-starter-grid">${starterEvents.map((event) => `<article class="planner-starter-card"><img src="/${esc(experienceVisual(event).src)}" alt="" aria-hidden="true" loading="lazy"><div><strong><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></strong><span>${esc(cityLabel(lang, event.city))}</span>${saveEventButton(event, lang)}</div></article>`).join("")}</div></section>
@@ -8537,18 +8564,109 @@ function guideSourceSection(guide, lang, sourceExamples) {
       </section>`;
 }
 
+const libraryCategories = [
+  { id: "palaces-history", label: "Palaces & history", blurb: "Read Joseon's palaces and shrines as the political ideas they were built to express, then visit them on the right day." },
+  { id: "traditions", label: "Traditions & etiquette", blurb: "Hanbok, temples, bathhouses and the everyday courtesies that make a visit go smoothly." },
+  { id: "food-drink", label: "Food & drink", blurb: "How Koreans eat and drink together, from shared side dishes to pouring for an elder." },
+  { id: "museums-arts", label: "Museums & performing arts", blurb: "Where to see Korea's art, objects and living performance traditions, and how to read them." },
+  { id: "neighborhoods", label: "Neighborhoods", blurb: "Hanok lanes, markets and hills to walk with context rather than a checklist." },
+  { id: "practical", label: "Practical Seoul", blurb: "Transit, maps, holidays, phrases and weather: the logistics behind a good culture day." }
+];
+const libraryCategoryById = new Map(libraryCategories.map((category) => [category.id, category]));
+const legacyGuideImages = {
+  "how-to-verify-korea-popups": { card: "/assets/thumb-kpop.jpg", width: 900, height: 560 },
+  "weather-for-korea-events": { card: "/assets/thumb-festival.jpg", width: 900, height: 560 }
+};
+
+function guideLibraryCategory(guide) {
+  return libraryCategoryById.has(guide.category) ? guide.category : "practical";
+}
+
+function guideLibraryCategoryLabel(guide) {
+  return libraryCategoryById.get(guideLibraryCategory(guide)).label;
+}
+
+function guidesInCategory(categoryId) {
+  return guides.filter((guide) => guideLibraryCategory(guide) === categoryId);
+}
+
+function guideWordCount(guide) {
+  const sections = guideSectionsForLang(guide, "en");
+  const text = [
+    guide.quickAnswer,
+    ...sections.flatMap((section) => typeof section === "string" ? [section] : [...(section.paragraphs || []), ...(section.checklist || [])]),
+    ...(guide.faq || []).flatMap((item) => [item.q, item.a])
+  ].filter(Boolean).join(" ");
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+function guideReadingMinutes(guide) {
+  return Math.max(3, Math.round(guideWordCount(guide) / 230));
+}
+
+function guideCardImage(guide) {
+  if (guide.image?.card) return { src: guide.image.card, width: 760, height: Math.round(760 * guide.image.height / guide.image.width) };
+  const legacy = legacyGuideImages[guide.slug];
+  return legacy ? { src: legacy.card, width: legacy.width, height: legacy.height } : { src: "/assets/guides/home-card.jpg", width: 760, height: 506 };
+}
+
+function libraryCard(guide, lang, headingLevel = 3) {
+  const image = guideCardImage(guide);
+  return `<article class="lib-card">
+      <a class="lib-card-media" href="${guideHref(lang, guide)}" tabindex="-1"><img src="${esc(image.src)}" alt="${esc(guide.image?.alt || guideTitleText(guide, lang))}" width="${image.width}" height="${image.height}" loading="lazy"></a>
+      <div class="lib-card-body">
+        <p class="lib-card-kicker">${esc(guideLibraryCategoryLabel(guide))}<span>${guideReadingMinutes(guide)} min read</span></p>
+        <h${headingLevel}><a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a></h${headingLevel}>
+        <p>${esc(guideSummaryText(guide, lang))}</p>
+      </div>
+    </article>`;
+}
+
+function imageCredit(image) {
+  if (!image?.artist) return "";
+  const license = image.licenseUrl ? `<a href="${esc(image.licenseUrl)}" rel="license nofollow noopener" target="_blank">${esc(image.license)}</a>` : esc(image.license || "");
+  return `Photo: <a href="${esc(image.page)}" rel="nofollow noopener" target="_blank">${esc(image.artist)}</a> / Wikimedia Commons, ${license}`;
+}
+
 function renderGuides(lang) {
-  const lead = guides.find((guide) => guide.slug === "seoul-culture-first-visit") || guides[0];
-  const rest = guides.filter((guide) => guide !== lead);
-  const body = `<main class="page">
-    <section class="page-hero"><h1>Culture, with context.</h1><p>Make sense of the experience before making the plan. Start with what interests you, then work through the practical decisions.</p></section>
-    <section class="guide-index" aria-label="Culture guides">
-      ${lead ? `<article class="guide-lead"><h2>${esc(guideTitleText(lead, lang))}</h2><p>${esc(guideSummaryText(lead, lang))}</p><a class="button primary" href="${guideHref(lang, lead)}">Start with the Seoul guide ${uiIcon("arrow")}</a></article>` : ""}
-      <div class="guide-list">${rest.map((guide) => `<article><h2><a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a></h2><p>${esc(guideSummaryText(guide, lang))}</p><a class="text-link" href="${guideHref(lang, guide)}">Read the guide ${uiIcon("arrow")}</a></article>`).join("")}</div>
+  const total = guides.length;
+  const body = `<main class="page library-page">
+    <section class="library-hero">
+      <div>
+        <p class="library-eyebrow">The K-Spot Now library</p>
+        <h1>Korean culture, explained before you go.</h1>
+        <p>${total} in-depth guides for independent visitors to Seoul. Each one explains what you are looking at, who it suits, and exactly how to do it: Korean names, opening days, booking rules and the etiquette that matters.</p>
+      </div>
+      <nav class="library-jump" aria-label="Guide themes">
+        ${libraryCategories.map((category) => `<a href="#${category.id}"><strong>${esc(category.label)}</strong><span>${guidesInCategory(category.id).length} guides</span></a>`).join("")}
+      </nav>
     </section>
-    <div class="guide-reading-note"><h2>Know what the evidence can tell you.</h2><p>These are documentary research guides, not reports of first-hand visits. Each article identifies its sources, research date and limits. Current admission and booking decisions stay with the organizer.</p><a class="text-link" href="/${lang}/editorial-policy/">How we research and revise ${uiIcon("arrow")}</a></div>
+    ${libraryCategories.map((category) => {
+      const items = guidesInCategory(category.id);
+      if (!items.length) return "";
+      return `<section class="library-section" id="${category.id}" aria-labelledby="${category.id}-title">
+      <div class="library-section-head"><h2 id="${category.id}-title">${esc(category.label)}</h2><p>${esc(category.blurb)}</p></div>
+      <div class="lib-grid">${items.map((guide) => libraryCard(guide, lang)).join("")}</div>
+    </section>`;
+    }).join("")}
+    <div class="guide-reading-note"><h2>How these guides are made</h2><p>Every guide is researched from the official records it links to, such as palace, museum, city and heritage-agency pages, and every fact that can change is dated. Our judgments about what to prioritize are labeled as ours. If something has changed, tell us and we will correct it.</p><a class="text-link" href="/${lang}/editorial-policy/">Read our editorial policy ${uiIcon("arrow")}</a></div>
   </main>`;
-  return layout({ lang, title: "Culture guides for independent Korea visitors — K-Spot Now", description: "Understand Korean cultural experiences and the practical decisions around visiting them.", body, canonicalPath: `/${lang}/guides/`, currentPathBuilder: (code) => `/${code}/guides/` });
+  return layout({
+    lang,
+    title: "Korean culture guides for Seoul visitors — K-Spot Now",
+    description: `${total} in-depth guides to Korean palaces, temples, food, etiquette, museums and neighborhoods for independent visitors to Seoul.`,
+    body,
+    canonicalPath: `/${lang}/guides/`,
+    currentPathBuilder: (code) => `/${code}/guides/`,
+    schemaData: [{
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Korean culture guides for Seoul visitors",
+      url: absoluteUrl(`/${lang}/guides/`),
+      inLanguage: lang,
+      hasPart: guides.map((guide) => ({ "@type": "Article", headline: guideTitleText(guide, lang), url: absoluteUrl(guideHref(lang, guide)) }))
+    }]
+  });
 }
 
 function renderGuideSection(section, index, displayNumber = index + 1) {
@@ -8610,6 +8728,9 @@ function guideArticleSchema(guide, lang) {
     dateModified: guide.updatedAt,
     inLanguage: lang,
     mainEntityOfPage: pageUrl,
+    ...(guide.image?.src ? { image: absoluteUrl(guide.image.src) } : {}),
+    articleSection: guideLibraryCategoryLabel(guide),
+    wordCount: guideWordCount(guide),
     author: {
       "@type": "Organization",
       name: guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName,
@@ -8668,6 +8789,35 @@ function renderGuideWorksheet(guide, sectionNumber) {
             </section>`;
 }
 
+function relatedGuidesFor(guide) {
+  const bySlug = new Map(guides.map((item) => [item.slug, item]));
+  const picked = (guide.relatedGuideSlugs || []).map((slug) => bySlug.get(slug)).filter(Boolean);
+  for (const item of guidesInCategory(guideLibraryCategory(guide))) {
+    if (picked.length >= 3) break;
+    if (item !== guide && !picked.includes(item)) picked.push(item);
+  }
+  return picked.filter((item) => item !== guide).slice(0, 3);
+}
+
+function renderGuideKeyFacts(guide) {
+  const facts = (guide.keyFacts || []).filter((fact) => fact?.label && fact?.value);
+  if (!facts.length) return "";
+  return `<section class="guide-key-facts" id="guide-key-facts" aria-labelledby="guide-key-facts-title">
+              <h2 id="guide-key-facts-title">Key facts</h2>
+              <dl>${facts.map((fact) => `<div><dt>${esc(fact.label)}</dt><dd>${esc(fact.value)}</dd></div>`).join("")}</dl>
+              <p class="guide-key-facts-note">Checked ${esc(dateText("en", guide.updatedAt))} against the official sources listed at the end of this guide.</p>
+            </section>`;
+}
+
+function renderGuideFaq(guide) {
+  const items = (guide.faq || []).filter((item) => item?.q && item?.a);
+  if (!items.length) return "";
+  return `<section class="guide-content-section guide-faq" id="guide-faq" aria-labelledby="guide-faq-title">
+              <h2 id="guide-faq-title">Questions visitors ask</h2>
+              ${items.map((item) => `<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join("")}
+            </section>`;
+}
+
 function renderGuide(guide, lang) {
   const sections = guideSectionsForLang(guide, lang);
   const hasOriginalEvidence = Boolean(guide.originalEvidence);
@@ -8677,61 +8827,74 @@ function renderGuide(guide, lang) {
   const evidenceNumber = sections.length + 1;
   const decisionToolNumber = sectionStartNumber + sections.length + (hasOriginalEvidence ? 1 : 0);
   const worksheetNumber = decisionToolNumber + (showDecisionTool ? 1 : 0);
-  const citationNumber = worksheetNumber + (showWorksheet ? 1 : 0);
   const relatedEvents = relatedEventsForGuide(guide);
   const relatedRoutes = relatedRoutesForGuide(guide);
   const sourceExamples = guideSourceExamples(guide);
+  const relatedGuides = relatedGuidesFor(guide);
+  const category = libraryCategoryById.get(guideLibraryCategory(guide));
+  const hasKeyFacts = Boolean(guide.keyFacts?.length);
+  const hasFaq = Boolean(guide.faq?.length);
+  const author = guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName;
   const body = `
     <main class="page guide-detail-page">
       <article class="article-page editorial-guide">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/${lang}/">Home</a> / <a href="/${lang}/guides/">Culture guides</a></nav>
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/${lang}/">Home</a> / <a href="/${lang}/guides/">Culture guides</a> / <a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></nav>
         <header class="guide-article-header">
+          <p class="guide-kicker">${esc(category.label)}<span>${guideReadingMinutes(guide)} min read</span></p>
           <h1>${esc(guideTitleText(guide, lang))}</h1>
           <p class="lede">${esc(guideSummaryText(guide, lang))}</p>
-
-
           <div class="guide-byline">
-            <a href="/${lang}/about/">${esc(guide.reviewedBy || editorialProgram.editorialTeam?.name || siteName)}</a>
+            <a href="/${lang}/about/">${esc(author)}</a>
             <span>Published ${esc(dateText(lang, guide.publishedAt))}</span>
             <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
           </div>
-
         </header>
+        ${guide.image?.src ? `<figure class="guide-hero-figure">
+          <img src="${esc(guide.image.src)}" alt="${esc(guide.image.alt || guideTitleText(guide, lang))}" width="${esc(guide.image.width)}" height="${esc(guide.image.height)}" fetchpriority="high">
+          <figcaption>${imageCredit(guide.image)}</figcaption>
+        </figure>` : ""}
         <div class="guide-reading-layout">
           <nav class="guide-toc" aria-label="On this page">
             <p>On this page</p>
             <ol>
+              ${hasKeyFacts ? `<li><a href="#guide-key-facts">Key facts</a></li>` : ""}
               ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}">${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
               ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence">${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
               ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
               ${showWorksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
-              <li><a href="#guide-citations-title">Sources used</a></li>
+              ${hasFaq ? `<li><a href="#guide-faq">Questions visitors ask</a></li>` : ""}
+              <li><a href="#guide-citations-title">Sources and method</a></li>
             </ol>
           </nav>
           <div class="guide-article-body">
-          ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>Start here</strong>${esc(guide.quickAnswer)}</p>` : ""}
+          ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>In short</strong>${esc(guide.quickAnswer)}</p>` : ""}
+          ${renderGuideKeyFacts(guide)}
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => renderGuideSection(section, index, sectionStartNumber + index)).join("")}
             ${renderGuideOriginalEvidence(guide, evidenceNumber)}
             ${showDecisionTool ? renderGuideDecisionTool(guide, decisionToolNumber) : ""}
             ${showWorksheet ? renderGuideWorksheet(guide, worksheetNumber) : ""}
+            ${renderGuideFaq(guide)}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
-              <h2 id="guide-citations-title">Sources used</h2>
-          ${guide.audience ? `<p class="guide-audience"><strong>Best for:</strong> ${esc(guide.audience)}</p>` : ""}
-          <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")}</p>
-              <p>These records support the article. Evidence dates and the limits of the comparison are stated above; booking and same-day operations remain with the organizer.</p>
+              <h2 id="guide-citations-title">Sources and method</h2>
+          ${guide.audience ? `<p class="guide-audience"><strong>Written for:</strong> ${esc(guide.audience)}</p>` : ""}
+          <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")} Spotted something out of date? <a href="/${lang}/contact/">Tell us</a>.</p>
               <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
             </section>
           </div>
         </div>
       </article>
+      ${relatedGuides.length ? `<section class="guide-related-guides" aria-labelledby="guide-related-guides-title">
+        <div class="library-section-head"><h2 id="guide-related-guides-title">Keep reading</h2><p>Guides that pair well with this one.</p></div>
+        <div class="lib-grid lib-grid-three">${relatedGuides.map((item) => libraryCard(item, lang)).join("")}</div>
+      </section>` : ""}
       ${relatedEvents.length || relatedRoutes.length ? `<section class="guide-next-section" aria-labelledby="guide-next-title">
-        <div class="section-head"><div><h2 id="guide-next-title">Current pages to compare</h2></div></div>
+        <div class="section-head"><div><h2 id="guide-next-title">Happening now</h2></div></div>
         <div class="guide-next-grid">
           ${relatedEvents.slice(0, 3).map((event) => `<a href="${eventHref(lang, event)}"><strong>${esc(local(event.title, lang))}</strong><span>${esc(eventDateLabel(event, lang, false))} / ${esc(cityLabel(lang, event.city))}</span></a>`).join("")}
           ${relatedRoutes.slice(0, 2).map((route) => `<a href="${routeHref(lang, route)}"><strong>${esc(routeCopy(route, lang).title)}</strong><span>${esc(routeCopy(route, lang).summary || "Route planning page")}</span></a>`).join("")}
         </div>
-      </section>` : `<div class="guide-next-section guide-next-empty"><p>No matching current event is published for this guide. The case studies above are not live listings.</p><a class="text-link" href="/${lang}/guides/">Choose another guide</a></div>`}
+      </section>` : ""}
     </main>`;
   return layout({
     lang,
@@ -8742,6 +8905,7 @@ function renderGuide(guide, lang) {
     currentPathBuilder: (code) => guideHref(code, guide),
     adsEligible: approvedGuideSlugs.has(guide.slug),
     pageType: "article",
+    imagePath: guide.image?.src || "/assets/hero.jpg",
     schemaData: [
       guideArticleSchema(guide, lang),
       breadcrumbSchema(lang, [
@@ -9544,7 +9708,8 @@ function policySections(lang, kind) {
     editorial: {
       en: [
         ["Source priority", "Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints."],
-        ["Automation, writing and review", "Public-data APIs and official monitors find candidates and detect changes; they do not automatically publish articles. The September 2026 text revision uses AI-assisted documentary research. That is not a field visit, completed booking or independent reader test. A source-monitoring date records a narrower check than an editorial revision."],
+        ["How guides are researched and written", "Each culture guide starts from a visitor's question and is researched from official records: the Korea Heritage Service and its palace pages, national museums, the Seoul city government, venue sites and reputable Korean news for rule changes. We use AI tools to help with research and drafting. Before publication, every fact that can change (hours, fees, closing days, booking rules, transit details) is checked against a linked source and dated, and claims we could not confirm are removed rather than guessed. We write from documentary research and do not describe visits we have not made."],
+        ["Automation and monitoring", "Public-data APIs and official monitors help us notice candidate events and changes; they never publish an article on their own. A source-monitoring date records a narrower check than an editorial revision, and we show the two separately."],
         ["K-pop and pop-up policy", "K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed."],
         ["What an article should do", "Each article should explain the cultural experience, who it suits, what an international visitor can do and which decision remains unresolved. A translated official description or a longer list is not enough. We separate sourced facts from proposed ways to plan, and never invent attendance or booking experience."],
         ["Ads and affiliate integrity", "Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans."]
@@ -9777,7 +9942,7 @@ function staticPageParagraphs(lang, kind) {
   const copy = {
     about: {
       en: [
-        "K-Spot Now is an independent English-language desk-research guide for visitors deciding whether a time-sensitive Korea event is worth fitting into a trip.",
+        "K-Spot Now is an independent English-language publication that explains Korean culture for independent visitors to Seoul: palaces and shrines, temples and etiquette, food and drink, museums, neighborhoods and the practical details that hold a visit together.",
         "Each published event must be checked against at least two official sources on distinct hosts: an organizer, venue, or ticketing source for admission rules, and a government, tourism, or venue record for dates, place context, or visitor access.",
         "Editors separate reported facts from K-Spot Now analysis, preserve the Korean map query, and state who the event fits, who should skip it, the likely time cost, and what must be true before a visitor commits. Research is not presented as a first-hand visit.",
         "Pages are withdrawn when the current visitor action has ended, a seasonal operating gap makes the live label misleading, or the page cannot provide a distinct decision beyond the linked source.",
@@ -9811,8 +9976,12 @@ function staticPageParagraphs(lang, kind) {
     },
     contact: {
       en: [
-        `For corrections, source suggestions, or partnership inquiries, email ${contactEmail}.`,
-        "Please include the official event URL, date range, venue, and language preference."
+        `The fastest way to reach K-Spot Now is email: ${contactEmail}. Every message is read by the editorial desk.`,
+        "Corrections: send the page URL, the detail that is wrong, and the official page that shows the current information. Opening hours, fees, closing days and booking rules change, and reader reports are often how we hear first. Substantive changes are recorded on our Corrections and Updates page.",
+        "Suggestions: tell us which Korean cultural experience, custom or place you would like explained, and what you were trying to decide. Requests from readers shape what we research next.",
+        "Image and rights questions: if you hold rights to an image or text shown on this site, email us with the page URL and your request. Disputed material is taken down while we review it.",
+        "Advertising and partnerships: K-Spot Now does not accept payment for coverage, placement or favorable wording. Advertising inquiries are handled separately from editorial decisions; see our Advertising Policy.",
+        "We do not sell tickets, take bookings or provide emergency help. For urgent travel help in Korea, call the Korea Travel Hotline at 1330, which offers interpretation and tourist information."
       ],
       es: [
         `Para correcciones, sugerencias de fuentes o consultas de colaboracion, escribe a ${contactEmail}.`,
@@ -9845,6 +10014,8 @@ function staticPageParagraphs(lang, kind) {
         adsenseCmpReady
           ? "For visitors in the EEA, the UK, and Switzerland, advertising consent is handled through the verified Google-certified consent management platform recorded in our release checks."
           : "AdSense advertising remains disabled until a Google-certified consent management platform is manually verified for visitors in the EEA, the UK, and Switzerland.",
+        "We do not knowingly collect personal information from children, and the site is not directed at children under 13.",
+        `If you email us, we use your address and message only to reply and to fix the issue you reported, and we do not add you to a mailing list. To ask what we hold about you or to have your correspondence deleted, write to ${contactEmail}.`,
         "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
       ],
       es: [
@@ -9977,7 +10148,13 @@ function staticPageParagraphs(lang, kind) {
       en: [
         "Information is provided for travel planning and may change without notice.",
         "Always verify official event pages before visiting, purchasing, reserving, or changing travel plans.",
-        "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated."
+        "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated.",
+        "Accuracy: we research each guide from the official sources it links to and show when it was last checked. Hours, fees, closures, booking rules and transport details can still change after that date, and the linked official page is the final word. K-Spot Now is not responsible for losses caused by changes we could not have known about.",
+        "Use of our content: the text of K-Spot Now guides is our own work. You may quote short passages with a link back to the page. Please do not republish whole guides or substantial parts of them without written permission.",
+        "Photographs: images on guide pages are credited beside each photo. Most come from Wikimedia Commons under public-domain or Creative Commons licenses, and their reuse is governed by the license named in the credit, not by these terms.",
+        "External links: we link to official and third-party websites so you can confirm details and complete bookings there. We do not control those sites and are not responsible for their content, availability or privacy practices.",
+        "Changes: we may update these terms as the site changes. The version published on this page applies from the date it is posted.",
+        `Questions about these terms: ${contactEmail}.`
       ],
       es: [
         "La informacion se ofrece para planificar viajes y puede cambiar sin aviso.",
@@ -10028,10 +10205,10 @@ const aboutIdentityCopy = {
       ["Final source", "Booking and last-minute rules stay official."]
     ],
     accountability: [
-      ["Who", "K-Spot Now Editorial Desk is the publishing identity, not a claim of a large reporting team. Contact contact@kspotnow.com for corrections. The September 2026 revision uses AI-assisted documentary research; no fictional expert or field reviewer is credited."],
-      ["How", "We compare official records, distinguish reported facts from planning judgments, and label what has not been verified. Automated source monitoring, text revision and a human or field review are different activities. Internal tests check structure and consistency; they do not certify content quality."],
-      ["Why", "We help independent English-speaking visitors choose and understand cultural experiences, starting in Seoul, with selected events elsewhere in Korea. The first question is what the visitor can understand and do after reading."],
-      ["Limits", "Desk research cannot guarantee inventory, queue length, weather operation, or admission. We do not claim a visit unless first-hand work is explicitly documented."]
+      ["Why we exist", "Most English-language coverage of Seoul either lists attractions or repeats the official description. We explain what a palace, custom or dish means, who it suits, and how to do it properly: the Korean name to search, the day it closes, the booking rule that trips people up and the etiquette that matters."],
+      ["Who we are", "K-Spot Now is an independent publication produced by the K-Spot Now Editorial Desk. It is a small desk, not a large newsroom, and it is not affiliated with any palace, museum, tour operator, brand or government agency. Write to contact@kspotnow.com with corrections or questions."],
+      ["How we research", "Every guide is built from the official records it links to: heritage-agency, palace, museum, city and venue pages, plus reputable Korean news for changes such as new visiting rules. We use AI tools to help with research and drafting. Facts that can change are checked against a linked source and dated before publication, and our recommendations are labeled as judgment. We do not describe visits we have not made."],
+      ["How we stay accurate", "Hours, fees and rules in Korea change, sometimes at short notice. Each guide shows when it was published and last checked, and links to the page with the final word. When a reader or a source tells us something has changed, we correct the guide and record substantive changes on our corrections page."]
     ],
     boundaryTitle: "How it works"
   }
@@ -10040,8 +10217,9 @@ const aboutIdentityCopy = {
 function aboutPage(lang, title, paragraphs) {
   const copy = aboutIdentityCopy[lang] || aboutIdentityCopy.en;
   return `<main class="about-page">
-    <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>We help independent English-speaking visitors choose and understand cultural experiences, starting in Seoul, with selected events elsewhere in Korea.</p><p>A useful article should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/seoul-culture-first-visit">Start with a cultural choice ${uiIcon("arrow")}</a></div></section>
-    <div class="content-shell"><section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
+    <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>K-Spot Now publishes in-depth English guides to Korean culture for independent visitors to Seoul. ${guides.length} guides so far, each one researched from official sources and written to answer a real visitor question.</p><p>A useful guide should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/">Browse the culture guides ${uiIcon("arrow")}</a></div></section>
+    <div class="content-shell"><section class="about-coverage" aria-labelledby="about-coverage-title"><h2 id="about-coverage-title">What we cover</h2><div class="theme-grid">${libraryCategories.map((category) => `<article class="theme-tile"><h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3><p>${esc(category.blurb)}</p><p class="about-coverage-count">${guidesInCategory(category.id).length} guides</p></article>`).join("")}</div></section>
+      <section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
       <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and the official record that should be checked. We distinguish a source update from a new editorial review.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>
     </div></main>`;
 }
@@ -10061,6 +10239,7 @@ function staticPage(lang, kind) {
       <article class="article-page">
         <h1>${esc(title)}</h1>
         ${paragraphs.map((paragraph) => `<p>${esc(paragraph).replaceAll(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p>`).join("")}
+        ${lang === "en" && kind === "privacy" ? `<p>How Google uses data when you use sites that show its ads: <a href="https://policies.google.com/technologies/partner-sites">Google partner sites policy</a>. You can turn off personalized advertising in <a href="https://adssettings.google.com/">Google Ads Settings</a> or through <a href="https://optout.aboutads.info/">the WebChoices tool</a>.</p><p>Last updated ${esc(dateText("en", "2026-10-19"))}.</p>` : ""}
         ${lang === "en" && ["privacy", "cookie-policy"].includes(kind) ? `<p>Provider information: <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare analytics data collection</a> and <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>.</p>` : ""}
       </article>
     </main>`;

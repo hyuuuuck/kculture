@@ -103,7 +103,7 @@ if (publishedRecheck.date === today && publishedRecheck.passed === currentEvents
 
 const home = read("dist/en/index.html");
 const homeIssues = experienceIndexIssues(home, currentEvents);
-if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-introduction") && home.includes("home-guide-band")) {
+if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-start") && home.includes("home-themes")) {
   pass("designer", "Home", "Publication structure", `${currentEvents.length} current experiences, cultural introduction and guide entry points.`);
 } else {
   fail("designer", "Home", "Publication structure", homeIssues.join("; ") || "Missing publication sections", "Restore the current edition's introduction and article navigation.");

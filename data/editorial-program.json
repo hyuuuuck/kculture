@@ -33,7 +33,31 @@
   "indexableGuides": [
     "seoul-culture-first-visit",
     "how-to-verify-korea-popups",
-    "weather-for-korea-events"
+    "weather-for-korea-events",
+    "gyeongbokgung-palace-guide",
+    "changdeokgung-huwon-secret-garden",
+    "seoul-five-grand-palaces-compared",
+    "jongmyo-shrine-guide",
+    "hanbok-rental-palace-guide",
+    "seoul-buddhist-temples-templestay",
+    "jjimjilbang-etiquette-guide",
+    "korean-etiquette-for-visitors",
+    "korean-table-manners",
+    "gwangjang-market-food-guide",
+    "korean-bbq-ordering-guide",
+    "makgeolli-soju-traditional-liquor",
+    "national-museum-of-korea-guide",
+    "national-folk-museum-of-korea-guide",
+    "korean-traditional-performances-seoul",
+    "korean-tea-culture-seoul",
+    "bukchon-hanok-village-guide",
+    "insadong-ikseondong-guide",
+    "seochon-neighborhood-walk",
+    "namsangol-hanok-village-namsan",
+    "seoul-subway-tmoney-guide",
+    "naver-map-kakao-map-korea",
+    "korean-holidays-seollal-chuseok-travel",
+    "korean-phrases-for-cultural-visits"
   ],
   "indexableRoutes": [],
   "eventPublicationFacts": {
@@ -153,7 +177,7 @@
       "price": "Free",
       "englishSupport": "English Busan city source page",
       "address": "Gwangalli Beach, Busan",
-      "hours": "Regular Saturdays: March-September 20:00/22:00; October-February 19:00/21:00. September 26, 2026: 20:00 only, one special show",
+      "hours": "Regular Saturdays: March-September 20:00/22:00; October-February 19:00/21:00. Dated special notices can override the regular pattern",
       "cancellation": "Weather and communications can change operations; dated special-show notices override the regular pattern",
       "age": "Public beach event; no separate age rule listed",
       "weather": "Outdoor beach show; wind, rain, and crowd conditions matter"
@@ -252,14 +276,24 @@
           "url": "https://world.nol.com/en/ticket/places/26000650/products/26008234",
           "role": "Authorized global ticket listing",
           "supports": "Provides the sale path, listed price, event dates, venue, and transaction-time ticket conditions for overseas buyers.",
-          "mustContain": ["THE SWEET DREAM HOTEL", "Aug 22, 2026 - Aug 23, 2026", "INSPIRE ARENA", "121,000 won"]
+          "mustContain": [
+            "THE SWEET DREAM HOTEL",
+            "Aug 22, 2026 - Aug 23, 2026",
+            "INSPIRE ARENA",
+            "121,000 won"
+          ]
         },
         {
           "sourceName": "NCT DREAM Weverse",
           "url": "https://weverse.io/nctdream/notice/36671",
           "role": "Organizer notice",
           "supports": "Confirms performance times, venue, price, age limit, and the separate global fanclub verification schedule.",
-          "mustContain": ["THE SWEET DREAM HOTEL", "August 22, 2026", "INSPIRE ARENA", "KRW 121,000"]
+          "mustContain": [
+            "THE SWEET DREAM HOTEL",
+            "August 22, 2026",
+            "INSPIRE ARENA",
+            "KRW 121,000"
+          ]
         }
       ]
     },
@@ -331,12 +365,12 @@
       "publishedAt": "2026-08-06",
       "reviewedAt": "2026-08-06",
       "reviewedBy": "K-Spot Now Editorial Desk",
-      "updateSummary": "Separated confirmed 2026 festival operations from program material still based on 2025 and added a lantern-lighting, river bottleneck, late-return, and overnight decision for Jinju.",
-      "visitorDecision": "Plan this as an evening river route whose value begins at lantern lighting, not as a daytime checklist of inherited program names. The date, location, and operating framework are confirmed, while fireworks, bridges, and detailed 2026 activities still require a current festival notice before travel.",
+      "updateSummary": "Separated general lantern hours from date-specific 2026 programs and added a river-bank, bridge-ticket and late-return decision for Jinju.",
+      "visitorDecision": "Plan this as an evening river route whose value begins at lantern lighting, not as a daytime checklist. The 2026 festival dates and broad activities are published, but the operator's current notice still controls a chosen fireworks date, bridge terms and operating changes.",
       "decisionFit": {
-        "availability": "The official festival site confirms October 3 through 18 and the river operating framework, while VISITKOREA warns that some detailed program information still reflects 2025.",
+        "availability": "VISITKOREA and the festival operator identify October 3 through 18, while the operator controls the date-specific river program and bridge operations.",
         "bestFor": "Visitors who want a dedicated autumn night in Jinju and can protect time for riverside walking, crowd movement, photography, and a late return or overnight stay.",
-        "poorFit": "A poor fit for a tight same-night regional return that depends on one firework, bridge, or inherited program detail not yet confirmed for 2026.",
+        "poorFit": "A poor fit for a tight same-night regional return that depends on one fireworks show or bridge crossing without checking its current notice.",
         "timeCost": "Use the afternoon for orientation and the evening for lanterns; adding intercity travel makes this a full-day commitment even when general admission is free.",
         "commitWhen": "Commit after confirming the 2026 site map and must-see program, then choosing an entrance, crowd exit, and transport plan that remains workable after dark."
       },
@@ -349,14 +383,14 @@
       },
       "sourceReconciliation": {
         "agreement": "The festival operator and VISITKOREA agree on October 3-18, Jinjuseong and Namgang as the venue, and lanterns as the core night experience.",
-        "sourceRoles": "The operator controls the 2026 theme and current lighting, booth, and bridge framework; VISITKOREA provides an independent national listing and clearly labels inherited 2025 detail.",
-        "unresolved": "Specific fireworks, bridge access, experience fees, performance times, crowd-control routes, and the complete 2026 program can still change before October.",
+        "sourceRoles": "The operator controls current lighting, booth, bridge and date-specific show operations; VISITKOREA provides independent 2026 dates, context and broad program categories.",
+        "unresolved": "Published fireworks dates, bridge access, experience fees, performance times and crowd-control routes can still change; the operator desktop site's certificate failed our September 29 automated check.",
         "visitorMeaning": "Book the regional trip for the confirmed lantern-and-river experience, not for an unconfirmed single program, and retain an overnight or early-exit threshold."
       },
       "foreignerChecks": [
         "Search 진주성 for the central area, then choose the specific river entrance from the current festival map.",
         "The operator lists lantern lighting from 18:00 to 24:00, so late transport must be decided before photography time.",
-        "Treat fireworks, bridges, and detailed program descriptions as provisional until the official 2026 schedule replaces inherited material."
+        "Treat a chosen fireworks show or bridge crossing as provisional until the current operator notice and ticket terms are reachable and checked."
       ]
     },
     "louis-vuitton-visionary-journeys-seoul-2026": {
@@ -406,7 +440,12 @@
           "url": "https://www.mcst.go.kr/english/policy/pressView.jsp?pSeq=649",
           "role": "Government program announcement",
           "supports": "Separates the HiKR Ground experience dates from the later online tourism-product promotion window.",
-          "mustContain": ["2026 Korea Beauty Festival", "HiKR Ground", "June 24", "September 30"]
+          "mustContain": [
+            "2026 Korea Beauty Festival",
+            "HiKR Ground",
+            "June 24",
+            "September 30"
+          ]
         }
       ]
     },
@@ -447,7 +486,11 @@
           "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=219&vcontsId=1591462",
           "role": "National tourism context",
           "supports": "Cross-checks the festival window in the national tourism organization's summer-festival roundup.",
-          "mustContain": ["Boryeong Mud Festival", "July 24", "August 9"]
+          "mustContain": [
+            "Boryeong Mud Festival",
+            "July 24",
+            "August 9"
+          ]
         }
       ]
     },
@@ -504,7 +547,11 @@
         {
           "sourceName": "NOL World",
           "url": "https://world.nol.com/en/content/festas/019e7153-ac77-7fc0-bc96-44e2dcdff5a7",
-          "mustContain": ["PSY SUMMER SWAG 2026", "14 shows across 9 cities", "Uijeongbu Sports Complex"]
+          "mustContain": [
+            "PSY SUMMER SWAG 2026",
+            "14 shows across 9 cities",
+            "Uijeongbu Sports Complex"
+          ]
         }
       ]
     },
@@ -546,7 +593,11 @@
           "role": "Official show operator",
           "supports": "Confirms the recurring Saturday format and operating-time information controlled by the show organizer.",
           "freshnessAuthority": true,
-          "mustContain": ["Gwangalli", "Drone Light Show", "Saturday"]
+          "mustContain": [
+            "Gwangalli",
+            "Drone Light Show",
+            "Saturday"
+          ]
         }
       ]
     },
@@ -563,14 +614,22 @@
         {
           "sourceName": "Visit Seoul",
           "url": "https://english.visitseoul.net/events/2026Hands-On-Experience-rograms/ENPw5jg9e",
-          "mustContain": ["Namsangol Hanok Village", "April 3", "October 25", "July and August"]
+          "mustContain": [
+            "Namsangol Hanok Village",
+            "April 3",
+            "October 25",
+            "July and August"
+          ]
         },
         {
           "sourceName": "Seoul Metropolitan Government",
           "url": "https://english.seoul.go.kr/february-namsangol-hanok-village/",
           "role": "City venue context",
           "supports": "Cross-checks the village location and Chungmuro access; the Visit Seoul event listing remains controlling for session dates.",
-          "mustContain": ["Namsangol Hanok Village", "Chungmuro"]
+          "mustContain": [
+            "Namsangol Hanok Village",
+            "Chungmuro"
+          ]
         }
       ]
     },
@@ -611,14 +670,23 @@
           "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
           "role": "Official city tourism listing",
           "supports": "Provides the public event window, Seoul Forest location, and visitor-facing program summary.",
-          "mustContain": ["2026 Seoul International Garden Show", "May 1", "October 27", "Seoul Forest"]
+          "mustContain": [
+            "2026 Seoul International Garden Show",
+            "May 1",
+            "October 27",
+            "Seoul Forest"
+          ]
         },
         {
           "sourceName": "Seoul Metropolitan Government",
           "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
           "role": "City program announcement",
           "supports": "Confirms the long-running Seoul Forest program and distinguishes the October special program.",
-          "mustContain": ["Seoul International Garden Show", "Seoul Forest", "October 27"]
+          "mustContain": [
+            "Seoul International Garden Show",
+            "Seoul Forest",
+            "October 27"
+          ]
         }
       ]
     },
@@ -659,14 +727,24 @@
           "url": "https://english.visitseoul.net/exhibition/OCEAN/ENP07kl3f",
           "role": "Official city tourism listing",
           "supports": "Provides the visitor-facing exhibition period, venue, closure pattern, and planning context.",
-          "mustContain": ["National Geographic", "Jun 06, 2026", "Oct 11, 2026", "Chungmu Art Center"]
+          "mustContain": [
+            "National Geographic",
+            "Jun 06, 2026",
+            "Oct 11, 2026",
+            "Chungmu Art Center"
+          ]
         },
         {
           "sourceName": "Ministry of Culture, Sports and Tourism",
           "url": "https://www.mcst.go.kr/site/s_culture/culture/cultureView.jsp?pSeq=69549",
           "role": "Government culture listing",
           "supports": "Cross-checks the exhibition period and Chungmu Art Center venue in the national culture directory.",
-          "mustContain": ["OCEAN", "2026.06.06", "2026.10.11", "충무아트센터"]
+          "mustContain": [
+            "OCEAN",
+            "2026.06.06",
+            "2026.10.11",
+            "충무아트센터"
+          ]
         }
       ]
     },
@@ -693,7 +771,11 @@
         {
           "sourceName": "VISITKOREA",
           "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&vcontsId=1590182",
-          "mustContain": ["VISITKOREA Exclusive", "travel benefits", "shopping"]
+          "mustContain": [
+            "VISITKOREA Exclusive",
+            "travel benefits",
+            "shopping"
+          ]
         }
       ]
     },
@@ -734,14 +816,24 @@
           "url": "https://english.visitseoul.net/exhibition/Botero/ENPw7lepl",
           "role": "Official city tourism listing",
           "supports": "Provides the exhibition period, public hours, last admission, venue, and listed adult price used in the visitor plan.",
-          "mustContain": ["Fernando Botero", "Apr 24, 2026", "Aug 30, 2026", "Hangaram Design Museum", "23,000"]
+          "mustContain": [
+            "Fernando Botero",
+            "Apr 24, 2026",
+            "Aug 30, 2026",
+            "Hangaram Design Museum",
+            "23,000"
+          ]
         },
         {
           "sourceName": "Seoul Arts Center",
           "url": "https://www.sac.or.kr/site/eng/show/show_view?SN=76470",
           "role": "Venue listing",
           "supports": "Cross-checks the museum, exhibition identity, and venue-controlled schedule.",
-          "mustContain": ["Fernando Botero", "Hangaram Design Museum", "Seoul Arts Center"]
+          "mustContain": [
+            "Fernando Botero",
+            "Hangaram Design Museum",
+            "Seoul Arts Center"
+          ]
         }
       ]
     }

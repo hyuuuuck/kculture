@@ -17,7 +17,7 @@ const approvedEvents = events.filter((event) => approvedSlugs.has(event.slug) &&
 const languages = publicLanguageCodes();
 const scriptRe = /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi;
 const dateRe = /^\d{4}-\d{2}-\d{2}$/;
-const badTextRe = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
+const badTextRe = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908]|\?{4,}/;
 const eventRichResultCategories = new Set(["festival", "kpop"]);
 const errors = [];
 

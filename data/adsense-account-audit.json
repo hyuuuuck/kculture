@@ -1,5 +1,34 @@
 {
   "version": 1,
+  "recordScope": "Current fields describe the September 29 monitoring window ending 2026-09-29T01:00:35.933Z. reviewSubmission/deploymentPreparation remain historical; their pending/not-found observations are not current. The latest review outcome is rejected. CMP remains historical and has not been reverified.",
+  "reviewSubmission": {
+    "submittedAt": "2026-09-18T01:17:00+09:00",
+    "timestampPrecision": "minute, as displayed by AdSense",
+    "confirmedAfterReloadAt": "2026-09-17T16:20:47Z",
+    "authorization": "The user requested 구글애드센스까지진행해 after the pending internal editorial and reader checks had been disclosed. Submission proceeded as a user-directed exception, not a full internal readiness pass.",
+    "sourceCommit": "45bb78b498cb8a333d8ab4b5e22648c464bfc33a",
+    "productionVersionId": "f5559046-0308-42eb-a546-f91641512179",
+    "revisionFingerprint": "991a7329e8b1e739be0244e2d2cd6eac3e4c52b0632c02a52bf04a11446b9f9f",
+    "evidencePath": "docs/adsense-submission-2026-09-18.md",
+    "requestCountThisTurn": 1,
+    "observedStatus": "준비 중",
+    "observedDetail": "사이트의 광고 게재 가능 여부 검토 중",
+    "observedConfirmation": "리뷰가 요청됨",
+    "policyCenterRechecked": true,
+    "policyIssueCount": 0,
+    "publicAdsTxtRechecked": true,
+    "publicAdsTxtStatus": 200,
+    "accountAdsTxtStatus": "not-found",
+    "publicSitemapUrlCount": 12,
+    "technicalChecks": "Production, ownership/meta tag, public ads.txt, account record, compliance and domain checks passed; Search Console record validation passed with historical observations.",
+    "fullReviewPreflight": "blocked-by-pending-human-editorial-and-reader-evidence",
+    "humanEditorialReview": "pending",
+    "readerTaskCheck": "pending",
+    "adsEnabled": false,
+    "cmpChanged": false,
+    "searchConsoleRechecked": false,
+    "nextAction": "Read-only status monitoring. Do not submit again while review is pending; do not activate ads without fresh CMP/ads verification and a new user request."
+  },
   "deploymentPreparation": {
     "checkedAt": "2026-09-17T16:05:40.859Z",
     "scope": "User-authorized production deployment and HTTP/browser verification. Sites/detail ownership panel read again; Policy Center retained from 15:44 UTC. Search Console and CMP were not reread in this partial check.",
@@ -26,36 +55,15 @@
     "note": "Device authorization succeeded and the revised site is live with ads disabled. Ownership header shows check_circle_filled; the meta-tag radio was selected to inspect the displayed snippet, which matches production. No separate verification/save control was present and selector server persistence is unverified. A default code-snippet radio alone is not evidence of failed ownership. Review acknowledgement remains unchecked; no review submitted, CMP or ad setting changed. Earlier full-audit observations below are historical and are superseded only for these explicitly rechecked fields."
   },
   "latestAttempt": {
-    "triggeredAt": "2026-09-17T13:39:00.703Z",
-    "startedAt": "2026-09-17T14:12:06Z",
-    "completedAt": "2026-09-17T15:10:31Z",
+    "triggeredAt": "2026-09-29T00:49:39.930Z",
+    "startedAt": "2026-09-29T00:49:55Z",
+    "completedAt": "2026-09-29T01:00:35.933Z",
+    "timezone": "Asia/Seoul",
+    "note": "Read-only authenticated monitoring on September 29 KST; resumed after an interrupted initial observation. Only directly observed facts refreshed. Separate timestamps distinguish Google report dates from observation times. No site/CMP/ads changes, deployment, live URL tests, sitemap/indexing requests or review submission.",
     "status": "completed-authenticated-read",
     "authenticatedStatus": "verified",
-    "lastSuccessfulAuthenticatedAuditAt": "2026-09-17T15:08:30.093Z",
+    "lastSuccessfulAuthenticatedAuditAt": "2026-09-29T01:00:35.933Z",
     "blocker": null,
-    "accessChecks": [
-      "Authenticated in-app tabs displayed the matching AdSense publisher, site details, Policy Center and sc-domain:kspotnow.com reports. No credentials, new login or permissions were needed.",
-      "Native app inventory reported the Mac locked; native control/unlock was not attempted. A timed-out Search Console navigation was recovered by reading the created tab."
-    ],
-    "accountChangesSinceLastAudit": "none",
-    "validation": {
-      "checkedAt": "2026-09-17T15:10:31Z",
-      "searchConsoleRecord": "passed",
-      "adsenseAccountRecord": "passed-with-warnings",
-      "selectedOwnershipReviewGate": "failed",
-      "editorialReviewPreflight": "blocked",
-      "publicHttpChecks": "passed",
-      "diffCheck": "passed",
-      "freshAuthenticatedAudit": "completed",
-      "cmpRegionalFlow": "not-reverified",
-      "blockers": [
-        "AdSense still reports ads.txt not-found; untouched ownership panel selects code snippet, while the live homepage has the account meta tag but no loader. A live selected alternative method remains unverified.",
-        "September 17 local content revisions and the fourth guide are not deployed. The internal editorial-release gate remains pending for human editorial/reader evidence and current-revision production verification; these are internal evidence requirements, not Google's formal eligibility rules.",
-        "Deoksugung URL inspection twice reports unknown-to-Google despite public HTTP 200 and inclusion in the successful 13-URL sitemap. Gwangalli showed a temporary sitemap processing error; its clearing was not confirmed. Garden showed the same error initially but cleared on repeat."
-      ],
-      "note": "Record integrity and search observations do not certify content value, AdSense approval or a current CMP flow. Public and GSC sitemaps remain 13 URLs; 14 belongs to the undeployed local revision. No deployment, re-review or indexing request is authorized by this heartbeat. The prior September 17 local full verify passed 32 tests and the Jinju audit; the older unresolved-Jinju warning is superseded, not renewed."
-    },
-    "note": "Read-only monitoring of production and accounts. Local September 17 article revisions are not deployed. No saved Google settings or submission state changed.",
     "actions": {
       "reviewRequestSubmitted": false,
       "sitemapSubmitted": false,
@@ -64,58 +72,70 @@
       "cmpChanged": false,
       "adsChanged": false,
       "ownershipMethodChanged": false,
-      "auditFilesUpdated": true
+      "auditFilesUpdated": true,
+      "completedMonitorDeleted": true
+    },
+    "validation": {
+      "checkedAt": "2026-09-29T01:02:30Z",
+      "searchConsoleRecord": "passed",
+      "adsenseAccountRecord": "passed",
+      "publicHttpChecks": "passed",
+      "sitemapContentMatch": "passed",
+      "productionTechnicalPreflight": "passed",
+      "adsenseCompliance": "passed-ads-disabled",
+      "editorialReviewPreflight": "pending-human-and-reader-evidence",
+      "cmpRegionalFlow": "not-reverified",
+      "freshAuthenticatedAudit": "completed",
+      "diffCheck": "passed",
+      "note": "Technical tests and audit-schema checks are not approval or content-value checks. Real-reader and independent human editorial evidence remains pending. AdSense has rejected the revision. No resubmission readiness inferred.",
+      "currentReviewEligibility": "failed-request-unavailable-throttled",
+      "currentReviewEligibilityExitCode": 1
     },
     "unverifiedChecks": [
-      "ownershipSelectorServerSidePersistence",
       "cmpRegionalConsentFlow",
       "humanEditorialReview",
-      "readerTaskEvidence",
-      "productionVerificationOfLocalRevision",
-      "gwangalliSitemapErrorCleared"
+      "readerTaskEvidence"
     ],
-    "previousAttempt": {
-      "completedAt": "2026-09-16T22:44:16Z",
-      "status": "completed-authenticated-read",
-      "authenticatedStatus": "verified"
-    },
     "consecutiveAuthenticatedAccessFailures": 0,
-    "changeAssessment": "Account status, Policy Center, aggregate coverage/performance and sitemap unchanged. Seven of nine production articles remain indexed. Deoksugung now reports unknown-to-Google on two reads rather than discovered-not-indexed; OCEAN remains discovered-not-indexed. Gwangalli/garden sitemap association returned transient errors; garden cleared on repeat. No new AdSense rejection or submission.",
-    "nextStep": "Continue substantive content work under the user's development instructions; do not defer known content defects to reader recruitment or Search Console counts. Confirm Deoksugung discovery and selected ownership before any separately authorized re-review. Deploy, submit indexing/review or activate ads only after separate explicit authorization.",
+    "accessChecks": [
+      "Existing Google account sessions remained authenticated. A turn interruption cleared temporary tabs; fresh tabs on the same selected browser recovered normal access."
+    ],
+    "notificationDecision": "NOTIFY",
+    "notificationReason": "AdSense changed from review-in-progress to attention-required/low-value-content, with review requests throttled until October 4.",
+    "nextStep": "Report the rejection and require a new user direction before site changes or another submission. Prioritize evidence of article-specific visitor value, sustained editorial maintenance and genuine reader/editor validation; do not treat October 4 as an automatic resubmission date.",
+    "previousAttempt": {
+      "completedAt": "2026-09-22T04:01:32.595Z",
+      "status": "completed-authenticated-read"
+    },
+    "changeAssessment": "New rejection: attention-required/low-value-content; account updated September 28 05:37 KST. ads.txt remains approved; separate Policy Center remains clear. Earliest next request date is October 4, but content-value evidence remains unresolved.",
     "publicChecks": {
       "adsTxt": {
         "url": "https://kspotnow.com/ads.txt",
         "status": 200,
         "finalUrl": "https://kspotnow.com/ads.txt",
-        "checkedAt": "2026-09-17T15:03:03.670Z",
+        "checkedAt": "2026-09-29T00:58:07.415Z",
         "contentType": "text/plain",
         "canonical": null,
-        "noindex": false,
-        "record": "google.com, pub-4973303868067114, DIRECT, f08c47fec0942fa0",
-        "publisherRecordPresent": true,
-        "accountRecognition": "not-found-in-authenticated-account"
+        "record": "google.com, pub-4973303868067114, DIRECT, f08c47fec0942fa0"
       },
       "homepage": {
         "url": "https://kspotnow.com/en/",
         "status": 200,
         "finalUrl": "https://kspotnow.com/en/",
-        "checkedAt": "2026-09-17T15:03:03.436Z",
+        "checkedAt": "2026-09-29T00:58:07.448Z",
         "contentType": "text/html; charset=utf-8",
         "canonical": "https://kspotnow.com/en/",
-        "noindex": false,
-        "adsenseAccountMeta": "<meta name=\"google-adsense-account\" content=\"ca-pub-4973303868067114\">",
-        "hasAdsenseScript": false,
-        "headline": "Decide what is worth the trip."
+        "adsenseMeta": "<meta name=\"google-adsense-account\" content=\"ca-pub-4973303868067114\">",
+        "hasAdsenseLoader": false
       }
     }
   },
-  "auditedAt": "2026-09-17T15:08:30.093Z",
+  "auditedAt": "2026-09-29T01:00:35.933Z",
   "observationWindow": {
-    "startedAt": "2026-09-17T14:12:06Z",
-    "completedAt": "2026-09-17T15:08:30.093Z",
+    "startedAt": "2026-09-29T00:49:55Z",
+    "completedAt": "2026-09-29T01:00:35.933Z",
     "timezone": "Asia/Seoul",
-    "note": "Authenticated account and aggregate reports were read across September 17–18 KST; all nine production articles were inspected on September 18. Public HTTP checks are separately timestamped. No live URL test, acknowledgement, selector change or submission.",
-    "accountAndAggregateReportsReadOn": "2026-09-17/2026-09-18"
+    "note": "Read-only authenticated monitoring on September 29 KST; resumed after an interrupted initial observation. Only directly observed facts refreshed. Separate timestamps distinguish Google report dates from observation times. No site/CMP/ads changes, deployment, live URL tests, sitemap/indexing requests or review submission."
   },
   "source": "Authenticated Google AdSense and Google Search Console interfaces, plus read-only public HTTP checks",
   "publisherId": "pub-4973303868067114",
@@ -123,11 +143,12 @@
   "siteReview": {
     "approvalStatus": "attention-required",
     "statusDetail": "low-value-content",
-    "adsTxtStatus": "not-found",
-    "lastUpdatedAt": "2026-08-30T22:41:00+09:00",
-    "reviewRequestAvailable": true,
-    "reviewRequestAvailableFrom": "2026-09-06",
-    "reviewRequestThrottled": false,
+    "previousStatusDetail": "review-in-progress",
+    "adsTxtStatus": "approved",
+    "lastUpdatedAt": "2026-09-28T05:37:00+09:00",
+    "reviewRequestAvailable": false,
+    "reviewRequestAvailableFrom": "2026-10-04",
+    "reviewRequestThrottled": true,
     "reviewRequestSubmitted": false,
     "reviewRequestSubmittedAt": null,
     "selectedOwnershipMethod": "adsense-meta-tag",
@@ -137,28 +158,32 @@
     "adsTxtManualRefreshControlObserved": false,
     "previousRecordedOwnershipMethod": "adsense-meta-tag",
     "ownershipSelectorPersistenceConfirmed": false,
-    "ownershipObservationNote": "At 16:04 UTC the expanded ownership header displays check_circle_filled. Meta tag was selected for inspection and its exact account snippet matches all live pages. No independent save/verify control is shown. This records the viewed radio, not proven server-side persistence. The earlier inference of ownership failure from the default code radio is withdrawn. Review acknowledgement remains unchecked and no request was submitted.",
+    "ownershipObservationNote": "The September 18 submission used the published AdSense meta tag, still present on the public homepage. Ownership selectors were not reopened or changed; approved ads.txt is separately confirmed.",
     "metaTagFoundOnLiveSite": true,
-    "ownershipPanelReverifiedThisAudit": true,
+    "ownershipPanelReverifiedThisAudit": false,
     "manualRefreshAndPersistenceReverifiedThisAudit": false,
-    "lastReviewRequestSubmittedAt": "2026-08-22T00:37:20+09:00",
-    "submissionHistoryNote": "The August 22 submission timestamp is historical. Fresh account state remains attention-required; the review request control is visible, the acknowledgement is unchecked, and no review was submitted during this audit.",
-    "reviewRequestControlObserved": true,
+    "lastReviewRequestSubmittedAt": "2026-09-18T01:17:00+09:00",
+    "previousReviewRequestSubmittedAt": "2026-08-22T00:37:20+09:00",
+    "submissionHistoryNote": "September 18 01:17 KST request was submitted once and later rejected (account update September 28 05:37 KST). reviewRequestSubmitted=false now means no pending new request; lastReviewRequestSubmittedAt and reviewSubmission retain the historical submission. No new request made.",
+    "reviewRequestControlObserved": false,
     "reviewAcknowledgementChecked": false,
-    "checkedAt": "2026-09-17T16:04:34Z"
+    "reviewAcknowledgementNote": "The latest request has concluded in rejection. No issue-fixed checkbox was checked in this run; requests are throttled until October 4.",
+    "checkedAt": "2026-09-29T00:51:45.075Z",
+    "reviewRequestPending": false,
+    "reviewRequestOutcome": "rejected"
   },
   "adsTxtPublic": {
     "statusCode": 200,
     "publisherRecordPresent": true,
-    "checkedAt": "2026-09-17T15:03:03.670Z",
+    "checkedAt": "2026-09-29T00:58:07.415Z",
     "contentType": "text/plain",
     "record": "google.com, pub-4973303868067114, DIRECT, f08c47fec0942fa0",
-    "accountStatusMatchesPublicRecord": false
+    "accountStatusMatchesPublicRecord": true
   },
   "policyCenter": {
     "issueCount": 0,
-    "summary": "No current policy violations that stop or limit ad serving.",
-    "checkedAt": "2026-09-17T15:08:30.093Z"
+    "summary": "현재 정책 위반 문제 없음 — no separate ad-serving Policy Center issue. This does not negate the site-review low-value-content rejection.",
+    "checkedAt": "2026-09-29T00:58:12.559Z"
   },
   "cmp": {
     "messageName": "European regulations message - kspotnow.com",
@@ -184,11 +209,11 @@
     "property": "sc-domain:kspotnow.com",
     "sitemapStatus": "success",
     "sitemapSubmittedAt": "2026-08-20",
-    "sitemapLastReadAt": "2026-09-14",
-    "sitemapDiscoveredPages": 13,
-    "coverageReportUpdatedAt": "2026-09-14",
-    "performancePeriodEnd": "2026-09-14",
-    "checkedAt": "2026-09-17T15:08:30.093Z"
+    "sitemapLastReadAt": "2026-09-28",
+    "sitemapDiscoveredPages": 12,
+    "coverageReportUpdatedAt": "2026-09-21",
+    "performancePeriodEnd": "2026-09-26",
+    "checkedAt": "2026-09-29T00:59:18.504Z"
   },
   "actionsThisAudit": {
     "reviewRequestSubmitted": false,
@@ -198,33 +223,65 @@
     "cmpChanged": false,
     "adsChanged": false,
     "ownershipMethodChanged": false,
-    "auditFilesUpdated": true
+    "auditFilesUpdated": true,
+    "completedMonitorDeleted": true
   },
   "validationThisAudit": {
-    "checkedAt": "2026-09-17T15:10:31Z",
+    "checkedAt": "2026-09-29T01:02:30Z",
     "searchConsoleRecord": "passed",
-    "adsenseAccountRecord": "passed-with-warnings",
-    "selectedOwnershipReviewGate": "failed",
-    "editorialReviewPreflight": "blocked",
+    "adsenseAccountRecord": "passed",
     "publicHttpChecks": "passed",
-    "diffCheck": "passed",
-    "freshAuthenticatedAudit": "completed",
+    "sitemapContentMatch": "passed",
+    "productionTechnicalPreflight": "passed",
+    "adsenseCompliance": "passed-ads-disabled",
+    "editorialReviewPreflight": "pending-human-and-reader-evidence",
     "cmpRegionalFlow": "not-reverified",
-    "blockers": [
-      "AdSense still reports ads.txt not-found; untouched ownership panel selects code snippet, while the live homepage has the account meta tag but no loader. A live selected alternative method remains unverified.",
-      "September 17 local content revisions and the fourth guide are not deployed. The internal editorial-release gate remains pending for human editorial/reader evidence and current-revision production verification; these are internal evidence requirements, not Google's formal eligibility rules.",
-      "Deoksugung URL inspection twice reports unknown-to-Google despite public HTTP 200 and inclusion in the successful 13-URL sitemap. Gwangalli showed a temporary sitemap processing error; its clearing was not confirmed. Garden showed the same error initially but cleared on repeat."
-    ],
-    "note": "Record integrity and search observations do not certify content value, AdSense approval or a current CMP flow. Public and GSC sitemaps remain 13 URLs; 14 belongs to the undeployed local revision. No deployment, re-review or indexing request is authorized by this heartbeat. The prior September 17 local full verify passed 32 tests and the Jinju audit; the older unresolved-Jinju warning is superseded, not renewed."
+    "freshAuthenticatedAudit": "completed",
+    "diffCheck": "passed",
+    "note": "Technical tests and audit-schema checks are not approval or content-value checks. Real-reader and independent human editorial evidence remains pending. AdSense has rejected the revision. No resubmission readiness inferred.",
+    "currentReviewEligibility": "failed-request-unavailable-throttled",
+    "currentReviewEligibilityExitCode": 1
   },
   "changesSincePreviousAudit": {
-    "previousAuditedAt": "2026-09-16T22:42:14Z",
-    "approvalStatusChanged": false,
-    "statusDetailChanged": false,
+    "previousAuditedAt": "2026-09-22T04:01:32.595Z",
+    "approvalStatusChanged": true,
+    "statusDetailChanged": true,
     "adsTxtAccountStatusChanged": false,
     "policyIssueCountChanged": false,
     "authenticatedAccessRestored": false,
-    "actionRequired": false,
-    "note": "No new rejection, approval or submission. AdSense/public ads.txt mismatch and code-selector/live-meta discrepancy remain. Local content improvements have not changed production or account state."
+    "actionRequired": true,
+    "note": "September 18 review rejected for low-value content. Waiting alone is no longer an applicable next step; no automatic resubmission or site changes."
+  },
+  "reviewOutcome": {
+    "outcome": "rejected",
+    "observedAt": "2026-09-29T00:51:45.075Z",
+    "accountUpdatedAt": "2026-09-28T05:37:00+09:00",
+    "previousRequestSubmittedAt": "2026-09-18T01:17:00+09:00",
+    "approvalStatus": "attention-required",
+    "statusDetail": "low-value-content",
+    "displayedReason": "가치가 별로 없는 콘텐츠",
+    "reviewRequestAvailableFrom": "2026-10-04",
+    "reviewRequestThrottled": true,
+    "detailSummary": "The site-review panel asks for sufficient unique value, sustained web operation and genuine user interest; it directs publishers to provide reliable high-quality information/tools/services, maintain content curation and site structure, and attract/retain genuine audience interest.",
+    "specificFailedUrlsProvided": false,
+    "reasonGranularity": "Site-level category and general guidance only; no named failing page or isolated defect was supplied in the observed panel.",
+    "sourceUrl": "https://adsense.google.com/adsense/u/0/pub-4973303868067114/sites/detail/url=kspotnow.com",
+    "linkedGuidance": [
+      "https://support.google.com/adsense/answer/10015918",
+      "https://support.google.com/webmasters/answer/9044175#thin-content",
+      "https://support.google.com/publisherpolicies/answer/11035931"
+    ],
+    "adsTxtApproved": true,
+    "separatePolicyCenterIssueCount": 0,
+    "fullInternalReadinessPassed": false,
+    "humanEditorialReview": "pending",
+    "readerTaskCheck": "pending",
+    "noFurtherSubmission": true,
+    "automatedWaitMonitorDeleted": true
+  },
+  "monitorCompletion": {
+    "automationId": "k-spot-adsense",
+    "status": "deleted",
+    "reason": "The pending-review outcome is now known. No active review remains to await; future changes or resubmission require a new user request."
   }
 }

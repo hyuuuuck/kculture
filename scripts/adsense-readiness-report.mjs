@@ -258,7 +258,7 @@ function runChecks() {
 
   const home = read("dist/en/index.html");
   const homeIssues = experienceIndexIssues(home, approvedEvents);
-  if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-guide-band")) pass("UX", "Publication home", `${approvedEvents.length} experiences plus cultural reading entry points`);
+  if (!homeIssues.length && home.includes("programme-cover") && home.includes("home-themes")) pass("UX", "Publication home", `${approvedEvents.length} experiences plus cultural reading entry points`);
   else fail("UX", "Publication home", homeIssues.join("; ") || "Missing publication sections", "Restore the cultural introduction and current experience links.");
 
   const prohibitedCopy = ["For AdSense-safe content", "AdSense-safe", "260+ word", "low-value content fix"];

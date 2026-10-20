@@ -149,7 +149,7 @@ async function expectCanonicalRedirect(fromUrl, label) {
 }
 
 if (siteUrl) {
-  await expectPage("/", "Home page", ["K-Spot Now", "programme-cover", "Make a culture", "home-guide-band"]);
+  await expectPage("/", "Home page", ["K-Spot Now", "programme-cover", "Korean culture, explained", "home-themes"]);
   await expectPage("/robots.txt", "robots.txt", ["Sitemap:"]);
   await expectPage("/sitemap.xml", "sitemap.xml", ["<urlset", "/en/"]);
   await expectPage("/en/privacy/", "Privacy policy", ["Privacy"]);

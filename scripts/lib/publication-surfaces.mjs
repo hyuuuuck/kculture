@@ -22,13 +22,14 @@ export function experienceIndexIssues(html, events) {
   return issues;
 }
 export function guideIndexIssues(html, guides) {
-  const section = String(html).match(/<section\b[^>]*class="guide-index"[^>]*>([\s\S]*?)<\/section>/)?.[1] || "";
-  const cards = articles(section);
+  // The library index groups guide cards by theme; the older single guide-index section is still accepted.
+  const legacy = String(html).match(/<section\b[^>]*class="guide-index"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  const cards = legacy !== undefined ? articles(legacy) : articles(html).filter(card => hasClass(card.attributes, "lib-card"));
   const issues = [];
-  if (!section || cards.length !== guides.length) issues.push(`Expected ${guides.length} guide articles, found ${cards.length}`);
+  if (!cards.length || cards.length !== guides.length) issues.push(`Expected ${guides.length} guide articles, found ${cards.length}`);
   for (const guide of guides) {
     const matches = cards.filter(card => card.body.includes(`href="/en/guides/${guide.slug}"`));
-    if (matches.length !== 1 || !/<h2\b/.test(matches[0]?.body || "") || !/<p\b[^>]*>[^<]+<\/p>/.test(matches[0]?.body || "")) {
+    if (matches.length !== 1 || !/<h[23]\b/.test(matches[0]?.body || "") || !/<p\b[^>]*>[^<]+<\/p>/.test(matches[0]?.body || "")) {
       issues.push(`Missing or duplicate guide link and context: ${guide.slug}`);
     }
   }

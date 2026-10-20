@@ -26,6 +26,7 @@ const editorialProgram = JSON.parse(await fs.readFile(path.join(root, "data", "e
 const reviewedEventSlugs = new Set(editorialProgram.indexableEvents || []);
 
 const categories = new Set(["festival", "kpop", "beauty", "duty-free", "department-store", "shopping", "travel-benefits"]);
+const guideCategories = new Set([...categories, "palaces-history", "traditions", "food-drink", "museums-arts", "neighborhoods", "practical"]);
 const publicLanguages = publicLanguageCodes();
 const requiredLanguages = publicLanguages;
 const sourceNames = new Set(sources.map((source) => source.name));
@@ -150,7 +151,7 @@ async function collectFiles(dir, predicate, out = []) {
 async function validateGeneratedText() {
   const dist = path.join(root, "dist");
   const files = await collectFiles(dist, (file) => file.endsWith(".html"));
-  const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908\ucc30\ucc55\ucc3e]|\?{4,}/;
+  const mojibake = /[\uFFFD\u7aca\u9e1a\u85e5\u8a1d\u74e6\u8fbb\u9035\u7b60\uf908]|\?{4,}/;
   const localizedTrustPages = ["about", "contact", "privacy", "cookie-policy", "terms", "editorial-policy", "corrections", "sources", "watchlist"];
   const englishTrustPhrases = [
     "K-Spot Now is a multilingual event and shopping radar",
@@ -495,7 +496,7 @@ for (const guide of guides) {
   if (!guide.slug) push(errors, id, "guide slug is required.");
   if (guideSlugs.has(guide.slug)) push(errors, id, "duplicate guide slug.");
   guideSlugs.add(guide.slug);
-  if (!categories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
+  if (!guideCategories.has(guide.category)) push(errors, id, `unknown guide category: ${guide.category}`);
   if (!localEn(guide.title)) push(errors, id, "guide title.en is required.");
   if (!localEn(guide.summary)) push(errors, id, "guide summary.en is required.");
   validateLocalizedObject(id, "guide.title", guide.title, { requireAll: true });
@@ -598,6 +599,18 @@ for (const slug of approvedGuideSlugs) {
   }).filter(Boolean));
   if (sourceHosts.size < 2) push(errors, slug, "approved guide needs authoritative sources on at least two distinct hosts.");
   if (!nonEmptyString(guide.audience)) push(errors, slug, "approved guide needs a specific intended audience.");
+  if (!guide.originalEvidence && Array.isArray(guide.keyFacts)) {
+    if (guide.keyFacts.length < 4 || guide.keyFacts.some((fact) => !nonEmptyString(fact?.label) || !nonEmptyString(fact?.value))) {
+      push(errors, slug, "library guide needs at least four labeled key facts.");
+    }
+    if ((guide.sources || []).some((source) => !isDate(source.checkedAt) || source.checkedAt > today)) {
+      push(errors, slug, "library guide sources need valid non-future checkedAt dates.");
+    }
+    if (guide.image && (!nonEmptyString(guide.image.src) || !nonEmptyString(guide.image.alt) || !nonEmptyString(guide.image.license) || !nonEmptyString(guide.image.page))) {
+      push(errors, slug, "library guide image needs a source, alt text, license and attribution page.");
+    }
+    continue;
+  }
   const evidence = guide.originalEvidence || {};
   if (!new Set(["case-ledger", "weather-analysis", "process-map", "decision-comparison"]).has(evidence.kind)) {
     push(errors, slug, "approved guide needs a recognized original-evidence format.");

@@ -232,6 +232,7 @@ let volatileSavedEvents = null;
 let storageUnavailable = false;
 let undoSaved = null;
 const planSummary = document.querySelector("[data-plan-summary]");
+const planChangeSummary = document.querySelector("[data-plan-change-summary]");
 const planFeedback = document.querySelector("[data-plan-feedback]");
 const undoSavedButton = document.querySelector("[data-undo-saved]");
 const printPlanButton = document.querySelector("[data-print-plan]");
@@ -255,7 +256,8 @@ function normalizeSavedEvent(item) {
     sourceName: String(item?.sourceName || ""),
     mapQuery: String(item?.mapQuery || ""),
     venue: String(item?.venue || ""),
-    visitDate: KSpotPlanning.validDate(item?.visitDate) ? item.visitDate : ""
+    visitDate: KSpotPlanning.validDate(item?.visitDate) ? item.visitDate : "",
+    savedSnapshot: KSpotPlanning.savedSnapshot(item?.savedSnapshot)
   };
 }
 
@@ -282,6 +284,7 @@ function writeSavedEvents(items) {
 }
 
 function savedEventFromButton(button) {
+  const item = visitCatalog.find(candidate => candidate.slug === button.dataset.eventSlug);
   return {
     slug: button.dataset.eventSlug,
     title: button.dataset.eventTitle,
@@ -294,7 +297,8 @@ function savedEventFromButton(button) {
     sourceUrl: button.dataset.eventSourceUrl,
     sourceName: button.dataset.eventSourceName,
     mapQuery: button.dataset.eventMapQuery,
-    venue: button.dataset.eventVenue
+    venue: button.dataset.eventVenue,
+    savedSnapshot: item ? KSpotPlanning.snapshotFor(item) : null
   };
 }
 
@@ -309,6 +313,22 @@ function setButtonState(button, saved) {
 function renderSavedPlanner() {
   const saved = readSavedEvents();
   const savedSlugs = new Set(saved.map((item) => item.slug));
+  const changeStates = saved.map(item => KSpotPlanning.publicationChanges(item).state);
+  const changedCount = changeStates.filter(state => state === "changed").length;
+  const oldCount = changeStates.filter(state => state === "no-baseline").length;
+  const withdrawnCount = changeStates.filter(state => state === "withdrawn").length;
+  if (planChangeSummary) {
+    planChangeSummary.hidden = saved.length === 0;
+    const unresolved = [
+      oldCount ? `${oldCount} older ${oldCount === 1 ? "save has" : "saves have"} no comparison baseline` : "",
+      withdrawnCount ? `${withdrawnCount} ${withdrawnCount === 1 ? "place is" : "places are"} withdrawn` : ""
+    ].filter(Boolean).join("; ");
+    planChangeSummary.textContent = changedCount
+      ? `${changedCount} saved ${changedCount === 1 ? "place has" : "places have"} published changes since you saved it. Review the affected facts below; this does not confirm live availability.`
+      : oldCount || withdrawnCount
+        ? `${unresolved}. Check each official notice.`
+        : "No published facts changed since you saved these places. This is not a live operation or ticket check.";
+  }
 
   for (const button of saveButtons) {
     setButtonState(button, savedSlugs.has(button.dataset.eventSlug));
@@ -396,7 +416,45 @@ function renderPlannerPage(saved = readSavedEvents()) {
     note.textContent = item.retired ? "This place is no longer in the current selection. Check its organizer; calendar export is unavailable." : KSpotPlanning.visitDecision(item, item.visitDate).message;
     const check = document.createElement("p");
     check.className = "planner-source-note";
-    check.textContent = item.schedule?.checkedAt ? `Schedule checked ${item.schedule.checkedAt}. Cancellations and sold-out sessions are not live-tracked.` : "No current schedule check is available.";
+    check.textContent = item.schedule?.checkedAt
+      ? `Schedule guidance reviewed ${item.schedule.checkedAt}. Automated source-text monitoring ${item.sourceMonitoredAt || "not recorded"}; it does not confirm cancellations, tickets or every schedule detail.`
+      : "No current schedule review is available. Check the official notice.";
+
+    const publication = KSpotPlanning.publicationChanges(item);
+    const changeBlock = document.createElement("section");
+    changeBlock.className = `planner-change-note is-${publication.state}`;
+    const changeTitle = document.createElement("h3");
+    changeTitle.textContent = publication.state === "changed" ? "Since you saved this" : publication.state === "unchanged" ? "Published facts unchanged" : publication.state === "withdrawn" ? "No longer published here" : "Comparison starts when you choose";
+    changeBlock.append(changeTitle);
+    const changeIntro = document.createElement("p");
+    changeIntro.textContent = publication.state === "changed"
+      ? "Our published information changed. Read the current article and operator notice before deciding; this is not a live alert from the organizer."
+      : publication.state === "unchanged"
+        ? "Our saved fact baseline matches this version. Conditions may still have changed outside this site."
+        : publication.state === "withdrawn"
+          ? "This article left the current selection. The old plan is not a confirmed event."
+          : "This place was saved before change tracking existed. We cannot reconstruct what changed earlier.";
+    changeBlock.append(changeIntro);
+    if (publication.changes.length) {
+      const list = document.createElement("ul");
+      for (const detail of publication.changes) {
+        const row = document.createElement("li");
+        const label = document.createElement("strong");
+        label.textContent = `${detail.label}: `;
+        const value = document.createElement("span");
+        value.textContent = detail.before && detail.after ? `${detail.before} → ${detail.after}` : detail.after || "Changed";
+        row.append(label, value);
+        list.append(row);
+      }
+      changeBlock.append(list);
+    }
+    if (publication.state === "changed" || publication.state === "no-baseline") {
+      const acknowledge = document.createElement("button");
+      acknowledge.type = "button";
+      acknowledge.dataset.ackSaved = item.slug;
+      acknowledge.textContent = publication.state === "changed" ? "Mark site changes seen" : "Start comparing from this version";
+      changeBlock.append(acknowledge);
+    }
 
     const mapQuery = item.mapQuery || item.venue || item.city;
     const mapBlock = document.createElement("div");
@@ -455,7 +513,7 @@ function renderPlannerPage(saved = readSavedEvents()) {
     remove.textContent = removeLabel;
     actions.append(remove);
 
-    card.append(title, meta, date, visit, note, check, mapBlock, actions);
+    card.append(title, meta, date, changeBlock, visit, note, check, mapBlock, actions);
     return card;
   }));
 }
@@ -504,6 +562,16 @@ for (const button of downloadSavedButtons) {
 }
 
 plannerGrid?.addEventListener("click", (event) => {
+  const acknowledge = event.target.closest("[data-ack-saved]");
+  if (acknowledge) {
+    const slug = acknowledge.dataset.ackSaved;
+    const current = visitCatalog.find(item => item.slug === slug);
+    if (!current) return;
+    writeSavedEvents(readSavedEvents().map(item => item.slug === slug ? { ...item, savedSnapshot: KSpotPlanning.snapshotFor(current) } : item));
+    renderSavedPlanner();
+    if (planFeedback) planFeedback.textContent = "Site-change baseline updated. Check the organizer again before travelling.";
+    return;
+  }
   const button = event.target.closest("[data-remove-saved]");
   if (!button) return;
   const slug = button.dataset.removeSaved;

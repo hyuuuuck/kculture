@@ -52,6 +52,17 @@ test("future editorial dates are still rejected independently of the live-data t
   const brief = {...Object.values(briefs.events)[0], updatedAt:"2099-01-01"};
   assert.ok(briefIssues(brief, "2026-09-17").includes("invalid editorial revision date"));
 });
+test("decision updates require same-revision, registered evidence and a concrete action", () => {
+  const original = briefs.events["gwangalli-m-drone-light-show-2026"];
+  assert.deepEqual(briefIssues(original, todayString()), []);
+  assert.ok(briefIssues({...original, decisionUpdate:{...original.decisionUpdate, date:"2026-09-18"}}, todayString()).includes("decision update must match the substantive revision date"));
+  assert.ok(briefIssues({...original, decisionUpdate:{...original.decisionUpdate, sourceUrls:["https://example.com/unregistered"]}}, todayString()).includes("decision update needs registered evidence"));
+  assert.ok(briefIssues({...original, decisionUpdate:{...original.decisionUpdate, readerAction:""}}, todayString()).includes("decision update must explain the change and visitor action"));
+  const html = renderVisitorBrief(original, {esc,publishedAt:"2026-08-06",method:"Desk research."});
+  assert.ok(html.includes(`Decision update · ${original.decisionUpdate.date}`));
+  assert.match(html, /What to do now:/);
+  assert.match(html, /gwangallimdrone\.co\.kr/);
+});
 test("empty narratives and unverified firsthand claims fail integrity checks", () => {
   const original = Object.values(briefs.events)[0];
   assert.ok(briefIssues({...original, sections:[]}, todayString()).includes("missing narrative"));

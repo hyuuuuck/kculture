@@ -1,36 +1,15 @@
 {
   "version": 1,
   "latestAttempt": {
-    "triggeredAt": "2026-09-17T13:39:00.703Z",
-    "startedAt": "2026-09-17T14:12:06Z",
-    "completedAt": "2026-09-17T15:10:31Z",
+    "triggeredAt": "2026-09-29T00:49:39.930Z",
+    "startedAt": "2026-09-29T00:49:55Z",
+    "completedAt": "2026-09-29T01:00:35.933Z",
+    "timezone": "Asia/Seoul",
+    "note": "Read-only authenticated monitoring on September 29 KST; resumed after an interrupted initial observation. Only directly observed facts refreshed. Separate timestamps distinguish Google report dates from observation times. No site/CMP/ads changes, deployment, live URL tests, sitemap/indexing requests or review submission.",
     "status": "completed-authenticated-read",
     "authenticatedStatus": "verified",
-    "lastSuccessfulAuthenticatedAuditAt": "2026-09-17T15:08:30.093Z",
+    "lastSuccessfulAuthenticatedAuditAt": "2026-09-29T01:00:35.933Z",
     "blocker": null,
-    "accessChecks": [
-      "Authenticated in-app tabs displayed the matching AdSense publisher, site details, Policy Center and sc-domain:kspotnow.com reports. No credentials, new login or permissions were needed.",
-      "Native app inventory reported the Mac locked; native control/unlock was not attempted. A timed-out Search Console navigation was recovered by reading the created tab."
-    ],
-    "accountChangesSinceLastAudit": "none",
-    "validation": {
-      "checkedAt": "2026-09-17T15:10:31Z",
-      "searchConsoleRecord": "passed",
-      "adsenseAccountRecord": "passed-with-warnings",
-      "selectedOwnershipReviewGate": "failed",
-      "editorialReviewPreflight": "blocked",
-      "publicHttpChecks": "passed",
-      "diffCheck": "passed",
-      "freshAuthenticatedAudit": "completed",
-      "cmpRegionalFlow": "not-reverified",
-      "blockers": [
-        "AdSense still reports ads.txt not-found; untouched ownership panel selects code snippet, while the live homepage has the account meta tag but no loader. A live selected alternative method remains unverified.",
-        "September 17 local content revisions and the fourth guide are not deployed. The internal editorial-release gate remains pending for human editorial/reader evidence and current-revision production verification; these are internal evidence requirements, not Google's formal eligibility rules.",
-        "Deoksugung URL inspection twice reports unknown-to-Google despite public HTTP 200 and inclusion in the successful 13-URL sitemap. Gwangalli showed a temporary sitemap processing error; its clearing was not confirmed. Garden showed the same error initially but cleared on repeat."
-      ],
-      "note": "Record integrity and search observations do not certify content value, AdSense approval or a current CMP flow. Public and GSC sitemaps remain 13 URLs; 14 belongs to the undeployed local revision. No deployment, re-review or indexing request is authorized by this heartbeat. The prior September 17 local full verify passed 32 tests and the Jinju audit; the older unresolved-Jinju warning is superseded, not renewed."
-    },
-    "note": "Read-only monitoring of production and accounts. Local September 17 article revisions are not deployed. No saved Google settings or submission state changed.",
     "actions": {
       "reviewRequestSubmitted": false,
       "sitemapSubmitted": false,
@@ -39,33 +18,50 @@
       "cmpChanged": false,
       "adsChanged": false,
       "ownershipMethodChanged": false,
-      "auditFilesUpdated": true
+      "auditFilesUpdated": true,
+      "completedMonitorDeleted": true
+    },
+    "validation": {
+      "checkedAt": "2026-09-29T01:02:30Z",
+      "searchConsoleRecord": "passed",
+      "adsenseAccountRecord": "passed",
+      "publicHttpChecks": "passed",
+      "sitemapContentMatch": "passed",
+      "productionTechnicalPreflight": "passed",
+      "adsenseCompliance": "passed-ads-disabled",
+      "editorialReviewPreflight": "pending-human-and-reader-evidence",
+      "cmpRegionalFlow": "not-reverified",
+      "freshAuthenticatedAudit": "completed",
+      "diffCheck": "passed",
+      "note": "Technical tests and audit-schema checks are not approval or content-value checks. Real-reader and independent human editorial evidence remains pending. AdSense has rejected the revision. No resubmission readiness inferred.",
+      "currentReviewEligibility": "failed-request-unavailable-throttled",
+      "currentReviewEligibilityExitCode": 1
     },
     "unverifiedChecks": [
-      "ownershipSelectorServerSidePersistence",
       "cmpRegionalConsentFlow",
       "humanEditorialReview",
-      "readerTaskEvidence",
-      "productionVerificationOfLocalRevision",
-      "gwangalliSitemapErrorCleared"
+      "readerTaskEvidence"
     ],
-    "previousAttempt": {
-      "completedAt": "2026-09-16T22:44:16Z",
-      "status": "completed-authenticated-read",
-      "authenticatedStatus": "verified"
-    },
     "consecutiveAuthenticatedAccessFailures": 0,
-    "changeAssessment": "Account status, Policy Center, aggregate coverage/performance and sitemap unchanged. Seven of nine production articles remain indexed. Deoksugung now reports unknown-to-Google on two reads rather than discovered-not-indexed; OCEAN remains discovered-not-indexed. Gwangalli/garden sitemap association returned transient errors; garden cleared on repeat. No new AdSense rejection or submission.",
-    "nextStep": "Continue substantive content work under the user's development instructions; do not defer known content defects to reader recruitment or Search Console counts. Confirm Deoksugung discovery and selected ownership before any separately authorized re-review. Deploy, submit indexing/review or activate ads only after separate explicit authorization.",
+    "accessChecks": [
+      "Existing Google account sessions remained authenticated. A turn interruption cleared temporary tabs; fresh tabs on the same selected browser recovered normal access."
+    ],
+    "notificationDecision": "NOTIFY",
+    "notificationReason": "AdSense changed from review-in-progress to attention-required/low-value-content, with review requests throttled until October 4.",
+    "nextStep": "Report the rejection and require a new user direction before site changes or another submission. Prioritize evidence of article-specific visitor value, sustained editorial maintenance and genuine reader/editor validation; do not treat October 4 as an automatic resubmission date.",
+    "previousAttempt": {
+      "completedAt": "2026-09-22T04:01:32.595Z",
+      "status": "completed-authenticated-read"
+    },
+    "changeAssessment": "GSC sitemap read September 28, success/12, still matches current eligible URLs. Coverage September 21 remains 16 indexed/615 not indexed. September 20–26 property performance: 0 clicks/2 impressions; complete page table contains 7 current URLs and no retired URL. Gwangalli crawl advances to September 25; new Seoul guide and Deoksugung remain discovered-not-indexed. AdSense separately rejected the site.",
     "publicChecks": {
       "sitemap": {
         "url": "https://kspotnow.com/sitemap.xml",
         "status": 200,
         "finalUrl": "https://kspotnow.com/sitemap.xml",
-        "checkedAt": "2026-09-17T15:03:03.996Z",
+        "checkedAt": "2026-09-29T00:58:07.648Z",
         "contentType": "application/xml; charset=utf-8",
         "canonical": null,
-        "noindex": false,
         "urls": [
           "https://kspotnow.com/en/",
           "https://kspotnow.com/en/about/",
@@ -73,153 +69,85 @@
           "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
           "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
           "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
-          "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
           "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
           "https://kspotnow.com/en/guides/",
           "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
-          "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+          "https://kspotnow.com/en/guides/seoul-culture-first-visit",
           "https://kspotnow.com/en/guides/weather-for-korea-events",
           "https://kspotnow.com/en/now/"
-        ]
+        ],
+        "expectedUrlCount": 12,
+        "missing": [],
+        "unexpected": []
       },
       "representativeUrls": [
         {
-          "url": "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
+          "url": "https://kspotnow.com/en/guides/seoul-culture-first-visit",
           "status": 200,
-          "finalUrl": "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
-          "checkedAt": "2026-09-17T15:03:03.665Z",
+          "finalUrl": "https://kspotnow.com/en/guides/seoul-culture-first-visit",
+          "checkedAt": "2026-09-29T00:58:07.726Z",
           "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/guides/weather-for-korea-events",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/guides/weather-for-korea-events",
-          "checkedAt": "2026-09-17T15:03:03.460Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/guides/weather-for-korea-events",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-          "checkedAt": "2026-09-17T15:03:03.552Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
-          "checkedAt": "2026-09-17T15:03:03.553Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
-          "noindex": false
+          "canonical": "https://kspotnow.com/en/guides/seoul-culture-first-visit"
         },
         {
           "url": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
           "status": 200,
           "finalUrl": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
-          "checkedAt": "2026-09-17T15:03:03.455Z",
+          "checkedAt": "2026-09-29T00:58:07.479Z",
           "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
-          "noindex": false
+          "canonical": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026"
         },
         {
           "url": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
           "status": 200,
           "finalUrl": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
-          "checkedAt": "2026-09-17T15:03:03.562Z",
+          "checkedAt": "2026-09-29T00:58:07.267Z",
           "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/events/andong-maskdance-festival-2026",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/events/andong-maskdance-festival-2026",
-          "checkedAt": "2026-09-17T15:03:03.439Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/andong-maskdance-festival-2026",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
-          "checkedAt": "2026-09-17T15:03:03.763Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
-          "checkedAt": "2026-09-17T15:03:03.470Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
-          "noindex": false
+          "canonical": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026"
         }
       ],
       "legacyUrls": [
         {
-          "url": "https://kspotnow.com/en/events/louis-vuitton-visionary-journeys-seoul-2026.html",
-          "status": 410,
-          "finalUrl": "https://kspotnow.com/en/events/louis-vuitton-visionary-journeys-seoul-2026",
-          "checkedAt": "2026-09-17T15:03:03.492Z",
-          "contentType": "text/plain; charset=utf-8",
-          "canonical": null,
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/guides/korea-shopping-sale-calendar",
-          "status": 410,
-          "finalUrl": "https://kspotnow.com/en/guides/korea-shopping-sale-calendar",
-          "checkedAt": "2026-09-17T15:03:03.447Z",
-          "contentType": "text/plain; charset=utf-8",
-          "canonical": null,
-          "noindex": false
-        },
-        {
-          "url": "https://kspotnow.com/en/guides/korea-duty-free-before-flight",
-          "status": 200,
-          "finalUrl": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-          "checkedAt": "2026-09-17T15:03:03.550Z",
-          "contentType": "text/html; charset=utf-8",
-          "canonical": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-          "noindex": false
-        },
-        {
           "url": "https://kspotnow.com/en/events/bts-world-tour-busan-2026.html",
           "status": 410,
           "finalUrl": "https://kspotnow.com/en/events/bts-world-tour-busan-2026",
-          "checkedAt": "2026-09-17T15:03:03.500Z",
+          "checkedAt": "2026-09-29T00:58:07.573Z",
           "contentType": "text/plain; charset=utf-8",
-          "canonical": null,
-          "noindex": false
+          "canonical": null
+        },
+        {
+          "url": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
+          "status": 410,
+          "finalUrl": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
+          "checkedAt": "2026-09-29T00:58:07.259Z",
+          "contentType": "text/plain; charset=utf-8",
+          "canonical": null
+        },
+        {
+          "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+          "status": 410,
+          "finalUrl": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+          "checkedAt": "2026-09-29T00:58:07.260Z",
+          "contentType": "text/plain; charset=utf-8",
+          "canonical": null
         }
       ]
     }
   },
   "property": "sc-domain:kspotnow.com",
-  "auditedAt": "2026-09-17T15:08:30.093Z",
+  "auditedAt": "2026-09-29T01:00:35.933Z",
   "observationWindow": {
-    "startedAt": "2026-09-17T14:12:06Z",
-    "completedAt": "2026-09-17T15:08:30.093Z",
+    "startedAt": "2026-09-29T00:49:55Z",
+    "completedAt": "2026-09-29T01:00:35.933Z",
     "timezone": "Asia/Seoul",
-    "note": "Authenticated account and aggregate reports were read across September 17–18 KST; all nine production articles were inspected on September 18. Public HTTP checks are separately timestamped. No live URL test, acknowledgement, selector change or submission.",
-    "accountAndAggregateReportsReadOn": "2026-09-17/2026-09-18"
+    "note": "Read-only authenticated monitoring on September 29 KST; resumed after an interrupted initial observation. Only directly observed facts refreshed. Separate timestamps distinguish Google report dates from observation times. No site/CMP/ads changes, deployment, live URL tests, sitemap/indexing requests or review submission."
   },
   "source": "Authenticated Google Search Console domain property",
   "status": "hold",
   "deployFixesAllowed": false,
-  "reason": "Hold: AdSense is unchanged at attention-required/low-value-content, last updated August 30. Policy Center has 0 issues. Account ads.txt remains not-found despite public 200 and correct publisher record; untouched ownership UI selects code while only meta is present publicly. GSC sitemap: 13 URLs successfully read September 14. Coverage: September 14, 16 indexed/615 not indexed. Recent performance: September 8–14, 0 clicks/1 impression, only a retired BTS URL. Nine production articles inspected: seven indexed, OCEAN discovered-not-indexed, Deoksugung unknown-to-Google on repeat despite public sitemap inclusion. Gwangalli/garden had temporary sitemap association errors; garden cleared on repeat. These diagnostic signals do not prove an AdSense rejection cause. September 17 local content improvements remain undeployed. No settings or submissions changed.",
+  "reason": "AdSense has rejected the latest request for low-value content. Hold changes/submission pending new user direction; October 4 is only the request-throttle end date. Public/current-eligible sitemap sets match 12 URLs, and the GSC September 28 read succeeded. Search reporting has advanced and current pages appear, but this did not establish AdSense content value. No independent human editorial or real-reader validation exists yet. Do not infer rejection causality solely from search counts.",
   "coverage": {
-    "reportUpdatedAt": "2026-09-14",
+    "reportUpdatedAt": "2026-09-21",
     "indexed": 16,
     "notIndexed": 615,
     "notFound404": 539,
@@ -228,58 +156,101 @@
     "redirect": 14,
     "crawledNotIndexed": 22,
     "discoveredNotIndexed": 2,
-    "checkedAt": "2026-09-17T15:08:30.093Z"
+    "checkedAt": "2026-09-29T00:57:36.402Z"
   },
   "performance": {
     "window": "7-day",
-    "periodStart": "2026-09-08",
-    "periodEnd": "2026-09-14",
+    "periodStart": "2026-09-20",
+    "periodEnd": "2026-09-26",
     "clicks": 0,
-    "impressions": 1,
+    "impressions": 2,
     "ctrPercent": 0,
-    "averagePosition": 9,
-    "legacyPagesDominateTopPages": true,
-    "currentSitemapPagesVisible": 0,
-    "withdrawnOrMergedPageRowsVisible": 1,
+    "averagePosition": 1.5,
+    "legacyPagesDominateTopPages": false,
+    "currentSitemapPagesVisible": 7,
+    "withdrawnOrMergedPageRowsVisible": 0,
     "topPages": [
       {
-        "url": "https://kspotnow.com/en/events/bts-world-tour-busan-2026.html",
+        "url": "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
+        "clicks": 0,
+        "impressions": 2,
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/about/",
         "clicks": 0,
         "impressions": 1,
-        "currentSitemapUrl": false
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/guides/",
+        "clicks": 0,
+        "impressions": 1,
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
+        "clicks": 0,
+        "impressions": 1,
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/",
+        "clicks": 0,
+        "impressions": 1,
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/now/",
+        "clicks": 0,
+        "impressions": 1,
+        "currentSitemapUrl": true
+      },
+      {
+        "url": "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
+        "clicks": 0,
+        "impressions": 1,
+        "currentSitemapUrl": true
       }
     ],
     "visibleQueries": [],
     "queryTableStatus": "no-data",
     "historicalThreeMonth": {
-      "periodStart": "2026-06-15",
-      "periodEnd": "2026-09-14",
-      "clicks": 4,
-      "impressions": 290,
-      "ctrPercent": 1.4,
-      "averagePosition": 11.6,
+      "periodStart": "2026-06-27",
+      "periodEnd": "2026-09-26",
+      "clicks": 2,
+      "impressions": 249,
+      "ctrPercent": 0.8,
+      "averagePosition": 11.1,
       "legacyQueriesRemainInAggregate": true,
-      "checkedAt": "2026-09-17T15:08:30.093Z"
+      "checkedAt": "2026-09-29T00:58:34.355Z",
+      "visibleQueryExamples": [
+        "\"louis vuitton visionary journeys seoul\" \"2028-12-31\"",
+        "busan drone show 2026",
+        "myk festa 2026",
+        "waterbomb korea 2026",
+        "daegu chimac festival"
+      ]
     },
-    "legacyTopPageIsWithdrawn": true,
+    "legacyTopPageIsWithdrawn": false,
     "onlyVisibleQueryIsLegacy": null,
-    "legacyDominanceAssessment": "The complete September 8–14 one-row table still contains only the withdrawn BTS URL (0 clicks, 1 impression), with no query rows. Current-page absence is not a certified zero for each article or proof of rejection cause. Three-month query rows retain retired topics such as Louis Vuitton and MYK, alongside a Busan drone query.",
-    "aggregationNote": "Chart and page-table figures recorded as displayed; no sum inferred.",
-    "reportRefreshLabel": "5.5 hours ago",
-    "checkedAt": "2026-09-17T15:08:30.093Z"
+    "legacyDominanceAssessment": "The complete seven-row page table contains only current sitemap URLs; no retired page is displayed in this seven-day window. Queries show no data, so query dominance is unknown. Historical three-month queries still include retired subjects. These search observations neither measure all site visitors nor establish an AdSense threshold or exact rejection cause.",
+    "aggregationNote": "Property chart reports 2 impressions; seven page rows display 8 impressions in total. Both are transcribed as shown and use different aggregation; the page sum is not substituted for the property total.",
+    "reportRefreshLabel": "6.5 hours ago",
+    "checkedAt": "2026-09-29T00:59:18.504Z"
   },
   "sitemap": {
-    "lastReadAt": "2026-09-14",
+    "lastReadAt": "2026-09-28",
     "submittedAt": "2026-08-20",
     "status": "success",
-    "discoveredPages": 13,
-    "checkedAt": "2026-09-17T15:08:30.093Z"
+    "discoveredPages": 12,
+    "checkedAt": "2026-09-29T00:51:45.163Z"
   },
   "cleanup": {
-    "deployedAt": "2026-09-03T00:47:00+09:00",
+    "deployedAt": "2026-09-17T16:09:48.626Z",
     "sitemapResubmittedAt": "2026-08-20T14:01:02+09:00",
     "sitemapRefreshPending": false,
-    "liveApprovedUrlCount": 13,
+    "liveApprovedUrlCount": 12,
     "representativeIndexingRequests": [
       "https://kspotnow.com/en/guides/",
       "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
@@ -390,67 +361,6 @@
         "inspectedAt": "2026-09-17T15:06:17.588Z"
       },
       {
-        "url": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
-        "result": "unknown-to-google",
-        "checkedAt": "2026-09-18",
-        "lastCrawlReported": null,
-        "sitemapDiscoveryStatus": "none-detected",
-        "rebuildRecrawlConfirmed": false,
-        "note": "Two fresh inspections report unknown-to-Google, no referring sitemap and no crawl. Public HTTP remains 200 and public/GSC sitemap includes this URL. This change in reported discovery status is not proof the page was removed or an AdSense rejection cause.",
-        "searchExposure": {
-          "periodStart": "2026-09-08",
-          "periodEnd": "2026-09-14",
-          "displayedPageRow": false,
-          "clicks": null,
-          "impressions": null,
-          "note": "Not shown in complete one-row page table (retired BTS URL only). Absence is not a verified zero.",
-          "checkedAt": "2026-09-17T15:08:30.093Z"
-        },
-        "inspectedAt": "2026-09-17T15:07:11.947Z",
-        "previousResult": {
-          "result": "discovered-not-indexed",
-          "inspectedAt": "2026-09-16T22:42:14Z"
-        },
-        "repeatInspection": {
-          "initialAt": "2026-09-17T15:04:42.324Z",
-          "repeatedAt": "2026-09-17T15:07:11.947Z",
-          "result": "unknown-to-google"
-        }
-      },
-      {
-        "url": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
-        "result": "indexed",
-        "checkedAt": "2026-09-18",
-        "lastCrawlReported": "2026. 9. 15. 오전 7:50:04",
-        "crawler": "Googlebot smartphone",
-        "fetchStatus": "success",
-        "crawlAllowed": true,
-        "indexingAllowed": true,
-        "googleCanonicalMatchesInspectedUrl": true,
-        "sitemapDiscoveryStatus": "temporary-processing-error",
-        "rebuildRecrawlConfirmed": true,
-        "eventEnhancementNonCriticalIssueReported": true,
-        "note": "Indexed and reported crawl unchanged; successful smartphone Googlebot fetch, crawl/indexing allowed and matching canonical. No indexing request. Sitemap association showed a temporary processing error. Repeat confirmed indexed status, but the expanded details were not fully captured; clearing is unconfirmed.",
-        "referringPage": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026.html",
-        "searchExposure": {
-          "periodStart": "2026-09-08",
-          "periodEnd": "2026-09-14",
-          "displayedPageRow": false,
-          "clicks": null,
-          "impressions": null,
-          "note": "Not shown in complete one-row page table (retired BTS URL only). Absence is not a verified zero.",
-          "checkedAt": "2026-09-17T15:08:30.093Z"
-        },
-        "inspectedAt": "2026-09-17T15:06:32.040Z",
-        "transientSitemapErrorObservedThisAudit": true,
-        "repeatInspection": {
-          "checkedAt": "2026-09-17T15:07:52.797Z",
-          "indexed": true,
-          "sitemapErrorCleared": null,
-          "details": "not-captured"
-        }
-      },
-      {
         "url": "https://kspotnow.com/en/events/andong-maskdance-festival-2026",
         "result": "indexed",
         "checkedAt": "2026-09-18",
@@ -525,16 +435,81 @@
           "checkedAt": "2026-09-17T15:08:30.093Z"
         },
         "inspectedAt": "2026-09-17T15:05:01.213Z"
+      },
+      {
+        "url": "https://kspotnow.com/en/guides/seoul-culture-first-visit",
+        "result": "discovered-not-indexed",
+        "checkedAt": "2026-09-29",
+        "inspectedAt": "2026-09-29T00:59:39.570Z",
+        "lastCrawlReported": null,
+        "sitemapDiscoveryStatus": "sitemap-listed",
+        "rebuildRecrawlConfirmed": false,
+        "note": "Discovered-not-indexed with sitemap.xml listed and no crawl reported. Public URL remains 200. No indexing request.",
+        "searchExposure": {
+          "periodStart": "2026-09-20",
+          "periodEnd": "2026-09-26",
+          "displayedPageRow": false,
+          "clicks": null,
+          "impressions": null,
+          "checkedAt": "2026-09-29T00:59:18.504Z",
+          "note": "Not displayed in the complete seven-row page table; absence is not a certified zero."
+        }
+      },
+      {
+        "url": "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
+        "result": "discovered-not-indexed",
+        "checkedAt": "2026-09-29",
+        "inspectedAt": "2026-09-29T01:00:09.129Z",
+        "lastCrawlReported": null,
+        "sitemapDiscoveryStatus": "sitemap-listed",
+        "rebuildRecrawlConfirmed": false,
+        "note": "Discovered-not-indexed with sitemap.xml listed and no crawl reported. Public URL remains 200. No indexing request.",
+        "searchExposure": {
+          "periodStart": "2026-09-20",
+          "periodEnd": "2026-09-26",
+          "displayedPageRow": false,
+          "clicks": null,
+          "impressions": null,
+          "checkedAt": "2026-09-29T00:59:18.504Z",
+          "note": "Not displayed in the complete seven-row page table; absence is not a certified zero."
+        }
+      },
+      {
+        "url": "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
+        "result": "indexed",
+        "checkedAt": "2026-09-29",
+        "inspectedAt": "2026-09-29T01:00:35.933Z",
+        "lastCrawlReported": "2026. 9. 25. 오후 2:20:11",
+        "crawler": "Googlebot smartphone",
+        "fetchStatus": "success",
+        "crawlAllowed": true,
+        "indexingAllowed": true,
+        "googleCanonicalMatchesInspectedUrl": true,
+        "sitemapDiscoveryStatus": "sitemap-listed",
+        "rebuildRecrawlConfirmed": true,
+        "latestRevisionRecrawlConfirmed": true,
+        "eventEnhancementNonCriticalIssueReported": true,
+        "note": "Indexed; sitemap.xml listed, successful smartphone Googlebot fetch, crawl/indexing allowed and matching canonical. September 25 crawl follows the latest deployment. No live URL test or indexing request.",
+        "searchExposure": {
+          "periodStart": "2026-09-20",
+          "periodEnd": "2026-09-26",
+          "displayedPageRow": false,
+          "clicks": null,
+          "impressions": null,
+          "checkedAt": "2026-09-29T00:59:18.504Z",
+          "note": "Not displayed in the complete seven-row page table; absence is not a certified zero."
+        }
       }
     ],
     "articleInspectionSummary": {
-      "guidesChecked": 3,
-      "eventsChecked": 6,
-      "indexed": 7,
-      "discoveredNotIndexed": 1,
-      "unknownToGoogle": 1,
-      "postRebuildCrawlsConfirmed": 5,
-      "indexedArticlesWithEarlierCrawls": 2
+      "guidesChecked": 1,
+      "eventsChecked": 2,
+      "indexed": 1,
+      "discoveredNotIndexed": 2,
+      "unknownToGoogle": 0,
+      "scope": "Three representative current URLs only; other retained inspections are historical and not included in these totals.",
+      "checkedAt": "2026-09-29T01:00:35.933Z",
+      "latestRevisionRecrawlsConfirmed": 1
     },
     "indexingRequestsSubmittedThisAudit": false,
     "sitemapSubmittedThisAudit": false,
@@ -542,46 +517,37 @@
     "performanceReportPredatesCleanup": false,
     "legacyPublicResponses": [
       {
-        "url": "https://kspotnow.com/en/events/louis-vuitton-visionary-journeys-seoul-2026.html",
-        "status": 410,
-        "finalUrl": "https://kspotnow.com/en/events/louis-vuitton-visionary-journeys-seoul-2026",
-        "checkedAt": "2026-09-17T15:03:03.492Z",
-        "contentType": "text/plain; charset=utf-8",
-        "canonical": null,
-        "noindex": false
-      },
-      {
-        "url": "https://kspotnow.com/en/guides/korea-shopping-sale-calendar",
-        "status": 410,
-        "finalUrl": "https://kspotnow.com/en/guides/korea-shopping-sale-calendar",
-        "checkedAt": "2026-09-17T15:03:03.447Z",
-        "contentType": "text/plain; charset=utf-8",
-        "canonical": null,
-        "noindex": false
-      },
-      {
-        "url": "https://kspotnow.com/en/guides/korea-duty-free-before-flight",
-        "status": 200,
-        "finalUrl": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-        "checkedAt": "2026-09-17T15:03:03.550Z",
-        "contentType": "text/html; charset=utf-8",
-        "canonical": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
-        "noindex": false
-      },
-      {
         "url": "https://kspotnow.com/en/events/bts-world-tour-busan-2026.html",
         "status": 410,
         "finalUrl": "https://kspotnow.com/en/events/bts-world-tour-busan-2026",
-        "checkedAt": "2026-09-17T15:03:03.500Z",
+        "checkedAt": "2026-09-29T00:58:07.573Z",
         "contentType": "text/plain; charset=utf-8",
-        "canonical": null,
-        "noindex": false
+        "canonical": null
+      },
+      {
+        "url": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
+        "status": 410,
+        "finalUrl": "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
+        "checkedAt": "2026-09-29T00:58:07.259Z",
+        "contentType": "text/plain; charset=utf-8",
+        "canonical": null
+      },
+      {
+        "url": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+        "status": 410,
+        "finalUrl": "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+        "checkedAt": "2026-09-29T00:58:07.260Z",
+        "contentType": "text/plain; charset=utf-8",
+        "canonical": null
       }
     ],
     "publicSitemap": {
-      "checkedAt": "2026-09-17T15:03:03.996Z",
+      "checkedAt": "2026-09-29T00:58:07.648Z",
       "statusCode": 200,
-      "urlCount": 13,
+      "urlCount": 12,
+      "expectedEligibleUrlCount": 12,
+      "missing": [],
+      "unexpected": [],
       "urls": [
         "https://kspotnow.com/en/",
         "https://kspotnow.com/en/about/",
@@ -589,72 +555,83 @@
         "https://kspotnow.com/en/events/deoksugung-royal-guard-changing-ceremony-2026",
         "https://kspotnow.com/en/events/gwangalli-m-drone-light-show-2026",
         "https://kspotnow.com/en/events/jinju-namgang-yudeung-festival-2026",
-        "https://kspotnow.com/en/events/national-geographic-ocean-seoul-2026",
         "https://kspotnow.com/en/events/seoul-international-garden-show-2026",
         "https://kspotnow.com/en/guides/",
         "https://kspotnow.com/en/guides/how-to-verify-korea-popups",
-        "https://kspotnow.com/en/guides/tax-refund-payments-korea-shopping",
+        "https://kspotnow.com/en/guides/seoul-culture-first-visit",
         "https://kspotnow.com/en/guides/weather-for-korea-events",
         "https://kspotnow.com/en/now/"
       ]
     },
     "localRevision": {
-      "date": "2026-09-17",
-      "status": "local-content-revision-verified-not-deployed",
-      "deployed": false,
-      "expectedLocalSitemapUrlCount": 14,
-      "note": "The prior September 17 work completed article improvements, source citations, planning fixes and full verify (32 tests, links/images/structured/sitemap/Jinju audit passed). Current revision fingerprint is cd9ce0431bee023d636af28f601bbcaeb8427c4fe3ec9968b2654eb56c718e32. Production remains the older 13-URL edition. Internal human/reader evidence and production verification remain unrecorded. Automated checks do not certify content value."
-    }
+      "date": "2026-09-18",
+      "status": "deployed-and-verified-ads-disabled",
+      "deployed": true,
+      "sourceCommit": "45bb78b498cb8a333d8ab4b5e22648c464bfc33a",
+      "expectedLocalSitemapUrlCount": 12,
+      "fingerprint": "991a7329e8b1e739be0244e2d2cd6eac3e4c52b0632c02a52bf04a11446b9f9f",
+      "evidencePath": "docs/production-verification-2026-09-18.md",
+      "note": "Production verification completed before the separately user-directed AdSense submission. Human editorial and real-reader evidence remain pending; automated checks do not certify content value."
+    },
+    "previousArticleInspectionSummary": {
+      "guidesChecked": 3,
+      "eventsChecked": 6,
+      "indexed": 7,
+      "discoveredNotIndexed": 1,
+      "unknownToGoogle": 1,
+      "postRebuildCrawlsConfirmed": 5,
+      "indexedArticlesWithEarlierCrawls": 2,
+      "observedAt": "2026-09-17T15:08:30.093Z"
+    },
+    "previousDeployedAt": "2026-09-03T00:47:00+09:00",
+    "reportTimingNote": "Coverage report date September 21 and the entire September 20–26 performance window follow the September 18 KST deployment. Report dates do not prove all changed pages have been recrawled."
   },
   "releaseCriteria": [
-    "Continue correcting concrete article-value defects using official evidence; the September 17 local full verification passed. Record real human/reader evidence when obtained, but do not invent it or defer known editorial fixes while waiting for recruitment. These are internal review practices, not Google's formal eligibility rules.",
-    "After explicit deployment authorization, verify the intended revision on the live domain, current content facts, links, images, sitemap and honest policy/consent behavior.",
-    "Before any requested re-review, freshly confirm the selected ownership method in AdSense. The initial form currently displays code snippet, the live homepage has only the account meta tag, and persistence of the UI choice is unverified. Do not automatically switch methods or enable advertising.",
-    "Observe current/retired URL signals, especially Deoksugung now reported unknown and OCEAN discovered without crawl; verify the inconsistent sitemap association on Gwangalli. Counts, rankings and reread dates are diagnostic evidence, not approval thresholds.",
-    "Do not submit an AdSense review, sitemap or indexing request, or enable ads without the user's separate explicit instruction. ads.txt account/public recognition remains inconsistent and CMP flow requires fresh verification before ad activation."
+    "The September 18 AdSense request has concluded in low-value-content rejection. Do not alter site/CMP/ads or submit a new request without fresh user authorization.",
+    "October 4 is the earliest UI-permitted request date, not a quality or approval deadline. The completed result-monitoring automation has been deleted.",
+    "Prioritize article-level unique visitor value, sustained source/content maintenance, independent human editorial review and genuine target-reader evidence. Pending checks must not be changed to passed without actual evidence.",
+    "Technical tests, sitemap count, index coverage and search ranking proportions do not certify content value or explain the exact rejected page. Keep facts and causal hypotheses separate.",
+    "Any future ad activation requires new explicit user authorization and fresh Google CMP, actual regional consent-flow and ad-release checks."
   ],
   "validationThisAudit": {
-    "checkedAt": "2026-09-17T15:10:31Z",
+    "checkedAt": "2026-09-29T01:02:30Z",
     "searchConsoleRecord": "passed",
-    "adsenseAccountRecord": "passed-with-warnings",
-    "selectedOwnershipReviewGate": "failed",
-    "editorialReviewPreflight": "blocked",
+    "adsenseAccountRecord": "passed",
     "publicHttpChecks": "passed",
-    "diffCheck": "passed",
-    "freshAuthenticatedAudit": "completed",
+    "sitemapContentMatch": "passed",
+    "productionTechnicalPreflight": "passed",
+    "adsenseCompliance": "passed-ads-disabled",
+    "editorialReviewPreflight": "pending-human-and-reader-evidence",
     "cmpRegionalFlow": "not-reverified",
-    "blockers": [
-      "AdSense still reports ads.txt not-found; untouched ownership panel selects code snippet, while the live homepage has the account meta tag but no loader. A live selected alternative method remains unverified.",
-      "September 17 local content revisions and the fourth guide are not deployed. The internal editorial-release gate remains pending for human editorial/reader evidence and current-revision production verification; these are internal evidence requirements, not Google's formal eligibility rules.",
-      "Deoksugung URL inspection twice reports unknown-to-Google despite public HTTP 200 and inclusion in the successful 13-URL sitemap. Gwangalli showed a temporary sitemap processing error; its clearing was not confirmed. Garden showed the same error initially but cleared on repeat."
-    ],
-    "note": "Record integrity and search observations do not certify content value, AdSense approval or a current CMP flow. Public and GSC sitemaps remain 13 URLs; 14 belongs to the undeployed local revision. No deployment, re-review or indexing request is authorized by this heartbeat. The prior September 17 local full verify passed 32 tests and the Jinju audit; the older unresolved-Jinju warning is superseded, not renewed."
+    "freshAuthenticatedAudit": "completed",
+    "diffCheck": "passed",
+    "note": "Technical tests and audit-schema checks are not approval or content-value checks. Real-reader and independent human editorial evidence remains pending. AdSense has rejected the revision. No resubmission readiness inferred.",
+    "currentReviewEligibility": "failed-request-unavailable-throttled",
+    "currentReviewEligibilityExitCode": 1
   },
   "changesSincePreviousAudit": {
-    "previousAuditedAt": "2026-09-16T22:42:14Z",
-    "performanceEndFrom": "2026-09-14",
-    "performanceEndTo": "2026-09-14",
-    "indexedArticleCountChanged": false,
-    "sitemapReadDateChanged": false,
-    "sitemapReadFrom": "2026-09-14",
-    "sitemapReadTo": "2026-09-14",
-    "coverageReportDateChanged": false,
-    "coverageReportDateFrom": "2026-09-14",
-    "coverageReportDateTo": "2026-09-14",
+    "previousAuditedAt": "2026-09-22T04:01:32.595Z",
+    "performanceEndFrom": "2026-09-19",
+    "performanceEndTo": "2026-09-26",
+    "sitemapReadFrom": "2026-09-21",
+    "sitemapReadTo": "2026-09-28",
+    "sitemapDiscoveredFrom": 12,
+    "sitemapDiscoveredTo": 12,
+    "coverageReportDateChanged": true,
     "coverageIndexedFrom": 16,
     "coverageIndexedTo": 16,
     "coverageNotIndexedFrom": 615,
     "coverageNotIndexedTo": 615,
-    "newerArticleCrawls": [],
     "legacyPagesDominateTopPagesFrom": true,
-    "legacyPagesDominateTopPagesTo": true,
-    "authenticatedAccessRestored": false,
-    "actionRequired": false,
+    "legacyPagesDominateTopPagesTo": false,
+    "actionRequired": true,
     "diagnosticChanges": [
-      "Deoksugung: discovered-not-indexed -> unknown-to-google on two reads.",
-      "Gwangalli sitemap temporary processing error; clearing unconfirmed.",
-      "Garden sitemap temporary processing error cleared on repeat."
+      "Latest complete seven-row page table contains current URLs only; no query rows disclosed.",
+      "Gwangalli remains indexed and crawl advances from September 19 to September 25.",
+      "Seoul culture guide and Deoksugung remain discovered-not-indexed.",
+      "The separate AdSense decision is rejection, despite sitemap processing and current-page signals."
     ],
-    "note": "Account status, Policy Center, aggregate coverage/performance and sitemap unchanged. Seven of nine production articles remain indexed. Deoksugung now reports unknown-to-Google on two reads rather than discovered-not-indexed; OCEAN remains discovered-not-indexed. Gwangalli/garden sitemap association returned transient errors; garden cleared on repeat. No new AdSense rejection or submission."
-  }
+    "note": "Search improvements do not override AdSense rejection. No new search requests or site edits."
+  },
+  "recordScope": "Current fields describe the monitoring window ending 2026-09-29T01:00:35.933Z. Three representative URLs were inspected; other retained inspections remain historical. HOLD now reflects the rejected review and lack of authorization for further site changes/submission, not a search quota."
 }

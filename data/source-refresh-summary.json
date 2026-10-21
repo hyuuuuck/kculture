@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T20:15:16.182Z",
+  "generatedAt": "2026-10-21T23:27:31.317Z",
   "files": {
     "audit": "source-audit-2026-10-22.json",
     "candidates": "official-page-candidates-2026-10-22.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
+    "auditOk": 53,
+    "auditFailed": 3,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 629,
-    "dateSignals": 247,
-    "draftCandidates": 66,
-    "skippedCandidates": 616,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 600,
+    "dateSignals": 227,
+    "draftCandidates": 45,
+    "skippedCandidates": 608,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -61,13 +66,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "NOL World Seoul Pop-ups",
       "count": 15
@@ -85,14 +91,14 @@
       "count": 2
     },
     {
-      "key": "Shinsegae Duty Free",
-      "count": 1
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 46
+      "count": 26
     },
     {
       "key": "shopping",
@@ -111,14 +117,14 @@
       "count": 2
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 574
+      "count": 565
     },
     {
       "key": "listing page is not a specific event",
@@ -126,11 +132,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "count": 8
     },
     {
       "key": "duplicate draft source URL",
@@ -138,6 +140,10 @@
     },
     {
       "key": "already published source URL",
+      "count": 3
+    },
+    {
+      "key": "curation root is not a specific event",
       "count": 3
     }
   ],
@@ -149,14 +155,6 @@
       "dates": 18,
       "keywords": 5,
       "score": 146
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
     },
     {
       "sourceName": "NOL World Ticket",
@@ -205,6 +203,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "links": 24,
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

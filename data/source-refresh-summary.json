@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T05:02:20.167Z",
+  "generatedAt": "2026-10-21T13:57:28.188Z",
   "files": {
     "audit": "source-audit-2026-10-21.json",
     "candidates": "official-page-candidates-2026-10-21.json",
@@ -17,12 +17,12 @@
     "auditFailed": 2,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 607,
-    "dateSignals": 277,
-    "draftCandidates": 76,
-    "skippedCandidates": 584,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 577,
+    "dateSignals": 252,
+    "draftCandidates": 69,
+    "skippedCandidates": 561,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
@@ -69,56 +74,56 @@
       "count": 22
     },
     {
-      "key": "Visit Seoul",
+      "key": "NOL World Seoul Pop-ups",
       "count": 15
     },
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 13
+      "key": "Visit Seoul",
+      "count": 14
     },
     {
       "key": "NOL World Ticket",
       "count": 13
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "CJ Olive Young Newsroom",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
+      "count": 48
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
       "count": 5
     },
     {
+      "key": "beauty",
+      "count": 3
+    },
+    {
       "key": "department-store",
       "count": 3
     },
     {
-      "key": "beauty",
-      "count": 1
-    },
-    {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 540
+      "count": 516
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +131,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
@@ -142,14 +147,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -205,6 +202,14 @@
       "dates": 18,
       "keywords": 2,
       "score": 135
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
     }
   ]
 }

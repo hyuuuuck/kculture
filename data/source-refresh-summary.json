@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-21T13:57:28.188Z",
+  "generatedAt": "2026-10-21T20:15:16.182Z",
   "files": {
-    "audit": "source-audit-2026-10-21.json",
-    "candidates": "official-page-candidates-2026-10-21.json",
-    "drafts": "draft-events-2026-10-21.json",
-    "reviewReport": "review-report-2026-10-21.md",
-    "reviewBoard": "review-board-2026-10-21.html",
-    "publicData": "public-data-import-2026-10-21.json",
+    "audit": "source-audit-2026-10-22.json",
+    "candidates": "official-page-candidates-2026-10-22.json",
+    "drafts": "draft-events-2026-10-22.json",
+    "reviewReport": "review-report-2026-10-22.md",
+    "reviewBoard": "review-board-2026-10-22.html",
+    "publicData": "public-data-import-2026-10-22.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 577,
-    "dateSignals": 252,
-    "draftCandidates": 69,
-    "skippedCandidates": 561,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 629,
+    "dateSignals": 247,
+    "draftCandidates": 66,
+    "skippedCandidates": 616,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,7 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -61,11 +61,6 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -83,47 +78,47 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 13
+      "count": 12
     },
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
     },
     {
-      "key": "CJ Olive Young Newsroom",
+      "key": "Shinsegae Duty Free",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 46
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 8
     },
     {
       "key": "kpop",
       "count": 5
     },
     {
-      "key": "beauty",
-      "count": 3
-    },
-    {
       "key": "department-store",
       "count": 3
     },
     {
-      "key": "travel-benefits",
+      "key": "beauty",
+      "count": 2
+    },
+    {
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 516
+      "count": 574
     },
     {
       "key": "listing page is not a specific event",
@@ -131,11 +126,11 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 4
     },
     {
       "key": "duplicate draft source URL",

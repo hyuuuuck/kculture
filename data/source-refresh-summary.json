@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T05:04:13.365Z",
+  "generatedAt": "2026-10-22T13:55:40.694Z",
   "files": {
     "audit": "source-audit-2026-10-22.json",
     "candidates": "official-page-candidates-2026-10-22.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 52,
     "auditFailed": 4,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 582,
-    "dateSignals": 237,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 554,
+    "dateSignals": 234,
     "draftCandidates": 47,
-    "skippedCandidates": 588,
+    "skippedCandidates": 560,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -58,6 +58,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
@@ -75,7 +80,7 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 14
+      "count": 15
     },
     {
       "key": "NOL World Ticket",
@@ -86,22 +91,22 @@
       "count": 2
     },
     {
-      "key": "Korea Policy Briefing",
+      "key": "Korea Sale FESTA",
       "count": 1
     },
     {
-      "key": "Korea Sale FESTA",
+      "key": "Shinsegae Duty Free",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 27
+      "count": 28
     },
     {
       "key": "shopping",
-      "count": 9
+      "count": 8
     },
     {
       "key": "kpop",
@@ -123,7 +128,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 544
+      "count": 515
     },
     {
       "key": "listing page is not a specific event",
@@ -131,7 +136,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",
@@ -142,8 +147,8 @@
       "count": 4
     },
     {
-      "key": "already published source URL",
-      "count": 3
+      "key": "mojibake text detected",
+      "count": 4
     }
   ],
   "highSignalCandidates": [

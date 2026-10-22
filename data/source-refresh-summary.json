@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T20:13:52.353Z",
+  "generatedAt": "2026-10-22T23:29:35.632Z",
   "files": {
     "audit": "source-audit-2026-10-23.json",
     "candidates": "official-page-candidates-2026-10-23.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 4,
+    "auditOk": 51,
+    "auditFailed": 5,
+    "fallbackSources": 2,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 602,
-    "dateSignals": 253,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 554,
+    "dateSignals": 245,
     "draftCandidates": 68,
-    "skippedCandidates": 587,
+    "skippedCandidates": 539,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -56,6 +56,16 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Hyundai Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Hyundai Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "AK Plaza Events",
@@ -118,7 +128,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 546
+      "count": 497
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +136,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T23:27:31.317Z",
+  "generatedAt": "2026-10-22T05:04:13.365Z",
   "files": {
     "audit": "source-audit-2026-10-22.json",
     "candidates": "official-page-candidates-2026-10-22.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 600,
-    "dateSignals": 227,
-    "draftCandidates": 45,
-    "skippedCandidates": 608,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 582,
+    "dateSignals": 237,
+    "draftCandidates": 47,
+    "skippedCandidates": 588,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -38,6 +38,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Dongdaemun Design Plaza",
       "status": "ERR",
       "error": "fetch failed"
@@ -51,16 +56,6 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "AK Plaza Events",
@@ -87,44 +82,48 @@
       "count": 12
     },
     {
-      "key": "Shinsegae Group Newsroom",
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     },
     {
-      "key": "Weverse Shop BTS Notices",
-      "count": 2
+      "key": "Korea Policy Briefing",
+      "count": 1
+    },
+    {
+      "key": "Korea Sale FESTA",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 26
+      "count": 27
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 9
     },
     {
       "key": "kpop",
       "count": 5
     },
     {
-      "key": "department-store",
-      "count": 3
-    },
-    {
       "key": "beauty",
       "count": 2
     },
     {
-      "key": "travel-benefits",
+      "key": "department-store",
+      "count": 2
+    },
+    {
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 565
+      "count": 544
     },
     {
       "key": "listing page is not a specific event",
@@ -132,7 +131,11 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 8
+      "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
       "key": "duplicate draft source URL",
@@ -140,10 +143,6 @@
     },
     {
       "key": "already published source URL",
-      "count": 3
-    },
-    {
-      "key": "curation root is not a specific event",
       "count": 3
     }
   ],
@@ -205,12 +204,12 @@
       "score": 129
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 9,
+      "keywords": 3,
+      "score": 114
     }
   ]
 }

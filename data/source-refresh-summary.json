@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T05:03:41.223Z",
+  "generatedAt": "2026-10-23T13:36:54.020Z",
   "files": {
     "audit": "source-audit-2026-10-23.json",
     "candidates": "official-page-candidates-2026-10-23.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 627,
-    "dateSignals": 246,
-    "draftCandidates": 68,
-    "skippedCandidates": 612,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 579,
+    "dateSignals": 250,
+    "draftCandidates": 70,
+    "skippedCandidates": 562,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,19 +53,14 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free English Events",
-      "status": "ERR",
-      "error": "fetch failed"
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
     },
     {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
-    },
-    {
-      "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
     }
   ],
   "topDraftSources": [
@@ -86,18 +81,18 @@
       "count": 11
     },
     {
-      "key": "Shinsegae Duty Free",
+      "key": "Korea Policy Briefing",
       "count": 1
     },
     {
-      "key": "Shinsegae Group Newsroom",
+      "key": "Korea Sale FESTA",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 49
     },
     {
       "key": "kpop",
@@ -105,7 +100,7 @@
     },
     {
       "key": "shopping",
-      "count": 6
+      "count": 7
     },
     {
       "key": "beauty",
@@ -123,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 519
     },
     {
       "key": "listing page is not a specific event",
@@ -131,15 +126,15 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "duplicate draft source URL",
       "count": 5
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 4
     },
     {
       "key": "already published source URL",

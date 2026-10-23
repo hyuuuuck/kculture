@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-23T13:36:54.020Z",
+  "generatedAt": "2026-10-23T23:15:43.107Z",
   "files": {
-    "audit": "source-audit-2026-10-23.json",
-    "candidates": "official-page-candidates-2026-10-23.json",
-    "drafts": "draft-events-2026-10-23.json",
-    "reviewReport": "review-report-2026-10-23.md",
-    "reviewBoard": "review-board-2026-10-23.html",
-    "publicData": "public-data-import-2026-10-23.json",
+    "audit": "source-audit-2026-10-24.json",
+    "candidates": "official-page-candidates-2026-10-24.json",
+    "drafts": "draft-events-2026-10-24.json",
+    "reviewReport": "review-report-2026-10-24.md",
+    "reviewBoard": "review-board-2026-10-24.html",
+    "publicData": "public-data-import-2026-10-24.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
+    "auditOk": 53,
+    "auditFailed": 3,
     "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 579,
-    "dateSignals": 250,
-    "draftCandidates": 70,
-    "skippedCandidates": 562,
+    "discoveredLinks": 622,
+    "dateSignals": 269,
+    "draftCandidates": 77,
+    "skippedCandidates": 598,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,14 +53,14 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -74,15 +74,15 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 16
+      "count": 17
     },
     {
       "key": "NOL World Ticket",
       "count": 11
     },
     {
-      "key": "Korea Policy Briefing",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
       "key": "Korea Sale FESTA",
@@ -92,7 +92,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 49
+      "count": 58
     },
     {
       "key": "kpop",
@@ -100,7 +100,7 @@
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 6
     },
     {
       "key": "beauty",
@@ -108,7 +108,7 @@
     },
     {
       "key": "department-store",
-      "count": 2
+      "count": 1
     },
     {
       "key": "duty-free",
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 519
+      "count": 556
     },
     {
       "key": "listing page is not a specific event",
@@ -137,11 +137,19 @@
       "count": 5
     },
     {
-      "key": "already published source URL",
-      "count": 3
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 149
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -197,14 +205,6 @@
       "dates": 18,
       "keywords": 2,
       "score": 135
-    },
-    {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 129
     }
   ]
 }

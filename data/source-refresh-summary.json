@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T23:29:35.632Z",
+  "generatedAt": "2026-10-23T05:03:41.223Z",
   "files": {
     "audit": "source-audit-2026-10-23.json",
     "candidates": "official-page-candidates-2026-10-23.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 51,
-    "auditFailed": 5,
-    "fallbackSources": 2,
+    "auditOk": 54,
+    "auditFailed": 2,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 554,
-    "dateSignals": 245,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 627,
+    "dateSignals": 246,
     "draftCandidates": 68,
-    "skippedCandidates": 539,
+    "skippedCandidates": 612,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -36,11 +36,6 @@
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "status": "ERR",
-      "error": "fetch failed"
     },
     {
       "sourceName": "Dongdaemun Design Plaza",
@@ -58,12 +53,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Hyundai Department Store",
+      "sourceName": "Shinsegae Duty Free English Events",
       "status": "ERR",
       "error": "fetch failed"
     },
     {
-      "sourceName": "Hyundai Department Store Events",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -91,18 +86,18 @@
       "count": 11
     },
     {
-      "key": "Korea Sale FESTA",
+      "key": "Shinsegae Duty Free",
       "count": 1
     },
     {
-      "key": "Shinsegae Duty Free",
+      "key": "Shinsegae Group Newsroom",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 49
+      "count": 48
     },
     {
       "key": "kpop",
@@ -118,7 +113,7 @@
     },
     {
       "key": "department-store",
-      "count": 1
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -128,23 +123,23 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 497
+      "count": 568
     },
     {
       "key": "listing page is not a specific event",
-      "count": 15
+      "count": 16
     },
     {
       "key": "source fetch did not succeed",
-      "count": 8
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 7
     },
     {
       "key": "duplicate draft source URL",
       "count": 5
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
       "key": "already published source URL",

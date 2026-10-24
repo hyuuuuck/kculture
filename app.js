@@ -753,6 +753,33 @@ function refreshVisitNotices() {
 }
 refreshVisitNotices();
 
+// Guide library search: filters the cards already on the page; ?q= and #guide-search work from other pages.
+const guideSearch = document.querySelector("[data-guide-search]");
+if (guideSearch) {
+  const cards = [...document.querySelectorAll(".library-section .lib-card")];
+  const sections = [...document.querySelectorAll(".library-section")];
+  const status = document.querySelector("[data-guide-search-status]");
+  const fold = (text) => text.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+  const index = cards.map((card) => fold(card.textContent));
+  const runSearch = () => {
+    const query = guideSearch.value.trim();
+    const terms = fold(query).split(/\s+/).filter(Boolean);
+    let shown = 0;
+    cards.forEach((card, i) => {
+      const hit = terms.every((term) => index[i].includes(term));
+      card.hidden = !hit;
+      if (hit) shown += 1;
+    });
+    sections.forEach((section) => { section.hidden = !section.querySelector(".lib-card:not([hidden])"); });
+    if (status) status.textContent = !terms.length ? "" : shown ? `${shown} guide${shown === 1 ? "" : "s"} match \u201c${query}\u201d.` : "No guide matches that yet. Try a palace, a dish or a neighborhood.";
+  };
+  guideSearch.addEventListener("input", runSearch);
+  document.querySelector("[data-guide-search-form]")?.addEventListener("submit", (event) => { event.preventDefault(); runSearch(); });
+  const initial = new URLSearchParams(location.search).get("q");
+  if (initial) { guideSearch.value = initial; runSearch(); }
+  if (location.hash === "#guide-search" || initial) guideSearch.focus();
+}
+
 const progressBar = document.querySelector("[data-reading-progress]");
 const articleBody = document.querySelector(".guide-article-body");
 if (progressBar && articleBody) {

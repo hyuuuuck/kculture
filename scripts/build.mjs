@@ -5925,7 +5925,8 @@ function uiIcon(name, className = "") {
     bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
     weather: '<path d="M7 17h11a4 4 0 0 0 0-8 6 6 0 0 0-11-2 5 5 0 0 0 0 10z"/>',
     map: '<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2zM9 3v16M15 5v16"/>',
-    calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 11h18"/>'
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 11h18"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>'
   };
   return `<svg class="ui-icon ${className}" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.arrow}</svg>`;
 }
@@ -5946,6 +5947,7 @@ function nav(lang, canonicalPath = "") {
         const current = canonicalPath.startsWith(`/${lang}/${path}/`) || (path === "now" && canonicalPath.includes("/events/"));
         return `<a href="/${lang}/${path}/"${current ? ' aria-current="page"' : ""}>${label}</a>`;
       }).join("")}
+      <a class="nav-search" href="/${lang}/guides/#guide-search" aria-label="Search the guides">${uiIcon("search")}<span>Search</span></a>
     </nav>`;
 }
 
@@ -6170,7 +6172,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   -->
   <a class="skip-link" href="#main-content">${tr(lang, "skipToMain")}</a>
   <header class="site-header">
-    <a class="brand" href="/${lang}/" aria-label="${siteName} home">K-Spot Now</a>
+    <a class="brand" href="/${lang}/" aria-label="${siteName} home"><svg class="brand-mark" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="8" fill="#251d48"/><path d="M16 12h9v18l17-18h12L34 32l21 20H42L25 35v17h-9z" fill="#f4c95d"/></svg>K-Spot Now</a>
     <p class="brand-note">Korean culture.<br>In context.</p>
     ${nav(lang, canonicalPath)}
   </header>
@@ -6181,11 +6183,20 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
       <p>Korean culture, in context.<br>For independent English-speaking visitors.</p>
       <a href="/${lang}/about/">Meet the publication ${uiIcon("arrow")}</a>
     </div>
-    <div class="footer-links" aria-label="Publication information">
-      <a href="/${lang}/guides/">Culture guides</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/calendar/">Calendar</a><a href="/${lang}/planner/">Saved places</a>
+    <nav class="footer-col" aria-label="Culture guides">
+      <p class="footer-heading">Culture guides</p>
+      ${libraryCategories.map((category) => `<a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a>`).join("")}
+      <a href="/${lang}/guides/">All guides</a>
+    </nav>
+    <nav class="footer-col" aria-label="Plan your visit">
+      <p class="footer-heading">Plan your visit</p>
+      <a href="/${lang}/guides/seoul-culture-itinerary-3-days">Three-day culture plan</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/calendar/">Calendar</a><a href="/${lang}/planner/">Saved places</a>
+    </nav>
+    <nav class="footer-col" aria-label="Publication information">
+      <p class="footer-heading">The publication</p>
       <a href="/${lang}/editorial-policy/">Editorial Policy</a><a href="/${lang}/corrections/">Corrections and Updates</a><a href="/${lang}/contact/">Contact</a>
       <a href="/${lang}/privacy/">Privacy Policy</a><a href="/${lang}/cookie-policy/">Cookie Policy</a><a href="/${lang}/advertising/">Advertising Policy</a><a href="/${lang}/terms/">Terms</a>
-    </div>
+    </nav>
     <p class="footer-note">Researched from official sources and clearly dated. Hours, fees and rules can change; check the linked official page before you travel.</p>
   </footer>
   <aside class="saved-planner" data-saved-planner hidden aria-live="polite">
@@ -7401,8 +7412,6 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
   const sorted = currentEvents().sort((a, b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a, b));
   const seoul = sorted.filter((event) => event.city === "Seoul");
   const elsewhere = sorted.filter((event) => event.city !== "Seoul");
-  const changedDecisions = sorted.filter((event) => visitorBriefs.events[event.slug]?.decisionUpdate)
-    .sort((a, b) => visitorBriefs.events[b.slug].decisionUpdate.date.localeCompare(visitorBriefs.events[a.slug].decisionUpdate.date));
   const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
   const pick = (slugs) => slugs.map((slug) => bySlug.get(slug)).filter(Boolean);
   const startHere = pick(["seoul-culture-itinerary-3-days", "gyeongbokgung-palace-guide", "korean-table-manners"]);
@@ -7436,7 +7445,11 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <div class="library-section-head"><h2 id="home-themes-title">Explore by theme</h2><p>Every guide explains the meaning first, then the practical detail: Korean names to search, opening days, booking rules and etiquette.</p></div>
         <div class="theme-grid">${libraryCategories.map((category) => {
           const items = guidesInCategory(category.id);
+          const shown = new Set([...startHere, ...firstTrip]);
+          const cover = items.find((guide) => !shown.has(guide)) || items[0];
+          const coverImage = cover ? guideCardImage(cover) : null;
           return `<article class="theme-tile">
+            ${coverImage ? `<a class="theme-tile-media" href="/${lang}/guides/#${category.id}" tabindex="-1"><img src="${esc(coverImage.src)}" alt="${esc(cover.image?.alt || guideTitleText(cover, lang))}" width="${coverImage.width}" height="${coverImage.height}" loading="lazy"></a>` : ""}
             <h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3>
             <p>${esc(category.blurb)}</p>
             <ul>${items.slice(0, 4).map((guide) => `<li><a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a></li>`).join("")}</ul>
@@ -7454,17 +7467,9 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
         <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>Recheck your saved places ${uiIcon("arrow")}</strong><span>See whether our published visit facts changed.</span></span></a>
       </nav>
       <section class="programme-section" id="events">
-        <div class="section-head"><div><h2>What's on in Seoul now</h2><p>Current, dated experiences that fit around the guides above. Read the context, then check the conditions.</p></div><a class="text-link" href="/${lang}/now/">All current experiences ${uiIcon("arrow")}</a></div>
-        <div class="experience-list">${seoul.map((event) => experienceCard(event, lang)).join("")}</div>
-        ${elsewhere.length ? `<div class="section-head elsewhere-heading"><div><h2>Beyond Seoul</h2><p>Separate destinations to consider if your trip already takes you further.</p></div></div><div class="experience-list">${elsewhere.map((event) => experienceCard(event, lang)).join("")}</div>` : ""}
+        <div class="section-head"><div><h2>What's on now</h2><p>Dated ceremonies, shows and seasonal events that pair well with the guides above${elsewhere.length ? ", Seoul first and then further afield" : ""}.</p></div><a class="text-link" href="/${lang}/now/">All current experiences ${uiIcon("arrow")}</a></div>
+        <div class="experience-list home-experiences">${[...seoul, ...elsewhere].map((event) => experienceCard(event, lang)).join("")}</div>
       </section>
-      ${changedDecisions.length ? `<section class="home-decision-updates" aria-labelledby="home-decision-updates-title">
-        <div><h2 id="home-decision-updates-title">What changed for your visit</h2><p>Substantive article revisions, not automated source-check timestamps. Recheck the operator before travelling.</p></div>
-        <div class="home-decision-update-list">${changedDecisions.map((event) => {
-          const update = visitorBriefs.events[event.slug].decisionUpdate;
-          return `<article><span>${esc(update.date)} · ${esc(cityLabel(lang, event.city))}</span><h3><a href="${eventHref(lang, event)}">${esc(local(event.title, lang))}</a></h3><p>${esc(update.readerAction)}</p></article>`;
-        }).join("")}</div>
-      </section>` : ""}
       <section class="home-method" aria-labelledby="home-method-title">
         <h2 id="home-method-title">How K-Spot Now works</h2>
         <div>
@@ -8710,6 +8715,11 @@ function renderGuides(lang) {
         <p class="library-eyebrow">The K-Spot Now library</p>
         <h1>Korean culture, explained before you go.</h1>
         <p>${total} in-depth guides for independent visitors to Seoul. Each one explains what you are looking at, who it suits, and exactly how to do it: Korean names, opening days, booking rules and the etiquette that matters.</p>
+        <form class="library-search" role="search" action="/${lang}/guides/" data-guide-search-form>
+          <label for="guide-search">Search the guides</label>
+          <div>${uiIcon("search")}<input id="guide-search" name="q" type="search" placeholder="Try hanbok, Jongmyo, makgeolli or Bukchon" autocomplete="off" data-guide-search></div>
+        </form>
+        <p class="library-search-status" data-guide-search-status aria-live="polite"></p>
       </div>
       <nav class="library-jump" aria-label="Guide themes">
         ${libraryCategories.map((category) => `<a href="#${category.id}"><strong>${esc(category.label)}</strong><span>${guidesInCategory(category.id).length} guides</span></a>`).join("")}
@@ -8915,8 +8925,16 @@ function renderHomeNotices(lang) {
   if (!notices.length) return "";
   const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
   return `<section class="home-notices" aria-labelledby="home-notices-title" data-notices>
-        <h2 id="home-notices-title">Dated notices for your visit</h2>
-        <div class="home-notice-list">${notices.map((notice) => renderVisitNotice(notice, lang, bySlug.get(notice.homeLink))).join("")}</div>
+        <h2 id="home-notices-title" class="visually-hidden">Dated notices for your visit</h2>
+        ${notices.map((notice) => {
+          const status = noticeStatus(notice, today);
+          const link = bySlug.get(notice.homeLink);
+          return `<article class="home-notice" data-notice data-notice-start="${esc(notice.start)}" data-notice-end="${esc(notice.end)}">
+          <p class="home-notice-when"><span class="visit-notice-label is-${status}" data-notice-label>${status === "now" ? "Now" : "Coming up"}</span><strong>${esc(noticeRangeText(notice.start, notice.end))}</strong></p>
+          <div class="home-notice-copy"><h3>${esc(notice.title)}</h3><p>${esc(notice.homeText || notice.text)} <a href="${esc(notice.source.url)}" rel="nofollow noopener" target="_blank">Official notice</a></p></div>
+          ${link ? `<a class="home-notice-link" href="${guideHref(lang, link)}">${esc(notice.homeLinkLabel || "Read the guide")} ${uiIcon("arrow")}</a>` : ""}
+        </article>`;
+        }).join("")}
       </section>`;
 }
 

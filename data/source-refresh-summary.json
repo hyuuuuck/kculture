@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-24T12:48:22.491Z",
+  "generatedAt": "2026-10-24T18:53:02.953Z",
   "files": {
-    "audit": "source-audit-2026-10-24.json",
-    "candidates": "official-page-candidates-2026-10-24.json",
-    "drafts": "draft-events-2026-10-24.json",
-    "reviewReport": "review-report-2026-10-24.md",
-    "reviewBoard": "review-board-2026-10-24.html",
-    "publicData": "public-data-import-2026-10-24.json",
+    "audit": "source-audit-2026-10-25.json",
+    "candidates": "official-page-candidates-2026-10-25.json",
+    "drafts": "draft-events-2026-10-25.json",
+    "reviewReport": "review-report-2026-10-25.md",
+    "reviewBoard": "review-board-2026-10-25.html",
+    "publicData": "public-data-import-2026-10-25.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 606,
-    "dateSignals": 251,
-    "draftCandidates": 69,
-    "skippedCandidates": 590,
+    "discoveredLinks": 582,
+    "dateSignals": 235,
+    "draftCandidates": 70,
+    "skippedCandidates": 565,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -69,11 +69,11 @@
       "count": 22
     },
     {
-      "key": "NOL World Seoul Pop-ups",
-      "count": 17
+      "key": "Visit Seoul",
+      "count": 18
     },
     {
-      "key": "Visit Seoul",
+      "key": "NOL World Seoul Pop-ups",
       "count": 17
     },
     {
@@ -95,12 +95,12 @@
       "count": 50
     },
     {
-      "key": "kpop",
+      "key": "shopping",
       "count": 8
     },
     {
-      "key": "shopping",
-      "count": 6
+      "key": "kpop",
+      "count": 7
     },
     {
       "key": "beauty",
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 549
+      "count": 523
     },
     {
       "key": "listing page is not a specific event",
@@ -199,12 +199,12 @@
       "score": 135
     },
     {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 129
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 22,
+      "dates": 9,
+      "keywords": 3,
+      "score": 108
     }
   ]
 }

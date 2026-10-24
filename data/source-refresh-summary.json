@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T23:15:43.107Z",
+  "generatedAt": "2026-10-24T04:49:32.113Z",
   "files": {
     "audit": "source-audit-2026-10-24.json",
     "candidates": "official-page-candidates-2026-10-24.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 622,
-    "dateSignals": 269,
-    "draftCandidates": 77,
-    "skippedCandidates": 598,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 574,
+    "dateSignals": 233,
+    "draftCandidates": 47,
+    "skippedCandidates": 580,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,13 +61,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "NOL World Seoul Pop-ups",
       "count": 17
@@ -81,22 +82,22 @@
       "count": 11
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "key": "Korea Sale FESTA",
+      "count": 1
     },
     {
-      "key": "Korea Sale FESTA",
+      "key": "Shinsegae Duty Free",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 58
+      "count": 30
     },
     {
       "key": "kpop",
-      "count": 8
+      "count": 6
     },
     {
       "key": "shopping",
@@ -118,7 +119,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 556
+      "count": 539
     },
     {
       "key": "listing page is not a specific event",
@@ -126,15 +127,15 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 7
     },
     {
       "key": "duplicate draft source URL",
       "count": 5
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -143,28 +144,12 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
-    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
       "keywords": 5,
       "score": 146
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 6,
-      "score": 143
     },
     {
       "sourceName": "NOL World Ticket",
@@ -205,6 +190,22 @@
       "dates": 18,
       "keywords": 2,
       "score": 135
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
+    },
+    {
+      "sourceName": "Daegu Chimac Festival",
+      "url": "https://www.chimacfestival.com/",
+      "links": 24,
+      "dates": 2,
+      "keywords": 6,
+      "score": 107
     }
   ]
 }

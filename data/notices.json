@@ -1,0 +1,127 @@
+{
+  "about": "Dated visit notices. Each one shows at the top of the listed guides (and on the home page when home is true) from the build date until its end date, then disappears: the build drops expired notices and app.js hides any that expire between builds. Keep time-limited facts here instead of in guide body text.",
+  "notices": [
+    {
+      "id": "palace-free-entry-2026-autumn",
+      "start": "2026-10-29",
+      "end": "2026-11-15",
+      "title": "Free entry to the palaces, Jongmyo and royal tombs",
+      "text": "From October 29 to November 15, 2026, admission is free for everyone at Gyeongbokgung, Changdeokgung, Changgyeonggung, Deoksugung, Jongmyo and the Joseon royal tombs during the Korea Grand Festival. Regular closing days still apply (Gyeongbokgung and Jongmyo on Tuesdays, the others on Mondays), the Changdeokgung Secret Garden keeps its paid, timed tickets, and Jongmyo is open for self-guided visits on every open day.",
+      "guides": ["gyeongbokgung-palace-guide", "changdeokgung-huwon-secret-garden", "seoul-five-grand-palaces-compared", "jongmyo-shrine-guide", "hanbok-rental-palace-guide", "free-korean-culture-seoul", "national-folk-museum-of-korea-guide", "seoul-culture-itinerary-3-days"],
+      "home": true,
+      "homeLink": "seoul-five-grand-palaces-compared",
+      "source": { "name": "Royal Palaces and Tombs Center notice (September 22, 2026)", "url": "https://royal.khs.go.kr/ROYAL/contents/R403000000.do?schM=view&id=20260922161754771774&schBcid=notice01" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "changgyeonggung-night-pause-2026-11",
+      "start": "2026-11-10",
+      "end": "2026-11-15",
+      "title": "Changgyeonggung closes early November 10 to 15",
+      "text": "From November 10 to 15, 2026, Changgyeonggung's regular evening opening is suspended for Donggwol Dongnak (동궐동락), a separately booked night program. Daytime visits end at 17:30, with last entry at 16:30.",
+      "guides": ["changdeokgung-huwon-secret-garden", "seoul-five-grand-palaces-compared"],
+      "home": false,
+      "source": { "name": "Royal Palaces and Tombs Center notice (September 2, 2026)", "url": "https://royal.khs.go.kr/ROYAL/contents/R403000000.do?schM=view&id=20260902131858531105&schBcid=notice01" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "geunjeongjeon-platform-2026-autumn",
+      "start": "2026-09-02",
+      "end": "2026-10-31",
+      "title": "Throne-hall platform closed",
+      "text": "Until October 31, 2026, visitors cannot step onto the stone platform (월대, woldae) of Geunjeongjeon, the throne hall, which the palace has closed to protect its railings from peak-season crowds. You view the hall from the courtyard.",
+      "guides": ["gyeongbokgung-palace-guide"],
+      "home": false,
+      "source": { "name": "Royal Palaces and Tombs Center notice (August 30, 2026)", "url": "https://royal.khs.go.kr/ROYAL/contents/R403000000.do?schM=view&id=20260830151817711582&schBcid=notice01" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "gyeonghoeru-tour-2026-season",
+      "start": "2026-04-01",
+      "end": "2026-10-30",
+      "title": "Last sessions of the Gyeonghoeru interior tour",
+      "text": "The 2026 season of the Gyeonghoeru and Hyangwonjeong special tour ends on Friday, October 30. Sessions run on Wednesdays and Fridays at 10:00 and 14:00 for 25 people, are free beyond palace admission, are conducted in Korean, and are booked online from 10:00 nine days ahead until three days before.",
+      "guides": ["gyeongbokgung-palace-guide"],
+      "home": false,
+      "source": { "name": "Royal Palaces and Tombs Center notice (March 17, 2026)", "url": "https://royal.khs.go.kr/ROYAL/contents/R403000000.do?schM=view&id=20260317095858481098&schBcid=notice01" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "dondeokjeon-closed-2026-10",
+      "start": "2026-10-13",
+      "end": "2026-11-01",
+      "title": "Dondeokjeon closed until November 1",
+      "text": "Both floors of Dondeokjeon, the exhibition hall at Deoksugung, are closed from October 13 to November 1, 2026 while one exhibition is removed and the next is installed.",
+      "guides": ["seoul-five-grand-palaces-compared"],
+      "home": false,
+      "source": { "name": "Deoksugung notice (October 12, 2026)", "url": "https://royal.khs.go.kr/ROYAL/contents/R403000000.do?schM=view&id=20261012160106203424&schBcid=notice01" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "jeongdong-noon-shows-2026",
+      "start": "2026-09-29",
+      "end": "2026-10-31",
+      "title": "Free lunchtime shows at the National Jeongdong Theater",
+      "text": "The theater's free outdoor program 2026 정오의 한마당 runs Tuesday to Friday from 12:00 to 12:50 until October 31, 2026, with a closing show on Saturday, October 31 from 16:10 to 17:00. No reservation is needed, and rain cancels the show.",
+      "guides": ["korean-traditional-performances-seoul"],
+      "home": false,
+      "source": { "name": "National Jeongdong Theater — 2026 정오의 한마당", "url": "https://www.jeongdong.or.kr/portal/bbs/B0000252/view.do?nttId=11878&menuNo=200002" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "gugak-hanbok-discount-2026-10-24",
+      "start": "2026-10-24",
+      "end": "2026-10-24",
+      "title": "Half price in hanbok at the Saturday Gugak Concert",
+      "text": "For the October 24, 2026 Saturday Gugak Concert (토요명품), held during Hanbok Culture Week, visitors wearing hanbok get 50 percent off their own ticket.",
+      "guides": ["korean-traditional-performances-seoul"],
+      "home": false,
+      "source": { "name": "National Gugak Center — 2026 토요명품 listing", "url": "https://www.gugak.go.kr/site/program/performance/detail?menuid=001001001&performance_id_main=37004" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "namsangol-tea-snack-class-2026",
+      "start": "2026-04-03",
+      "end": "2026-10-25",
+      "title": "Namsangol tea-snack class: 2026 season ends October 25",
+      "text": "Namsangol Hanok Village's tea-snack making class (다과 만들기), open to individuals aged six and up with a separate reservation link for foreign visitors, runs Friday to Sunday until October 25, 2026.",
+      "guides": ["korean-tea-culture-seoul"],
+      "home": false,
+      "source": { "name": "Namsangol Hanok Village — 다과 만들기", "url": "https://hanokmaeul.co.kr/166" },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "namsangol-tea-etiquette-class-2026",
+      "start": "2026-04-07",
+      "end": "2026-10-29",
+      "title": "Namsangol tea etiquette class: 2026 season ends October 29",
+      "text": "Namsangol Hanok Village's tea etiquette class (다례예절교실) runs Tuesday to Thursday between 10:00 and 16:00 until October 29, 2026, for groups only, with bookings on 02-6358-5538.",
+      "guides": ["korean-tea-culture-seoul"],
+      "home": false,
+      "source": { "name": "Namsangol Hanok Village — 다례예절교실", "url": "https://hanokmaeul.co.kr/169" },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "nfm-hall1-closure-2026",
+      "start": "2026-09-30",
+      "end": "2026-12-21",
+      "title": "Folk museum Hall 1 closed for redesign",
+      "text": "Permanent Exhibition Hall 1 of the National Folk Museum of Korea is closed until December 21, 2026 and is scheduled to reopen on December 22 under a new theme provisionally titled Faces of the World (세계인의 얼굴). Halls 2 and 3 and the outdoor exhibits stay open.",
+      "guides": ["national-folk-museum-of-korea-guide", "gyeongbokgung-palace-guide", "free-korean-culture-seoul"],
+      "home": false,
+      "source": { "name": "National Folk Museum of Korea — Visitor information", "url": "https://www.nfm.go.kr/english/subIndex/1.do" },
+      "checkedAt": "2026-10-21"
+    },
+    {
+      "id": "nmk-gallery-renovation-2026-27",
+      "start": "2026-07-06",
+      "end": "2027-01-28",
+      "title": "Several National Museum galleries closed",
+      "text": "Until January 28, 2027, the National Museum of Korea has closed Calligraphy and Painting Rooms 202-3 and 202-4, Buddhist Painting (Room 203), Wood and Lacquer Crafts (Room 204), Buddhist Sculpture (Room 301), Metal Crafts (Room 302) and the Room of Senses for renovation. The Room of Quiet Contemplation and the Celadon and Buncheong and White Porcelain rooms (303 and 304) are open.",
+      "guides": ["national-museum-of-korea-guide", "free-korean-culture-seoul", "seoul-culture-itinerary-3-days", "seoul-culture-first-visit"],
+      "home": false,
+      "source": { "name": "National Museum of Korea — Notice of temporary gallery closures", "url": "https://www.museum.go.kr/ENG/contents/E0201010000.do" },
+      "checkedAt": "2026-10-21"
+    }
+  ]
+}

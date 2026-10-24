@@ -728,6 +728,31 @@ document.addEventListener("click", async (event) => {
 });
 enableKoreanListening();
 
+// Dated notices: the build drops expired ones, and this covers the days between builds (dates are KST).
+function koreaToday() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" })
+    .formatToParts(new Date()).map((part) => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+function refreshVisitNotices() {
+  const today = koreaToday();
+  for (const notice of document.querySelectorAll("[data-notice]")) {
+    if (notice.dataset.noticeEnd < today) {
+      notice.remove();
+      continue;
+    }
+    const label = notice.querySelector("[data-notice-label]");
+    if (label && notice.dataset.noticeStart <= today) {
+      label.textContent = "Now";
+      label.classList.replace("is-upcoming", "is-now");
+    }
+  }
+  for (const group of document.querySelectorAll("[data-notices]")) {
+    if (!group.querySelector("[data-notice]")) group.remove();
+  }
+}
+refreshVisitNotices();
+
 const progressBar = document.querySelector("[data-reading-progress]");
 const articleBody = document.querySelector(".guide-article-body");
 if (progressBar && articleBody) {

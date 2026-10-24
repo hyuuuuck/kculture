@@ -127,7 +127,10 @@ test("curated edition excludes retired topics without destroying their research"
 test("Seoul comparison names open ceramic galleries and distinguishes materials", () => {
   const guide = guides.find(g => g.slug === "seoul-culture-first-visit");
   const text = JSON.stringify(guide);
-  for (const marker of ["Room 303", "Room 304", "white slip", "grey body", "Ichon", "January 28, 2027", "last admission"]) assert.ok(text.includes(marker), marker);
+  for (const marker of ["Room 303", "Room 304", "white slip", "grey body", "Ichon", "last admission"]) assert.ok(text.includes(marker), marker);
+  // The gallery-closure end date is time-limited, so it lives in a dated notice shown on this guide.
+  const closure = read("notices").notices.find(n => n.guides.includes(guide.slug) && n.text.includes("January 28, 2027"));
+  assert.ok(closure && closure.end === "2027-01-28");
   assert.ok(guide.sources.some(s => s.url.includes("arcId=23711") && s.checkedAt === "2026-09-18"));
 });
 test("pre-deploy checks do not require a deployment that has not happened yet", () => {

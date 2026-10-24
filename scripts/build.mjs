@@ -7,6 +7,7 @@ import { publicationDates, sourceCheckDate, nearbyAlternatives } from "./lib/edi
 import { renderVisitorBrief, renderVisitorEvidence } from "./lib/visitor-render.mjs";
 import { configuredAdSenseClientId, configuredAdSenseCmpReady, configuredAdSensePublisherId } from "./lib/adsense.mjs";
 import { affiliatePublishingEnabled, envFlag, publicLanguageCodes } from "./lib/public-languages.mjs";
+import { activeNotices, noticeStatus, noticesForGuide } from "./lib/notices.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -72,6 +73,8 @@ const readOptionalJson = (name) => fs.readFile(path.join(root, "data", name), "u
 const seoOverrides = await readOptionalJson("seo-overrides.json");
 const guideQuizzes = await readOptionalJson("guide-quizzes.json");
 const guideInlineImages = await readOptionalJson("guide-inline-images.json");
+// Dated visit notices: shown until their end date, then dropped here and hidden in the browser by app.js.
+const visitNotices = activeNotices((await readOptionalJson("notices.json")).notices, today);
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const historicalWeather = await fs.readFile(path.join(root, "data", "kma-historical-observations.json"), "utf8").then(JSON.parse).catch(() => null);
@@ -7423,6 +7426,7 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
           <figcaption><a href="/${lang}/guides/gyeongbokgung-palace-guide">Gyeonghoeru, Gyeongbokgung: where the Joseon court held its banquets ${uiIcon("arrow")}</a><span>${imageCredit(homeImage)}</span></figcaption>
         </figure>
       </section>
+      ${renderHomeNotices(lang)}
       ${adUnit("home", canonicalPath === editorialProgram.canonicalHome)}
       <section class="home-start" aria-labelledby="home-start-title">
         <div class="library-section-head"><h2 id="home-start-title">Start here</h2><p>A three-day plan that strings the guides together, then the main palace and the dinner table.</p></div>
@@ -8879,6 +8883,43 @@ function renderGuideKeyFacts(guide) {
             </section>`;
 }
 
+function noticeRangeText(start, end) {
+  const monthDay = (iso) => new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+  if (start === end) return dateText("en", start);
+  if (start.slice(0, 4) === end.slice(0, 4)) return `${monthDay(start)} – ${dateText("en", end)}`;
+  return `${dateText("en", start)} – ${dateText("en", end)}`;
+}
+
+function renderVisitNotice(notice, lang, link) {
+  const status = noticeStatus(notice, today);
+  return `<article class="visit-notice" data-notice data-notice-start="${esc(notice.start)}" data-notice-end="${esc(notice.end)}">
+              <p class="visit-notice-meta"><span class="visit-notice-label is-${status}" data-notice-label>${status === "now" ? "Now" : "Coming up"}</span><span>${esc(noticeRangeText(notice.start, notice.end))}</span></p>
+              <p class="visit-notice-title"><strong>${esc(notice.title)}</strong></p>
+              <p>${esc(notice.text)}</p>
+              ${link ? `<p class="visit-notice-link"><a class="text-link" href="${guideHref(lang, link)}">${esc(guideTitleText(link, lang))} ${uiIcon("arrow")}</a></p>` : ""}
+              <p class="visit-notice-source">Source: <a href="${esc(notice.source.url)}" rel="nofollow noopener" target="_blank">${esc(notice.source.name)}</a>, checked ${esc(dateText(lang, notice.checkedAt))}</p>
+            </article>`;
+}
+
+function renderGuideNotices(guide, lang) {
+  const notices = noticesForGuide(visitNotices, guide.slug);
+  if (!notices.length) return "";
+  return `<aside class="visit-notices" aria-labelledby="visit-notices-title" data-notices>
+            <p class="visit-notices-head" id="visit-notices-title">Dated notices for your visit</p>
+            ${notices.map((notice) => renderVisitNotice(notice, lang)).join("")}
+          </aside>`;
+}
+
+function renderHomeNotices(lang) {
+  const notices = visitNotices.filter((notice) => notice.home);
+  if (!notices.length) return "";
+  const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
+  return `<section class="home-notices" aria-labelledby="home-notices-title" data-notices>
+        <h2 id="home-notices-title">Dated notices for your visit</h2>
+        <div class="home-notice-list">${notices.map((notice) => renderVisitNotice(notice, lang, bySlug.get(notice.homeLink))).join("")}</div>
+      </section>`;
+}
+
 function renderGuideFaq(guide) {
   const items = (guide.faq || []).filter((item) => item?.q && item?.a);
   if (!items.length) return "";
@@ -8922,6 +8963,7 @@ function renderGuide(guide, lang) {
             <span>Updated ${esc(dateText(lang, guide.updatedAt))}</span>
           </div>
           ${shareBar(guide, lang, "top")}
+          ${renderGuideNotices(guide, lang)}
         </header>
         ${guide.image?.src ? `<figure class="guide-hero-figure">
           <img src="${esc(guide.image.src)}" alt="${esc(guide.image.alt || guideTitleText(guide, lang))}" width="${esc(guide.image.width)}" height="${esc(guide.image.height)}" fetchpriority="high">

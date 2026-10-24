@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { sourceCheckDate } from "./lib/editorial.mjs";
 import { todayString } from "./lib/date.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
+import { noticeIssues } from "./lib/notices.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -650,6 +651,14 @@ for (const route of routes) {
   if (!Array.isArray(route.tips) || route.tips.length < 2) push(errors, id, "route needs at least two tips.");
   const relatedEvents = events.filter((event) => route.regions?.includes(event.city) && route.categories?.includes(event.category));
   if (!relatedEvents.length) push(warnings, id, "route has no directly related events yet.");
+}
+
+const noticeData = await fs.readFile(path.join(root, "data", "notices.json"), "utf8").then(JSON.parse).catch((error) => (error.code === "ENOENT" ? null : { invalid: error.message }));
+if (noticeData?.invalid) push(errors, "notices.json", `notices.json is not valid JSON: ${noticeData.invalid}`);
+else if (noticeData) {
+  const issues = noticeIssues(noticeData, new Set(guides.map((guide) => guide.slug)), today);
+  issues.errors.forEach((message) => push(errors, "notices.json", message));
+  issues.warnings.forEach((message) => push(warnings, "notices.json", message));
 }
 
 await validateGeneratedText();

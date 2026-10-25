@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-25T13:16:12.223Z",
+  "generatedAt": "2026-10-25T19:08:58.872Z",
   "files": {
-    "audit": "source-audit-2026-10-25.json",
-    "candidates": "official-page-candidates-2026-10-25.json",
-    "drafts": "draft-events-2026-10-25.json",
-    "reviewReport": "review-report-2026-10-25.md",
-    "reviewBoard": "review-board-2026-10-25.html",
-    "publicData": "public-data-import-2026-10-25.json",
+    "audit": "source-audit-2026-10-26.json",
+    "candidates": "official-page-candidates-2026-10-26.json",
+    "drafts": "draft-events-2026-10-26.json",
+    "reviewReport": "review-report-2026-10-26.md",
+    "reviewBoard": "review-board-2026-10-26.html",
+    "publicData": "public-data-import-2026-10-26.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 598,
-    "dateSignals": 252,
-    "draftCandidates": 71,
-    "skippedCandidates": 580,
+    "discoveredLinks": 597,
+    "dateSignals": 248,
+    "draftCandidates": 65,
+    "skippedCandidates": 585,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -70,11 +70,11 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 16
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 17
+      "count": 13
     },
     {
       "key": "NOL World Ticket",
@@ -92,37 +92,37 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 48
     },
     {
       "key": "shopping",
-      "count": 8
+      "count": 7
     },
     {
       "key": "kpop",
-      "count": 7
+      "count": 6
     },
     {
       "key": "beauty",
       "count": 2
     },
     {
-      "key": "department-store",
+      "key": "duty-free",
       "count": 1
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 539
+      "count": 545
     },
     {
       "key": "listing page is not a specific event",
-      "count": 16
+      "count": 15
     },
     {
       "key": "source fetch did not succeed",
@@ -137,19 +137,11 @@
       "count": 4
     },
     {
-      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
-      "count": 2
+      "key": "already published source URL",
+      "count": 3
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Visit Seoul",
-      "url": "https://english.visitseoul.net/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 146
-    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -157,6 +149,14 @@
       "dates": 18,
       "keywords": 6,
       "score": 143
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 141
     },
     {
       "sourceName": "NOL World Ticket",

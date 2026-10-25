@@ -21,7 +21,6 @@ export function renderVisitorBrief(brief, { esc, publishedAt, method }) {
     <h3>Taking part as an international visitor</h3>
     <dl class="participation-facts">${brief.participation.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join("")}</dl>
     <div class="visitor-boundary"><h3>Check before you go</h3><ul>${brief.unresolved.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
-    <p class="review-update-note"><strong>Revision scope</strong> Cultural context, participation conditions and a practical choice. Source checks below identify which claims were rechecked; other facts retain their earlier evidence date.</p>
     <p class="review-byline">First published ${esc(publishedAt)}. Text revised ${esc(brief.updatedAt)} with AI assistance for <a href="/en/about/">K-Spot Now Editorial Desk</a>. ${esc(method)}</p>
   </section>`;
 }
@@ -31,15 +30,14 @@ export function renderVisitorEvidence(brief, evidence, { esc, dates, monitoredAt
   const sources = new Map(evidence.map((item) => [item.url, item]));
   for (const check of brief.sources) if (!sources.has(check.url)) sources.set(check.url, check);
   return `<section class="detail-section event-evidence-section" aria-labelledby="event-evidence-title">
-    <h2 id="event-evidence-title">Sources and verification limits</h2>
-    <p>Published ${esc(dates.publishedAt)} · Updated ${esc(dates.updatedAt)}. Automated source monitoring: ${esc(monitoredAt || "not recorded")}.</p>
-    <p>Monitoring checks selected source text. It does not renew the article's editorial date, confirm ticket stock or constitute a field visit.</p>
-    <details class="source-record"><summary>Read the evidence for this article</summary>
+    <h2 id="event-evidence-title">Sources</h2>
+    <p>Published ${esc(dates.publishedAt)} · Updated ${esc(dates.updatedAt)}. Each fact below links to the official page it comes from; check it again before you travel.</p>
+    <details class="source-record"><summary>Show the sources for this article</summary>
       <div class="evidence-list">${[...sources.values()].map((item) => {
         const check = checks.get(item.url);
         return `<article><a href="${esc(item.url)}" rel="nofollow noopener" target="_blank">${esc(item.sourceName || new URL(item.url).hostname)}</a>
           <p>${esc(check?.supports || item.supports || item.role || "Source record")}</p>
-          <p>${check ? `Read for this revision: ${esc(check.checkedAt)}.` : "Retained source evidence; not independently rechecked in this text revision."}</p></article>`;
+          ${check ? `<p>Checked ${esc(check.checkedAt)}.</p>` : ""}</article>`;
       }).join("")}</div>
     </details>
   </section>`;

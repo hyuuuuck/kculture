@@ -1,0 +1,88 @@
+{
+  "about": "Rules for the palace open-days checker (palace-days.js). Hours, fees and closing days: royal.khs.go.kr R702/R703 and museum.seoul.go.kr (Gyeonghuigung). Holidays: KASA 2027 almanac (June 29, 2026). Exceptions come from dated palace notices; keep them in step with data/notices.json.",
+  "checkedAt": "2026-10-25",
+  "coverage": { "from": "2026-10-25", "to": "2027-12-31" },
+  "sites": [
+    {
+      "id": "gyeongbokgung", "name": "Gyeongbokgung", "korean": "경복궁", "guide": "gyeongbokgung-palace-guide",
+      "closedWeekday": 2, "holidayShift": true, "adultFee": 3000, "cultureDay": false,
+      "hours": [
+        { "months": [1, 2, 11, 12], "open": "09:00", "close": "17:00", "lastEntry": "16:00" },
+        { "months": [3, 4, 5, 9, 10], "open": "09:00", "close": "18:00", "lastEntry": "17:00" },
+        { "months": [6, 7, 8], "open": "09:00", "close": "18:30", "lastEntry": "17:30" }
+      ],
+      "note": "Guard changing ceremony at 10:00 and 14:00 in the Heungnyemun forecourt. Not free on Wednesdays."
+    },
+    {
+      "id": "changdeokgung", "name": "Changdeokgung", "korean": "창덕궁", "guide": "changdeokgung-huwon-secret-garden",
+      "closedWeekday": 1, "holidayShift": true, "adultFee": 3000, "cultureDay": true,
+      "hours": [
+        { "months": [2, 3, 4, 5, 9, 10], "open": "09:00", "close": "18:00", "lastEntry": "17:00" },
+        { "months": [6, 7, 8], "open": "09:00", "close": "18:30", "lastEntry": "17:30" },
+        { "months": [11, 12, 1], "open": "09:00", "close": "17:30", "lastEntry": "16:30" }
+      ],
+      "note": "The Secret Garden runs by timed tour with a separate 5,000-won ticket and is never part of a free day."
+    },
+    {
+      "id": "changgyeonggung", "name": "Changgyeonggung", "korean": "창경궁", "guide": "seoul-five-grand-palaces-compared",
+      "closedWeekday": 1, "holidayShift": true, "adultFee": 1000, "cultureDay": true,
+      "hours": [{ "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "open": "09:00", "close": "21:00", "lastEntry": "20:00" }],
+      "note": "From late afternoon, visitors move to the evening zone around Myeongjeongjeon, Chundangji pond and the glasshouse."
+    },
+    {
+      "id": "deoksugung", "name": "Deoksugung", "korean": "덕수궁", "guide": "seoul-five-grand-palaces-compared",
+      "closedWeekday": 1, "holidayShift": true, "adultFee": 1000, "cultureDay": true,
+      "hours": [{ "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "open": "09:00", "close": "21:00", "lastEntry": "20:00" }],
+      "note": "Seokjojeon's interior is seen only on a booked guided tour."
+    },
+    {
+      "id": "jongmyo", "name": "Jongmyo Shrine", "korean": "종묘", "guide": "jongmyo-shrine-guide",
+      "closedWeekday": 2, "holidayShift": true, "adultFee": 1000, "cultureDay": true,
+      "timedDays": [1, 4, 5],
+      "timedText": "Timed guided tours only, about 50 minutes; English at 10:00, 12:00, 14:00 and 16:00.",
+      "selfGuidedText": "Self-guided visit.",
+      "hours": [
+        { "months": [2, 3, 4, 5, 9, 10], "open": "09:00", "close": "18:00", "lastEntry": "17:00" },
+        { "months": [6, 7, 8], "open": "09:00", "close": "18:30", "lastEntry": "17:30" },
+        { "months": [11, 12, 1], "open": "09:00", "close": "17:30", "lastEntry": "16:30" }
+      ]
+    },
+    {
+      "id": "gyeonghuigung", "name": "Gyeonghuigung", "korean": "경희궁", "guide": "seoul-five-grand-palaces-compared",
+      "closedWeekday": 1, "holidayShift": false, "closedDates": ["01-01"], "adultFee": 0, "cultureDay": false,
+      "hours": [{ "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "open": "09:00", "close": "18:00", "lastEntry": null }],
+      "note": "Run by the Seoul Museum of History, which lists it as closed on Mondays and January 1."
+    }
+  ],
+  "exceptions": [
+    { "id": "korea-grand-festival-2026", "from": "2026-10-29", "to": "2026-11-15", "sites": ["gyeongbokgung", "changdeokgung", "changgyeonggung", "deoksugung", "jongmyo"], "free": true, "selfGuided": true, "label": "Korea Grand Festival, Oct 29 to Nov 15" },
+    { "id": "donggwol-dongnak-2026", "from": "2026-11-10", "to": "2026-11-15", "sites": ["changgyeonggung"], "close": "17:30", "lastEntry": "16:30", "label": "Closes early for a separately booked night program" }
+  ],
+  "holidays": [
+    { "date": "2026-12-25", "name": "Christmas" },
+    { "date": "2027-01-01", "name": "New Year's Day" },
+    { "date": "2027-02-06", "name": "Seollal holiday" },
+    { "date": "2027-02-07", "name": "Seollal" },
+    { "date": "2027-02-08", "name": "Seollal holiday" },
+    { "date": "2027-02-09", "name": "Seollal substitute holiday" },
+    { "date": "2027-03-01", "name": "Independence Movement Day" },
+    { "date": "2027-05-01", "name": "Labor Day" },
+    { "date": "2027-05-03", "name": "Labor Day substitute holiday" },
+    { "date": "2027-05-05", "name": "Children's Day" },
+    { "date": "2027-05-13", "name": "Buddha's Birthday" },
+    { "date": "2027-06-06", "name": "Memorial Day" },
+    { "date": "2027-07-17", "name": "Constitution Day" },
+    { "date": "2027-07-19", "name": "Constitution Day substitute holiday" },
+    { "date": "2027-08-15", "name": "Liberation Day" },
+    { "date": "2027-08-16", "name": "Liberation Day substitute holiday" },
+    { "date": "2027-09-14", "name": "Chuseok holiday" },
+    { "date": "2027-09-15", "name": "Chuseok" },
+    { "date": "2027-09-16", "name": "Chuseok holiday" },
+    { "date": "2027-10-03", "name": "National Foundation Day" },
+    { "date": "2027-10-04", "name": "National Foundation Day substitute holiday" },
+    { "date": "2027-10-09", "name": "Hangeul Day" },
+    { "date": "2027-10-11", "name": "Hangeul Day substitute holiday" },
+    { "date": "2027-12-25", "name": "Christmas" },
+    { "date": "2027-12-27", "name": "Christmas substitute holiday" }
+  ]
+}

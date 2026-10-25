@@ -753,6 +753,52 @@ function refreshVisitNotices() {
 }
 refreshVisitNotices();
 
+// Palace open-days checker: palace-days.js (loaded on that guide) holds the rules; this only draws the result.
+const palaceTool = document.querySelector("[data-palace-days]");
+if (palaceTool && globalThis.PalaceDays) {
+  const data = JSON.parse(document.getElementById("palace-days-data")?.textContent || "{}");
+  const input = palaceTool.querySelector("[data-palace-date]");
+  const list = palaceTool.querySelector("[data-palace-list]");
+  const summary = palaceTool.querySelector("[data-palace-summary]");
+  const element = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+  const longDate = (iso) => new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+  const drawPalaceDay = () => {
+    const iso = input.value;
+    if (!iso || iso < data.coverage.from || iso > data.coverage.to) {
+      summary.textContent = `Choose a date between ${longDate(data.coverage.from)} and ${longDate(data.coverage.to)}.`;
+      list.replaceChildren();
+      return;
+    }
+    const day = globalThis.PalaceDays.dayFor(data, iso);
+    summary.textContent = `${longDate(iso)}${day.holiday ? ` (${day.holiday})` : ""}: ${day.openCount} of ${day.sites.length} sites open.`;
+    list.replaceChildren(...day.sites.map((site) => {
+      const item = element("li", `palace-day ${site.open ? "is-open" : "is-closed"}`);
+      const name = element("p", "palace-day-name");
+      const strong = element("strong");
+      const href = data.guideLinks?.[site.guide];
+      if (href) { const link = element("a", "", site.name); link.href = href; strong.append(link); } else strong.textContent = site.name;
+      const korean = element("span", "", site.korean);
+      korean.lang = "ko";
+      name.append(strong, korean);
+      const status = element("p", "palace-day-status");
+      status.append(element("span", "palace-day-badge", site.open ? "Open" : "Closed"), site.open ? `${site.hours}${site.lastEntry ? ` · last entry ${site.lastEntry}` : ""}` : site.reason);
+      item.append(name, status);
+      if (site.open) for (const text of [site.hoursNote, site.reason, site.entry, site.mode, site.note].filter(Boolean)) item.append(element("p", "palace-day-detail", text));
+      return item;
+    }));
+  };
+  const todayKst = koreaToday();
+  if (todayKst >= data.coverage.from && todayKst <= data.coverage.to && input.value !== todayKst) input.value = todayKst;
+  input.addEventListener("change", drawPalaceDay);
+  input.addEventListener("input", drawPalaceDay);
+  drawPalaceDay();
+}
+
 // Guide library search: filters the cards already on the page; ?q= and #guide-search work from other pages.
 const guideSearch = document.querySelector("[data-guide-search]");
 if (guideSearch) {

@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import { todayString } from "./lib/date.mjs";
 import { publicationDates, sourceCheckDate, nearbyAlternatives } from "./lib/editorial.mjs";
@@ -75,6 +75,10 @@ const guideQuizzes = await readOptionalJson("guide-quizzes.json");
 const guideInlineImages = await readOptionalJson("guide-inline-images.json");
 // Dated visit notices: shown until their end date, then dropped here and hidden in the browser by app.js.
 const visitNotices = activeNotices((await readOptionalJson("notices.json")).notices, today);
+const correctionsLog = await readOptionalJson("corrections-log.json");
+// Palace open-days checker: palace-days.js holds the rules for both the build and the browser.
+const palaceDays = await readOptionalJson("palace-days.json");
+await import(pathToFileURL(path.join(root, "palace-days.js")).href);
 const weather = JSON.parse(await fs.readFile(path.join(root, "data", "weather-baselines.json"), "utf8"));
 const currentWeather = await fs.readFile(path.join(root, "data", "kma-forecast.json"), "utf8").then(JSON.parse).catch(() => null);
 const historicalWeather = await fs.readFile(path.join(root, "data", "kma-historical-observations.json"), "utf8").then(JSON.parse).catch(() => null);
@@ -85,14 +89,16 @@ const sourceRefreshSummary = await latestSourceRefreshSummary();
 
 async function sourceAssetVersion() {
   const hash = createHash("sha256");
-  const [css, js, planningJs] = await Promise.all([
+  const [css, js, planningJs, palaceJs] = await Promise.all([
     fs.readFile(path.join(root, "styles.css")),
     fs.readFile(path.join(root, "app.js")),
-    fs.readFile(path.join(root, "planning.js"))
+    fs.readFile(path.join(root, "planning.js")),
+    fs.readFile(path.join(root, "palace-days.js"))
   ]);
   hash.update(css);
   hash.update(js);
   hash.update(planningJs);
+  hash.update(palaceJs);
   return hash.digest("hex").slice(0, 12);
 }
 
@@ -283,11 +289,11 @@ let dict = {
     collectionOfficialApi: "Official API",
     collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
-    editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
+    editorialText: "How K-Spot Now researches, writes, checks and corrects its culture guides.",
     advertisingTitle: "Advertising Policy",
-    advertisingText: "How K-Spot Now keeps ads, sponsorship, source selection, and visitor guidance separated.",
+    advertisingText: "How K-Spot Now keeps advertising separate from what its guides cover and recommend.",
     correctionsTitle: "Corrections and Updates",
-    correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
+    correctionsText: "How to report an outdated or incorrect detail, and the corrections we have made.",
     guidesTitle: "Visitor Guides",
     aboutTitle: "About K-Spot Now",
     contactTitle: "Contact",
@@ -698,11 +704,11 @@ dict = {
     collectionOfficialApi: "Official API",
     collectionOfficialPage: "Official page",
     editorialTitle: "Editorial Policy",
-    editorialText: "How K-Spot Now collects, reviews, translates, and publishes event information.",
+    editorialText: "How K-Spot Now researches, writes, checks and corrects its culture guides.",
     advertisingTitle: "Advertising Policy",
-    advertisingText: "How K-Spot Now keeps ads, sponsorship, source selection, and visitor guidance separated.",
+    advertisingText: "How K-Spot Now keeps advertising separate from what its guides cover and recommend.",
     correctionsTitle: "Corrections and Updates",
-    correctionsText: "How visitors, official organizers, and brand teams can report outdated or incorrect event details.",
+    correctionsText: "How to report an outdated or incorrect detail, and the corrections we have made.",
     guidesTitle: "Visitor Guides",
     aboutTitle: "About K-Spot Now",
     contactTitle: "Contact",
@@ -6303,7 +6309,7 @@ function galleryControls(lang, { categories = false, cities = false, visits = fa
           <label class="select-field interest-field"><span>Interested in</span><select data-interest-filter><option value="all">Any interest</option><option value="history">History &amp; heritage</option><option value="performance">Performance</option><option value="design">Garden design</option><option value="photography">Photography</option><option value="outdoors">Outdoors</option></select></label>` : ""}
           <button type="button" class="clear-filters" data-clear-filters>${tr(lang, "clearFilters")}</button>
           <span class="result-count" data-result-count aria-live="polite"></span>
-          ${visits ? `<p class="visit-filter-help" id="visit-filter-help">A date check excludes known closures, not sold-out sessions or last-minute cancellations. Results are possibilities to investigate, not confirmed availability.</p><p class="visit-filter-help" data-visit-filter-status role="status" hidden></p>` : ""}
+          ${visits ? `<p class="visit-filter-help" id="visit-filter-help">The date filter uses each organizer's published dates and closing days, linked in every article.</p><p class="visit-filter-help" data-visit-filter-status role="status" hidden></p>` : ""}
         </div>`;
 }
 
@@ -7394,7 +7400,7 @@ function eventEditorialBriefSection(event, lang, forecastInfo, weatherInfo, rout
 
 function experienceVisual(event) {
   if (event.slug === "deoksugung-royal-guard-changing-ceremony-2026") return { src: event.thumbnail, caption: "Official visual · " + event.sourceName, fit: "cover" };
-  if (event.slug === "seoul-international-garden-show-2026") return { src: event.thumbnail, caption: "Visit Seoul · 2025 reference image, not the 2026 layout", fit: "cover" };
+  if (event.slug === "seoul-international-garden-show-2026") return { src: event.thumbnail, caption: "Visit Seoul · 2025 photo", fit: "cover" };
   if (event.slug === "andong-maskdance-festival-2026") return { src: event.thumbnail, caption: "Official venue illustration · not a performance photograph", fit: "contain" };
   return { src: event.thumbnail, caption: "Official visual · " + event.sourceName, fit: "contain" };
 }
@@ -7463,8 +7469,8 @@ function renderHome(lang, canonicalPath = `/${lang}/`) {
       </section>
       <nav class="utility-strip" aria-label="Practical planning">
         <a href="/${lang}/guides/seoul-indoor-culture-rainy-day">${uiIcon("weather")}<span><strong>Rain, cold or heat? ${uiIcon("arrow")}</strong><span>Indoor culture worth the trip, and how to rearrange a palace day.</span></span></a>
-        <a href="/${lang}/guides/korean-holidays-seollal-chuseok-travel">${uiIcon("map")}<span><strong>Travelling over a holiday? ${uiIcon("arrow")}</strong><span>What closes for Seollal and Chuseok, and what opens free.</span></span></a>
-        <a href="/${lang}/planner/">${uiIcon("bookmark")}<span><strong>Recheck your saved places ${uiIcon("arrow")}</strong><span>See whether our published visit facts changed.</span></span></a>
+        <a href="/${lang}/guides/seoul-palaces-open-today#palace-checker">${uiIcon("calendar")}<span><strong>Which palaces are open on your date? ${uiIcon("arrow")}</strong><span>Closing days, holiday changes, hours and free days for any date through 2027.</span></span></a>
+        <a href="/${lang}/guides/seoul-subway-tmoney-guide">${uiIcon("map")}<span><strong>Getting around Seoul? ${uiIcon("arrow")}</strong><span>Fares, the T-money card and transfer rules in one guide.</span></span></a>
       </nav>
       <section class="programme-section" id="events">
         <div class="section-head"><div><h2>What's on now</h2><p>Dated ceremonies, shows and seasonal events that pair well with the guides above${elsewhere.length ? ", Seoul first and then further afield" : ""}.</p></div><a class="text-link" href="/${lang}/now/">All current experiences ${uiIcon("arrow")}</a></div>
@@ -7621,8 +7627,26 @@ function eventDecisionBoard(eventsForBoard, lang) {
 function renderNow(lang) {
   const listed = currentEvents().sort((a, b) => Number(b.city === "Seoul") - Number(a.city === "Seoul") || statusSort(a, b));
   const body = `<main class="page">
-    <section class="page-hero"><h1>Find your next cultural stop.</h1><p>Choose the experience, not just a date. These articles explain what you can see, how to take part, and what still needs a check with the organizer.</p></section>
-    <section data-gallery-scope aria-label="Current cultural experiences">${galleryControls(lang, { cities: true, visits: true })}<div class="experience-list">${listed.map((event) => experienceCard(event, lang, 2)).join("")}</div><p class="empty-state gallery-empty" data-no-results hidden>No experiences match these choices. Try another date or interest, or clear the filters. Our selection is not a complete city calendar.</p></section></main>`;
+    <section class="page-hero"><h1>What's on in Seoul now</h1><p>Dated ceremonies, shows and seasonal events, each with its own article: what it is, how to take part as a visitor and which official page to check before you go.</p></section>
+    ${renderHomeNotices(lang)}
+    <section data-gallery-scope aria-label="Current cultural experiences">${galleryControls(lang, { cities: true, visits: true })}<div class="experience-list">${listed.map((event) => experienceCard(event, lang, 2)).join("")}</div><p class="empty-state gallery-empty" data-no-results hidden>No experiences match these choices. Try another date or interest, or clear the filters. Our selection is not a complete city calendar.</p></section>
+    <section class="weekly-culture" aria-labelledby="weekly-culture-title">
+      <div class="library-section-head"><h2 id="weekly-culture-title">Every week, all year</h2><p>Recurring culture you can plan around on any trip, with the guide that explains each one.</p></div>
+      <ul class="weekly-culture-list">
+        ${[
+          ["Gyeongbokgung royal guard changing ceremony", "10:00 and 14:00, about 20 minutes, in the Heungnyemun forecourt; free to watch; none on Tuesdays, when the palace is closed.", "gyeongbokgung-palace-guide"],
+          ["Deoksugung guard ceremony at Daehanmun", "11:00 and 14:00 in front of the main gate, free, every day except Monday.", "seoul-five-grand-palaces-compared"],
+          ["Saturday Gugak Concert", "Saturdays 15:00 to 16:20 at the National Gugak Center (2026 season through December 26); A seats 30,000 won, B seats 20,000 won; online booking closes at 18:00 the day before.", "korean-traditional-performances-seoul"],
+          ["Culture Day Wednesdays", "Free entry to Changdeokgung, Changgyeonggung, Deoksugung and Jongmyo every Wednesday; Gyeongbokgung and the Secret Garden still charge.", "seoul-palaces-open-today"],
+          ["Jongmyo Shrine tours", "Self-guided on Wednesdays, weekends and holidays; on Mondays, Thursdays and Fridays by timed tour, in English at 10:00, 12:00, 14:00 and 16:00.", "jongmyo-shrine-guide"],
+          ["BONG-PASS at Bongeunsa", "A free, drop-in temple experience every Tuesday from 10:00 to 16:00 at the Gangnam temple.", "seoul-buddhist-temples-templestay"]
+        ].map(([title, text, slug]) => {
+          const guide = guides.find((item) => item.slug === slug);
+          return `<li><h3>${esc(title)}</h3><p>${esc(text)}</p>${guide ? `<a class="text-link" href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))} ${uiIcon("arrow")}</a>` : ""}</li>`;
+        }).join("")}
+      </ul>
+    </section>
+  </main>`;
   return layout({ lang, title: "Cultural experiences in Korea — K-Spot Now", description: "Source-backed cultural experiences for independent visitors: context, participation and practical choices.", body, canonicalPath: `/${lang}/now/`, currentPathBuilder: (code) => `/${code}/now/`, schemaData: [itemListSchema(lang, "Korea cultural experiences", listed, `/${lang}/now/`)] });
 }
 
@@ -8938,6 +8962,45 @@ function renderHomeNotices(lang) {
       </section>`;
 }
 
+function palaceDayItem(site, lang) {
+  const guide = guides.find((item) => item.slug === site.guide);
+  const name = guide ? `<a href="${guideHref(lang, guide)}">${esc(site.name)}</a>` : esc(site.name);
+  const status = site.open
+    ? `<span class="palace-day-badge">Open</span>${esc(site.hours)}${site.lastEntry ? ` · last entry ${esc(site.lastEntry)}` : ""}`
+    : `<span class="palace-day-badge">Closed</span>${esc(site.reason)}`;
+  const details = site.open ? [site.hoursNote, site.reason, site.entry, site.mode, site.note].filter(Boolean) : [];
+  return `<li class="palace-day ${site.open ? "is-open" : "is-closed"}">
+                <p class="palace-day-name"><strong>${name}</strong><span lang="ko">${esc(site.korean)}</span></p>
+                <p class="palace-day-status">${status}</p>
+                ${details.map((text) => `<p class="palace-day-detail">${esc(text)}</p>`).join("")}
+              </li>`;
+}
+
+function palaceDaySummary(day) {
+  const when = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${day.iso}T00:00:00Z`));
+  return `${when}${day.holiday ? ` (${day.holiday})` : ""}: ${day.openCount} of ${day.sites.length} sites open.`;
+}
+
+function renderPalaceDaysTool(lang) {
+  if (!palaceDays?.sites?.length || !globalThis.PalaceDays) return "";
+  const start = today < palaceDays.coverage.from ? palaceDays.coverage.from : today;
+  const day = globalThis.PalaceDays.dayFor(palaceDays, start);
+  return `<section class="guide-tool palace-days" id="palace-checker" aria-labelledby="palace-checker-title" data-palace-days>
+              <div class="palace-days-head">
+                <h2 id="palace-checker-title">Check a date</h2>
+                <p>Choose a day between ${esc(dateText(lang, palaceDays.coverage.from))} and ${esc(dateText(lang, palaceDays.coverage.to))} to see which palaces are open, their hours and whether entry is free.</p>
+                <label for="palace-date">Visit date</label>
+                <input type="date" id="palace-date" min="${esc(palaceDays.coverage.from)}" max="${esc(palaceDays.coverage.to)}" value="${esc(start)}" data-palace-date>
+              </div>
+              <p class="palace-days-summary" data-palace-summary aria-live="polite">${esc(palaceDaySummary(day))}</p>
+              <ul class="palace-days-list" data-palace-list>
+              ${day.sites.map((site) => palaceDayItem(site, lang)).join("")}
+              </ul>
+              <script type="application/json" id="palace-days-data">${JSON.stringify({ ...palaceDays, guideLinks: Object.fromEntries(guides.map((guide) => [guide.slug, guideHref(lang, guide)])) }).replaceAll("<", "\\u003c")}</script>
+              <script src="/palace-days.js?v=${assetVersion}" defer></script>
+            </section>`;
+}
+
 function renderGuideFaq(guide) {
   const items = (guide.faq || []).filter((item) => item?.q && item?.a);
   if (!items.length) return "";
@@ -8992,6 +9055,7 @@ function renderGuide(guide, lang) {
             <p>On this page</p>
             <ol>
               ${hasKeyFacts ? `<li><a href="#guide-key-facts">Key facts</a></li>` : ""}
+              ${guide.presentation?.tool === "palace-days" ? `<li><a href="#palace-checker">Check a date</a></li>` : ""}
               ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}">${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
               ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence">${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
               ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
@@ -9004,6 +9068,7 @@ function renderGuide(guide, lang) {
           <div class="guide-article-body">
           ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>In short</strong>${esc(guide.quickAnswer)}</p>` : ""}
           ${renderGuideKeyFacts(guide)}
+          ${guide.presentation?.tool === "palace-days" ? renderPalaceDaysTool(lang) : ""}
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => {
               const heading = typeof section === "string" ? "" : section.heading;
@@ -9849,12 +9914,13 @@ function policySections(lang, kind) {
   const copy = {
     editorial: {
       en: [
-        ["Source priority", "Published listings must come from official APIs, official government or tourism pages, official brand pages, official venue pages, or verified official artist/company notices. Unofficial reposts are used only as discovery hints."],
-        ["How guides are researched and written", "Each culture guide starts from a visitor's question and is researched from official records: the Korea Heritage Service and its palace pages, national museums, the Seoul city government, venue sites and reputable Korean news for rule changes. We use AI tools to help with research and drafting. Before publication, every fact that can change (hours, fees, closing days, booking rules, transit details) is checked against a linked source and dated, and claims we could not confirm are removed rather than guessed. We write from documentary research and do not describe visits we have not made."],
-        ["Automation and monitoring", "Public-data APIs and official monitors help us notice candidate events and changes; they never publish an article on their own. A source-monitoring date records a narrower check than an editorial revision, and we show the two separately."],
-        ["K-pop and pop-up policy", "K-pop pop-ups, fan events, ticketing notices, and merch stores can change quickly. We publish only official notices and keep fan-community or social reposts in a curation queue until an official source is confirmed."],
-        ["What an article should do", "Each article should explain the cultural experience, who it suits, what an international visitor can do and which decision remains unresolved. A translated official description or a longer list is not enough. We separate sourced facts from proposed ways to plan, and never invent attendance or booking experience."],
-        ["Ads and affiliate integrity", "Advertising must not influence event inclusion, source labels, freshness dates, or safety notes. Visitors should always verify official details before purchasing, reserving, or changing travel plans."]
+        ["Who we write for", "English-speaking travelers planning their own visits to Seoul, usually for the first or second time, who want to understand what they are seeing and take part without mistakes. Each guide starts from a question such a visitor actually has: which palace to choose, how to order at a barbecue restaurant, what to do in a jjimjilbang."],
+        ["How guides are researched and written", "Each culture guide is researched from official records: the Korea Heritage Service and its palace pages, the national museums, the Seoul city government and district offices, venue sites, the Encyclopedia of Korean Culture for history, and reputable Korean news for rule changes. Before publication, every fact that can change (hours, fees, closing days, booking rules, transit details) is checked against a linked source and dated, and claims we cannot confirm are left out rather than guessed."],
+        ["What every guide includes", "The cultural meaning, explained with names, dates and symbols; our judgment on who an experience suits and what to prioritize, written as our view; and the practical detail a visitor needs, from the Korean name to type into a map app to closing days, fees, booking rules and etiquette, each tied to a linked official source."],
+        ["Facts that change", "Every guide shows when it was published and last updated. Time-limited changes, such as a free-entry period or a gallery closure, appear in a dated notice at the top of the guide and disappear after their end date. We re-check guides against their sources and list substantive corrections on our corrections page."],
+        ["AI tools and accountability", "We use AI tools to help with research and drafting. The editorial desk decides what is published and is responsible for every guide. We do not invent visits, quotes, prices or reviews, and we do not describe visits we have not made."],
+        ["Photographs", "Guide photographs come from Wikimedia Commons under public-domain or Creative Commons licenses, checked through the Commons API, with the photographer and license credited beside each image. Event pages use official promotional images with a source credit."],
+        ["Independence", "K-Spot Now is not affiliated with any palace, museum, tour operator, business or government agency. Advertising, when shown, does not decide which places we cover or what we recommend."]
       ],
       es: [
         ["Prioridad de fuentes", "Las fichas publicadas deben venir de APIs oficiales, paginas gubernamentales o turisticas oficiales, paginas de marca, paginas de recintos o avisos oficiales verificados de artistas y empresas. Los reposts no oficiales solo sirven como pistas de descubrimiento."],
@@ -9894,12 +9960,10 @@ function policySections(lang, kind) {
     },
     corrections: {
       en: [
-        ["What to send", `Email ${contactEmail} with the official URL, event or offer name, date range, venue or branch, language, and the exact detail that looks outdated or incorrect.`],
-        ["Official-source checks", "Corrections are checked against official APIs, government or tourism pages, brand pages, venue pages, ticketing pages, or verified artist and company notices before public pages are changed."],
-        ["Fast-moving categories", "Duty-free campaigns, OLIVE YOUNG promotions, department-store pop-ups, K-pop reservations, and ticketing notices receive shorter recheck windows because dates, eligibility, stock, and entry rules can change quickly."],
-        ["Update labels", "Published is the original article date. Updated changes for substantive text revisions; automated source monitoring is shown separately and does not renew the article date. The evidence record states which claims were checked and which remain uncertain."],
-        ["Editorial independence", "Corrections, source suggestions, ads, sponsorships, and partnerships cannot buy placement or override source labels. We rewrite summaries in our own words and link visitors to the original source for final confirmation."],
-        ["Image and takedown policy", `Event thumbnails use official promotional images at reduced size with a source link, and K-pop listings use text-based source identity cards instead of artist photography. If you are a rights holder for an image, artist, or brand shown here, email ${contactEmail} with the page URL and your request: disputed images are taken down during review and removed or replaced within two business days.`]
+        ["What to send", `Email ${contactEmail} with the page URL, the detail that looks wrong and, if you can, the official page that shows the current information.`],
+        ["How we check", `We compare each report with the official record, usually the palace, museum, city or venue page the guide already links to, before changing a guide. When the official page has changed, we update the guide and its date.`],
+        ["How changes appear", `Each guide shows when it was first published and when it was last updated. Temporary changes, such as a closure or a free-entry period, appear as dated notices at the top of the guide and disappear after their end date. Substantive corrections are listed below.`],
+        ["Images and takedown requests", `If you hold the rights to an image shown here and want it removed, email ${contactEmail} with the page URL. We take the image down while we review the request and remove or replace it within two business days.`]
       ],
       es: [
         ["Que enviar", `Escribe a ${contactEmail} con la URL oficial, nombre del evento u oferta, fechas, lugar o sucursal, idioma y el detalle exacto que parece desactualizado o incorrecto.`],
@@ -9977,6 +10041,22 @@ ${numberedSections(sections)}
   });
 }
 
+function renderCorrectionsLog(lang) {
+  const entries = correctionsLog.entries || [];
+  if (!entries.length) return "";
+  const bySlug = new Map(guides.map((guide) => [guide.slug, guide]));
+  return `<section class="corrections-log" aria-labelledby="corrections-log-title">
+          <h2 id="corrections-log-title">Recent corrections</h2>
+          ${entries.map((entry) => `<article>
+            <p class="corrections-log-date">${esc(dateText(lang, entry.date))}</p>
+            <h3>${esc(entry.title)}</h3>
+            <p>${esc(entry.summary)}</p>
+            ${entry.changes?.length ? `<ul>${entry.changes.map((change) => `<li>${esc(change)}</li>`).join("")}</ul>` : ""}
+            ${entry.guides?.length ? `<p class="corrections-log-guides">Guides: ${entry.guides.map((slug) => bySlug.get(slug)).filter(Boolean).map((guide) => `<a href="${guideHref(lang, guide)}">${esc(guideTitleText(guide, lang))}</a>`).join(" · ")}</p>` : ""}
+          </article>`).join("")}
+        </section>`;
+}
+
 function renderCorrections(lang) {
   const sections = policySections(lang, "corrections");
   const body = `
@@ -9987,6 +10067,7 @@ function renderCorrections(lang) {
         <h1>${tr(lang, "correctionsTitle")}</h1>
         <p class="lede">${tr(lang, "correctionsText")}</p>
 ${numberedSections(sections)}
+        ${renderCorrectionsLog(lang)}
       </article>
     </main>`;
   return layout({
@@ -10262,12 +10343,11 @@ function staticPageParagraphs(lang, kind) {
     },
     advertising: {
       en: [
-        "K-Spot Now may display advertising after an approved ad account is configured, but ads cannot buy event inclusion, card placement, freshness dates, verification labels, source roles, or safety notes.",
-        "Event and source selection is based on visitor utility: official tourism, organizer, brand, venue, ticketing, shopping, duty-free, and verified campaign sources.",
-        "Source buttons send visitors to the original page for tickets, reservations, stock, purchases, eligibility, or final rules. K-Spot Now does not process payments and does not replace the official source.",
-        "Sponsored inquiries, ad placements, and partnerships are reviewed separately from corrections, audits, and source monitoring.",
-        "Some planning links to hotels, tours, or tickets are affiliate links. If you book through them, K-Spot Now may earn a commission at no extra cost to you. Affiliate partners cannot influence which events are listed, source labels, or freshness dates, and affiliate blocks are always labeled.",
-        `Advertising, correction, or source questions: ${contactEmail}.`
+        "K-Spot Now is free to read. Once our advertising account is approved and consent tools are in place, we may show ads, kept visibly separate from the guide text.",
+        "Advertisers cannot pay to be included in a guide, to change what a guide recommends or to review a guide before it is published.",
+        "We do not use affiliate links at present. If we add them, they will be labeled where they appear and will not change which places a guide recommends.",
+        "K-Spot Now does not sell tickets, take bookings or process payments. Links in our guides lead to the official palace, museum, venue or booking page so you can confirm details and book there.",
+        `Advertising or partnership questions: ${contactEmail}.`
       ],
       es: [
         "K-Spot Now puede mostrar anuncios despues de configurar una cuenta publicitaria aprobada, pero los anuncios no pueden comprar inclusion, posicion, fecha de frescura, etiqueta de verificacion, rol de fuente ni notas de seguridad.",
@@ -10288,9 +10368,9 @@ function staticPageParagraphs(lang, kind) {
     },
     terms: {
       en: [
-        "Information is provided for travel planning and may change without notice.",
-        "Always verify official event pages before visiting, purchasing, reserving, or changing travel plans.",
-        "K-Spot Now is not affiliated with the listed brands, artists, venues, or government agencies unless explicitly stated.",
+        "K-Spot Now provides general information to help visitors plan cultural visits in Korea. It is not legal, medical or professional advice.",
+        "Check the linked official page before you visit, buy a ticket or change your plans.",
+        "K-Spot Now is independent and is not affiliated with the palaces, museums, venues, businesses or government agencies it writes about.",
         "Accuracy: we research each guide from the official sources it links to and show when it was last checked. Hours, fees, closures, booking rules and transport details can still change after that date, and the linked official page is the final word. K-Spot Now is not responsible for losses caused by changes we could not have known about.",
         "Use of our content: the text of K-Spot Now guides is our own work. You may quote short passages with a link back to the page. Please do not republish whole guides or substantial parts of them without written permission.",
         "Photographs: images on guide pages are credited beside each photo. Most come from Wikimedia Commons under public-domain or Creative Commons licenses, and their reuse is governed by the license named in the credit, not by these terms.",
@@ -10362,7 +10442,7 @@ function aboutPage(lang, title, paragraphs) {
     <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>K-Spot Now publishes in-depth English guides to Korean culture for independent visitors to Seoul. ${guides.length} guides so far, each one researched from official sources and written to answer a real visitor question.</p><p>A useful guide should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/">Browse the culture guides ${uiIcon("arrow")}</a></div></section>
     <div class="content-shell"><section class="about-coverage" aria-labelledby="about-coverage-title"><h2 id="about-coverage-title">What we cover</h2><div class="theme-grid">${libraryCategories.map((category) => `<article class="theme-tile"><h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3><p>${esc(category.blurb)}</p><p class="about-coverage-count">${guidesInCategory(category.id).length} guides</p></article>`).join("")}</div></section>
       <section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
-      <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and the official record that should be checked. We distinguish a source update from a new editorial review.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>
+      <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and, if you can, the official page that shows the change.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>
     </div></main>`;
 }
 
@@ -10430,6 +10510,7 @@ async function build() {
   await fs.copyFile(path.join(root, "styles.css"), path.join(dist, "styles.css"));
   await fs.copyFile(path.join(root, "app.js"), path.join(dist, "app.js"));
   await fs.copyFile(path.join(root, "planning.js"), path.join(dist, "planning.js"));
+  await fs.copyFile(path.join(root, "palace-days.js"), path.join(dist, "palace-days.js"));
 
   await writeHtml("index.html", renderHome("en", "/"));
   await writeText("feed.xml", rssFeed("en", "/feed.xml"));

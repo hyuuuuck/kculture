@@ -98,7 +98,7 @@ const advertising = read(path.join(dist, "en", "advertising", "index.html"));
 for (const [name, html, markers] of [
   ["privacy", privacy, ["Google AdSense", "cookies", "EEA", "Switzerland"]],
   ["cookie policy", cookiePolicy, ["Advertising cookies", "Google-certified consent management platform", "browser"]],
-  ["advertising policy", advertising, ["ads cannot buy event inclusion", "Affiliate partners", "contact@kspotnow.com"]]
+  ["advertising policy", advertising, ["Advertisers cannot pay to be included in a guide", "affiliate links", "contact@kspotnow.com"]]
 ]) {
   if (!html) {
     fail(`${name} page is missing.`);

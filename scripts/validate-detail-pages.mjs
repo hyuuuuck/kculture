@@ -56,7 +56,7 @@ for (const lang of languages) {
       'class="review-byline"',
       'class="compact-weather-panel"',
       "Taking part as an international visitor",
-      "Sources and verification limits"
+      'id="event-evidence-title"'
     ];
     for (const marker of markers) {
       if (!html.includes(marker)) push(`dist/${relative}`, `required compact detail marker is missing: ${marker}`);

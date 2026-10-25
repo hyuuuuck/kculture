@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T22:36:01.013Z",
+  "generatedAt": "2026-10-25T04:57:56.997Z",
   "files": {
     "audit": "source-audit-2026-10-25.json",
     "candidates": "official-page-candidates-2026-10-25.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 578,
-    "dateSignals": 235,
-    "draftCandidates": 70,
-    "skippedCandidates": 561,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 577,
+    "dateSignals": 261,
+    "draftCandidates": 78,
+    "skippedCandidates": 552,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Lotte Department Store Global",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -81,18 +86,18 @@
       "count": 11
     },
     {
-      "key": "Korea Sale FESTA",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
-      "key": "Shinsegae Duty Free",
+      "key": "Korea Sale FESTA",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
+      "count": 58
     },
     {
       "key": "shopping",
@@ -118,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 519
+      "count": 510
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +131,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
@@ -142,6 +147,14 @@
     }
   ],
   "highSignalCandidates": [
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 149
+    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -197,14 +210,6 @@
       "dates": 18,
       "keywords": 2,
       "score": 135
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 22,
-      "dates": 9,
-      "keywords": 3,
-      "score": 108
     }
   ]
 }

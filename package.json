@@ -42,6 +42,7 @@
     "audit:adsense-live": "node scripts/adsense-live-audit.mjs",
     "quality:ceo": "node scripts/ceo-quality-review.mjs",
     "recheck:published": "node scripts/recheck-published-events.mjs",
+    "publish:scheduled": "node scripts/publish-scheduled-guides.mjs",
     "check:domain": "node scripts/check-domain-live.mjs",
     "review:feed": "node scripts/review-feed-report.mjs",
     "source:summary": "node scripts/source-refresh-summary.mjs",

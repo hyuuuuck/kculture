@@ -95,6 +95,11 @@ jobs:
             gh issue create --title "Official source review queue" --body-file data/feeds/source-refresh-issue.md --label source-review
           fi
 
+      # Releases only guides that were written, fact-checked and queued in advance
+      # (data/guide-queue.json); each goes live on its publishOn date (KST).
+      - name: Publish scheduled guides
+        run: npm run publish:scheduled
+
       - name: Verify current site data
         run: npm run verify
 
@@ -103,6 +108,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/events.json data/kma-forecast.json data/kma-historical-observations.json data/source-refresh-summary.json data/published-event-recheck.json
+          git add data/guide-queue.json data/guides.json data/editorial-program.json data/seo-overrides.json data/guide-inline-images.json data/notices.json
+          COMMIT_MESSAGE="Refresh weather and source summary"
+          if ! git diff --cached --quiet -- data/guide-queue.json; then
+            COMMIT_MESSAGE="Publish scheduled guides and refresh snapshots"
+          fi
           if git diff --cached --quiet; then
             echo "No operational snapshot changes to commit."
           else
@@ -111,7 +121,7 @@ jobs:
               git stash push --include-untracked --message "source review candidates" -- data/review-candidates/latest.json data/review-candidates/latest.md
               STASHED_REVIEW_CANDIDATES=1
             fi
-            git commit -m "Refresh weather and source summary"
+            git commit -m "$COMMIT_MESSAGE"
             git pull --rebase origin main
             git push origin HEAD:main
             if [ "$STASHED_REVIEW_CANDIDATES" = "1" ]; then

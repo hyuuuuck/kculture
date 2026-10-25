@@ -14,7 +14,10 @@ const approved = new Set(program.indexableEvents || []);
 const today = todayString();
 const publicEvents = events.filter((event) => approved.has(event.slug) && event.endDate >= today);
 const errors = [];
-const nearbyBySlug = new Map((reviewedNearby.events || []).map((item) => [item.eventSlug, item]));
+// Mirror the build: reviewed nearby choices are published only within 90 days of their review.
+const nearbyAgeDays = Math.floor((Date.parse(`${today}T00:00:00Z`) - Date.parse(reviewedNearby.reviewedAt || "")) / 86400000);
+const nearbyCurrent = Number.isFinite(nearbyAgeDays) && nearbyAgeDays >= 0 && nearbyAgeDays <= 90;
+const nearbyBySlug = new Map(nearbyCurrent ? (reviewedNearby.events || []).filter((item) => item.options?.length).map((item) => [item.eventSlug, item]) : []);
 
 function push(id, message) {
   errors.push({ id, message });

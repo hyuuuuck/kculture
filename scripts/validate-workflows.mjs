@@ -73,6 +73,10 @@ assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:summary", "npm run
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "npm run stage:review-candidates", "issue digest should be ready before staging the PR review package.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run source:issue", "gh issue", "issue body should be generated before updating GitHub issues.");
 assertOrder(sourceRefreshFile, sourceRefresh, "npm run verify", "Commit operational refresh snapshots", "source refresh should verify site data before committing operational snapshots.");
+// Editorial content may be auto-committed only through the pre-approved scheduled queue.
+assertIncludes(sourceRefreshFile, sourceRefresh, "npm run publish:scheduled", "source refresh must release queued guides only through the scheduled-publication script.");
+assertOrder(sourceRefreshFile, sourceRefresh, "npm run publish:scheduled", "npm run verify", "scheduled guides must pass full verification before they are committed.");
+assertIncludes(sourceRefreshFile, sourceRefresh, "git add data/guide-queue.json data/guides.json data/editorial-program.json data/seo-overrides.json data/guide-inline-images.json data/notices.json", "scheduled publication may commit only the queue and the files it releases into.");
 assertOrder(sourceRefreshFile, sourceRefresh, "Commit operational refresh snapshots", "Create or update source review PR", "operational snapshots should be committed before the candidate PR is created.");
 
 assertIncludes(deployFile, deploy, "npm run source:refresh", "manual Cloudflare deploy should be able to refresh official sources before build.");

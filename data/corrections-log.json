@@ -2,13 +2,28 @@
   "about": "Substantive corrections shown on the public corrections page, newest first. Record only changes that actually shipped, with the date they were made.",
   "entries": [
     {
+      "date": "2026-10-26",
+      "title": "Seoul Museum of History Friday closing time",
+      "summary": "The rainy-day guide said the Seoul Museum of History stays open until 22:00 on Fridays. The museum moved its Friday closing to 21:00 on April 12, 2024; its English visitor page still shows the older time.",
+      "changes": [
+        "Rain, cold or heat guide: Seoul Museum of History Friday hours corrected to 09:00–21:00."
+      ],
+      "guides": [
+        "seoul-indoor-culture-rainy-day"
+      ]
+    },
+    {
       "date": "2026-10-21",
       "title": "Time-limited facts moved into dated notices",
       "summary": "Temporary changes such as the October 29 to November 15, 2026 free palace entry, gallery closures and seasonal program end dates now appear as dated notices at the top of the guides they affect and disappear after their end date. Forty-seven time-limited sentences in thirteen guides were moved into eleven notices.",
       "changes": [
         "Korean tea culture: the Okin-dong house at Namsangol, where the village holds its tea classes, is a replica of a 1910s house, not a relocated one."
       ],
-      "guides": ["korean-tea-culture-seoul", "gyeongbokgung-palace-guide", "national-museum-of-korea-guide"]
+      "guides": [
+        "korean-tea-culture-seoul",
+        "gyeongbokgung-palace-guide",
+        "national-museum-of-korea-guide"
+      ]
     },
     {
       "date": "2026-10-20",
@@ -24,7 +39,16 @@
         "Korean tea culture: the history section is now sourced to the Encyclopedia of Korean Culture; unsupported claims were removed, and Dasinjeon is described as Choui's copy of a Chinese tea text rather than his own work.",
         "Korean holidays: Changdeokgung and Changgyeonggung were also free over Seollal 2026, and six of the ten long weekends in 2027 are Saturday-to-Monday breaks."
       ],
-      "guides": ["seoul-five-grand-palaces-compared", "seoul-subway-tmoney-guide", "bukchon-hanok-village-guide", "namsangol-hanok-village-namsan", "insadong-ikseondong-guide", "jjimjilbang-etiquette-guide", "korean-tea-culture-seoul", "korean-holidays-seollal-chuseok-travel"]
+      "guides": [
+        "seoul-five-grand-palaces-compared",
+        "seoul-subway-tmoney-guide",
+        "bukchon-hanok-village-guide",
+        "namsangol-hanok-village-namsan",
+        "insadong-ikseondong-guide",
+        "jjimjilbang-etiquette-guide",
+        "korean-tea-culture-seoul",
+        "korean-holidays-seollal-chuseok-travel"
+      ]
     }
   ]
 }

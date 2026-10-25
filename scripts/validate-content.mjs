@@ -5,6 +5,7 @@ import { sourceCheckDate } from "./lib/editorial.mjs";
 import { todayString } from "./lib/date.mjs";
 import { publicLanguageCodes } from "./lib/public-languages.mjs";
 import { noticeIssues } from "./lib/notices.mjs";
+import { queueIssues } from "./lib/guide-queue.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -660,6 +661,10 @@ else if (noticeData) {
   issues.errors.forEach((message) => push(errors, "notices.json", message));
   issues.warnings.forEach((message) => push(warnings, "notices.json", message));
 }
+
+const guideQueue = await fs.readFile(path.join(root, "data", "guide-queue.json"), "utf8").then(JSON.parse).catch((error) => (error.code === "ENOENT" ? null : { invalid: error.message }));
+if (guideQueue?.invalid) push(errors, "guide-queue.json", `guide-queue.json is not valid JSON: ${guideQueue.invalid}`);
+else if (guideQueue) queueIssues(guideQueue, guides, today, noticeData && !noticeData.invalid ? new Set((noticeData.notices || []).map((notice) => notice.id)) : null).forEach((message) => push(errors, "guide-queue.json", message));
 
 await validateGeneratedText();
 

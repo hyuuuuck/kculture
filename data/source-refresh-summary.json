@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T19:08:58.872Z",
+  "generatedAt": "2026-10-26T04:59:52.267Z",
   "files": {
     "audit": "source-audit-2026-10-26.json",
     "candidates": "official-page-candidates-2026-10-26.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 54,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 597,
-    "dateSignals": 248,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 621,
+    "dateSignals": 239,
     "draftCandidates": 65,
-    "skippedCandidates": 585,
+    "skippedCandidates": 609,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,7 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -61,6 +61,11 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -81,18 +86,14 @@
       "count": 12
     },
     {
-      "key": "Korea Sale FESTA",
-      "count": 1
-    },
-    {
-      "key": "Shinsegae Duty Free",
-      "count": 1
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 47
     },
     {
       "key": "shopping",
@@ -107,8 +108,8 @@
       "count": 2
     },
     {
-      "key": "duty-free",
-      "count": 1
+      "key": "department-store",
+      "count": 2
     },
     {
       "key": "travel-benefits",
@@ -118,7 +119,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 545
+      "count": 571
     },
     {
       "key": "listing page is not a specific event",
@@ -126,19 +127,19 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
-    },
-    {
-      "key": "duplicate draft source URL",
       "count": 4
     },
     {
       "key": "already published source URL",
       "count": 3
+    },
+    {
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
     }
   ],
   "highSignalCandidates": [
@@ -163,8 +164,8 @@
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 139
+      "keywords": 6,
+      "score": 140
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",

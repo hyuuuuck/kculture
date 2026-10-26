@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-26T04:59:52.267Z",
+  "generatedAt": "2026-10-26T15:18:08.371Z",
   "files": {
-    "audit": "source-audit-2026-10-26.json",
-    "candidates": "official-page-candidates-2026-10-26.json",
-    "drafts": "draft-events-2026-10-26.json",
-    "reviewReport": "review-report-2026-10-26.md",
-    "reviewBoard": "review-board-2026-10-26.html",
-    "publicData": "public-data-import-2026-10-26.json",
+    "audit": "source-audit-2026-10-27.json",
+    "candidates": "official-page-candidates-2026-10-27.json",
+    "drafts": "draft-events-2026-10-27.json",
+    "reviewReport": "review-report-2026-10-27.md",
+    "reviewBoard": "review-board-2026-10-27.html",
+    "publicData": "public-data-import-2026-10-27.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 621,
-    "dateSignals": 239,
-    "draftCandidates": 65,
-    "skippedCandidates": 609,
+    "discoveredLinks": 601,
+    "dateSignals": 246,
+    "draftCandidates": 66,
+    "skippedCandidates": 588,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,7 +53,12 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -61,11 +66,6 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -83,11 +83,15 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
+      "count": 11
     },
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Korea Policy Briefing",
+      "count": 1
     }
   ],
   "topDraftCategories": [
@@ -97,11 +101,11 @@
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 8
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 5
     },
     {
       "key": "beauty",
@@ -112,18 +116,18 @@
       "count": 2
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 571
+      "count": 551
     },
     {
       "key": "listing page is not a specific event",
-      "count": 15
+      "count": 14
     },
     {
       "key": "source fetch did not succeed",
@@ -131,7 +135,7 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
       "key": "already published source URL",
@@ -184,20 +188,20 @@
       "score": 138
     },
     {
-      "sourceName": "SMTOWN andSTORE Notices",
-      "url": "https://www.smtownandstore.com/board/index.html",
+      "sourceName": "COEX Event Calendar",
+      "url": "https://www.coex.co.kr/en/",
       "links": 24,
       "dates": 18,
       "keywords": 3,
       "score": 136
     },
     {
-      "sourceName": "COEX Event Calendar",
-      "url": "https://www.coex.co.kr/en/",
+      "sourceName": "SMTOWN andSTORE Notices",
+      "url": "https://www.smtownandstore.com/board/index.html",
       "links": 24,
       "dates": 18,
-      "keywords": 2,
-      "score": 135
+      "keywords": 3,
+      "score": 136
     },
     {
       "sourceName": "YES24 Ticket English",

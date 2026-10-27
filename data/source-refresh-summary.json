@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-27T14:40:27.303Z",
+  "generatedAt": "2026-10-27T20:48:27.851Z",
   "files": {
-    "audit": "source-audit-2026-10-27.json",
-    "candidates": "official-page-candidates-2026-10-27.json",
-    "drafts": "draft-events-2026-10-27.json",
-    "reviewReport": "review-report-2026-10-27.md",
-    "reviewBoard": "review-board-2026-10-27.html",
-    "publicData": "public-data-import-2026-10-27.json",
+    "audit": "source-audit-2026-10-28.json",
+    "candidates": "official-page-candidates-2026-10-28.json",
+    "drafts": "draft-events-2026-10-28.json",
+    "reviewReport": "review-report-2026-10-28.md",
+    "reviewBoard": "review-board-2026-10-28.html",
+    "publicData": "public-data-import-2026-10-28.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 645,
-    "dateSignals": 261,
-    "draftCandidates": 71,
-    "skippedCandidates": 627,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 585,
+    "dateSignals": 265,
+    "draftCandidates": 67,
+    "skippedCandidates": 571,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,11 +53,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -75,7 +70,7 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 16
+      "count": 17
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -86,18 +81,18 @@
       "count": 11
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Korea Sale FESTA",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 53
+      "count": 48
     },
     {
       "key": "shopping",
@@ -116,14 +111,14 @@
       "count": 2
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 588
+      "count": 536
     },
     {
       "key": "listing page is not a specific event",
@@ -131,30 +126,22 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
-    },
-    {
-      "key": "already published source URL",
-      "count": 3
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 2
+    },
+    {
+      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "count": 2
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
     {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
@@ -210,6 +197,14 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
     }
   ]
 }

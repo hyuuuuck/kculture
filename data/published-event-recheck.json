@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-27T14:39:48.493Z",
-  "date": "2026-10-27",
-  "approvedActiveEvents": 3,
-  "passed": 3,
+  "generatedAt": "2026-10-27T20:47:17.991Z",
+  "date": "2026-10-28",
+  "approvedActiveEvents": 2,
+  "passed": 2,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 5,
+  "liveChecks": 3,
   "snapshotChecks": 1,
-  "updated": 0,
+  "updated": 2,
   "timeoutMs": 12000,
   "concurrency": 5,
   "results": [
@@ -24,8 +24,8 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 123371,
-          "durationMs": 2835,
+          "bytes": 123372,
+          "durationMs": 2738,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -44,7 +44,7 @@
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
           "bytes": 33961,
-          "durationMs": 1609,
+          "durationMs": 1524,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -70,7 +70,7 @@
           "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
           "status": "ERROR",
           "bytes": 0,
-          "durationMs": 804,
+          "durationMs": 660,
           "mode": "audited-snapshot",
           "freshnessAuthority": false,
           "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
@@ -99,7 +99,7 @@
           "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
           "status": 200,
           "bytes": 36937,
-          "durationMs": 424,
+          "durationMs": 394,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": true,
@@ -107,52 +107,6 @@
             "Gwangalli",
             "Drone Light Show",
             "Saturday"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "seoul-international-garden-show-2026",
-      "title": "2026 Seoul International Garden Show",
-      "sourceName": "Visit Seoul",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Visit Seoul",
-          "url": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
-          "finalUrl": "https://english.visitseoul.net/events/2026Seoul-International-Garden-Show/ENP47mbp7",
-          "status": 200,
-          "bytes": 201927,
-          "durationMs": 2193,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "2026 Seoul International Garden Show",
-            "May 1",
-            "October 27",
-            "Seoul Forest"
-          ],
-          "missingTokens": [],
-          "ok": true
-        },
-        {
-          "sourceName": "Seoul Metropolitan Government",
-          "url": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
-          "finalUrl": "https://english.seoul.go.kr/seoul-turns-green-2026-seoul-international-garden-show-opens-linking-seoul-forest-and-seongsu-for-180-days/",
-          "status": 200,
-          "bytes": 115857,
-          "durationMs": 1480,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": false,
-          "matchedTokens": [
-            "Seoul International Garden Show",
-            "Seoul Forest",
-            "October 27"
           ],
           "missingTokens": [],
           "ok": true

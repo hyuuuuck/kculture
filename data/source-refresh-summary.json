@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T15:13:40.095Z",
+  "generatedAt": "2026-10-28T21:12:03.090Z",
   "files": {
     "audit": "source-audit-2026-10-29.json",
     "candidates": "official-page-candidates-2026-10-29.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 627,
-    "dateSignals": 246,
-    "draftCandidates": 66,
-    "skippedCandidates": 614,
+    "candidateOk": 48,
+    "candidateFailed": 5,
+    "discoveredLinks": 612,
+    "dateSignals": 255,
+    "draftCandidates": 67,
+    "skippedCandidates": 598,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,17 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free English Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
     }
@@ -86,18 +76,18 @@
       "count": 11
     },
     {
-      "key": "Shinsegae Duty Free",
+      "key": "Korea Sale FESTA",
       "count": 1
     },
     {
-      "key": "Shinsegae Group Newsroom",
+      "key": "Shinsegae Duty Free",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 47
+      "count": 48
     },
     {
       "key": "shopping",
@@ -123,19 +113,19 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 580
+      "count": 565
     },
     {
       "key": "listing page is not a specific event",
       "count": 14
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 4
+      "key": "source fetch did not succeed",
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-28T05:56:00.500Z",
+  "generatedAt": "2026-10-28T15:13:40.095Z",
   "files": {
-    "audit": "source-audit-2026-10-28.json",
-    "candidates": "official-page-candidates-2026-10-28.json",
-    "drafts": "draft-events-2026-10-28.json",
-    "reviewReport": "review-report-2026-10-28.md",
-    "reviewBoard": "review-board-2026-10-28.html",
-    "publicData": "public-data-import-2026-10-28.json",
+    "audit": "source-audit-2026-10-29.json",
+    "candidates": "official-page-candidates-2026-10-29.json",
+    "drafts": "draft-events-2026-10-29.json",
+    "reviewReport": "review-report-2026-10-29.md",
+    "reviewBoard": "review-board-2026-10-29.html",
+    "publicData": "public-data-import-2026-10-29.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 54,
+    "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 44,
-    "candidateFailed": 9,
-    "discoveredLinks": 603,
-    "dateSignals": 243,
-    "draftCandidates": 49,
-    "skippedCandidates": 607,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 627,
+    "dateSignals": 246,
+    "draftCandidates": 66,
+    "skippedCandidates": 614,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,12 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Shinsegae Duty Free English Events",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -68,15 +63,19 @@
       "error": ""
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
     {
+      "key": "Melon Ticket",
+      "count": 22
+    },
+    {
       "key": "Visit Seoul",
-      "count": 17
+      "count": 18
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -87,8 +86,8 @@
       "count": 11
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
+      "key": "Shinsegae Duty Free",
+      "count": 1
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -98,7 +97,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 34
+      "count": 47
     },
     {
       "key": "shopping",
@@ -106,25 +105,25 @@
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 6
     },
     {
       "key": "beauty",
       "count": 2
     },
     {
-      "key": "department-store",
-      "count": 1
+      "key": "travel-benefits",
+      "count": 2
     },
     {
-      "key": "travel-benefits",
+      "key": "department-store",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 580
     },
     {
       "key": "listing page is not a specific event",
@@ -132,11 +131,11 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 9
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 3
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -149,20 +148,20 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
-    {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 141
+      "score": 145
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "NOL World Ticket",

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-29T06:00:55.635Z",
+  "generatedAt": "2026-10-29T15:19:13.482Z",
   "files": {
-    "audit": "source-audit-2026-10-29.json",
-    "candidates": "official-page-candidates-2026-10-29.json",
-    "drafts": "draft-events-2026-10-29.json",
-    "reviewReport": "review-report-2026-10-29.md",
-    "reviewBoard": "review-board-2026-10-29.html",
-    "publicData": "public-data-import-2026-10-29.json",
+    "audit": "source-audit-2026-10-30.json",
+    "candidates": "official-page-candidates-2026-10-30.json",
+    "drafts": "draft-events-2026-10-30.json",
+    "reviewReport": "review-report-2026-10-30.md",
+    "reviewBoard": "review-board-2026-10-30.html",
+    "publicData": "public-data-import-2026-10-30.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 609,
-    "dateSignals": 248,
-    "draftCandidates": 68,
-    "skippedCandidates": 594,
+    "discoveredLinks": 580,
+    "dateSignals": 256,
+    "draftCandidates": 65,
+    "skippedCandidates": 568,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,11 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
@@ -70,7 +75,7 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 17
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -78,14 +83,14 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 11
-    },
-    {
-      "key": "CJ Olive Young Newsroom",
-      "count": 1
+      "count": 10
     },
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
+      "count": 1
+    },
+    {
+      "key": "Korea Sale FESTA",
       "count": 1
     }
   ],
@@ -100,11 +105,11 @@
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 5
     },
     {
       "key": "beauty",
-      "count": 3
+      "count": 2
     },
     {
       "key": "travel-benefits",
@@ -118,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 558
+      "count": 530
     },
     {
       "key": "listing page is not a specific event",
@@ -130,7 +135,7 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -143,20 +148,20 @@
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "Visit Seoul",
-      "url": "https://english.visitseoul.net/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
-      "score": 145
-    },
-    {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
       "keywords": 6,
       "score": 143
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 141
     },
     {
       "sourceName": "NOL World Ticket",

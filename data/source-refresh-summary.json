@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T21:12:03.090Z",
+  "generatedAt": "2026-10-29T06:00:55.635Z",
   "files": {
     "audit": "source-audit-2026-10-29.json",
     "candidates": "official-page-candidates-2026-10-29.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 612,
-    "dateSignals": 255,
-    "draftCandidates": 67,
-    "skippedCandidates": 598,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 609,
+    "dateSignals": 248,
+    "draftCandidates": 68,
+    "skippedCandidates": 594,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,9 +53,14 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "AK Plaza Events",
+      "sourceName": "Shinsegae Department Store Events",
       "status": "ERR",
       "error": "fetch failed"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
     }
   ],
   "topDraftSources": [
@@ -76,11 +81,11 @@
       "count": 11
     },
     {
-      "key": "Korea Sale FESTA",
+      "key": "CJ Olive Young Newsroom",
       "count": 1
     },
     {
-      "key": "Shinsegae Duty Free",
+      "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
     }
   ],
@@ -99,7 +104,7 @@
     },
     {
       "key": "beauty",
-      "count": 2
+      "count": 3
     },
     {
       "key": "travel-benefits",
@@ -113,19 +118,19 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 565
+      "count": 558
     },
     {
       "key": "listing page is not a specific event",
-      "count": 14
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 5
+      "count": 15
     },
     {
       "key": "source fetch did not succeed",
-      "count": 5
+      "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-30T06:02:34.912Z",
+  "generatedAt": "2026-10-30T15:08:29.612Z",
   "files": {
-    "audit": "source-audit-2026-10-30.json",
-    "candidates": "official-page-candidates-2026-10-30.json",
-    "drafts": "draft-events-2026-10-30.json",
-    "reviewReport": "review-report-2026-10-30.md",
-    "reviewBoard": "review-board-2026-10-30.html",
-    "publicData": "public-data-import-2026-10-30.json",
+    "audit": "source-audit-2026-10-31.json",
+    "candidates": "official-page-candidates-2026-10-31.json",
+    "drafts": "draft-events-2026-10-31.json",
+    "reviewReport": "review-report-2026-10-31.md",
+    "reviewBoard": "review-board-2026-10-31.html",
+    "publicData": "public-data-import-2026-10-31.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 560,
-    "dateSignals": 251,
-    "draftCandidates": 47,
-    "skippedCandidates": 566,
+    "discoveredLinks": 606,
+    "dateSignals": 265,
+    "draftCandidates": 57,
+    "skippedCandidates": 602,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,7 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -71,7 +71,7 @@
   "topDraftSources": [
     {
       "key": "Visit Seoul",
-      "count": 17
+      "count": 20
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -82,22 +82,22 @@
       "count": 11
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
+    },
+    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
     },
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
-    },
-    {
-      "key": "Korea Policy Briefing",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 29
+      "count": 38
     },
     {
       "key": "shopping",
@@ -108,12 +108,12 @@
       "count": 4
     },
     {
-      "key": "kpop",
+      "key": "beauty",
       "count": 3
     },
     {
-      "key": "beauty",
-      "count": 2
+      "key": "kpop",
+      "count": 3
     },
     {
       "key": "travel-benefits",
@@ -123,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 528
+      "count": 568
     },
     {
       "key": "listing page is not a specific event",
-      "count": 16
+      "count": 14
     },
     {
       "key": "source fetch did not succeed",
@@ -138,29 +138,37 @@
       "count": 4
     },
     {
-      "key": "mojibake text detected",
-      "count": 3
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
     },
     {
-      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "key": "mojibake text detected",
       "count": 2
     }
   ],
   "highSignalCandidates": [
     {
-      "sourceName": "NOL World Ticket",
-      "url": "https://world.nol.com/",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
       "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 141
+      "keywords": 3,
+      "score": 149
     },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
-      "keywords": 4,
+      "keywords": 5,
+      "score": 146
+    },
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
       "score": 141
     },
     {
@@ -202,14 +210,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
-    },
-    {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 24,
-      "dates": 3,
-      "keywords": 8,
-      "score": 121
     }
   ]
 }

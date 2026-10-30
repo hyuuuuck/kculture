@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T15:08:29.612Z",
+  "generatedAt": "2026-10-30T20:55:25.778Z",
   "files": {
     "audit": "source-audit-2026-10-31.json",
     "candidates": "official-page-candidates-2026-10-31.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 52,
     "auditFailed": 4,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 606,
-    "dateSignals": 265,
-    "draftCandidates": 57,
-    "skippedCandidates": 602,
+    "discoveredLinks": 587,
+    "dateSignals": 247,
+    "draftCandidates": 50,
+    "skippedCandidates": 590,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -82,22 +82,22 @@
       "count": 11
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
     },
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
+    },
+    {
+      "key": "Korea Policy Briefing",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 38
+      "count": 31
     },
     {
       "key": "shopping",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 557
     },
     {
       "key": "listing page is not a specific event",
@@ -147,14 +147,6 @@
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 149
-    },
     {
       "sourceName": "Visit Seoul",
       "url": "https://english.visitseoul.net/",
@@ -210,6 +202,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 24,
+      "dates": 3,
+      "keywords": 8,
+      "score": 121
     }
   ]
 }

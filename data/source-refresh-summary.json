@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T05:58:34.466Z",
+  "generatedAt": "2026-10-31T14:37:26.452Z",
   "files": {
     "audit": "source-audit-2026-10-31.json",
     "candidates": "official-page-candidates-2026-10-31.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
+    "auditOk": 53,
+    "auditFailed": 3,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 585,
-    "dateSignals": 247,
-    "draftCandidates": 50,
-    "skippedCandidates": 588,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 603,
+    "dateSignals": 265,
+    "draftCandidates": 72,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,14 +61,13 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 20
@@ -88,16 +87,16 @@
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
-    },
-    {
-      "key": "Korea Policy Briefing",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 31
+      "count": 50
+    },
+    {
+      "key": "kpop",
+      "count": 6
     },
     {
       "key": "shopping",
@@ -112,10 +111,6 @@
       "count": 3
     },
     {
-      "key": "kpop",
-      "count": 3
-    },
-    {
       "key": "travel-benefits",
       "count": 2
     }
@@ -123,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 555
+      "count": 551
     },
     {
       "key": "listing page is not a specific event",
@@ -131,11 +126,11 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -154,6 +149,14 @@
       "dates": 18,
       "keywords": 5,
       "score": 146
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "NOL World Ticket",
@@ -202,14 +205,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
-    },
-    {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 24,
-      "dates": 3,
-      "keywords": 8,
-      "score": 121
     }
   ]
 }

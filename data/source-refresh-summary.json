@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-31T14:37:26.452Z",
+  "generatedAt": "2026-10-31T20:07:30.556Z",
   "files": {
-    "audit": "source-audit-2026-10-31.json",
-    "candidates": "official-page-candidates-2026-10-31.json",
-    "drafts": "draft-events-2026-10-31.json",
-    "reviewReport": "review-report-2026-10-31.md",
-    "reviewBoard": "review-board-2026-10-31.html",
-    "publicData": "public-data-import-2026-10-31.json",
+    "audit": "source-audit-2026-11-01.json",
+    "candidates": "official-page-candidates-2026-11-01.json",
+    "drafts": "draft-events-2026-11-01.json",
+    "reviewReport": "review-report-2026-11-01.md",
+    "reviewBoard": "review-board-2026-11-01.html",
+    "publicData": "public-data-import-2026-11-01.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 4,
+    "auditOk": 51,
+    "auditFailed": 5,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 603,
-    "dateSignals": 265,
-    "draftCandidates": 72,
-    "skippedCandidates": 584,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 619,
+    "dateSignals": 276,
+    "draftCandidates": 79,
+    "skippedCandidates": 593,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -70,45 +80,41 @@
     },
     {
       "key": "Visit Seoul",
-      "count": 20
+      "count": 19
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 13
+      "count": 12
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 11
     },
     {
       "key": "NOL World Ticket",
-      "count": 11
+      "count": 10
     },
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
-    },
-    {
-      "key": "Korea Grand Sale / Visit Korea Committee",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
+      "count": 60
+    },
+    {
+      "key": "shopping",
+      "count": 7
     },
     {
       "key": "kpop",
       "count": 6
     },
     {
-      "key": "shopping",
-      "count": 6
-    },
-    {
       "key": "department-store",
       "count": 4
-    },
-    {
-      "key": "beauty",
-      "count": 3
     },
     {
       "key": "travel-benefits",
@@ -118,15 +124,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 556
     },
     {
       "key": "listing page is not a specific event",
-      "count": 14
+      "count": 16
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",
@@ -137,7 +143,7 @@
       "count": 2
     },
     {
-      "key": "mojibake text detected",
+      "key": "duplicate draft source URL",
       "count": 2
     }
   ],
@@ -147,8 +153,8 @@
       "url": "https://english.visitseoul.net/",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 146
+      "keywords": 4,
+      "score": 145
     },
     {
       "sourceName": "Melon Ticket",
@@ -167,12 +173,12 @@
       "score": 141
     },
     {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
       "links": 24,
       "dates": 18,
-      "keywords": 7,
-      "score": 139
+      "keywords": 2,
+      "score": 138
     },
     {
       "sourceName": "Seoul Grand Park",
@@ -199,12 +205,12 @@
       "score": 136
     },
     {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
       "dates": 18,
-      "keywords": 1,
-      "score": 129
+      "keywords": 7,
+      "score": 135
     }
   ]
 }

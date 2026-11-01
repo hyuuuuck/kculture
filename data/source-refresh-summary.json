@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-01T06:26:26.561Z",
+  "generatedAt": "2026-11-01T15:19:14.952Z",
   "files": {
-    "audit": "source-audit-2026-11-01.json",
-    "candidates": "official-page-candidates-2026-11-01.json",
-    "drafts": "draft-events-2026-11-01.json",
-    "reviewReport": "review-report-2026-11-01.md",
-    "reviewBoard": "review-board-2026-11-01.html",
-    "publicData": "public-data-import-2026-11-01.json",
+    "audit": "source-audit-2026-11-02.json",
+    "candidates": "official-page-candidates-2026-11-02.json",
+    "drafts": "draft-events-2026-11-02.json",
+    "reviewReport": "review-report-2026-11-02.md",
+    "reviewBoard": "review-board-2026-11-02.html",
+    "publicData": "public-data-import-2026-11-02.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 52,
     "auditFailed": 4,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 583,
-    "dateSignals": 251,
-    "draftCandidates": 46,
-    "skippedCandidates": 590,
+    "discoveredLinks": 580,
+    "dateSignals": 247,
+    "draftCandidates": 45,
+    "skippedCandidates": 588,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -71,7 +71,7 @@
   "topDraftSources": [
     {
       "key": "Visit Seoul",
-      "count": 19
+      "count": 18
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -101,7 +101,7 @@
     },
     {
       "key": "shopping",
-      "count": 7
+      "count": 6
     },
     {
       "key": "department-store",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 555
+      "count": 552
     },
     {
       "key": "listing page is not a specific event",
@@ -177,7 +177,7 @@
       "links": 24,
       "dates": 18,
       "keywords": 3,
-      "score": 136
+      "score": 137
     },
     {
       "sourceName": "SMTOWN andSTORE Notices",

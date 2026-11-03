@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-11-03T12:05:20.059Z",
+  "generatedAt": "2026-11-03T19:40:39.724Z",
   "files": {
-    "audit": "source-audit-2026-11-03.json",
-    "candidates": "official-page-candidates-2026-11-03.json",
-    "drafts": "draft-events-2026-11-03.json",
-    "reviewReport": "review-report-2026-11-03.md",
-    "reviewBoard": "review-board-2026-11-03.html",
-    "publicData": "public-data-import-2026-11-03.json",
+    "audit": "source-audit-2026-11-04.json",
+    "candidates": "official-page-candidates-2026-11-04.json",
+    "drafts": "draft-events-2026-11-04.json",
+    "reviewReport": "review-report-2026-11-04.md",
+    "reviewBoard": "review-board-2026-11-04.html",
+    "publicData": "public-data-import-2026-11-04.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 54,
+    "auditFailed": 2,
     "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 582,
-    "dateSignals": 236,
-    "draftCandidates": 46,
-    "skippedCandidates": 589,
+    "discoveredLinks": 578,
+    "dateSignals": 249,
+    "draftCandidates": 68,
+    "skippedCandidates": 563,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -58,17 +58,21 @@
       "error": "fetch failed"
     },
     {
-      "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
-      "sourceName": "Melon Ticket",
-      "status": 423,
+      "sourceName": "AK Plaza Events",
+      "status": 400,
       "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -88,16 +92,16 @@
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
-    },
-    {
-      "key": "Korea Policy Briefing",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 31
+      "count": 50
+    },
+    {
+      "key": "kpop",
+      "count": 6
     },
     {
       "key": "shopping",
@@ -108,10 +112,6 @@
       "count": 4
     },
     {
-      "key": "kpop",
-      "count": 3
-    },
-    {
       "key": "travel-benefits",
       "count": 2
     }
@@ -119,7 +119,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 525
     },
     {
       "key": "listing page is not a specific event",
@@ -131,14 +131,14 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 4
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 2
     },
     {
-      "key": "already published similar event: toy-story-5-hyundai-popup-2026",
+      "key": "duplicate draft source URL",
       "count": 2
     }
   ],
@@ -184,6 +184,14 @@
       "score": 136
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 135
+    },
+    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -198,14 +206,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
-    },
-    {
-      "sourceName": "Shinsegae Group Newsroom",
-      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
-      "links": 23,
-      "dates": 4,
-      "keywords": 9,
-      "score": 122
     }
   ]
 }

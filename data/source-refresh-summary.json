@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T02:28:35.932Z",
+  "generatedAt": "2026-11-03T12:05:20.059Z",
   "files": {
     "audit": "source-audit-2026-11-03.json",
     "candidates": "official-page-candidates-2026-11-03.json",
@@ -15,13 +15,13 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 604,
-    "dateSignals": 257,
-    "draftCandidates": 68,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 582,
+    "dateSignals": 236,
+    "draftCandidates": 46,
     "skippedCandidates": 589,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
@@ -53,7 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Galleria Department Store",
+      "sourceName": "Shinsegae Duty Free",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -61,13 +61,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -87,32 +88,32 @@
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
+    },
+    {
+      "key": "Korea Policy Briefing",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 50
-    },
-    {
-      "key": "kpop",
-      "count": 6
+      "count": 31
     },
     {
       "key": "shopping",
-      "count": 5
+      "count": 6
     },
     {
       "key": "department-store",
       "count": 4
     },
     {
-      "key": "travel-benefits",
-      "count": 2
+      "key": "kpop",
+      "count": 3
     },
     {
-      "key": "duty-free",
-      "count": 1
+      "key": "travel-benefits",
+      "count": 2
     }
   ],
   "topSkippedReasons": [
@@ -126,11 +127,11 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -183,14 +184,6 @@
       "score": 136
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 135
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
@@ -205,6 +198,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 4,
+      "keywords": 9,
+      "score": 122
     }
   ]
 }

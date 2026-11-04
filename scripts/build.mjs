@@ -15,6 +15,7 @@ const dist = path.join(root, "dist");
 const today = todayString();
 const siteName = "K-Spot Now";
 const operatorName = "ArtSaurus";
+const operatorUrl = "https://www.artsaurus.com/";
 const siteTagline = "Understand Korean culture. Plan your visit.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
@@ -6231,7 +6232,7 @@ function schema(lang, title, description, canonicalPath) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteName,
-    publisher: { "@type": "Organization", name: operatorName },
+    publisher: { "@type": "Organization", name: operatorName, url: operatorUrl },
     inLanguage: lang,
     url: `${siteUrl}${canonicalPath}`,
     description,
@@ -8850,7 +8851,7 @@ function guideArticleSchema(guide, lang) {
       "@type": "Organization",
       name: siteName,
       url: siteUrl,
-      parentOrganization: { "@type": "Organization", name: operatorName }
+      parentOrganization: { "@type": "Organization", name: operatorName, url: operatorUrl }
     }
   };
 }
@@ -10432,7 +10433,7 @@ const aboutIdentityCopy = {
     ],
     accountability: [
       ["Why we exist", "Most English-language coverage of Seoul either lists attractions or repeats the official description. We explain what a palace, custom or dish means, who it suits, and how to do it properly: the Korean name to search, the day it closes, the booking rule that trips people up and the etiquette that matters."],
-      ["Who we are", "K-Spot Now is a program by ArtSaurus that promotes Korean culture to international visitors. ArtSaurus is a Korean arts startup that helps performing artists promote their concerts and grow their audiences. The guides are produced by the K-Spot Now Editorial Desk, a small desk rather than a large newsroom. We are not affiliated with any palace, museum, tour operator, brand or government agency. Write to contact@kspotnow.com with corrections or questions."],
+      ["Who we are", "K-Spot Now is a program by ArtSaurus that promotes Korean culture to international visitors. ArtSaurus is a Korean online platform where performing artists manage their concerts, seat bookings, profiles and audiences. The guides are produced by the K-Spot Now Editorial Desk, a small desk rather than a large newsroom. We are not affiliated with any palace, museum, tour operator, brand or government agency. Write to contact@kspotnow.com with corrections or questions."],
       ["How we research", "Every guide is built from the official records it links to: heritage-agency, palace, museum, city and venue pages, plus reputable Korean news for changes such as new visiting rules. We use AI tools to help with research and drafting. Facts that can change are checked against a linked source and dated before publication, and our recommendations are labeled as judgment. We do not describe visits we have not made."],
       ["How we stay accurate", "Hours, fees and rules in Korea change, sometimes at short notice. Each guide shows when it was published and last checked, and links to the page with the final word. When a reader or a source tells us something has changed, we correct the guide and record substantive changes on our corrections page."]
     ],
@@ -10445,7 +10446,7 @@ function aboutPage(lang, title, paragraphs) {
   return `<main class="about-page">
     <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>K-Spot Now, a Korean culture program by ${operatorName}, publishes in-depth English guides for independent visitors to Seoul. ${guides.length} guides so far, each one researched from official sources and written to answer a real visitor question.</p><p>A useful guide should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/">Browse the culture guides ${uiIcon("arrow")}</a></div></section>
     <div class="content-shell"><section class="about-coverage" aria-labelledby="about-coverage-title"><h2 id="about-coverage-title">What we cover</h2><div class="theme-grid">${libraryCategories.map((category) => `<article class="theme-tile"><h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3><p>${esc(category.blurb)}</p><p class="about-coverage-count">${guidesInCategory(category.id).length} guides</p></article>`).join("")}</div></section>
-      <section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
+      <section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`).replace(operatorName, `<a href="${operatorUrl}" rel="noopener" target="_blank">${operatorName}</a>`)}</p></article>`).join("")}</section>
       <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and, if you can, the official page that shows the change.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>
     </div></main>`;
 }

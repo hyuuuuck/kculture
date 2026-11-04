@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T19:40:39.724Z",
+  "generatedAt": "2026-11-04T00:43:05.316Z",
   "files": {
     "audit": "source-audit-2026-11-04.json",
     "candidates": "official-page-candidates-2026-11-04.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
-    "fallbackSources": 4,
+    "auditOk": 53,
+    "auditFailed": 3,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 578,
-    "dateSignals": 249,
-    "draftCandidates": 68,
-    "skippedCandidates": 563,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 600,
+    "dateSignals": 251,
+    "draftCandidates": 69,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,12 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Shinsegae Department Store Events",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -114,12 +109,16 @@
     {
       "key": "travel-benefits",
       "count": 2
+    },
+    {
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 525
+      "count": 547
     },
     {
       "key": "listing page is not a specific event",
@@ -127,7 +126,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 6
     },
     {
       "key": "curation root is not a specific event",
@@ -168,6 +167,14 @@
       "score": 139
     },
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 5,
+      "score": 138
+    },
+    {
       "sourceName": "COEX Event Calendar",
       "url": "https://www.coex.co.kr/en/",
       "links": 24,
@@ -182,14 +189,6 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 135
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",

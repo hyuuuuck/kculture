@@ -14,6 +14,7 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const today = todayString();
 const siteName = "K-Spot Now";
+const operatorName = "ArtSaurus";
 const siteTagline = "Understand Korean culture. Plan your visit.";
 const siteDomain = "kspotnow.com";
 const siteUrl = process.env.SITE_URL || `https://${siteDomain}`;
@@ -6186,7 +6187,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   <footer class="site-footer">
     <div class="footer-publication">
       <a class="footer-brand" href="/${lang}/">${siteName}</a>
-      <p>Korean culture, in context.<br>For independent English-speaking visitors.</p>
+      <p>Korean culture, in context.<br>For independent English-speaking visitors.<br>A Korean culture program by ${operatorName}.</p>
       <a href="/${lang}/about/">Meet the publication ${uiIcon("arrow")}</a>
     </div>
     <nav class="footer-col" aria-label="Culture guides">
@@ -6230,6 +6231,7 @@ function schema(lang, title, description, canonicalPath) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteName,
+    publisher: { "@type": "Organization", name: operatorName },
     inLanguage: lang,
     url: `${siteUrl}${canonicalPath}`,
     description,
@@ -8847,7 +8849,8 @@ function guideArticleSchema(guide, lang) {
     publisher: {
       "@type": "Organization",
       name: siteName,
-      url: siteUrl
+      url: siteUrl,
+      parentOrganization: { "@type": "Organization", name: operatorName }
     }
   };
 }
@@ -10238,6 +10241,7 @@ function staticPageParagraphs(lang, kind) {
           ? "For visitors in the EEA, the UK, and Switzerland, advertising consent is handled through the verified Google-certified consent management platform recorded in our release checks."
           : "AdSense advertising remains disabled until a Google-certified consent management platform is manually verified for visitors in the EEA, the UK, and Switzerland.",
         "We do not knowingly collect personal information from children, and the site is not directed at children under 13.",
+        "K-Spot Now is operated by ArtSaurus. Questions about this policy go to the contact address below.",
         `If you email us, we use your address and message only to reply and to fix the issue you reported, and we do not add you to a mailing list. To ask what we hold about you or to have your correspondence deleted, write to ${contactEmail}.`,
         "See the Cookie Policy for more detail about advertising cookies, local browser storage, opt-out choices, and consent updates."
       ],
@@ -10370,7 +10374,7 @@ function staticPageParagraphs(lang, kind) {
       en: [
         "K-Spot Now provides general information to help visitors plan cultural visits in Korea. It is not legal, medical or professional advice.",
         "Check the linked official page before you visit, buy a ticket or change your plans.",
-        "K-Spot Now is independent and is not affiliated with the palaces, museums, venues, businesses or government agencies it writes about.",
+        "K-Spot Now is operated by ArtSaurus as a program that promotes Korean culture. It is not affiliated with the palaces, museums, venues, businesses or government agencies it writes about.",
         "Accuracy: we research each guide from the official sources it links to and show when it was last checked. Hours, fees, closures, booking rules and transport details can still change after that date, and the linked official page is the final word. K-Spot Now is not responsible for losses caused by changes we could not have known about.",
         "Use of our content: the text of K-Spot Now guides is our own work. You may quote short passages with a link back to the page. Please do not republish whole guides or substantial parts of them without written permission.",
         "Photographs: images on guide pages are credited beside each photo. Most come from Wikimedia Commons under public-domain or Creative Commons licenses, and their reuse is governed by the license named in the credit, not by these terms.",
@@ -10428,7 +10432,7 @@ const aboutIdentityCopy = {
     ],
     accountability: [
       ["Why we exist", "Most English-language coverage of Seoul either lists attractions or repeats the official description. We explain what a palace, custom or dish means, who it suits, and how to do it properly: the Korean name to search, the day it closes, the booking rule that trips people up and the etiquette that matters."],
-      ["Who we are", "K-Spot Now is an independent publication produced by the K-Spot Now Editorial Desk. It is a small desk, not a large newsroom, and it is not affiliated with any palace, museum, tour operator, brand or government agency. Write to contact@kspotnow.com with corrections or questions."],
+      ["Who we are", "K-Spot Now is a program by ArtSaurus that promotes Korean culture to international visitors. ArtSaurus is a Korean arts startup that helps performing artists promote their concerts and grow their audiences. The guides are produced by the K-Spot Now Editorial Desk, a small desk rather than a large newsroom. We are not affiliated with any palace, museum, tour operator, brand or government agency. Write to contact@kspotnow.com with corrections or questions."],
       ["How we research", "Every guide is built from the official records it links to: heritage-agency, palace, museum, city and venue pages, plus reputable Korean news for changes such as new visiting rules. We use AI tools to help with research and drafting. Facts that can change are checked against a linked source and dated before publication, and our recommendations are labeled as judgment. We do not describe visits we have not made."],
       ["How we stay accurate", "Hours, fees and rules in Korea change, sometimes at short notice. Each guide shows when it was published and last checked, and links to the page with the final word. When a reader or a source tells us something has changed, we correct the guide and record substantive changes on our corrections page."]
     ],
@@ -10439,7 +10443,7 @@ const aboutIdentityCopy = {
 function aboutPage(lang, title, paragraphs) {
   const copy = aboutIdentityCopy[lang] || aboutIdentityCopy.en;
   return `<main class="about-page">
-    <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>K-Spot Now publishes in-depth English guides to Korean culture for independent visitors to Seoul. ${guides.length} guides so far, each one researched from official sources and written to answer a real visitor question.</p><p>A useful guide should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/">Browse the culture guides ${uiIcon("arrow")}</a></div></section>
+    <section class="about-cover"><div><h1>Korean culture.<br>Understood, then explored.</h1></div><div><p>K-Spot Now, a Korean culture program by ${operatorName}, publishes in-depth English guides for independent visitors to Seoul. ${guides.length} guides so far, each one researched from official sources and written to answer a real visitor question.</p><p>A useful guide should change what you understand, not just add another pin to a map.</p><a class="text-link" href="/${lang}/guides/">Browse the culture guides ${uiIcon("arrow")}</a></div></section>
     <div class="content-shell"><section class="about-coverage" aria-labelledby="about-coverage-title"><h2 id="about-coverage-title">What we cover</h2><div class="theme-grid">${libraryCategories.map((category) => `<article class="theme-tile"><h3><a href="/${lang}/guides/#${category.id}">${esc(category.label)}</a></h3><p>${esc(category.blurb)}</p><p class="about-coverage-count">${guidesInCategory(category.id).length} guides</p></article>`).join("")}</div></section>
       <section class="about-sections about-accountability" aria-label="Editorial accountability">${copy.accountability.map(([label,text]) => `<article><h2>${esc(label)}</h2><p>${esc(text).replace(esc(contactEmail), `<a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>`)}</p></article>`).join("")}</section>
       <section class="guide-reading-note"><h2>Questions, corrections or a changed detail?</h2><p>Send the page URL and, if you can, the official page that shows the change.</p><a class="text-link" href="/${lang}/contact/">Contact the publication ${uiIcon("arrow")}</a> · <a href="/${lang}/editorial-policy/">Read the editorial policy</a></section>

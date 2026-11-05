@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-05T12:33:30.202Z",
+  "generatedAt": "2026-11-05T22:08:21.178Z",
   "files": {
-    "audit": "source-audit-2026-11-05.json",
-    "candidates": "official-page-candidates-2026-11-05.json",
-    "drafts": "draft-events-2026-11-05.json",
-    "reviewReport": "review-report-2026-11-05.md",
-    "reviewBoard": "review-board-2026-11-05.html",
-    "publicData": "public-data-import-2026-11-05.json",
+    "audit": "source-audit-2026-11-06.json",
+    "candidates": "official-page-candidates-2026-11-06.json",
+    "drafts": "draft-events-2026-11-06.json",
+    "reviewReport": "review-report-2026-11-06.md",
+    "reviewBoard": "review-board-2026-11-06.html",
+    "publicData": "public-data-import-2026-11-06.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 604,
-    "dateSignals": 265,
-    "draftCandidates": 66,
-    "skippedCandidates": 591,
+    "discoveredLinks": 625,
+    "dateSignals": 283,
+    "draftCandidates": 74,
+    "skippedCandidates": 604,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -81,18 +81,18 @@
       "count": 11
     },
     {
-      "key": "Korea Grand Sale / Visit Korea Committee",
-      "count": 1
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
-      "key": "Korea Policy Briefing",
+      "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 60
     },
     {
       "key": "shopping",
@@ -100,7 +100,7 @@
     },
     {
       "key": "kpop",
-      "count": 5
+      "count": 4
     },
     {
       "key": "department-store",
@@ -118,15 +118,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 549
+      "count": 561
     },
     {
       "key": "listing page is not a specific event",
-      "count": 17
-    },
-    {
-      "key": "mojibake text detected",
-      "count": 6
+      "count": 18
     },
     {
       "key": "source fetch did not succeed",
@@ -134,6 +130,10 @@
     },
     {
       "key": "curation root is not a specific event",
+      "count": 5
+    },
+    {
+      "key": "mojibake text detected",
       "count": 5
     },
     {
@@ -167,6 +167,14 @@
       "score": 139
     },
     {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 138
+    },
+    {
       "sourceName": "Melon Ticket",
       "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
@@ -197,14 +205,6 @@
       "dates": 18,
       "keywords": 7,
       "score": 135
-    },
-    {
-      "sourceName": "YES24 Ticket English",
-      "url": "https://ticket.yes24.com/english",
-      "links": 24,
-      "dates": 18,
-      "keywords": 1,
-      "score": 129
     }
   ]
 }

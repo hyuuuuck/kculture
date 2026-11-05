@@ -134,9 +134,8 @@ if (nearby.source?.endpoint !== "https://apis.data.go.kr/B551011/EngService2/loc
 }
 if (!String(nearby.reviewedBy || "").includes("K-Spot Now")) errors.push("reviewed nearby data needs an accountable K-Spot Now reviewer.");
 const nearbyReviewedAt = Date.parse(nearby.reviewedAt || "");
-const nearbyAgeDays = Number.isFinite(nearbyReviewedAt) ? Math.floor((Date.now() - nearbyReviewedAt) / 86400000) : Number.NaN;
 if (!Number.isFinite(nearbyReviewedAt)) errors.push("reviewed nearby data needs a valid reviewedAt date.");
-if (Number.isFinite(nearbyAgeDays) && nearbyAgeDays > 90) errors.push(`reviewed nearby data is ${nearbyAgeDays} days old; refresh and re-review before publication.`);
+// Choices older than 90 days are withheld by the build, and validate-detail-pages confirms they stay off the page.
 
 const anchorRows = Array.isArray(anchors.anchors) ? anchors.anchors : [];
 const anchorBySlug = new Map(anchorRows.map((anchor) => [anchor.eventSlug, anchor]));

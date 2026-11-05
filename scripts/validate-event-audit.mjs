@@ -243,7 +243,8 @@ async function checkSourceEvidence(event) {
 
 const approvedSlugs = new Set(program.indexableEvents || []);
 const auditedEvents = events.filter((event) => event.audit && approvedSlugs.has(event.slug) && String(event.endDate || "") >= today);
-if (!auditedEvents.length) {
+const hasCurrentEvents = events.some((event) => approvedSlugs.has(event.slug) && String(event.endDate || "") >= today);
+if (hasCurrentEvents && !auditedEvents.length) {
   push(errors, "event-audit", "at least one high-risk event audit block is required.");
 }
 

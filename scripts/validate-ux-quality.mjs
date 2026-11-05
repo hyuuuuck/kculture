@@ -61,7 +61,7 @@ for (const lang of publicLanguageCodes()) {
   const planner = read(lang + "/planner/index.html");
   needs(planner, ["data-planner-grid", "data-planner-empty", "data-download-saved-calendar", "data-clear-saved", "Saved only in this browser", "<noscript>"], "planner");
   const calendar = read(lang + "/calendar/index.html");
-  needs(calendar, ['href="/events.ics"', "data-gallery-scope", "calendar-month-heading"], "calendar");
+  needs(calendar, ['href="/events.ics"', "data-gallery-scope", ...(events.length ? ["calendar-month-heading"] : [])], "calendar");
   for (const kind of ["privacy","contact","cookie-policy","advertising","terms","editorial-policy","corrections"]) {
     needs(read(lang + "/" + kind + "/index.html"), ["policy-layout", "policy-nav", "article-page"], kind);
   }

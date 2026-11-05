@@ -7938,6 +7938,7 @@ function renderCalendar(lang) {
               ${items.map((event) => calendarItem(event, lang)).join("")}
             </div>
           </div>`).join("")}
+        ${groups.size ? "" : `<p class="empty-state">No dated events are listed right now. <a href="/${lang}/guides/">Browse the culture guides</a> instead.</p>`}
         <p class="empty-state gallery-empty" data-no-results hidden>${tr(lang, "noItemsYet")}</p>
       </section>
     </main>`;

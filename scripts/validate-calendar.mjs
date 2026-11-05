@@ -128,7 +128,7 @@ function validateCalendarHtml() {
     const html = fs.readFileSync(file, "utf8");
     if (!html.includes('href="/events.ics"')) push(`${lang}/calendar`, "calendar page should link to /events.ics.");
     if (!html.includes("data-gallery-scope")) push(`${lang}/calendar`, "calendar page should keep filterable gallery controls.");
-    if (!html.includes("calendar-weather")) push(`${lang}/calendar`, "calendar page should show weather planning notes.");
+    if (currentEvents.length && !html.includes("calendar-weather")) push(`${lang}/calendar`, "calendar page should show weather planning notes.");
 
     for (const event of currentEvents) {
       const href = `/${lang}/events/${event.slug}`;

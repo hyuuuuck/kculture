@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-06T06:59:55.562Z",
-  "generatedDate": "2026-11-06",
+  "generatedAt": "2026-11-06T16:00:03.886Z",
+  "generatedDate": "2026-11-07",
   "source": {
     "name": "KMA 1-hour Village Forecast RSS",
     "owner": "Korea Meteorological Administration",
@@ -36,36 +36,12 @@
       "ko": "서울특별시 중구 명동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 서울특별시 중구 명동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/1114055000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 2,
-            "maxTempC": 8,
-            "maxPopPct": 0,
-            "avgHumidityPct": 47.8,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 60,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 2,
-                "maxTempC": 8,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -74,7 +50,7 @@
             "minTempC": -1,
             "maxTempC": 9,
             "maxPopPct": 0,
-            "avgHumidityPct": 45.6,
+            "avgHumidityPct": 46,
             "minHumidityPct": 30,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -101,11 +77,11 @@
             "date": "2026-11-08",
             "hourCount": 24,
             "weatherEn": "Cloudy",
-            "weatherKo": "비",
+            "weatherKo": "흐림",
             "minTempC": 1,
-            "maxTempC": 9,
+            "maxTempC": 10,
             "maxPopPct": 60,
-            "avgHumidityPct": 67.7,
+            "avgHumidityPct": 68.1,
             "minHumidityPct": 50,
             "maxHumidityPct": 90,
             "rainLikely": true,
@@ -115,15 +91,15 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 1,
-                "maxTempC": 6,
+                "maxTempC": 7,
                 "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
                 "minTempC": 6,
-                "maxTempC": 9,
+                "maxTempC": 10,
                 "rainLikely": true
               }
             }
@@ -136,7 +112,7 @@
             "minTempC": 2,
             "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 73.8,
+            "avgHumidityPct": 74.2,
             "minHumidityPct": 50,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -145,7 +121,7 @@
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
-                "minTempC": 4,
+                "minTempC": 5,
                 "maxTempC": 7,
                 "rainLikely": false
               },
@@ -158,12 +134,43 @@
                 "rainLikely": false
               }
             }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 0,
+            "maxTempC": 12,
+            "maxPopPct": 0,
+            "avgHumidityPct": 67.7,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 85,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 0,
+                "maxTempC": 6,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 3,
+                "maxTempC": 12,
+                "rainLikely": false
+              }
+            }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": -1,
-        "maxTempC": 11,
+        "maxTempC": 12,
         "maxPopPct": 60,
         "minHumidityPct": 30,
         "maxHumidityPct": 95,
@@ -179,36 +186,12 @@
       "ko": "부산광역시 해운대구 중제1동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 부산광역시 해운대구 중제1동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/2635053000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 6,
-            "maxTempC": 14,
-            "maxPopPct": 0,
-            "avgHumidityPct": 40,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 45,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 6,
-                "maxTempC": 14,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -217,7 +200,7 @@
             "minTempC": 5,
             "maxTempC": 14,
             "maxPopPct": 0,
-            "avgHumidityPct": 43.1,
+            "avgHumidityPct": 42.1,
             "minHumidityPct": 25,
             "maxHumidityPct": 55,
             "rainLikely": false,
@@ -227,14 +210,14 @@
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
                 "minTempC": 5,
-                "maxTempC": 9,
+                "maxTempC": 10,
                 "rainLikely": false
               },
               "pm": {
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
-                "minTempC": 6,
+                "minTempC": 7,
                 "maxTempC": 14,
                 "rainLikely": false
               }
@@ -248,8 +231,8 @@
             "minTempC": 7,
             "maxTempC": 16,
             "maxPopPct": 30,
-            "avgHumidityPct": 61.5,
-            "minHumidityPct": 50,
+            "avgHumidityPct": 63.5,
+            "minHumidityPct": 55,
             "maxHumidityPct": 75,
             "rainLikely": false,
             "periods": {
@@ -265,7 +248,7 @@
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
-                "minTempC": 14,
+                "minTempC": 13,
                 "maxTempC": 16,
                 "rainLikely": false
               }
@@ -279,8 +262,8 @@
             "minTempC": 9,
             "maxTempC": 16,
             "maxPopPct": 30,
-            "avgHumidityPct": 73.8,
-            "minHumidityPct": 60,
+            "avgHumidityPct": 76.3,
+            "minHumidityPct": 70,
             "maxHumidityPct": 85,
             "rainLikely": false,
             "periods": {
@@ -289,7 +272,7 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 12,
-                "maxTempC": 14,
+                "maxTempC": 15,
                 "rainLikely": false
               },
               "pm": {
@@ -301,10 +284,41 @@
                 "rainLikely": false
               }
             }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 7,
+            "maxTempC": 16,
+            "maxPopPct": 0,
+            "avgHumidityPct": 67.5,
+            "minHumidityPct": 55,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 7,
+                "maxTempC": 13,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 8,
+                "maxTempC": 16,
+                "rainLikely": false
+              }
+            }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": 5,
         "maxTempC": 16,
         "maxPopPct": 30,
@@ -322,36 +336,12 @@
       "ko": "인천광역시 연수구 송도2동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 인천광역시 연수구 송도2동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/2818583000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 4,
-            "maxTempC": 9,
-            "maxPopPct": 0,
-            "avgHumidityPct": 50,
-            "minHumidityPct": 35,
-            "maxHumidityPct": 60,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 4,
-                "maxTempC": 9,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -360,7 +350,7 @@
             "minTempC": 1,
             "maxTempC": 9,
             "maxPopPct": 20,
-            "avgHumidityPct": 47.9,
+            "avgHumidityPct": 48.1,
             "minHumidityPct": 35,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -386,13 +376,13 @@
           {
             "date": "2026-11-08",
             "hourCount": 24,
-            "weatherEn": "Rain",
-            "weatherKo": "비",
+            "weatherEn": "Cloudy",
+            "weatherKo": "흐림",
             "minTempC": 2,
             "maxTempC": 10,
             "maxPopPct": 60,
-            "avgHumidityPct": 69,
-            "minHumidityPct": 55,
+            "avgHumidityPct": 68.5,
+            "minHumidityPct": 50,
             "maxHumidityPct": 90,
             "rainLikely": true,
             "periods": {
@@ -401,14 +391,14 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 2,
-                "maxTempC": 6,
+                "maxTempC": 7,
                 "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
-                "minTempC": 6,
+                "minTempC": 7,
                 "maxTempC": 10,
                 "rainLikely": true
               }
@@ -420,9 +410,9 @@
             "weatherEn": "Clear",
             "weatherKo": "맑음",
             "minTempC": 3,
-            "maxTempC": 10,
+            "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 72.7,
+            "avgHumidityPct": 73.5,
             "minHumidityPct": 50,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -440,16 +430,47 @@
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
                 "minTempC": 3,
-                "maxTempC": 10,
+                "maxTempC": 11,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 1,
+            "maxTempC": 11,
+            "maxPopPct": 0,
+            "avgHumidityPct": 65.8,
+            "minHumidityPct": 50,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 1,
+                "maxTempC": 7,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 6,
+                "maxTempC": 11,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": 1,
-        "maxTempC": 10,
+        "maxTempC": 11,
         "maxPopPct": 60,
         "minHumidityPct": 35,
         "maxHumidityPct": 95,
@@ -465,45 +486,21 @@
       "ko": "경기도 고양시 주교동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 경기도 고양시덕양구 주교동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4128151000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 2,
-            "maxTempC": 9,
-            "maxPopPct": 0,
-            "avgHumidityPct": 48.3,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 60,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 2,
-                "maxTempC": 9,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
             "weatherEn": "Clear",
             "weatherKo": "맑음",
-            "minTempC": -1,
+            "minTempC": -2,
             "maxTempC": 9,
             "maxPopPct": 0,
-            "avgHumidityPct": 44.2,
+            "avgHumidityPct": 44,
             "minHumidityPct": 25,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -512,7 +509,7 @@
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
-                "minTempC": -1,
+                "minTempC": -2,
                 "maxTempC": 4,
                 "rainLikely": false
               },
@@ -529,30 +526,30 @@
           {
             "date": "2026-11-08",
             "hourCount": 24,
-            "weatherEn": "Rain",
-            "weatherKo": "비",
+            "weatherEn": "Cloudy",
+            "weatherKo": "흐림",
             "minTempC": 1,
-            "maxTempC": 9,
+            "maxTempC": 10,
             "maxPopPct": 60,
-            "avgHumidityPct": 68.8,
-            "minHumidityPct": 50,
+            "avgHumidityPct": 67.5,
+            "minHumidityPct": 45,
             "maxHumidityPct": 95,
             "rainLikely": true,
             "periods": {
               "am": {
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
-                "maxPopPct": 60,
+                "maxPopPct": 30,
                 "minTempC": 1,
-                "maxTempC": 6,
-                "rainLikely": true
+                "maxTempC": 7,
+                "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
-                "minTempC": 5,
-                "maxTempC": 9,
+                "minTempC": 6,
+                "maxTempC": 10,
                 "rainLikely": true
               }
             }
@@ -563,9 +560,9 @@
             "weatherEn": "Clear",
             "weatherKo": "맑음",
             "minTempC": 1,
-            "maxTempC": 10,
+            "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 71.5,
+            "avgHumidityPct": 72.3,
             "minHumidityPct": 45,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -583,16 +580,47 @@
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
                 "minTempC": 1,
-                "maxTempC": 10,
+                "maxTempC": 11,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": -1,
+            "maxTempC": 11,
+            "maxPopPct": 0,
+            "avgHumidityPct": 65.8,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": -1,
+                "maxTempC": 7,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 4,
+                "maxTempC": 11,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
-        "minTempC": -1,
-        "maxTempC": 10,
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
+        "minTempC": -2,
+        "maxTempC": 11,
         "maxPopPct": 60,
         "minHumidityPct": 25,
         "maxHumidityPct": 95,
@@ -608,36 +636,12 @@
       "ko": "경기도 과천시 갈현동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 경기도 과천시 갈현동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4129052000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 3,
-            "maxTempC": 8,
-            "maxPopPct": 0,
-            "avgHumidityPct": 48.9,
-            "minHumidityPct": 35,
-            "maxHumidityPct": 60,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 3,
-                "maxTempC": 8,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -646,7 +650,7 @@
             "minTempC": -1,
             "maxTempC": 9,
             "maxPopPct": 0,
-            "avgHumidityPct": 46.9,
+            "avgHumidityPct": 48.5,
             "minHumidityPct": 30,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -672,8 +676,8 @@
           {
             "date": "2026-11-08",
             "hourCount": 24,
-            "weatherEn": "Rain",
-            "weatherKo": "비",
+            "weatherEn": "Cloudy",
+            "weatherKo": "흐림",
             "minTempC": 1,
             "maxTempC": 10,
             "maxPopPct": 60,
@@ -687,12 +691,12 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 1,
-                "maxTempC": 6,
+                "maxTempC": 7,
                 "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
                 "minTempC": 6,
                 "maxTempC": 10,
@@ -706,10 +710,10 @@
             "weatherEn": "Clear",
             "weatherKo": "맑음",
             "minTempC": 2,
-            "maxTempC": 10,
+            "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 74.4,
-            "minHumidityPct": 50,
+            "avgHumidityPct": 76.7,
+            "minHumidityPct": 55,
             "maxHumidityPct": 95,
             "rainLikely": false,
             "periods": {
@@ -726,16 +730,47 @@
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
                 "minTempC": 2,
-                "maxTempC": 10,
+                "maxTempC": 11,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 0,
+            "maxTempC": 11,
+            "maxPopPct": 0,
+            "avgHumidityPct": 67.1,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 85,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 0,
+                "maxTempC": 7,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 4,
+                "maxTempC": 11,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": -1,
-        "maxTempC": 10,
+        "maxTempC": 11,
         "maxPopPct": 60,
         "minHumidityPct": 30,
         "maxHumidityPct": 95,
@@ -751,36 +786,12 @@
       "ko": "충청남도 보령시 대천1동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 충청남도 보령시 대천1동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4418051500",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 7,
-            "maxTempC": 10,
-            "maxPopPct": 20,
-            "avgHumidityPct": 53.9,
-            "minHumidityPct": 45,
-            "maxHumidityPct": 65,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 20,
-                "minTempC": 7,
-                "maxTempC": 10,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -789,7 +800,7 @@
             "minTempC": 3,
             "maxTempC": 11,
             "maxPopPct": 20,
-            "avgHumidityPct": 52.9,
+            "avgHumidityPct": 53.3,
             "minHumidityPct": 35,
             "maxHumidityPct": 65,
             "rainLikely": false,
@@ -820,8 +831,8 @@
             "minTempC": 3,
             "maxTempC": 12,
             "maxPopPct": 30,
-            "avgHumidityPct": 51.3,
-            "minHumidityPct": 40,
+            "avgHumidityPct": 54.2,
+            "minHumidityPct": 45,
             "maxHumidityPct": 75,
             "rainLikely": false,
             "periods": {
@@ -837,7 +848,7 @@
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
-                "minTempC": 9,
+                "minTempC": 8,
                 "maxTempC": 12,
                 "rainLikely": false
               }
@@ -849,18 +860,49 @@
             "weatherEn": "Clear",
             "weatherKo": "맑음",
             "minTempC": 5,
-            "maxTempC": 11,
-            "maxPopPct": 30,
-            "avgHumidityPct": 74,
+            "maxTempC": 12,
+            "maxPopPct": 60,
+            "avgHumidityPct": 75.4,
             "minHumidityPct": 60,
             "maxHumidityPct": 90,
-            "rainLikely": false,
+            "rainLikely": true,
             "periods": {
               "am": {
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
-                "maxPopPct": 30,
+                "maxPopPct": 60,
                 "minTempC": 6,
+                "maxTempC": 9,
+                "rainLikely": true
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 5,
+                "maxTempC": 12,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 2,
+            "maxTempC": 12,
+            "maxPopPct": 0,
+            "avgHumidityPct": 66.7,
+            "minHumidityPct": 50,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 2,
                 "maxTempC": 9,
                 "rainLikely": false
               },
@@ -868,21 +910,21 @@
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
-                "minTempC": 5,
-                "maxTempC": 11,
+                "minTempC": 7,
+                "maxTempC": 12,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
-        "minTempC": 3,
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
+        "minTempC": 2,
         "maxTempC": 12,
-        "maxPopPct": 30,
+        "maxPopPct": 60,
         "minHumidityPct": 35,
         "maxHumidityPct": 90,
-        "rainLikely": false,
+        "rainLikely": true,
         "weatherEn": "Clear",
         "weatherKo": "맑음"
       }
@@ -894,36 +936,12 @@
       "ko": "대구광역시 달서구 성당동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 대구광역시 달서구 성당동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/2729051500",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 3,
-            "maxTempC": 11,
-            "maxPopPct": 0,
-            "avgHumidityPct": 40.6,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 50,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 3,
-                "maxTempC": 11,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -932,9 +950,9 @@
             "minTempC": 1,
             "maxTempC": 12,
             "maxPopPct": 0,
-            "avgHumidityPct": 41.9,
+            "avgHumidityPct": 43.5,
             "minHumidityPct": 25,
-            "maxHumidityPct": 55,
+            "maxHumidityPct": 60,
             "rainLikely": false,
             "periods": {
               "am": {
@@ -963,9 +981,9 @@
             "minTempC": 1,
             "maxTempC": 13,
             "maxPopPct": 30,
-            "avgHumidityPct": 63.1,
-            "minHumidityPct": 45,
-            "maxHumidityPct": 85,
+            "avgHumidityPct": 65,
+            "minHumidityPct": 50,
+            "maxHumidityPct": 90,
             "rainLikely": false,
             "periods": {
               "am": {
@@ -973,7 +991,7 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 1,
-                "maxTempC": 9,
+                "maxTempC": 10,
                 "rainLikely": false
               },
               "pm": {
@@ -991,20 +1009,51 @@
             "hourCount": 24,
             "weatherEn": "Clear",
             "weatherKo": "맑음",
-            "minTempC": 4,
-            "maxTempC": 13,
-            "maxPopPct": 20,
-            "avgHumidityPct": 77.1,
-            "minHumidityPct": 60,
+            "minTempC": 5,
+            "maxTempC": 14,
+            "maxPopPct": 30,
+            "avgHumidityPct": 79.8,
+            "minHumidityPct": 65,
             "maxHumidityPct": 90,
             "rainLikely": false,
             "periods": {
               "am": {
                 "weatherEn": "Mostly Cloudy",
                 "weatherKo": "구름 많음",
-                "maxPopPct": 20,
-                "minTempC": 6,
+                "maxPopPct": 30,
+                "minTempC": 7,
                 "maxTempC": 10,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 30,
+                "minTempC": 5,
+                "maxTempC": 14,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 1,
+            "maxTempC": 14,
+            "maxPopPct": 0,
+            "avgHumidityPct": 63.3,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 1,
+                "maxTempC": 9,
                 "rainLikely": false
               },
               "pm": {
@@ -1012,16 +1061,16 @@
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
                 "minTempC": 4,
-                "maxTempC": 13,
+                "maxTempC": 14,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": 1,
-        "maxTempC": 13,
+        "maxTempC": 14,
         "maxPopPct": 30,
         "minHumidityPct": 25,
         "maxHumidityPct": 90,
@@ -1037,36 +1086,12 @@
       "ko": "경상남도 진주시 천전동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 경상남도 진주시 천전동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4817051500",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 5,
-            "maxTempC": 14,
-            "maxPopPct": 0,
-            "avgHumidityPct": 42.8,
-            "minHumidityPct": 35,
-            "maxHumidityPct": 50,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 5,
-                "maxTempC": 14,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -1075,9 +1100,9 @@
             "minTempC": 1,
             "maxTempC": 13,
             "maxPopPct": 0,
-            "avgHumidityPct": 44.4,
+            "avgHumidityPct": 46.9,
             "minHumidityPct": 25,
-            "maxHumidityPct": 65,
+            "maxHumidityPct": 70,
             "rainLikely": false,
             "periods": {
               "am": {
@@ -1106,9 +1131,9 @@
             "minTempC": 2,
             "maxTempC": 13,
             "maxPopPct": 30,
-            "avgHumidityPct": 56.9,
-            "minHumidityPct": 45,
-            "maxHumidityPct": 80,
+            "avgHumidityPct": 60.2,
+            "minHumidityPct": 50,
+            "maxHumidityPct": 85,
             "rainLikely": false,
             "periods": {
               "am": {
@@ -1116,7 +1141,7 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 2,
-                "maxTempC": 9,
+                "maxTempC": 10,
                 "rainLikely": false
               },
               "pm": {
@@ -1132,13 +1157,13 @@
           {
             "date": "2026-11-09",
             "hourCount": 24,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
+            "weatherEn": "Cloudy",
+            "weatherKo": "흐림",
             "minTempC": 5,
             "maxTempC": 14,
             "maxPopPct": 30,
-            "avgHumidityPct": 73.1,
-            "minHumidityPct": 55,
+            "avgHumidityPct": 76.7,
+            "minHumidityPct": 65,
             "maxHumidityPct": 90,
             "rainLikely": false,
             "periods": {
@@ -1147,7 +1172,7 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 8,
-                "maxTempC": 13,
+                "maxTempC": 12,
                 "rainLikely": false
               },
               "pm": {
@@ -1159,12 +1184,43 @@
                 "rainLikely": false
               }
             }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 1,
+            "maxTempC": 15,
+            "maxPopPct": 0,
+            "avgHumidityPct": 64,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 80,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 1,
+                "maxTempC": 11,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 4,
+                "maxTempC": 15,
+                "rainLikely": false
+              }
+            }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": 1,
-        "maxTempC": 14,
+        "maxTempC": 15,
         "maxPopPct": 30,
         "minHumidityPct": 25,
         "maxHumidityPct": 90,
@@ -1180,46 +1236,22 @@
       "ko": "경상북도 안동시 중구동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 경상북도 안동시 중구동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4717051000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 2,
-            "maxTempC": 10,
-            "maxPopPct": 0,
-            "avgHumidityPct": 42.8,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 50,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 2,
-                "maxTempC": 10,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
             "weatherEn": "Clear",
             "weatherKo": "맑음",
-            "minTempC": -1,
+            "minTempC": -2,
             "maxTempC": 10,
             "maxPopPct": 0,
-            "avgHumidityPct": 46,
-            "minHumidityPct": 30,
+            "avgHumidityPct": 47.3,
+            "minHumidityPct": 25,
             "maxHumidityPct": 65,
             "rainLikely": false,
             "periods": {
@@ -1227,7 +1259,7 @@
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
-                "minTempC": -1,
+                "minTempC": -2,
                 "maxTempC": 6,
                 "rainLikely": false
               },
@@ -1235,7 +1267,7 @@
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 0,
-                "minTempC": 1,
+                "minTempC": 0,
                 "maxTempC": 10,
                 "rainLikely": false
               }
@@ -1246,19 +1278,19 @@
             "hourCount": 24,
             "weatherEn": "Cloudy",
             "weatherKo": "흐림",
-            "minTempC": 0,
-            "maxTempC": 11,
+            "minTempC": -1,
+            "maxTempC": 12,
             "maxPopPct": 30,
             "avgHumidityPct": 68.8,
             "minHumidityPct": 55,
-            "maxHumidityPct": 95,
+            "maxHumidityPct": 90,
             "rainLikely": false,
             "periods": {
               "am": {
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 30,
-                "minTempC": 0,
+                "minTempC": -1,
                 "maxTempC": 9,
                 "rainLikely": false
               },
@@ -1267,7 +1299,7 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 7,
-                "maxTempC": 11,
+                "maxTempC": 12,
                 "rainLikely": false
               }
             }
@@ -1277,10 +1309,10 @@
             "hourCount": 24,
             "weatherEn": "Clear",
             "weatherKo": "맑음",
-            "minTempC": 4,
-            "maxTempC": 12,
+            "minTempC": 3,
+            "maxTempC": 13,
             "maxPopPct": 30,
-            "avgHumidityPct": 80.6,
+            "avgHumidityPct": 81,
             "minHumidityPct": 60,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -1297,19 +1329,50 @@
                 "weatherEn": "Clear",
                 "weatherKo": "맑음",
                 "maxPopPct": 20,
-                "minTempC": 4,
+                "minTempC": 3,
+                "maxTempC": 13,
+                "rainLikely": false
+              }
+            }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": -2,
+            "maxTempC": 12,
+            "maxPopPct": 0,
+            "avgHumidityPct": 72.3,
+            "minHumidityPct": 45,
+            "maxHumidityPct": 90,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": -2,
+                "maxTempC": 8,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 2,
                 "maxTempC": 12,
                 "rainLikely": false
               }
             }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
-        "minTempC": -1,
-        "maxTempC": 12,
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
+        "minTempC": -2,
+        "maxTempC": 13,
         "maxPopPct": 30,
-        "minHumidityPct": 30,
+        "minHumidityPct": 25,
         "maxHumidityPct": 95,
         "rainLikely": false,
         "weatherEn": "Clear",
@@ -1323,36 +1386,12 @@
       "ko": "경기도 성남시분당구 백현동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 경기도 성남시분당구 백현동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/4113565700",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 3,
-            "maxTempC": 8,
-            "maxPopPct": 0,
-            "avgHumidityPct": 46.7,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 55,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 3,
-                "maxTempC": 8,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -1361,7 +1400,7 @@
             "minTempC": -1,
             "maxTempC": 9,
             "maxPopPct": 0,
-            "avgHumidityPct": 46.3,
+            "avgHumidityPct": 47.3,
             "minHumidityPct": 30,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -1392,8 +1431,8 @@
             "minTempC": 1,
             "maxTempC": 10,
             "maxPopPct": 60,
-            "avgHumidityPct": 66,
-            "minHumidityPct": 50,
+            "avgHumidityPct": 65,
+            "minHumidityPct": 45,
             "maxHumidityPct": 90,
             "rainLikely": true,
             "periods": {
@@ -1406,8 +1445,8 @@
                 "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
                 "minTempC": 6,
                 "maxTempC": 10,
@@ -1423,7 +1462,7 @@
             "minTempC": 2,
             "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 74.8,
+            "avgHumidityPct": 76.7,
             "minHumidityPct": 55,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -1445,10 +1484,41 @@
                 "rainLikely": false
               }
             }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 0,
+            "maxTempC": 11,
+            "maxPopPct": 0,
+            "avgHumidityPct": 65.2,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 85,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 0,
+                "maxTempC": 7,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 4,
+                "maxTempC": 11,
+                "rainLikely": false
+              }
+            }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": -1,
         "maxTempC": 11,
         "maxPopPct": 60,
@@ -1466,36 +1536,12 @@
       "ko": "서울특별시 중구 명동",
       "title": "기상청 1시간단위 동네예보 웹서비스 - 서울특별시 중구 명동",
       "sourceUrl": "https://www.weather.go.kr/w/weather/forecast/short-term.do#dong/1114055000",
-      "publishedAtText": "2026년 11월 06일 (금)요일 14:00",
-      "baseTime": "202611061400",
-      "generatedDate": "2026-11-06",
-      "rowCount": 81,
+      "publishedAtText": "2026년 11월 06일 (금)요일 23:00",
+      "baseTime": "202611062300",
+      "generatedDate": "2026-11-07",
+      "rowCount": 96,
       "summary": {
         "days": [
-          {
-            "date": "2026-11-06",
-            "hourCount": 9,
-            "weatherEn": "Clear",
-            "weatherKo": "맑음",
-            "minTempC": 2,
-            "maxTempC": 8,
-            "maxPopPct": 0,
-            "avgHumidityPct": 47.8,
-            "minHumidityPct": 30,
-            "maxHumidityPct": 60,
-            "rainLikely": false,
-            "periods": {
-              "am": null,
-              "pm": {
-                "weatherEn": "Clear",
-                "weatherKo": "맑음",
-                "maxPopPct": 0,
-                "minTempC": 2,
-                "maxTempC": 8,
-                "rainLikely": false
-              }
-            }
-          },
           {
             "date": "2026-11-07",
             "hourCount": 24,
@@ -1504,7 +1550,7 @@
             "minTempC": -1,
             "maxTempC": 9,
             "maxPopPct": 0,
-            "avgHumidityPct": 45.6,
+            "avgHumidityPct": 46,
             "minHumidityPct": 30,
             "maxHumidityPct": 60,
             "rainLikely": false,
@@ -1531,11 +1577,11 @@
             "date": "2026-11-08",
             "hourCount": 24,
             "weatherEn": "Cloudy",
-            "weatherKo": "비",
+            "weatherKo": "흐림",
             "minTempC": 1,
-            "maxTempC": 9,
+            "maxTempC": 10,
             "maxPopPct": 60,
-            "avgHumidityPct": 67.7,
+            "avgHumidityPct": 68.1,
             "minHumidityPct": 50,
             "maxHumidityPct": 90,
             "rainLikely": true,
@@ -1545,15 +1591,15 @@
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
                 "minTempC": 1,
-                "maxTempC": 6,
+                "maxTempC": 7,
                 "rainLikely": false
               },
               "pm": {
-                "weatherEn": "Rain",
-                "weatherKo": "비",
+                "weatherEn": "Cloudy",
+                "weatherKo": "흐림",
                 "maxPopPct": 60,
                 "minTempC": 6,
-                "maxTempC": 9,
+                "maxTempC": 10,
                 "rainLikely": true
               }
             }
@@ -1566,7 +1612,7 @@
             "minTempC": 2,
             "maxTempC": 11,
             "maxPopPct": 30,
-            "avgHumidityPct": 73.8,
+            "avgHumidityPct": 74.2,
             "minHumidityPct": 50,
             "maxHumidityPct": 95,
             "rainLikely": false,
@@ -1575,7 +1621,7 @@
                 "weatherEn": "Cloudy",
                 "weatherKo": "흐림",
                 "maxPopPct": 30,
-                "minTempC": 4,
+                "minTempC": 5,
                 "maxTempC": 7,
                 "rainLikely": false
               },
@@ -1588,12 +1634,43 @@
                 "rainLikely": false
               }
             }
+          },
+          {
+            "date": "2026-11-10",
+            "hourCount": 24,
+            "weatherEn": "Clear",
+            "weatherKo": "맑음",
+            "minTempC": 0,
+            "maxTempC": 12,
+            "maxPopPct": 0,
+            "avgHumidityPct": 67.7,
+            "minHumidityPct": 40,
+            "maxHumidityPct": 85,
+            "rainLikely": false,
+            "periods": {
+              "am": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 0,
+                "maxTempC": 6,
+                "rainLikely": false
+              },
+              "pm": {
+                "weatherEn": "Clear",
+                "weatherKo": "맑음",
+                "maxPopPct": 0,
+                "minTempC": 3,
+                "maxTempC": 12,
+                "rainLikely": false
+              }
+            }
           }
         ],
-        "firstDate": "2026-11-06",
-        "lastDate": "2026-11-09",
+        "firstDate": "2026-11-07",
+        "lastDate": "2026-11-10",
         "minTempC": -1,
-        "maxTempC": 11,
+        "maxTempC": 12,
         "maxPopPct": 60,
         "minHumidityPct": 30,
         "maxHumidityPct": 95,

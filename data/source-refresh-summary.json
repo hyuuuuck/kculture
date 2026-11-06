@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T22:08:21.178Z",
+  "generatedAt": "2026-11-06T07:01:37.259Z",
   "files": {
     "audit": "source-audit-2026-11-06.json",
     "candidates": "official-page-candidates-2026-11-06.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 625,
-    "dateSignals": 283,
-    "draftCandidates": 74,
-    "skippedCandidates": 604,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 556,
+    "dateSignals": 241,
+    "draftCandidates": 48,
+    "skippedCandidates": 561,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -43,6 +43,11 @@
       "error": "fetch failed"
     },
     {
+      "sourceName": "SHOWALA exhibition listing",
+      "status": "ERR",
+      "error": "timeout"
+    },
+    {
       "sourceName": "Lotte Duty Free",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
@@ -61,13 +66,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 21
-    },
     {
       "key": "Visit Seoul",
       "count": 18
@@ -81,30 +87,34 @@
       "count": 11
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "key": "Shinsegae Group Newsroom",
+      "count": 2
     },
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
+      "count": 1
+    },
+    {
+      "key": "Korea Policy Briefing",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 60
+      "count": 32
     },
     {
       "key": "shopping",
       "count": 6
     },
     {
-      "key": "kpop",
-      "count": 4
+      "key": "department-store",
+      "count": 5
     },
     {
-      "key": "department-store",
-      "count": 2
+      "key": "kpop",
+      "count": 3
     },
     {
       "key": "duty-free",
@@ -118,15 +128,15 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 561
+      "count": 520
     },
     {
       "key": "listing page is not a specific event",
-      "count": 18
+      "count": 17
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",
@@ -134,7 +144,7 @@
     },
     {
       "key": "mojibake text detected",
-      "count": 5
+      "count": 3
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -167,22 +177,6 @@
       "score": 139
     },
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 138
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 138
-    },
-    {
       "sourceName": "COEX Event Calendar",
       "url": "https://www.coex.co.kr/en/",
       "links": 24,
@@ -205,6 +199,22 @@
       "dates": 18,
       "keywords": 7,
       "score": 135
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 22,
+      "dates": 3,
+      "keywords": 8,
+      "score": 116
     }
   ]
 }

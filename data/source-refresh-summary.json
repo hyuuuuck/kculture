@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T16:01:51.633Z",
+  "generatedAt": "2026-11-06T21:39:07.628Z",
   "files": {
     "audit": "source-audit-2026-11-07.json",
     "candidates": "official-page-candidates-2026-11-07.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 601,
+    "discoveredLinks": 605,
     "dateSignals": 260,
     "draftCandidates": 71,
-    "skippedCandidates": 583,
+    "skippedCandidates": 587,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -59,8 +59,8 @@
     },
     {
       "sourceName": "AK Plaza Events",
-      "status": 400,
-      "error": ""
+      "status": "ERR",
+      "error": "fetch failed"
     }
   ],
   "topDraftSources": [
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 544
+      "count": 548
     },
     {
       "key": "listing page is not a specific event",

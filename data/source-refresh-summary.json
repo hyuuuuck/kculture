@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-07T06:15:24.297Z",
+  "generatedAt": "2026-11-07T20:20:16.229Z",
   "files": {
-    "audit": "source-audit-2026-11-07.json",
-    "candidates": "official-page-candidates-2026-11-07.json",
-    "drafts": "draft-events-2026-11-07.json",
-    "reviewReport": "review-report-2026-11-07.md",
-    "reviewBoard": "review-board-2026-11-07.html",
-    "publicData": "public-data-import-2026-11-07.json",
+    "audit": "source-audit-2026-11-08.json",
+    "candidates": "official-page-candidates-2026-11-08.json",
+    "drafts": "draft-events-2026-11-08.json",
+    "reviewReport": "review-report-2026-11-08.md",
+    "reviewBoard": "review-board-2026-11-08.html",
+    "publicData": "public-data-import-2026-11-08.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 3,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 603,
+    "discoveredLinks": 608,
     "dateSignals": 260,
     "draftCandidates": 71,
-    "skippedCandidates": 585,
+    "skippedCandidates": 590,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -99,11 +99,11 @@
       "count": 5
     },
     {
-      "key": "kpop",
+      "key": "shopping",
       "count": 5
     },
     {
-      "key": "shopping",
+      "key": "kpop",
       "count": 4
     },
     {
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 546
+      "count": 552
     },
     {
       "key": "listing page is not a specific event",
@@ -133,11 +133,11 @@
       "count": 6
     },
     {
-      "key": "mojibake text detected",
-      "count": 3
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
     },
     {
-      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "key": "mojibake text detected",
       "count": 2
     }
   ],

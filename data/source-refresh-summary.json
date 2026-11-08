@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T15:24:29.943Z",
+  "generatedAt": "2026-11-08T20:38:55.034Z",
   "files": {
     "audit": "source-audit-2026-11-09.json",
     "candidates": "official-page-candidates-2026-11-09.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
+    "auditOk": 53,
+    "auditFailed": 3,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 602,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 609,
     "dateSignals": 260,
-    "draftCandidates": 53,
-    "skippedCandidates": 602,
+    "draftCandidates": 67,
+    "skippedCandidates": 595,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,14 +61,13 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -82,10 +81,6 @@
       "count": 10
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
-    },
-    {
       "key": "Shinsegae Group Newsroom",
       "count": 2
     },
@@ -97,7 +92,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 37
+      "count": 49
     },
     {
       "key": "department-store",
@@ -109,7 +104,7 @@
     },
     {
       "key": "kpop",
-      "count": 2
+      "count": 4
     },
     {
       "key": "beauty",
@@ -123,26 +118,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 560
+      "count": 556
     },
     {
       "key": "listing page is not a specific event",
-      "count": 18
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "count": 17
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 2
     },
     {
-      "key": "already published similar event: gwangalli-m-drone-light-show-2026",
+      "key": "duplicate draft source URL",
       "count": 2
     }
   ],
@@ -180,11 +175,11 @@
       "score": 139
     },
     {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
       "links": 24,
       "dates": 18,
-      "keywords": 2,
+      "keywords": 5,
       "score": 138
     },
     {

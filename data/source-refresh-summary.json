@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-11-08T06:20:33.559Z",
+  "generatedAt": "2026-11-08T15:24:29.943Z",
   "files": {
-    "audit": "source-audit-2026-11-08.json",
-    "candidates": "official-page-candidates-2026-11-08.json",
-    "drafts": "draft-events-2026-11-08.json",
-    "reviewReport": "review-report-2026-11-08.md",
-    "reviewBoard": "review-board-2026-11-08.html",
-    "publicData": "public-data-import-2026-11-08.json",
+    "audit": "source-audit-2026-11-09.json",
+    "candidates": "official-page-candidates-2026-11-09.json",
+    "drafts": "draft-events-2026-11-09.json",
+    "reviewReport": "review-report-2026-11-09.md",
+    "reviewBoard": "review-board-2026-11-09.html",
+    "publicData": "public-data-import-2026-11-09.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
-    "fallbackSources": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 604,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 602,
     "dateSignals": 260,
-    "draftCandidates": 71,
-    "skippedCandidates": 586,
+    "draftCandidates": 53,
+    "skippedCandidates": 602,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,16 +61,17 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
     {
-      "key": "Melon Ticket",
-      "count": 22
-    },
-    {
       "key": "Visit Seoul",
-      "count": 18
+      "count": 16
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -78,7 +79,11 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 12
+      "count": 10
+    },
+    {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 8
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -92,11 +97,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 55
+      "count": 37
     },
     {
       "key": "department-store",
-      "count": 5
+      "count": 6
     },
     {
       "key": "shopping",
@@ -104,40 +109,40 @@
     },
     {
       "key": "kpop",
-      "count": 4
+      "count": 2
     },
     {
-      "key": "duty-free",
+      "key": "beauty",
       "count": 1
     },
     {
-      "key": "travel-benefits",
+      "key": "duty-free",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 548
+      "count": 560
     },
     {
       "key": "listing page is not a specific event",
-      "count": 17
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 6
+      "count": 18
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 2
     },
     {
-      "key": "mojibake text detected",
+      "key": "already published similar event: gwangalli-m-drone-light-show-2026",
       "count": 2
     }
   ],
@@ -156,7 +161,15 @@
       "links": 24,
       "dates": 18,
       "keywords": 4,
-      "score": 141
+      "score": 140
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 139
     },
     {
       "sourceName": "Seoul Grand Park",
@@ -167,11 +180,11 @@
       "score": 139
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
+      "keywords": 2,
       "score": 138
     },
     {
@@ -189,14 +202,6 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
-    },
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 24,
-      "dates": 18,
-      "keywords": 7,
-      "score": 135
     },
     {
       "sourceName": "YES24 Ticket English",

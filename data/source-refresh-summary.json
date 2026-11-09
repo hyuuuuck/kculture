@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-11-09T06:53:47.486Z",
+  "generatedAt": "2026-11-09T18:57:28.330Z",
   "files": {
-    "audit": "source-audit-2026-11-09.json",
-    "candidates": "official-page-candidates-2026-11-09.json",
-    "drafts": "draft-events-2026-11-09.json",
-    "reviewReport": "review-report-2026-11-09.md",
-    "reviewBoard": "review-board-2026-11-09.html",
-    "publicData": "public-data-import-2026-11-09.json",
+    "audit": "source-audit-2026-11-10.json",
+    "candidates": "official-page-candidates-2026-11-10.json",
+    "drafts": "draft-events-2026-11-10.json",
+    "reviewReport": "review-report-2026-11-10.md",
+    "reviewBoard": "review-board-2026-11-10.html",
+    "publicData": "public-data-import-2026-11-10.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 627,
-    "dateSignals": 282,
-    "draftCandidates": 75,
-    "skippedCandidates": 605,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 583,
+    "dateSignals": 236,
+    "draftCandidates": 43,
+    "skippedCandidates": 593,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,13 +61,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "Visit Seoul",
       "count": 16
@@ -81,34 +82,38 @@
       "count": 10
     },
     {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 8
+      "key": "Korea Grand Sale / Visit Korea Committee",
+      "count": 1
     },
     {
-      "key": "CJ Olive Young Newsroom",
+      "key": "Korea Policy Briefing",
+      "count": 1
+    },
+    {
+      "key": "Korea Sale FESTA",
       "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
-    },
-    {
-      "key": "department-store",
-      "count": 5
+      "count": 29
     },
     {
       "key": "shopping",
       "count": 5
     },
     {
-      "key": "kpop",
+      "key": "department-store",
       "count": 4
     },
     {
-      "key": "beauty",
+      "key": "kpop",
       "count": 2
+    },
+    {
+      "key": "beauty",
+      "count": 1
     },
     {
       "key": "duty-free",
@@ -118,26 +123,26 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 562
+      "count": 554
     },
     {
       "key": "listing page is not a specific event",
-      "count": 18
-    },
-    {
-      "key": "curation root is not a specific event",
-      "count": 6
+      "count": 17
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
-      "key": "mojibake text detected",
-      "count": 3
+      "key": "curation root is not a specific event",
+      "count": 5
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
+    },
+    {
+      "key": "duplicate draft source URL",
       "count": 2
     }
   ],
@@ -171,15 +176,7 @@
       "url": "https://grandpark.seoul.go.kr/main.do",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 139
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
+      "keywords": 4,
       "score": 138
     },
     {
@@ -199,12 +196,20 @@
       "score": 136
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
       "links": 24,
       "dates": 18,
-      "keywords": 5,
-      "score": 135
+      "keywords": 1,
+      "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 24,
+      "dates": 2,
+      "keywords": 9,
+      "score": 121
     }
   ]
 }

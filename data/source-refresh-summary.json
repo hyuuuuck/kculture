@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T02:48:18.147Z",
+  "generatedAt": "2026-11-10T12:47:28.748Z",
   "files": {
     "audit": "source-audit-2026-11-10.json",
     "candidates": "official-page-candidates-2026-11-10.json",
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 606,
-    "dateSignals": 252,
-    "draftCandidates": 52,
-    "skippedCandidates": 607,
+    "discoveredLinks": 629,
+    "dateSignals": 248,
+    "draftCandidates": 53,
+    "skippedCandidates": 629,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -71,7 +71,7 @@
   "topDraftSources": [
     {
       "key": "Visit Seoul",
-      "count": 16
+      "count": 17
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -90,30 +90,30 @@
       "count": 2
     },
     {
-      "key": "Korea Grand Sale / Visit Korea Committee",
-      "count": 1
+      "key": "Weverse Shop BTS Notices",
+      "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 37
+      "count": 36
     },
     {
       "key": "department-store",
       "count": 5
     },
     {
-      "key": "shopping",
-      "count": 5
+      "key": "kpop",
+      "count": 4
     },
     {
-      "key": "kpop",
-      "count": 2
+      "key": "shopping",
+      "count": 4
     },
     {
       "key": "beauty",
-      "count": 1
+      "count": 2
     },
     {
       "key": "duty-free",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 565
+      "count": 586
     },
     {
       "key": "listing page is not a specific event",
@@ -139,7 +139,7 @@
     },
     {
       "key": "mojibake text detected",
-      "count": 3
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",

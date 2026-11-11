@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T21:51:25.327Z",
+  "generatedAt": "2026-11-11T06:46:39.260Z",
   "files": {
     "audit": "source-audit-2026-11-11.json",
     "candidates": "official-page-candidates-2026-11-11.json",
@@ -17,12 +17,12 @@
     "auditFailed": 2,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 48,
-    "candidateFailed": 5,
-    "discoveredLinks": 629,
-    "dateSignals": 275,
-    "draftCandidates": 76,
-    "skippedCandidates": 606,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 654,
+    "dateSignals": 267,
+    "draftCandidates": 72,
+    "skippedCandidates": 635,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,21 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
@@ -68,11 +83,11 @@
       "count": 17
     },
     {
-      "key": "NOL World Seoul Pop-ups",
+      "key": "NOL World Ticket",
       "count": 11
     },
     {
-      "key": "NOL World Ticket",
+      "key": "NOL World Seoul Pop-ups",
       "count": 10
     },
     {
@@ -80,56 +95,56 @@
       "count": 8
     },
     {
-      "key": "Shinsegae Group Newsroom",
+      "key": "Weverse Shop BTS Notices",
       "count": 2
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 57
-    },
-    {
-      "key": "department-store",
-      "count": 6
+      "count": 58
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 5
     },
     {
-      "key": "shopping",
-      "count": 3
+      "key": "department-store",
+      "count": 4
     },
     {
       "key": "beauty",
       "count": 2
     },
     {
-      "key": "duty-free",
+      "key": "shopping",
+      "count": 2
+    },
+    {
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 564
+      "count": 591
     },
     {
       "key": "listing page is not a specific event",
       "count": 18
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 6
+      "key": "source fetch did not succeed",
+      "count": 8
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 5
     },
     {
       "key": "mojibake text detected",
-      "count": 3
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -138,12 +153,28 @@
   ],
   "highSignalCandidates": [
     {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
+    },
+    {
       "sourceName": "NOL World Ticket",
       "url": "https://world.nol.com/",
       "links": 24,
       "dates": 18,
       "keywords": 7,
       "score": 141
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 8,
+      "score": 140
     },
     {
       "sourceName": "Visit Seoul",
@@ -184,22 +215,6 @@
       "dates": 18,
       "keywords": 3,
       "score": 136
-    },
-    {
-      "sourceName": "NOL World Seoul Pop-ups",
-      "url": "https://world.nol.com/en/regions/seoul/festas",
-      "links": 23,
-      "dates": 18,
-      "keywords": 7,
-      "score": 136
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 135
     }
   ]
 }

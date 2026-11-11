@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T16:21:05.771Z",
+  "generatedAt": "2026-11-11T22:54:18.042Z",
   "files": {
     "audit": "source-audit-2026-11-12.json",
     "candidates": "official-page-candidates-2026-11-12.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 51,
+    "auditFailed": 5,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 616,
-    "dateSignals": 274,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 560,
+    "dateSignals": 256,
     "draftCandidates": 69,
-    "skippedCandidates": 600,
+    "skippedCandidates": 544,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -51,6 +51,16 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Hyundai Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Hyundai Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "Galleria Department Store",
@@ -118,18 +128,18 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 562
+      "count": 506
     },
     {
       "key": "listing page is not a specific event",
       "count": 17
     },
     {
-      "key": "curation root is not a specific event",
-      "count": 6
+      "key": "source fetch did not succeed",
+      "count": 8
     },
     {
-      "key": "source fetch did not succeed",
+      "key": "curation root is not a specific event",
       "count": 6
     },
     {
@@ -137,8 +147,8 @@
       "count": 2
     },
     {
-      "key": "mojibake text detected",
-      "count": 2
+      "key": "already published similar event: dialogue-in-the-dark-bukchon-2026",
+      "count": 1
     }
   ],
   "highSignalCandidates": [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T01:13:49.395Z",
+  "generatedAt": "2026-11-13T12:23:55.210Z",
   "files": {
     "audit": "source-audit-2026-11-13.json",
     "candidates": "official-page-candidates-2026-11-13.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
+    "auditOk": 53,
+    "auditFailed": 3,
     "fallbackSources": 3,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 613,
-    "dateSignals": 253,
-    "draftCandidates": 56,
-    "skippedCandidates": 610,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 611,
+    "dateSignals": 256,
+    "draftCandidates": 76,
+    "skippedCandidates": 588,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -61,29 +61,24 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
-    },
-    {
-      "sourceName": "Melon Ticket",
-      "status": 423,
-      "error": ""
     }
   ],
   "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
     {
       "key": "Visit Seoul",
       "count": 17
     },
     {
+      "key": "NOL World Ticket",
+      "count": 16
+    },
+    {
       "key": "NOL World Seoul Pop-ups",
       "count": 12
-    },
-    {
-      "key": "NOL World Ticket",
-      "count": 11
-    },
-    {
-      "key": "Busan Metropolitan City Events and English News",
-      "count": 7
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -97,11 +92,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 38
+      "count": 53
     },
     {
       "key": "kpop",
-      "count": 6
+      "count": 11
     },
     {
       "key": "department-store",
@@ -123,19 +118,19 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 568
+      "count": 549
     },
     {
       "key": "listing page is not a specific event",
-      "count": 17
-    },
-    {
-      "key": "source fetch did not succeed",
-      "count": 7
+      "count": 16
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
     },
     {
       "key": "mojibake text detected",
@@ -153,7 +148,15 @@
       "links": 24,
       "dates": 18,
       "keywords": 7,
-      "score": 141
+      "score": 145
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 143
     },
     {
       "sourceName": "NOL World Seoul Pop-ups",
@@ -170,14 +173,6 @@
       "dates": 18,
       "keywords": 4,
       "score": 140
-    },
-    {
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "url": "https://www.busan.go.kr/eng/bsevents",
-      "links": 24,
-      "dates": 18,
-      "keywords": 2,
-      "score": 138
     },
     {
       "sourceName": "Seoul Grand Park",

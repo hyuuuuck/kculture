@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T16:55:19.423Z",
+  "generatedAt": "2026-11-13T01:13:49.395Z",
   "files": {
     "audit": "source-audit-2026-11-13.json",
     "candidates": "official-page-candidates-2026-11-13.json",
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 584,
-    "dateSignals": 234,
-    "draftCandidates": 47,
-    "skippedCandidates": 590,
+    "discoveredLinks": 613,
+    "dateSignals": 253,
+    "draftCandidates": 56,
+    "skippedCandidates": 610,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -82,22 +82,22 @@
       "count": 11
     },
     {
+      "key": "Busan Metropolitan City Events and English News",
+      "count": 7
+    },
+    {
       "key": "Weverse Shop BTS Notices",
       "count": 3
     },
     {
       "key": "Korea Grand Sale / Visit Korea Committee",
       "count": 1
-    },
-    {
-      "key": "Korea Sale FESTA",
-      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 31
+      "count": 38
     },
     {
       "key": "kpop",
@@ -105,11 +105,11 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 4
     },
     {
       "key": "shopping",
-      "count": 3
+      "count": 4
     },
     {
       "key": "beauty",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 552
+      "count": 568
     },
     {
       "key": "listing page is not a specific event",
@@ -138,11 +138,11 @@
       "count": 5
     },
     {
-      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
-      "count": 2
+      "key": "mojibake text detected",
+      "count": 3
     },
     {
-      "key": "mojibake text detected",
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 2
     }
   ],
@@ -170,6 +170,14 @@
       "dates": 18,
       "keywords": 4,
       "score": 140
+    },
+    {
+      "sourceName": "Busan Metropolitan City Events and English News",
+      "url": "https://www.busan.go.kr/eng/bsevents",
+      "links": 24,
+      "dates": 18,
+      "keywords": 2,
+      "score": 138
     },
     {
       "sourceName": "Seoul Grand Park",
@@ -202,14 +210,6 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
-    },
-    {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
-      "links": 22,
-      "dates": 9,
-      "keywords": 3,
-      "score": 108
     }
   ]
 }

@@ -1,0 +1,2009 @@
+{
+  "generatedAt": "2026-11-14T15:13:08.140Z",
+  "policy": "Review candidates are not public content. Open the official source, verify facts, rewrite in original words, then publish through publish:reviewed.",
+  "files": {
+    "summary": "source-refresh-summary-2026-11-15.json",
+    "drafts": "draft-events-2026-11-15.json",
+    "issue": "source-refresh-issue.md"
+  },
+  "counts": {
+    "auditedSources": 56,
+    "auditOk": 53,
+    "auditFailed": 3,
+    "fallbackSources": 3,
+    "monitorSources": 53,
+    "candidateOk": 47,
+    "candidateFailed": 6,
+    "discoveredLinks": 611,
+    "dateSignals": 254,
+    "draftCandidates": 74,
+    "skippedCandidates": 590,
+    "publicDataPassed": 0,
+    "publicDataFailed": 0,
+    "publicDataSkipped": 5,
+    "tourApiRows": 0,
+    "kmaObservationRecords": 0,
+    "seoulEventRows": 0,
+    "seoulPotentialMatches": 0
+  },
+  "failedSources": [
+    {
+      "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Dongdaemun Design Plaza",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Lotte Duty Free",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Lotte Duty Free Online Sale",
+      "status": "ROBOTS",
+      "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Galleria Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "AK Plaza Events",
+      "status": 400,
+      "error": ""
+    }
+  ],
+  "highSignalCandidates": [
+    {
+      "sourceName": "NOL World Ticket",
+      "url": "https://world.nol.com/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 7,
+      "score": 145
+    },
+    {
+      "sourceName": "NOL World Seoul Pop-ups",
+      "url": "https://world.nol.com/en/regions/seoul/festas",
+      "links": 24,
+      "dates": 18,
+      "keywords": 8,
+      "score": 140
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 140
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "url": "https://ticket.melon.com/main/index.htm",
+      "links": 24,
+      "dates": 18,
+      "keywords": 6,
+      "score": 139
+    },
+    {
+      "sourceName": "Seoul Grand Park",
+      "url": "https://grandpark.seoul.go.kr/main.do",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
+      "score": 138
+    },
+    {
+      "sourceName": "COEX Event Calendar",
+      "url": "https://www.coex.co.kr/en/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 137
+    },
+    {
+      "sourceName": "SMTOWN andSTORE Notices",
+      "url": "https://www.smtownandstore.com/board/index.html",
+      "links": 24,
+      "dates": 18,
+      "keywords": 3,
+      "score": 136
+    },
+    {
+      "sourceName": "YES24 Ticket English",
+      "url": "https://ticket.yes24.com/english",
+      "links": 24,
+      "dates": 18,
+      "keywords": 1,
+      "score": 129
+    }
+  ],
+  "topDraftSources": [
+    {
+      "key": "Melon Ticket",
+      "count": 22
+    },
+    {
+      "key": "Visit Seoul",
+      "count": 18
+    },
+    {
+      "key": "NOL World Ticket",
+      "count": 15
+    },
+    {
+      "key": "NOL World Seoul Pop-ups",
+      "count": 12
+    },
+    {
+      "key": "Weverse Shop BTS Notices",
+      "count": 3
+    },
+    {
+      "key": "Korea Grand Sale / Visit Korea Committee",
+      "count": 1
+    }
+  ],
+  "topDraftCategories": [
+    {
+      "key": "festival",
+      "count": 53
+    },
+    {
+      "key": "kpop",
+      "count": 9
+    },
+    {
+      "key": "shopping",
+      "count": 4
+    },
+    {
+      "key": "department-store",
+      "count": 3
+    },
+    {
+      "key": "beauty",
+      "count": 2
+    },
+    {
+      "key": "travel-benefits",
+      "count": 2
+    }
+  ],
+  "topSkippedReasons": [
+    {
+      "key": "no current or upcoming date range",
+      "count": 553
+    },
+    {
+      "key": "listing page is not a specific event",
+      "count": 16
+    },
+    {
+      "key": "curation root is not a specific event",
+      "count": 6
+    },
+    {
+      "key": "source fetch did not succeed",
+      "count": 6
+    },
+    {
+      "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
+      "count": 2
+    },
+    {
+      "key": "mojibake text detected",
+      "count": 2
+    }
+  ],
+  "drafts": [
+    {
+      "slug": "nol-world-ticket-nexz-2nd-fan-meeting-merry-merry-nex2y-12-19-12-20-2026-12",
+      "category": "kpop",
+      "priority": 98,
+      "startDate": "2026-12-19",
+      "endDate": "2026-12-20",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1d236-8540-761c-98a7-3036e8f3f312",
+      "title": {
+        "en": "NOL World Ticket: NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, duty free, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20",
+        "checkedAt": "2026-11-14T15:12:16.920Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "duty free",
+          "k-pop",
+          "department store",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-11-17",
+            "raw": "11.17 – 11.22"
+          },
+          {
+            "date": "2026-11-22",
+            "raw": "11.17 – 11.22"
+          },
+          {
+            "date": "2026-12-19",
+            "raw": "12.19 – 12.20"
+          },
+          {
+            "date": "2026-12-20",
+            "raw": "12.19 – 12.20"
+          }
+        ],
+        "snippets": [
+          "n lc_2\">TOMORROW X TOGETHER POP-UP PERFECT STORM 11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more <div class=\"px_topLevelInlinePadding\"",
+          "X2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 The Hyundai Seoul Christma",
+          "11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas M"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20",
+        "linkScore": 26,
+        "linkReason": "1 keyword hits; 4 date signals",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-longtake-pop-up-store-olive-young-beauty-mansion-2026-10",
+      "category": "beauty",
+      "priority": 97,
+      "startDate": "2026-10-01",
+      "endDate": "2026-12-31",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1a97d-d09c-7dd6-9d35-a8adb9d0e3f4",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: LONGTAKE POP-UP STORE OLIVE YOUNG BEAUTY MANSION Seongsu · 10.01 – 12.31 Likes ( 16 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "LONGTAKE POP-UP STORE OLIVE YOUNG BEAUTY MANSION Seongsu · 10.01 – 12.31 Likes ( 16 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-01",
+            "raw": "10.01 – 12.31"
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "10.01 – 12.31"
+          }
+        ],
+        "snippets": [
+          "5\"> LONGTAKE POP-UP STORE OLIVE YOUNG BEAUTY MANSION Seongsu · 10.01 – 12.31 Likes ( 16 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "LONGTAKE POP-UP STORE OLIVE YOUNG BEAUTY MANSION Seongsu · 10.01 – 12.31 Likes ( 16 )",
+        "linkScore": 24,
+        "linkReason": "2 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-d-and-x27-festa-the-origin-exhibition-k-pop-reim-2026-10",
+      "category": "kpop",
+      "priority": 95,
+      "startDate": "2026-10-23",
+      "endDate": "2026-11-30",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a141d8-0bcf-7835-a75c-c333ef17b892",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: D&#x27;FESTA THE ORIGIN EXHIBITION K-POP, Reimagined as Art 10.23 – 11.30 Comments ( 3 ) · Likes ( 931 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "D&#x27;FESTA THE ORIGIN EXHIBITION K-POP, Reimagined as Art 10.23 – 11.30 Comments ( 3 ) · Likes ( 931 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-23",
+            "raw": "10.23 – 11.30"
+          },
+          {
+            "date": "2026-11-30",
+            "raw": "10.23 – 11.30"
+          }
+        ],
+        "snippets": [
+          "5\"> D&#x27;FESTA THE ORIGIN EXHIBITION K-POP, Reimagined as Art 10.23 – 11.30 Comments ( 3 ) · Likes ( 931 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "D&#x27;FESTA THE ORIGIN EXHIBITION K-POP, Reimagined as Art 10.23 – 11.30 Comments ( 3 ) · Likes ( 931 )",
+        "linkScore": 20,
+        "linkReason": "1 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-billlie-5th-anniversary-fan-concert-the-heist-squad-2026-11-2026-11",
+      "category": "kpop",
+      "priority": 95,
+      "startDate": "2026-11-15",
+      "endDate": "2026-11-15",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=214117",
+      "title": {
+        "en": "Melon Ticket: Billlie 5th Anniversary Fan Concert 〈The Heist Squad〉 2026.11.15 - 2026.11.15 서강대학교 메리홀 대극장"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Billlie 5th Anniversary Fan Concert 〈The Heist Squad〉 2026.11.15 - 2026.11.15 서강대학교 메리홀 대극장",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-03",
+            "raw": "2026.10.03 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          },
+          {
+            "date": "2026-12-06",
+            "raw": "2026.12.06 "
+          }
+        ],
+        "snippets": [
+          "타네무라 아리나 30주년 기념전 2026.10.03 - 2026.12.06 Space Galleria 서울 홍대 Billlie 5th Anniversary Fan Concert 〈The Heist Squad〉 2026.11.15 - 2026.11.15 서강대학교 메리홀 대극장",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "Billlie 5th Anniversary Fan Concert 〈The Heist Squad〉 2026.11.15 - 2026.11.15 서강대학교 메리홀 대극장",
+        "linkScore": 22,
+        "linkReason": "3 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-2026-bts-dalmajung-pop-up-hybe-yongsan-itaewon-9-2026-09",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-09-29",
+      "endDate": "2026-11-30",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a0ea58-1ff4-7e20-8fc1-37a78b9bdc3d",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: 2026 BTS DALMAJUNG POP-UP HYBE YONGSAN Itaewon · 9.29 – 11.30 Likes ( 139 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 BTS DALMAJUNG POP-UP HYBE YONGSAN Itaewon · 9.29 – 11.30 Likes ( 139 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-29",
+            "raw": "9.29 – 11.30"
+          },
+          {
+            "date": "2026-11-30",
+            "raw": "9.29 – 11.30"
+          }
+        ],
+        "snippets": [
+          "5\"> 2026 BTS DALMAJUNG POP-UP HYBE YONGSAN Itaewon · 9.29 – 11.30 Likes ( 139 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "2026 BTS DALMAJUNG POP-UP HYBE YONGSAN Itaewon · 9.29 – 11.30 Likes ( 139 )",
+        "linkScore": 19,
+        "linkReason": "1 keyword hits; 2 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "weverse-shop-bts-notices-bts-official-merch-and-pop-up-notice-list-2026-10",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-10-22",
+      "endDate": "2026-12-20",
+      "city": "Nationwide",
+      "venue": "Weverse Shop BTS Notices",
+      "sourceName": "Weverse Shop BTS Notices",
+      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+      "title": {
+        "en": "Weverse Shop BTS Notices: BTS official merch and pop-up notice list"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Weverse Shop BTS Notices. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: event, sale, weverse, 할인."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "source-page",
+        "pageTitle": "BTS | Notices",
+        "checkedAt": "2026-11-14T15:12:16.596Z",
+        "keywordHits": [
+          "event",
+          "sale",
+          "weverse",
+          "할인"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-22",
+            "raw": "Oct 22, 2026"
+          },
+          {
+            "date": "2026-12-20",
+            "raw": "December 20"
+          }
+        ],
+        "snippets": [
+          "프로모션 Weverse Shop Weverse Shop X Kakaopay 11월 즉시할인 프로모션 BTS ・US Amendments to Weverse Membership Service Refund/Renewal Policies (Oct 22, 2026) Weverse Shop Weverse Shop X 삼성카드 10월 즉시할인 프로모션 1 2 3 4 5 Terms and Conditions Paid Services Terms and Conditions Child and Youth Protection Policy Privacy Policy Cookie Policy Co",
+          "Notice to Our Weverse Customers BTS ・US [Weverse US] 2026 Weverse BLACK FRIDAY (US) N BTS [Weverse Global] Pre-order VOGUE KOREA (December 2026) N BTS [Weverse Global] 2nd Round of Pre-order BTS WORLD TOUR ‘ARIRANG’ IN LONDON N BTS [Weverse Global] Pre-order Harper&#x27;s BAZAAR (December 2026) N BTS ・US [Weverse US] Sp"
+        ],
+        "queueId": "kpop-weverse-bts-notices",
+        "queueLabel": "BTS official merch and pop-up notice list",
+        "artistOrBrand": "BTS",
+        "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "weverse-shop-bts-notices-bts-pre-order-harper-and-x27-s-bazaar-december--2026-12",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-12-20",
+      "endDate": "2026-12-20",
+      "city": "Nationwide",
+      "venue": "Weverse Shop BTS Notices",
+      "sourceName": "Weverse Shop BTS Notices",
+      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices/14898",
+      "title": {
+        "en": "Weverse Shop BTS Notices: BTS Pre-order Harper&#x27;s BAZAAR (December 2026) N"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Weverse Shop BTS Notices. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: event, sale, weverse, 할인."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "BTS Pre-order Harper&#x27;s BAZAAR (December 2026) N",
+        "checkedAt": "2026-11-14T15:12:16.596Z",
+        "keywordHits": [
+          "event",
+          "sale",
+          "weverse",
+          "할인"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-12-20",
+            "raw": "December 20"
+          }
+        ],
+        "snippets": [
+          "rxulJ\">BTS [Weverse Global] 2nd Round of Pre-order BTS WORLD TOUR ‘ARIRANG’ IN LONDON N BTS [Weverse Global] Pre-order Harper&#x27;s BAZAAR (December 2026) N BTS ・US [Weverse US] Special Gift for BTS WORLD TOUR &#x27;ARIRANG&#x27; IN LONDON Pre-order Customers",
+          "프로모션 Weverse Shop Weverse Shop X Kakaopay 11월 즉시할인 프로모션 BTS ・US Amendments to Weverse Membership Service Refund/Renewal Policies (Oct 22, 2026) Weverse Shop Weverse Shop X 삼성카드 10월 즉시할인 프로모션 1 2 3 4 5 Terms and Conditions Paid Services Terms and Conditions Child and Youth Protection Policy Privacy Policy Cookie Policy Co",
+          "Notice to Our Weverse Customers BTS ・US [Weverse US] 2026 Weverse BLACK FRIDAY (US) N BTS [Weverse Global] Pre-order VOGUE KOREA (December 2026) N BTS [Weverse Global] 2nd Round of Pre-order BTS WORLD TOUR ‘ARIRANG’ IN LONDON N BTS [Weverse Global] Pre-order Harper&#x27;s BAZAAR (December 2026) N BTS ・US [Weverse US] Sp"
+        ],
+        "discoveredFrom": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+        "linkText": "BTS Pre-order Harper&#x27;s BAZAAR (December 2026) N",
+        "linkScore": 20,
+        "linkReason": "1 keyword hits; 1 date signals; year signal",
+        "queueId": "kpop-weverse-bts-notices",
+        "queueLabel": "BTS official merch and pop-up notice list",
+        "artistOrBrand": "BTS",
+        "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "weverse-shop-bts-notices-bts-pre-order-vogue-korea-december-2026-n-2026-12",
+      "category": "kpop",
+      "priority": 94,
+      "startDate": "2026-12-20",
+      "endDate": "2026-12-20",
+      "city": "Nationwide",
+      "venue": "Weverse Shop BTS Notices",
+      "sourceName": "Weverse Shop BTS Notices",
+      "sourceUrl": "https://shop.weverse.io/en/shop/USD/artists/2/notices/14934",
+      "title": {
+        "en": "Weverse Shop BTS Notices: BTS Pre-order VOGUE KOREA (December 2026) N"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Weverse Shop BTS Notices. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: event, sale, weverse, 할인."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "BTS Pre-order VOGUE KOREA (December 2026) N",
+        "checkedAt": "2026-11-14T15:12:16.596Z",
+        "keywordHits": [
+          "event",
+          "sale",
+          "weverse",
+          "할인"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-12-20",
+            "raw": "December 20"
+          }
+        ],
+        "snippets": [
+          "ass=\"sc-fc79e548-2 jrxulJ\">BTS ・US [Weverse US] 2026 Weverse BLACK FRIDAY (US) N BTS [Weverse Global] Pre-order VOGUE KOREA (December 2026) N BTS [Weverse Global] 2nd Round of Pre-order BTS WORLD TOUR ‘ARIRANG’ IN LONDON <span class=\"wvcds_1mna2pk0 wvc",
+          "프로모션 Weverse Shop Weverse Shop X Kakaopay 11월 즉시할인 프로모션 BTS ・US Amendments to Weverse Membership Service Refund/Renewal Policies (Oct 22, 2026) Weverse Shop Weverse Shop X 삼성카드 10월 즉시할인 프로모션 1 2 3 4 5 Terms and Conditions Paid Services Terms and Conditions Child and Youth Protection Policy Privacy Policy Cookie Policy Co",
+          "Notice to Our Weverse Customers BTS ・US [Weverse US] 2026 Weverse BLACK FRIDAY (US) N BTS [Weverse Global] Pre-order VOGUE KOREA (December 2026) N BTS [Weverse Global] 2nd Round of Pre-order BTS WORLD TOUR ‘ARIRANG’ IN LONDON N BTS [Weverse Global] Pre-order Harper&#x27;s BAZAAR (December 2026) N BTS ・US [Weverse US] Sp"
+        ],
+        "discoveredFrom": "https://shop.weverse.io/en/shop/USD/artists/2/notices",
+        "linkText": "BTS Pre-order VOGUE KOREA (December 2026) N",
+        "linkScore": 20,
+        "linkReason": "1 keyword hits; 1 date signals; year signal",
+        "queueId": "kpop-weverse-bts-notices",
+        "queueLabel": "BTS official merch and pop-up notice list",
+        "artistOrBrand": "BTS",
+        "reviewNotes": "Use the list page only for discovery. Publish an individual official notice URL after confirming dates, venue, stock, reservation flow, and foreign visitor rules."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-ateez-pop-up-store-golden-hour-part-6-gangnam-11-2026-11",
+      "category": "kpop",
+      "priority": 93,
+      "startDate": "2026-11-13",
+      "endDate": "2026-11-22",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1c2a3-2e9e-7f33-b18e-e35738c3438d",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: ATEEZ POP-UP STORE GOLDEN HOUR : Part.6 Gangnam · 11.13 – 11.22 Likes ( 16 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "ATEEZ POP-UP STORE GOLDEN HOUR : Part.6 Gangnam · 11.13 – 11.22 Likes ( 16 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-11-13",
+            "raw": "11.13 – 11.22"
+          },
+          {
+            "date": "2026-11-22",
+            "raw": "11.13 – 11.22"
+          }
+        ],
+        "snippets": [
+          "5\"> ATEEZ POP-UP STORE GOLDEN HOUR : Part.6 Gangnam · 11.13 – 11.22 Likes ( 16 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "ATEEZ POP-UP STORE GOLDEN HOUR : Part.6 Gangnam · 11.13 – 11.22 Likes ( 16 )",
+        "linkScore": 16,
+        "linkReason": "1 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-tomorrow-x-together-pop-up-perfect-storm-11-17-11-22-2026-11",
+      "category": "festival",
+      "priority": 93,
+      "startDate": "2026-11-17",
+      "endDate": "2026-11-22",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1c2ac-f0ff-7608-9301-2ee8de97d7c0",
+      "title": {
+        "en": "NOL World Ticket: TOMORROW X TOGETHER POP-UP PERFECT STORM 11.17 – 11.22"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, duty free, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "TOMORROW X TOGETHER POP-UP PERFECT STORM 11.17 – 11.22",
+        "checkedAt": "2026-11-14T15:12:16.920Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "duty free",
+          "k-pop",
+          "department store",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-23",
+            "raw": "10.23 – 11.30"
+          },
+          {
+            "date": "2026-11-17",
+            "raw": "11.17 – 11.22"
+          },
+          {
+            "date": "2026-11-22",
+            "raw": "11.17 – 11.22"
+          },
+          {
+            "date": "2026-11-30",
+            "raw": "10.23 – 11.30"
+          }
+        ],
+        "snippets": [
+          "A THE ORIGIN EXHIBITION K-POP, Reimagined as Art 10.23 – 11.30 TOMORROW X TOGETHER POP-UP PERFECT STORM 11.17 – 11.22 <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_",
+          "X2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 The Hyundai Seoul Christma",
+          "11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas M"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "TOMORROW X TOGETHER POP-UP PERFECT STORM 11.17 – 11.22",
+        "linkScore": 30,
+        "linkReason": "2 keyword hits; 4 date signals",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-shinsegae-department-store-gangnam-branch-2026-10",
+      "category": "department-store",
+      "priority": 92,
+      "startDate": "2026-10-30",
+      "endDate": "2026-12-28",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a18a16-ce57-7468-a987-17cbb2aca2c0",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: 𝟮𝟬𝟮𝟲 𝗦𝗛𝗜𝗡𝗦𝗘𝗚𝗔𝗘 𝗛𝗢𝗟𝗜𝗗𝗔𝗬 𝗠𝗔𝗥𝗞𝗘𝗧 🎅🏻 Shinsegae Department Store Gangnam Branch..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential department store page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "𝟮𝟬𝟮𝟲 𝗦𝗛𝗜𝗡𝗦𝗘𝗚𝗔𝗘 𝗛𝗢𝗟𝗜𝗗𝗔𝗬 𝗠𝗔𝗥𝗞𝗘𝗧 🎅🏻 Shinsegae Department Store Gangnam Branch Gangnam · 10.30 – 12.28 Likes ( 58 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-30",
+            "raw": "10.30 – 12.28"
+          },
+          {
+            "date": "2026-12-28",
+            "raw": "10.30 – 12.28"
+          }
+        ],
+        "snippets": [
+          "5\"> 𝟮𝟬𝟮𝟲 𝗦𝗛𝗜𝗡𝗦𝗘𝗚𝗔𝗘 𝗛𝗢𝗟𝗜𝗗𝗔𝗬 𝗠𝗔𝗥𝗞𝗘𝗧 🎅🏻 Shinsegae Department Store Gangnam Branch Gangnam · 10.30 – 12.28 Likes ( 58 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "𝟮𝟬𝟮𝟲 𝗦𝗛𝗜𝗡𝗦𝗘𝗚𝗔𝗘 𝗛𝗢𝗟𝗜𝗗𝗔𝗬 𝗠𝗔𝗥𝗞𝗘𝗧 🎅🏻 Shinsegae Department Store Gangnam Branch Gangnam · 10.30 – 12.28 Likes ( 58 )",
+        "linkScore": 15,
+        "linkReason": "1 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-seoul-pop-ups-christmas-in-myeongdong-lotte-department-store-m-2026-10",
+      "category": "department-store",
+      "priority": 92,
+      "startDate": "2026-10-30",
+      "endDate": "2026-12-31",
+      "city": "Seoul",
+      "venue": "NOL World Seoul Pop-ups",
+      "sourceName": "NOL World Seoul Pop-ups",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a18a05-fa78-7256-8413-c30226033bf4",
+      "title": {
+        "en": "NOL World Seoul Pop-ups: Christmas in Myeongdong Lotte Department Store Main Branch Myeongdong · 10.30 – 12.31 Likes ( 64 )"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Seoul Pop-ups. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential department store page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, olive young, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Christmas in Myeongdong Lotte Department Store Main Branch Myeongdong · 10.30 – 12.31 Likes ( 64 )",
+        "checkedAt": "2026-11-14T15:12:14.082Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "olive young",
+          "k-pop",
+          "department store",
+          "travel",
+          "benefit"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-30",
+            "raw": "10.30 – 12.31"
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "10.30 – 12.31"
+          }
+        ],
+        "snippets": [
+          "5\"> Christmas in Myeongdong Lotte Department Store Main Branch Myeongdong · 10.30 – 12.31 Likes ( 64 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> <path fill=\"#000\" fill-opacity=\"0.3\" d=\"M4.293 12.849c.948 1.12 6.91 6.959 7.71 7.651.801-.692 6.754",
+          "ute z_1 top_4px right_calc(100%_-_104px)\"> Crayon Shin-chan Interactive Exhibition Let&#x27;s Play! Spacetime Adventure Seongsu · 10.17 – 1.24 Likes ( 38 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> ENHYPEN VR CONCERT DESTINY Gangnam · Open Likes ( 85 ) _svg]:d_block pos_absolute z_1 top_4px right_",
+          "absolute z_1 top_4px right_calc(100%_-_104px)\"> 2026 Holiday Shinsegae Department Store Main Branch Shinsegae Square Myeongdong · 11.06 – 1.31 Likes ( 3 ) _svg]:d_block pos_absolute z_1 top_4px right_calc(100%_-_104px)\"> Dr.Althea POP-UP 345 Secret Project Seongsu · 11.11 – 11.28 Likes ( 8 ) _svg]:d_block pos_absolute z_"
+        ],
+        "discoveredFrom": "https://world.nol.com/en/regions/seoul/festas",
+        "linkText": "Christmas in Myeongdong Lotte Department Store Main Branch Myeongdong · 10.30 – 12.31 Likes ( 64 )",
+        "linkScore": 15,
+        "linkReason": "1 keyword hits; 2 date signals"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-2026-12-18-2026-12-20-2026-12",
+      "category": "festival",
+      "priority": 92,
+      "startDate": "2026-12-18",
+      "endDate": "2026-12-20",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=214275",
+      "title": {
+        "en": "Melon Ticket: 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-12-04",
+            "raw": "2026.12.04 "
+          },
+          {
+            "date": "2026-12-06",
+            "raw": "2026.12.06 "
+          },
+          {
+            "date": "2026-12-18",
+            "raw": "2026.12.18 "
+          },
+          {
+            "date": "2026-12-20",
+            "raw": "2026.12.20 "
+          }
+        ],
+        "snippets": [
+          "Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-lotte-town-christmas-market-11-19-1-03-2026-01",
+      "category": "festival",
+      "priority": 91,
+      "startDate": "2026-01-03",
+      "endDate": "2026-11-19",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1a918-fe34-7c5b-9882-736d71ad2e70",
+      "title": {
+        "en": "NOL World Ticket: 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, duty free, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03",
+        "checkedAt": "2026-11-14T15:12:16.920Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "duty free",
+          "k-pop",
+          "department store",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-01-03",
+            "raw": "11.19 – 1.03"
+          },
+          {
+            "date": "2026-01-10",
+            "raw": "12.11 – 1.10"
+          },
+          {
+            "date": "2026-11-19",
+            "raw": "11.19 – 1.03"
+          },
+          {
+            "date": "2026-12-11",
+            "raw": "12.11 – 1.10"
+          }
+        ],
+        "snippets": [
+          "py_var(--item-details-container-block-padding) px_12px bg-c_rgba(0,_0,_0,_0.20) bkdp_blur(50px)\"> 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 <a href=\"/en/content/festas/01a17fcb-d958-7b0d-819a-fb7976d5967c\" class=\"laptopDown:--item-aspect-ratio_3_/_4 laptopDown:--item-width_150px laptop:--item-aspect-ratio_4_/_5 laptop:--item-width_184px [[data-region-home]_&]:desktop:--item-aspect-ratio_13_/_15 [[data-region-home]_&]:desktop:--item-width_234px laptopDown:--item-",
+          "X2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 The Hyundai Seoul Christma",
+          "11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas M"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-day6-special-concert-the-present-12-18-12-20-2026-12",
+      "category": "kpop",
+      "priority": 91,
+      "startDate": "2026-12-18",
+      "endDate": "2026-12-20",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1d207-1d4c-7c98-9bdc-56fefdf89f9a",
+      "title": {
+        "en": "NOL World Ticket: 2026 DAY6 Special Concert The Present 12.18 – 12.20"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential kpop page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, duty free, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 DAY6 Special Concert The Present 12.18 – 12.20",
+        "checkedAt": "2026-11-14T15:12:16.920Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "duty free",
+          "k-pop",
+          "department store",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-12-18",
+            "raw": "12.18 – 12.20"
+          },
+          {
+            "date": "2026-12-20",
+            "raw": "12.18 – 12.20"
+          }
+        ],
+        "snippets": [
+          "i:nth-child(odd):nth-child(n+3)]:[&::before]:w_calc(200%_+_20px) laptop:[&_>_li:nth-child(odd):nth-child(n+3)]:[&::before]:h_1px laptop:[&_>_li:nth-child(odd):nth-child(n+3)]:[&::before]:bg-c_semantic.line.neutral.weak2 laptop:[&_>_li:last-child,_&_>_li:nth-child(odd):nth-last-child(2)]:pbe_0\"> 2026 DAY6 Special Concert The Present 12.18 – 12.20 <div class=\"pos_relative ov_hidden before:content_\"\" before:pos_absolute before:inset_0 before:d_block before:bd-w_1px before:border-style_solid before:bd-c_rgba(0,_0,_",
+          "X2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 The Hyundai Seoul Christma",
+          "11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas M"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 DAY6 Special Concert The Present 12.18 – 12.20",
+        "linkScore": 15,
+        "linkReason": "2 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "nol-world-ticket-2026-romantic-hangang-christmas-market-12-24-12-27-2026-12",
+      "category": "festival",
+      "priority": 91,
+      "startDate": "2026-12-24",
+      "endDate": "2026-12-27",
+      "city": "Seoul",
+      "venue": "NOL World Ticket",
+      "sourceName": "NOL World Ticket",
+      "sourceUrl": "https://world.nol.com/en/content/festas/01a1a913-f375-7d54-b3e4-8667dd0645d2",
+      "title": {
+        "en": "NOL World Ticket: 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from NOL World Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, pop-up, event, duty free, k-pop, department store."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27",
+        "checkedAt": "2026-11-14T15:12:16.920Z",
+        "keywordHits": [
+          "festival",
+          "pop-up",
+          "event",
+          "duty free",
+          "k-pop",
+          "department store",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-01-31",
+            "raw": "11.13 – 1.31"
+          },
+          {
+            "date": "2026-11-13",
+            "raw": "11.13 – 1.31"
+          },
+          {
+            "date": "2026-12-24",
+            "raw": "12.24 – 12.27"
+          },
+          {
+            "date": "2026-12-27",
+            "raw": "12.24 – 12.27"
+          }
+        ],
+        "snippets": [
+          "ar(--item-details-container-block-padding) px_12px bg-c_rgba(0,_0,_0,_0.20) bkdp_blur(50px)\"> 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 <a href=\"/en/content/festas/01a18a10-e6ea-7897-9476-7504ba47b849\" class=\"laptopDown:--item-aspect-ratio_3_/_4 laptopDown:--item-width_150px laptop:--item-aspect-ratio_4_/_5 laptop:--item-width_184px [[data-region-home]_&]:desktop:--item-aspect-ratio_13_/_15 [[data-region-home]_&]:desktop:--item-width_234px laptopDown:--i",
+          "X2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27 The Hyundai Seoul Christma",
+          "11.17 – 11.22 NEXZ 2ND FAN MEETING MERRY MERRY NEX2Y! 12.19 – 12.20 See more Merry Christmas 🎄 2026 Gwanghwamun Christmas Market 12.11 – 1.10 2026 LOTTE TOWN CHRISTMAS MARKET 🎄 11.19 – 1.03 Merry Christmas at Hyundai Department Store Open 2026 Starfield Library & Christmas 11.13 – 1.31 2026 Romantic Hangang Christmas M"
+        ],
+        "discoveredFrom": "https://world.nol.com/",
+        "linkText": "2026 Romantic Hangang Christmas Market 🎄 12.24 – 12.27",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-nol-world-ticket-watch",
+        "queueLabel": "NOL World global K-pop and pop-up ticket watch",
+        "artistOrBrand": "NOL World",
+        "reviewNotes": "Use NOL World as a discovery root. Publish individual official ticket or event pages only after verifying identity checks, delivery or pickup rules, foreign-card support, and refund terms."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-04-30-2027-04-11-2026-04",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-04-30",
+      "endDate": "2027-04-11",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/bridge.htm?brgId=100525",
+      "title": {
+        "en": "Melon Ticket: 그라운드시소 전시 모음 브래드 월스전, 표기식 사진전, 성률 기획전, 티보 에렘 그라운드시소 전시 2026.04.30 - 2027.04.11"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "그라운드시소 전시 모음 브래드 월스전, 표기식 사진전, 성률 기획전, 티보 에렘 그라운드시소 전시 2026.04.30 - 2027.04.11",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-04-30",
+            "raw": "2026.04.30 "
+          },
+          {
+            "date": "2026-12-23",
+            "raw": "2026.12.23 "
+          },
+          {
+            "date": "2026-12-30",
+            "raw": "2026.12.30 "
+          },
+          {
+            "date": "2027-04-11",
+            "raw": "2027.04.11 "
+          }
+        ],
+        "snippets": [
+          "2026 2026.12.23 - 2026.12.30 그라운드시소 전시 모음 브래드 월스전, 표기식 사진전, 성률 기획전, 티보 에렘 그라운드시소 전시 2026.04.30 - 2027.04.11 <img src=\"https://cdnticket.melon.co.kr/resour",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "그라운드시소 전시 모음 브래드 월스전, 표기식 사진전, 성률 기획전, 티보 에렘 그라운드시소 전시 2026.04.30 - 2027.04.11",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-full-of-colors-regions-shaping-k-2026-06-04-2026-12-31-1st-f-2026-06",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-06-04",
+      "endDate": "2026-12-31",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/Full-of-Colors/ENPij99b4",
+      "title": {
+        "en": "Visit Seoul: Full of Colors : Regions Shaping K 2026.06.04 ~ 2026.12.31 1st Floor Exhibition Room and Lobby,..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Full of Colors : Regions Shaping K 2026.06.04 ~ 2026.12.31 1st Floor Exhibition Room and Lobby, Cheongwadae Sarangchae Introducing the flow of Korean history, culture and arts, and",
+        "checkedAt": "2026-11-14T15:12:11.904Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-06-04",
+            "raw": "2026.06.04 "
+          },
+          {
+            "date": "2026-07-23",
+            "raw": "2026.07.23 "
+          },
+          {
+            "date": "2026-12-27",
+            "raw": "2026.12.27 "
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "2026.12.31 "
+          }
+        ],
+        "snippets": [
+          "KAWS: FRIENDS AND NEIGHBORS 2026.07.23 ~ 2026.12.27 Space K Seoul The first solo museum exhibition in Korea by Brooklyn-based artist KAWS (Brian Donnelly, b. 1974) Full of Colors : Regions Shaping K 2026.06.04 ~ 2026.12.31 1st Floor Exhibition Room and Lobby, Cheongwadae Sarangchae Introducing the flow of Korean history, culture and arts, and unique regional cultural resources leading to today's K-content through regional content exhibitions and media art. You, As Yo",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "o Bridge, Gwanggyo Gallery area Cheonggye Soul Ocean media art exhibition operated by the Seoul Tourism Organization THE PAINTERS 2025.01.01 ~ 2026.12.31 Kyunghyang Art Hill Premiered in 2008, 'THE PAINTERS' is a one-of-a-kind art performance combining live drawing with spectacular stage performance. There are no regist"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Full of Colors : Regions Shaping K 2026.06.04 ~ 2026.12.31 1st Floor Exhibition Room and Lobby, Cheongwadae Sarangchae Introducing the flow of Korean history, culture and arts, and",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-06-07-2026-2026-08-10-2026-12-31-2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-10",
+      "endDate": "2026-12-31",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/plan/index.htm?planId=100101",
+      "title": {
+        "en": "Melon Ticket: 2026 청년문화예술패스 06~07년생 덕질지원금 2026 청년문화예술패스 2026-08-10 - 2026-12-31"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 청년문화예술패스 06~07년생 덕질지원금 2026 청년문화예술패스 2026-08-10 - 2026-12-31",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2018-05-03",
+            "raw": "2018-05-03 "
+          },
+          {
+            "date": "2026-08-10",
+            "raw": "2026-08-10 "
+          },
+          {
+            "date": "2026-12-31",
+            "raw": "2026-12-31 "
+          },
+          {
+            "date": "2099-12-31",
+            "raw": "2099-12-31 "
+          }
+        ],
+        "snippets": [
+          "공연 2018-05-03 - 2099-12-31 2026 청년문화예술패스 06~07년생 덕질지원금 2026 청년문화예술패스 2026-08-10 - 2026-12-31 <img src=\"https://cdnticket",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "2026 청년문화예술패스 06~07년생 덕질지원금 2026 청년문화예술패스 2026-08-10 - 2026-12-31",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-tv-30-2026-08-12-2026-11-29-ak-plaza-hongdae-4f-2026-08",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-08-12",
+      "endDate": "2026-11-29",
+      "city": "Seoul",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213593",
+      "title": {
+        "en": "Melon Ticket: 명탐정 코난전 -TV 애니메이션 방송 30주년 기념- 2026.08.12 - 2026.11.29 AK PLAZA HONGDAE 4F 오뮤지엄"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "명탐정 코난전 -TV 애니메이션 방송 30주년 기념- 2026.08.12 - 2026.11.29 AK PLAZA HONGDAE 4F 오뮤지엄",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-08-12",
+            "raw": "2026.08.12 "
+          },
+          {
+            "date": "2026-11-29",
+            "raw": "2026.11.29 "
+          },
+          {
+            "date": "2027-01-22",
+            "raw": "2027.01.22 "
+          },
+          {
+            "date": "2027-01-24",
+            "raw": "2027.01.24 "
+          }
+        ],
+        "snippets": [
+          "2027 에픽하이 콘서트 2027.01.22 - 2027.01.24 KSPO DOME [티켓] 명탐정 코난전 -TV 애니메이션 방송 30주년 기념- 2026.08.12 - 2026.11.29 AK PLAZA HONGDAE 4F 오뮤지엄",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "명탐정 코난전 -TV 애니메이션 방송 30주년 기념- 2026.08.12 - 2026.11.29 AK PLAZA HONGDAE 4F 오뮤지엄",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-equinox-autumnal-equinox-vernal-equinox-2026-09-22-2027-03-0-2026-09",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-09-22",
+      "endDate": "2027-03-07",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/EQUINOX/ENPq79in8",
+      "title": {
+        "en": "Visit Seoul: Equinox: Autumnal Equinox_Vernal Equinox 2026.09.22 ~ 2027.03.07 Special Exhibition Gallery, 3F,..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Equinox: Autumnal Equinox_Vernal Equinox 2026.09.22 ~ 2027.03.07 Special Exhibition Gallery, 3F, Exhibition Building 1, Seoul Museum of Craft Art An exhibition exploring the work o",
+        "checkedAt": "2026-11-14T15:12:11.904Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-22",
+            "raw": "2026.09.22 "
+          },
+          {
+            "date": "2026-10-21",
+            "raw": "2026.10.21 "
+          },
+          {
+            "date": "2027-02-21",
+            "raw": "2027.02.21 "
+          },
+          {
+            "date": "2027-03-07",
+            "raw": "2027.03.07 "
+          }
+        ],
+        "snippets": [
+          "> 2026.10.21 ~ 2027.02.21 2F-3F, Seoul Museum of Art (Seosomun Main Building) The first museum solo exhibition in Asia by American media artist and filmmaker Lynn Hershman Leeson Equinox: Autumnal Equinox_Vernal Equinox 2026.09.22 ~ 2027.03.07 Special Exhibition Gallery, 3F, Exhibition Building 1, Seoul Museum of Craft Art An exhibition exploring the work of Chang Eungbok, who has broadened the horizons of Korean craft culture by moving freely between design and craft <stro",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "o Bridge, Gwanggyo Gallery area Cheonggye Soul Ocean media art exhibition operated by the Seoul Tourism Organization THE PAINTERS 2025.01.01 ~ 2026.12.31 Kyunghyang Art Hill Premiered in 2008, 'THE PAINTERS' is a one-of-a-kind art performance combining live drawing with spectacular stage performance. There are no regist"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Equinox: Autumnal Equinox_Vernal Equinox 2026.09.22 ~ 2027.03.07 Special Exhibition Gallery, 3F, Exhibition Building 1, Seoul Museum of Craft Art An exhibition exploring the work o",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "melon-ticket-2026-09-23-2027-03-01-2026-09",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-09-23",
+      "endDate": "2027-03-01",
+      "city": "Goyang",
+      "venue": "Melon Ticket",
+      "sourceName": "Melon Ticket",
+      "sourceUrl": "https://ticket.melon.com/performance/index.htm?prodId=213780",
+      "title": {
+        "en": "Melon Ticket: 〈표기식 사진전: 빛은 어떻게 떨어졌길래 모두 다르게 반짝여서〉 2026.09.23 - 2027.03.01 그라운드시소 센트럴"
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Melon Ticket. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, 행사, 세일, 할인, 쿠폰, 팝업."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "〈표기식 사진전: 빛은 어떻게 떨어졌길래 모두 다르게 반짝여서〉 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+        "checkedAt": "2026-11-14T15:12:18.526Z",
+        "keywordHits": [
+          "festival",
+          "행사",
+          "세일",
+          "할인",
+          "쿠폰",
+          "팝업"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-09-23",
+            "raw": "2026.09.23 "
+          },
+          {
+            "date": "2026-12-26",
+            "raw": "2026.12.26 "
+          },
+          {
+            "date": "2026-12-27",
+            "raw": "2026.12.27 "
+          },
+          {
+            "date": "2027-03-01",
+            "raw": "2027.03.01 "
+          }
+        ],
+        "snippets": [
+          "백현진 연말 콘서트 〈건강!〉 2026.12.26 - 2026.12.27 세종문화회관 S씨어터 〈표기식 사진전: 빛은 어떻게 떨어졌길래 모두 다르게 반짝여서〉 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+          "l 2026 1일권(금요일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2",
+          "일) 2026.12.04 일산 킨텍스(KINTEX) 제 1전시장 1/2/3/4/5홀 더보기 Wish 콘서트 Wish 원정대 모집중 이전 / 3 다음 럭키티켓 스페셜 VIP 석 100 매 마룬파이브 첫 내한공연 2015.11.13 ~ 2015.12.31 05 : 25 : 36 --> 멜론티켓 PICK! 추천공연 Anime X Game Festival 2026 2026.12.04 - 2026.12.06 경기 외 3개 지역 2026 히어로 락 페스티벌 - 인천 (일반티켓) 2026.12.18 - 2026.12.20 송도컨벤시아 WONDERLIVET 2026 (원더리벳 202"
+        ],
+        "discoveredFrom": "https://ticket.melon.com/main/index.htm",
+        "linkText": "〈표기식 사진전: 빛은 어떻게 떨어졌길래 모두 다르게 반짝여서〉 2026.09.23 - 2027.03.01 그라운드시소 센트럴",
+        "linkScore": 21,
+        "linkReason": "4 date signals; year signal",
+        "queueId": "kpop-melon-ticket-watch",
+        "queueLabel": "Melon Ticket K-pop opening watch",
+        "artistOrBrand": "Melon Ticket",
+        "reviewNotes": "Most pages are Korean-first. Confirm whether foreign visitors can buy through global channels before recommending a page."
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-beauty-in-layers-2026-10-01-2027-02-09-b-the-b-uptown-ddp-ma-2026-10",
+      "category": "beauty",
+      "priority": 90,
+      "startDate": "2026-10-01",
+      "endDate": "2027-02-09",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/BEAUTY-IN-LAYERS/ENPk8e0mk",
+      "title": {
+        "en": "Visit Seoul: BEAUTY IN LAYERS 2026.10.01 ~ 2027.02.09 B the B UPTOWN, DDP Market B2, 281, Eulji-ro, Jung-gu, Seoul..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential beauty page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "BEAUTY IN LAYERS 2026.10.01 ~ 2027.02.09 B the B UPTOWN, DDP Market B2, 281, Eulji-ro, Jung-gu, Seoul Beauty routines, tech-driven experiences and soothing moments of rest amid the",
+        "checkedAt": "2026-11-14T15:12:11.904Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-01",
+            "raw": "2026.10.01 "
+          },
+          {
+            "date": "2027-02-09",
+            "raw": "2027.02.09 "
+          }
+        ],
+        "snippets": [
+          "idden\" id=\"TCP8j7w39\" value=\"/resources/theme/v2/images/event/15.jpg\"/> BEAUTY IN LAYERS 2026.10.01 ~ 2027.02.09 B the B UPTOWN, DDP Market B2, 281, Eulji-ro, Jung-gu, Seoul Beauty routines, tech-driven experiences and soothing moments of rest amid the deep hues of autumn and the cozy warmth of winter — an immersive exhibition at DDP B the B where you can discover new way Color Shake S",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "o Bridge, Gwanggyo Gallery area Cheonggye Soul Ocean media art exhibition operated by the Seoul Tourism Organization THE PAINTERS 2025.01.01 ~ 2026.12.31 Kyunghyang Art Hill Premiered in 2008, 'THE PAINTERS' is a one-of-a-kind art performance combining live drawing with spectacular stage performance. There are no regist"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "BEAUTY IN LAYERS 2026.10.01 ~ 2027.02.09 B the B UPTOWN, DDP Market B2, 281, Eulji-ro, Jung-gu, Seoul Beauty routines, tech-driven experiences and soothing moments of rest amid the",
+        "linkScore": 19,
+        "linkReason": "1 keyword hits; 2 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-lynn-hershman-leeson-first-person-plural-2026-10-21-2027-02--2026-10",
+      "category": "festival",
+      "priority": 90,
+      "startDate": "2026-10-21",
+      "endDate": "2027-02-21",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/First-Person-Plural/ENPay5o6v",
+      "title": {
+        "en": "Visit Seoul: Lynn Hershman Leeson: First Person Plural 2026.10.21 ~ 2027.02.21 2F-3F, Seoul Museum of Art (Seosomun..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential festival page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "Lynn Hershman Leeson: First Person Plural 2026.10.21 ~ 2027.02.21 2F-3F, Seoul Museum of Art (Seosomun Main Building) The first museum solo exhibition in Asia by American media art",
+        "checkedAt": "2026-11-14T15:12:11.904Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-10-15",
+            "raw": "2026.10.15 "
+          },
+          {
+            "date": "2026-10-21",
+            "raw": "2026.10.21 "
+          },
+          {
+            "date": "2026-11-29",
+            "raw": "2026.11.29 "
+          },
+          {
+            "date": "2027-02-21",
+            "raw": "2027.02.21 "
+          }
+        ],
+        "snippets": [
+          "Textures of the Gaze 2026.10.15 ~ 2026.11.29 Nowon Art Museum An exhibition focusing on the materials and traces that make up artworks, and the time layered within them Lynn Hershman Leeson: First Person Plural 2026.10.21 ~ 2027.02.21 2F-3F, Seoul Museum of Art (Seosomun Main Building) The first museum solo exhibition in Asia by American media artist and filmmaker Lynn Hershman Leeson Equinox: Autumnal",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "o Bridge, Gwanggyo Gallery area Cheonggye Soul Ocean media art exhibition operated by the Seoul Tourism Organization THE PAINTERS 2025.01.01 ~ 2026.12.31 Kyunghyang Art Hill Premiered in 2008, 'THE PAINTERS' is a one-of-a-kind art performance combining live drawing with spectacular stage performance. There are no regist"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "Lynn Hershman Leeson: First Person Plural 2026.10.21 ~ 2027.02.21 2F-3F, Seoul Museum of Art (Seosomun Main Building) The first museum solo exhibition in Asia by American media art",
+        "linkScore": 25,
+        "linkReason": "4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    },
+    {
+      "slug": "visit-seoul-2026-royco-record-fair-2026-11-13-2026-11-15-royco-building--2026-11",
+      "category": "shopping",
+      "priority": 90,
+      "startDate": "2026-11-13",
+      "endDate": "2026-11-15",
+      "city": "Seoul",
+      "venue": "Visit Seoul",
+      "sourceName": "Visit Seoul",
+      "sourceUrl": "https://english.visitseoul.net/exhibition/2026RoycoRecordFair/ENPfbxxwq",
+      "title": {
+        "en": "Visit Seoul: 2026 Royco Record Fair 2026.11.13 ~ 2026.11.15 Royco Building (112, Tojeong-ro, Mapo-gu, Seoul) A special..."
+      },
+      "summary": {
+        "en": "Official-source draft candidate detected from Visit Seoul. Review the page for exact title, venue, dates, eligibility, and visitor value before publishing."
+      },
+      "whyGo": {
+        "en": "Potential shopping page for foreign visitors searching current Korea information. Detected signals: festival, event, k-pop, travel."
+      },
+      "travelTips": [
+        "Open the official source and confirm that the date range is current before publishing.",
+        "Check eligibility, reservation flow, stock, ticketing, branch restrictions, and tax refund rules where relevant.",
+        "Rewrite the summary in original words and keep the official source link on the public page."
+      ],
+      "reviewChecklist": [
+        "Confirm exact event or offer title.",
+        "Confirm start date, end date, time zone, and whether the offer can end early.",
+        "Confirm city, venue, branch, reservation URL, visitor eligibility, and inventory or ticket rules.",
+        "Replace this draft summary with an original multilingual visitor summary before publishing.",
+        "Translate title, summary, and whyGo into English, Spanish, Chinese, Portuguese, and Russian.",
+        "Use only owned or generated thumbnails unless the official page explicitly permits reuse."
+      ],
+      "evidence": {
+        "leadKind": "discovered-link",
+        "pageTitle": "2026 Royco Record Fair 2026.11.13 ~ 2026.11.15 Royco Building (112, Tojeong-ro, Mapo-gu, Seoul) A special record fair where you can browse a wide range of LPs, enjoy analog sound o",
+        "checkedAt": "2026-11-14T15:12:11.904Z",
+        "keywordHits": [
+          "festival",
+          "event",
+          "k-pop",
+          "travel"
+        ],
+        "dateSignals": [
+          {
+            "date": "2026-11-13",
+            "raw": "2026.11.13 "
+          },
+          {
+            "date": "2026-11-14",
+            "raw": "2026.11.14 "
+          },
+          {
+            "date": "2026-11-15",
+            "raw": "2026.11.15 "
+          },
+          {
+            "date": "2026-11-20",
+            "raw": "2026.11.20 "
+          }
+        ],
+        "snippets": [
+          "2026 Seoul K-CONTENT WEEK 2026.11.14 ~ 2026.11.20 5 venues including DDP Oullim Plaza A special week filled with K-content: 2026 Seoul Travel Week 2026 Royco Record Fair 2026.11.13 ~ 2026.11.15 Royco Building (112, Tojeong-ro, Mapo-gu, Seoul) A special record fair where you can browse a wide range of LPs, enjoy analog sound on high-end audio systems, and catch the LP debut of singer-songwriter Indian Soonie's first album along with a speci S",
+          "sm Online Services (Seoul Tourism Organization Main Website, Visit Seoul Service, Seoul Danurim Tourism Service) [Validity Period]2023.08.16 - 2026.08.15 Ministry of Science and ICT WA (Web Accessibility) Quality Certification Mark, WebWatch (2026.08.05 –2027.08.04) Web Accessibility Quality Mark AA APP AWARD24 INNOVATO",
+          "o Bridge, Gwanggyo Gallery area Cheonggye Soul Ocean media art exhibition operated by the Seoul Tourism Organization THE PAINTERS 2025.01.01 ~ 2026.12.31 Kyunghyang Art Hill Premiered in 2008, 'THE PAINTERS' is a one-of-a-kind art performance combining live drawing with spectacular stage performance. There are no regist"
+        ],
+        "discoveredFrom": "https://english.visitseoul.net/",
+        "linkText": "2026 Royco Record Fair 2026.11.13 ~ 2026.11.15 Royco Building (112, Tojeong-ro, Mapo-gu, Seoul) A special record fair where you can browse a wide range of LPs, enjoy analog sound o",
+        "linkScore": 25,
+        "linkReason": "1 keyword hits; 4 date signals; year signal"
+      },
+      "titleNeedsCleanup": false
+    }
+  ]
+}

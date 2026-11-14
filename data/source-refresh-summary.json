@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-14T06:45:30.995Z",
+  "generatedAt": "2026-11-14T15:13:07.848Z",
   "files": {
-    "audit": "source-audit-2026-11-14.json",
-    "candidates": "official-page-candidates-2026-11-14.json",
-    "drafts": "draft-events-2026-11-14.json",
-    "reviewReport": "review-report-2026-11-14.md",
-    "reviewBoard": "review-board-2026-11-14.html",
-    "publicData": "public-data-import-2026-11-14.json",
+    "audit": "source-audit-2026-11-15.json",
+    "candidates": "official-page-candidates-2026-11-15.json",
+    "drafts": "draft-events-2026-11-15.json",
+    "reviewReport": "review-report-2026-11-15.md",
+    "reviewBoard": "review-board-2026-11-15.html",
+    "publicData": "public-data-import-2026-11-15.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 4,
+    "fallbackSources": 3,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 617,
+    "discoveredLinks": 611,
     "dateSignals": 254,
-    "draftCandidates": 75,
-    "skippedCandidates": 595,
+    "draftCandidates": 74,
+    "skippedCandidates": 590,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -78,7 +78,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 13
+      "count": 12
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -92,7 +92,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 54
+      "count": 53
     },
     {
       "key": "kpop",
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 558
+      "count": 553
     },
     {
       "key": "listing page is not a specific event",

@@ -6,7 +6,9 @@ const mergedGuidePaths = new Map([
   ["/en/guides/department-store-popup-planning", "/en/guides"],
   ["/en/guides/kpop-ticket-merch-safety", "/en/guides"],
   ["/en/guides/how-to-verify-korea-popups", "/en/guides"],
-  ["/en/guides/weather-for-korea-events", "/en/guides/seoul-indoor-culture-rainy-day"]
+  ["/en/guides/weather-for-korea-events", "/en/guides/seoul-indoor-culture-rainy-day"],
+  // Built around the 2026 garden show, which has closed; the three-day plan covers a first visit.
+  ["/en/guides/seoul-culture-first-visit", "/en/guides/seoul-culture-itinerary-3-days"]
 ]);
 
 function retiredResponse(retiredLanguagePath = false) {
@@ -79,14 +81,15 @@ export default {
     const retiredBrowsePath = /^\/en\/(?:categories|cities)(?:\/|$)/.test(url.pathname);
     const retiredOperationsPath = /^\/en\/(?:sources|watchlist|freshness)(?:\/|$)/.test(url.pathname);
     const retiredSectionPath = retiredLanguagePath || retiredRoutePath || retiredBrowsePath || retiredOperationsPath;
-    if (retiredSectionPath) return retiredResponse(retiredLanguagePath);
+    if (retiredSectionPath) return errorPage(env, url, 410, retiredResponse(retiredLanguagePath));
 
     // The editorial HTML must come from the current asset manifest. A
     // no-store subrequest prevents an older edge copy from surviving a
     // validated content or monetization release.
     const response = await env.ASSETS.fetch(request, { cache: "no-store" });
     const retiredEditorialPath = /^\/en\/(?:events|guides)\/[^/]+\/?$/.test(url.pathname);
-    if (response.status === 404 && retiredEditorialPath) return retiredResponse();
+    if (response.status === 404 && retiredEditorialPath) return errorPage(env, url, 410, retiredResponse());
+    if (response.status === 404) return errorPage(env, url, 404, response);
     const headers = new Headers(response.headers);
     const contentType = headers.get("content-type") || "";
 
@@ -104,3 +107,22 @@ export default {
     });
   }
 };
+
+// Readers who reach a missing or withdrawn page get the site's own not-found page,
+// with navigation, while the status code stays 404 or 410 for crawlers.
+async function errorPage(env, url, status, fallback) {
+  const looksLikePage = !/\.[a-z0-9]{2,5}$/i.test(url.pathname);
+  if (looksLikePage) {
+    try {
+      const page = await env.ASSETS.fetch(new Request(new URL("/404", url), { method: "GET" }), { cache: "no-store" });
+      if (page.ok) {
+        return new Response(page.body, { status, headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": status === 410 ? "public, max-age=3600" : "no-store",
+          "x-content-type-options": "nosniff"
+        } });
+      }
+    } catch {}
+  }
+  return fallback;
+}

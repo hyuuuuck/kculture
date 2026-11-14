@@ -35,3 +35,21 @@ test("merged and withdrawn guides redirect to the closest current reading", asyn
   assert.equal(weather.status, 301);
   assert.equal(weather.headers.get("location"), "https://kspotnow.com/en/guides/seoul-indoor-culture-rainy-day/");
 });
+
+test("missing and withdrawn pages show the site's not-found page with the right status", async () => {
+  const notFoundHtml = "<!doctype html><title>Page not found</title><h1>This page is not here.</h1>";
+  const assets = { ASSETS: { fetch: async (request) => new URL(request.url).pathname === "/404"
+    ? new Response(notFoundHtml, { status: 200, headers: { "content-type": "text/html" } })
+    : new Response("Not found", { status: 404 }) } };
+  const missing = await worker.fetch(new Request("https://kspotnow.com/en/foo"), assets);
+  assert.equal(missing.status, 404);
+  assert.match(await missing.text(), /This page is not here/);
+  const withdrawn = await worker.fetch(new Request("https://kspotnow.com/en/guides/no-longer-here/"), assets);
+  assert.equal(withdrawn.status, 410);
+  assert.match(withdrawn.headers.get("content-type"), /text\/html/);
+  const language = await worker.fetch(new Request("https://kspotnow.com/ja/"), assets);
+  assert.equal(language.status, 410);
+  const image = await worker.fetch(new Request("https://kspotnow.com/assets/missing.jpg"), assets);
+  assert.equal(image.status, 404);
+  assert.doesNotMatch(await image.text(), /This page is not here/);
+});

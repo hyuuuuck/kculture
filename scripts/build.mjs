@@ -6169,14 +6169,6 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
   ${structuredDataScript(structuredData)}
 </head>
 <body>
-  <!--
-  THESIS: Read Korean culture, then choose a visit; replace the inventory-led carousel.
-  OWN-WORLD: Violet programme cover, amber action, white reading surfaces, condensed display and quiet sans prose.
-  STORY: Understand a real experience, compare participation, save a place without implying a booking.
-  FIRST VIEWPORT: White masthead; violet 37/63 text/photo cover with large left title and amber guide link.
-  FORM: Independent cultural programme publication, assigned direction 4, seed 5b81c184. Approved comp A.
-  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
-  -->
   <a class="skip-link" href="#main-content">${tr(lang, "skipToMain")}</a>
   <header class="site-header">
     <a class="brand" href="/${lang}/" aria-label="${siteName} home"><svg class="brand-mark" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="8" fill="#251d48"/><path d="M16 12h9v18l17-18h12L34 32l21 20H42L25 35v17h-9z" fill="#f4c95d"/></svg>K-Spot Now</a>
@@ -6197,7 +6189,7 @@ function layout({ lang, title, description, body, currentPathBuilder, canonicalP
     </nav>
     <nav class="footer-col" aria-label="Plan your visit">
       <p class="footer-heading">Plan your visit</p>
-      <a href="/${lang}/guides/seoul-culture-itinerary-3-days">Three-day culture plan</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/calendar/">Calendar</a><a href="/${lang}/planner/">Saved places</a>
+      <a href="/${lang}/guides/seoul-culture-itinerary-3-days">Three-day culture plan</a><a href="/${lang}/now/">What's on</a><a href="/${lang}/guides/seoul-palaces-open-today">Palaces open today</a>
     </nav>
     <nav class="footer-col" aria-label="Publication information">
       <p class="footer-heading">The publication</p>
@@ -8911,13 +8903,19 @@ function relatedGuidesFor(guide) {
   return picked.filter((item) => item !== guide).slice(0, 3);
 }
 
+// The date the sources were actually checked, never the release date of a queued guide.
+function guideCheckedAt(guide) {
+  const dates = (guide.sources || []).map((source) => source.checkedAt).filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(value || "")).sort();
+  return dates.at(-1) || guide.updatedAt;
+}
+
 function renderGuideKeyFacts(guide) {
   const facts = (guide.keyFacts || []).filter((fact) => fact?.label && fact?.value);
   if (!facts.length) return "";
   return `<section class="guide-key-facts" id="guide-key-facts" aria-labelledby="guide-key-facts-title">
               <h2 id="guide-key-facts-title">Key facts</h2>
               <dl>${facts.map((fact) => `<div><dt>${esc(fact.label)}</dt><dd>${esc(fact.value)}${koreanTools(fact.value, { map: /korean name|map|search|address/i.test(fact.label) })}</dd></div>`).join("")}</dl>
-              <p class="guide-key-facts-note">Checked ${esc(dateText("en", guide.updatedAt))} against the official sources listed at the end of this guide.</p>
+              <p class="guide-key-facts-note">Checked ${esc(dateText("en", guideCheckedAt(guide)))} against the official sources listed at the end of this guide.</p>
             </section>`;
 }
 
@@ -10494,6 +10492,34 @@ async function copyDir(src, dest) {
   }
 }
 
+// Served by the worker for unknown or withdrawn pages, with a 404 or 410 status.
+function renderNotFound(lang) {
+  const starters = ["seoul-culture-itinerary-3-days", "gyeongbokgung-palace-guide", "korean-table-manners", "seoul-palaces-open-today", "korean-street-food-guide", "bukchon-hanok-village-guide"]
+    .map((slug) => guides.find((guide) => guide.slug === slug))
+    .filter(Boolean);
+  const body = `
+    <main class="page" id="main-content">
+      <section class="page-hero compact">
+        <h1>This page is not here.</h1>
+        <p>It may have been moved, merged into another guide or withdrawn. Every current guide is listed in the library.</p>
+        <a class="button primary" href="/${lang}/guides/">Browse all guides</a>
+      </section>
+      <section class="detail-section" aria-labelledby="not-found-start">
+        <h2 id="not-found-start">Good places to start</h2>
+        <ul>${starters.map((guide) => `<li><a href="/${lang}/guides/${esc(guide.slug)}">${esc(guide.title?.[lang] || guide.title?.en || guide.slug)}</a></li>`).join("")}</ul>
+      </section>
+    </main>`;
+  return layout({
+    lang,
+    title: "Page not found — K-Spot Now",
+    description: "The page you asked for is not part of K-Spot Now. Browse the current culture guides instead.",
+    body,
+    canonicalPath: `/${lang}/guides/`,
+    currentPathBuilder: (code) => `/${code}/guides/`,
+    noindex: true
+  });
+}
+
 async function writeHtml(relativePath, html) {
   const file = path.join(dist, relativePath);
   await fs.mkdir(path.dirname(file), { recursive: true });
@@ -10518,6 +10544,7 @@ async function build() {
   await fs.copyFile(path.join(root, "palace-days.js"), path.join(dist, "palace-days.js"));
 
   await writeHtml("index.html", renderHome("en", "/"));
+  await writeHtml("404.html", renderNotFound("en"));
   await writeText("feed.xml", rssFeed("en", "/feed.xml"));
   await writeText("latest.json", jsonFeed("en", "/latest.json"));
   await writeText("recheck.json", recheckJson());

@@ -25,7 +25,7 @@ function occurrences(text, literal) { return text.split(literal).length - 1; }
 // Browser evidence separately covers visual fidelity, viewport overflow and interaction.
 for (const lang of publicLanguageCodes()) {
   const homeId = lang + "/index.html", home = read(homeId);
-  needs(home, ["programme-cover", "home-start", "home-themes", "home-first-trip", "utility-strip", "home-method", "5b81c184", "/guides/gyeongbokgung-palace-guide", "Wikimedia Commons"], homeId);
+  needs(home, ["programme-cover", "home-start", "home-themes", "home-first-trip", "utility-strip", "home-method", "/guides/gyeongbokgung-palace-guide", "Wikimedia Commons"], homeId);
   check(!home.includes("data-spotlight-carousel"), homeId, "Retired carousel must not return");
   check(!/Fresh checked today|verified today/i.test(home), homeId, "Do not relabel dated evidence as checked today");
   for (const id of [homeId, lang + "/now/index.html"]) {

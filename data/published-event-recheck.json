@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-14T15:11:29.872Z",
+  "generatedAt": "2026-11-14T20:47:34.121Z",
   "date": "2026-11-15",
-  "approvedActiveEvents": 2,
-  "passed": 2,
+  "approvedActiveEvents": 1,
+  "passed": 1,
   "failed": 0,
   "sourceFailures": 0,
   "manualReviewRequired": 0,
-  "liveChecks": 3,
-  "snapshotChecks": 1,
-  "updated": 2,
+  "liveChecks": 2,
+  "snapshotChecks": 0,
+  "updated": 0,
   "timeoutMs": 12000,
   "concurrency": 5,
   "results": [
@@ -24,8 +24,8 @@
           "url": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "finalUrl": "https://english.seoul.go.kr/city-hall/overview-city-hall/jeong-dong-observatory/",
           "status": 200,
-          "bytes": 122759,
-          "durationMs": 2029,
+          "bytes": 122753,
+          "durationMs": 2934,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -44,7 +44,7 @@
           "finalUrl": "https://royal.khs.go.kr/ENG/contents/E104010000.do",
           "status": 200,
           "bytes": 33961,
-          "durationMs": 1136,
+          "durationMs": 1428,
           "mode": "live",
           "format": "html-text",
           "freshnessAuthority": false,
@@ -52,61 +52,6 @@
             "Deoksugung Palace",
             "Korean Empire",
             "Gyeongungung Palace"
-          ],
-          "missingTokens": [],
-          "ok": true
-        }
-      ]
-    },
-    {
-      "slug": "gwangalli-m-drone-light-show-2026",
-      "title": "Gwangalli M Drone Light Show",
-      "sourceName": "Busan Metropolitan City Events and English News",
-      "ok": true,
-      "liveVerified": true,
-      "checks": [
-        {
-          "sourceName": "Busan Metropolitan City",
-          "url": "https://www.busan.go.kr/eng/bsevents/1713160?&curPage=&srchYear=&srchMonth=&srchStartDt=&srchEndDt=&srchKey=&srchText=&check=",
-          "status": "ERROR",
-          "bytes": 0,
-          "durationMs": 433,
-          "mode": "audited-snapshot",
-          "freshnessAuthority": false,
-          "snapshotPath": "data/audit-snapshots/gwangalli-m-drone-light-show-2026-busan.txt",
-          "matchedTokens": [
-            "Gwangalli M Drone Light Show",
-            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
-            "Gwangalli Marvelous Drone Light Show",
-            "Every Saturday, at 20:00, 22:00",
-            "Gwangalli Beach",
-            "Free admission"
-          ],
-          "missingTokens": [],
-          "liveMissingTokens": [
-            "Gwangalli M Drone Light Show",
-            "2026-01-03 (Sat) ~ 2026-12-31 (Thu)",
-            "Gwangalli Marvelous Drone Light Show",
-            "Every Saturday, at 20:00, 22:00",
-            "Gwangalli Beach",
-            "Free admission"
-          ],
-          "ok": true
-        },
-        {
-          "sourceName": "Gwangalli M Drone Light Show",
-          "url": "https://www.gwangallimdrone.co.kr/en/overview",
-          "finalUrl": "https://www.gwangallimdrone.co.kr/en/overview",
-          "status": 200,
-          "bytes": 36987,
-          "durationMs": 434,
-          "mode": "live",
-          "format": "html-text",
-          "freshnessAuthority": true,
-          "matchedTokens": [
-            "Gwangalli",
-            "Drone Light Show",
-            "Saturday"
           ],
           "missingTokens": [],
           "ok": true

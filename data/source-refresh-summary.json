@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T18:41:35.613Z",
+  "generatedAt": "2026-11-17T03:01:03.435Z",
   "files": {
     "audit": "source-audit-2026-11-17.json",
     "candidates": "official-page-candidates-2026-11-17.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 54,
-    "auditFailed": 2,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 658,
-    "dateSignals": 244,
-    "draftCandidates": 73,
-    "skippedCandidates": 638,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 585,
+    "dateSignals": 228,
+    "draftCandidates": 53,
+    "skippedCandidates": 585,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,7 +53,7 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Shinsegae Duty Free",
+      "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
     },
@@ -61,13 +61,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "Visit Seoul",
       "count": 17
@@ -87,12 +88,16 @@
     {
       "key": "Shinsegae Group Newsroom",
       "count": 2
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 49
+      "count": 28
     },
     {
       "key": "kpop",
@@ -118,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 600
+      "count": 546
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +131,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
@@ -191,20 +196,20 @@
       "score": 136
     },
     {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 134
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 23,
+      "dates": 9,
+      "keywords": 3,
+      "score": 111
     }
   ]
 }

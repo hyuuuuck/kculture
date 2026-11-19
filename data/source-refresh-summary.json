@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T17:22:47.631Z",
+  "generatedAt": "2026-11-19T01:56:47.797Z",
   "files": {
     "audit": "source-audit-2026-11-19.json",
     "candidates": "official-page-candidates-2026-11-19.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 52,
+    "auditFailed": 4,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 557,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 616,
     "dateSignals": 245,
-    "draftCandidates": 73,
-    "skippedCandidates": 537,
+    "draftCandidates": 74,
+    "skippedCandidates": 595,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -32,6 +32,11 @@
     "seoulPotentialMatches": 0
   },
   "failedSources": [
+    {
+      "sourceName": "VISITKOREA",
+      "status": 503,
+      "error": ""
+    },
     {
       "sourceName": "Seoul Metropolitan Government Monthly Event Calendar",
       "status": "ROBOTS",
@@ -66,7 +71,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 22
+      "count": 21
     },
     {
       "key": "Visit Seoul",
@@ -92,11 +97,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 49
+      "count": 47
     },
     {
       "key": "kpop",
-      "count": 9
+      "count": 10
     },
     {
       "key": "shopping",
@@ -104,7 +109,7 @@
     },
     {
       "key": "department-store",
-      "count": 3
+      "count": 5
     },
     {
       "key": "beauty",
@@ -118,19 +123,19 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 497
+      "count": 553
     },
     {
       "key": "listing page is not a specific event",
-      "count": 17
+      "count": 16
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 6
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",

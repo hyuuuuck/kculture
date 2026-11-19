@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-19T13:32:39.070Z",
+  "generatedAt": "2026-11-19T23:07:58.447Z",
   "files": {
-    "audit": "source-audit-2026-11-19.json",
-    "candidates": "official-page-candidates-2026-11-19.json",
-    "drafts": "draft-events-2026-11-19.json",
-    "reviewReport": "review-report-2026-11-19.md",
-    "reviewBoard": "review-board-2026-11-19.html",
-    "publicData": "public-data-import-2026-11-19.json",
+    "audit": "source-audit-2026-11-20.json",
+    "candidates": "official-page-candidates-2026-11-20.json",
+    "drafts": "draft-events-2026-11-20.json",
+    "reviewReport": "review-report-2026-11-20.md",
+    "reviewBoard": "review-board-2026-11-20.html",
+    "publicData": "public-data-import-2026-11-20.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 52,
     "auditFailed": 4,
-    "fallbackSources": 5,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 581,
-    "dateSignals": 231,
-    "draftCandidates": 53,
-    "skippedCandidates": 581,
+    "discoveredLinks": 582,
+    "dateSignals": 232,
+    "draftCandidates": 50,
+    "skippedCandidates": 585,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -75,11 +75,11 @@
     },
     {
       "key": "NOL World Ticket",
-      "count": 15
+      "count": 14
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 11
+      "count": 10
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -97,18 +97,18 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 28
+      "count": 27
     },
     {
       "key": "kpop",
       "count": 8
     },
     {
-      "key": "shopping",
-      "count": 7
+      "key": "department-store",
+      "count": 5
     },
     {
-      "key": "department-store",
+      "key": "shopping",
       "count": 5
     },
     {
@@ -123,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 540
+      "count": 546
     },
     {
       "key": "listing page is not a specific event",
-      "count": 17
+      "count": 16
     },
     {
       "key": "source fetch did not succeed",
@@ -204,12 +204,12 @@
       "score": 129
     },
     {
-      "sourceName": "Daegu Chimac Festival",
-      "url": "https://www.chimacfestival.com/",
-      "links": 24,
-      "dates": 2,
-      "keywords": 6,
-      "score": 107
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
+      "links": 22,
+      "dates": 9,
+      "keywords": 3,
+      "score": 108
     }
   ]
 }

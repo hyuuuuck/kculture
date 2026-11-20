@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-20T07:30:53.306Z",
+  "generatedAt": "2026-11-20T17:02:08.652Z",
   "files": {
-    "audit": "source-audit-2026-11-20.json",
-    "candidates": "official-page-candidates-2026-11-20.json",
-    "drafts": "draft-events-2026-11-20.json",
-    "reviewReport": "review-report-2026-11-20.md",
-    "reviewBoard": "review-board-2026-11-20.html",
-    "publicData": "public-data-import-2026-11-20.json",
+    "audit": "source-audit-2026-11-21.json",
+    "candidates": "official-page-candidates-2026-11-21.json",
+    "drafts": "draft-events-2026-11-21.json",
+    "reviewReport": "review-report-2026-11-21.md",
+    "reviewBoard": "review-board-2026-11-21.html",
+    "publicData": "public-data-import-2026-11-21.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 54,
     "auditFailed": 2,
-    "fallbackSources": 5,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 584,
-    "dateSignals": 258,
-    "draftCandidates": 72,
-    "skippedCandidates": 565,
+    "discoveredLinks": 631,
+    "dateSignals": 244,
+    "draftCandidates": 71,
+    "skippedCandidates": 613,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -66,7 +66,7 @@
   "topDraftSources": [
     {
       "key": "Melon Ticket",
-      "count": 22
+      "count": 20
     },
     {
       "key": "Visit Seoul",
@@ -78,7 +78,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 10
+      "count": 12
     },
     {
       "key": "Weverse Shop BTS Notices",
@@ -92,18 +92,18 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 48
+      "count": 47
     },
     {
       "key": "kpop",
       "count": 9
     },
     {
-      "key": "department-store",
-      "count": 5
+      "key": "shopping",
+      "count": 6
     },
     {
-      "key": "shopping",
+      "key": "department-store",
       "count": 5
     },
     {
@@ -111,26 +111,26 @@
       "count": 2
     },
     {
-      "key": "travel-benefits",
-      "count": 2
+      "key": "duty-free",
+      "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 525
+      "count": 575
     },
     {
       "key": "listing page is not a specific event",
       "count": 16
     },
     {
-      "key": "curation root is not a specific event",
+      "key": "source fetch did not succeed",
       "count": 6
     },
     {
-      "key": "source fetch did not succeed",
-      "count": 6
+      "key": "curation root is not a specific event",
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -159,19 +159,19 @@
       "score": 142
     },
     {
-      "sourceName": "Visit Seoul",
-      "url": "https://english.visitseoul.net/",
-      "links": 24,
-      "dates": 18,
-      "keywords": 4,
-      "score": 141
-    },
-    {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
       "links": 24,
       "dates": 18,
       "keywords": 8,
+      "score": 140
+    },
+    {
+      "sourceName": "Visit Seoul",
+      "url": "https://english.visitseoul.net/",
+      "links": 24,
+      "dates": 18,
+      "keywords": 4,
       "score": 140
     },
     {

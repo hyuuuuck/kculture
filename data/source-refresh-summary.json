@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-21T12:50:01.942Z",
+  "generatedAt": "2026-11-21T21:44:29.220Z",
   "files": {
-    "audit": "source-audit-2026-11-21.json",
-    "candidates": "official-page-candidates-2026-11-21.json",
-    "drafts": "draft-events-2026-11-21.json",
-    "reviewReport": "review-report-2026-11-21.md",
-    "reviewBoard": "review-board-2026-11-21.html",
-    "publicData": "public-data-import-2026-11-21.json",
+    "audit": "source-audit-2026-11-22.json",
+    "candidates": "official-page-candidates-2026-11-22.json",
+    "drafts": "draft-events-2026-11-22.json",
+    "reviewReport": "review-report-2026-11-22.md",
+    "reviewBoard": "review-board-2026-11-22.html",
+    "publicData": "public-data-import-2026-11-22.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -17,12 +17,12 @@
     "auditFailed": 3,
     "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 607,
-    "dateSignals": 232,
-    "draftCandidates": 51,
-    "skippedCandidates": 609,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 565,
+    "dateSignals": 236,
+    "draftCandidates": 52,
+    "skippedCandidates": 566,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -51,6 +51,11 @@
       "sourceName": "Lotte Duty Free Online Sale",
       "status": "ROBOTS",
       "error": "blocked by robots.txt"
+    },
+    {
+      "sourceName": "Shinsegae Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
     },
     {
       "sourceName": "AK Plaza Events",
@@ -92,18 +97,18 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 28
+      "count": 30
     },
     {
       "key": "kpop",
       "count": 8
     },
     {
-      "key": "shopping",
-      "count": 6
+      "key": "department-store",
+      "count": 5
     },
     {
-      "key": "department-store",
+      "key": "shopping",
       "count": 5
     },
     {
@@ -118,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 572
+      "count": 528
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +131,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
@@ -199,12 +204,12 @@
       "score": 129
     },
     {
-      "sourceName": "Korea Sale FESTA",
-      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
+      "sourceName": "YG SELECT Notices",
+      "url": "https://www.ygselect.com/board/index.html",
       "links": 24,
-      "dates": 7,
-      "keywords": 8,
-      "score": 125
+      "dates": 10,
+      "keywords": 3,
+      "score": 116
     }
   ]
 }

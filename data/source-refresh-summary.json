@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T21:44:29.220Z",
+  "generatedAt": "2026-11-22T07:06:34.561Z",
   "files": {
     "audit": "source-audit-2026-11-22.json",
     "candidates": "official-page-candidates-2026-11-22.json",
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 5,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 565,
-    "dateSignals": 236,
-    "draftCandidates": 52,
-    "skippedCandidates": 566,
+    "discoveredLinks": 582,
+    "dateSignals": 232,
+    "draftCandidates": 51,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -97,7 +97,7 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 30
+      "count": 29
     },
     {
       "key": "kpop",
@@ -123,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 528
+      "count": 546
     },
     {
       "key": "listing page is not a specific event",
@@ -204,12 +204,12 @@
       "score": 129
     },
     {
-      "sourceName": "YG SELECT Notices",
-      "url": "https://www.ygselect.com/board/index.html",
+      "sourceName": "Korea Sale FESTA",
+      "url": "https://www.motir.go.kr/search/search.do?kwd=%EC%BD%94%EB%A6%AC%EC%95%84%EC%84%B8%EC%9D%BC%ED%8E%98%EC%8A%A4%ED%83%80",
       "links": 24,
-      "dates": 10,
-      "keywords": 3,
-      "score": 116
+      "dates": 7,
+      "keywords": 8,
+      "score": 125
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T00:59:24.983Z",
+  "generatedAt": "2026-11-23T14:58:39.113Z",
   "files": {
     "audit": "source-audit-2026-11-23.json",
     "candidates": "official-page-candidates-2026-11-23.json",
@@ -13,16 +13,16 @@
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 53,
-    "auditFailed": 3,
+    "auditOk": 51,
+    "auditFailed": 5,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 47,
-    "candidateFailed": 6,
-    "discoveredLinks": 603,
-    "dateSignals": 253,
-    "draftCandidates": 74,
-    "skippedCandidates": 582,
+    "candidateOk": 45,
+    "candidateFailed": 8,
+    "discoveredLinks": 557,
+    "dateSignals": 251,
+    "draftCandidates": 75,
+    "skippedCandidates": 535,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Hyundai Department Store",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Hyundai Department Store Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -81,12 +91,12 @@
       "count": 9
     },
     {
-      "key": "Weverse Shop BTS Notices",
+      "key": "Shinsegae Group Newsroom",
       "count": 3
     },
     {
-      "key": "Shinsegae Group Newsroom",
-      "count": 2
+      "key": "Weverse Shop BTS Notices",
+      "count": 3
     }
   ],
   "topDraftCategories": [
@@ -103,11 +113,11 @@
       "count": 5
     },
     {
-      "key": "beauty",
-      "count": 3
+      "key": "shopping",
+      "count": 4
     },
     {
-      "key": "shopping",
+      "key": "beauty",
       "count": 3
     },
     {
@@ -118,7 +128,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 545
+      "count": 497
     },
     {
       "key": "listing page is not a specific event",
@@ -126,7 +136,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 6
+      "count": 8
     },
     {
       "key": "curation root is not a specific event",

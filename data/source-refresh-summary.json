@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-24T02:59:18.522Z",
+  "generatedAt": "2026-11-24T15:01:10.910Z",
   "files": {
     "audit": "source-audit-2026-11-24.json",
-    "candidates": "official-page-candidates-2026-11-24.json",
-    "drafts": "draft-events-2026-11-24.json",
-    "reviewReport": "review-report-2026-11-24.md",
-    "reviewBoard": "review-board-2026-11-24.html",
+    "candidates": "official-page-candidates-2026-11-25.json",
+    "drafts": "draft-events-2026-11-25.json",
+    "reviewReport": "review-report-2026-11-25.md",
+    "reviewBoard": "review-board-2026-11-25.html",
     "publicData": "public-data-import-2026-11-24.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
@@ -19,10 +19,10 @@
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 587,
-    "dateSignals": 241,
-    "draftCandidates": 53,
-    "skippedCandidates": 587,
+    "discoveredLinks": 582,
+    "dateSignals": 238,
+    "draftCandidates": 51,
+    "skippedCandidates": 584,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -70,12 +70,12 @@
   ],
   "topDraftSources": [
     {
-      "key": "NOL World Ticket",
+      "key": "Visit Seoul",
       "count": 17
     },
     {
-      "key": "Visit Seoul",
-      "count": 17
+      "key": "NOL World Ticket",
+      "count": 16
     },
     {
       "key": "NOL World Seoul Pop-ups",
@@ -97,15 +97,11 @@
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 31
+      "count": 30
     },
     {
       "key": "kpop",
       "count": 9
-    },
-    {
-      "key": "department-store",
-      "count": 4
     },
     {
       "key": "shopping",
@@ -113,6 +109,10 @@
     },
     {
       "key": "beauty",
+      "count": 3
+    },
+    {
+      "key": "department-store",
       "count": 3
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "key": "listing page is not a specific event",
-      "count": 16
+      "count": 14
     },
     {
       "key": "source fetch did not succeed",

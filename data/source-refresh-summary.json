@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-11-23T14:58:39.113Z",
+  "generatedAt": "2026-11-24T02:59:18.522Z",
   "files": {
-    "audit": "source-audit-2026-11-23.json",
-    "candidates": "official-page-candidates-2026-11-23.json",
-    "drafts": "draft-events-2026-11-23.json",
-    "reviewReport": "review-report-2026-11-23.md",
-    "reviewBoard": "review-board-2026-11-23.html",
-    "publicData": "public-data-import-2026-11-23.json",
+    "audit": "source-audit-2026-11-24.json",
+    "candidates": "official-page-candidates-2026-11-24.json",
+    "drafts": "draft-events-2026-11-24.json",
+    "reviewReport": "review-report-2026-11-24.md",
+    "reviewBoard": "review-board-2026-11-24.html",
+    "publicData": "public-data-import-2026-11-24.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 51,
-    "auditFailed": 5,
-    "fallbackSources": 4,
+    "auditOk": 52,
+    "auditFailed": 4,
+    "fallbackSources": 5,
     "monitorSources": 53,
-    "candidateOk": 45,
-    "candidateFailed": 8,
-    "discoveredLinks": 557,
-    "dateSignals": 251,
-    "draftCandidates": 75,
-    "skippedCandidates": 535,
+    "candidateOk": 46,
+    "candidateFailed": 7,
+    "discoveredLinks": 587,
+    "dateSignals": 241,
+    "draftCandidates": 53,
+    "skippedCandidates": 587,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,16 +53,6 @@
       "error": "blocked by robots.txt"
     },
     {
-      "sourceName": "Hyundai Department Store",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
-      "sourceName": "Hyundai Department Store Events",
-      "status": "ERR",
-      "error": "fetch failed"
-    },
-    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -71,13 +61,14 @@
       "sourceName": "AK Plaza Events",
       "status": 400,
       "error": ""
+    },
+    {
+      "sourceName": "Melon Ticket",
+      "status": 423,
+      "error": ""
     }
   ],
   "topDraftSources": [
-    {
-      "key": "Melon Ticket",
-      "count": 22
-    },
     {
       "key": "NOL World Ticket",
       "count": 17
@@ -88,29 +79,33 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 9
-    },
-    {
-      "key": "Shinsegae Group Newsroom",
-      "count": 3
+      "count": 10
     },
     {
       "key": "Weverse Shop BTS Notices",
       "count": 3
+    },
+    {
+      "key": "Hyundai Department Store",
+      "count": 1
+    },
+    {
+      "key": "Korea Grand Sale / Visit Korea Committee",
+      "count": 1
     }
   ],
   "topDraftCategories": [
     {
       "key": "festival",
-      "count": 51
+      "count": 31
     },
     {
       "key": "kpop",
-      "count": 10
+      "count": 9
     },
     {
       "key": "department-store",
-      "count": 5
+      "count": 4
     },
     {
       "key": "shopping",
@@ -128,7 +123,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 497
+      "count": 551
     },
     {
       "key": "listing page is not a specific event",
@@ -136,30 +131,22 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 8
+      "count": 7
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
       "count": 3
     },
     {
-      "key": "already published similar event: scrub-daddy-dream-house-jamsil-2026",
-      "count": 2
+      "key": "already published similar event: dialogue-in-the-dark-bukchon-2026",
+      "count": 1
     }
   ],
   "highSignalCandidates": [
-    {
-      "sourceName": "Melon Ticket",
-      "url": "https://ticket.melon.com/main/index.htm",
-      "links": 24,
-      "dates": 18,
-      "keywords": 5,
-      "score": 142
-    },
     {
       "sourceName": "NOL World Seoul Pop-ups",
       "url": "https://world.nol.com/en/regions/seoul/festas",
@@ -215,6 +202,14 @@
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 22,
+      "dates": 6,
+      "keywords": 6,
+      "score": 116
     }
   ]
 }

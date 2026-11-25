@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-24T15:01:10.910Z",
+  "generatedAt": "2026-11-25T00:54:51.747Z",
   "files": {
-    "audit": "source-audit-2026-11-24.json",
+    "audit": "source-audit-2026-11-25.json",
     "candidates": "official-page-candidates-2026-11-25.json",
     "drafts": "draft-events-2026-11-25.json",
     "reviewReport": "review-report-2026-11-25.md",
     "reviewBoard": "review-board-2026-11-25.html",
-    "publicData": "public-data-import-2026-11-24.json",
+    "publicData": "public-data-import-2026-11-25.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 52,
     "auditFailed": 4,
-    "fallbackSources": 5,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 46,
     "candidateFailed": 7,
-    "discoveredLinks": 582,
-    "dateSignals": 238,
+    "discoveredLinks": 587,
+    "dateSignals": 239,
     "draftCandidates": 51,
-    "skippedCandidates": 584,
+    "skippedCandidates": 589,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -123,11 +123,11 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 551
+      "count": 553
     },
     {
       "key": "listing page is not a specific event",
-      "count": 14
+      "count": 16
     },
     {
       "key": "source fetch did not succeed",

@@ -185,6 +185,11 @@ th{background:var(--lavender);font-weight:700}
 .guide-method,.guide-audience{font-size:14px;color:var(--muted)}
 .guide-quick-answer{padding-bottom:28px;margin-bottom:36px;border-bottom:1px solid var(--line)}
 .guide-quick-answer strong{display:block;margin-bottom:10px}
+.guide-jump{margin:-12px 0 36px}
+.guide-jump a{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--amber);background:var(--lavender);text-decoration:none;color:inherit;font-weight:600}
+.guide-jump a span{font-weight:400;opacity:.8}
+.guide-jump a span::before{content:"\2192\00a0"}
+.guide-jump a:hover span,.guide-jump a:focus-visible span{text-decoration:underline}
 .guide-evidence-notes p>span,.guide-decision-rows p>span,.guide-decision-verdict p>span,.guide-worksheet-rules p>span{display:block;font-weight:700;font-size:12px;margin-top:18px}
 .guide-original-evidence{margin-bottom:48px}
 .guide-evidence-date,.guide-evidence-notes{font-size:13px}

@@ -631,7 +631,7 @@
     "slug": "gyeongbokgung-palace-guide",
     "category": "palaces-history",
     "title": {
-      "en": "Gyeongbokgung Palace Guide: Reading the Royal Axis on a First Visit"
+      "en": "How to Read Gyeongbokgung on a First Visit"
     },
     "summary": {
       "en": "Gyeongbokgung in 2–3 hours: what the throne-hall axis says about Joseon kingship, guard ceremony times, hanbok entry rules, closing days and what to skip."
@@ -893,7 +893,7 @@
     "slug": "changdeokgung-huwon-secret-garden",
     "category": "palaces-history",
     "title": {
-      "en": "Changdeokgung and the Secret Garden: How the Huwon Tour Works"
+      "en": "How the Secret Garden Tour at Changdeokgung Works"
     },
     "summary": {
       "en": "Why Changdeokgung's hillside layout earned UNESCO listing, how to book the Huwon English tour online six days ahead or on site, and how to add Changgyeonggung."
@@ -1151,7 +1151,7 @@
     "slug": "seoul-five-grand-palaces-compared",
     "category": "palaces-history",
     "title": {
-      "en": "Seoul's Five Grand Palaces Compared: Which to Visit, and When"
+      "en": "Which of Seoul's Five Palaces Should You Visit?"
     },
     "summary": {
       "en": "Gyeongbokgung, Changdeokgung, Changgyeonggung, Deoksugung and Gyeonghuigung side by side: what each is best for, closing days, fees, the 6,000-won pass and day plans."
@@ -1413,14 +1413,19 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "leadSection": 1,
+      "jump": {
+        "heading": "Half a day, a full day or two days: three plans",
+        "label": "Know how much time you have?"
+      }
     }
   },
   {
     "slug": "seoul-palaces-open-today",
     "category": "palaces-history",
     "title": {
-      "en": "Which Seoul Palaces Are Open Today? Closing Days, Hours and Free Days"
+      "en": "Which Seoul Palaces Are Open Today?"
     },
     "summary": {
       "en": "Pick a date and see which Seoul palaces and Jongmyo are open, with the holiday rule that moves closing days, seasonal hours, last entry and free days."
@@ -1653,7 +1658,7 @@
     "slug": "jongmyo-shrine-guide",
     "category": "palaces-history",
     "title": {
-      "en": "Jongmyo Shrine Guide: Royal Ancestral Rites, Tour Days and Etiquette"
+      "en": "Visiting Jongmyo, the Royal Shrine of the Joseon Kings"
     },
     "summary": {
       "en": "Why Jongmyo is Seoul's most austere royal site, how its guided-tour and free-viewing days work, the restored main hall, the May and November rites, and etiquette."
@@ -1931,7 +1936,7 @@
     "slug": "hanbok-rental-palace-guide",
     "category": "traditions",
     "title": {
-      "en": "Hanbok Rental in Seoul: Palace Free-Entry Rules, Fit and Etiquette"
+      "en": "Renting a Hanbok for a Palace Visit"
     },
     "summary": {
       "en": "What counts as hanbok for free palace entry, how Seoul rental shops work, how to time a rental around Gyeongbokgung hours and Bukchon's 10-to-5 rule."
@@ -2206,7 +2211,7 @@
     "slug": "seoul-buddhist-temples-templestay",
     "category": "traditions",
     "title": {
-      "en": "Seoul Buddhist Temples: Jogyesa, Bongeunsa and How Templestay Works"
+      "en": "Seoul's Buddhist Temples, and How Templestay Works"
     },
     "summary": {
       "en": "How to visit Jogyesa and Bongeunsa well: temple layout, main-hall etiquette, the Lotus Lantern Festival, Templestay day and overnight formats, and temple food."
@@ -2467,7 +2472,7 @@
     "slug": "jjimjilbang-etiquette-guide",
     "category": "traditions",
     "title": {
-      "en": "Jjimjilbang Etiquette: How a Korean Bathhouse Visit Works, Step by Step"
+      "en": "Your First Jjimjilbang, Step by Step"
     },
     "summary": {
       "en": "Mogyoktang versus jjimjilbang, the entry routine from shoe locker to hot pool, nudity norms, heat rooms, sikhye and baked eggs, the scrub, tattoos and sleeping over."
@@ -2684,14 +2689,18 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "From shoe locker to hot pool: the first fifteen minutes",
+        "label": "Arriving now? The first fifteen minutes"
+      }
     }
   },
   {
     "slug": "korean-etiquette-for-visitors",
     "category": "traditions",
     "title": {
-      "en": "Korean Etiquette for Visitors: The Habits That Matter, and Why"
+      "en": "The Korean Manners That Actually Matter to Visitors"
     },
     "summary": {
       "en": "Practical Korean manners for travelers: why people ask your age, polite speech, bowing, two-handed giving, shoes off, subway seats, tipping, gifts and what to skip."
@@ -2959,7 +2968,7 @@
     "slug": "korean-table-manners",
     "category": "food-drink",
     "title": {
-      "en": "Korean Table Manners: Spoons, Shared Banchan, Elders and the Bill"
+      "en": "Korean Table Manners, from the Spoon to the Bill"
     },
     "summary": {
       "en": "Eat at a Korean table with confidence: shared banchan and free refills, spoon versus chopsticks, why nothing stands in rice, waiting for elders, paying and tipping."
@@ -3209,14 +3218,18 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "A worked example: a weekday lunch for two",
+        "label": "Rather see it done? One lunch, start to finish"
+      }
     }
   },
   {
     "slug": "gwangjang-market-food-guide",
     "category": "food-drink",
     "title": {
-      "en": "Gwangjang Market Food Guide: History, What to Eat and How to Order"
+      "en": "What to Eat at Gwangjang Market, and How to Order It"
     },
     "summary": {
       "en": "One of Seoul's oldest markets explained: its 1905 origins, the food alley layout, bindaetteok and yukhoe, counter-stall ordering, cash, price disputes and timing."
@@ -3480,7 +3493,7 @@
     "slug": "korean-bbq-ordering-guide",
     "category": "food-drink",
     "title": {
-      "en": "Korean BBQ Ordering Guide: Pork vs Beef, Portions, Grilling and Ssam"
+      "en": "How to Order Korean Barbecue"
     },
     "summary": {
       "en": "How Korean barbecue works: pork vs beef houses, reading 인분 and per-100g prices, the two-portion rule, who grills, building ssam, and what to order to finish."
@@ -3741,14 +3754,18 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "A worked order for two at a pork house",
+        "label": "Rather see it done? A full order, worked through"
+      }
     }
   },
   {
     "slug": "makgeolli-soju-traditional-liquor",
     "category": "food-drink",
     "title": {
-      "en": "Makgeolli, Soju and Traditional Korean Liquor: What to Drink and How"
+      "en": "Makgeolli, Soju and Korea's Traditional Liquors"
     },
     "summary": {
       "en": "How Korean alcohol works: nuruk, takju vs yakju vs soju, regional bottles, pouring etiquette, the year-based drinking age, The Sool Gallery and getting home safely."
@@ -4016,7 +4033,7 @@
     "slug": "national-museum-of-korea-guide",
     "category": "museums-arts",
     "title": {
-      "en": "National Museum of Korea in Three Hours: What's Open and Worth It"
+      "en": "The National Museum of Korea in Three Hours"
     },
     "summary": {
       "en": "A three-hour plan for Seoul's free National Museum of Korea: the pensive bodhisattvas, a 1348 marble pagoda, Silla gold, and how to route around gallery closures."
@@ -4541,7 +4558,7 @@
     "slug": "korean-traditional-performances-seoul",
     "category": "museums-arts",
     "title": {
-      "en": "Korean Traditional Performances in Seoul: Gugak, Pansori, Talchum"
+      "en": "Where to See Gugak, Pansori and Mask Dance in Seoul"
     },
     "summary": {
       "en": "Choose between court music, pansori, samulnori and talchum by how much Korean you need, then book the right Seoul stage and know when to clap, call out or stay silent."
@@ -4814,7 +4831,7 @@
     "slug": "korean-tea-culture-seoul",
     "category": "museums-arts",
     "title": {
-      "en": "Korean Tea Culture in Seoul: Nokcha, Darye and Traditional Teahouses"
+      "en": "Korean Tea, and Where to Drink It in Seoul"
     },
     "summary": {
       "en": "What Korean tea really is: green tea history, darye etiquette, yuja and omija 'teas', how a traditional teahouse works, where to learn, and how to buy good leaf tea."
@@ -5076,7 +5093,7 @@
     "slug": "bukchon-hanok-village-guide",
     "category": "neighborhoods",
     "title": {
-      "en": "Bukchon Hanok Village Guide: Red Zone Hours, Hanok Details, Quiet Routes"
+      "en": "Visiting Bukchon Hanok Village Without Disturbing It"
     },
     "summary": {
       "en": "Bukchon's red zone admits tourists only from 10 a.m. to 5 p.m. How the zones and fines work, how to read a hanok roof and yard, and quieter places to go instead."
@@ -5333,7 +5350,7 @@
     "slug": "insadong-ikseondong-guide",
     "category": "neighborhoods",
     "title": {
-      "en": "Insadong and Ikseon-dong Walk: Crafts, Hanji, Galleries and 1920s Hanok"
+      "en": "An Afternoon in Insadong and Ikseon-dong"
     },
     "summary": {
       "en": "Walk Insadong and Ikseon-dong with a plan: how to tell real hanji and craft from souvenir stock, Tapgol Park's 1919 story, Jogyesa, and Jeong Se-kwon's 1920s hanok."
@@ -5603,14 +5620,18 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "A three-and-a-half-hour walk that strings it together",
+        "label": "Short on time? The whole walk in one plan"
+      }
     }
   },
   {
     "slug": "seochon-neighborhood-walk",
     "category": "neighborhoods",
     "title": {
-      "en": "Seochon Walk: Tongin Market Coin Lunch, Poets' Houses and Inwangsan Valley"
+      "en": "Seochon, the Quieter Village West of the Palace"
     },
     "summary": {
       "en": "A half-day Seochon walk west of Gyeongbokgung: how Tongin Market's coin lunchbox works, Park No-soo's house, Suseongdong valley, Yun Dong-ju's hill and Inwangsan."
@@ -5874,14 +5895,18 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "A half-day sequence, timed around the closures",
+        "label": "Short on time? The half-day in one table"
+      }
     }
   },
   {
     "slug": "namsangol-hanok-village-namsan",
     "category": "neighborhoods",
     "title": {
-      "en": "Namsangol Hanok Village and Namsan: Old Houses, City Wall, Tower Routes"
+      "en": "From Namsangol's Old Houses Up to Namsan"
     },
     "summary": {
       "en": "Free Namsangol Hanok Village read house by house, the 1994 time capsule and Gugakdang, plus the best way up to N Seoul Tower: on foot along the wall, by bus or cable car."
@@ -6145,14 +6170,15 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "leadSection": 1
     }
   },
   {
     "slug": "seoul-subway-tmoney-guide",
     "category": "practical",
     "title": {
-      "en": "Seoul Subway and T-money Guide: Fares, Passes, Transfers and Exits"
+      "en": "Getting Around Seoul by Subway with T-money"
     },
     "summary": {
       "en": "How to pay for Seoul's subway and buses: T-money vs Climate Card passes, current fares, free transfers, exit numbers and a worked palace-to-palace trip."
@@ -6407,7 +6433,7 @@
     "slug": "naver-map-kakao-map-korea",
     "category": "practical",
     "title": {
-      "en": "Naver Map and Kakao Map in Korea: Navigating in English and Hangul"
+      "en": "Using Naver Map and Kakao Map in Korea"
     },
     "summary": {
       "en": "Why Google Maps still can't guide you on foot in Korea, how to use Naver Map or Kakao Map in English, and the Hangul search terms that find palaces fast."
@@ -7678,7 +7704,7 @@
     "slug": "seoul-culture-by-season",
     "category": "practical",
     "title": {
-      "en": "Seoul's Palaces, Temples and Markets by Season: What Changes When"
+      "en": "What Changes in Seoul, Season by Season"
     },
     "summary": {
       "en": "How spring, summer, autumn and winter change Seoul's palace hours, night openings, Secret Garden tours, lanterns, rites, kimjang, holiday closures and monsoon plans."
@@ -8228,7 +8254,7 @@
     "slug": "free-korean-culture-seoul",
     "category": "practical",
     "title": {
-      "en": "Free Korean Culture in Seoul: Palaces, Museums, Ceremonies and Walks"
+      "en": "Korean Culture in Seoul That Costs Nothing"
     },
     "summary": {
       "en": "Which Seoul palaces are free on Wednesdays, three free national museums, guard ceremonies, temples, Bukchon's 10-to-5 rule and a sample free culture day."
@@ -8590,7 +8616,7 @@
     "slug": "korean-menu-decoder",
     "category": "food-drink",
     "title": {
-      "en": "How to Read a Korean Menu: Dish Names, Portions, Spice and Allergens"
+      "en": "How to Read a Korean Menu"
     },
     "summary": {
       "en": "Read a Hangul menu: the cooking-method endings in dish names, portion words like 인분 and 공기밥, spice cues, set meals, restaurant types and how to ask about fish broth."
@@ -9433,7 +9459,7 @@
     "slug": "korean-street-food-guide",
     "category": "food-drink",
     "title": {
-      "en": "Korean Street Food in Seoul: What Each Snack Is, Where to Eat, How to Pay"
+      "en": "Seoul Street Food, Snack by Snack"
     },
     "summary": {
       "en": "Tteokbokki, eomuk, sundae, hotteok and bungeoppang explained, with Seoul's street-food clusters, winter snacks, dated prices, ordering phrases and stall etiquette."
@@ -10609,7 +10635,11 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "jump": {
+        "heading": "A walking order, from the 11:00 ceremony to dusk",
+        "label": "Short on time? The whole walk in one plan"
+      }
     }
   },
   {
@@ -10890,7 +10920,7 @@
     "slug": "changgyeonggung-palace-guide",
     "category": "palaces-history",
     "title": {
-      "en": "Changgyeonggung Palace Guide: The Queens' Palace, Zoo Years and Evenings"
+      "en": "Changgyeonggung, the Palace That Became a Zoo"
     },
     "summary": {
       "en": "Changgyeonggung explained: the 1483 palace for widowed queens, its oldest throne hall, the zoo era and 1909 greenhouse, evening hours, and the walk to Jongmyo."
@@ -11150,7 +11180,7 @@
     "slug": "seoul-traditional-markets-guide",
     "category": "food-drink",
     "title": {
-      "en": "Seoul's Traditional Markets Compared: Which to Visit, What to Buy and Eat"
+      "en": "Six Seoul Markets, and Which One Suits You"
     },
     "summary": {
       "en": "Namdaemun, Gwangjang, Tongin, Mangwon, Gyeongdong and Dongdaemun's fabric market compared: what each is best for, hours, Sunday closures, payment and manners."
@@ -11425,7 +11455,12 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "leadSection": 1,
+      "jump": {
+        "heading": "Two market days, east and west",
+        "label": "Want a ready-made market day?"
+      }
     }
   },
   {
@@ -11706,7 +11741,7 @@
     "slug": "korean-temple-food-seoul",
     "category": "food-drink",
     "title": {
-      "en": "Korean Temple Food in Seoul: The Rules, the Bowl Ritual and Where to Try It"
+      "en": "Korean Temple Food, and Where to Try It in Seoul"
     },
     "summary": {
       "en": "Korean temple food leaves out meat, fish and five pungent plants. What the four-bowl meal means, how it differs from vegan food, and where to cook or eat it in Seoul."
@@ -11937,7 +11972,7 @@
     "slug": "seoul-city-wall-hike",
     "category": "neighborhoods",
     "title": {
-      "en": "Seoul City Wall Hike: Four Mountain Sections, Gates and Bugaksan Access"
+      "en": "Walking the Seoul City Wall, Mountain by Mountain"
     },
     "summary": {
       "en": "Hiking Hanyangdoseong, Seoul's 1396 city wall: the four mountain sections compared, 24-hour Bugaksan access, the old gates, the free certificate and winter safety."
@@ -12209,7 +12244,12 @@
     },
     "presentation": {
       "decisionTool": false,
-      "worksheet": false
+      "worksheet": false,
+      "leadSection": 2,
+      "jump": {
+        "heading": "A Baegak morning, from Changuimun down to Samcheong-dong",
+        "label": "Only have one morning?"
+      }
     }
   },
   {

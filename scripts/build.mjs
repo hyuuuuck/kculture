@@ -9013,7 +9013,13 @@ function renderGuideFaq(guide) {
 }
 
 function renderGuide(guide, lang) {
-  const sections = guideSectionsForLang(guide, lang);
+  // A comparison guide can lead with its table; the rest keep their written order.
+  const writtenSections = guideSectionsForLang(guide, lang);
+  const leadIndex = guide.presentation?.leadSection;
+  const hasLead = Number.isInteger(leadIndex) && Boolean(writtenSections[leadIndex]);
+  const sections = hasLead ? [writtenSections[leadIndex], ...writtenSections.filter((_, index) => index !== leadIndex)] : writtenSections;
+  const jump = guide.presentation?.jump;
+  const jumpIndex = jump ? sections.findIndex((section) => section?.heading === jump.heading) : -1;
   const hasOriginalEvidence = Boolean(guide.originalEvidence);
   const sectionStartNumber = 1;
   const showDecisionTool = guide.presentation?.decisionTool !== false && Boolean(guide.decisionTool);
@@ -9056,9 +9062,9 @@ function renderGuide(guide, lang) {
           <nav class="guide-toc" aria-label="On this page">
             <p>On this page</p>
             <ol>
-              ${hasKeyFacts ? `<li><a href="#guide-key-facts">Key facts</a></li>` : ""}
+              ${hasKeyFacts && !hasLead ? `<li><a href="#guide-key-facts">Key facts</a></li>` : ""}
               ${guide.presentation?.tool === "palace-days" ? `<li><a href="#palace-checker">Check a date</a></li>` : ""}
-              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}">${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>`).join("")}
+              ${sections.map((section, index) => `<li><a href="#guide-section-${index + 1}">${esc(typeof section === "string" ? "Planning note" : section.heading || "Planning note")}</a></li>${hasLead && index === 0 && hasKeyFacts ? `<li><a href="#guide-key-facts">Key facts</a></li>` : ""}`).join("")}
               ${hasOriginalEvidence ? `<li><a href="#guide-original-evidence">${esc(guide.originalEvidence.label || "Research record")}</a></li>` : ""}
               ${showDecisionTool ? `<li><a href="#guide-decision-tool"><span>${String(decisionToolNumber).padStart(2, "0")}</span>Worked decision example</a></li>` : ""}
               ${showWorksheet ? `<li><a href="#guide-worksheet"><span>${String(worksheetNumber).padStart(2, "0")}</span>Verification worksheet</a></li>` : ""}
@@ -9069,14 +9075,16 @@ function renderGuide(guide, lang) {
           </nav>
           <div class="guide-article-body">
           ${guide.quickAnswer ? `<p class="guide-quick-answer"><strong>In short</strong>${esc(guide.quickAnswer)}</p>` : ""}
-          ${renderGuideKeyFacts(guide)}
+          ${jumpIndex >= 0 ? `<p class="guide-jump"><a href="#guide-section-${jumpIndex + 1}">${esc(jump.label)}<span>${esc(jump.heading)}</span></a></p>` : ""}
+          ${hasLead ? "" : renderGuideKeyFacts(guide)}
           ${guide.presentation?.tool === "palace-days" ? renderPalaceDaysTool(lang) : ""}
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => {
               const heading = typeof section === "string" ? "" : section.heading;
               const figures = (guideInlineImages[guide.slug] || []).filter((image) => image.afterSectionHeading === heading).map(inlineFigure).join("");
               const midCard = index === Math.floor(sections.length / 2) - 1 && inlineGuide ? inlineRelatedCard(inlineGuide, lang) : "";
-              return renderGuideSection(section, index, sectionStartNumber + index) + figures + midCard;
+              const keyFactsAfterLead = hasLead && index === 0 ? renderGuideKeyFacts(guide) : "";
+              return renderGuideSection(section, index, sectionStartNumber + index) + keyFactsAfterLead + figures + midCard;
             }).join("")}
             ${renderGuideOriginalEvidence(guide, evidenceNumber)}
             ${showDecisionTool ? renderGuideDecisionTool(guide, decisionToolNumber) : ""}
@@ -9086,7 +9094,6 @@ function renderGuide(guide, lang) {
             ${shareBar(guide, lang, "end")}
             <section class="guide-content-section guide-citations" aria-labelledby="guide-citations-title">
               <h2 id="guide-citations-title">Sources and method</h2>
-          ${guide.audience ? `<p class="guide-audience"><strong>Written for:</strong> ${esc(guide.audience)}</p>` : ""}
           <p class="guide-method"><strong>Method:</strong> ${esc(guide.method || editorialProgram.editorialTeam?.method || "")} Spotted something out of date? <a href="/${lang}/contact/">Tell us</a>.</p>
               <ol>${sourceExamples.map((source) => `<li><a href="${esc(source.url)}" rel="nofollow noopener" target="_blank"><strong>${esc(source.name)}</strong><span>${esc(source.note || source.coverage?.[0] || "Official source")}</span></a></li>`).join("")}</ol>
             </section>

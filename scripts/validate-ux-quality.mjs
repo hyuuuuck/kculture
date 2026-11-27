@@ -46,7 +46,7 @@ for (const lang of publicLanguageCodes()) {
   for (const guide of guides) {
     needs(index, ['href="/' + lang + "/guides/" + guide.slug + '"'], "guide index");
     const id = lang + "/guides/" + guide.slug + ".html", html = read(id);
-    needs(html, ["guide-article-header", "guide-reading-layout", "guide-audience", "guide-byline", "guide-method", "guide-citations"], id);
+    needs(html, ["guide-article-header", "guide-reading-layout", "guide-byline", "guide-method", "guide-citations"], id);
     needs(html, [guide.originalEvidence ? "guide-original-evidence" : "guide-key-facts"], id);
     check(html.includes("guide-next-section") || html.includes("guide-related-guides"), id, "Article needs a next step: related guides or current pages");
     const expected = guide.sections?.en?.length || 0;

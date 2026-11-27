@@ -623,3 +623,5 @@ details[open]>summary{margin-bottom:20px}
 .page .home-notices{padding:0 0 28px}
 @media(max-width:1000px){.weekly-culture-list{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.weekly-culture-list{grid-template-columns:1fr}}
+.guide-diagram img{background:#fff;border:1px solid var(--line);border-radius:8px;height:auto;max-height:none;object-fit:contain}
+.guide-diagram-credit{display:block;margin-top:4px;color:var(--muted);font-size:.9em}

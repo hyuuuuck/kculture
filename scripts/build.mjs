@@ -74,6 +74,8 @@ const readOptionalJson = (name) => fs.readFile(path.join(root, "data", name), "u
 const seoOverrides = await readOptionalJson("seo-overrides.json");
 const guideQuizzes = await readOptionalJson("guide-quizzes.json");
 const guideInlineImages = await readOptionalJson("guide-inline-images.json");
+// Original diagrams drawn by the desk from facts already checked in each guide.
+const guideDiagrams = await readOptionalJson("guide-diagrams.json");
 // Dated visit notices: shown until their end date, then dropped here and hidden in the browser by app.js.
 const visitNotices = activeNotices((await readOptionalJson("notices.json")).notices, today);
 const correctionsLog = await readOptionalJson("corrections-log.json");
@@ -8705,6 +8707,10 @@ function inlineRelatedCard(guide, lang) {
   return `<aside class="inline-related" aria-label="Related guide"><a href="${guideHref(lang, guide)}"><img src="${esc(image.src)}" alt="${esc(guide.image?.alt || guideTitleText(guide, lang))}" width="${image.width}" height="${image.height}" loading="lazy"><span><em>Related guide</em><strong>${esc(guideTitleText(guide, lang))}</strong><small>${guideReadingMinutes(guide)} min read</small></span></a></aside>`;
 }
 
+function diagramFigure(diagram) {
+  return `<figure class="guide-inline-figure guide-diagram"><a href="${esc(diagram.src)}" target="_blank" rel="noopener" aria-label="Open the full-size diagram"><img src="${esc(diagram.src)}" alt="${esc(diagram.alt)}" width="${esc(diagram.width)}" height="${esc(diagram.height)}" loading="lazy"></a><figcaption>${esc(diagram.caption)} <span class="guide-diagram-credit">Diagram: ${esc(siteName)}, ${esc(diagram.basis)}</span></figcaption></figure>`;
+}
+
 function inlineFigure(image) {
   return `<figure class="guide-inline-figure"><img src="${esc(image.src)}" alt="${esc(image.alt || image.caption)}" width="${esc(image.width)}" height="${esc(image.height)}" loading="lazy"><figcaption>${esc(image.caption)}<span>${imageCredit(image)}</span></figcaption></figure>`;
 }
@@ -9081,7 +9087,8 @@ function renderGuide(guide, lang) {
           ${adUnit("article", approvedGuideSlugs.has(guide.slug))}
             ${sections.map((section, index) => {
               const heading = typeof section === "string" ? "" : section.heading;
-              const figures = (guideInlineImages[guide.slug] || []).filter((image) => image.afterSectionHeading === heading).map(inlineFigure).join("");
+              const diagrams = (guideDiagrams[guide.slug] || []).filter((diagram) => diagram.afterSectionHeading === heading).map(diagramFigure).join("");
+              const figures = diagrams + (guideInlineImages[guide.slug] || []).filter((image) => image.afterSectionHeading === heading).map(inlineFigure).join("");
               const midCard = index === Math.floor(sections.length / 2) - 1 && inlineGuide ? inlineRelatedCard(inlineGuide, lang) : "";
               const keyFactsAfterLead = hasLead && index === 0 ? renderGuideKeyFacts(guide) : "";
               return renderGuideSection(section, index, sectionStartNumber + index) + keyFactsAfterLead + figures + midCard;

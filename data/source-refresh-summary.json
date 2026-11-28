@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-11-27T14:02:03.884Z",
+  "generatedAt": "2026-11-28T00:08:36.598Z",
   "files": {
-    "audit": "source-audit-2026-11-27.json",
-    "candidates": "official-page-candidates-2026-11-27.json",
-    "drafts": "draft-events-2026-11-27.json",
-    "reviewReport": "review-report-2026-11-27.md",
-    "reviewBoard": "review-board-2026-11-27.html",
-    "publicData": "public-data-import-2026-11-27.json",
+    "audit": "source-audit-2026-11-28.json",
+    "candidates": "official-page-candidates-2026-11-28.json",
+    "drafts": "draft-events-2026-11-28.json",
+    "reviewReport": "review-report-2026-11-28.md",
+    "reviewBoard": "review-board-2026-11-28.html",
+    "publicData": "public-data-import-2026-11-28.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
   },
   "counts": {
     "auditedSources": 56,
-    "auditOk": 52,
-    "auditFailed": 4,
+    "auditOk": 50,
+    "auditFailed": 6,
     "fallbackSources": 4,
     "monitorSources": 53,
-    "candidateOk": 46,
-    "candidateFailed": 7,
-    "discoveredLinks": 582,
-    "dateSignals": 238,
-    "draftCandidates": 53,
-    "skippedCandidates": 582,
+    "candidateOk": 44,
+    "candidateFailed": 9,
+    "discoveredLinks": 574,
+    "dateSignals": 233,
+    "draftCandidates": 52,
+    "skippedCandidates": 575,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -53,6 +53,16 @@
       "error": "blocked by robots.txt"
     },
     {
+      "sourceName": "Shinsegae Duty Free",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
+      "sourceName": "Shinsegae Duty Free English Events",
+      "status": "ERR",
+      "error": "fetch failed"
+    },
+    {
       "sourceName": "Galleria Department Store",
       "status": "ERR",
       "error": "fetch failed"
@@ -79,7 +89,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 10
+      "count": 11
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -116,14 +126,14 @@
       "count": 3
     },
     {
-      "key": "duty-free",
+      "key": "travel-benefits",
       "count": 1
     }
   ],
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 547
+      "count": 539
     },
     {
       "key": "listing page is not a specific event",
@@ -131,7 +141,7 @@
     },
     {
       "key": "source fetch did not succeed",
-      "count": 7
+      "count": 9
     },
     {
       "key": "curation root is not a specific event",

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-28T08:06:39.941Z",
+  "generatedAt": "2026-11-28T17:00:39.666Z",
   "files": {
-    "audit": "source-audit-2026-11-28.json",
-    "candidates": "official-page-candidates-2026-11-28.json",
-    "drafts": "draft-events-2026-11-28.json",
-    "reviewReport": "review-report-2026-11-28.md",
-    "reviewBoard": "review-board-2026-11-28.html",
-    "publicData": "public-data-import-2026-11-28.json",
+    "audit": "source-audit-2026-11-29.json",
+    "candidates": "official-page-candidates-2026-11-29.json",
+    "drafts": "draft-events-2026-11-29.json",
+    "reviewReport": "review-report-2026-11-29.md",
+    "reviewBoard": "review-board-2026-11-29.html",
+    "publicData": "public-data-import-2026-11-29.json",
     "tourApi": "missing",
     "kmaObservations": "missing",
     "seoulEvents": "missing"
@@ -15,14 +15,14 @@
     "auditedSources": 56,
     "auditOk": 53,
     "auditFailed": 3,
-    "fallbackSources": 5,
+    "fallbackSources": 4,
     "monitorSources": 53,
     "candidateOk": 47,
     "candidateFailed": 6,
-    "discoveredLinks": 610,
-    "dateSignals": 254,
-    "draftCandidates": 74,
-    "skippedCandidates": 589,
+    "discoveredLinks": 584,
+    "dateSignals": 237,
+    "draftCandidates": 73,
+    "skippedCandidates": 564,
     "publicDataPassed": 0,
     "publicDataFailed": 0,
     "publicDataSkipped": 5,
@@ -78,7 +78,7 @@
     },
     {
       "key": "NOL World Seoul Pop-ups",
-      "count": 11
+      "count": 10
     },
     {
       "key": "Shinsegae Group Newsroom",
@@ -103,11 +103,11 @@
       "count": 6
     },
     {
-      "key": "shopping",
-      "count": 4
+      "key": "beauty",
+      "count": 3
     },
     {
-      "key": "beauty",
+      "key": "shopping",
       "count": 3
     },
     {
@@ -118,7 +118,7 @@
   "topSkippedReasons": [
     {
       "key": "no current or upcoming date range",
-      "count": 555
+      "count": 530
     },
     {
       "key": "listing page is not a specific event",
@@ -130,7 +130,7 @@
     },
     {
       "key": "curation root is not a specific event",
-      "count": 5
+      "count": 4
     },
     {
       "key": "already published similar event: deoksugung-royal-guard-changing-ceremony-2026",
@@ -191,20 +191,20 @@
       "score": 137
     },
     {
-      "sourceName": "SMTOWN andSTORE Notices",
-      "url": "https://www.smtownandstore.com/board/index.html",
-      "links": 24,
-      "dates": 18,
-      "keywords": 3,
-      "score": 136
-    },
-    {
       "sourceName": "YES24 Ticket English",
       "url": "https://ticket.yes24.com/english",
       "links": 24,
       "dates": 18,
       "keywords": 1,
       "score": 129
+    },
+    {
+      "sourceName": "Shinsegae Group Newsroom",
+      "url": "https://www.shinsegaegroupnewsroom.com/category/press/",
+      "links": 23,
+      "dates": 5,
+      "keywords": 7,
+      "score": 122
     }
   ]
 }
